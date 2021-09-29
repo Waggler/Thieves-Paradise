@@ -25,17 +25,21 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public bool taskGive = true;
+    #region Variables
+
+    private bool taskGive = true;
     private NavMeshAgent agent;
-    public GameObject player;
-    public float lookRadius;
-    public float fov;
-    public float maxRange;
-    public float minRange;
-    public Vector3 center;
-    public float aspect;
+    [SerializeField]private GameObject player;
+    private float lookRadius;
+    private float fov;
+    private float maxRange;
+    private float minRange;
+    private Vector3 center;
+    private float aspect;
 
     private Transform target;
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +57,8 @@ public class EnemyController : MonoBehaviour
     }
 
     // Update is called whenever
+    //---------------------------------//
+
     void Update()
     {
         target = player.transform;
@@ -84,6 +90,7 @@ public class EnemyController : MonoBehaviour
     }
 
     //function for facing the player when the AI is withing stopping distance of the player
+    //---------------------------------//
     void FaceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
@@ -93,12 +100,19 @@ public class EnemyController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
+    //---------------------------------//
     void OnDrawGizmosSelected()
     {
         //Drawing a magenta sphere at the AI's current position
         Gizmos.color = Color.magenta;
         //Gizmos.DrawFrustum(center , fov , maxRange, minRange, aspect);
         Gizmos.DrawFrustum(transform.position, fov, maxRange, minRange, aspect);
+
+    }
+
+    //---------------------------------//
+    void SetTarget()
+    {
 
     }
 }
