@@ -6,49 +6,51 @@ using UnityEngine.AI;
 
 
 //Current Bugs:
-// - distanceToPlayer currently not working
-// - Face Target currently yeilds negligible results
-// - 
-// - 
-// - 
-// - 
 // - 
 
 
 //Things to add:
 //    - agent.setDestination usage based on certain conditions for the AI
-//    - Switch case statement to act as a state machine for the AI (can be done later on)
 //    - Review tutorials for setting up AI in unity as well as for setting up a third person controller (Overall refresher course needed)
-//    - Add Face Target function
+//    - Switch case statement to act as a state machine for the AI (can be done later on)
+//    - Enumeration for state machine (please save this for after you actually learn the ins and out of a state machine)
+//    - Seperate redundant actions into seperate & callable functions with their necessary variables and all that
 //    - 
 
 
+//Done:
+//    - Add Face Target function
+//    - 
+
 public class EnemyController : MonoBehaviour
 {
+    [Header("Manipulatable Variables for AI prefab")]
+
     #region Variables
 
-    private bool taskGive = true;
+    private bool alert;
     private NavMeshAgent agent;
-    [SerializeField]private GameObject player;
-    [SerializeField]private float lookRadius; 
+    [SerializeField] private GameObject player;
+    [SerializeField] private float lookRadius;
     //private float fov;
     //private float maxRange;
     //private float minRange;
     //private Vector3 center;
     //private float aspect;
-    [SerializeField]private float pursuitSpeed;
-    [SerializeField]private float patrolSpeed;
+    [SerializeField] private readonly float pursuitSpeed;
+    [SerializeField] private readonly float patrolSpeed;
 
 
     private Transform target;
 
     #endregion
 
+    #region Start & Update
     // Start is called before the first frame update
     void Start()
     {
         print("I live!");
-        taskGive = false;
+        alert = false;
         agent = GetComponent<NavMeshAgent>();
         target = player.transform;
 
@@ -60,7 +62,6 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    // Update is called whenever
     //---------------------------------//
     void Update()
     {
@@ -72,7 +73,7 @@ public class EnemyController : MonoBehaviour
 
         if (distanceToPlayer <= lookRadius)
         {
-            taskGive = true;
+            alert = true;
 
             print("I can see you");
 
@@ -82,7 +83,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            taskGive = false;
+            alert = false;
 
             print("Where are you");
 
@@ -91,7 +92,7 @@ public class EnemyController : MonoBehaviour
             agent.speed = patrolSpeed;
         }
 
-        switch (taskGive)
+        switch (alert)
         {
             case true:
                 print("I have been given purpose");
@@ -101,8 +102,9 @@ public class EnemyController : MonoBehaviour
                 print("Give me a task to do pls");
                 break;
 
-            default:
-                break;
+                //default:
+                //    print("This condition should literally be unreachable");
+                //    break;
         }
 
         FaceTarget();
@@ -110,7 +112,9 @@ public class EnemyController : MonoBehaviour
         //agent.SetDestination(player.transform.position);
 
     }//End Update
+    #endregion
 
+    #region
     //---------------------------------//
     void OnDrawGizmosSelected()
     {
@@ -142,8 +146,26 @@ public class EnemyController : MonoBehaviour
     }//End SetTarget
 
     //---------------------------------//
-    void SetSpeed()
-    { 
+    // currently fleshing out this bit, might have another funtion that acts as a sort of gate for all these other funtions along the lines of "Mode controller" (or just have
+    // that be handled by the initial switch case statement)
+    void SetSpeed(bool detection, int mode)
+    {
+        if (detection == true)
+        {
+
+        switch (mode)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+
+            default:
+                    break;
+        }
+    }
 
     }//End SetSpeed
+
+    #endregion
 }
