@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 
 //Current Bugs:
+// - Despite being serialized, the variables player, pursuitSpeed, & patrolSpeed are not showing up in the Unity inspector
 // - 
 
 
@@ -24,24 +25,22 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    [Header("Manipulatable Variables for AI prefab")]
-
     #region Variables
 
     private bool alert;
     private NavMeshAgent agent;
     [SerializeField] private GameObject player;
-    [SerializeField] private float lookRadius;
+    [SerializeField] private float lookRadius = 10;
+    [SerializeField] private float pursuitSpeed = 25f;
+    [SerializeField] private float patrolSpeed ;
+    private Transform target;
+
     //private float fov;
     //private float maxRange;
     //private float minRange;
     //private Vector3 center;
     //private float aspect;
-    [SerializeField] private readonly float pursuitSpeed;
-    [SerializeField] private readonly float patrolSpeed;
 
-
-    private Transform target;
 
     #endregion
 
@@ -92,6 +91,11 @@ public class EnemyController : MonoBehaviour
             agent.speed = patrolSpeed;
         }
 
+        //switch (switch_on)
+        //{
+        //    default:
+        //}
+
         switch (alert)
         {
             case true:
@@ -114,7 +118,7 @@ public class EnemyController : MonoBehaviour
     }//End Update
     #endregion
 
-    #region
+    #region General Functions
     //---------------------------------//
     void OnDrawGizmosSelected()
     {
