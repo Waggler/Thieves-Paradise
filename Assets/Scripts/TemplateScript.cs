@@ -146,4 +146,3 @@ public class TemplateScript : MonoBehaviour
 
     #endregion
 } //END TemplateScript
-}
