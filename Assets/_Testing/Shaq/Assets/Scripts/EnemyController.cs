@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 
 //Current Bugs:
@@ -25,23 +26,30 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    #region AI State Machine
+
+    private enum EnemyStates
+    {
+        PASSIVE, 
+        SUSPICIOUS,
+        HOSTILE
+    }
+    #endregion
+
     #region Variables
 
+    //Important Variables
     private bool alert;
+    private Transform target;
     private NavMeshAgent agent;
     [SerializeField] private GameObject player;
-    [SerializeField] private float lookRadius = 10;
+    [SerializeField] private Text stateText;
+    [SerializeField] private float lookRadius = 10f;
     [SerializeField] private float pursuitSpeed = 25f;
-    [SerializeField] private float patrolSpeed ;
-    private Transform target;
+    [SerializeField] private float patrolSpeed = 10f;
 
-    //private float fov;
-    //private float maxRange;
-    //private float minRange;
-    //private Vector3 center;
-    //private float aspect;
-
-
+    //Temporary Variables
+    [SerializeField]private float speedRead;
     #endregion
 
     #region Start & Update
@@ -52,7 +60,8 @@ public class EnemyController : MonoBehaviour
         alert = false;
         agent = GetComponent<NavMeshAgent>();
         target = player.transform;
-
+        stateText.text = "IDLE";
+        
         ////Initial values for drawn Frustrum
         //fov = 90f;
         //maxRange = 16f;
@@ -64,6 +73,29 @@ public class EnemyController : MonoBehaviour
     //---------------------------------//
     void Update()
     {
+        //Start of navigating enemy state machine
+        //switch (EnemyStates)
+        //{
+        //    case EnemyStates.PASSIVE:
+        //        print("");
+        //        break;
+
+        //    case EnemyStates.SUSPICIOUS:
+        //        print("");
+
+        //        break;
+
+        //    case EnemyStates.HOSTILE:
+        //        print("");
+        //        break;
+
+        //    default:
+        //        print("");
+        //        break;
+        //}
+
+
+
         //public float pursuitSpeed;
 
         target = player.transform;
@@ -72,13 +104,21 @@ public class EnemyController : MonoBehaviour
 
         if (distanceToPlayer <= lookRadius)
         {
+
+
             alert = true;
 
             print("I can see you");
 
-            agent.SetDestination(player.transform.position);
+            SetAIDestination(player.transform.position);
 
-            agent.speed = pursuitSpeed;
+            SetAiSpeed(true);
+            speedRead = pursuitSpeed;
+            
+            
+            stateText.text = $"{target}";
+
+
         }
         else
         {
@@ -86,15 +126,15 @@ public class EnemyController : MonoBehaviour
 
             print("Where are you");
 
-            agent.SetDestination(transform.position);
+            //transform.position in this case will eventually be replaced with the Vector3 data of the selected waypoint
+            SetAIDestination(transform.position);
 
-            agent.speed = patrolSpeed;
+            SetAiSpeed(false);
+            speedRead = patrolSpeed;
+
+            stateText.text = $"{target}";
+
         }
-
-        //switch (switch_on)
-        //{
-        //    default:
-        //}
 
         switch (alert)
         {
@@ -105,12 +145,9 @@ public class EnemyController : MonoBehaviour
             case false:
                 print("Give me a task to do pls");
                 break;
-
-                //default:
-                //    print("This condition should literally be unreachable");
-                //    break;
         }
 
+        //Keep this at the end of void Update
         FaceTarget();
 
         //agent.SetDestination(player.transform.position);
@@ -120,6 +157,7 @@ public class EnemyController : MonoBehaviour
 
     #region General Functions
     //---------------------------------//
+    //Used to draw a sphere tied to the AI's current look radius. Really just serving as a diagnostic tool
     void OnDrawGizmosSelected()
     {
         //Drawing a magenta sphere at the AI's current position
@@ -131,45 +169,52 @@ public class EnemyController : MonoBehaviour
     }//End DrawGizmos
 
 
-    //function for facing the player when the AI is withing stopping distance of the player
     //---------------------------------//
+    //function for facing the player when the AI is withing stopping distance of the player
     void FaceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 100f);
     }//End FaceTarget
-
-
-    //---------------------------------//
-    void SetTarget()
-    {
-
-    }//End SetTarget
 
     //---------------------------------//
     // currently fleshing out this bit, might have another funtion that acts as a sort of gate for all these other funtions along the lines of "Mode controller" (or just have
     // that be handled by the initial switch case statement)
-    void SetSpeed(bool detection, int mode)
+    void SetAiSpeed(bool detection)
     {
         if (detection == true)
         {
 
-        switch (mode)
+        switch (detection)
         {
-            case 1:
-                break;
-            case 2:
-                break;
-
-            default:
+            case true:
+                    //agent.speed = pursuitSpeed;
+                    agent.speed = Mathf.Lerp(patrolSpeed, pursuitSpeed, 1);
+                    break;
+            case false:
+                    //agent.speed = patrolSpeed;
+                    agent.speed = Mathf.Lerp(pursuitSpeed, patrolSpeed, 1);
                     break;
         }
     }
 
     }//End SetSpeed
 
+    //---------------------------------//
+    //Function for setting AI destination
+    void SetAIDestination(Vector3 point)
+    {
+        agent.SetDestination(point);
+    }//End Set AI Destination
     #endregion
+
+    #region Waypoints Logic
+    //[SerializeField] private List waypoints<> 0;
+    private int waypointsIndex;
+
+
+    #endregion  
 }
