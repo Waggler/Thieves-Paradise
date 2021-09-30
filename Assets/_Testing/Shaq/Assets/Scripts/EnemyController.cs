@@ -7,17 +7,12 @@ using UnityEngine.UI;
 
 
 //Current Bugs:
-// - Despite being serialized, the variables player, pursuitSpeed, & patrolSpeed are not showing up in the Unity inspector
 // - 
 
 
 //Things to add:
 //    - agent.setDestination usage based on certain conditions for the AI
-//    - Review tutorials for setting up AI in unity as well as for setting up a third person controller (Overall refresher course needed)
-//    - Switch case statement to act as a state machine for the AI (can be done later on)
-//    - Enumeration for state machine (please save this for after you actually learn the ins and out of a state machine)
-//    - Seperate redundant actions into seperate & callable functions with their necessary variables and all that
-//    - 
+//    - https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.CalculatePath.html
 
 
 //Done:
@@ -32,7 +27,8 @@ public class EnemyController : MonoBehaviour
     {
         PASSIVE, 
         SUSPICIOUS,
-        HOSTILE
+        HOSTILE,
+        RANGEDATTACK
     }
     #endregion
 
