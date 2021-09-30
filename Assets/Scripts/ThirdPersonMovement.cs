@@ -1,94 +1,98 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
-
 
 /*
     NOTE: I got a lot of errors, must be because I just initalized for this area. Check to see if I am doing this right tomorrow, I wish to try and make a player controller with Patrick's help later tomorrow.
 */
 
-// public class ThirdPersonMovement : MonoBehaviour
-// {
-//     [Header("Speed")]
-//     [SerializedField] private float RunningSpeed;
-//     [SerializedField] private float Speed;
-//     [SerializedField] private float CrouchingSpeed;
-//     private float CurrentSpeed;
+public class ThirdPersonMovement : MonoBehaviour
+{
+    [Header("Speed")]
+    [SerializeField] private float RunningSpeed;
+    [SerializeField] private float WalkingSpeed;
+    [SerializeField] private float CrouchingSpeed;
+    [SerializeField] private float AccelerationSpeed;
+    private float CurrentSpeed;
     
-//     [Header("Physics")]
-//     [SerializedField] private Rigidbody rigidbody3D;
-//     [SerializedField] private bool isOnGround = true;
+    [Header("Physics")]
+    [SerializeField] private float Gravity;
+    [SerializeField] private float JumpHeight;
+    private CharacterController controller;
+    private bool IsOnGround;
+    private Vector3 playerVertical;
 
-//     //[SerializedField] private CapsuleCollider Capsule;
+    //[Header("Crouch")]
 
-//     void Start()
-//     {
-//         rigidbody3D = GetComponent<Rigidbody>();
-//         CurrentSpeed = Speed;
-//     }
+    //[Header("Input")]
 
-//     void Update()
-//     {
-//         PlayerMovement();
-//     }
+    //[SerializedField] private CapsuleCollider Capsule;
 
-//     void PlayerMovement()
-//     {
-//         #region Move
-//         float hor = Input.GetAxis("Horizontal");
-//         float ver = Input.GetAxis("Vertical");
-//         Vector3 playerMovement = new Vector3(hor, 0f, ver) * CurrentSpeed * Time.deltaTime;
-//         transform.Translate(playerMovement, Space.Self);
-//         #endregion
+    void Start()
+    {
+        CurrentSpeed = WalkingSpeed;
+        controller = GetComponent<CharacterController>();
+    }
 
-//         #region Jump
-//         //------------------JUMP----------------------//
-//         if(Input.GetButtonDown("Jump") && isOnGround == true)
-//         {
-//             rigidbody3D.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
-//             isOnGround = false;
-//         }
-//         #endregion
+    void Update()
+    {
+        PlayerMovement();
+    }
 
-//         #region Sprint
-//         //------------------SPRINT--------------------//
-//         if(Input.GetButtonDown("Sprint"))
-//         {
-//             if(CurrentSpeed < RunningSpeed && Input.GetButtonDown("W"))
-//             {
-//                 CurrentSpeed += 0.25;
-//             }
-//             else if(CurrentSpeed >= RunningSpeed && Input.GetButtonDown("W"))
-//             {
-//                 CurrentSpeed = RunningSpeed;
-//             }
-//         }
-//         else if(Input.GetButtonUp("Sprint"))
-//         {
-//             CurrentSpeed = Speed;
-//         }
-//         #endregion
+    void PlayerMovement()
+    {
+        #region Move
+        //------------------MOVE----------------------//
+        //--Change the get button down to new controls--//
 
-//         #region Crouch
-//         //-------------------CROUCH----------------------//
-//         if(Input.GetButtonDown("Crouch"))
-//         {
-//             rigidbody3D.height = 1f;
-//             CurrentSpeed = CrouchingSpeed;
-//         }
-//         else if(Input.GetButtonUp("Crouch"))
-//         {
-//             CurrentSpeed = Speed;
-//             rigidbody3D.height = 2f;
-//         }
-//         #endregion
-//     }
+        #endregion
 
-//     private void OnCollisionEnter(Collision collision)
-//     {
-//         if(collision.gameObject.name == "Ground")
-//         {
-//             isOnGround = true;
-//         }
-//     }
-// }
+        #region Jump
+        //------------------JUMP----------------------//
+        //--Change the get button down to new controls--//
+        if(Input.GetButtonDown("Jump") && controller.isGrounded)
+        {
+            playerVertical.y += Mathf.Sqrt(JumpHeight * -3.0f * Gravity);
+        }
+        #endregion
+
+        #region Sprint
+        //------------------SPRINT--------------------//
+        //--Change the get button down to new controls--//
+        if(Input.GetButtonDown("Sprint"))
+        {
+            if(CurrentSpeed < RunningSpeed && Input.GetButtonDown("W"))
+            {
+                CurrentSpeed += AccelerationSpeed * Time.deltaTime;
+            }
+            else if(CurrentSpeed >= RunningSpeed && Input.GetButtonDown("W"))
+            {
+                CurrentSpeed = RunningSpeed;
+            }
+        }
+        else if(Input.GetButtonUp("Sprint"))
+        {
+            CurrentSpeed = WalkingSpeed;
+        }
+        #endregion
+
+        #region Crouch
+        //-------------------CROUCH----------------------//
+        //--Change the get button down to new controls--//
+        if(Input.GetButtonDown("Crouch"))
+        {
+            CurrentSpeed = CrouchingSpeed;
+        }
+        else if(Input.GetButtonUp("Crouch"))
+        {
+            CurrentSpeed = WalkingSpeed;
+        }
+        #endregion
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+    }
+}
