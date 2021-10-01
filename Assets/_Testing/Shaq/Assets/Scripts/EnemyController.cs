@@ -11,13 +11,13 @@ using UnityEngine.UI;
 
 
 //Things to add:
-//    - agent.setDestination usage based on certain conditions for the AI
 //    - https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.CalculatePath.html
+//    - Setting target to waypoints and having the AI cycle through them
 
 
 //Done:
-//    - Add Face Target function
-//    - 
+//    - Created Group of empty objects w/ parent for testing patrol functionality
+// - 
 
 public class EnemyController : MonoBehaviour
 {
@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
 
     private enum EnemyStates
     {
-        PASSIVE, 
+        PASSIVE,
         SUSPICIOUS,
         HOSTILE,
         RANGEDATTACK
@@ -41,11 +41,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Text stateText;
     [SerializeField] private float lookRadius = 10f;
+    [SerializeField] private float faceRadius = 10f;
     [SerializeField] private float pursuitSpeed = 25f;
     [SerializeField] private float patrolSpeed = 10f;
 
     //Temporary Variables
-    [SerializeField]private float speedRead;
+    [SerializeField] private float speedRead;
     #endregion
 
     #region Start & Update
@@ -57,7 +58,7 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = player.transform;
         stateText.text = "IDLE";
-        
+
         ////Initial values for drawn Frustrum
         //fov = 90f;
         //maxRange = 16f;
@@ -110,10 +111,12 @@ public class EnemyController : MonoBehaviour
 
             SetAiSpeed(true);
             speedRead = pursuitSpeed;
-            
-            
-            stateText.text = $"{target}";
 
+            stateText.text = $"{target}";
+            if (distanceToPlayer <= faceRadius)
+            {
+                FaceTarget();
+            }
 
         }
         else
@@ -143,9 +146,6 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-        //Keep this at the end of void Update
-        FaceTarget();
-
         //agent.SetDestination(player.transform.position);
 
     }//End Update
@@ -161,6 +161,9 @@ public class EnemyController : MonoBehaviour
         //Gizmos.DrawFrustum(center , fov , maxRange, minRange, aspect);
         //Gizmos.DrawFrustum(transform.position, fov, maxRange, minRange, aspect);
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, faceRadius);
 
     }//End DrawGizmos
 
@@ -184,18 +187,18 @@ public class EnemyController : MonoBehaviour
         if (detection == true)
         {
 
-        switch (detection)
-        {
-            case true:
+            switch (detection)
+            {
+                case true:
                     //agent.speed = pursuitSpeed;
                     agent.speed = Mathf.Lerp(patrolSpeed, pursuitSpeed, 1);
                     break;
-            case false:
+                case false:
                     //agent.speed = patrolSpeed;
                     agent.speed = Mathf.Lerp(pursuitSpeed, patrolSpeed, 1);
                     break;
+            }
         }
-    }
 
     }//End SetSpeed
 
@@ -208,9 +211,32 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region Waypoints Logic
-    //[SerializeField] private List waypoints<> 0;
-    private int waypointsIndex;
+    [SerializeField] private List<Transform> waypoints;
+    //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
+    private int waypointsIndex = 0;
+
+    #region Waypoints Functions
+    private void SetNextWaypoint()
+    {
+
+    }
 
 
-    #endregion  
+
+
+    #endregion
+
+    #endregion
+
+
+    //Generic Funcitons to be add WAY down the line
+    private void RangedAttack()
+    {
+    }
+
+    private void CQCAttack()
+    {
+    }
+
+
 }
