@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
     NOTE: I got a lot of errors, must be because I just initalized for this area. Check to see if I am doing this right tomorrow, I wish to try and make a player controller with Patrick's help later tomorrow.
 */
 
-public class ThirdPersonMovement : MonoBehaviour
+public class ThirdPersonMovement1st : MonoBehaviour
 {
     #region Variables
     [Header("Speed")]
@@ -21,20 +21,30 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] private float Gravity;
     [SerializeField] private float JumpHeight;
     private CharacterController controller;
+    private Vector3 MoveDirection;
     private bool IsOnGround;
-    private Vector3 playerVertical;
 
     //[Header("Crouch")]
 
     //[Header("Input")]
-    
+    private PlayerActionControls playerActionControls;
 
     //[SerializedField] private CapsuleCollider Capsule;
     #endregion
 
     void Awake()
     {
-        
+        playerActionControls = new PlayerActionControls();
+    }
+
+    void OnEnable()
+    {
+        playerActionControls.Enable();
+    }
+
+    void OnDisable()
+    {
+        playerActionControls.Disable();
     }
 
     void Start()
@@ -53,6 +63,11 @@ public class ThirdPersonMovement : MonoBehaviour
         #region TBC
         #region Move
         //------------------MOVE----------------------//
+        float PlayerMovement = playerActionControls.PlayerControls.Movement.ReadValue<float>();
+
+        
+
+        controller.Move(MoveDirection);
 
         #endregion
 
@@ -103,18 +118,5 @@ public class ThirdPersonMovement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-    }
-
-    public void Move(InputAction.CallbackContext Context)
-    {
-
-    }
-
-    public void Jump(InputAction.CallbackContext Context)
-    {
-        if(Context.performed)
-        {
-            
-        }
     }
 }

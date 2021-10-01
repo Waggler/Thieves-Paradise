@@ -5,32 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerActionControls playerActionControls;
+    [Header("Speed")]
+    [SerializeField] private float WalkSpeed;
 
-    void Awake()
-    {
-        playerActionControls = new PlayerActionControls();
-    }
-
-    void OnEnable()
-    {
-        playerActionControls.Enable();
-    }
-
-    void OnDisable()
-    {
-        playerActionControls.Disable();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
