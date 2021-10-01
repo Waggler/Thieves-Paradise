@@ -15,6 +15,7 @@ using UnityEngine.UI;
 //    - Setting target to waypoints and having the AI cycle through them
 //    - Headers for different sections of code in order to better organize content displayed in the investigator
 //    - Seperate Waypoint navigation method that reverses the order of the waypoints (Back and forth instead of in circles)
+//          -This is already implemented but needs to be more efficient 
 //    - Ability for the AI to check to see if there is a valid path to the set target before it begins moving towrads said target
 //    - 
 
@@ -24,6 +25,21 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
+    #region Troubleshooting with examples
+
+    public enum MyEnum // *
+    {
+        Option1,
+        Option2,
+        Option3,
+    }
+    public MyEnum myEnum;
+
+
+
+    #endregion
+
+
     #region Enumerations
 
     #region AI State Machine
@@ -38,18 +54,21 @@ public class EnemyController : MonoBehaviour
 
     #endregion
     #region AI Cycle Methods
+
+    [System.Serializable]
     private enum CycleMethods
         {
             CYCLE,
             REVERSE
         }
 
+    [SerializeField] CycleMethods instanceOfEnum;
+
     #endregion
     #endregion
 
     #region Waypoint Cycle Methods
-    //private enum CycleMethods
-    private static readonly List<CycleMethods> Methods = new List<CycleMethods>
+    [SerializeField]private static readonly List<CycleMethods> Methods = new List<CycleMethods>
     {
         CycleMethods.CYCLE,
         CycleMethods.REVERSE
@@ -59,7 +78,7 @@ public class EnemyController : MonoBehaviour
     #region Variables
 
     //Important Variables
-    [Header("AI related Variables")]
+    [Header("Debug Variables")]
     private bool alert;
     private Transform target;
     private NavMeshAgent agent;
@@ -71,6 +90,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float patrolSpeed = 10f;
     [SerializeField] private float waypointNextDistance = 2f;
 
+    [Header("Temporary Variables")]
     //Temporary Variables
     [SerializeField] private bool Cycle;
     [SerializeField] private bool Reverse;
@@ -92,6 +112,11 @@ public class EnemyController : MonoBehaviour
         {
             target = waypoints[waypointIndex];
         }
+
+        if (myEnum == MyEnum.Option1)
+        {
+            print("YEAH BABY, FUCK, STEAK ON A MONDAY BABY");
+        }// for example
     }//End Start
 
 
@@ -251,6 +276,7 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region Waypoints Logic
+    [Header("Waypoint Variables")]
     [SerializeField] private List<Transform> waypoints;
     //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
     private int waypointIndex = 0;
