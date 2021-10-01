@@ -7,34 +7,59 @@ using UnityEngine.UI;
 
 
 //Current Bugs:
-// - 
-
+//    - FaceTarget function does not work when the AI's target is set to the player object
+//    - 
 
 //Things to add:
 //    - https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.CalculatePath.html
 //    - Setting target to waypoints and having the AI cycle through them
-
+//    - Headers for different sections of code in order to better organize content displayed in the investigator
+//    - Seperate Waypoint navigation method that reverses the order of the waypoints (Back and forth instead of in circles)
+//    - Ability for the AI to check to see if there is a valid path to the set target before it begins moving towrads said target
+//    - 
 
 //Done:
 //    - Created Group of empty objects w/ parent for testing patrol functionality
-// - 
+//    - 
 
 public class EnemyController : MonoBehaviour
 {
+    #region Enumerations
+
     #region AI State Machine
 
     private enum EnemyStates
+        {
+            PASSIVE,
+            SUSPICIOUS,
+            HOSTILE,
+            RANGEDATTACK
+        }
+
+    #endregion
+    #region AI Cycle Methods
+    private enum CycleMethods
+        {
+            CYCLE,
+            REVERSE
+        }
+
+    #endregion
+    #endregion
+
+    #region Waypoint Cycle Methods
+    //private enum CycleMethods
+    private static readonly List<CycleMethods> Methods = new List<CycleMethods>
     {
-        PASSIVE,
-        SUSPICIOUS,
-        HOSTILE,
-        RANGEDATTACK
-    }
+        CycleMethods.CYCLE,
+        CycleMethods.REVERSE
+    };
     #endregion
 
     #region Variables
 
     //Important Variables
+    [Header("AI related Variables")]
     private bool alert;
     private Transform target;
     private NavMeshAgent agent;
@@ -44,8 +69,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float faceRadius = 10f;
     [SerializeField] private float pursuitSpeed = 25f;
     [SerializeField] private float patrolSpeed = 10f;
+    [SerializeField] private float waypointNextDistance = 2f;
 
     //Temporary Variables
+    [SerializeField] private bool Cycle;
+    [SerializeField] private bool Reverse;
+
     [SerializeField] private float speedRead;
     #endregion
 
@@ -56,15 +85,14 @@ public class EnemyController : MonoBehaviour
         print("I live!");
         alert = false;
         agent = GetComponent<NavMeshAgent>();
-        target = player.transform;
+        agent.speed = patrolSpeed;
         stateText.text = "IDLE";
 
-        ////Initial values for drawn Frustrum
-        //fov = 90f;
-        //maxRange = 16f;
-        //maxRange = 5f;
-        //aspect = 5;
-    }
+        if (waypoints.Count > 0)
+        {
+            target = waypoints[waypointIndex];
+        }
+    }//End Start
 
 
     //---------------------------------//
@@ -72,82 +100,83 @@ public class EnemyController : MonoBehaviour
     {
         //Start of navigating enemy state machine
         //switch (EnemyStates)
-        //{
-        //    case EnemyStates.PASSIVE:
-        //        print("");
-        //        break;
+        //  {
+        //      case EnemyStates.PASSIVE:
+        //          print("");
+        //          break;
 
-        //    case EnemyStates.SUSPICIOUS:
-        //        print("");
+        //      case EnemyStates.SUSPICIOUS:
+        //          print("");
 
-        //        break;
+        //          break;
 
-        //    case EnemyStates.HOSTILE:
-        //        print("");
-        //        break;
+        //      case EnemyStates.HOSTILE:
+        //          print("");
+        //          break;
 
-        //    default:
-        //        print("");
-        //        break;
-        //}
-
-
-
-        //public float pursuitSpeed;
-
-        target = player.transform;
+        //      default:
+        //          print("");
+        //          break;
+        //  }
 
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        if (distanceToPlayer <= lookRadius)
+        if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
         {
+            SetNextWaypoint();
+        }
 
-
-            alert = true;
-
-            print("I can see you");
-
-            SetAIDestination(player.transform.position);
-
-            SetAiSpeed(true);
-            speedRead = pursuitSpeed;
-
-            stateText.text = $"{target}";
-            if (distanceToPlayer <= faceRadius)
+        if (distanceToPlayer <= lookRadius)
             {
-                FaceTarget();
+                target = player.transform;
+
+                alert = true;
+
+                print("Pursuit");
+
+                //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                SetAIDestination(player.transform.position);
+
+                SetAiSpeed("Pursuit");
+
+                stateText.text = $"{target}";
+                if (distanceToPlayer <= faceRadius)
+                    {
+                        target = player.transform;
+
+                        FaceTarget();
+                    }
+            
+                speedRead = pursuitSpeed;
+            }
+        else
+            {
+                alert = false;
+
+                print("Patrol");
+
+                //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                SetAIDestination(waypoints[waypointIndex].transform.position);
+
+                SetAiSpeed("Patrol");
+
+                target = waypoints[waypointIndex];
+
+                stateText.text = $"{target}";
+
+                speedRead = patrolSpeed;
             }
 
-        }
-        else
-        {
-            alert = false;
-
-            print("Where are you");
-
-            //transform.position in this case will eventually be replaced with the Vector3 data of the selected waypoint
-            SetAIDestination(transform.position);
-
-            SetAiSpeed(false);
-            speedRead = patrolSpeed;
-
-            stateText.text = $"{target}";
-
-        }
-
         switch (alert)
-        {
-            case true:
-                print("I have been given purpose");
-                break;
+            {
+                case true:
+                    print("I have been given purpose");
+                    break;
 
-            case false:
-                print("Give me a task to do pls");
-                break;
-        }
-
-        //agent.SetDestination(player.transform.position);
-
+                case false:
+                    print("Give me a task to do pls");
+                    break;
+            }
     }//End Update
     #endregion
 
@@ -155,88 +184,139 @@ public class EnemyController : MonoBehaviour
     //---------------------------------//
     //Used to draw a sphere tied to the AI's current look radius. Really just serving as a diagnostic tool
     void OnDrawGizmosSelected()
-    {
-        //Drawing a magenta sphere at the AI's current position
-        Gizmos.color = Color.magenta;
-        //Gizmos.DrawFrustum(center , fov , maxRange, minRange, aspect);
-        //Gizmos.DrawFrustum(transform.position, fov, maxRange, minRange, aspect);
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
+        {
+            //Drawing a magenta sphere at the AI's current position
+            Gizmos.color = Color.magenta;
+            //Gizmos.DrawFrustum(center , fov , maxRange, minRange, aspect);
+            //Gizmos.DrawFrustum(transform.position, fov, maxRange, minRange, aspect);
+            Gizmos.DrawWireSphere(transform.position, lookRadius);
 
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, faceRadius);
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, faceRadius);
 
-    }//End DrawGizmos
+        }//End DrawGizmos
 
 
     //---------------------------------//
     //function for facing the player when the AI is withing stopping distance of the player
     void FaceTarget()
-    {
-        Vector3 direction = (target.position - transform.position).normalized;
+        {
+            Vector3 direction = (target.position - transform.position).normalized;
 
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 100f);
-    }//End FaceTarget
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime /** 2f*/);
+        }//End FaceTarget
 
     //---------------------------------//
     // currently fleshing out this bit, might have another funtion that acts as a sort of gate for all these other funtions along the lines of "Mode controller" (or just have
     // that be handled by the initial switch case statement)
-    void SetAiSpeed(bool detection)
-    {
-        if (detection == true)
+    void SetAiSpeed(string detection)
         {
-
             switch (detection)
             {
-                case true:
-                    //agent.speed = pursuitSpeed;
+            //Setting pursuit speed
+                case "Pursuit":
                     agent.speed = Mathf.Lerp(patrolSpeed, pursuitSpeed, 1);
                     break;
-                case false:
-                    //agent.speed = patrolSpeed;
+            //Setting patrol speed
+                case "Patrol":
                     agent.speed = Mathf.Lerp(pursuitSpeed, patrolSpeed, 1);
                     break;
+                default:
+                    print("Speed unspecified");
+                    break;
             }
-        }
 
-    }//End SetSpeed
+        }//End SetSpeed
 
     //---------------------------------//
     //Function for setting AI destination
     void SetAIDestination(Vector3 point)
-    {
-        agent.SetDestination(point);
-    }//End Set AI Destination
+        {
+            agent.SetDestination(point);
+        }//End Set AI Destination
+
+    //-----------Failed attempt at a distance calculator------------//
+    //Used to calculate distance between two objects (using x, y, & z positions)
+    //Might actually delete this one, seems dumb in the long run
+    //void CalculateDistance(Vector3 obj1, Vector3 obj2)
+    //    {
+    //        float distance; 
+
+    //        distance = Vector3.Distance(obj1, obj2);
+
+    //        return distance;
+    //    }   
     #endregion
 
     #region Waypoints Logic
     [SerializeField] private List<Transform> waypoints;
     //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
-    private int waypointsIndex = 0;
+    private int waypointIndex = 0;
 
     #region Waypoints Functions
-    private void SetNextWaypoint()
-    {
+    void SetNextWaypoint()
+        {
+            //Checking to see if the AI has reached the last waypoint
+            if (waypointIndex >= waypoints.Count - 1)
+            {
+                if (Cycle == true)
+                {
+                    waypointIndex = 0;
 
-    }
+                    //waypoints.Reverse();
 
+                    target = waypoints[0];
+                }
+                else if (Reverse == true)
+                {
+                    waypointIndex = 0;
 
+                    waypoints.Reverse();
 
+                    target = waypoints[0];
+                }
+                //waypointIndex = 0;
 
+                //waypoints.Reverse();
+
+                //target = waypoints[0];
+            }
+            else
+            {
+                waypointIndex++;
+
+                target = waypoints[waypointIndex];
+            }
+            SetAIDestination(target.position);
+
+            //switch (CycleMethods)
+            //{
+            //    case CycleMethods.CYCLE:
+            //        //Insert original code for navigating waypoints here
+            //        break;
+            //    case CycleMethods.REVERSE:
+            //        //Insert reverse based method for navigating waypoints here
+            //        break;
+            //    default:
+            //        print("Cycling method not found \a");
+            //        break;
+            //}
+        }
     #endregion
 
     #endregion
 
-
+    #region AI Attacks
     //Generic Funcitons to be add WAY down the line
     private void RangedAttack()
-    {
-    }
+        {
+        }
 
     private void CQCAttack()
-    {
-    }
+        {
+        }
 
-
+    #endregion
 }
