@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
             Reverse
         }
 
-    [Header("Waypoint Cycling Method")]
+    [Header("Waypoint Cycling")]
 
     [SerializeField] CycleMethods waypointMethod;
 
@@ -155,7 +155,7 @@ public class EnemyController : MonoBehaviour
                             //transform.position is being used because you cannot use Vector3 data when Transform is being called
                             SetAIDestination(player.transform.position);
 
-                            SetAiSpeed("Pursuit");
+                            SetAiSpeed("Sussy");
 
                             target = player.transform;
 
@@ -175,9 +175,9 @@ public class EnemyController : MonoBehaviour
                         stateMachine = EnemyStates.HOSTILE;
                         }
                     else
-                    {
-                    stateMachine = EnemyStates.PASSIVE;   
-                    }
+                        {
+                            stateMachine = EnemyStates.PASSIVE;   
+                        }
                 break;
             #endregion
             #region Hostile Behavior
@@ -187,18 +187,20 @@ public class EnemyController : MonoBehaviour
                     {
                         agent.speed = 0f;
 
-                        stateMachine = EnemyStates.ATTACK;
-                   }
+                        CQCAttack(10);
+
+                    //stateMachine = EnemyStates.ATTACK;
+                    }
                 else
-                {
-                    stateMachine = EnemyStates.SUSPICIOUS;
-                }
+                    {
+                        stateMachine = EnemyStates.SUSPICIOUS;
+                    }
                 break;
             #endregion
             #region Attack Behavior
             case EnemyStates.ATTACK:
                 //AI Suspicious state
-                CQCAttack();
+                //CQCAttack(10);
                 break;
             #endregion
             #region Ranged Attack Behavior
@@ -305,22 +307,26 @@ public class EnemyController : MonoBehaviour
         {
         }//End RangedAttack
 
-    private void CQCAttack()
+    private void CQCAttack(float timer)
         {
             //Any code seen here is meant for debugging purposes only.
-            double timer;
+            //double timer;
 
-            timer = Time.deltaTime;
+            timer -= Time.deltaTime;
 
             print($"The time is: {timer}");
 
-            print("Talkin' a lot of shit for someone in crusading distance");
+            stateText.text = "THWAK";
 
-            if (timer == .001d)
+            //print("Talkin' a lot of shit for someone in crusading distance");
+
+            if (timer <= 0)
                 {
-                    stateMachine = EnemyStates.HOSTILE;
+                    stateMachine = EnemyStates.SUSPICIOUS;
                 }   
         }//End CQCAttack
+
+    #endregion
 
     #endregion
 
@@ -330,6 +336,9 @@ public class EnemyController : MonoBehaviour
     //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
     private int waypointIndex = 0;
 
+
+    #endregion
+    
     #region Waypoints Functions
     void SetNextWaypoint()
         {
@@ -378,8 +387,6 @@ public class EnemyController : MonoBehaviour
     }
     #endregion
 
-    #endregion
-
 
 
     #region Function Graveyard
@@ -408,6 +415,5 @@ public class EnemyController : MonoBehaviour
 
     //        return distance;
     //    }   
-    #endregion
     #endregion
 }
