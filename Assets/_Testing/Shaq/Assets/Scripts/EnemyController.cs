@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-
 //Current Bugs:
 //    - Shoddy timer made in CQCAttack function is currently broken
 
@@ -78,6 +77,7 @@ public class EnemyController : MonoBehaviour
     [Header("Debug Variables")]
     [SerializeField] private GameObject player;
     [SerializeField] private Text stateText;
+    [SerializeField] private Text targetText;
     [SerializeField] private float lookRadius = 10f;
     [SerializeField] private float faceRadius = 10f;
     [SerializeField] private float attackRadius = 10f;
@@ -91,6 +91,7 @@ public class EnemyController : MonoBehaviour
 
     //Temporary Variables
     [SerializeField] private float speedRead;
+    public bool shitBool = true;
 
     #endregion
 
@@ -101,7 +102,6 @@ public class EnemyController : MonoBehaviour
         print("I live!");
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
-        stateText.text = "IDLE";
         stateMachine = EnemyStates.PASSIVE;
 
         //checks to see if there are any objects in the waypoints list
@@ -116,6 +116,7 @@ public class EnemyController : MonoBehaviour
     //---------------------------------//
     void Update()
     {
+
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
         
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
@@ -123,6 +124,9 @@ public class EnemyController : MonoBehaviour
         {
             #region Passive Behavior
             case EnemyStates.PASSIVE:
+                //AI Passive state
+                stateText.text = EnemyStates.PASSIVE.ToString();
+
                 print("Patrol");
                 if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
                     {
@@ -140,49 +144,54 @@ public class EnemyController : MonoBehaviour
 
                 target = waypoints[waypointIndex];
 
-                stateText.text = $"{target}";
+                targetText.text = $"{target}";
 
                 speedRead = patrolSpeed;
 
                 break;
             #endregion
+
             #region Suspicious Behavior
             case EnemyStates.SUSPICIOUS:
                 //AI Suspicious state
-                    //Checking if the player is within the AI's look radius
-                    if (distanceToPlayer <= lookRadius)
+                stateText.text = EnemyStates.SUSPICIOUS.ToString();
+                //Checking if the player is within the AI's look radius
+                if (distanceToPlayer <= lookRadius)
+                    {
+                        //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                        SetAIDestination(player.transform.position);
+
+                        SetAiSpeed("Sussy");
+
+                        target = player.transform;
+
+                        targetText.text = $"{target}";
+
+                        speedRead = pursuitSpeed;
+
+                        //Checking if the player is within the AI's face radius
+                        if (distanceToPlayer <= faceRadius)
                         {
-                            //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                            SetAIDestination(player.transform.position);
-
-                            SetAiSpeed("Sussy");
-
                             target = player.transform;
 
-                            stateText.text = $"{target}";
-
-                            speedRead = pursuitSpeed;
-
-                            //Checking if the player is within the AI's face radius
-                            if (distanceToPlayer <= faceRadius)
-                            {
-                                target = player.transform;
-
-                                FaceTarget();
-                            }
+                            FaceTarget();
+                        }
                             
-                        //Reconsider the placement of this pls
-                        stateMachine = EnemyStates.HOSTILE;
-                        }
-                    else
-                        {
-                            stateMachine = EnemyStates.PASSIVE;   
-                        }
+                    //Reconsider the placement of this pls
+                    //stateMachine = EnemyStates.HOSTILE;
+                    }
+                else
+                    {
+                        stateMachine = EnemyStates.PASSIVE;   
+                    }
                 break;
             #endregion
+
             #region Hostile Behavior
             case EnemyStates.HOSTILE:
                 //AI Hostile state
+                stateText.text = EnemyStates.HOSTILE.ToString();
+
                 if (distanceToPlayer <= attackRadius)
                     {
                         agent.speed = 0f;
@@ -197,21 +206,25 @@ public class EnemyController : MonoBehaviour
                     }
                 break;
             #endregion
+
             #region Attack Behavior
             case EnemyStates.ATTACK:
-                //AI Suspicious state
-                //CQCAttack(10);
+                //AI Attack state
+                stateText.text = EnemyStates.ATTACK.ToString();
                 break;
             #endregion
+
             #region Ranged Attack Behavior
             case EnemyStates.RANGEDATTACK:
                 //AI Suspicious state
+                stateText.text = EnemyStates.RANGEDATTACK.ToString();
+
                 RangedAttack();
                 break;
             #endregion
             #region Default Behavior / Bug Catcher
             default:
-                print("State Not Found \a");
+                stateText.text = "State not found";
                 break;
             #endregion
         }
@@ -316,13 +329,15 @@ public class EnemyController : MonoBehaviour
 
             print($"The time is: {timer}");
 
-            stateText.text = "THWAK";
+            targetText.text = "THWAK";
 
             //print("Talkin' a lot of shit for someone in crusading distance");
 
             if (timer <= 0)
                 {
                     stateMachine = EnemyStates.SUSPICIOUS;
+
+                    targetText.text = $"{target}";
                 }   
         }//End CQCAttack
 
