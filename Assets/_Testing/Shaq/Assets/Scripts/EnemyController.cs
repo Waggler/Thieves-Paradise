@@ -37,7 +37,12 @@ public class EnemyController : MonoBehaviour
             RANGEDATTACK
         }
 
-    #endregion
+    [Header("AI State")]
+
+    [SerializeField] EnemyStates stateMachine;
+
+    #endregion.
+
     #region AI Cycle Methods
 
     [System.Serializable]
@@ -47,12 +52,15 @@ public class EnemyController : MonoBehaviour
             Reverse
         }
 
+    [Header("Waypoint Cycling Method")]
+
     [SerializeField] CycleMethods waypointMethod;
 
     #endregion
+
     #endregion
 
-    #region Waypoint Cycle Methods
+    #region Waypoint Cycle Methods List
     [SerializeField]private static readonly List<CycleMethods> Methods = new List<CycleMethods>
     {
         CycleMethods.Cycle,
@@ -63,10 +71,11 @@ public class EnemyController : MonoBehaviour
     #region Variables
 
     //Important Variables
-    [Header("Debug Variables")]
     private bool alert;
     private Transform target;
     private NavMeshAgent agent;
+
+    [Header("Debug Variables")]
     [SerializeField] private GameObject player;
     [SerializeField] private Text stateText;
     [SerializeField] private float lookRadius = 10f;
@@ -76,11 +85,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float waypointNextDistance = 2f;
 
     [Header("Temporary Variables")]
-    //Temporary Variables
-    //[SerializeField] private bool Cycle;
-    //[SerializeField] private bool Reverse;
 
+    //Temporary Variables
     [SerializeField] private float speedRead;
+
     #endregion
 
     #region Start & Update
@@ -97,11 +105,6 @@ public class EnemyController : MonoBehaviour
         {
             target = waypoints[waypointIndex];
         }
-
-        //if (myEnum == MyEnum.Option1)
-        //{
-        //    print("YEAH BABY, FUCK, STEAK ON A MONDAY BABY");
-        //}// for example
     }//End Start
 
 
@@ -269,39 +272,6 @@ public class EnemyController : MonoBehaviour
     #region Waypoints Functions
     void SetNextWaypoint()
         {
-            //Checking to see if the AI has reached the last waypoint
-            //if (waypointIndex >= waypoints.Count - 1)
-            //{
-            //    if (Cycle == true)
-            //    {
-            //        waypointIndex = 0;
-
-            //        //waypoints.Reverse();
-
-            //        target = waypoints[0];
-            //    }
-            //    else if (Reverse == true)
-            //    {
-            //        waypointIndex = 0;
-
-            //        waypoints.Reverse();
-
-            //        target = waypoints[0];
-            //    }
-            //    //waypointIndex = 0;
-
-            //    //waypoints.Reverse();
-
-            //    //target = waypoints[0];
-            //}
-            //else
-            //{
-            //    waypointIndex++;
-
-            //    target = waypoints[waypointIndex];
-            //}
-            //SetAIDestination(target.position);
-
         switch (waypointMethod)
         {
             case CycleMethods.Cycle:
