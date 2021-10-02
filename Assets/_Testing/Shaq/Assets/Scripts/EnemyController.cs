@@ -25,21 +25,6 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
-    #region Troubleshooting with examples
-
-    public enum MyEnum // *
-    {
-        Option1,
-        Option2,
-        Option3,
-    }
-    public MyEnum myEnum;
-
-
-
-    #endregion
-
-
     #region Enumerations
 
     #region AI State Machine
@@ -58,11 +43,11 @@ public class EnemyController : MonoBehaviour
     [System.Serializable]
     private enum CycleMethods
         {
-            CYCLE,
-            REVERSE
+            Cycle,
+            Reverse
         }
 
-    [SerializeField] CycleMethods instanceOfEnum;
+    [SerializeField] CycleMethods waypointMethod;
 
     #endregion
     #endregion
@@ -70,8 +55,8 @@ public class EnemyController : MonoBehaviour
     #region Waypoint Cycle Methods
     [SerializeField]private static readonly List<CycleMethods> Methods = new List<CycleMethods>
     {
-        CycleMethods.CYCLE,
-        CycleMethods.REVERSE
+        CycleMethods.Cycle,
+        CycleMethods.Reverse
     };
     #endregion
 
@@ -92,8 +77,8 @@ public class EnemyController : MonoBehaviour
 
     [Header("Temporary Variables")]
     //Temporary Variables
-    [SerializeField] private bool Cycle;
-    [SerializeField] private bool Reverse;
+    //[SerializeField] private bool Cycle;
+    //[SerializeField] private bool Reverse;
 
     [SerializeField] private float speedRead;
     #endregion
@@ -113,10 +98,10 @@ public class EnemyController : MonoBehaviour
             target = waypoints[waypointIndex];
         }
 
-        if (myEnum == MyEnum.Option1)
-        {
-            print("YEAH BABY, FUCK, STEAK ON A MONDAY BABY");
-        }// for example
+        //if (myEnum == MyEnum.Option1)
+        //{
+        //    print("YEAH BABY, FUCK, STEAK ON A MONDAY BABY");
+        //}// for example
     }//End Start
 
 
@@ -285,51 +270,81 @@ public class EnemyController : MonoBehaviour
     void SetNextWaypoint()
         {
             //Checking to see if the AI has reached the last waypoint
-            if (waypointIndex >= waypoints.Count - 1)
-            {
-                if (Cycle == true)
-                {
-                    waypointIndex = 0;
-
-                    //waypoints.Reverse();
-
-                    target = waypoints[0];
-                }
-                else if (Reverse == true)
-                {
-                    waypointIndex = 0;
-
-                    waypoints.Reverse();
-
-                    target = waypoints[0];
-                }
-                //waypointIndex = 0;
-
-                //waypoints.Reverse();
-
-                //target = waypoints[0];
-            }
-            else
-            {
-                waypointIndex++;
-
-                target = waypoints[waypointIndex];
-            }
-            SetAIDestination(target.position);
-
-            //switch (CycleMethods)
+            //if (waypointIndex >= waypoints.Count - 1)
             //{
-            //    case CycleMethods.CYCLE:
-            //        //Insert original code for navigating waypoints here
-            //        break;
-            //    case CycleMethods.REVERSE:
-            //        //Insert reverse based method for navigating waypoints here
-            //        break;
-            //    default:
-            //        print("Cycling method not found \a");
-            //        break;
+            //    if (Cycle == true)
+            //    {
+            //        waypointIndex = 0;
+
+            //        //waypoints.Reverse();
+
+            //        target = waypoints[0];
+            //    }
+            //    else if (Reverse == true)
+            //    {
+            //        waypointIndex = 0;
+
+            //        waypoints.Reverse();
+
+            //        target = waypoints[0];
+            //    }
+            //    //waypointIndex = 0;
+
+            //    //waypoints.Reverse();
+
+            //    //target = waypoints[0];
             //}
+            //else
+            //{
+            //    waypointIndex++;
+
+            //    target = waypoints[waypointIndex];
+            //}
+            //SetAIDestination(target.position);
+
+        switch (waypointMethod)
+        {
+            case CycleMethods.Cycle:
+                //Insert original code for navigating waypoints here
+                if (waypointIndex >= waypoints.Count - 1)
+                    {
+                        waypointIndex = 0;
+
+                        target = waypoints[0];
+                    }
+                else
+                    {
+                        waypointIndex++;
+
+                        target = waypoints[waypointIndex];
+                    }
+                SetAIDestination(target.position);
+
+                break;
+            case CycleMethods.Reverse:
+                //Insert reverse based method for navigating waypoints here
+                if (waypointIndex >= waypoints.Count - 1)
+                    {
+                        waypointIndex = 0;
+
+                        waypoints.Reverse();
+
+                        target = waypoints[0];
+                    }
+                else
+                    {
+                        waypointIndex++;
+
+                        target = waypoints[waypointIndex];
+                    }
+                SetAIDestination(target.position);
+
+                break;
+            default:
+                print("Cycling method not found \a");
+                break;
         }
+    }
     #endregion
 
     #endregion
