@@ -5,27 +5,65 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    PlayerActionControls controls;
-    PlayerActionControls.InputActions playerControls;
-
-    Vector2 HoziontalInput;
+    Vector3 moveVector;
+    bool isSprinting;
+    bool isCrouching;
+    private PlayerMovement playerMovement;
 
     void Awake()
     {
-        controls = new PlayerActionControls();
-        playerControls = controls.InputActions;
-
-        playerControls.Movement.preformed += context => HoziontalInput = context.ReadValue<Vector2>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
-    void OnEnable()
+    public void Move(InputAction.CallbackContext context)
     {
-        controls.Enable();
+        Vector2 contextValue = context.ReadValue<Vector2>();
+
+        if(context.performed)
+        {
+            moveVector = new Vector3(contextValue.x, 0, contextValue.y);
+        }
+        if(context.canceled)
+        {
+            moveVector = Vector3.zero;
+        }
+        playerMovement.Movement(moveVector);
     }
 
-    void OnDisable()
+    public void Jump(InputAction.CallbackContext context)
     {
-        controls.Disable();
+        if(context. performed)
+        {
+            playerMovement.CallJumpFunctionHere();
+        }
+    }
+
+    public void Sprint(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            isSprinting = true;
+            playerMovement.Sprint(isSprinting);
+        }
+        if(context.canceled)
+        {
+            isSprinting = false;
+            playerMovement.Sprint(isSprinting);
+        }
+    }
+
+    public void Crouch(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            isCrouching = true;
+            playerMovement.Crouch(isCrouching);
+        }
+        if(context.canceled)
+        {
+            isCrouching = false;
+            playerMovement.Crouch(isCrouching);
+        }
     }
 
 }

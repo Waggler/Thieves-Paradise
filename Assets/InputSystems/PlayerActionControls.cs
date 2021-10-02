@@ -22,8 +22,8 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""c6352c44-f8c1-4edd-bbb2-3ba2cab7496b"",
-                    ""expectedControlType"": ""Vector3"",
-                    ""processors"": """",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""NormalizeVector2"",
                     ""interactions"": """"
                 },
                 {
