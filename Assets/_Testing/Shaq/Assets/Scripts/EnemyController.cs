@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 
 //Current Bugs:
-//    - 
+//    - Shoddy timer made in CQCAttack function is currently broken
 
 //Things to add:
 //    - Create a feature that makes the AI calculate a path to it's target before it goes after it, can go from there and create logic on what to do if the target is unreachable
 //      - https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.CalculatePath.html
 //    - Begin work/ research on the state machine
 //    - Make general function for setting AI target
-//    - 
+//    -  
 
 //Done:
 //    - Created Group of empty objects w/ parent for testing patrol functionality
@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour
             PASSIVE,
             SUSPICIOUS,
             HOSTILE,
+            ATTACK,
             RANGEDATTACK
         }
 
@@ -71,7 +72,6 @@ public class EnemyController : MonoBehaviour
     #region Variables
 
     //Important Variables
-    private bool alert;
     private Transform target;
     private NavMeshAgent agent;
 
@@ -80,8 +80,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Text stateText;
     [SerializeField] private float lookRadius = 10f;
     [SerializeField] private float faceRadius = 10f;
+    [SerializeField] private float attackRadius = 10f;
     [SerializeField] private float pursuitSpeed = 25f;
     [SerializeField] private float patrolSpeed = 10f;
+    //will be used when there is specific behavior for the SUSPICIOUS state
+    //[SerializeField] private float sussySpeed = 10f;
     [SerializeField] private float waypointNextDistance = 2f;
 
     [Header("Temporary Variables")]
@@ -96,10 +99,10 @@ public class EnemyController : MonoBehaviour
     void Awake()
     {
         print("I live!");
-        alert = false;
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
         stateText.text = "IDLE";
+        stateMachine = EnemyStates.PASSIVE;
 
         //checks to see if there are any objects in the waypoints list
         //if there are, then it will start the game by setting the target to the first waypoint on the list
@@ -113,59 +116,22 @@ public class EnemyController : MonoBehaviour
     //---------------------------------//
     void Update()
     {
-        //Start of navigating enemy state machine
-        //switch (EnemyStates)
-        //  {
-        //      case EnemyStates.PASSIVE:
-        //          print("");
-        //          break;
-
-        //      case EnemyStates.SUSPICIOUS:
-        //          print("");
-
-        //          break;
-
-        //      case EnemyStates.HOSTILE:
-        //          print("");
-        //          break;
-
-        //      default:
-        //          print("");
-        //          break;
-        //  }
-
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
-
-        if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
-            {
-                SetNextWaypoint();
-            }
-
-        if (distanceToPlayer <= lookRadius)
-            {
-                print("Pursuit");
-
-                //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                SetAIDestination(player.transform.position);
-
-                SetAiSpeed("Pursuit");
-
-                target = player.transform;
-
-                stateText.text = $"{target}";
-
-                speedRead = pursuitSpeed;
-
-                if (distanceToPlayer <= faceRadius)
-                    {
-                        target = player.transform;
-
-                        FaceTarget();
-                    }
-            }
-        else
-            {
+        
+        //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
+        switch (stateMachine)
+        {
+            #region Passive Behavior
+            case EnemyStates.PASSIVE:
                 print("Patrol");
+                if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
+                    {
+                        SetNextWaypoint();
+                    }
+                if (distanceToPlayer <= lookRadius)
+                    {
+                        stateMachine = EnemyStates.SUSPICIOUS;
+                    }
 
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(waypoints[waypointIndex].transform.position);
@@ -177,29 +143,103 @@ public class EnemyController : MonoBehaviour
                 stateText.text = $"{target}";
 
                 speedRead = patrolSpeed;
-            }
+
+                break;
+            #endregion
+            #region Suspicious Behavior
+            case EnemyStates.SUSPICIOUS:
+                //AI Suspicious state
+                    //Checking if the player is within the AI's look radius
+                    if (distanceToPlayer <= lookRadius)
+                        {
+                            //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                            SetAIDestination(player.transform.position);
+
+                            SetAiSpeed("Pursuit");
+
+                            target = player.transform;
+
+                            stateText.text = $"{target}";
+
+                            speedRead = pursuitSpeed;
+
+                            //Checking if the player is within the AI's face radius
+                            if (distanceToPlayer <= faceRadius)
+                            {
+                                target = player.transform;
+
+                                FaceTarget();
+                            }
+                            
+                        //Reconsider the placement of this pls
+                        stateMachine = EnemyStates.HOSTILE;
+                        }
+                    else
+                    {
+                    stateMachine = EnemyStates.PASSIVE;   
+                    }
+                break;
+            #endregion
+            #region Hostile Behavior
+            case EnemyStates.HOSTILE:
+                //AI Hostile state
+                if (distanceToPlayer <= attackRadius)
+                    {
+                        agent.speed = 0f;
+
+                        stateMachine = EnemyStates.ATTACK;
+                   }
+                else
+                {
+                    stateMachine = EnemyStates.SUSPICIOUS;
+                }
+                break;
+            #endregion
+            #region Attack Behavior
+            case EnemyStates.ATTACK:
+                //AI Suspicious state
+                CQCAttack();
+                break;
+            #endregion
+            #region Ranged Attack Behavior
+            case EnemyStates.RANGEDATTACK:
+                //AI Suspicious state
+                RangedAttack();
+                break;
+            #endregion
+            #region Default Behavior / Bug Catcher
+            default:
+                print("State Not Found \a");
+                break;
+            #endregion
+        }
+
     }//End Update
     #endregion
 
-    #region General Functions
+    #region AI Functions
     //---------------------------------//
-    //Used to draw a sphere tied to the AI's current look radius. Really just serving as a diagnostic tool
+    // Used to draw a sphere tied to the AI's current look radius. Really just serving as a diagnostic tool
     void OnDrawGizmosSelected()
         {
-            //Drawing a magenta sphere at the AI's current position
+            //Drawing a magenta sphere
             Gizmos.color = Color.magenta;
-            //Gizmos.DrawFrustum(center , fov , maxRange, minRange, aspect);
-            //Gizmos.DrawFrustum(transform.position, fov, maxRange, minRange, aspect);
+            //Sphere radius tied to Look Radius variable
             Gizmos.DrawWireSphere(transform.position, lookRadius);
 
+            //Drawing a Cyan Sphere
             Gizmos.color = Color.cyan;
+            //Sphere radius tied to Face Radius variable
             Gizmos.DrawWireSphere(transform.position, faceRadius);
 
-        }//End DrawGizmos
-
+            //Drawing a Red sphere
+            Gizmos.color = Color.red;
+            //Sphere radius tied to Attack Radius variable
+            Gizmos.DrawWireSphere(transform.position, attackRadius);
+    }//End DrawGizmos
 
     //---------------------------------//
-    //function for facing the player when the AI is withing stopping distance of the player
+    // Function for facing the player when the AI is withing stopping distance of the player
     void FaceTarget()
         {
             Vector3 direction = (target.position - transform.position).normalized;
@@ -209,24 +249,9 @@ public class EnemyController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime /** 2f*/);
         }//End FaceTarget
 
-    ////--------------Attempted Function for setting target variable-------------------//
-    //void SetTarget(Transform targetObj)
-    //    {
-    //        targetObj = target;
-
-    //        return targetObj;
-    //    }//End SetTarget
-    // Consider deleting this function as a whole; setting the target variable can already be done with a brief line of  code
     //---------------------------------//
-
-    void DummyFunction()
-    {
-
-    }
-
-    //---------------------------------//
-    // currently fleshing out this bit, might have another funtion that acts as a sort of gate for all these other funtions along the lines of "Mode controller" (or just have
-    // that be handled by the initial switch case statement)
+    // Sets the AI speed
+    // Needs to be reworked / improved
     void SetAiSpeed(string detection)
         {
             switch (detection)
@@ -247,23 +272,56 @@ public class EnemyController : MonoBehaviour
         }//End SetSpeed
 
     //---------------------------------//
-    //Function for setting AI destination
+    // Function for setting AI destination
     void SetAIDestination(Vector3 point)
         {
             agent.SetDestination(point);
         }//End SetAIDestination
 
-    //-----------Failed attempt at a distance calculator------------//
-    //Used to calculate distance between two objects (using x, y, & z positions)
-    //Might actually delete this one, seems dumb in the long run
-    //void CalculateDistance(Vector3 obj1, Vector3 obj2)
-    //    {
-    //        float distance; 
+    //---------------------------------//
+    // Revive mechanic set for certain AI prefabs
+    void Revive()
+    {
 
-    //        distance = Vector3.Distance(obj1, obj2);
+    }//End Revive
 
-    //        return distance;
-    //    }   
+    //---------------------------------//
+    // Call for reinforcements
+    void CallForHelp()
+    {
+
+    }//End CallForHelp
+
+    //---------------------------------//
+    // Raises the security level for the area
+    void RaiseSecurityLevel()
+    {
+
+    }//End RaiseSecurityLevel
+
+    #region Attacks
+    // Generic Funcitons to be add WAY down the line
+    private void RangedAttack()
+        {
+        }//End RangedAttack
+
+    private void CQCAttack()
+        {
+            //Any code seen here is meant for debugging purposes only.
+            double timer;
+
+            timer = Time.deltaTime;
+
+            print($"The time is: {timer}");
+
+            print("Talkin' a lot of shit for someone in crusading distance");
+
+            if (timer == .001d)
+                {
+                    stateMachine = EnemyStates.HOSTILE;
+                }   
+        }//End CQCAttack
+
     #endregion
 
     #region Waypoints Logic
@@ -322,15 +380,34 @@ public class EnemyController : MonoBehaviour
 
     #endregion
 
-    #region AI Attacks
-    //Generic Funcitons to be add WAY down the line
-    private void RangedAttack()
-        {
-        }
 
-    private void CQCAttack()
-        {
-        }
 
+    #region Function Graveyard
+    //--------------Attempted Function for setting target variable-------------------//
+    //void SetTarget(Transform targetObj)
+    //    {
+    //        targetObj = target;
+
+    //        return targetObj;
+    //    }//End SetTarget
+    // Consider deleting this function as a whole; setting the target variable can already be done with a brief line of  code
+    //---------------------------------//
+
+
+
+
+    //---------------------------------//
+    //-----------Failed attempt at a distance calculator------------//
+    //Used to calculate distance between two objects (using x, y, & z positions)
+    //Might actually delete this one, seems dumb in the long run
+    //void CalculateDistance(Vector3 obj1, Vector3 obj2)
+    //    {
+    //        float distance; 
+
+    //        distance = Vector3.Distance(obj1, obj2);
+
+    //        return distance;
+    //    }   
+    #endregion
     #endregion
 }
