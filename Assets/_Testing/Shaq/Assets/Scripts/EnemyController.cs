@@ -7,20 +7,20 @@ using UnityEngine.UI;
 
 
 //Current Bugs:
-//    - FaceTarget function does not work when the AI's target is set to the player object
 //    - 
 
 //Things to add:
-//    - https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.CalculatePath.html
-//    - Setting target to waypoints and having the AI cycle through them
-//    - Headers for different sections of code in order to better organize content displayed in the investigator
-//    - Seperate Waypoint navigation method that reverses the order of the waypoints (Back and forth instead of in circles)
-//          -This is already implemented but needs to be more efficient 
-//    - Ability for the AI to check to see if there is a valid path to the set target before it begins moving towrads said target
+//    - Create a feature that makes the AI calculate a path to it's target before it goes after it, can go from there and create logic on what to do if the target is unreachable
+//      - https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.CalculatePath.html
+//    - Begin work/ research on the state machine
+//    - Make general function for setting AI target
 //    - 
 
 //Done:
 //    - Created Group of empty objects w/ parent for testing patrol functionality
+//    - Setting target to waypoints and having the AI cycle through them
+//    - Headers for different sections of code in order to better organize content displayed in the investigator
+//    - Separate Waypoint navigation method that reverses the order of the waypoints (Back and forth instead of in circles)
 //    - 
 
 public class EnemyController : MonoBehaviour
@@ -92,8 +92,8 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     #region Start & Update
-    // Start is called before the first frame update
-    void Start()
+    //  Using Awake() instead of Start() so that when spawning is functional, the AI won't break
+    void Awake()
     {
         print("I live!");
         alert = false;
@@ -101,11 +101,13 @@ public class EnemyController : MonoBehaviour
         agent.speed = patrolSpeed;
         stateText.text = "IDLE";
 
+        //checks to see if there are any objects in the waypoints list
+        //if there are, then it will start the game by setting the target to the first waypoint on the list
         if (waypoints.Count > 0)
         {
             target = waypoints[waypointIndex];
         }
-    }//End Start
+    }//End Awake
 
 
     //---------------------------------//
@@ -135,16 +137,12 @@ public class EnemyController : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
         if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
-        {
-            SetNextWaypoint();
-        }
+            {
+                SetNextWaypoint();
+            }
 
         if (distanceToPlayer <= lookRadius)
             {
-                target = player.transform;
-
-                alert = true;
-
                 print("Pursuit");
 
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
@@ -152,20 +150,21 @@ public class EnemyController : MonoBehaviour
 
                 SetAiSpeed("Pursuit");
 
+                target = player.transform;
+
                 stateText.text = $"{target}";
+
+                speedRead = pursuitSpeed;
+
                 if (distanceToPlayer <= faceRadius)
                     {
                         target = player.transform;
 
                         FaceTarget();
                     }
-            
-                speedRead = pursuitSpeed;
             }
         else
             {
-                alert = false;
-
                 print("Patrol");
 
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
@@ -178,17 +177,6 @@ public class EnemyController : MonoBehaviour
                 stateText.text = $"{target}";
 
                 speedRead = patrolSpeed;
-            }
-
-        switch (alert)
-            {
-                case true:
-                    print("I have been given purpose");
-                    break;
-
-                case false:
-                    print("Give me a task to do pls");
-                    break;
             }
     }//End Update
     #endregion
@@ -221,6 +209,21 @@ public class EnemyController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime /** 2f*/);
         }//End FaceTarget
 
+    ////--------------Attempted Function for setting target variable-------------------//
+    //void SetTarget(Transform targetObj)
+    //    {
+    //        targetObj = target;
+
+    //        return targetObj;
+    //    }//End SetTarget
+    // Consider deleting this function as a whole; setting the target variable can already be done with a brief line of  code
+    //---------------------------------//
+
+    void DummyFunction()
+    {
+
+    }
+
     //---------------------------------//
     // currently fleshing out this bit, might have another funtion that acts as a sort of gate for all these other funtions along the lines of "Mode controller" (or just have
     // that be handled by the initial switch case statement)
@@ -248,7 +251,7 @@ public class EnemyController : MonoBehaviour
     void SetAIDestination(Vector3 point)
         {
             agent.SetDestination(point);
-        }//End Set AI Destination
+        }//End SetAIDestination
 
     //-----------Failed attempt at a distance calculator------------//
     //Used to calculate distance between two objects (using x, y, & z positions)
