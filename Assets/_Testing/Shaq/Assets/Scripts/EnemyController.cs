@@ -7,13 +7,15 @@ using UnityEngine.UI;
 
 //Current Bugs:
 //    - Shoddy timer made in CQCAttack function is currently broken
+//    - 
 
 //Things to add:
 //    - Create a feature that makes the AI calculate a path to it's target before it goes after it, can go from there and create logic on what to do if the target is unreachable
 //      - https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.CalculatePath.html
 //    - Begin work/ research on the state machine
 //    - Make general function for setting AI target
-//    -  
+//    -  Look into coroutines
+//    - 
 
 //Done:
 //    - Created Group of empty objects w/ parent for testing patrol functionality
@@ -31,6 +33,7 @@ public class EnemyController : MonoBehaviour
     private enum EnemyStates
         {
             PASSIVE,
+            WARY,
             SUSPICIOUS,
             HOSTILE,
             ATTACK,
@@ -82,15 +85,18 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float faceRadius = 10f;
     [SerializeField] private float attackRadius = 10f;
     [SerializeField] private float pursuitSpeed = 25f;
+    
     [SerializeField] private float patrolSpeed = 10f;
     //will be used when there is specific behavior for the SUSPICIOUS state
     //[SerializeField] private float sussySpeed = 10f;
+    
     [SerializeField] private float waypointNextDistance = 2f;
 
     [Header("Temporary Variables")]
 
     //Temporary Variables
     [SerializeField] private float speedRead;
+    //being used for testing call once methods on the Attack state for the state machine
     public bool shitBool = true;
 
     #endregion
@@ -152,6 +158,18 @@ public class EnemyController : MonoBehaviour
                 break;
             #endregion
 
+            #region Wary
+            case EnemyStates.WARY:
+                //AI Wary State 
+                FaceTarget();
+                // Insert timer
+                stateMachine = EnemyStates.PASSIVE;
+
+                stateMachine = EnemyStates.SUSPICIOUS;
+                
+                break;
+            #endregion
+
             #region Suspicious Behavior
             case EnemyStates.SUSPICIOUS:
                 //AI Suspicious state
@@ -178,6 +196,10 @@ public class EnemyController : MonoBehaviour
 
                             FaceTarget();
                         }
+                        if (distanceToPlayer <= attackRadius)
+                        {
+                        stateMachine = EnemyStates.HOSTILE;
+                        }
                             
                     //Reconsider the placement of this pls
                     //stateMachine = EnemyStates.HOSTILE;
@@ -199,25 +221,28 @@ public class EnemyController : MonoBehaviour
                     {
                         agent.speed = 0f;
 
-                        FaceTarget();    
-
-                        CQCAttack(10);
-
-                    //stateMachine = EnemyStates.ATTACK;
+                        if (shitBool == true)
+                            {
+                                stateMachine = EnemyStates.ATTACK;
+                            }
                     }
                 else
                     {
                         // HOSTILE >>>> SUSPICIOUS
                         stateMachine = EnemyStates.SUSPICIOUS;
                     }
+                //shitBool = false;
                 break;
             #endregion
 
             #region Attack Behavior
             case EnemyStates.ATTACK:
                 //AI Attack state
+                FaceTarget();
+
                 stateText.text = EnemyStates.ATTACK.ToString();
 
+                CQCAttack(10);
                 break;
             #endregion
 
@@ -229,6 +254,7 @@ public class EnemyController : MonoBehaviour
                 RangedAttack();
                 break;
             #endregion
+
             #region Default Behavior / Bug Catcher
             default:
                 stateText.text = "State not found";
@@ -330,8 +356,10 @@ public class EnemyController : MonoBehaviour
     private void CQCAttack(float timer)
         {
             //Any code seen here is meant for debugging purposes only.
-            //double timer;
 
+            // At this point, the timer is functional but the method of calling the CQCAttack function needs to be worked on
+            // atm currently known method results in infinitely calling the function when the conditions for calling it are met
+            
             timer -= Time.deltaTime;
 
             print($"The time is: {timer}");
@@ -347,6 +375,19 @@ public class EnemyController : MonoBehaviour
                     targetText.text = $"{target}";
                 }   
         }//End CQCAttack
+
+    private void Timer(float length)
+    {
+        length -= Time.deltaTime;
+
+        print($"Time remaining: {length}");
+
+
+        if (length <= 0)
+        {
+            
+        }
+    }
 
     #endregion
 
@@ -416,7 +457,6 @@ public class EnemyController : MonoBehaviour
     //void SetTarget(Transform targetObj)
     //    {
     //        targetObj = target;
-
     //        return targetObj;
     //    }//End SetTarget
     // Consider deleting this function as a whole; setting the target variable can already be done with a brief line of  code
