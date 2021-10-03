@@ -134,6 +134,7 @@ public class EnemyController : MonoBehaviour
                     }
                 if (distanceToPlayer <= lookRadius)
                     {
+                        // PASSIVE >>>> SUSPICIOUS
                         stateMachine = EnemyStates.SUSPICIOUS;
                     }
 
@@ -155,13 +156,14 @@ public class EnemyController : MonoBehaviour
             case EnemyStates.SUSPICIOUS:
                 //AI Suspicious state
                 stateText.text = EnemyStates.SUSPICIOUS.ToString();
+
                 //Checking if the player is within the AI's look radius
                 if (distanceToPlayer <= lookRadius)
                     {
                         //transform.position is being used because you cannot use Vector3 data when Transform is being called
                         SetAIDestination(player.transform.position);
 
-                        SetAiSpeed("Sussy");
+                        SetAiSpeed("Pursuit");
 
                         target = player.transform;
 
@@ -182,6 +184,7 @@ public class EnemyController : MonoBehaviour
                     }
                 else
                     {
+                        // SUSPICIOUS >>>> PASSIVE
                         stateMachine = EnemyStates.PASSIVE;   
                     }
                 break;
@@ -196,12 +199,15 @@ public class EnemyController : MonoBehaviour
                     {
                         agent.speed = 0f;
 
+                        FaceTarget();    
+
                         CQCAttack(10);
 
                     //stateMachine = EnemyStates.ATTACK;
                     }
                 else
                     {
+                        // HOSTILE >>>> SUSPICIOUS
                         stateMachine = EnemyStates.SUSPICIOUS;
                     }
                 break;
@@ -211,6 +217,7 @@ public class EnemyController : MonoBehaviour
             case EnemyStates.ATTACK:
                 //AI Attack state
                 stateText.text = EnemyStates.ATTACK.ToString();
+
                 break;
             #endregion
 
@@ -218,7 +225,7 @@ public class EnemyController : MonoBehaviour
             case EnemyStates.RANGEDATTACK:
                 //AI Suspicious state
                 stateText.text = EnemyStates.RANGEDATTACK.ToString();
-
+                
                 RangedAttack();
                 break;
             #endregion
