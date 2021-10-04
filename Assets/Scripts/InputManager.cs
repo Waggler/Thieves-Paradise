@@ -34,7 +34,7 @@ public class InputManager : MonoBehaviour
     {
         if(context. performed)
         {
-            playerMovement.CallJumpFunctionHere();
+            playerMovement.Jump();
         }
     }
 
