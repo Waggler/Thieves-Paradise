@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    Vector3 moveVector;
-    bool isSprinting;
-    bool isCrouching;
+    private Vector3 moveVector;
+    private bool isSprinting;
+    private bool isCrouching;
     private PlayerMovement playerMovement;
 
     void Awake()
@@ -15,6 +15,9 @@ public class InputManager : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
     }
 
+    #region Inputs
+
+    #region MoveInput
     public void Move(InputAction.CallbackContext context)
     {
         Vector2 contextValue = context.ReadValue<Vector2>();
@@ -28,16 +31,20 @@ public class InputManager : MonoBehaviour
             moveVector = Vector3.zero;
         }
         playerMovement.Movement(moveVector);
-    }
+    }// END MOVE
+    #endregion
 
+    #region JumpInput
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context. performed)
+        if(context.performed)
         {
             playerMovement.Jump();
         }
-    }
+    }// END JUMP
+    #endregion
 
+    #region SprintInput
     public void Sprint(InputAction.CallbackContext context)
     {
         if(context.performed)
@@ -50,8 +57,10 @@ public class InputManager : MonoBehaviour
             isSprinting = false;
             playerMovement.Sprint(isSprinting);
         }
-    }
+    }// END SPRINT
+    #endregion
 
+    #region CrouchInput
     public void Crouch(InputAction.CallbackContext context)
     {
         if(context.performed)
@@ -64,6 +73,8 @@ public class InputManager : MonoBehaviour
             isCrouching = false;
             playerMovement.Crouch(isCrouching);
         }
-    }
+    }// END CROUCH
+    #endregion
 
+    #endregion
 }
