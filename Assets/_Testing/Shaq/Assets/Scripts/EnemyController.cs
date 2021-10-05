@@ -71,6 +71,42 @@ public class EnemyController : MonoBehaviour
     };
     #endregion
 
+    #region AI Coroutines
+    IEnumerator Attack()
+    {
+        //if (stateMachine == EnemyStates.ATTACK)
+        //{
+            float timer = 10f;
+
+            timer -= Time.deltaTime;
+
+            print($"The time is: {timer}");
+
+            print("YOU HAVE ENTERED THE COROUTINE");
+
+
+            targetText.text = "THWAK";
+
+            //print("Talkin' a lot of shit for someone in crusading distance");
+
+            if (timer <= 0)
+            {
+                stateMachine = EnemyStates.SUSPICIOUS;
+
+                targetText.text = $"{target}";
+
+                return null;
+            }
+            return null;
+        //}
+        //else
+        //{
+        //    return null;
+        //}
+    }
+
+    #endregion
+
     #region Variables
 
     //Important Variables
@@ -242,7 +278,10 @@ public class EnemyController : MonoBehaviour
 
                 stateText.text = EnemyStates.ATTACK.ToString();
 
-                CQCAttack(10);
+                //CQCAttack(10);
+
+                StartCoroutine("Attack");
+
                 break;
             #endregion
 
@@ -385,7 +424,7 @@ public class EnemyController : MonoBehaviour
 
         if (length <= 0)
         {
-            
+            return;
         }
     }
 
