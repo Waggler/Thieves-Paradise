@@ -15,9 +15,16 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Physics")]
     [SerializeField] private float Gravity;
-    [SerializeField] private float JumpForce;
+    [SerializeField] private float JumpHeight;
+    [SerializeField] private float HeightFromGround;
     [SerializeField] private CharacterController Controller;
     Vector3 VerticalVelocity = Vector3.zero;
+    private bool IsGrounded = true;
+
+    [Header("Height")]
+    [SerializeField] private float StandardHeight;
+    [SerializeField] private float CrouchingHeight;
+    
 
     #endregion
 
@@ -29,14 +36,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        GroundCheck();
+        
         #region Gravity
-        if(Controller.isGrounded)
+        if(IsGrounded)
         {
-            print("ground");
+            VerticalVelocity.y = 0;
         }
 
-        //VerticalVelocity.y -= Gravity * Time.deltaTime;
-        //Controller.Move(VerticalVelocity * Time.deltaTime);
+        VerticalVelocity.y -= Gravity * Time.deltaTime;
+        Controller.Move(VerticalVelocity * Time.deltaTime);
         #endregion
 
         #region Movement
@@ -56,7 +65,11 @@ public class PlayerMovement : MonoBehaviour
     #region Jump
     public void Jump()
     {
-        
+        if(IsGrounded)
+        {
+            VerticalVelocity.y = Mathf.Sqrt(-2f * JumpHeight * -Gravity);
+            Controller.Move(VerticalVelocity * Time.deltaTime);
+        }
     }
     #endregion
 
@@ -80,10 +93,26 @@ public class PlayerMovement : MonoBehaviour
         if(Crouching == true)
         {
             CurrentSpeed = CrouchSpeed;
+            Controller.height = CrouchingHeight;
         }
         else if(Crouching == false)
         {
             CurrentSpeed = WalkingSpeed;
+            Controller.height = StandardHeight;
+        }
+    }
+    #endregion
+
+    #region Ground
+    void GroundCheck()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, HeightFromGround + 0.1f))
+        {
+            IsGrounded = true;
+        }
+        else
+        {
+            IsGrounded = false;
         }
     }
     #endregion
