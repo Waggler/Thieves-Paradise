@@ -18,9 +18,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
-    private bool IsCovered = false;
     private bool IsCrouching = false;
-    private bool WasCrouching = false;
+
 
     [Header("Physics")]
     [SerializeField] private float Gravity;
@@ -46,14 +45,16 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCheck();
 
-        if(IsCrouching == false && WasCrouching == true)
+        if(IsCrouching == false && IsSprinting == false)
         {
             CoveredCheck();
         }
 
+        if(IsSprinting == true)
+        {
+            Sprinting();
+        }
 
-        print(CurrentSpeed);
-        
         #region Gravity
         if(IsGrounded)
         {
@@ -97,23 +98,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Sprinting == true)
         {
-            CurrentSpeed = Mathf.Lerp(CurrentSpeed, RunningSpeed, Acceleration);
-
-            Acceleration += 1f * Time.deltaTime;
-
-            if(CurrentSpeed == RunningSpeed)
-            {
-                CurrentSpeed = RunningSpeed;
-                print("Running");
-            }
-
             IsSprinting = true;
         }
         else if(Sprinting == false)
         {
             CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
-            Acceleration = 0.1f;
         }
     }
     #endregion
@@ -131,18 +121,10 @@ public class PlayerMovement : MonoBehaviour
             Collider.center = new Vector3 (0f, -0.5f, 0f);
             GroundHeight = CrouchingHeightFromGround;
             IsCrouching = true;
-            WasCrouching = true;
         }
-        else if(Crouching == false && IsCovered == false)
+        else if(Crouching == false)
         {
-            CurrentSpeed = WalkingSpeed;
-            Collider.height = StandardHeight;
-            Controller.height = StandardHeight;
-            Controller.center = new Vector3 (0f, 0f, 0f);
-            Collider.center = new Vector3 (0f, 0f, 0f);
-            GroundHeight = HeightFromGround;
             IsCrouching = false;
-            WasCrouching = false;
         }
     }
     #endregion
@@ -166,17 +148,41 @@ public class PlayerMovement : MonoBehaviour
     //---COVEREDCHECK---//
     void CoveredCheck()
     {
+        //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
+        //RaycastHit hit;
+        //Vector3 p1 = transform.position + Controller.center + Vector3.up * -Controller.height * 0.5f;
+        //Vector3 p2 = p1 + Vector3.up * Controller.height;
 
         if(Physics.Raycast(transform.position, Vector3.up, HeightFromGround + 0.1f))
         {
-            IsCovered = true;
+            return;
         }
         else
         {
-            IsCovered = false;
+            CurrentSpeed = WalkingSpeed;
+            Collider.height = StandardHeight;
+            Controller.height = StandardHeight;
+            Controller.center = new Vector3(0f, 0f, 0f);
+            Collider.center = new Vector3(0f, 0f, 0f);
+            GroundHeight = HeightFromGround;
         }
     }
 
+    #endregion
+
+    #region Sprinting
+    //---SPRINTING---//
+    void Sprinting()
+    {
+        if(CurrentSpeed < RunningSpeed)
+        {
+            CurrentSpeed += Acceleration * Time.deltaTime;
+        }
+        else if(CurrentSpeed >= RunningSpeed)
+        {
+            CurrentSpeed = RunningSpeed;
+        }
+    }
     #endregion
 
     #endregion
