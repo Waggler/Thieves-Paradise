@@ -33,6 +33,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Open Door"",
+                    ""type"": ""Button"",
+                    ""id"": ""5ed0351f-5422-4420-bc35-a549aee2237f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -101,6 +109,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca1af45c-07c4-481b-96e4-e21e365f8144"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardandMouse"",
+                    ""action"": ""Open Door"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -128,6 +147,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_Land = asset.FindActionMap("Land", throwIfNotFound: true);
         m_Land_Move = m_Land.FindAction("Move", throwIfNotFound: true);
         m_Land_Jump = m_Land.FindAction("Jump", throwIfNotFound: true);
+        m_Land_OpenDoor = m_Land.FindAction("Open Door", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -179,12 +199,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private ILandActions m_LandActionsCallbackInterface;
     private readonly InputAction m_Land_Move;
     private readonly InputAction m_Land_Jump;
+    private readonly InputAction m_Land_OpenDoor;
     public struct LandActions
     {
         private @PlayerController m_Wrapper;
         public LandActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Land_Move;
         public InputAction @Jump => m_Wrapper.m_Land_Jump;
+        public InputAction @OpenDoor => m_Wrapper.m_Land_OpenDoor;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -200,6 +222,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_LandActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnJump;
+                @OpenDoor.started -= m_Wrapper.m_LandActionsCallbackInterface.OnOpenDoor;
+                @OpenDoor.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnOpenDoor;
+                @OpenDoor.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnOpenDoor;
             }
             m_Wrapper.m_LandActionsCallbackInterface = instance;
             if (instance != null)
@@ -210,6 +235,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @OpenDoor.started += instance.OnOpenDoor;
+                @OpenDoor.performed += instance.OnOpenDoor;
+                @OpenDoor.canceled += instance.OnOpenDoor;
             }
         }
     }
@@ -227,5 +255,6 @@ public class @PlayerController : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnOpenDoor(InputAction.CallbackContext context);
     }
 }

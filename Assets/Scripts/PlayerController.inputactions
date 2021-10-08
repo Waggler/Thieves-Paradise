@@ -20,6 +20,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Open Door",
+                    "type": "Button",
+                    "id": "5ed0351f-5422-4420-bc35-a549aee2237f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -86,6 +94,17 @@
                     "processors": "",
                     "groups": "KeyboardandMouse",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca1af45c-07c4-481b-96e4-e21e365f8144",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardandMouse",
+                    "action": "Open Door",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
