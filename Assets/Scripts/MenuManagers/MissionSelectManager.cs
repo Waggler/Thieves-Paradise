@@ -41,6 +41,15 @@ public class MissionSelectManager : MonoBehaviour
     private void Start()
     //-----------------------//
     {
+        Init();
+
+    }//END Start
+
+
+    //-----------------------//
+    private void Init()
+    //-----------------------//
+    {
         if (isTierOneComplete == false)
         {
             unionButton.interactable = false;
