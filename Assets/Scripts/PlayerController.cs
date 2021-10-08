@@ -35,8 +35,8 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Open Door"",
-                    ""type"": ""Button"",
+                    ""name"": ""e"",
+                    ""type"": ""Value"",
                     ""id"": ""5ed0351f-5422-4420-bc35-a549aee2237f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -117,7 +117,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardandMouse"",
-                    ""action"": ""Open Door"",
+                    ""action"": ""e"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -147,7 +147,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_Land = asset.FindActionMap("Land", throwIfNotFound: true);
         m_Land_Move = m_Land.FindAction("Move", throwIfNotFound: true);
         m_Land_Jump = m_Land.FindAction("Jump", throwIfNotFound: true);
-        m_Land_OpenDoor = m_Land.FindAction("Open Door", throwIfNotFound: true);
+        m_Land_e = m_Land.FindAction("e", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -199,14 +199,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private ILandActions m_LandActionsCallbackInterface;
     private readonly InputAction m_Land_Move;
     private readonly InputAction m_Land_Jump;
-    private readonly InputAction m_Land_OpenDoor;
+    private readonly InputAction m_Land_e;
     public struct LandActions
     {
         private @PlayerController m_Wrapper;
         public LandActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Land_Move;
         public InputAction @Jump => m_Wrapper.m_Land_Jump;
-        public InputAction @OpenDoor => m_Wrapper.m_Land_OpenDoor;
+        public InputAction @e => m_Wrapper.m_Land_e;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -222,9 +222,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_LandActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnJump;
-                @OpenDoor.started -= m_Wrapper.m_LandActionsCallbackInterface.OnOpenDoor;
-                @OpenDoor.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnOpenDoor;
-                @OpenDoor.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnOpenDoor;
+                @e.started -= m_Wrapper.m_LandActionsCallbackInterface.OnE;
+                @e.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnE;
+                @e.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnE;
             }
             m_Wrapper.m_LandActionsCallbackInterface = instance;
             if (instance != null)
@@ -235,9 +235,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @OpenDoor.started += instance.OnOpenDoor;
-                @OpenDoor.performed += instance.OnOpenDoor;
-                @OpenDoor.canceled += instance.OnOpenDoor;
+                @e.started += instance.OnE;
+                @e.performed += instance.OnE;
+                @e.canceled += instance.OnE;
             }
         }
     }
@@ -255,6 +255,6 @@ public class @PlayerController : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnOpenDoor(InputAction.CallbackContext context);
+        void OnE(InputAction.CallbackContext context);
     }
 }

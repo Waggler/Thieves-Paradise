@@ -10,6 +10,8 @@ public class ThirdPersonMovement : MonoBehaviour
     public bool isOnGround = true;
     public float distance = 5f;
     public GameObject Camera;
+    public GameObject door;
+    public bool buttonPressed= false;
 
     // Start is called before the first frame update
     void Start()

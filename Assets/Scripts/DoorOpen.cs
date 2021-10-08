@@ -42,7 +42,10 @@ public class DoorOpen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+       if(Input.GetButtonDown("e"))
+        {
+            buttonPressed = true;
+        }
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -50,12 +53,7 @@ public class DoorOpen : MonoBehaviour
         inArea = true;
         message.SetActive(true);
 
-        // if(Input.GetButtonDown("e"))
-        // {
-            buttonPressed = true;
-        // }
-
-        if(inArea == true && buttonPressed == true)
+        if(buttonPressed == true)
         {
             door.transform.eulerAngles = new Vector3(0f, -76.942f, 0f);
             door.transform.position = new Vector3(8.57f, 2.1f, 6.456132f);
