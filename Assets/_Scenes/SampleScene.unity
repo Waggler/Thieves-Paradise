@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -407,6 +407,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b0bda7ea-635c-4a94-913a-44263383a5ba
     m_ActionName: PlayerControls/Crouch[/Keyboard/leftCtrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 578193160}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: Roll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f9f66606-631f-45e1-a46c-839129511181
+    m_ActionName: PlayerControls/Roll
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -446,7 +462,6 @@ MonoBehaviour:
   RunningSpeed: 20
   CrouchSpeed: 5
   Acceleration: 5
-  CurrentSpeed: 0
   StandardHeight: 2
   CrouchingHeight: 1
   Gravity: 30
@@ -455,6 +470,8 @@ MonoBehaviour:
   CrouchingHeightFromGround: 0.5
   Collider: {fileID: 578193153}
   Controller: {fileID: 578193158}
+  RollingSpeed: 20
+  RollingTime: 0.25
 --- !u!114 &578193160
 MonoBehaviour:
   m_ObjectHideFlags: 0

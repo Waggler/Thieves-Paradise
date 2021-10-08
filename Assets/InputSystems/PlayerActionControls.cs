@@ -49,6 +49,14 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""type"": ""Button"",
+                    ""id"": ""f9f66606-631f-45e1-a46c-839129511181"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -183,6 +191,28 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21e85c22-d7a0-4aee-9984-60d8005dd562"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a023a80-7e95-4105-9c55-b728b37ee241"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -195,6 +225,7 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
         m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
         m_PlayerControls_Sprint = m_PlayerControls.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerControls_Crouch = m_PlayerControls.FindAction("Crouch", throwIfNotFound: true);
+        m_PlayerControls_Roll = m_PlayerControls.FindAction("Roll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -248,6 +279,7 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Jump;
     private readonly InputAction m_PlayerControls_Sprint;
     private readonly InputAction m_PlayerControls_Crouch;
+    private readonly InputAction m_PlayerControls_Roll;
     public struct PlayerControlsActions
     {
         private @PlayerActionControls m_Wrapper;
@@ -256,6 +288,7 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
         public InputAction @Sprint => m_Wrapper.m_PlayerControls_Sprint;
         public InputAction @Crouch => m_Wrapper.m_PlayerControls_Crouch;
+        public InputAction @Roll => m_Wrapper.m_PlayerControls_Roll;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -277,6 +310,9 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                 @Crouch.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCrouch;
+                @Roll.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRoll;
+                @Roll.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRoll;
+                @Roll.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRoll;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -293,6 +329,9 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Roll.started += instance.OnRoll;
+                @Roll.performed += instance.OnRoll;
+                @Roll.canceled += instance.OnRoll;
             }
         }
     }
@@ -303,5 +342,6 @@ public class @PlayerActionControls : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
     }
 }

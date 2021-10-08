@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
     private bool IsCrouching = false;
+    private bool UnCrouched = true;
 
 
     [Header("Physics")]
@@ -31,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
     private float GroundHeight;
     private Vector3 VerticalVelocity = Vector3.zero;
     private bool IsGrounded = true;
+
+    [Header("Roolling")]
+    [SerializeField] private float RollingSpeed;
+    [SerializeField] private float RollingTime;
 
     #endregion
 
@@ -114,19 +119,33 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Crouching == true && IsGrounded == true)
         {
-            CurrentSpeed = CrouchSpeed;
-            Collider.height = CrouchingHeight;
-            Controller.height = CrouchingHeight;
-            Controller.center = new Vector3 (0f, -0.5f, 0f);
-            Collider.center = new Vector3 (0f, -0.5f, 0f);
-            GroundHeight = CrouchingHeightFromGround;
-            IsCrouching = true;
+            if(UnCrouched == true)
+            {
+                CrouchDown();
+                UnCrouched = false;
+            }
+            else if(UnCrouched == false)
+            {
+                UnCrouched = true;
+            }
         }
-        else if(Crouching == false)
+        else if(Crouching == false && UnCrouched == true)
         {
             IsCrouching = false;
         }
     }
+    #endregion
+
+    #region Roll
+    //----------ROLL----------//
+    public void Roll(bool Rolling)
+    {
+        if(Rolling == true && IsCrouching == true)
+        {
+            print("Roll");
+        }
+    }
+
     #endregion
 
     #region Ground
@@ -149,22 +168,20 @@ public class PlayerMovement : MonoBehaviour
     void CoveredCheck()
     {
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
-        //RaycastHit hit;
-        //Vector3 p1 = transform.position + Controller.center + Vector3.up * -Controller.height * 0.5f;
-        //Vector3 p2 = p1 + Vector3.up * Controller.height;
-
         if(Physics.Raycast(transform.position, Vector3.up, HeightFromGround + 0.1f))
         {
+            UnCrouched = false;
+            IsCrouching = true;
             return;
         }
         else
         {
-            CurrentSpeed = WalkingSpeed;
-            Collider.height = StandardHeight;
-            Controller.height = StandardHeight;
-            Controller.center = new Vector3(0f, 0f, 0f);
-            Collider.center = new Vector3(0f, 0f, 0f);
-            GroundHeight = HeightFromGround;
+            StandUp();
+        }
+
+        if(UnCrouched == false)
+        {
+            CrouchDown();
         }
     }
 
@@ -185,5 +202,34 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
+    #region StandUp
+    //---STAND-UP---//
+    void StandUp()
+    {
+        CurrentSpeed = WalkingSpeed;
+        Collider.height = StandardHeight;
+        Controller.height = StandardHeight;
+        Controller.center = new Vector3(0f, 0f, 0f);
+        Collider.center = new Vector3(0f, 0f, 0f);
+        GroundHeight = HeightFromGround;
+    }
+
+    #endregion
+    
+    #region CrouchDown
+    //---CROUCH-DOWN---//
+    void CrouchDown()
+    {
+        CurrentSpeed = CrouchSpeed;
+        Collider.height = CrouchingHeight;
+        Controller.height = CrouchingHeight;
+        Controller.center = new Vector3 (0f, -0.5f, 0f);
+        Collider.center = new Vector3 (0f, -0.5f, 0f);
+        GroundHeight = CrouchingHeightFromGround;
+        IsCrouching = true;
+    }
+
+    #endregion
+    
     #endregion
 }
