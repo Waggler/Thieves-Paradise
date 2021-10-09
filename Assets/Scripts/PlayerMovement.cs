@@ -36,12 +36,16 @@ public class PlayerMovement : MonoBehaviour
     [Header("Roolling")]
     [SerializeField] private float RollingSpeed;
     [SerializeField] private float RollingTime;
+    public float CurrentRollTime;
+    private Vector3 RollDirection;
+    private bool IsRolling;
 
     #endregion
 
     void Start()
     {
         CurrentSpeed = WalkingSpeed;
+        CurrentRollTime = RollingTime;
         Controller = GetComponent<CharacterController>();
         Collider = GetComponent<CapsuleCollider>();
     }
@@ -73,6 +77,30 @@ public class PlayerMovement : MonoBehaviour
         #region Movement
         Controller.Move(Direction * CurrentSpeed * Time.deltaTime);
         #endregion
+
+        #region Roll Action
+        if(IsRolling == true)
+        {
+            if(CurrentRollTime > 0)
+            {
+                Controller.Move(RollDirection * RollingSpeed * Time.deltaTime);
+                CurrentRollTime -= Time.deltaTime;
+            }
+            else if(CurrentRollTime <= 0)
+            {
+                IsRolling = false;
+            }
+        }
+        if(IsRolling == false && CurrentRollTime < RollingTime)
+        {
+            CurrentRollTime += Time.deltaTime;
+            if(CurrentRollTime > RollingTime)
+            {
+                CurrentRollTime = RollingTime;
+            }
+        }
+
+        #endregion
     }
 
     #region Functions
@@ -82,6 +110,10 @@ public class PlayerMovement : MonoBehaviour
     public void Movement(Vector3 Move)
     {
         Direction = new Vector3(Move.x, 0f, Move.z);
+        if(Direction != Vector3.zero)
+        {
+            RollDirection = Direction;
+        }
     }
     #endregion
 
@@ -142,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Rolling == true && IsCrouching == true)
         {
-            print("Roll");
+            IsRolling = true;
         }
     }
 
