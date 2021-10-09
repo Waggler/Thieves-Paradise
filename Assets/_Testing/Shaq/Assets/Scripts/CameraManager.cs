@@ -43,7 +43,7 @@ public class CameraManager : MonoBehaviour
     #region Variables
     [Header("Camera Target / Trigger")]
     private Transform target;
-    
+
     [Header("Object References")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject Self;
@@ -56,10 +56,12 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float lookRadius;
     [SerializeField] private float degreesPerSec;
     [SerializeField] private float trackSpeed;
-    [SerializeField] private Vector3 rotationMaxY;
-    [SerializeField] private Vector3 rotationMinY;
-    [SerializeField] private Vector3 rotationMaxX;
-    [SerializeField] private Vector3 rotationMinX;
+    [SerializeField] private Vector3 rotationMax;
+    [SerializeField] private Vector3 rotationMin;
+
+    [Header("Debug Variables")]
+    [SerializeField] private Quaternion originalRotation;
+    [SerializeField] private float rotationSpeed;
 
 
 
@@ -73,19 +75,30 @@ public class CameraManager : MonoBehaviour
         FOCUSED
     }
 
+    [Header("Camera States")]
     [SerializeField] CamStates cameraStateMachine;
 
     #endregion
 
-    #region Awake & Update
+    #region Awake & Update (Start added for debug)
+
+    #region Awake / Start
+    private void Start()
+    {
+    }
 
     void Awake()
     {
         stateText.text = "";
         targetText.text = "";
 
+        originalRotation = Self.transform.rotation;
+
     }//End Awake
 
+    #endregion
+
+    #region Update
     void Update()
     {
         //Can change this variable type to Transform if need be
@@ -93,62 +106,137 @@ public class CameraManager : MonoBehaviour
         //By default Vector3 variables cannot have a null value outside of being null on Awake() / Start
         Vector3? playerReport;
 
+        //Vector3 camCurrentRotation;
+        //camCurrentRotation.y = transform.rotation.y;
+
+
         transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime);
 
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        if (distanceToPlayer <= lookRadius)
-        {
-            target = player.transform;
-
-            stateText.text = "TARGET FOUND";
-
-            targetText.text = $"{target}";
-
-            playerReport = player.transform.position;
-            
-            FaceTarget();
-        }
-        else
-        {
-            target = null;
-
-            stateText.text = "MONITORING";
-
-            targetText.text = $"{target}";
-
-            playerReport = null;
-
-            //Rotating at degreesPerSec relative to the World Space
-            Self.transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime, Space.World);
-
-            //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
-            if (transform.rotation.eulerAngles.y <= rotationMaxY.y)
-            {
-                print("Going over maximum allowed rotation / POSITIVE");
-            }
-            else if (transform.rotation.eulerAngles.y <= rotationMinY.y)
-            {
-                print("Going over minimum allowed rotation / NEGATIVE");
-            }
-        }
-
+        #region Cam State Machine
         switch (cameraStateMachine)
         {
+            #region Monitoring State
+            //When the camera does not see the player / MONITORING
             case CamStates.MONITORING:
                 stateText.text = $"{cameraStateMachine}";
 
+
+                target = null;
+
+                stateText.text = "MONITORING";
+
+                targetText.text = $"{target}";
+
+                playerReport = null;
+
+                //Rotating at degreesPerSec relative to the World Space
+                Self.transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime, Space.Self);
+
+                //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
+                if (transform.rotation.eulerAngles.y <= rotationMax.y)
+                {
+                    print("Going over maximum allowed rotation / POSITIVE");
+
+                    degreesPerSec = -degreesPerSec;
+                }
+                else if (transform.rotation.eulerAngles.y <= rotationMin.y)
+                {
+                    print("Going over minimum allowed rotation / NEGATIVE");
+
+                    degreesPerSec = -degreesPerSec;
+                }
+
+                else if (distanceToPlayer <= lookRadius)
+                {
+                    cameraStateMachine = CamStates.FOCUSED;
+                }
+
                 break;
+            #endregion
+
+            #region Focused State
+            //When the camera sees the player / FOCUSED
             case CamStates.FOCUSED:
                 stateText.text = $"{cameraStateMachine}";
 
+
+
+                target = player.transform;
+
+                stateText.text = "TARGET FOUND";
+
+                targetText.text = $"{target}";
+
+                playerReport = player.transform.position;
+
+                FaceTarget();
+
+                if (distanceToPlayer >= lookRadius)
+                {
+                    print($"Resetting to {originalRotation}");
+
+                    transform.rotation = Quaternion.Lerp(transform.rotation, originalRotation, Time.deltaTime * rotationSpeed);
+
+                    cameraStateMachine = CamStates.MONITORING;
+                }
+
                 break;
+            #endregion
+
+            #region Defualt state
             default:
                 stateText.text = "State Not Found";
 
                 break;
+            #endregion
         }
+        #endregion
+
+        #endregion
+
+
+    #region Old Code
+        //if (distanceToPlayer <= lookRadius)
+        //{
+        //    target = player.transform;
+
+        //    stateText.text = "TARGET FOUND";
+
+        //    targetText.text = $"{target}";
+
+        //    playerReport = player.transform.position;
+
+        //    FaceTarget();
+        //}
+        //else
+        //{
+        //target = null;
+
+        //stateText.text = "MONITORING";
+
+        //targetText.text = $"{target}";
+
+        //playerReport = null;
+
+        ////Rotating at degreesPerSec relative to the World Space
+        //Self.transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime, Space.World);
+
+        ////Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
+        //if (transform.rotation.eulerAngles.y <= rotationMaxY.y)
+        //{
+        //    print("Going over maximum allowed rotation / POSITIVE");
+        //}
+        //else if (transform.rotation.eulerAngles.y <= rotationMinY.y)
+        //{
+        //    print("Going over minimum allowed rotation / NEGATIVE");
+        //}
+        //}
+
     }//End Update
+    #endregion
+
     #endregion
 
 
@@ -157,24 +245,13 @@ public class CameraManager : MonoBehaviour
     //Function that makes the object face it's target
     void FaceTarget()
     {
-        //Space.World
-        Quaternion rotationTarget;
-
         Vector3 direction = (target.position - transform.position).normalized;
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
 
-        rotationTarget = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * trackSpeed);
-
         //try not to add Time.deltaTime to this as it will result in the Camera needing to use it's rotational Z-axis
         // this will result in an unusual appearance in the final game
         transform.rotation = lookRotation;
-
-
-
-
-        //Use this if you want the camera to spin like hell
-        //transform.Rotate(rotationTarget.eulerAngles, Space.World);
 
     }//End FaceTarget
 
