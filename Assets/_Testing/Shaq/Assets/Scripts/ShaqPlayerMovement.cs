@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 
-public class PlayerMovement : MonoBehaviour
+public class ShaqPlayerMovement : MonoBehaviour
 {
     public float walkingSpeed = 7.5f;
     public float runningSpeed = 11.5f;
