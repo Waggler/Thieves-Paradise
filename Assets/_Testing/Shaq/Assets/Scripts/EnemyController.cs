@@ -15,7 +15,7 @@ using UnityEngine.UI;
 //    - Begin work/ research on the state machine
 //    - Make general function for setting AI target
 //    -  Look into coroutines
-//    - 
+//    - Better method for handling the Attack state (might need to make use of an animation controller)
 
 //Done:
 //    - Created Group of empty objects w/ parent for testing patrol functionality
@@ -121,6 +121,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float faceRadius = 10f;
     [SerializeField] private float attackRadius = 10f;
     [SerializeField] private float pursuitSpeed = 25f;
+    [SerializeField] private GameObject projectile;
     
     [SerializeField] private float patrolSpeed = 10f;
     //will be used when there is specific behavior for the SUSPICIOUS state
@@ -141,7 +142,6 @@ public class EnemyController : MonoBehaviour
     //  Using Awake() instead of Start() so that when spawning is functional, the AI won't break
     void Awake()
     {
-        print("I live!");
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
         stateMachine = EnemyStates.PASSIVE;
@@ -280,7 +280,11 @@ public class EnemyController : MonoBehaviour
 
                 //CQCAttack(10);
 
-                StartCoroutine("Attack");
+                //StartCoroutine("Attack");
+                //StopCoroutine("Attack");
+
+                print("You are being attacked");
+                stateMachine = EnemyStates.HOSTILE; 
 
                 break;
             #endregion
@@ -315,7 +319,7 @@ public class EnemyController : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position, lookRadius);
 
             //Drawing a Cyan Sphere
-            Gizmos.color = Color.cyan;
+            Gizmos.color = Color.yellow;
             //Sphere radius tied to Face Radius variable
             Gizmos.DrawWireSphere(transform.position, faceRadius);
 
