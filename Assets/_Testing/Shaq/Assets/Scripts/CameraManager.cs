@@ -55,15 +55,16 @@ public class CameraManager : MonoBehaviour
     [Header("Camera Rotation Variables")]
     [SerializeField] private float lookRadius;
     [SerializeField] private float degreesPerSec;
-    [SerializeField] private float trackSpeed;
     [SerializeField] private Vector3 rotationMax;
     [SerializeField] private Vector3 rotationMin;
 
-    [Header("Debug Variables")]
+    [Header("Debug Variables (Be warned some of these won't do anything most of the time)")]
     [SerializeField] private Quaternion originalRotation;
     [SerializeField] private float rotationSpeed;
 
+    [SerializeField] private Vector3 selfRotation;
 
+    [SerializeField] private bool @bool = false;
 
 
     #endregion
@@ -106,11 +107,7 @@ public class CameraManager : MonoBehaviour
         //By default Vector3 variables cannot have a null value outside of being null on Awake() / Start
         Vector3? playerReport;
 
-        //Vector3 camCurrentRotation;
-        //camCurrentRotation.y = transform.rotation.y;
-
-
-        transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime);
+        transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime, Space.Self);
 
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
@@ -135,17 +132,18 @@ public class CameraManager : MonoBehaviour
                 Self.transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime, Space.Self);
 
                 //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
-                if (transform.rotation.eulerAngles.y <= rotationMax.y)
+
+                if (transform.rotation.eulerAngles.y <= rotationMax.y && @bool == true)
                 {
                     print("Going over maximum allowed rotation / POSITIVE");
 
                     degreesPerSec = -degreesPerSec;
                 }
-                else if (transform.rotation.eulerAngles.y <= rotationMin.y)
+                else if (transform.rotation.eulerAngles.y <= rotationMin.y && @bool == true)
                 {
                     print("Going over minimum allowed rotation / NEGATIVE");
 
-                    degreesPerSec = -degreesPerSec;
+                    //degreesPerSec = -degreesPerSec;
                 }
 
                 else if (distanceToPlayer <= lookRadius)
@@ -173,14 +171,14 @@ public class CameraManager : MonoBehaviour
 
                 FaceTarget();
 
-                if (distanceToPlayer >= lookRadius)
-                {
-                    print($"Resetting to {originalRotation}");
+                //if (distanceToPlayer >= lookRadius)
+                //{
+                //    print($"Resetting to {originalRotation}");
 
-                    transform.rotation = Quaternion.Lerp(transform.rotation, originalRotation, Time.deltaTime * rotationSpeed);
+                //    transform.rotation = Quaternion.Lerp(transform.rotation, originalRotation, Time.deltaTime * rotationSpeed);
 
-                    cameraStateMachine = CamStates.MONITORING;
-                }
+                //    cameraStateMachine = CamStates.MONITORING;
+                //}
 
                 break;
             #endregion
