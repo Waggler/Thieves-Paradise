@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region Movement
         Controller.Move(Direction * CurrentSpeed * Time.deltaTime);
+        
         #endregion
 
         #region Roll Action
