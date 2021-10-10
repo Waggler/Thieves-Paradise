@@ -1,21 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+// You can also use transform.LookAt
+
 using UnityEngine;
+using System.Collections;
 
 public class GhostCamera : MonoBehaviour
 {
-    // private float ghostPositionY;
-    // public float ghostTransform;
+    public Transform target;
 
-    // void LateUpdate()
-    // {
-    //     ghostTransform.transform = new Vector3(CharacterMesh.position.x,    ghostPositionY, CharacterMesh.position.z);
-    // }
+    void Update()
+    {
+        Vector3 relativePos = target.position - transform.position;
 
-    // // only invoke when character leaving the ground via jump or fall
-    // void OnLeaveGround()
-    // {
-    //     // update Y for behavior 3
-    //     ghostPositionY = CharacterMesh.position.y;
-    // }
+        // the second argument, upwards, defaults to Vector3.up
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        transform.rotation = rotation;
+    }
 }
