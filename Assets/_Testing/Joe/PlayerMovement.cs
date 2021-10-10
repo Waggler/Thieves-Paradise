@@ -33,12 +33,15 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 VerticalVelocity = Vector3.zero;
     private bool IsGrounded = true;
 
-    [Header("Roolling")]
+    [Header("Rolling")]
     [SerializeField] private float RollingSpeed;
     [SerializeField] private float RollingTime;
-    public float CurrentRollTime;
+    private float CurrentRollTime;
     private Vector3 RollDirection;
     private bool IsRolling;
+
+    //[Header("Sliding")]
+    //For the slide I know I might change up some of the logic, but I wish to have slide be like pressing ctrl but I might need to find a new button or talk to Patrick about the idea.
 
     #endregion
 
@@ -65,18 +68,30 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #region Gravity
+        //FIX: Crouching Gravity is a bit wonky, talk to Patrick on Tuesday about this.
         if(IsGrounded)
         {
             VerticalVelocity.y = 0;
         }
 
-        VerticalVelocity.y -= Gravity * Time.deltaTime;
-        Controller.Move(VerticalVelocity * Time.deltaTime);
+        if(IsCrouching == false)
+        {
+            VerticalVelocity.y -= Gravity * Time.deltaTime;
+            Controller.Move(VerticalVelocity * Time.deltaTime);
+        }
+        else if(IsCrouching == true)
+        {
+            VerticalVelocity.y -= Gravity * Time.deltaTime * 35;
+            Controller.Move(VerticalVelocity * Time.deltaTime);
+        }
         #endregion
 
         #region Movement
-        Controller.Move(Direction * CurrentSpeed * Time.deltaTime);
-        
+        if(IsRolling == false)
+        {
+            Controller.Move(Direction * CurrentSpeed * Time.deltaTime);
+        }
+
         #endregion
 
         #region Roll Action
@@ -111,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
     public void Movement(Vector3 Move)
     {
         Direction = new Vector3(Move.x, 0f, Move.z);
-        if(Direction != Vector3.zero)
+        if(Direction != Vector3.zero && IsRolling == false) 
         {
             RollDirection = Direction;
         }
@@ -122,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if(IsGrounded)
+        if(IsGrounded && IsCrouching == false)
         {
             VerticalVelocity.y = Mathf.Sqrt(-2f * JumpHeight * -Gravity);
             Controller.Move(VerticalVelocity * Time.deltaTime);
@@ -134,11 +149,11 @@ public class PlayerMovement : MonoBehaviour
     //----------SPRINT----------//
     public void Sprint(bool Sprinting)
     {
-        if(Sprinting == true)
+        if(Sprinting == true  && IsCrouching == false)
         {
             IsSprinting = true;
         }
-        else if(Sprinting == false)
+        else if(Sprinting == false && IsCrouching == false)
         {
             CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
