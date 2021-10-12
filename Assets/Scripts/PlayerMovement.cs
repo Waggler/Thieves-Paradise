@@ -207,6 +207,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             IsGrounded = false;
+            if(IsCrouching)
+            {
+                print("HI!");
+                StandUp();
+                IsCrouching = false;
+            }
         }
     }
     #endregion
