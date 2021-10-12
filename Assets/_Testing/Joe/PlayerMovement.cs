@@ -11,14 +11,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
     [SerializeField] private float Acceleration;
-    private float CurrentSpeed;
+    public float CurrentSpeed;
     private Vector3 Direction;
-    private bool IsSprinting;
+    public bool IsSprinting;
 
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
-    private bool IsCrouching = false;
+    public bool IsCrouching = false;
     private bool UnCrouched = true;
 
 
@@ -42,7 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sliding")]
     [SerializeField] private float Deceleration;
-    //For the slide I know I might change up some of the logic, but I wish to have slide be like pressing ctrl but I might need to find a new button or talk to Patrick about the idea.
+    [SerializeField] private float SlideTime;
+    
 
     #endregion
 
@@ -63,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
             CoveredCheck();
         }
 
-        if(IsSprinting == true)
+        if(IsSprinting == true && IsCrouching == false)
         {
             Sprinting();
         }
@@ -118,6 +119,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #endregion
+    
+        #region Slide Action
+        if(IsSprinting == true && IsCrouching == true)
+        {
+            Sliding();
+        }
+
+        #endregion
+
     }
 
     #region Functions
@@ -197,6 +207,27 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
+    #region Sliding
+    //---SLIDING---//
+    void Sliding()
+    {
+        if(CurrentSpeed > CrouchSpeed)
+        {
+            CurrentSpeed -= Deceleration * Time.deltaTime;
+            Collider.height = CrouchingHeight;
+            Controller.height = CrouchingHeight;
+            Controller.center = new Vector3 (0f, -0.5f, 0f);
+            Collider.center = new Vector3 (0f, -0.5f, 0f);
+            GroundHeight = CrouchingHeightFromGround;
+        }
+        else if(CurrentSpeed <= CrouchSpeed)
+        {
+            CrouchDown();
+            print("Done!");
+        }
+    }
+    #endregion
+
     #region Ground
     //---GROUNDCHECK---//
     void GroundCheck()
@@ -242,7 +273,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Direction == Vector3.zero && CurrentSpeed > WalkingSpeed)
         {
-            CurrentSpeed -= Acceleration * Time.deltaTime;
+            CurrentSpeed -= Deceleration * Time.deltaTime;
         }
         else if(Direction == Vector3.zero && CurrentSpeed <= WalkingSpeed)
         {
