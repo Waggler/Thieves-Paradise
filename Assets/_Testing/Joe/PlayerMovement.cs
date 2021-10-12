@@ -239,7 +239,15 @@ public class PlayerMovement : MonoBehaviour
     //---SPRINTING---//
     void Sprinting()
     {
-        if(CurrentSpeed < RunningSpeed)
+        if(Direction == Vector3.zero && CurrentSpeed > WalkingSpeed)
+        {
+            CurrentSpeed -= Acceleration * Time.deltaTime;
+        }
+        else if(Direction == Vector3.zero && CurrentSpeed <= WalkingSpeed)
+        {
+            CurrentSpeed = WalkingSpeed;
+        }
+        else if(CurrentSpeed < RunningSpeed)
         {
             CurrentSpeed += Acceleration * Time.deltaTime;
         }
