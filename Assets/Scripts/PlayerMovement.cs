@@ -18,8 +18,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
-    private bool IsCrouching = false;
-    private bool UnCrouched = true;
+    public bool IsCrouching = false;
+    public bool UnCrouched = true;
 
 
     [Header("Physics")]
@@ -33,12 +33,16 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 VerticalVelocity = Vector3.zero;
     private bool IsGrounded = true;
 
-    [Header("Roolling")]
+    [Header("Rolling")]
     [SerializeField] private float RollingSpeed;
     [SerializeField] private float RollingTime;
-    public float CurrentRollTime;
+    private float CurrentRollTime;
     private Vector3 RollDirection;
     private bool IsRolling;
+
+    //[Header("Camera")]
+    private Transform PlayerCamera;
+    private Vector3 FacingDirection;
 
     #endregion
 
@@ -48,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         CurrentRollTime = RollingTime;
         Controller = GetComponent<CharacterController>();
         Collider = GetComponent<CapsuleCollider>();
+        PlayerCamera = Camera.main.transform;
     }
 
     void Update()
@@ -75,8 +80,18 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Movement
-        Controller.Move(Direction * CurrentSpeed * Time.deltaTime);
-        
+        FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
+        FacingDirection.y = 0f;
+        FacingDirection = FacingDirection.normalized;
+
+        Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+
+        if(FacingDirection != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
+        }
+
         #endregion
 
         #region Roll Action
