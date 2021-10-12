@@ -40,7 +40,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 RollDirection;
     private bool IsRolling;
 
-    //[Header("Sliding")]
+    [Header("Sliding")]
+    [SerializeField] private float Deceleration;
     //For the slide I know I might change up some of the logic, but I wish to have slide be like pressing ctrl but I might need to find a new button or talk to Patrick about the idea.
 
     #endregion
