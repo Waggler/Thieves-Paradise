@@ -27,7 +27,8 @@ public class PauseMenuManager : MonoBehaviour
     private void Update()
     //-----------------------//
     {
-        if (Input.GetButtonDown("Pause"))
+        /*              
+        if (Input.GetButtonDown("Pause"))       //Remove this code once inputs are set up
         {
             if (isGamePaused == true)
             {
@@ -38,7 +39,7 @@ public class PauseMenuManager : MonoBehaviour
                 PauseGame();
             }
         }
-
+        */
     }//END Update
 
     //-----------------------//
