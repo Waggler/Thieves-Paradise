@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController Controller;
     private float GroundHeight;
     private Vector3 VerticalVelocity = Vector3.zero;
-    private bool IsGrounded = true;
+    [SerializeField] private bool IsGrounded = true;
 
     [Header("Rolling")]
     [SerializeField] private float RollingSpeed;
@@ -43,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     //[Header("Camera")]
     private Transform PlayerCamera;
     private Vector3 FacingDirection;
+    
+    private LayerMask mask; //player layer mask to occlude the player from themselves
 
     #endregion
 
@@ -53,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
         Controller = GetComponent<CharacterController>();
         Collider = GetComponent<CapsuleCollider>();
         PlayerCamera = Camera.main.transform;
+        mask = LayerMask.GetMask("Player");
+        mask = ~mask;
     }
 
     void Update()
@@ -137,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if(IsGrounded)
+        if(IsGrounded && !IsCrouching)
         {
             VerticalVelocity.y = Mathf.Sqrt(-2f * JumpHeight * -Gravity);
             Controller.Move(VerticalVelocity * Time.deltaTime);
@@ -180,6 +184,7 @@ public class PlayerMovement : MonoBehaviour
         else if(Crouching == false && UnCrouched == true)
         {
             IsCrouching = false;
+            //StandUp();
         }
     }
     #endregion
@@ -200,13 +205,23 @@ public class PlayerMovement : MonoBehaviour
     //---GROUNDCHECK---//
     void GroundCheck()
     {
-        if(Physics.Raycast(transform.position, Vector3.down, HeightFromGround + 0.1f))
+        //Debug.DrawRay(Controller.transform.position + Controller.center, Vector3.down, Color.red, Controller.height / 2  + 0.1f);
+        //Physics.Raycast(Controller.transform.position + Controller.center, Vector3.down, Controller.height / 2  + 0.1f)
+        Vector3 groundCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight * 0.3f), transform.position.z);
+        
+        if(Physics.CheckSphere(groundCheck, StandardHeight / 4, mask))
         {
             IsGrounded = true;
+            
         }
         else
         {
             IsGrounded = false;
+            if (IsCrouching)
+            {
+                StandUp();
+                IsCrouching = false;
+            }
         }
     }
     #endregion
@@ -216,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
     void CoveredCheck()
     {
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
-        if(Physics.Raycast(transform.position, Vector3.up, HeightFromGround + 0.1f))
+        if(Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f))
         {
             UnCrouched = false;
             IsCrouching = true;
