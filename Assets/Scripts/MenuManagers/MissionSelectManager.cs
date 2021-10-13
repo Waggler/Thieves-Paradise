@@ -10,6 +10,9 @@ public class MissionSelectManager : MonoBehaviour
 
 
     [Header("Components")]
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject missionMenu;
+
     [Header("Buttons")]
     [SerializeField] private Button ladyButton;
     [SerializeField] private Button unionButton;
@@ -84,7 +87,18 @@ public class MissionSelectManager : MonoBehaviour
 
         CloseMission();
 
-    }//END Start
+    }//END Init
+
+    //-----------------------//
+    public void ChangeScreen()
+    //-----------------------//
+    {
+
+        mainMenu.SetActive(true);
+        missionMenu.SetActive(false);
+
+
+    }//END ChangeScreen
 
     //-----------------------//
     private void CloseMission()
