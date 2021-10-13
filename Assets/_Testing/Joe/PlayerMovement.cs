@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float Acceleration;
     public float CurrentSpeed;
     private Vector3 Direction;
-    public bool IsSprinting;
+    public bool IsSprinting = false;
+    private bool UnSprinting = true;
 
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
@@ -43,7 +44,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sliding")]
     [SerializeField] private float Deceleration;
     [SerializeField] private float SlideTime;
-    
+    private float CurrentSlideTime;
+    private bool IsSliding;
 
     #endregion
 
@@ -51,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     {
         CurrentSpeed = WalkingSpeed;
         CurrentRollTime = RollingTime;
+        CurrentSlideTime = SlideTime;
         Controller = GetComponent<CharacterController>();
         Collider = GetComponent<CapsuleCollider>();
     }
@@ -97,33 +100,19 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Roll Action
-        if(IsRolling == true)
-        {
-            if(CurrentRollTime > 0)
-            {
-                Controller.Move(RollDirection * RollingSpeed * Time.deltaTime);
-                CurrentRollTime -= Time.deltaTime;
-            }
-            else if(CurrentRollTime <= 0)
-            {
-                IsRolling = false;
-            }
-        }
-        if(IsRolling == false && CurrentRollTime < RollingTime)
-        {
-            CurrentRollTime += Time.deltaTime;
-            if(CurrentRollTime > RollingTime)
-            {
-                CurrentRollTime = RollingTime;
-            }
-        }
+        Rolling();
 
         #endregion
     
         #region Slide Action
         if(IsSprinting == true && IsCrouching == true)
         {
+            IsSliding = true;
             Sliding();
+        }
+        else
+        {
+            IsSliding = false;
         }
 
         #endregion
@@ -163,8 +152,16 @@ public class PlayerMovement : MonoBehaviour
         if(Sprinting == true  && IsCrouching == false)
         {
             IsSprinting = true;
+            if(UnSprinting == false)
+            {
+                UnSprinting = true;
+            }
+            else if(UnSprinting == true)
+            {
+                UnSprinting = false;
+            }
         }
-        else if(Sprinting == false && IsCrouching == false)
+        else if(Sprinting == false && IsCrouching == false && UnSprinting == true)
         {
             CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
@@ -178,9 +175,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Crouching == true && IsGrounded == true)
         {
-            if(UnCrouched == true)
+            IsCrouching = true;
+            if(UnCrouched == true && IsSprinting == false && IsSliding == false)
             {
                 CrouchDown();
+                UnCrouched = false;
+            }
+            else if (UnCrouched == true && IsSliding == true)
+            {
                 UnCrouched = false;
             }
             else if(UnCrouched == false)
@@ -213,18 +215,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if(CurrentSpeed > CrouchSpeed)
         {
-            CurrentSpeed -= Deceleration * Time.deltaTime;
-            Collider.height = CrouchingHeight;
-            Controller.height = CrouchingHeight;
-            Controller.center = new Vector3 (0f, -0.5f, 0f);
-            Collider.center = new Vector3 (0f, -0.5f, 0f);
-            GroundHeight = CrouchingHeightFromGround;
+            Controller.Move(Direction * CurrentSpeed * Time.deltaTime);
+            CurrentSpeed -= Deceleration * Time.deltaTime; 
         }
-        else if(CurrentSpeed <= CrouchSpeed)
-        {
-            CrouchDown();
-            print("Done!");
-        }
+        // else if(CurrentSpeed <= CrouchSpeed)
+        // {
+        //     CrouchDown();
+        //     print("Done!");
+        //     CurrentSlideTime = SlideTime;
+        // }
     }
     #endregion
 
@@ -286,6 +285,32 @@ public class PlayerMovement : MonoBehaviour
         else if(CurrentSpeed >= RunningSpeed)
         {
             CurrentSpeed = RunningSpeed;
+        }
+    }
+    #endregion
+
+    #region Rolling
+    void Rolling()
+    {
+        if(IsRolling == true)
+        {
+            if(CurrentRollTime > 0)
+            {
+                Controller.Move(RollDirection * RollingSpeed * Time.deltaTime);
+                CurrentRollTime -= Time.deltaTime;
+            }
+            else if(CurrentRollTime <= 0)
+            {
+                IsRolling = false;
+            }
+        }
+        if(IsRolling == false && CurrentRollTime < RollingTime)
+        {
+            CurrentRollTime += Time.deltaTime;
+            if(CurrentRollTime > RollingTime)
+            {
+                CurrentRollTime = RollingTime;
+            }
         }
     }
     #endregion

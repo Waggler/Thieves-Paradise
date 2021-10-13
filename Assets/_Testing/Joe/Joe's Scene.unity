@@ -462,8 +462,11 @@ MonoBehaviour:
   RunningSpeed: 20
   CrouchSpeed: 5
   Acceleration: 5
+  CurrentSpeed: 0
+  IsSprinting: 0
   StandardHeight: 2
   CrouchingHeight: 1
+  IsCrouching: 0
   Gravity: 30
   JumpHeight: 5
   HeightFromGround: 1
@@ -473,6 +476,7 @@ MonoBehaviour:
   RollingSpeed: 20
   RollingTime: 0.25
   Deceleration: 5
+  SlideTime: 0.25
 --- !u!114 &578193160
 MonoBehaviour:
   m_ObjectHideFlags: 0
