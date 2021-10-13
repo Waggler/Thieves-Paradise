@@ -5,6 +5,7 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
     private ItemInterface[] inventory;
+    private ItemSuperScript[] inventory2;
     private bool[] inventorySpace; //true = occupied, false = empty
     private int activeItem; //array index
 
@@ -14,13 +15,17 @@ public class InventoryController : MonoBehaviour
     void Start()
     {
         inventory = new ItemInterface[inventorySize];
+        inventory2 = new ItemSuperScript[inventorySize];
         inventorySpace = new bool[inventorySize];
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.Q))
+        {
+            
+        }
     }
 
     private void SwapItem(int selection)
