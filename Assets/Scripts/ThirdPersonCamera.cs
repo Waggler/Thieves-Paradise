@@ -30,6 +30,6 @@ public class ThirdPersonCamera : MonoBehaviour
         transform.LookAt(Target);
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-        //Player.rotation = Quaternion.Euler(0, mouseX, 0);
+        // Player.rotation = Quaternion.Euler(0, mouseX, 0);
    }
 }
