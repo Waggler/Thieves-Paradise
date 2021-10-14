@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float Acceleration;
     private float CurrentSpeed;
     private Vector3 Direction;
-    private bool IsSprinting;
+    private bool IsSprinting = false;
+    private bool UnSprinting = true;
 
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
@@ -24,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Physics")]
     [SerializeField] private float Gravity;
-    [SerializeField] private float JumpHeight;
+    [SerializeField] private float MovingJumpHeight;
+    [SerializeField] private float StillJumpHeight;
     [SerializeField] private float HeightFromGround;
     [SerializeField] private float CrouchingHeightFromGround;
     [SerializeField] private CapsuleCollider Collider;
@@ -40,6 +42,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 RollDirection;
     private bool IsRolling;
 
+    [Header("Sliding")]
+    [SerializeField] private float Deceleration;
+    private bool IsSliding;
+    
     //[Header("Camera")]
     private Transform PlayerCamera;
     private Vector3 FacingDirection;
@@ -68,19 +74,28 @@ public class PlayerMovement : MonoBehaviour
             CoveredCheck();
         }
 
-        if(IsSprinting == true)
+        if(IsSprinting == true && IsCrouching == false)
         {
             Sprinting();
         }
 
         #region Gravity
+        //FIX: Crouching Gravity is a bit wonky, talk to Patrick on Tuesday about this.
         if(IsGrounded)
         {
             VerticalVelocity.y = 0;
         }
 
-        VerticalVelocity.y -= Gravity * Time.deltaTime;
-        Controller.Move(VerticalVelocity * Time.deltaTime);
+        if(IsCrouching == false)
+        {
+            VerticalVelocity.y -= Gravity * Time.deltaTime;
+            Controller.Move(VerticalVelocity * Time.deltaTime);
+        }
+        else if(IsCrouching == true)
+        {
+            VerticalVelocity.y -= Gravity * Time.deltaTime * 35;
+            Controller.Move(VerticalVelocity * Time.deltaTime);
+        }
         #endregion
 
         #region Movement
@@ -88,7 +103,10 @@ public class PlayerMovement : MonoBehaviour
         FacingDirection.y = 0f;
         FacingDirection = FacingDirection.normalized;
 
-        Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+        if(!IsRolling && !IsSliding)
+        {
+            Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+        }
 
         if(FacingDirection != Vector3.zero)
         {
@@ -99,28 +117,23 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Roll Action
-        if(IsRolling == true)
+        Rolling();
+
+        #endregion
+    
+        #region Slide Action
+        if(IsSprinting == true && IsCrouching == true)
         {
-            if(CurrentRollTime > 0)
-            {
-                Controller.Move(RollDirection * RollingSpeed * Time.deltaTime);
-                CurrentRollTime -= Time.deltaTime;
-            }
-            else if(CurrentRollTime <= 0)
-            {
-                IsRolling = false;
-            }
+            IsSliding = true;
+            Sliding();
         }
-        if(IsRolling == false && CurrentRollTime < RollingTime)
+        else
         {
-            CurrentRollTime += Time.deltaTime;
-            if(CurrentRollTime > RollingTime)
-            {
-                CurrentRollTime = RollingTime;
-            }
+            IsSliding = false;
         }
 
         #endregion
+
     }
 
     #region Functions
@@ -130,9 +143,10 @@ public class PlayerMovement : MonoBehaviour
     public void Movement(Vector3 Move)
     {
         Direction = new Vector3(Move.x, 0f, Move.z);
-        if(Direction != Vector3.zero)
+        if(Direction != Vector3.zero && IsRolling == false && IsSliding == false) 
         {
             RollDirection = Direction;
+            print(RollDirection);
         }
     }
     #endregion
@@ -143,8 +157,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if(IsGrounded && !IsCrouching)
         {
-            VerticalVelocity.y = Mathf.Sqrt(-2f * JumpHeight * -Gravity);
-            Controller.Move(VerticalVelocity * Time.deltaTime);
+            if (Direction.magnitude > 0.1)
+            {
+                VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
+                Controller.Move(VerticalVelocity * Time.deltaTime);
+            }
+            else if(Direction.magnitude <= 0.1)
+            {
+                VerticalVelocity.y = Mathf.Sqrt(-2f * StillJumpHeight * -Gravity);
+                Controller.Move(VerticalVelocity * Time.deltaTime);
+            }
         }
     }
     #endregion
@@ -153,11 +175,19 @@ public class PlayerMovement : MonoBehaviour
     //----------SPRINT----------//
     public void Sprint(bool Sprinting)
     {
-        if(Sprinting == true)
+        if(Sprinting == true  && IsCrouching == false)
         {
             IsSprinting = true;
+            if(UnSprinting == false)
+            {
+                UnSprinting = true;
+            }
+            else if(UnSprinting == true)
+            {
+                UnSprinting = false;
+            }
         }
-        else if(Sprinting == false)
+        else if(Sprinting == false && IsCrouching == false && UnSprinting == true)
         {
             CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
@@ -171,7 +201,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Crouching == true && IsGrounded == true)
         {
-            if(UnCrouched == true)
+            IsCrouching = true;
+            if(UnCrouched == true && IsSprinting == false)
             {
                 CrouchDown();
                 UnCrouched = false;
@@ -184,7 +215,6 @@ public class PlayerMovement : MonoBehaviour
         else if(Crouching == false && UnCrouched == true)
         {
             IsCrouching = false;
-            //StandUp();
         }
     }
     #endregion
@@ -199,6 +229,32 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Sliding
+    //---SLIDING---//
+    void Sliding()
+    {
+        if(CurrentSpeed > CrouchSpeed)
+        {
+            IsCrouching = true;
+            Controller.Move(RollDirection * CurrentSpeed * Time.deltaTime);
+            Collider.height = CrouchingHeight;
+            Controller.height = CrouchingHeight;
+            Controller.center = new Vector3 (0f, -0.5f, 0f);
+            Collider.center = new Vector3 (0f, -0.5f, 0f);
+            GroundHeight = CrouchingHeightFromGround;
+            CurrentSpeed -= Deceleration * Time.deltaTime; 
+        }
+        else if(CurrentSpeed <= CrouchSpeed)
+        {
+            CrouchDown();
+            UnCrouched = false;
+            IsSprinting = false;
+            UnSprinting = true;
+            IsSliding = false;
+        }
+    }
     #endregion
 
     #region Ground
@@ -254,13 +310,47 @@ public class PlayerMovement : MonoBehaviour
     //---SPRINTING---//
     void Sprinting()
     {
-        if(CurrentSpeed < RunningSpeed)
+        if(Direction == Vector3.zero && CurrentSpeed > WalkingSpeed)
+        {
+            CurrentSpeed -= Deceleration * Time.deltaTime;
+        }
+        else if(Direction == Vector3.zero && CurrentSpeed <= WalkingSpeed)
+        {
+            CurrentSpeed = WalkingSpeed;
+        }
+        else if(CurrentSpeed < RunningSpeed)
         {
             CurrentSpeed += Acceleration * Time.deltaTime;
         }
         else if(CurrentSpeed >= RunningSpeed)
         {
             CurrentSpeed = RunningSpeed;
+        }
+    }
+    #endregion
+
+    #region Rolling
+    void Rolling()
+    {
+        if(IsRolling == true)
+        {
+            if(CurrentRollTime > 0)
+            {
+                Controller.Move(RollDirection * RollingSpeed * Time.deltaTime);
+                CurrentRollTime -= Time.deltaTime;
+            }
+            else if(CurrentRollTime <= 0)
+            {
+                IsRolling = false;
+            }
+        }
+        if(IsRolling == false && CurrentRollTime < RollingTime)
+        {
+            CurrentRollTime += Time.deltaTime;
+            if(CurrentRollTime > RollingTime)
+            {
+                CurrentRollTime = RollingTime;
+            }
         }
     }
     #endregion
