@@ -11,15 +11,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
     [SerializeField] private float Acceleration;
-    public float CurrentSpeed;
+    private float CurrentSpeed;
     private Vector3 Direction;
-    public bool IsSprinting = false;
+    private bool IsSprinting = false;
     private bool UnSprinting = true;
 
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
-    public bool IsCrouching = false;
+    private bool IsCrouching = false;
     private bool UnCrouched = true;
 
 
@@ -43,8 +43,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sliding")]
     [SerializeField] private float Deceleration;
-    [SerializeField] private float SlideTime;
-    private float CurrentSlideTime;
     private bool IsSliding;
 
     #endregion
@@ -53,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
     {
         CurrentSpeed = WalkingSpeed;
         CurrentRollTime = RollingTime;
-        CurrentSlideTime = SlideTime;
         Controller = GetComponent<CharacterController>();
         Collider = GetComponent<CapsuleCollider>();
     }
@@ -92,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Movement
-        if(IsRolling == false)
+        if(IsRolling == false || IsSliding == false)
         {
             Controller.Move(Direction * CurrentSpeed * Time.deltaTime);
         }
@@ -110,10 +107,6 @@ public class PlayerMovement : MonoBehaviour
             IsSliding = true;
             Sliding();
         }
-        else
-        {
-            IsSliding = false;
-        }
 
         #endregion
 
@@ -126,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
     public void Movement(Vector3 Move)
     {
         Direction = new Vector3(Move.x, 0f, Move.z);
-        if(Direction != Vector3.zero && IsRolling == false) 
+        if(Direction != Vector3.zero && IsRolling == false && IsSliding == false) 
         {
             RollDirection = Direction;
         }
@@ -176,13 +169,9 @@ public class PlayerMovement : MonoBehaviour
         if(Crouching == true && IsGrounded == true)
         {
             IsCrouching = true;
-            if(UnCrouched == true && IsSprinting == false && IsSliding == false)
+            if(UnCrouched == true && IsSprinting == false)
             {
                 CrouchDown();
-                UnCrouched = false;
-            }
-            else if (UnCrouched == true && IsSliding == true)
-            {
                 UnCrouched = false;
             }
             else if(UnCrouched == false)
@@ -215,15 +204,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if(CurrentSpeed > CrouchSpeed)
         {
-            Controller.Move(Direction * CurrentSpeed * Time.deltaTime);
+            IsCrouching = true;
+            Controller.Move(RollDirection * CurrentSpeed * Time.deltaTime);
+            Collider.height = CrouchingHeight;
+            Controller.height = CrouchingHeight;
+            Controller.center = new Vector3 (0f, -0.5f, 0f);
+            Collider.center = new Vector3 (0f, -0.5f, 0f);
+            GroundHeight = CrouchingHeightFromGround;
             CurrentSpeed -= Deceleration * Time.deltaTime; 
         }
-        // else if(CurrentSpeed <= CrouchSpeed)
-        // {
-        //     CrouchDown();
-        //     print("Done!");
-        //     CurrentSlideTime = SlideTime;
-        // }
+        else if(CurrentSpeed <= CrouchSpeed)
+        {
+            CrouchDown();
+            UnCrouched = false;
+            IsSprinting = false;
+            IsSliding = false;
+        }
     }
     #endregion
 

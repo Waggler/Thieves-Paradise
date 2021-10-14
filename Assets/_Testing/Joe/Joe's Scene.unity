@@ -467,6 +467,7 @@ MonoBehaviour:
   StandardHeight: 2
   CrouchingHeight: 1
   IsCrouching: 0
+  UnCrouched: 1
   Gravity: 30
   JumpHeight: 5
   HeightFromGround: 1
@@ -475,8 +476,7 @@ MonoBehaviour:
   Controller: {fileID: 578193158}
   RollingSpeed: 20
   RollingTime: 0.25
-  Deceleration: 5
-  SlideTime: 0.25
+  Deceleration: 10
 --- !u!114 &578193160
 MonoBehaviour:
   m_ObjectHideFlags: 0
