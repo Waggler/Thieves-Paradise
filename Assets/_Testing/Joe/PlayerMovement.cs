@@ -107,6 +107,10 @@ public class PlayerMovement : MonoBehaviour
             IsSliding = true;
             Sliding();
         }
+        else
+        {
+            IsSliding = false;
+        }
 
         #endregion
 
@@ -122,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
         if(Direction != Vector3.zero && IsRolling == false && IsSliding == false) 
         {
             RollDirection = Direction;
+            print(RollDirection);
         }
     }
     #endregion
@@ -218,6 +223,7 @@ public class PlayerMovement : MonoBehaviour
             CrouchDown();
             UnCrouched = false;
             IsSprinting = false;
+            UnSprinting = true;
             IsSliding = false;
         }
     }
