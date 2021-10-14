@@ -1323,7 +1323,8 @@ MonoBehaviour:
   IsCrouching: 0
   UnCrouched: 1
   Gravity: 30
-  JumpHeight: 5
+  MovingJumpHeight: 5
+  StillJumpHeight: 10
   HeightFromGround: 1
   CrouchingHeightFromGround: 0.5
   Collider: {fileID: 2710827131430540289}
@@ -1331,6 +1332,7 @@ MonoBehaviour:
   IsGrounded: 1
   RollingSpeed: 20
   RollingTime: 0.25
+  Deceleration: 0
 --- !u!33 &2710827131430540291
 MeshFilter:
   m_ObjectHideFlags: 0
