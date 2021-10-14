@@ -13,13 +13,14 @@ public class EyeballScript : MonoBehaviour
     [Header("Vision Stats")]
     [SerializeField] private float sightRange;
     [Range(1.0f, 180.0f)]
-    [SerializeField]private float maxVisionAngle; // 0-180, 0 = directly in front, 90 = left/right, 180 = directly behind
-    [SerializeField]private float susGrowthMultiplier = 1;
-    [SerializeField]private float susDecreaseMultiplier = 1;
+    [SerializeField] private float maxVisionAngle; // 0-180, 0 = directly in front, 90 = left/right, 180 = directly behind
+    [SerializeField] public float susGrowthMultiplier = 1;
+    [SerializeField] public float susDecreaseMultiplier = 1;
 
     //Player Detection output
     [HideInInspector] public float sightAngle;
-    [HideInInspector] public float susLevel; //how suspicious the eyeball currently is
+    public float susLevel; //how suspicious the eyeball currently is
+    public float minSusLevel; //can't get less sus than this
     [HideInInspector] public Vector3 lastKnownLocation;
     [HideInInspector] public bool canCurrentlySeePlayer;
 
@@ -27,8 +28,8 @@ public class EyeballScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
-        layerMask = ~(1 << 3);
+        player = GameObject.FindWithTag("PlayerVisionTarget").transform;
+        layerMask = ~LayerMask.GetMask("Player"); //get the player layer to make sure they don't block themselves from vision
 
         lastKnownLocation = transform.position; //set the last known location to the location of the guard to start to prevent potential weirdness
     }//End Start
@@ -87,13 +88,7 @@ public class EyeballScript : MonoBehaviour
             susLevel -= Time.deltaTime * susDecreaseMultiplier;
         }
         //set bounds
-        if (susLevel > 10)
-        {
-            susLevel = 10;
-        } else if (susLevel < 0)
-        {
-            susLevel = 0;
-        }
+        susLevel = Mathf.Clamp(susLevel, minSusLevel, 10f);
         print (susLevel);
     }//END ChangeSus
     

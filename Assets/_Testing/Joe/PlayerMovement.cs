@@ -19,8 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
-    private bool IsCrouching = false;
-    private bool UnCrouched = true;
+    public bool IsCrouching = false;
+    public bool UnCrouched = true;
 
 
     [Header("Physics")]
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController Controller;
     private float GroundHeight;
     private Vector3 VerticalVelocity = Vector3.zero;
-    private bool IsGrounded = true;
+    [SerializeField] private bool IsGrounded = true;
 
     [Header("Rolling")]
     [SerializeField] private float RollingSpeed;
@@ -45,6 +45,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sliding")]
     [SerializeField] private float Deceleration;
     private bool IsSliding;
+    
+    //[Header("Camera")]
+    private Transform PlayerCamera;
+    private Vector3 FacingDirection;
+    
+    private LayerMask mask; //player layer mask to occlude the player from themselves
 
     #endregion
 
@@ -54,6 +60,9 @@ public class PlayerMovement : MonoBehaviour
         CurrentRollTime = RollingTime;
         Controller = GetComponent<CharacterController>();
         Collider = GetComponent<CapsuleCollider>();
+        PlayerCamera = Camera.main.transform;
+        mask = LayerMask.GetMask("Player");
+        mask = ~mask;
     }
 
     void Update()
@@ -90,9 +99,19 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Movement
-        if(IsRolling == false || IsSliding == false)
+        FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
+        FacingDirection.y = 0f;
+        FacingDirection = FacingDirection.normalized;
+
+        if(!IsRolling && !IsSliding)
         {
-            Controller.Move(Direction * CurrentSpeed * Time.deltaTime);
+            Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+        }
+
+        if(FacingDirection != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
         }
 
         #endregion
@@ -136,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if(IsGrounded && IsCrouching == false)
+        if(IsGrounded && !IsCrouching)
         {
             if (Direction.magnitude > 0.1)
             {
@@ -242,13 +261,23 @@ public class PlayerMovement : MonoBehaviour
     //---GROUNDCHECK---//
     void GroundCheck()
     {
-        if(Physics.Raycast(transform.position, Vector3.down, HeightFromGround + 0.1f))
+        //Debug.DrawRay(Controller.transform.position + Controller.center, Vector3.down, Color.red, Controller.height / 2  + 0.1f);
+        //Physics.Raycast(Controller.transform.position + Controller.center, Vector3.down, Controller.height / 2  + 0.1f)
+        Vector3 groundCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight * 0.3f), transform.position.z);
+        
+        if(Physics.CheckSphere(groundCheck, StandardHeight / 4, mask))
         {
             IsGrounded = true;
+            
         }
         else
         {
             IsGrounded = false;
+            if (IsCrouching)
+            {
+                StandUp();
+                IsCrouching = false;
+            }
         }
     }
     #endregion
@@ -258,7 +287,7 @@ public class PlayerMovement : MonoBehaviour
     void CoveredCheck()
     {
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
-        if(Physics.Raycast(transform.position, Vector3.up, HeightFromGround + 0.1f))
+        if(Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f))
         {
             UnCrouched = false;
             IsCrouching = true;
