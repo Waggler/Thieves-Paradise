@@ -25,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Physics")]
     [SerializeField] private float Gravity;
-    [SerializeField] private float JumpHeight;
+    [SerializeField] private float MovingJumpHeight;
+    [SerializeField] private float StillJumpHeight;
     [SerializeField] private float HeightFromGround;
     [SerializeField] private float CrouchingHeightFromGround;
     [SerializeField] private CapsuleCollider Collider;
@@ -137,8 +138,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if(IsGrounded && IsCrouching == false)
         {
-            VerticalVelocity.y = Mathf.Sqrt(-2f * JumpHeight * -Gravity);
-            Controller.Move(VerticalVelocity * Time.deltaTime);
+            if (Direction.magnitude > 0.1)
+            {
+                VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
+                Controller.Move(VerticalVelocity * Time.deltaTime);
+            }
+            else if(Direction.magnitude <= 0.1)
+            {
+                VerticalVelocity.y = Mathf.Sqrt(-2f * StillJumpHeight * -Gravity);
+                Controller.Move(VerticalVelocity * Time.deltaTime);
+            }
         }
     }
     #endregion
