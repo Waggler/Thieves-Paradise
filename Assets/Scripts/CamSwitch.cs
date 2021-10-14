@@ -13,6 +13,8 @@ public class CamSwitch : MonoBehaviour
 
     private bool Cam1 = true;
 
+    public InputManager im;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -36,7 +38,7 @@ public class CamSwitch : MonoBehaviour
 
     private void SwitchState()
     {
-        if(Cam1)
+        if(Cam1 && im.isCrouching == false)
         {
             animator.Play("FreeLook");
         }
@@ -50,6 +52,13 @@ public class CamSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(im.isCrouching == true)
+        {
+            animator.Play("FreeLook");
+        }
+        if(im.isCrouching == false)
+        {
+            animator.Play("VCam1");
+        }
     }
 }

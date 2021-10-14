@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
 {
     private Vector3 moveVector;
     public bool isSprinting;
-    private bool isCrouching;
+    public bool isCrouching;
     private bool isRolling;
     private PlayerMovement playerMovement;
 

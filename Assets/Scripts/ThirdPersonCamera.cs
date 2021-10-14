@@ -7,6 +7,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public float RotationSpeed = 1;
     public Transform Target, Player;
     float mouseX, mouseY;
+    public InputManager im;
 
     //Start is called before the first frame update
     void Start()
@@ -30,6 +31,11 @@ public class ThirdPersonCamera : MonoBehaviour
         transform.LookAt(Target);
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+
+        if(im.isCrouching == true)
+        {
+            Player.rotation = Quaternion.Euler(0, mouseX, 0);
+        }
         // Player.rotation = Quaternion.Euler(0, mouseX, 0);
    }
 }
