@@ -114,11 +114,16 @@ public class EyeballScript : MonoBehaviour
         Vector3 angleEdge = Quaternion.AngleAxis(maxVisionAngle, Vector3.up) * Vector3.forward;
         Gizmos.DrawRay(Vector3.zero, angleEdge * sightRange);
 
+        angleEdge = Quaternion.AngleAxis(-maxVisionAngle, Vector3.left) * Vector3.forward;
+        Gizmos.DrawRay(Vector3.zero, angleEdge * sightRange);
+
         angleEdge = Quaternion.AngleAxis(-maxVisionAngle, Vector3.up) * Vector3.forward;
         Gizmos.DrawRay(Vector3.zero, angleEdge * sightRange);
 
         angleEdge = Quaternion.AngleAxis(maxVisionAngle, Vector3.left) * Vector3.forward;
         Gizmos.DrawRay(Vector3.zero, angleEdge * sightRange);
+
+        
     }
     #endif
 }
