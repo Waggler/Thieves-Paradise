@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
 
-public class SettingsMenuManager : MonoBehaviour
+public class PauseSettingsManager : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject audioTab;
     [SerializeField] private GameObject videoTab;
@@ -50,8 +50,6 @@ public class SettingsMenuManager : MonoBehaviour
 
     }//END Start
 
-    #region Statics & Startup
-
     //-----------------------//
     void Init()
     //-----------------------//
@@ -65,7 +63,7 @@ public class SettingsMenuManager : MonoBehaviour
     //-----------------------//
     {
 
-        mainMenu.SetActive(true);
+        pauseMenu.SetActive(true);
 
         audioTab.SetActive(true); //Sets audio tab as default
         videoTab.SetActive(false);
@@ -103,9 +101,6 @@ public class SettingsMenuManager : MonoBehaviour
         }
 
     }//END ChangeTab
-
-
-    #endregion Statics & Startup
 
 
     #region Audio
@@ -222,13 +217,10 @@ public class SettingsMenuManager : MonoBehaviour
     public void SetResolution(int resolutionIndex)
     //--------------------------//
     {
-
-
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, isResFullScreen);
 
         Debug.Log($"Resolution Set to {Screen.currentResolution}");
-        Debug.Log($"Resolution should have been {resolution}");
 
     }//END SetResolution
 
@@ -236,50 +228,7 @@ public class SettingsMenuManager : MonoBehaviour
     #endregion Video
 
 
-    #region Input
-
-    //-----------------------//
-    public void CrouchToggle(bool isCrouchToggleOn)
-    //-----------------------//
-    {
-
-        Debug.Log($"The crouch toggle is set to {isCrouchToggleOn}");
-
-    }//END CrouchToggle
-
-    //-----------------------//
-    public void SprintToggle(bool isSprintToggleOn)
-    //-----------------------//
-    {
-
-        Debug.Log($"The sprint toggle is set to {isSprintToggleOn}");
-
-    }//END CrouchToggle
-
-    //-----------------------//
-    public void InvertHorizontalAxis(bool isInvertHorizontalOn)
-    //-----------------------//
-    {
-
-        Debug.Log($"The horizontal invert toggle is set to {isInvertHorizontalOn}");
-
-    }//END CrouchToggle
-
-    //-----------------------//
-    public void InvertVerticalAxis(bool isInvertVerticalOn)
-    //-----------------------//
-    {
-
-        Debug.Log($"The vertical invert toggle is set to {isInvertVerticalOn}");
-
-    }//END CrouchToggle
-
-    
-
-    #endregion Input
-
-
     #endregion Methods
 
 
-}//END SettingsMenuManager
+}//END PauseSettingsManager
