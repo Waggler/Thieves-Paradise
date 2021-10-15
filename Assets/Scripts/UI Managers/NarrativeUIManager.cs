@@ -17,11 +17,11 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private GameObject textBox;
     [SerializeField] private GameObject choicePanel;
 
-    [SerializeField] private TMP_Text choice1;
-    [SerializeField] private TMP_Text choice2;
-    [SerializeField] private TMP_Text choice3;
-    [SerializeField] private TMP_Text choice4;
-    [SerializeField] private TMP_Text choice5;
+    [SerializeField] private GameObject choice1;
+    [SerializeField] private GameObject choice2;
+    [SerializeField] private GameObject choice3;
+    [SerializeField] private GameObject choice4;
+    [SerializeField] private GameObject choice5;
 
     public enum CurrentMission
     {
@@ -45,6 +45,8 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private TMP_Text choice4Text;
     [SerializeField] private TMP_Text choice5Text;
 
+    [SerializeField] private TMP_Text lastDialogueText;
+
 
     [Header("Images")]
     [SerializeField] private Image portrait1Image;
@@ -61,22 +63,27 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private bool isLadyNightTwo;
     [SerializeField] private bool isLadyNightThree;
     [SerializeField] private bool isLadyBonusComplete;
+
     [SerializeField] private bool isMassesNightOne;
     [SerializeField] private bool isMassesNightTwo;
     [SerializeField] private bool isMassesNightThree;
     [SerializeField] private bool isMassesBonusComplete;
+
     [SerializeField] private bool isUnionNightOne;
     [SerializeField] private bool isUnionNightTwo;
     [SerializeField] private bool isUnionNightThree;
     [SerializeField] private bool isUnionBonusComplete;
+
     [SerializeField] private bool isCIANightOne;
     [SerializeField] private bool isCIANightTwo;
     [SerializeField] private bool isCIANightThree;
     [SerializeField] private bool isCIABonusComplete;
+
     [SerializeField] private bool isMafiaNightOne;
     [SerializeField] private bool isMafiaNightTwo;
     [SerializeField] private bool isMafiaNightThree;
     [SerializeField] private bool isMafiaBonusComplete;
+
     [SerializeField] private bool isVoicesNightOne;
     [SerializeField] private bool isVoicesNightTwo;
     [SerializeField] private bool isVoicesNightThree;
@@ -262,7 +269,8 @@ public class NarrativeUIManager : MonoBehaviour
     //--------------------------//
     {
         choicePanel.SetActive(true);
-
+        textBox.SetActive(false);
+        speakerBox.SetActive(false);
 
     }//END OpenChoice
 
