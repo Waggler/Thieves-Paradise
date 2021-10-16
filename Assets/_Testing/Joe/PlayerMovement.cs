@@ -13,14 +13,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float Acceleration;
     private float CurrentSpeed;
     private Vector3 Direction;
-    private bool IsSprinting = false;
+    public bool IsSprinting = false;
     private bool UnSprinting = true;
 
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
-    public bool IsCrouching = false;
-    public bool UnCrouched = true;
+    private bool IsCrouching = false;
+    private bool UnCrouched = true;
 
 
     [Header("Physics")]
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController Controller;
     private float GroundHeight;
     private Vector3 VerticalVelocity = Vector3.zero;
-    [SerializeField] private bool IsGrounded = true;
+    private bool IsGrounded = true;
 
     [Header("Rolling")]
     [SerializeField] private float RollingSpeed;
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sliding")]
     [SerializeField] private float Deceleration;
     private bool IsSliding;
-    
+
     //[Header("Camera")]
     private Transform PlayerCamera;
     private Vector3 FacingDirection;
@@ -108,6 +108,11 @@ public class PlayerMovement : MonoBehaviour
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
 
+        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding)
+        {
+            RollDirection = FacingDirection;
+        }
+
         if(FacingDirection != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
@@ -143,11 +148,6 @@ public class PlayerMovement : MonoBehaviour
     public void Movement(Vector3 Move)
     {
         Direction = new Vector3(Move.x, 0f, Move.z);
-        if(Direction != Vector3.zero && IsRolling == false && IsSliding == false) 
-        {
-            RollDirection = Direction;
-            print(RollDirection);
-        }
     }
     #endregion
 
@@ -159,8 +159,15 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Direction.magnitude > 0.1)
             {
-                VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
-                Controller.Move(VerticalVelocity * Time.deltaTime);
+                if(!IsSprinting)
+                {
+                    VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
+                    Controller.Move(VerticalVelocity * Time.deltaTime);
+                }
+                else if(IsSprinting)
+                {
+                    DiveJump();
+                }
             }
             else if(Direction.magnitude <= 0.1)
             {
@@ -255,6 +262,19 @@ public class PlayerMovement : MonoBehaviour
             IsSliding = false;
         }
     }
+    #endregion
+
+    #region Dive
+    //---DIVEJUMP---//
+    void DiveJump()
+    {
+        VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
+        Controller.Move(VerticalVelocity * Time.deltaTime);
+        Controller.Move(RollDirection * RollingSpeed * Time.deltaTime);
+        print("Dive Time");
+        CrouchDown();
+    }
+
     #endregion
 
     #region Ground
