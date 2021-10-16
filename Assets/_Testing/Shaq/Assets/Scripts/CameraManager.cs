@@ -49,10 +49,10 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float suspicionIncrement = 0.01f;
     [SerializeField] private float suspicionDecriment = 0.01f;
 
-    [Header("Camera Raycast Layermask Selection")]
-    //[SerializeField] [Range(0,8)] private int layerMask;
+    [Header("Camera Raycast Variables")]
+    [SerializeField] [Range(0,8)] private int layerMask;
 
-    [Header("Debug Variables (Be warned some of these won't do anything most of the time)")]
+    [Header("Debug Variables (May bite)")]
     [SerializeField] private Quaternion originalRotation;
     [SerializeField] private bool susFlag = false;
     [SerializeField] private Vector3 rotationRecord;
@@ -258,7 +258,6 @@ public class CameraManager : MonoBehaviour
     }//End Update
     #endregion
 
-
     #region General Functions
     //---------------------------------//
     //Function that makes the object face it's target
@@ -280,7 +279,7 @@ public class CameraManager : MonoBehaviour
     bool VisionCheck()
     {
         //Player layer mask
-        int layerMask = 1 >> 1;
+        //int layerMask = 1 >> 1;
         //int layerMask = 2;
 
         RaycastHit hit;
