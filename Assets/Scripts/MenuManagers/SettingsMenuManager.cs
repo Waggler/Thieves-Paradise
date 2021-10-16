@@ -12,7 +12,7 @@ public class SettingsMenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject audioTab;
     [SerializeField] private GameObject videoTab;
-    [SerializeField] private GameObject inputTab;
+    [SerializeField] private GameObject preferencesTab;
 
     [Header("Audio")]
     [SerializeField] private Slider masterVolumeSlider;
@@ -69,7 +69,7 @@ public class SettingsMenuManager : MonoBehaviour
 
         audioTab.SetActive(true); //Sets audio tab as default
         videoTab.SetActive(false);
-        inputTab.SetActive(false);
+        preferencesTab.SetActive(false);
 
         settingsMenu.SetActive(false);
 
@@ -84,21 +84,21 @@ public class SettingsMenuManager : MonoBehaviour
         {
             audioTab.SetActive(true);
             videoTab.SetActive(false);
-            inputTab.SetActive(false);
+            preferencesTab.SetActive(false);
 
         }
         else if (tabValue == 1)
         {
             audioTab.SetActive(false);
             videoTab.SetActive(true);
-            inputTab.SetActive(false);
+            preferencesTab.SetActive(false);
 
         }
         else if (tabValue == 2)
         {
             audioTab.SetActive(false);
             videoTab.SetActive(false);
-            inputTab.SetActive(true);
+            preferencesTab.SetActive(true);
 
         }
 
@@ -236,7 +236,7 @@ public class SettingsMenuManager : MonoBehaviour
     #endregion Video
 
 
-    #region Input
+    #region Preferences
 
     //-----------------------//
     public void CrouchToggle(bool isCrouchToggleOn)
@@ -274,9 +274,16 @@ public class SettingsMenuManager : MonoBehaviour
 
     }//END CrouchToggle
 
-    
+    public void AdjustHUD(bool isInventoryRight)
+    //-----------------------//
+    {
 
-    #endregion Input
+        Debug.Log($"The inventory toggle for the right side is set to {isInventoryRight}");
+
+    }//END CrouchToggle
+
+
+    #endregion Preferences
 
 
     #endregion Methods
