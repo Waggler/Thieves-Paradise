@@ -31,31 +31,27 @@ public class CameraManager : MonoBehaviour
     private Transform target;
 
     [Header("Object References")]
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject Self;
+    [SerializeField] private Transform player;
 
     [Header("Debug Text")]
     [SerializeField] private Text stateText;
     [SerializeField] private Text targetText;
 
     [Header("Camera Rotation Variables")]
-    [SerializeField] private float lookRadius;
     [SerializeField] [Range(0, 60)] private float degreesPerSec;
     [SerializeField] private Vector3 rotationMax;
-    [SerializeField] private Vector3 rotationMin;
+    [SerializeField] private Vector3 rotationRecord;
 
     [Header("Suspicion Variables")] 
     [SerializeField] [Range(0, 10)] private float suspicion;
     [SerializeField] private float suspicionIncrement = 0.01f;
     [SerializeField] private float suspicionDecriment = 0.01f;
 
-    [Header("Camera Raycast Variables")]
-    [SerializeField] [Range(0,8)] private int layerMask;
+    [Header("Eyeball Integration")]
+    [SerializeField] private EyeballScript eyeballScript;
 
     [Header("Debug Variables (May bite)")]
-    [SerializeField] private Quaternion originalRotation;
     [SerializeField] private bool susFlag = false;
-    [SerializeField] private Vector3 rotationRecord;
 
     #endregion
 
@@ -77,22 +73,7 @@ public class CameraManager : MonoBehaviour
 
     void Awake()
     {
-        stateText.text = "";
-        targetText.text = "";
-
-       rotationMax = new Vector3(0, 90, 0);
-       rotationMin = new Vector3(0, -rotationMax.y, 0);
-
-        rotationRecord = new Vector3(0, 0, 0);
-        
-        //Remnant from having two angles for the cam to cycle between
-        //Leave this in in the event that current method breaks and two hard angles are needed
-        //rotationMin = new Vector3(0, -60, 0);
-
-        //Set's the CameraAI's state to MONITORING on awake
-        cameraStateMachine = CamStates.MONITORING;
-
-        originalRotation = Self.transform.rotation;
+        Init();
     }//End Awake
 
     #endregion
@@ -101,14 +82,6 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
         #region Update Specific Variables
-        //Can change this variable type to Transform if need be
-        //The ? at the end of Vector3 just means that it is now a nullable Vector3 variable
-        //By default Vector3 variables cannot have a null value outside of being null on Awake() / Start
-        Vector3? playerReport;
-
-        //Calculates the distance to the player in Unity Units
-        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
-
         //Records rotaion of the camera object
         rotationRecord = new Vector3 (transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
@@ -127,10 +100,8 @@ public class CameraManager : MonoBehaviour
 
                 targetText.text = $"{target}";
 
-                playerReport = null;
-
                 //Rotating at degreesPerSec relative to the World Space
-                transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime, Space.Self);
+                transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime, Space.World);
 
                 //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
 
@@ -141,16 +112,8 @@ public class CameraManager : MonoBehaviour
                     degreesPerSec = -degreesPerSec;
                 }
 
-                //Do not delete this snippet please
-                //if (transform.localRotation.eulerAngles.y <= rotationMin.y )
-                //{
-                //    print("Going over minimum allowed rotation / NEGATIVE");
-
-                //    degreesPerSec = -degreesPerSec;
-
-                //}
-
-                if (distanceToPlayer <= lookRadius)
+                //if (distanceToPlayer <= lookRadius)
+                if (eyeballScript.canCurrentlySeePlayer == true)
                 {
                     //MONITORING >>> FOCUSED
                     cameraStateMachine = CamStates.FOCUSED;
@@ -181,48 +144,29 @@ public class CameraManager : MonoBehaviour
                 //    transform.localEulerAngles = new Vector3(rotationMax.x, rotationMax.y, rotationMax.z);
                 //}
 
-                //Calling for raycast in order to get "Visual Confirmation"
-                VisionCheck();
+                stateText.text = $"{cameraStateMachine}";
 
-                if (VisionCheck() == true)
+                target = player.transform;
+
+                targetText.text = $"{target}";
+
+                FaceTarget();
+
+                susFlag = true;
+
+                //if (distanceToPlayer >= lookRadius)
+                if (eyeballScript.canCurrentlySeePlayer == false)
                 {
-
-                    stateText.text = $"{cameraStateMachine}";
-
-                    target = player.transform;
-
-                    targetText.text = $"{target}";
-
-
-                    //Insert check for if the cam rotation is in it's degree bounds
-
-                    FaceTarget();
-
-                    playerReport = player.transform.position;
-
-                    susFlag = true;
-
-                }
-                else if (VisionCheck() == false)
-                {
-                    print($"VisionCheck = {VisionCheck()}");
-
                     //find a more effective method than this
                     cameraStateMachine = CamStates.MONITORING;
 
                     susFlag = false;
 
-                }
-
-                if (distanceToPlayer >= lookRadius)
-                {
-                    //print($"Resetting to {originalRotation}");
-
                     //Reset's the camera's X & Z rotation
                     rotationRecord.x = 0;
                     rotationRecord.z = 0;
 
-                    transform.localEulerAngles = new Vector3(0, rotationRecord.y, 0);
+                    transform.localEulerAngles = new Vector3(rotationRecord.x, rotationRecord.y, rotationRecord.z);
 
                     //FOCUSED >>> MONITORING
                     cameraStateMachine = CamStates.MONITORING;
@@ -273,50 +217,27 @@ public class CameraManager : MonoBehaviour
 
     }//End FaceTarget
 
-    //---------------------------------//
-    //Function calls a raycast to check for line of sight with target
-    //Using bool instead of void so that the call of the function simply returns a value of true or false (this is modified by what is set for the return value)
-    bool VisionCheck()
+    private void Init()
     {
-        //Player layer mask
-        //int layerMask = 1 >> 1;
-        //int layerMask = 2;
-
-        RaycastHit hit;
-
-        //Physics.Raycast will return a bool of either true or false, if true it will register as if the statement was if(bool == true) => Do this
-        if (Physics.Raycast(transform.position, transform.forward, out hit, lookRadius, layerMask))
+        if (player == null)
         {
-            //Draws the ray if the raycast is true
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance , Color.magenta);
-            
-            //print("Hit.");
-
-            return true;
-        }
-        else
-        {
-            //print("No hit.");
-
-            return false;
+            player = FindObjectOfType<PlayerMovement>().gameObject.transform;
         }
 
-    }//End VisionCheck
+        stateText.text = "";
+        targetText.text = "";
 
-    //---------------------------------//
-    //Draws a debug object known as a "Gizmo"
-    private void OnDrawGizmos()
-    {
-        //Drawing a magenta sphere
-        Gizmos.color = Color.magenta;
-        //Sphere radius tied to Look Radius variable
-        Gizmos.DrawWireSphere(Self.transform.position, lookRadius);
+        rotationMax = new Vector3(0, 90, 0);
 
-        //Using this raycast to determine the actual forward vector of the camera object in scene
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(Self.transform.position, Self.transform.forward * lookRadius);
+        rotationRecord = new Vector3(0, 0, 0);
 
-    }//End OnDrawGizmos
+        //Remnant from having two angles for the cam to cycle between
+        //Leave this in in the event that current method breaks and two hard angles are needed
+        //rotationMin = new Vector3(0, -60, 0);
+
+        //Set's the CameraAI's state to MONITORING on awake
+        cameraStateMachine = CamStates.MONITORING;
+    }
 
     #endregion
 }
