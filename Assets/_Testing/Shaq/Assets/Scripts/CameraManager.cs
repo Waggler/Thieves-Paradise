@@ -11,17 +11,14 @@ using UnityEngine.UI;
 //    - 
 
 //Things to add:
-//    - Fix layermask issues with raycast so that it:
-//      - Hits regular ("Default" layer) objects
-//      - Ignores "Glass" ("IgnoreRaycast" layer) objects
-//      - Seeks out the player ("Player" layer)
 //    - Add rotational bounds to camera
-
-//Things to look at for reference:
-//    - 
+//      - Investigate using the eyeball visibility "cone" as rotational bounds for the camera
+//          - The camera essentitally can't rotate to an "unsupported" angle if the eyeball keeps it from doing that
+//    - Visual Indicator of where the Eye can currently see in-game
 
 //Done:
-//    - Overall Camera functionality
+//    - Basic Camera functionality
+//    - 
 
 
 public class CameraManager : MonoBehaviour
@@ -30,28 +27,28 @@ public class CameraManager : MonoBehaviour
     [Header("Camera Target / Trigger")]
     private Transform target;
 
-    [Header("Object References")]
-    [SerializeField] private Transform player;
-
     [Header("Debug Text")]
     [SerializeField] private Text stateText;
     [SerializeField] private Text targetText;
 
     [Header("Camera Rotation Variables")]
-    [SerializeField] [Range(0, 60)] private float degreesPerSec;
+    [SerializeField] [Range(0, 60)] private float camSpeed;
     [SerializeField] private Vector3 rotationMax;
     [SerializeField] private Vector3 rotationRecord;
+    //Transition speed between original rotation and look rotation in FaceTarget() method
+    [SerializeField] private float snapSpeed;
 
     [Header("Suspicion Variables")] 
-    [SerializeField] [Range(0, 10)] private float suspicion;
-    [SerializeField] private float suspicionIncrement = 0.01f;
-    [SerializeField] private float suspicionDecriment = 0.01f;
+    [SerializeField] [Range(0, 10)] private float susMeter;
+    [SerializeField] private float susIncrem = 0.01f;
+    [SerializeField] private float susDecrim = 0.01f;
 
-    [Header("Eyeball Integration")]
+    [Header("Eyeball Integration / Eyeball Related Variables")]
     [SerializeField] private EyeballScript eyeballScript;
 
     [Header("Debug Variables (May bite)")]
-    [SerializeField] private bool susFlag = false;
+    [HideInInspector] private bool susFlag = false;
+    [SerializeField] private Renderer rend;
 
     #endregion
 
@@ -69,15 +66,21 @@ public class CameraManager : MonoBehaviour
 
     #region Awake & Update (Start added for debug)
 
+    //---------------------------------//
+    //Callled when the object is spawned. Used instead of Start() because the camera could be spawned after the game has started
     #region Awake
-
     void Awake()
     {
         Init();
+
+        //Use this space for debug variables
+        rend = GetComponent<Renderer>();
     }//End Awake
 
     #endregion
 
+    //---------------------------------//
+    //Called every frame
     #region Update
     void Update()
     {
@@ -96,20 +99,22 @@ public class CameraManager : MonoBehaviour
             case CamStates.MONITORING:
                 stateText.text = $"{cameraStateMachine}";
 
+                //Since there is no target when monitoring, the value is set to null
                 target = null;
 
                 targetText.text = $"{target}";
 
                 //Rotating at degreesPerSec relative to the World Space
-                transform.Rotate(new Vector3(0, degreesPerSec, 0) * Time.deltaTime, Space.World);
+                transform.Rotate(new Vector3(0, camSpeed, 0) * Time.deltaTime, Space.World);
 
+                rend.material.color = Color.green;
+
+                //Technically this snippet of code shouldn't work yet it does, will likely break in the future and need to be fixed
                 //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
-
                 if (transform.localRotation.eulerAngles.y >= rotationMax.y)
                 {
-                    //print("Inverting turn rate");
-
-                    degreesPerSec = -degreesPerSec;
+                    //Inverts the camera's turn speed
+                    camSpeed = -camSpeed;
                 }
 
                 //if (distanceToPlayer <= lookRadius)
@@ -120,14 +125,13 @@ public class CameraManager : MonoBehaviour
                 }
 
                 //Reducing suspicion level
-                if (suspicion > 0 && cameraStateMachine == CamStates.MONITORING)
+                if (susMeter > 0 && cameraStateMachine == CamStates.MONITORING)
                 {
-                    print("SUSPICION LOWERING");
-                    suspicion -= suspicionDecriment;
+                    susMeter -= susDecrim;
                 }
-                else if (suspicion < 0)
+                else if (susMeter < 0)
                 {
-                    suspicion = 0;
+                    susMeter = 0;
                 }
 
                 break;
@@ -137,16 +141,10 @@ public class CameraManager : MonoBehaviour
             //When the camera sees the player / FOCUSED
             case CamStates.FOCUSED:
 
-                ////Manual clamping of Camera rotation within rotation min & max values
-                //if (transform.localRotation.eulerAngles.y >= rotationMax.y)
-                //{
-                //    print("Bro, what in the FUCK are you doing rotating like that");
-                //    transform.localEulerAngles = new Vector3(rotationMax.x, rotationMax.y, rotationMax.z);
-                //}
-
                 stateText.text = $"{cameraStateMachine}";
 
-                target = player.transform;
+                //referencing player variable from the eyeball script
+                target = eyeballScript.player.transform;
 
                 targetText.text = $"{target}";
 
@@ -154,18 +152,19 @@ public class CameraManager : MonoBehaviour
 
                 susFlag = true;
 
-                //if (distanceToPlayer >= lookRadius)
+                //
+                rend.material.color = Color.red;
+
+                //Exit condition for FOCUSED state
                 if (eyeballScript.canCurrentlySeePlayer == false)
                 {
-                    //find a more effective method than this
-                    cameraStateMachine = CamStates.MONITORING;
-
                     susFlag = false;
 
                     //Reset's the camera's X & Z rotation
                     rotationRecord.x = 0;
                     rotationRecord.z = 0;
 
+                    //While the X & Z rotation are reset, the Y rotation is preserved
                     transform.localEulerAngles = new Vector3(rotationRecord.x, rotationRecord.y, rotationRecord.z);
 
                     //FOCUSED >>> MONITORING
@@ -174,24 +173,25 @@ public class CameraManager : MonoBehaviour
 
                 //Raising suspicion level
                 //Use of the susFlag bool ensures that the suspicion level can only go up if there is visual confirmation
-                //Consider just adding this into the if(VisionCheck() == true) statement
-                if (susFlag == true && suspicion < 10)
+                if (susFlag == true && susMeter < 10)
                 {
-                    print("SUSPICION RISING");
-                    suspicion += suspicionIncrement;
+                    susMeter += susIncrem;
                 }
-                else if (suspicion > 10)
+                else if (susMeter > 10)
                 {
-                    suspicion = 10;
+                    susMeter = 10;
                 }
 
                 break;
             #endregion
 
             #region Defualt state
+            //Not exactly a state but acts as a net to catch any bugs that would prevent the game from running
             default:
                 stateText.text = "State Not Found";
                 targetText.text = "Null";
+
+                rend.material.color = Color.yellow;
 
                 break;
             #endregion
@@ -207,23 +207,22 @@ public class CameraManager : MonoBehaviour
     //Function that makes the object face it's target
     void FaceTarget()
     {
+        //generates the direction that the camera needs to face
         Vector3 direction = (target.position - transform.position).normalized;
 
+        //Creates a quaternion var and assings it a look rotation
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
 
-        //try not to add Time.deltaTime to this as it will result in the Camera needing to use it's rotational Z-axis
-        // this will result in an unusual appearance in the final game
-        transform.rotation = lookRotation;
+        //Using Quaternion.Slerp instead of transform.rotation = lookRotation in order to keep camera snapping smooth
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * snapSpeed);
 
     }//End FaceTarget
 
+
+    //---------------------------------//
+    //Used to preload all necessary variables or states in the Camera Manager script
     private void Init()
     {
-        if (player == null)
-        {
-            player = FindObjectOfType<PlayerMovement>().gameObject.transform;
-        }
-
         stateText.text = "";
         targetText.text = "";
 
@@ -231,13 +230,9 @@ public class CameraManager : MonoBehaviour
 
         rotationRecord = new Vector3(0, 0, 0);
 
-        //Remnant from having two angles for the cam to cycle between
-        //Leave this in in the event that current method breaks and two hard angles are needed
-        //rotationMin = new Vector3(0, -60, 0);
-
         //Set's the CameraAI's state to MONITORING on awake
         cameraStateMachine = CamStates.MONITORING;
-    }
+    }//End Init
 
     #endregion
 }

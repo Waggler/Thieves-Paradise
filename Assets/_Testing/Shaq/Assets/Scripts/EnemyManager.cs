@@ -117,7 +117,7 @@ public class EnemyManager : MonoBehaviour
     [Header("Debug Variables")]
     [SerializeField] private GameObject player;
     
-    [Header("Diagnostic Text for AI instances (Devbuild only)")]
+    [Header("Diagnostic Text for AI instances (Dev only)")]
     [SerializeField] private Text stateText;
     [SerializeField] private Text targetText;
 
@@ -151,6 +151,11 @@ public class EnemyManager : MonoBehaviour
     //  Using Awake() instead of Start() so that when spawning is functional, the AI won't break
     void Awake()
     {
+        if (player == null)
+        {
+            player = FindObjectOfType<PlayerMovement>().gameObject;
+        }
+
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
         stateMachine = EnemyStates.PASSIVE;
