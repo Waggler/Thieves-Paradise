@@ -11,16 +11,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
     [SerializeField] private float Acceleration;
+    [SerializeField] private bool IsSprinting = false;
+    [SerializeField] private bool UnSprinting = true;
     private float CurrentSpeed;
     private Vector3 Direction;
-    public bool IsSprinting = false;
-    private bool UnSprinting = true;
 
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
-    private bool IsCrouching = false;
-    private bool UnCrouched = true;
+    [SerializeField] private bool IsCrouching = false;
+    [SerializeField] private bool UnCrouched = true;
 
 
     [Header("Physics")]
@@ -31,20 +31,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float CrouchingHeightFromGround;
     [SerializeField] private CapsuleCollider Collider;
     [SerializeField] private CharacterController Controller;
+    [SerializeField] private bool IsGrounded = true;
     private float GroundHeight;
     private Vector3 VerticalVelocity = Vector3.zero;
-    private bool IsGrounded = true;
+
 
     [Header("Rolling")]
     [SerializeField] private float RollingSpeed;
     [SerializeField] private float RollingTime;
+    [SerializeField] private bool IsRolling;
     private float CurrentRollTime;
     private Vector3 RollDirection;
-    private bool IsRolling;
+
 
     [Header("Sliding")]
     [SerializeField] private float Deceleration;
-    private bool IsSliding;
+    [SerializeField] private bool IsSliding;
 
     //[Header("Camera")]
     private Transform PlayerCamera;
@@ -108,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
 
-        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding)
+        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0)
         {
             RollDirection = FacingDirection;
         }
@@ -268,11 +270,18 @@ public class PlayerMovement : MonoBehaviour
     //---DIVEJUMP---//
     void DiveJump()
     {
+        //Current Bug: It seems as though it only teleports you to one place and doesn't even jump. I need to find away to jump and move forward with outh pressing the movement keys.
         VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
-        Controller.Move(VerticalVelocity * Time.deltaTime);
-        Controller.Move(RollDirection * RollingSpeed * Time.deltaTime);
-        print("Dive Time");
-        CrouchDown();
+        Controller.Move(VerticalVelocity * Time.deltaTime + (RollDirection * RollingSpeed));
+        print(RollDirection);
+
+        if(UnCrouched)
+        {
+            IsSprinting = false;
+            UnSprinting = true;
+            UnCrouched = false;
+            CrouchDown();
+        }
     }
 
     #endregion
