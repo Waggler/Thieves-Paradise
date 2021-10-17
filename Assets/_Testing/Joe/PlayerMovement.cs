@@ -43,15 +43,31 @@ public class PlayerMovement : MonoBehaviour
     private float CurrentRollTime;
     private Vector3 RollDirection;
 
-
     [Header("Sliding")]
     [SerializeField] private float Deceleration;
     [SerializeField] private bool IsSliding;
 
+    [Header("Diving")]
+    [SerializeField] private float DiveSpeed;
+    [SerializeField] private float DiveTime;
+    [SerializeField] private bool IsDiving;
+    public float CurrentDiveTime;
+
+    [Header("Animation States")]
+    public bool Idle;
+    public bool IdleCrouch;
+    public bool Moving;
+    public bool Crouching;
+    public bool Running;
+    public bool Jumping;
+    public bool Slide;
+    public bool CrouchRoll;
+    //Dive isn't ready yet.
+    //public bool Diving;
+    
     //[Header("Camera")]
     private Transform PlayerCamera;
     private Vector3 FacingDirection;
-    
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
     #endregion
@@ -60,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
     {
         CurrentSpeed = WalkingSpeed;
         CurrentRollTime = RollingTime;
+        CurrentDiveTime = DiveTime;
         Controller = GetComponent<CharacterController>();
         Collider = GetComponent<CapsuleCollider>();
         PlayerCamera = Camera.main.transform;
@@ -110,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
 
-        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0)
+        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {
             RollDirection = FacingDirection;
         }
@@ -141,6 +158,14 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
+        #region Dive Action
+        DiveJump();
+        #endregion
+
+        #region Check For Idle
+        AnimationStates();
+
+        #endregion
     }
 
     #region Functions
@@ -163,16 +188,21 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(!IsSprinting)
                 {
+                    Jumping = true;
                     VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
                     Controller.Move(VerticalVelocity * Time.deltaTime);
                 }
                 else if(IsSprinting)
                 {
-                    DiveJump();
+                    IsDiving = true;
+                    VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
+                    Controller.Move(VerticalVelocity * Time.deltaTime);
+                    print(RollDirection);
                 }
             }
             else if(Direction.magnitude <= 0.1)
             {
+                Jumping = true;
                 VerticalVelocity.y = Mathf.Sqrt(-2f * StillJumpHeight * -Gravity);
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
@@ -270,17 +300,26 @@ public class PlayerMovement : MonoBehaviour
     //---DIVEJUMP---//
     void DiveJump()
     {
-        //Current Bug: It seems as though it only teleports you to one place and doesn't even jump. I need to find away to jump and move forward with outh pressing the movement keys.
-        VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
-        Controller.Move(VerticalVelocity * Time.deltaTime + (RollDirection * RollingSpeed));
-        print(RollDirection);
-
-        if(UnCrouched)
+        //Current Bug: I need to end up crouching.
+        if(IsDiving)
+        {   
+            if(CurrentDiveTime > 0)
+            {
+                Controller.Move(RollDirection * DiveSpeed * Time.deltaTime);
+                CurrentDiveTime -= Time.deltaTime;
+            }
+            else if(CurrentDiveTime <= 0)
+            {
+                IsDiving = false;
+            }
+        }
+        if(IsDiving == false && CurrentDiveTime < DiveTime)
         {
-            IsSprinting = false;
-            UnSprinting = true;
-            UnCrouched = false;
-            CrouchDown();
+            CurrentDiveTime += Time.deltaTime;
+            if(CurrentDiveTime > DiveTime)
+            {
+                CurrentDiveTime = DiveTime;
+            }
         }
     }
 
@@ -297,7 +336,7 @@ public class PlayerMovement : MonoBehaviour
         if(Physics.CheckSphere(groundCheck, StandardHeight / 4, mask))
         {
             IsGrounded = true;
-            
+            Jumping = false;
         }
         else
         {
@@ -413,5 +452,75 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
     
+    #region Animation States
+    //---ANIMATIONSTATES---//
+    void AnimationStates()
+    {
+        if(Direction == Vector3.zero && IsGrounded && !IsCrouching && !IsSliding && !IsRolling)
+        {
+            Idle = true;
+        }
+        else
+        {
+            Idle = false;
+        }
+
+        if(Direction == Vector3.zero && IsGrounded && IsCrouching && !IsSliding && !IsRolling)
+        {
+            IdleCrouch = true;
+        }
+        else
+        {
+            IdleCrouch = false;
+        }
+
+        if(Direction != Vector3.zero && IsGrounded && !IsCrouching && !IsSliding && !IsRolling && !IsSprinting)
+        {
+            Moving = true;
+        }
+        else
+        {
+            Moving = false;
+        }
+
+        if(IsSprinting && !IsSliding)
+        {
+            Running = true;
+        }
+        else
+        {
+            Running = false;
+        }
+
+        if(IsCrouching && !IsSliding && !IsRolling && Direction != Vector3.zero)
+        {
+            Crouching = true;
+        }
+        else
+        {
+            Crouching = false;
+        }
+
+        if(IsSliding)
+        {
+            Slide = true;
+        }
+        else
+        {
+            Slide = false;
+        }
+
+        if(IsRolling)
+        {
+            CrouchRoll = true;
+        }
+        else
+        {
+            CrouchRoll = false;
+        }
+    }
+
+    #endregion
+
     #endregion
 }
