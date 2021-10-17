@@ -26,6 +26,7 @@ public class CameraManager : MonoBehaviour
     #region Variables
     [Header("Camera Target / Trigger")]
     private Transform target;
+    [SerializeField] private GameObject player;
 
     [Header("Debug Text")]
     [SerializeField] private Text stateText;
@@ -144,7 +145,7 @@ public class CameraManager : MonoBehaviour
                 stateText.text = $"{cameraStateMachine}";
 
                 //referencing player variable from the eyeball script
-                target = eyeballScript.player.transform;
+                target = player.transform;
 
                 targetText.text = $"{target}";
 
