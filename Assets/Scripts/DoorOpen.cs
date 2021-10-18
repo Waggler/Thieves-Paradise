@@ -50,7 +50,7 @@ public class DoorOpen : MonoBehaviour
     {
         if(doorOpens == true)
         {
-            maxAngle = 76.942f;
+            maxAngle = 90f;
         }
 
         else
@@ -62,6 +62,11 @@ public class DoorOpen : MonoBehaviour
         {
             maxAngle = 151.55f;
         }
+
+        if(im.isCrouching == true)
+        {
+            maxAngle = 75.44f;
+        } 
     }
 
     #region OpenDoor
@@ -79,7 +84,7 @@ public class DoorOpen : MonoBehaviour
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             transform.eulerAngles = new Vector3(0, angle, 0);
-            door.transform.position = new Vector3(8.57f, 2.1f, 5.02f);
+            door.transform.position = new Vector3(8.34f, 2.1f, 5.02f);
             
             
             // door.transform.eulerAngles = new Vector3(0f, -76.942f, 0f);

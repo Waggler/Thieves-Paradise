@@ -15,6 +15,8 @@ public class CamSwitch : MonoBehaviour
 
     public InputManager im;
 
+    public DoorOpen door;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -38,25 +40,32 @@ public class CamSwitch : MonoBehaviour
 
     private void SwitchState()
     {
-        if(Cam1 && im.isCrouching == false)
+        if(im.isCrouching == false)
         {
-            animator.Play("FreeLook");
+            if(Cam1 == false)
+            {
+                animator.Play("FreeLook");
+            }
+            else
+            {
+                animator.Play("VCam1");
+            }
+            Cam1 = !Cam1;
         }
-        else
-        {
-            animator.Play("VCam1");
-        }
-        Cam1 = !Cam1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(im.isCrouching == true)
+        if(im.isCrouching == true && door.inArea == true)
         {
             animator.Play("FreeLook");
         }
-        if(im.isCrouching == false)
+        if(im.isCrouching == false && door.inArea == true)
+        {
+            animator.Play("VCam1");
+        }
+        if(im.isCrouching == false && door.inArea == false)
         {
             animator.Play("VCam1");
         }
