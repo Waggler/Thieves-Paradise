@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float Gravity;
     [SerializeField] private float MovingJumpHeight;
     [SerializeField] private float StillJumpHeight;
+    [SerializeField] private float DiveHeight;
     [SerializeField] private float HeightFromGround;
     [SerializeField] private float CrouchingHeightFromGround;
     [SerializeField] private CapsuleCollider Collider;
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DiveSpeed;
     [SerializeField] private float DiveTime;
     [SerializeField] private bool IsDiving;
+    [SerializeField] private bool ResetDiving;
     public float CurrentDiveTime;
 
     [Header("Animation States")]
@@ -62,8 +64,7 @@ public class PlayerMovement : MonoBehaviour
     public bool Jumping;
     public bool Slide;
     public bool CrouchRoll;
-    //Dive isn't ready yet.
-    //public bool Diving;
+    public bool Diving;
     
     //[Header("Camera")]
     private Transform PlayerCamera;
@@ -122,12 +123,12 @@ public class PlayerMovement : MonoBehaviour
         FacingDirection.y = 0f;
         FacingDirection = FacingDirection.normalized;
 
-        if(!IsRolling && !IsSliding)
+        if(!IsRolling && !IsSliding && !IsDiving)
         {
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
 
-        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
+        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0)
         {
             RollDirection = FacingDirection;
         }
@@ -160,6 +161,17 @@ public class PlayerMovement : MonoBehaviour
 
         #region Dive Action
         DiveJump();
+        if(!IsDiving)
+        {
+            if(CurrentDiveTime < DiveTime)
+            {
+                CurrentDiveTime += Time.deltaTime;
+                if(CurrentDiveTime > DiveTime)
+                {
+                    CurrentDiveTime = DiveTime;
+                }
+            }
+        }
         #endregion
 
         #region Check For Idle
@@ -195,7 +207,7 @@ public class PlayerMovement : MonoBehaviour
                 else if(IsSprinting)
                 {
                     IsDiving = true;
-                    VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
+                    VerticalVelocity.y = Mathf.Sqrt(-2f * DiveHeight * -Gravity);
                     Controller.Move(VerticalVelocity * Time.deltaTime);
                     print(RollDirection);
                 }
@@ -311,14 +323,18 @@ public class PlayerMovement : MonoBehaviour
             else if(CurrentDiveTime <= 0)
             {
                 IsDiving = false;
+                ResetDiving = true;
             }
         }
-        if(IsDiving == false && CurrentDiveTime < DiveTime)
+        if(!IsDiving && ResetDiving)
         {
-            CurrentDiveTime += Time.deltaTime;
-            if(CurrentDiveTime > DiveTime)
+            if(IsGrounded)
             {
-                CurrentDiveTime = DiveTime;
+                IsSprinting = false;
+                UnSprinting = true;
+                UnCrouched = false;
+                ResetDiving = false;
+                CrouchDown();
             }
         }
     }
@@ -341,7 +357,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             IsGrounded = false;
-            if (IsCrouching)
+            if(IsCrouching)
             {
                 StandUp();
                 IsCrouching = false;
@@ -483,7 +499,7 @@ public class PlayerMovement : MonoBehaviour
             Moving = false;
         }
 
-        if(IsSprinting && !IsSliding)
+        if(IsSprinting && !IsSliding && !IsDiving && !ResetDiving)
         {
             Running = true;
         }
@@ -517,6 +533,15 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             CrouchRoll = false;
+        }
+
+        if(IsDiving || ResetDiving)
+        {
+            Diving = true;
+        }
+        else
+        {
+            Diving = false;
         }
     }
 
