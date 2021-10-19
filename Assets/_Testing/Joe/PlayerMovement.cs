@@ -128,12 +128,12 @@ public class PlayerMovement : MonoBehaviour
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
 
-        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0)
+        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {
             RollDirection = FacingDirection;
         }
 
-        if(FacingDirection != Vector3.zero)
+        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-        #region Check For Idle
+        #region Check For Animations
         AnimationStates();
 
         #endregion
@@ -499,7 +499,7 @@ public class PlayerMovement : MonoBehaviour
             Moving = false;
         }
 
-        if(IsSprinting && !IsSliding && !IsDiving && !ResetDiving)
+        if(IsSprinting && !IsSliding && !IsDiving && !ResetDiving && Direction != Vector3.zero)
         {
             Running = true;
         }
