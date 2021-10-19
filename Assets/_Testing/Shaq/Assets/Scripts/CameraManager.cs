@@ -35,7 +35,7 @@ public class CameraManager : MonoBehaviour
     [Header("Camera Rotation Variables")]
     [SerializeField] [Range(0, 60)] private float camSpeed;
     [SerializeField] private Vector3 rotationMax;
-    [SerializeField] private Vector3 rotationRecord;
+    [HideInInspector] private Vector3 rotationRecord;
     //Transition speed between original rotation and look rotation in FaceTarget() method
     [SerializeField] private float snapSpeed;
 
@@ -45,7 +45,9 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float susDecrim = 0.01f;
 
     [Header("Eyeball Integration / Eyeball Related Variables")]
-    [SerializeField] private EyeballScript eyeballScript;
+    [SerializeField] private EyeballScript eyeball;
+    [SerializeField] private EnemyManager enemyMngr;
+
 
     [Header("Debug Variables (May bite)")]
     [HideInInspector] private bool susFlag = false;
@@ -119,7 +121,7 @@ public class CameraManager : MonoBehaviour
                 }
 
                 //if (distanceToPlayer <= lookRadius)
-                if (eyeballScript.canCurrentlySeePlayer == true)
+                if (eyeball.canCurrentlySeePlayer == true)
                 {
                     //MONITORING >>> FOCUSED
                     cameraStateMachine = CamStates.FOCUSED;
@@ -157,7 +159,7 @@ public class CameraManager : MonoBehaviour
                 rend.material.color = Color.red;
 
                 //Exit condition for FOCUSED state
-                if (eyeballScript.canCurrentlySeePlayer == false)
+                if (eyeball.canCurrentlySeePlayer == false)
                 {
                     susFlag = false;
 
@@ -182,6 +184,8 @@ public class CameraManager : MonoBehaviour
                 {
                     susMeter = 10;
                 }
+
+                //eyeball.lastKnownLocation;
 
                 break;
             #endregion
@@ -234,6 +238,23 @@ public class CameraManager : MonoBehaviour
         //Set's the CameraAI's state to MONITORING on awake
         cameraStateMachine = CamStates.MONITORING;
     }//End Init
+
+
+    private Vector3 AlertGuards(Vector3 targetLoc)
+    {
+        //Record lastknownlocation from eyeball script
+
+        //Get ping radius
+
+        //Ping guards within this radius
+
+        //???
+
+        //profit
+
+
+        return targetLoc;
+    }
 
     #endregion
 }
