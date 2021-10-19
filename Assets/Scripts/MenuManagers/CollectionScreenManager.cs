@@ -14,12 +14,6 @@ public class CollectionScreenManager : MonoBehaviour
     [SerializeField] private GameObject missionMenu;
     [SerializeField] private GameObject collectionNightMenu;
 
-    [SerializeField] private Transform stolenItemBank;
-    [SerializeField] private Image stolenItem1;
-    [SerializeField] private Image stolenItem2;
-    [SerializeField] private Image stolenItem3;
-    [SerializeField] private Image stolenItem4;
-
 
     //TODO link with gamecontroller for bool flags based on nights completed/items taken
 
@@ -31,7 +25,7 @@ public class CollectionScreenManager : MonoBehaviour
 
 
     //-----------------------//
-    public void ChangeScreen(int screenValue)
+    public void ChangeScreen(int screenValue) //TODO Link with stolenItemMenuManager to populate what items appear
     //-----------------------//
     {
 
@@ -45,18 +39,7 @@ public class CollectionScreenManager : MonoBehaviour
         {
             collectionMenu.SetActive(false);
             collectionNightMenu.SetActive(true);
-            PopulateStolenItems();
         }
-
-
-    }//END ChangeScreen
-
-    //-----------------------//
-    public void PopulateStolenItems() //TODO Utilize bool flags & enum to swap image of silhoeutte for the item
-    //-----------------------//
-    {
-        
-        
 
 
     }//END ChangeScreen
