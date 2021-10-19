@@ -56,14 +56,15 @@ public class PlayerMovement : MonoBehaviour
     public float CurrentDiveTime;
 
     [Header("Animation States")]
+    [SerializeField] private AnimationController animationController;
     public bool Idle;
     public bool IdleCrouch;
     public bool Moving;
     public bool Crouching;
     public bool Running;
     public bool Jumping;
-    public bool Slide;
     public bool CrouchRoll;
+    public bool Slide;
     public bool Diving;
     
     //[Header("Camera")]
@@ -201,6 +202,7 @@ public class PlayerMovement : MonoBehaviour
                 if(!IsSprinting)
                 {
                     Jumping = true;
+                    animationController.IsPlayerJumping(Jumping);
                     VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
                     Controller.Move(VerticalVelocity * Time.deltaTime);
                 }
@@ -215,6 +217,7 @@ public class PlayerMovement : MonoBehaviour
             else if(Direction.magnitude <= 0.1)
             {
                 Jumping = true;
+                animationController.IsPlayerJumping(Jumping);
                 VerticalVelocity.y = Mathf.Sqrt(-2f * StillJumpHeight * -Gravity);
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
@@ -353,6 +356,7 @@ public class PlayerMovement : MonoBehaviour
         {
             IsGrounded = true;
             Jumping = false;
+            animationController.IsPlayerJumping(Jumping);
         }
         else
         {
@@ -472,76 +476,100 @@ public class PlayerMovement : MonoBehaviour
     //---ANIMATIONSTATES---//
     void AnimationStates()
     {
+        //---IDLE---//
         if(Direction == Vector3.zero && IsGrounded && !IsCrouching && !IsSliding && !IsRolling)
         {
             Idle = true;
+            animationController.IsPlayerIdle(Idle);
         }
         else
         {
             Idle = false;
+            animationController.IsPlayerIdle(Idle);
         }
 
+        //---CROUCH-IDLE---//
         if(Direction == Vector3.zero && IsGrounded && IsCrouching && !IsSliding && !IsRolling)
         {
             IdleCrouch = true;
+            animationController.IsPlayerCrouchIdle(IdleCrouch);
         }
         else
         {
             IdleCrouch = false;
+            animationController.IsPlayerCrouchIdle(IdleCrouch);
         }
 
-        if(Direction != Vector3.zero && IsGrounded && !IsCrouching && !IsSliding && !IsRolling && !IsSprinting)
+        //---WALKING---//
+        if(Direction != Vector3.zero && IsGrounded && !IsSliding && !IsRolling)
         {
             Moving = true;
+            animationController.IsPlayerWalking(Moving);
         }
         else
         {
             Moving = false;
+            animationController.IsPlayerWalking(Moving);
         }
 
+        //---RUNNING---//
         if(IsSprinting && !IsSliding && !IsDiving && !ResetDiving && Direction != Vector3.zero)
         {
             Running = true;
+            animationController.IsPlayerSprinting(Running);
         }
         else
         {
             Running = false;
+            animationController.IsPlayerSprinting(Running);
         }
 
-        if(IsCrouching && !IsSliding && !IsRolling && Direction != Vector3.zero)
+        //---CROUCHING---//
+        if(IsCrouching && !IsSliding && Direction != Vector3.zero)
         {
             Crouching = true;
+            animationController.IsPlayerCrouching(Crouching);
         }
         else
         {
             Crouching = false;
+            animationController.IsPlayerCrouching(Crouching);
         }
 
-        if(IsSliding)
-        {
-            Slide = true;
-        }
-        else
-        {
-            Slide = false;
-        }
-
+        //---ROLLING---//
         if(IsRolling)
         {
             CrouchRoll = true;
+            animationController.IsPlayerRolling(CrouchRoll);
         }
         else
         {
             CrouchRoll = false;
+            animationController.IsPlayerRolling(CrouchRoll);
+        }
+        
+        //---SLIDING---//
+        if(IsSliding)
+        {
+            Slide = true;
+            animationController.IsPlayerSliding(Slide);
+        }
+        else
+        {
+            Slide = false;
+            animationController.IsPlayerSliding(Slide);
         }
 
+        //---DIVING---//
         if(IsDiving || ResetDiving)
         {
             Diving = true;
+            animationController.IsPlayerDiving(Diving);
         }
         else
         {
             Diving = false;
+            animationController.IsPlayerDiving(Diving);
         }
     }
 
