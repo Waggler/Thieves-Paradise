@@ -110,5 +110,20 @@ public class InventoryController : MonoBehaviour
     {
         
     }
+
+    private void GetNearestItem()
+    {
+        if(nearbyItems.Count == 0)
+        {
+            //don't do anything if nothing is nearby
+            return;
+        }
+        float minDistance = 100;
+        int itemIndex;
+        for (int i = 0; i < nearbyItems.Count; i++)
+        {
+            
+        }
+    }
     #endregion
 }
