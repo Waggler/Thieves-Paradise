@@ -12,7 +12,7 @@ public class PauseSettingsManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject audioTab;
     [SerializeField] private GameObject videoTab;
-    [SerializeField] private GameObject inputTab;
+    [SerializeField] private GameObject preferencesTab;
 
     [Header("Audio")]
     [SerializeField] private Slider masterVolumeSlider;
@@ -67,7 +67,7 @@ public class PauseSettingsManager : MonoBehaviour
 
         audioTab.SetActive(true); //Sets audio tab as default
         videoTab.SetActive(false);
-        inputTab.SetActive(false);
+        preferencesTab.SetActive(false);
 
         settingsMenu.SetActive(false);
 
@@ -82,21 +82,21 @@ public class PauseSettingsManager : MonoBehaviour
         {
             audioTab.SetActive(true);
             videoTab.SetActive(false);
-            inputTab.SetActive(false);
+            preferencesTab.SetActive(false);
 
         }
         else if (tabValue == 1)
         {
             audioTab.SetActive(false);
             videoTab.SetActive(true);
-            inputTab.SetActive(false);
+            preferencesTab.SetActive(false);
 
         }
         else if (tabValue == 2)
         {
             audioTab.SetActive(false);
             videoTab.SetActive(false);
-            inputTab.SetActive(true);
+            preferencesTab.SetActive(true);
 
         }
 
@@ -227,6 +227,55 @@ public class PauseSettingsManager : MonoBehaviour
 
     #endregion Video
 
+
+    #region Preferences
+
+    //-----------------------//
+    public void CrouchToggle(bool isCrouchToggleOn)
+    //-----------------------//
+    {
+
+        Debug.Log($"The crouch toggle is set to {isCrouchToggleOn}");
+
+    }//END CrouchToggle
+
+    //-----------------------//
+    public void SprintToggle(bool isSprintToggleOn)
+    //-----------------------//
+    {
+
+        Debug.Log($"The sprint toggle is set to {isSprintToggleOn}");
+
+    }//END CrouchToggle
+
+    //-----------------------//
+    public void InvertHorizontalAxis(bool isInvertHorizontalOn)
+    //-----------------------//
+    {
+
+        Debug.Log($"The horizontal invert toggle is set to {isInvertHorizontalOn}");
+
+    }//END CrouchToggle
+
+    //-----------------------//
+    public void InvertVerticalAxis(bool isInvertVerticalOn)
+    //-----------------------//
+    {
+
+        Debug.Log($"The vertical invert toggle is set to {isInvertVerticalOn}");
+
+    }//END CrouchToggle
+
+    public void AdjustHUD(bool isInventoryRight)
+    //-----------------------//
+    {
+
+        Debug.Log($"The inventory toggle for the right side is set to {isInventoryRight}");
+
+    }//END CrouchToggle
+
+
+    #endregion Preferences
 
     #endregion Methods
 
