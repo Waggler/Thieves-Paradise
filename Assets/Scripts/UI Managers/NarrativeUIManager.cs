@@ -252,12 +252,12 @@ public class NarrativeUIManager : MonoBehaviour
     void ChangePortrait()
     //--------------------------//
     {
-        int i;
-        int f;
+        //int i;
+        //int f;
         if(currentDialogueValue == 0) //Use this to adjust portrait images
         {
-            i = 0;
-            f = 0;
+          //i = 0;
+          //f = 0;
 
             
         }
