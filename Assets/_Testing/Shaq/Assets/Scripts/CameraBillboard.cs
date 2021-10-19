@@ -6,6 +6,14 @@ public class CameraBillboard : MonoBehaviour
 {
     [SerializeField] private Transform target;
 
+    private void Awake()
+    {
+        if (target == null)
+        {
+            target = FindObjectOfType<Camera>().gameObject.transform;
+        }
+    }
+
     void Update()
     {
         Vector3 direction = (target.position - transform.position).normalized;

@@ -13,6 +13,7 @@ public class PauseMenuManager : MonoBehaviour
     [Header("Components")]
     [Header("Screens")]
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject loadMenu;
     [SerializeField] private GameObject settingsMenu;
 
     public static bool isGamePaused;
@@ -62,6 +63,7 @@ public class PauseMenuManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
+        loadMenu.SetActive(false);
 
         Time.timeScale = 1f;
 
@@ -70,21 +72,52 @@ public class PauseMenuManager : MonoBehaviour
     }//END ResumeGame
 
     //-----------------------//
-    public void OpenSettings()
+    public void ChangeScreen(int screenValue)
     //-----------------------//
     {
-        pauseMenu.SetActive(false);
-        settingsMenu.SetActive(true);
+        if (screenValue == 0)
+        {
+            pauseMenu.SetActive(false);
+            loadMenu.SetActive(true);
 
-    }//END OpenSettings
+        }
+        else if (screenValue == 1)
+        {
+            pauseMenu.SetActive(false);
+            settingsMenu.SetActive(true);
+        }
+        else if (screenValue == 2)
+        {
+            Debug.Log("Back to Main Menu");
 
-    //-----------------------//
-    public void MainMenu()
-    //-----------------------//
+        }
+
+
+    }//END ChangeScreen
+
+
+    /*      
+//-------------------------//
+public void IncreaseRosterSize()        //In case we want to make the save list hella big
+//-------------------------//
+{
+    if (totalSaves >= 4)
     {
-        Debug.Log("Back to Main Menu");
+        saveListTransform.sizeDelta = new Vector2(saveListTransform.sizeDelta.x, saveListTransform.sizeDelta.y + 220f);
+    }
+    else if (totalSaves >= 7)
+    {
+        saveListTransform.sizeDelta = new Vector2(saveListTransform.sizeDelta.x, saveListTransform.sizeDelta.y + 220f);
 
-    }//END MainMenu
+    }
+    else if (totalSaves >= 10)
+    {
+        saveListTransform.sizeDelta = new Vector2(saveListTransform.sizeDelta.x, saveListTransform.sizeDelta.y + 220f);
+
+    }
+
+}//END IncreaseRosterSize
+*/
 
 
     #endregion Methods
