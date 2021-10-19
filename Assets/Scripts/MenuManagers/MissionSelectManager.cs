@@ -12,6 +12,8 @@ public class MissionSelectManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject missionMenu;
+    [SerializeField] private GameObject collectionScreen;
+
 
     [Header("Buttons")]
     [SerializeField] private Button ladyButton;
@@ -90,12 +92,20 @@ public class MissionSelectManager : MonoBehaviour
     }//END Init
 
     //-----------------------//
-    public void ChangeScreen()
+    public void ChangeScreen(int screenValue)
     //-----------------------//
     {
+        if (screenValue == 0)
+        {
+            mainMenu.SetActive(true);
+            missionMenu.SetActive(false);
+        }
+        else if (screenValue == 1)
+        {
+            collectionScreen.SetActive(true);
+            missionMenu.SetActive(false);
+        }
 
-        mainMenu.SetActive(true);
-        missionMenu.SetActive(false);
 
 
     }//END ChangeScreen
