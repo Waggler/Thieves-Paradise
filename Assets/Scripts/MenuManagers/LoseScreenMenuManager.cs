@@ -18,7 +18,7 @@ public class LoseScreenMenuManager : MonoBehaviour
         else if (screenValue == 1)
         {
             Debug.Log("Quit Game");
-
+            Application.Quit();
 
         }
 
