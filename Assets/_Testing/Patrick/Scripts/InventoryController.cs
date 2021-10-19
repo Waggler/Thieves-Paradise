@@ -6,6 +6,7 @@ public class InventoryController : MonoBehaviour
 {
     private ItemInterface[] inventory;
     private ItemSuperScript[] inventory2;
+    private GameObject[] inventory3;
     private bool[] inventorySpace; //true = occupied, false = empty
     private int activeItem; //array index
 
@@ -16,17 +17,43 @@ public class InventoryController : MonoBehaviour
     {
         inventory = new ItemInterface[inventorySize];
         inventory2 = new ItemSuperScript[inventorySize];
+        inventory3 = new GameObject[inventorySize];
+
         inventorySpace = new bool[inventorySize];
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Q))
+
+    }
+    #region PlayerInput
+    private bool isItemNearby = false;
+    //Reciever for Player Input
+    public void Interact()
+    {
+        
+        if (isItemNearby)
         {
-            
+            print("Grab Item");
+        }else
+        {
+            print("Pressed Button");
         }
     }
+
+    public void UseItemPrimary()
+    {
+        print("Use Item");
+    }
+
+    public void UseItemSecondary()
+    {
+        print("Use Item 2");
+    }
+
+
+    #endregion
 
     private void SwapItem(int selection)
     {
@@ -59,4 +86,29 @@ public class InventoryController : MonoBehaviour
             inventorySpace[activeItem] = false;
         }
     }
+
+    #region Nearby Items
+    //stores all items currently within reach of the player
+    private List<GameObject> nearbyItems;
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.GetComponent<BasicItemScript>() != null)
+        {
+            isItemNearby = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<BasicItemScript>() != null)
+        {
+            
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        
+    }
+    #endregion
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BasicItemScript : ItemSuperScript
 {
-    
     // Start is called before the first frame update
     void Start()
     {
