@@ -117,28 +117,29 @@ public class EnemyManager : MonoBehaviour
     [Header("Debug Variables")]
     [SerializeField] private GameObject player;
     
-    [Header("Diagnostic Text for AI instances (Devbuild only)")]
+    [Header("Diagnostic Text for AI instances (Dev only)")]
     [SerializeField] private Text stateText;
     [SerializeField] private Text targetText;
 
-    [Header("Come up with name for these later")]
-    [SerializeField] private float lookRadius = 10f;
-    [SerializeField] private float faceRadius = 10f;
+    [Header("Movement Variables")]
+    //[SerializeField] private float lookRadius = 10f;
+    //[SerializeField] private float faceRadius = 10f;
     [SerializeField] private float attackRadius = 10f;
     [SerializeField] private float pursuitSpeed = 25f;
     [SerializeField] private float waypointNextDistance = 2f;
+    [SerializeField] private float rotateSpeed;
     //[SerializeField] private GameObject projectile;
 
 
     [Header("Eyeball Integration")]
-    //[SerializeField] private EyeballScript eyeballScript;
+    [SerializeField] private EyeballScript eyeball;
 
 
     [Header("Guard Movement Speed")]
     [SerializeField] private float patrolSpeed = 10f;
     //will be used when there is specific behavior for the SUSPICIOUS state
     //[SerializeField] private float sussySpeed = 10f;
-    
+
 
     //[Header("Temporary Variables")]
     //Temporary Variables
@@ -146,11 +147,18 @@ public class EnemyManager : MonoBehaviour
 
     #endregion
 
-    #region Start & Update
+    #region Awake & Update
+
+    #region Awake
     //---------------------------------//
     //  Using Awake() instead of Start() so that when spawning is functional, the AI won't break
     void Awake()
     {
+        if (player == null)
+        {
+            player = FindObjectOfType<PlayerMovement>().gameObject;
+        }
+
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
         stateMachine = EnemyStates.PASSIVE;
@@ -162,6 +170,7 @@ public class EnemyManager : MonoBehaviour
             target = waypoints[waypointIndex];
         }
     }//End Awake
+    #endregion
 
 
     //---------------------------------//
@@ -179,18 +188,12 @@ public class EnemyManager : MonoBehaviour
                 stateText.text = EnemyStates.PASSIVE.ToString();
 
                 if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
+
                     {
                         SetNextWaypoint();
                     }
-                if (distanceToPlayer <= lookRadius)
+                //if (distanceToPlayer <= lookRadius)
                 //Checking to see if the player is visible
-                //if (eyeballScript.canCurrentlySeePlayer && eyeballScript.susLevel > 5)
-                    {
-                        print("Player seen, susLevel over 5. Going into SUSPICIOUS state");
-                        // PASSIVE >>>> SUSPICIOUS
-                        stateMachine = EnemyStates.SUSPICIOUS;
-                    }
-
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(waypoints[waypointIndex].transform.position);
 
@@ -199,6 +202,13 @@ public class EnemyManager : MonoBehaviour
                 target = waypoints[waypointIndex];
 
                 targetText.text = $"{target}";
+
+                if (eyeball.canCurrentlySeePlayer && eyeball.susLevel > 5)
+                    {
+                        print("Player seen, susLevel over 5. Going into SUSPICIOUS state");
+                        // PASSIVE >>>> SUSPICIOUS
+                        stateMachine = EnemyStates.SUSPICIOUS;
+                    }
 
                 break;
             #endregion
@@ -221,8 +231,8 @@ public class EnemyManager : MonoBehaviour
                 stateText.text = EnemyStates.SUSPICIOUS.ToString();
 
                 //Checking if the player is within the AI's look radius
-                if (distanceToPlayer <= lookRadius)
-                //if (eyeballScript.canCurrentlySeePlayer && eyeballScript.susLevel > 5)
+                //if (distanceToPlayer <= lookRadius)
+                if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > 5)
                 {
                     //transform.position is being used because you cannot use Vector3 data when Transform is being called
                     SetAIDestination(player.transform.position);
@@ -233,24 +243,25 @@ public class EnemyManager : MonoBehaviour
 
                         targetText.text = $"{target}";
 
-                        //Checking if the player is within the AI's face radius
-                        if (distanceToPlayer <= faceRadius)
-                        {
-                            target = player.transform;
+                        FaceTarget();
 
-                            FaceTarget();
-                        }
+                        
                         if (distanceToPlayer <= attackRadius)
                         {
+                        // SUSPICIOUS >> PASSIVE
                         stateMachine = EnemyStates.HOSTILE;
                         }
-                            
-                    //Reconsider the placement of this pls
-                    //stateMachine = EnemyStates.HOSTILE;
                     }
+                else if (eyeball.canCurrentlySeePlayer == false && eyeball.susLevel > 0)
+                {
+                    //Using transform.position in order to translate Vector3 data to Transform
+                    target.transform.position = eyeball.lastKnownLocation;
+
+                    SetAIDestination(target.transform.position);
+                }
                 else
                     {
-                        // SUSPICIOUS >>>> PASSIVE
+                        // SUSPICIOUS >> PASSIVE
                         stateMachine = EnemyStates.PASSIVE;   
                     }
                 break;
@@ -263,11 +274,12 @@ public class EnemyManager : MonoBehaviour
 
                 if (distanceToPlayer <= attackRadius)
                     {
-                        agent.speed = 0f;
+                        // HOSTILE >> ATTACK
+                        stateMachine = EnemyStates.ATTACK;
                     }
                 else
                     {
-                        // HOSTILE >>>> SUSPICIOUS
+                        // HOSTILE >> SUSPICIOUS
                         stateMachine = EnemyStates.SUSPICIOUS;
                     }
                 break;
@@ -280,13 +292,22 @@ public class EnemyManager : MonoBehaviour
 
                 stateText.text = EnemyStates.ATTACK.ToString();
 
-                //CQCAttack(10);
+                //print("You are being attacked");
 
-                //StartCoroutine("Attack");
-                //StopCoroutine("Attack");
+                //Psuedo code for new attack method
+                //if (target == player  && Vector3.Distance(target.transform.position, transform.position) <= killRadius)
+                //{
+                //    Kill Player
 
-                print("You are being attacked");
-                stateMachine = EnemyStates.HOSTILE; 
+                //    Cut to black
+
+                //    Shitty Lose screen saying "You've been caught"
+                //}
+
+
+                //Check for collision with player
+                //If collided, they lose
+
 
                 break;
             #endregion
@@ -303,6 +324,10 @@ public class EnemyManager : MonoBehaviour
             #region Default Behavior / Bug Catcher
             default:
                 stateText.text = "State not found";
+
+                target = null;
+
+                targetText.text = $"Target = {targetText}";
                 break;
             #endregion
         }
@@ -312,26 +337,6 @@ public class EnemyManager : MonoBehaviour
 
     #region AI Functions
     //---------------------------------//
-    // Used to draw a sphere tied to the AI's current look radius. Really just serving as a diagnostic tool
-    void OnDrawGizmosSelected()
-        {
-            //Drawing a magenta sphere
-            Gizmos.color = Color.magenta;
-            //Sphere radius tied to Look Radius variable
-            Gizmos.DrawWireSphere(transform.position, lookRadius);
-
-            //Drawing a Cyan Sphere
-            Gizmos.color = Color.yellow;
-            //Sphere radius tied to Face Radius variable
-            Gizmos.DrawWireSphere(transform.position, faceRadius);
-
-            //Drawing a Red sphere
-            Gizmos.color = Color.red;
-            //Sphere radius tied to Attack Radius variable
-            Gizmos.DrawWireSphere(transform.position, attackRadius);
-    }//End DrawGizmos
-
-    //---------------------------------//
     // Function for facing the player when the AI is withing stopping distance of the player
     void FaceTarget()
         {
@@ -339,7 +344,7 @@ public class EnemyManager : MonoBehaviour
 
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime /** 2f*/);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
         }//End FaceTarget
 
     //---------------------------------//
@@ -347,14 +352,16 @@ public class EnemyManager : MonoBehaviour
     // Needs to be reworked / improved
     void SetAiSpeed(string detection)
         {
+        detection = detection.ToUpper();
+
             switch (detection)
             {
             //Setting pursuit speed
-                case "Pursuit":
+                case "PURSUIT":
                     agent.speed = Mathf.Lerp(patrolSpeed, pursuitSpeed, 1);
                     break;
             //Setting patrol speed
-                case "Patrol":
+                case "PATROL":
                     agent.speed = Mathf.Lerp(pursuitSpeed, patrolSpeed, 1);
                     break;
                 default:
@@ -370,6 +377,14 @@ public class EnemyManager : MonoBehaviour
         {
             agent.SetDestination(point);
         }//End SetAIDestination
+
+    private void OnDrawGizmos()
+    {
+        //Gizmo color
+        Gizmos.color = Color.red;
+        //Gizmo type
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
+    }
 
     //---------------------------------//
     // Revive mechanic set for certain AI prefabs
@@ -391,6 +406,11 @@ public class EnemyManager : MonoBehaviour
     {
 
     }//End RaiseSecurityLevel
+
+    void AlertLocation()
+    {
+
+    }
 
     #region Attacks
     // Generic Funcitons to be add WAY down the line
