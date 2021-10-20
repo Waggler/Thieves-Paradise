@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DiveTime;
     [SerializeField] private bool IsDiving;
     [SerializeField] private bool ResetDiving;
-    public float CurrentDiveTime;
+    private float CurrentDiveTime;
 
     [Header("Animation States")]
     [SerializeField] private AnimationController animationController;
@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
     //[Header("Camera")]
     private Transform PlayerCamera;
     private Vector3 FacingDirection;
+    private Vector3 Looking;
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
     #endregion
@@ -134,10 +135,16 @@ public class PlayerMovement : MonoBehaviour
             RollDirection = FacingDirection;
         }
 
+        if(RollDirection != Looking)
+        {
+            print("BEEP");
+        }
+
         if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
+            Looking = FacingDirection;
         }
 
         #endregion
