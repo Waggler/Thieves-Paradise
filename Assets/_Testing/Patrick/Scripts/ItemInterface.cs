@@ -5,9 +5,7 @@ using UnityEngine;
 public interface ItemInterface
 {
     //required functions
-     void PickupItem();
 
      void UseItem();
 
-     void DropItem();
 }

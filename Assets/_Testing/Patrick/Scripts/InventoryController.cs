@@ -100,15 +100,18 @@ public class InventoryController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<BasicItemScript>() != null)
+        if (other.tag == "Item")
         {
-            
+            nearbyItems.Add(other.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        
+        if (other.tag == "Item")
+        {
+            nearbyItems.Remove(other.gameObject);
+        }
     }
 
     private void GetNearestItem()
@@ -119,11 +122,17 @@ public class InventoryController : MonoBehaviour
             return;
         }
         float minDistance = 100;
-        int itemIndex;
+        int itemIndex = 0;
         for (int i = 0; i < nearbyItems.Count; i++)
         {
-            
+            Vector3 distance = nearbyItems[i].transform.position - transform.position;
+            if (distance.magnitude < minDistance)
+            {
+                minDistance = distance.magnitude;
+                itemIndex = i;
+            }
         }
+        print(nearbyItems[itemIndex]);
     }
     #endregion
 }
