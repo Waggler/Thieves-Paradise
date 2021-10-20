@@ -75,6 +75,21 @@ public class PlayerPreferencesHandler : MonoBehaviour
 
     }//END GetString
 
+    //-----------------------//
+    public float GetFloat(string KeyName)
+    //-----------------------//
+    {
+        return PlayerPrefs.GetFloat(KeyName);
+
+    }//END GetFloat
+
+    //-----------------------//
+    public int Getint(string KeyName)
+    //-----------------------//
+    {
+        return PlayerPrefs.GetInt(KeyName);
+
+    }//END GetFloat
 
 
     #endregion Getters
