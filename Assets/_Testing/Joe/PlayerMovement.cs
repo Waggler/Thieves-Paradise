@@ -133,11 +133,12 @@ public class PlayerMovement : MonoBehaviour
         if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {
             RollDirection = FacingDirection;
+            print("ROLLING: " + ROLLING)
         }
 
         if(RollDirection != Looking)
         {
-            print("BEEP");
+            //print("BEEP");
         }
 
         if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
@@ -145,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
             Looking = FacingDirection;
+            print("LOOKING: " + Looking);
         }
 
         #endregion
