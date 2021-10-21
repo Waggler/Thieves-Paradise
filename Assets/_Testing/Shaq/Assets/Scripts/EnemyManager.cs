@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -312,6 +311,7 @@ public class EnemyManager : MonoBehaviour
 
                 if (target == player && Vector3.Distance(target.transform.position, transform.position) <= attackRadius)
                 {
+                    //Destroy(GetComponent<>);
 
                     //Kill player
 
@@ -497,7 +497,6 @@ public class EnemyManager : MonoBehaviour
         }
     }
     #endregion
-
 
 
     #region Function Graveyard

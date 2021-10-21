@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class BillboardScript : MonoBehaviour
 {
-    [SerializeField]private Transform target;
+    [SerializeField] private Transform target;
+    [SerializeField] private bool isDebug = true;   
+    [SerializeField] private GameObject self;
+
+    #region Awake
+
     private void Awake()
     {
         if (target == null)
@@ -13,12 +18,23 @@ public class BillboardScript : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Update
     void Update()
     {
         Vector3 direction = (target.position - transform.position).normalized;
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-        transform.rotation = lookRotation; 
+        transform.rotation = lookRotation;
+
+        if (isDebug == false)
+        {
+            self.SetActive(false);
+
+            print("I can't see");
+        }
     }
+    #endregion
 }
