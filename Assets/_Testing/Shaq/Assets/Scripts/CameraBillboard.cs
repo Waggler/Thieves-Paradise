@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraBillboard : MonoBehaviour
@@ -19,7 +17,6 @@ public class CameraBillboard : MonoBehaviour
 
     #endregion
 
-
     #region Update
     void Update()
     {
@@ -30,6 +27,12 @@ public class CameraBillboard : MonoBehaviour
         transform.rotation = lookRotation;
 
         if (isDebug == false)
+        {
+            self.SetActive(false);
+
+            print("I can't see");
+        }
+        else if (isDebug == true)
         {
             self.SetActive(false);
 
