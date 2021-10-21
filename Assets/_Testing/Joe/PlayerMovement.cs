@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     //[Header("Camera")]
     private Transform PlayerCamera;
     private Vector3 FacingDirection;
-    private Vector3 Looking;
+
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
     #endregion
@@ -121,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Movement
+        //Over the shoulder cam roll doesn't work. Cam is only going to be used for free cam.
         FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
         FacingDirection.y = 0f;
         FacingDirection = FacingDirection.normalized;
@@ -133,20 +134,12 @@ public class PlayerMovement : MonoBehaviour
         if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {
             RollDirection = FacingDirection;
-            print("ROLLING: " + ROLLING)
-        }
-
-        if(RollDirection != Looking)
-        {
-            //print("BEEP");
         }
 
         if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
-            Looking = FacingDirection;
-            print("LOOKING: " + Looking);
         }
 
         #endregion
