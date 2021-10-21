@@ -6,23 +6,19 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 //Current Bugs:
-//    - 
+//    - AI currently moves to quickly to go to it's target without missing and having to loop back around
 //    - 
 
 //Things to add:
-//    - Create a feature that makes the AI calculate a path to it's target before it goes after it, can go from there and create logic on what to do if the target is unreachable
-//      - https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.CalculatePath.html
-//    - Begin work/ research on the state machine
-//    - Make general function for setting AI target
-//    -  Look into coroutines
-//    - Better method for handling the Attack state (might need to make use of an animation controller)
+//    - Refactor SetAISpeed() method
+//    - 
+//    - 
 
 //Done:
-//    - Created Group of empty objects w/ parent for testing patrol functionality
-//    - Setting target to waypoints and having the AI cycle through them
-//    - Headers for different sections of code in order to better organize content displayed in the investigator
-//    - Separate Waypoint navigation method that reverses the order of the waypoints (Back and forth instead of in circles)
+//    - Barebone functionality between eyeball prefab and guardAI
 //    - 
+//    - 
+
 
 public class EnemyManager : MonoBehaviour
 {
@@ -109,40 +105,36 @@ public class EnemyManager : MonoBehaviour
 
     #region Variables
 
+
     //Important Variables
     [Header("Private Variables")]
     private Transform target;
     private NavMeshAgent agent;
+    //bool NavMeshAgent.autoBraking();
 
-    [Header("Debug Variables")]
+
+    [Header("Object References")]
     [SerializeField] private GameObject player;
+    [SerializeField] private EyeballScript eyeball;
     
-    [Header("Diagnostic Text for AI instances (Dev only)")]
+
+    [Header("Diagnostic Text")]
     [SerializeField] private Text stateText;
     [SerializeField] private Text targetText;
 
-    [Header("Movement Variables")]
-    //[SerializeField] private float lookRadius = 10f;
-    //[SerializeField] private float faceRadius = 10f;
+    [Header("Guard Movement Speed")]
+    [SerializeField] [Range(0, 10)] private float patrolSpeed = 5f;
+    [SerializeField] [Range(0, 10)] private float susSpeed = 6.5f;
+    [SerializeField] [Range(0, 10)] private float hostileSpeed = 8f;
+
+    [Header("Misc. Variables")]
     [SerializeField] private float attackRadius = 10f;
-    [SerializeField] private float pursuitSpeed = 25f;
     [SerializeField] private float waypointNextDistance = 2f;
     [SerializeField] private float rotateSpeed;
-    //[SerializeField] private GameObject projectile;
 
 
-    [Header("Eyeball Integration")]
-    [SerializeField] private EyeballScript eyeball;
-
-
-    [Header("Guard Movement Speed")]
-    [SerializeField] private float patrolSpeed = 10f;
-    //will be used when there is specific behavior for the SUSPICIOUS state
-    //[SerializeField] private float sussySpeed = 10f;
-
-
-    //[Header("Temporary Variables")]
-    //Temporary Variables
+    //[Header("Debug Variables")]
+    //[SerializeField] bool shitBool = true;
 
 
     #endregion
@@ -154,21 +146,26 @@ public class EnemyManager : MonoBehaviour
     //  Using Awake() instead of Start() so that when spawning is functional, the AI won't break
     void Awake()
     {
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = patrolSpeed;
+        stateMachine = EnemyStates.PASSIVE;
+
+        //Checks to see if there is no value for the player object reference
         if (player == null)
         {
             player = FindObjectOfType<PlayerMovement>().gameObject;
         }
 
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = patrolSpeed;
-        stateMachine = EnemyStates.PASSIVE;
-
         //checks to see if there are any objects in the waypoints list
-        //if there are, then it will start the game by setting the target to the first waypoint on the list
         if (waypoints.Count > 0)
         {
             target = waypoints[waypointIndex];
         }
+        else
+        {
+            print("No waypoints added to guard instance");
+        }
+
     }//End Awake
     #endregion
 
@@ -192,17 +189,17 @@ public class EnemyManager : MonoBehaviour
                     {
                         SetNextWaypoint();
                     }
-                //if (distanceToPlayer <= lookRadius)
-                //Checking to see if the player is visible
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(waypoints[waypointIndex].transform.position);
 
-                SetAiSpeed("Patrol");
+                SetAiSpeed(patrolSpeed);
 
                 target = waypoints[waypointIndex];
 
                 targetText.text = $"{target}";
 
+
+                //Checking to see if the player is visible
                 if (eyeball.canCurrentlySeePlayer && eyeball.susLevel > 5)
                     {
                         print("Player seen, susLevel over 5. Going into SUSPICIOUS state");
@@ -234,33 +231,44 @@ public class EnemyManager : MonoBehaviour
                 //if (distanceToPlayer <= lookRadius)
                 if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > 5)
                 {
-                    //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                    SetAIDestination(player.transform.position);
 
-                        SetAiSpeed("Pursuit");
+                        SetAiSpeed(susSpeed);
 
-                        target = player.transform;
+                        target.transform.position = eyeball.lastKnownLocation;
 
-                        targetText.text = $"{target}";
+                        targetText.text = $"Player";
+
+                        //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                        SetAIDestination(player.transform.position);
 
                         FaceTarget();
-
                         
                         if (distanceToPlayer <= attackRadius)
                         {
-                        // SUSPICIOUS >> PASSIVE
+                        // SUSPICIOUS >> HOSTILE
                         stateMachine = EnemyStates.HOSTILE;
                         }
                     }
+
                 else if (eyeball.canCurrentlySeePlayer == false && eyeball.susLevel > 0)
                 {
                     //Using transform.position in order to translate Vector3 data to Transform
                     target.transform.position = eyeball.lastKnownLocation;
 
                     SetAIDestination(target.transform.position);
+
+                    //SetAIDestination(waypoints[waypointIndex].transform.position);
+
+                    //Destroy(GetComponent<PlayerController>);
                 }
+
                 else
                     {
+                        target = waypoints[waypointIndex];
+
+                        //SetAIDestination(waypoints[waypointIndex].transform.position);
+                        SetAIDestination(target.transform.position);
+                        
                         // SUSPICIOUS >> PASSIVE
                         stateMachine = EnemyStates.PASSIVE;   
                     }
@@ -271,6 +279,8 @@ public class EnemyManager : MonoBehaviour
             case EnemyStates.HOSTILE:
                 //AI Hostile state
                 stateText.text = EnemyStates.HOSTILE.ToString();
+
+                SetAiSpeed(hostileSpeed);
 
                 if (distanceToPlayer <= attackRadius)
                     {
@@ -286,13 +296,29 @@ public class EnemyManager : MonoBehaviour
             #endregion
 
             #region Attack Behavior
+            //AI Attack state
             case EnemyStates.ATTACK:
-                //AI Attack state
+
+                
+
                 FaceTarget();
 
                 stateText.text = EnemyStates.ATTACK.ToString();
 
-                //print("You are being attacked");
+                if (Timer(5f) == false)
+                {
+                    stateMachine = EnemyStates.SUSPICIOUS;
+                }
+
+                if (target == player && Vector3.Distance(target.transform.position, transform.position) <= attackRadius)
+                {
+
+                    //Kill player
+
+                    //Cut to black or
+
+                    //Lose screen
+                }
 
                 //Psuedo code for new attack method
                 //if (target == player  && Vector3.Distance(target.transform.position, transform.position) <= killRadius)
@@ -316,8 +342,8 @@ public class EnemyManager : MonoBehaviour
             case EnemyStates.RANGEDATTACK:
                 //AI Suspicious state
                 stateText.text = EnemyStates.RANGEDATTACK.ToString();
-                
-                RangedAttack();
+
+
                 break;
             #endregion
 
@@ -350,26 +376,10 @@ public class EnemyManager : MonoBehaviour
     //---------------------------------//
     // Sets the AI speed
     // Needs to be reworked / improved
-    void SetAiSpeed(string detection)
-        {
-        detection = detection.ToUpper();
-
-            switch (detection)
-            {
-            //Setting pursuit speed
-                case "PURSUIT":
-                    agent.speed = Mathf.Lerp(patrolSpeed, pursuitSpeed, 1);
-                    break;
-            //Setting patrol speed
-                case "PATROL":
-                    agent.speed = Mathf.Lerp(pursuitSpeed, patrolSpeed, 1);
-                    break;
-                default:
-                    print("Speed unspecified");
-                    break;
-            }
-
-        }//End SetSpeed
+    void SetAiSpeed(float speed)
+    {
+        agent.speed = Mathf.Lerp(agent.speed, speed, 1);
+    }//End SetSpeed
 
     //---------------------------------//
     // Function for setting AI destination
@@ -385,6 +395,24 @@ public class EnemyManager : MonoBehaviour
         //Gizmo type
         Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
+
+    //---------------------------------//
+    //Used as a timer, insert a float for the time and it returns when the time is over
+    bool  Timer(float feedTime)
+    {
+        feedTime -= Time.deltaTime;
+
+        if (feedTime <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            print($"{feedTime}");
+
+            return true;
+        }
+    }//End Timer
 
     //---------------------------------//
     // Revive mechanic set for certain AI prefabs
@@ -411,55 +439,10 @@ public class EnemyManager : MonoBehaviour
     {
 
     }
-
-    #region Attacks
-    // Generic Funcitons to be add WAY down the line
-    private void RangedAttack()
-        {
-        }//End RangedAttack
-
-    private void CQCAttack(float timer)
-        {
-            //Any code seen here is meant for debugging purposes only.
-
-            // At this point, the timer is functional but the method of calling the CQCAttack function needs to be worked on
-            // atm currently known method results in infinitely calling the function when the conditions for calling it are met
-            
-            timer -= Time.deltaTime;
-
-            print($"The time is: {timer}");
-
-            targetText.text = "THWAK";
-
-            //print("Talkin' a lot of shit for someone in crusading distance");
-
-            if (timer <= 0)
-                {
-                    stateMachine = EnemyStates.SUSPICIOUS;
-
-                    targetText.text = $"{target}";
-                }   
-        }//End CQCAttack
-
-    private void Timer(float length)
-    {
-        length -= Time.deltaTime;
-
-        print($"Time remaining: {length}");
-
-
-        if (length <= 0)
-        {
-            return;
-        }
-    }
-
-    #endregion
-
     #endregion
 
     #region Waypoints Logic
-    [Header("Waypoint Variables")]
+    [Header("Waypoints List")]
     [SerializeField] private List<Transform> waypoints;
     //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
     private int waypointIndex = 0;
