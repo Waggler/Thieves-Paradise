@@ -128,10 +128,11 @@ public class InventoryController : MonoBehaviour
         print("Throw Item");
         GameObject thrownItem = Instantiate(itemScriptInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
         thrownItem.SetActive(true);
+        thrownItem.name = thrownItem.GetComponent<ItemScript>().objectName;
         Vector3 throwVector = transform.forward * throwForce + transform.up * throwForce;
         thrownItem.GetComponent<Rigidbody>().AddForce(throwVector);
         print("Throw Force: " + throwVector);
-        DropActiveItem();
+        RemoveActiveItem();
     }
     private void SwapItem(int selection)
     {
@@ -197,13 +198,15 @@ public class InventoryController : MonoBehaviour
         
     }//END AddItem
 
-    private void DropActiveItem()
+    private void RemoveActiveItem()
     {
         if(inventorySpace[activeItemIndex] == true)
         {
             inventorySpace[activeItemIndex] = false;
+            Destroy(itemScriptInventory[activeItemIndex].gameObject);
+            
             itemScriptInventory[activeItemIndex] = null;
-            hotbarText[activeItemIndex].text = "";
+            hotbarText[activeItemIndex].text = "Item Slot " + (activeItemIndex + 1);
         }
     }
 
