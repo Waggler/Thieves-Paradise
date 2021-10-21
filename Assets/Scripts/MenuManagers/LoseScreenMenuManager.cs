@@ -12,7 +12,7 @@ public class LoseScreenMenuManager : MonoBehaviour
 
         if (screenValue == 0)
         {
-            Debug.Log("Back to Main Menu");
+            SceneManager.LoadScene(0);
 
         }
         else if (screenValue == 1)
