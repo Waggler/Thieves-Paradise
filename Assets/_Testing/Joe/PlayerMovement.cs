@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DiveTime;
     [SerializeField] private bool IsDiving;
     [SerializeField] private bool ResetDiving;
+    [SerializeField] private bool StillDiving;
     private float CurrentDiveTime;
 
     [Header("Animation States")]
@@ -120,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         FacingDirection.y = 0f;
         FacingDirection = FacingDirection.normalized;
 
-        if(!IsRolling && !IsSliding && !IsDiving)
+        if(!IsRolling && !IsSliding && !IsDiving && !StillDiving)
         {
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
@@ -311,7 +312,7 @@ public class PlayerMovement : MonoBehaviour
     //---DIVEJUMP---//
     void DiveJump()
     {
-        //Current Bug: I need to end up crouching.
+        //Current Bug: Once I hit the ground, then I can start moving.
         if(IsDiving)
         {   
             if(CurrentDiveTime > 0)
@@ -333,7 +334,13 @@ public class PlayerMovement : MonoBehaviour
                 UnSprinting = true;
                 UnCrouched = false;
                 ResetDiving = false;
+                StillDiving = false;
                 CrouchDown();
+            }
+            else
+            {
+                Controller.Move(RollDirection * DiveSpeed * Time.deltaTime);
+                StillDiving = true;
             }
         }
     }
