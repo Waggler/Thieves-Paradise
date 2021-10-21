@@ -6,18 +6,16 @@ using UnityEngine.UI;
 
 //Current Bugs:
 //    - AI currently moves to quickly to go to it's target without missing and having to loop back around
-//    - 
 
 //Things to add:
 //    - Refactor SetAISpeed() method
-//    - 
-//    - 
 
 //Done:
 //    - Barebone functionality between eyeball prefab and guardAI
-//    - 
-//    - 
 
+
+//Suspicion Manager Notes:
+//  - Look at Among Us task manager / meter for reference/inspiration on the overall suspicion manager
 
 public class EnemyManager : MonoBehaviour
 {
@@ -120,6 +118,7 @@ public class EnemyManager : MonoBehaviour
     [Header("Diagnostic Text")]
     [SerializeField] private Text stateText;
     [SerializeField] private Text targetText;
+    [SerializeField] private Text loseText;
 
     [Header("Guard Movement Speed")]
     [SerializeField] [Range(0, 10)] private float patrolSpeed = 5f;
@@ -165,11 +164,14 @@ public class EnemyManager : MonoBehaviour
             print("No waypoints added to guard instance");
         }
 
+
+        loseText.text = "";
     }//End Awake
     #endregion
 
 
     //---------------------------------//
+    //Function called every frame
     void Update()
     {
 
@@ -297,7 +299,10 @@ public class EnemyManager : MonoBehaviour
             #region Attack Behavior
             //AI Attack state
             case EnemyStates.ATTACK:
-
+                if (distanceToPlayer > attackRadius)
+                {
+                    stateMachine = EnemyStates.SUSPICIOUS;
+                }
                 
 
                 FaceTarget();
@@ -309,11 +314,11 @@ public class EnemyManager : MonoBehaviour
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
 
-                if (target == player && Vector3.Distance(target.transform.position, transform.position) <= attackRadius)
+                if (target == player.transform && distanceToPlayer <= attackRadius)
                 {
-                    //Destroy(GetComponent<>);
-
                     //Kill player
+                    loseText.text = "Game Over";
+
 
                     //Cut to black or
 
@@ -408,7 +413,7 @@ public class EnemyManager : MonoBehaviour
         }
         else
         {
-            print($"{feedTime}");
+            //print($"{feedTime}");
 
             return true;
         }
