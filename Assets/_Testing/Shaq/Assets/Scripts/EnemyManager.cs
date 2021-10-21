@@ -123,9 +123,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Text targetText;
 
     [Header("Guard Movement Speed")]
-    [SerializeField] private float patrolSpeed = 5f;
-    [SerializeField] private float susSpeed = 6.5f;
-    [SerializeField] private float hostileSpeed = 8f;
+    [SerializeField] [Range(0, 10)] private float patrolSpeed = 5f;
+    [SerializeField] [Range(0, 10)] private float susSpeed = 6.5f;
+    [SerializeField] [Range(0, 10)] private float hostileSpeed = 8f;
 
     [Header("Misc. Variables")]
     [SerializeField] private float attackRadius = 10f;
