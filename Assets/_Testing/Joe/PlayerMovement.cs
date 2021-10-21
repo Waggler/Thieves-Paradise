@@ -108,16 +108,10 @@ public class PlayerMovement : MonoBehaviour
             VerticalVelocity.y = 0;
         }
 
-        if(IsCrouching == false)
-        {
-            VerticalVelocity.y -= Gravity * Time.deltaTime;
-            Controller.Move(VerticalVelocity * Time.deltaTime);
-        }
-        else if(IsCrouching == true)
-        {
-            VerticalVelocity.y -= Gravity * Time.deltaTime * 35;
-            Controller.Move(VerticalVelocity * Time.deltaTime);
-        }
+        VerticalVelocity.y -= Gravity * Time.deltaTime;
+        Controller.Move(VerticalVelocity * Time.deltaTime);
+        
+
         #endregion
 
         #region Movement
