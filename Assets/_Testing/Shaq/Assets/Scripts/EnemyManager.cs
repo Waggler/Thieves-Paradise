@@ -64,6 +64,63 @@ public class EnemyManager : MonoBehaviour
     };
     #endregion
 
+    #region Waypoints Logic
+    [Header("Waypoints List")]
+    [SerializeField] private List<Transform> waypoints;
+    //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
+    private int waypointIndex = 0;
+
+
+    #endregion
+    
+    #region Waypoints Functions
+    void SetNextWaypoint()
+        {
+        switch (waypointMethod)
+        {
+            case CycleMethods.Cycle:
+                //Insert original code for navigating waypoints here
+                if (waypointIndex >= waypoints.Count - 1)
+                    {
+                        waypointIndex = 0;
+
+                        target = waypoints[0];
+                    }
+                else
+                    {
+                        waypointIndex++;
+
+                        target = waypoints[waypointIndex];
+                    }
+                SetAIDestination(target.position);
+
+                break;
+            case CycleMethods.Reverse:
+                //Insert reverse based method for navigating waypoints here
+                if (waypointIndex >= waypoints.Count - 1)
+                    {
+                        waypointIndex = 0;
+
+                        waypoints.Reverse();
+
+                        target = waypoints[0];
+                    }
+                else
+                    {
+                        waypointIndex++;
+
+                        target = waypoints[waypointIndex];
+                    }
+                SetAIDestination(target.position);
+
+                break;
+            default:
+                print("Cycling method not found \a");
+                break;
+        }
+    }
+    #endregion
+
     #region AI Coroutines
     IEnumerator Attack()
     {
@@ -203,7 +260,7 @@ public class EnemyManager : MonoBehaviour
                 //Checking to see if the player is visible
                 if (eyeball.canCurrentlySeePlayer && eyeball.susLevel > 5)
                     {
-                        print("Player seen, susLevel over 5. Going into SUSPICIOUS state");
+                        //print("Player seen, susLevel over 5. Going into SUSPICIOUS state");
                         // PASSIVE >>>> SUSPICIOUS
                         stateMachine = EnemyStates.SUSPICIOUS;
                     }
@@ -314,32 +371,16 @@ public class EnemyManager : MonoBehaviour
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
 
-                if (target == player.transform && distanceToPlayer <= attackRadius)
+                //Temp lose condition
+                if (distanceToPlayer <= attackRadius)
                 {
                     //Kill player
-                    loseText.text = "Game Over";
-
 
                     //Cut to black or
 
                     //Lose screen
+                    loseText.text = "Game Over";
                 }
-
-                //Psuedo code for new attack method
-                //if (target == player  && Vector3.Distance(target.transform.position, transform.position) <= killRadius)
-                //{
-                //    Kill Player
-
-                //    Cut to black
-
-                //    Shitty Lose screen saying "You've been caught"
-                //}
-
-
-                //Check for collision with player
-                //If collided, they lose
-
-
                 break;
             #endregion
 
@@ -378,6 +419,7 @@ public class EnemyManager : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
         }//End FaceTarget
 
+
     //---------------------------------//
     // Sets the AI speed
     // Needs to be reworked / improved
@@ -385,13 +427,15 @@ public class EnemyManager : MonoBehaviour
     {
         agent.speed = Mathf.Lerp(agent.speed, speed, 1);
     }//End SetSpeed
+    
 
     //---------------------------------//
     // Function for setting AI destination
     void SetAIDestination(Vector3 point)
-        {
-            agent.SetDestination(point);
-        }//End SetAIDestination
+    {
+        agent.SetDestination(point);
+    }//End SetAIDestination
+    
 
     private void OnDrawGizmos()
     {
@@ -421,17 +465,11 @@ public class EnemyManager : MonoBehaviour
 
     //---------------------------------//
     // Revive mechanic set for certain AI prefabs
+    //Try to get started on this in the next sprint
     void Revive()
     {
 
     }//End Revive
-
-    //---------------------------------//
-    // Call for reinforcements
-    void CallForHelp()
-    {
-
-    }//End CallForHelp
 
     //---------------------------------//
     // Raises the security level for the area
@@ -440,68 +478,22 @@ public class EnemyManager : MonoBehaviour
 
     }//End RaiseSecurityLevel
 
+    //---------------------------------//
+    //Alerts other guards to let them know the player's location
+    //Notes:
+    //  - This will probably be done using a radius that rapidly expands and shrink
+    //    guards that are caught within the radius of that rapid expansion / shrinking will have a condition met that runs another function / puts them in a suspicious state
+    //  - The lastKnownLocation variable (literally printed as eyeball.lastKnownLocation in this case) will be set to the messaging guards' player report location
+    //  - Guards will converge on this location
+    //  - When this is completed ask Kevin if the behavior should be tweaked
+    //
+    //  - Consider renaming this function to CallForHelp()
     void AlertLocation()
     {
 
     }
     #endregion
 
-    #region Waypoints Logic
-    [Header("Waypoints List")]
-    [SerializeField] private List<Transform> waypoints;
-    //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
-    private int waypointIndex = 0;
-
-
-    #endregion
-    
-    #region Waypoints Functions
-    void SetNextWaypoint()
-        {
-        switch (waypointMethod)
-        {
-            case CycleMethods.Cycle:
-                //Insert original code for navigating waypoints here
-                if (waypointIndex >= waypoints.Count - 1)
-                    {
-                        waypointIndex = 0;
-
-                        target = waypoints[0];
-                    }
-                else
-                    {
-                        waypointIndex++;
-
-                        target = waypoints[waypointIndex];
-                    }
-                SetAIDestination(target.position);
-
-                break;
-            case CycleMethods.Reverse:
-                //Insert reverse based method for navigating waypoints here
-                if (waypointIndex >= waypoints.Count - 1)
-                    {
-                        waypointIndex = 0;
-
-                        waypoints.Reverse();
-
-                        target = waypoints[0];
-                    }
-                else
-                    {
-                        waypointIndex++;
-
-                        target = waypoints[waypointIndex];
-                    }
-                SetAIDestination(target.position);
-
-                break;
-            default:
-                print("Cycling method not found \a");
-                break;
-        }
-    }
-    #endregion
 
 
     #region Function Graveyard
