@@ -60,7 +60,7 @@ public class DoorOpen : MonoBehaviour
 
         if(im.isSprinting == true)
         {
-            maxAngle = 151.55f;
+            maxAngle = -151.55f;
         }
 
         if(im.isCrouching == true)
@@ -75,6 +75,11 @@ public class DoorOpen : MonoBehaviour
         inArea = true;
         message.SetActive(true);
 
+        if(im.isSprinting == true)
+        {
+            message.SetActive(false);
+        }
+
         if(Input.GetButtonDown("e"))
         {
             buttonPressed = true;
@@ -84,7 +89,7 @@ public class DoorOpen : MonoBehaviour
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             transform.eulerAngles = new Vector3(0, angle, 0);
-            door.transform.position = new Vector3(8.34f, 2.1f, 5.02f);
+            door.transform.position = new Vector3(8.34f, 2.1f, 7.17f);
             
             
             // door.transform.eulerAngles = new Vector3(0f, -76.942f, 0f);
@@ -100,7 +105,7 @@ public class DoorOpen : MonoBehaviour
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             transform.eulerAngles = new Vector3(0, angle, 0);
-            door.transform.position = new Vector3(7.3f, 2.1f, 5.55f);
+            door.transform.position = new Vector3(7.3f, 2.1f, 7.16f);
             message.SetActive(false);
         }
     }

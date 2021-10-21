@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -672,7 +672,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.72, y: 0.86, z: 46.16}
+  m_Size: {x: 3.57, y: 0.86, z: 54.07}
   m_Center: {x: -0.01, y: -0.09, z: -2.3}
 --- !u!114 &567859395
 MonoBehaviour:
@@ -1266,8 +1266,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1234988359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.31, y: 1.82, z: 6.63}
-  m_LocalScale: {x: 3.7804, y: 3.7817, z: 1}
+  m_LocalPosition: {x: 6.31, y: 1.82, z: 6.43}
+  m_LocalScale: {x: 3.7804, y: 3.7817, z: 0.45071}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
@@ -1520,11 +1520,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2710827129955194132, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.00000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 2710827129955194132, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 2710827129955194132, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1544,11 +1544,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2710827130025777287, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.00000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 2710827130025777287, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 2710827130025777287, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1624,7 +1624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2710827131102156308, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.047414266
+      value: 0.04741427
       objectReference: {fileID: 0}
     - target: {fileID: 2710827131102156308, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1676,11 +1676,11 @@ PrefabInstance:
       objectReference: {fileID: -5103058820560799484, guid: 78a3543c20a7c2b46a416c0cddb6c593, type: 2}
     - target: {fileID: 2710827131688667658, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.00000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 2710827131688667658, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 2710827131688667658, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1688,7 +1688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2710827131688667658, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.009678639
+      value: -0.009678638
       objectReference: {fileID: 0}
     - target: {fileID: 2710827131688667658, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1732,18 +1732,26 @@ PrefabInstance:
       objectReference: {fileID: 567859395}
     - target: {fileID: 2710827131966880126, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: action.m_SingletonActionBindings.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2710827131966880126, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: action.m_SingletonActionBindings.Array.data[2].m_Id
-      value: 7122a4d6-7ad1-4258-aa33-31094e9ca140
+      value: 2c408446-3dab-4df8-a803-6465f335931c
+      objectReference: {fileID: 0}
+    - target: {fileID: 2710827131966880126, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
+      propertyPath: action.m_SingletonActionBindings.Array.data[3].m_Id
+      value: 68b45564-0dda-4728-b279-072a7d9bdef8
       objectReference: {fileID: 0}
     - target: {fileID: 2710827131966880126, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: action.m_SingletonActionBindings.Array.data[2].m_Path
-      value: <Keyboard>/leftCtrl
+      value: <XInputController>/buttonNorth
       objectReference: {fileID: 0}
     - target: {fileID: 2710827131966880126, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
       propertyPath: action.m_SingletonActionBindings.Array.data[2].m_Action
+      value: Action
+      objectReference: {fileID: 0}
+    - target: {fileID: 2710827131966880126, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
+      propertyPath: action.m_SingletonActionBindings.Array.data[3].m_Action
       value: Action
       objectReference: {fileID: 0}
     - target: {fileID: 6244333516449186762, guid: 6d76031e179ca3943ac5e17bf64607a3, type: 3}
