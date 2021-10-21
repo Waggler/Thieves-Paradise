@@ -118,25 +118,23 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private EyeballScript eyeball;
     
 
-    [Header("Diagnostic Text for AI instances (Dev only)")]
+    [Header("Diagnostic Text")]
     [SerializeField] private Text stateText;
     [SerializeField] private Text targetText;
-
-
-    [Header("Movement Variables")]
-    [SerializeField] private float attackRadius = 10f;
-    [SerializeField] private float waypointNextDistance = 2f;
-    [SerializeField] private float rotateSpeed;
-
 
     [Header("Guard Movement Speed")]
     [SerializeField] private float patrolSpeed = 5f;
     [SerializeField] private float susSpeed = 6.5f;
     [SerializeField] private float hostileSpeed = 8f;
 
+    [Header("Misc. Variables")]
+    [SerializeField] private float attackRadius = 10f;
+    [SerializeField] private float waypointNextDistance = 2f;
+    [SerializeField] private float rotateSpeed;
 
-    [Header("Debug Variables")]
-    [SerializeField] bool shitBool = true;
+
+    //[Header("Debug Variables")]
+    //[SerializeField] bool shitBool = true;
 
 
     #endregion
@@ -233,17 +231,17 @@ public class EnemyManager : MonoBehaviour
                 //if (distanceToPlayer <= lookRadius)
                 if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > 5)
                 {
-                        //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                        SetAIDestination(player.transform.position);
 
                         SetAiSpeed(susSpeed);
 
                         target.transform.position = eyeball.lastKnownLocation;
 
-                        targetText.text = $"{target}";
+                        targetText.text = $"Player";
+
+                        //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                        SetAIDestination(player.transform.position);
 
                         FaceTarget();
-
                         
                         if (distanceToPlayer <= attackRadius)
                         {
@@ -251,21 +249,6 @@ public class EnemyManager : MonoBehaviour
                         stateMachine = EnemyStates.HOSTILE;
                         }
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 else if (eyeball.canCurrentlySeePlayer == false && eyeball.susLevel > 0)
                 {
@@ -279,21 +262,13 @@ public class EnemyManager : MonoBehaviour
                     //Destroy(GetComponent<PlayerController>);
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                 else
                     {
+                        target = waypoints[waypointIndex];
+
+                        //SetAIDestination(waypoints[waypointIndex].transform.position);
+                        SetAIDestination(target.transform.position);
+                        
                         // SUSPICIOUS >> PASSIVE
                         stateMachine = EnemyStates.PASSIVE;   
                     }
@@ -467,7 +442,7 @@ public class EnemyManager : MonoBehaviour
     #endregion
 
     #region Waypoints Logic
-    [Header("Waypoint Variables")]
+    [Header("Waypoints List")]
     [SerializeField] private List<Transform> waypoints;
     //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
     private int waypointIndex = 0;

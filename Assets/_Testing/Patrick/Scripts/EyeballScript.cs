@@ -89,7 +89,7 @@ public class EyeballScript : MonoBehaviour
         }
         //set bounds
         susLevel = Mathf.Clamp(susLevel, minSusLevel, 10f);
-        print (susLevel);
+        //print (susLevel);
     }//END ChangeSus
     
     #if UNITY_EDITOR
