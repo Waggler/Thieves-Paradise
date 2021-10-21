@@ -117,7 +117,10 @@ public class PlayerMovement : MonoBehaviour
 
         #region Movement
         //Over the shoulder cam roll doesn't work. Cam is only going to be used for free cam.
-        FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
+        if(!IsRolling && !IsSliding && !IsDiving && !StillDiving)
+        {
+            FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
+        }
         FacingDirection.y = 0f;
         FacingDirection = FacingDirection.normalized;
 
