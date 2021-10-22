@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -65,8 +66,19 @@ public class MainMenuManager : MonoBehaviour
 
     }//END QuitGame
 
+    //Delete After Prototype
 
-#endregion Methods
+    //-----------------------//
+    public void PlayPrototype()
+    //-----------------------//
+    {
+        SceneManager.LoadScene(1);
+        
+
+    }//END QuitGame
+
+
+    #endregion Methods
 
 
 }//END MainMenuManager
