@@ -10,10 +10,7 @@ public class BillboardScript : MonoBehaviour
     private void Awake()
     {
         //Checkin to see if there is already an object assigned to the target var
-        if (target == null)
-        {
-            target = FindObjectOfType<Camera>().gameObject.transform;
-        }
+
 
         //Used to disable or enable the debug text for objects depending on if a bool is true or false
         if (isDebug == true)
