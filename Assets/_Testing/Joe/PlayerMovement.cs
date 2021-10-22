@@ -11,45 +11,65 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
     [SerializeField] private float Acceleration;
+    [SerializeField] private bool IsSprinting = false;
+    [SerializeField] private bool UnSprinting = true;
     private float CurrentSpeed;
     private Vector3 Direction;
-    private bool IsSprinting = false;
-    private bool UnSprinting = true;
 
     [Header("Crouching")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
-    public bool IsCrouching = false;
-    public bool UnCrouched = true;
+    [SerializeField] private bool IsCrouching = false;
+    [SerializeField] private bool UnCrouched = true;
 
 
     [Header("Physics")]
     [SerializeField] private float Gravity;
     [SerializeField] private float MovingJumpHeight;
     [SerializeField] private float StillJumpHeight;
+    [SerializeField] private float DiveHeight;
     [SerializeField] private float HeightFromGround;
     [SerializeField] private float CrouchingHeightFromGround;
     [SerializeField] private CapsuleCollider Collider;
     [SerializeField] private CharacterController Controller;
+    [SerializeField] private bool IsGrounded = true;
     private float GroundHeight;
     private Vector3 VerticalVelocity = Vector3.zero;
-    [SerializeField] private bool IsGrounded = true;
+
 
     [Header("Rolling")]
     [SerializeField] private float RollingSpeed;
     [SerializeField] private float RollingTime;
+    [SerializeField] private bool IsRolling;
     private float CurrentRollTime;
     private Vector3 RollDirection;
-    private bool IsRolling;
 
     [Header("Sliding")]
     [SerializeField] private float Deceleration;
-    private bool IsSliding;
+    [SerializeField] private bool IsSliding;
+
+    [Header("Diving")]
+    [SerializeField] private float DiveSpeed;
+    [SerializeField] private float DiveTime;
+    [SerializeField] private bool IsDiving;
+    [SerializeField] private bool ResetDiving;
+    public float CurrentDiveTime;
+
+    [Header("Animation States")]
+    [SerializeField] private AnimationController animationController;
+    public bool Idle;
+    public bool IdleCrouch;
+    public bool Moving;
+    public bool Crouching;
+    public bool Running;
+    public bool Jumping;
+    public bool CrouchRoll;
+    public bool Slide;
+    public bool Diving;
     
     //[Header("Camera")]
     private Transform PlayerCamera;
     private Vector3 FacingDirection;
-    
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
     #endregion
@@ -58,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
     {
         CurrentSpeed = WalkingSpeed;
         CurrentRollTime = RollingTime;
+        CurrentDiveTime = DiveTime;
         Controller = GetComponent<CharacterController>();
         Collider = GetComponent<CapsuleCollider>();
         PlayerCamera = Camera.main.transform;
@@ -103,12 +124,17 @@ public class PlayerMovement : MonoBehaviour
         FacingDirection.y = 0f;
         FacingDirection = FacingDirection.normalized;
 
-        if(!IsRolling && !IsSliding)
+        if(!IsRolling && !IsSliding && !IsDiving)
         {
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
 
-        if(FacingDirection != Vector3.zero)
+        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
+        {
+            RollDirection = FacingDirection;
+        }
+
+        if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
@@ -134,6 +160,25 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
+        #region Dive Action
+        DiveJump();
+        if(!IsDiving)
+        {
+            if(CurrentDiveTime < DiveTime)
+            {
+                CurrentDiveTime += Time.deltaTime;
+                if(CurrentDiveTime > DiveTime)
+                {
+                    CurrentDiveTime = DiveTime;
+                }
+            }
+        }
+        #endregion
+
+        #region Check For Animations
+        AnimationStates();
+
+        #endregion
     }
 
     #region Functions
@@ -143,11 +188,6 @@ public class PlayerMovement : MonoBehaviour
     public void Movement(Vector3 Move)
     {
         Direction = new Vector3(Move.x, 0f, Move.z);
-        if(Direction != Vector3.zero && IsRolling == false && IsSliding == false) 
-        {
-            RollDirection = Direction;
-            print(RollDirection);
-        }
     }
     #endregion
 
@@ -159,11 +199,25 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Direction.magnitude > 0.1)
             {
-                VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
-                Controller.Move(VerticalVelocity * Time.deltaTime);
+                if(!IsSprinting)
+                {
+                    Jumping = true;
+                    animationController.IsPlayerJumping(Jumping);
+                    VerticalVelocity.y = Mathf.Sqrt(-2f * MovingJumpHeight * -Gravity);
+                    Controller.Move(VerticalVelocity * Time.deltaTime);
+                }
+                else if(IsSprinting)
+                {
+                    IsDiving = true;
+                    VerticalVelocity.y = Mathf.Sqrt(-2f * DiveHeight * -Gravity);
+                    Controller.Move(VerticalVelocity * Time.deltaTime);
+                    print(RollDirection);
+                }
             }
             else if(Direction.magnitude <= 0.1)
             {
+                Jumping = true;
+                animationController.IsPlayerJumping(Jumping);
                 VerticalVelocity.y = Mathf.Sqrt(-2f * StillJumpHeight * -Gravity);
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
@@ -257,6 +311,39 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
+    #region Dive
+    //---DIVEJUMP---//
+    void DiveJump()
+    {
+        //Current Bug: I need to end up crouching.
+        if(IsDiving)
+        {   
+            if(CurrentDiveTime > 0)
+            {
+                Controller.Move(RollDirection * DiveSpeed * Time.deltaTime);
+                CurrentDiveTime -= Time.deltaTime;
+            }
+            else if(CurrentDiveTime <= 0)
+            {
+                IsDiving = false;
+                ResetDiving = true;
+            }
+        }
+        if(!IsDiving && ResetDiving)
+        {
+            if(IsGrounded)
+            {
+                IsSprinting = false;
+                UnSprinting = true;
+                UnCrouched = false;
+                ResetDiving = false;
+                CrouchDown();
+            }
+        }
+    }
+
+    #endregion
+
     #region Ground
     //---GROUNDCHECK---//
     void GroundCheck()
@@ -268,12 +355,13 @@ public class PlayerMovement : MonoBehaviour
         if(Physics.CheckSphere(groundCheck, StandardHeight / 4, mask))
         {
             IsGrounded = true;
-            
+            Jumping = false;
+            animationController.IsPlayerJumping(Jumping);
         }
         else
         {
             IsGrounded = false;
-            if (IsCrouching)
+            if(IsCrouching)
             {
                 StandUp();
                 IsCrouching = false;
@@ -384,5 +472,108 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
     
+    #region Animation States
+    //---ANIMATIONSTATES---//
+    void AnimationStates()
+    {
+        //---IDLE---//
+        if(Direction == Vector3.zero && IsGrounded && !IsCrouching && !IsSliding && !IsRolling)
+        {
+            Idle = true;
+            animationController.IsPlayerIdle(Idle);
+        }
+        else
+        {
+            Idle = false;
+            animationController.IsPlayerIdle(Idle);
+        }
+
+        //---CROUCH-IDLE---//
+        if(Direction == Vector3.zero && IsGrounded && IsCrouching && !IsSliding && !IsRolling)
+        {
+            IdleCrouch = true;
+            animationController.IsPlayerCrouchIdle(IdleCrouch);
+        }
+        else
+        {
+            IdleCrouch = false;
+            animationController.IsPlayerCrouchIdle(IdleCrouch);
+        }
+
+        //---WALKING---//
+        if(Direction != Vector3.zero && IsGrounded && !IsSliding && !IsRolling)
+        {
+            Moving = true;
+            animationController.IsPlayerWalking(Moving);
+        }
+        else
+        {
+            Moving = false;
+            animationController.IsPlayerWalking(Moving);
+        }
+
+        //---RUNNING---//
+        if(IsSprinting && !IsSliding && !IsDiving && !ResetDiving && Direction != Vector3.zero)
+        {
+            Running = true;
+            animationController.IsPlayerSprinting(Running);
+        }
+        else
+        {
+            Running = false;
+            animationController.IsPlayerSprinting(Running);
+        }
+
+        //---CROUCHING---//
+        if(IsCrouching && !IsSliding && Direction != Vector3.zero)
+        {
+            Crouching = true;
+            animationController.IsPlayerCrouching(Crouching);
+        }
+        else
+        {
+            Crouching = false;
+            animationController.IsPlayerCrouching(Crouching);
+        }
+
+        //---ROLLING---//
+        if(IsRolling)
+        {
+            CrouchRoll = true;
+            animationController.IsPlayerRolling(CrouchRoll);
+        }
+        else
+        {
+            CrouchRoll = false;
+            animationController.IsPlayerRolling(CrouchRoll);
+        }
+        
+        //---SLIDING---//
+        if(IsSliding)
+        {
+            Slide = true;
+            animationController.IsPlayerSliding(Slide);
+        }
+        else
+        {
+            Slide = false;
+            animationController.IsPlayerSliding(Slide);
+        }
+
+        //---DIVING---//
+        if(IsDiving || ResetDiving)
+        {
+            Diving = true;
+            animationController.IsPlayerDiving(Diving);
+        }
+        else
+        {
+            Diving = false;
+            animationController.IsPlayerDiving(Diving);
+        }
+    }
+
+    #endregion
+
     #endregion
 }

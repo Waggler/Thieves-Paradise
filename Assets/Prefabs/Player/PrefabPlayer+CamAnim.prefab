@@ -85,7 +85,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2710827129955194130}
   m_LocalRotation: {x: -0.009678635, y: 0.89505446, z: -0.019448519, w: -0.44542748}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00000047683716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2710827130862750317}
@@ -190,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2710827130025777285}
   m_LocalRotation: {x: -0.009678635, y: 0.89505446, z: -0.019448519, w: -0.44542748}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00000047683716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2710827132015032103}
@@ -781,8 +781,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2710827131102156305}
-  m_LocalRotation: {x: 0.047414277, y: 0.88520294, z: -0.13385265, w: -0.44300252}
-  m_LocalPosition: {x: 4.3701572, y: 2.3343549, z: 14.052918}
+  m_LocalRotation: {x: 0.047414273, y: 0.88520294, z: -0.13385266, w: -0.44300252}
+  m_LocalPosition: {x: 2.8124595, y: -0.46969557, z: 8.254408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 375958658}
@@ -1467,7 +1467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2710827131688667656}
   m_LocalRotation: {x: -0.009678634, y: 0.89505446, z: -0.019448519, w: -0.4454275}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00000047683716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2710827130977507509}
@@ -1576,7 +1576,10 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 2710827131966880125}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 2710827131308341344}
+  - {fileID: 2710827130288368182}
+  - {fileID: 2710827130549995253}
   m_Instructions:
   - m_FullHash: -1195735313
     m_VirtualCamera: {fileID: 2710827130288368182}
@@ -1824,7 +1827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1771142529163465213}
   m_Layer: 7
-  m_Name: PrefabPlayer+Cam 1
+  m_Name: PrefabPlayer+CamAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
