@@ -13,7 +13,7 @@ public class CamSwitch : MonoBehaviour
 
     public bool Cam1 = true;
 
-    public InputManager im;
+    public PlayerMovement pm;
 
     public DoorOpen door;
 
@@ -54,7 +54,7 @@ public class CamSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(im.isCrouching == true && door.inArea == true)
+        if(pm.IsCrouching == true && door.inArea == true)
         {
             animator.Play("FreeLook");
         }

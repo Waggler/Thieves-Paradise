@@ -12,6 +12,7 @@ public class DoorOpen : MonoBehaviour
     public GameObject message;
     public bool buttonPressed = false;
     public bool doorOpens = false;
+    public PlayerMovement pm;
     public InputManager im;
     // private InputAction action;
     
@@ -63,7 +64,7 @@ public class DoorOpen : MonoBehaviour
             maxAngle = -151.55f;
         }
 
-        if(im.isCrouching == true)
+        if(pm.IsCrouching == true)
         {
             maxAngle = 75.44f;
         } 
