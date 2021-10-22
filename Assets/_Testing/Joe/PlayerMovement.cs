@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
     [SerializeField] private bool IsCrouching = false;
-    [SerializeField] private bool UnCrouched = true;
+    [SerializeField] private bool IsStanding = true;
 
 
     [Header("Physics")]
@@ -256,17 +256,17 @@ public class PlayerMovement : MonoBehaviour
         if(Crouching == true && IsGrounded == true)
         {
             IsCrouching = true;
-            if(UnCrouched == true && IsSprinting == false)
+            if(IsStanding == true && IsSprinting == false)
             {
                 CrouchDown();
-                UnCrouched = false;
+                IsStanding = false;
             }
-            else if(UnCrouched == false)
+            else if(IsStanding == false)
             {
-                UnCrouched = true;
+                IsStanding = true;
             }
         }
-        else if(Crouching == false && UnCrouched == true)
+        else if(Crouching == false && IsStanding == true)
         {
             IsCrouching = false;
         }
@@ -303,7 +303,7 @@ public class PlayerMovement : MonoBehaviour
         else if(CurrentSpeed <= CrouchSpeed)
         {
             CrouchDown();
-            UnCrouched = false;
+            IsStanding = false;
             IsSprinting = false;
             UnSprinting = true;
             IsSliding = false;
@@ -335,7 +335,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 IsSprinting = false;
                 UnSprinting = true;
-                UnCrouched = false;
+                IsStanding = false;
                 ResetDiving = false;
                 StillDiving = false;
                 CrouchDown();
@@ -348,6 +348,40 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Push/Pull
+    //NOTE THIS IS ALL PSEUDOCODE
+    /*
+    public void PUSHPULL(INTERACTABLE, Object)
+    {
+        if(Object == Movable && INTERACTABLE && Interacted)
+        {
+            if(Object == Light)
+            {
+                CurrentSpeed = PushLightSpeed;
+                Rigidbody.Move(Direction);
+                Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
+            }
+            else if(Object == Medium)
+            {
+                CurrentSpeed = PushMediumSpeed;
+                Rigidbody.Move(Direction);
+                Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
+            }
+            else if(Object == Heavy)
+            {
+                CurrentSpeed = PushHeavySpeed;
+                Rigidbody.Move(Direction);
+                Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
+            }
+        }
+        else if(!Interacted)
+        {
+            CurrentSpeed = WalkingSpeed;
+        }
+    }
+    */
     #endregion
 
     #region Ground
@@ -383,7 +417,7 @@ public class PlayerMovement : MonoBehaviour
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
         if(Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f))
         {
-            UnCrouched = false;
+            IsStanding = false;
             IsCrouching = true;
             return;
         }
@@ -392,7 +426,7 @@ public class PlayerMovement : MonoBehaviour
             StandUp();
         }
 
-        if(UnCrouched == false)
+        if(IsStanding == false)
         {
             CrouchDown();
         }
