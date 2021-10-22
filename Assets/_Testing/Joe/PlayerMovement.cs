@@ -53,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DiveTime;
     [SerializeField] private bool IsDiving;
     [SerializeField] private bool ResetDiving;
-    public float CurrentDiveTime;
+    [SerializeField] private bool StillDiving;
+    private float CurrentDiveTime;
 
     [Header("Animation States")]
     [SerializeField] private AnimationController animationController;
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     //[Header("Camera")]
     private Transform PlayerCamera;
     private Vector3 FacingDirection;
+
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
     #endregion
@@ -107,24 +109,22 @@ public class PlayerMovement : MonoBehaviour
             VerticalVelocity.y = 0;
         }
 
-        if(IsCrouching == false)
-        {
-            VerticalVelocity.y -= Gravity * Time.deltaTime;
-            Controller.Move(VerticalVelocity * Time.deltaTime);
-        }
-        else if(IsCrouching == true)
-        {
-            VerticalVelocity.y -= Gravity * Time.deltaTime * 35;
-            Controller.Move(VerticalVelocity * Time.deltaTime);
-        }
+        VerticalVelocity.y -= Gravity * Time.deltaTime;
+        Controller.Move(VerticalVelocity * Time.deltaTime);
+        
+
         #endregion
 
         #region Movement
-        FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
+        //Over the shoulder cam roll doesn't work. Cam is only going to be used for free cam.
+        if(!IsRolling && !IsSliding && !IsDiving && !StillDiving)
+        {
+            FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
+        }
         FacingDirection.y = 0f;
         FacingDirection = FacingDirection.normalized;
 
-        if(!IsRolling && !IsSliding && !IsDiving)
+        if(!IsRolling && !IsSliding && !IsDiving && !StillDiving)
         {
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
@@ -315,7 +315,7 @@ public class PlayerMovement : MonoBehaviour
     //---DIVEJUMP---//
     void DiveJump()
     {
-        //Current Bug: I need to end up crouching.
+        //Current Bug: Once I hit the ground, then I can start moving.
         if(IsDiving)
         {   
             if(CurrentDiveTime > 0)
@@ -337,7 +337,13 @@ public class PlayerMovement : MonoBehaviour
                 UnSprinting = true;
                 UnCrouched = false;
                 ResetDiving = false;
+                StillDiving = false;
                 CrouchDown();
+            }
+            else
+            {
+                Controller.Move(RollDirection * DiveSpeed * Time.deltaTime);
+                StillDiving = true;
             }
         }
     }
