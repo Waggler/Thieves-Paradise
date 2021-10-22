@@ -39,7 +39,7 @@ public class InventoryController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(throwing)
+        if(throwing && throwForce < 1000)
         {
             throwForce += Time.deltaTime * 200;
         }
@@ -142,7 +142,7 @@ public class InventoryController : MonoBehaviour
         {
             if (activeItemIndex == i)
             {
-                hotbarText[i].color = Color.blue;
+                hotbarText[i].color = Color.red;
             }else
             {
                 hotbarText[i].color = Color.black;
