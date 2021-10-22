@@ -231,7 +231,7 @@ public class CameraManager : MonoBehaviour
         stateText.text = "";
         targetText.text = "";
 
-        rotationMax = new Vector3(0, 90, 0);
+        //rotationMax = new Vector3(0, 90, 0);
 
         rotationRecord = new Vector3(0, 0, 0);
 
