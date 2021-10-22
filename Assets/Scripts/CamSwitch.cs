@@ -54,7 +54,7 @@ public class CamSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(pm.IsCrouching == true && door.inArea == true)
+        if(pm.Crouching == true && door.inArea == true)
         {
             animator.Play("FreeLook");
         }

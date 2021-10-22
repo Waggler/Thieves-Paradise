@@ -64,7 +64,7 @@ public class DoorOpen : MonoBehaviour
             maxAngle = -151.55f;
         }
 
-        if(pm.IsCrouching == true)
+        if(pm.Crouching == true)
         {
             maxAngle = 75.44f;
         } 

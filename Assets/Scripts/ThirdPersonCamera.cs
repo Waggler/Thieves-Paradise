@@ -33,7 +33,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
 
-        if(pm.IsCrouching == true && door.inArea == true)
+        if(pm.Crouching == true && door.inArea == true)
         {
             Player.rotation = Quaternion.Euler(0, mouseX, 0);
         }
