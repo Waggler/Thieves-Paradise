@@ -13,9 +13,9 @@ public class InventoryController : MonoBehaviour
     private bool[] inventorySpace; //true = occupied, false = empty
     private int activeItemIndex; //array index
     private List<ItemScript> nearbyItems;//for storing all items within reach
-    public TextMeshProUGUI[] hotbarText;
+    private TextMeshProUGUI[] hotbarText;
 
-    public float throwForce;
+    private float throwForce;
     
 
     [SerializeField] private int inventorySize = 4;
@@ -30,6 +30,14 @@ public class InventoryController : MonoBehaviour
 
         inventorySpace = new bool[inventorySize];
         nearbyItems = new List<ItemScript>();
+
+        hotbarText = new TextMeshProUGUI[4];
+
+        for(int i = 0; i < hotbarText.Length; i++)
+        {
+            string slotName = "Slot " + (i + 1) + " Text";
+            hotbarText[i] = GameObject.Find(slotName).GetComponent<TextMeshProUGUI>();
+        }
 
         SwapItem(0);
     }
