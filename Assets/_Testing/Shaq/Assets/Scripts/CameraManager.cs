@@ -46,12 +46,17 @@ public class CameraManager : MonoBehaviour
 
     [Header("Eyeball Integration / Eyeball Related Variables")]
     [SerializeField] private EyeballScript eyeball;
+
+    //Use this for the suspicion manager later on
     [SerializeField] private EnemyManager enemyMngr;
 
 
     [Header("Debug Variables (May bite)")]
     [HideInInspector] private bool susFlag = false;
     [SerializeField] private Renderer rend;
+
+    [SerializeField] private bool isDebug;
+
 
     #endregion
 
@@ -110,7 +115,8 @@ public class CameraManager : MonoBehaviour
                 //Rotating at degreesPerSec relative to the World Space
                 transform.Rotate(new Vector3(0, camSpeed, 0) * Time.deltaTime, Space.World);
 
-                rend.material.color = Color.green;
+
+
 
                 //Technically this snippet of code shouldn't work yet it does, will likely break in the future and need to be fixed
                 //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
@@ -137,6 +143,16 @@ public class CameraManager : MonoBehaviour
                     susMeter = 0;
                 }
 
+                if (isDebug == true)
+                {
+                    rend.material.color = Color.green;
+                }
+                else
+                {
+                    break;
+                }
+
+
                 break;
             #endregion
 
@@ -155,8 +171,6 @@ public class CameraManager : MonoBehaviour
 
                 susFlag = true;
 
-                //
-                rend.material.color = Color.red;
 
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
@@ -187,6 +201,16 @@ public class CameraManager : MonoBehaviour
 
                 //eyeball.lastKnownLocation;
 
+
+                if (isDebug == true)
+                {
+                    rend.material.color = Color.red;
+                }
+                else
+                {
+                    break;
+                }
+
                 break;
             #endregion
 
@@ -196,7 +220,14 @@ public class CameraManager : MonoBehaviour
                 stateText.text = "State Not Found";
                 targetText.text = "Null";
 
-                rend.material.color = Color.yellow;
+                if (isDebug == true)
+                {
+                    rend.material.color = Color.yellow;
+                }
+                else
+                {
+                    break;
+                }
 
                 break;
             #endregion
@@ -231,7 +262,7 @@ public class CameraManager : MonoBehaviour
         stateText.text = "";
         targetText.text = "";
 
-        rotationMax = new Vector3(0, 90, 0);
+        //rotationMax = new Vector3(0, 90, 0);
 
         rotationRecord = new Vector3(0, 0, 0);
 
