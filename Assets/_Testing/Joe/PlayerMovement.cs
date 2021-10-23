@@ -74,6 +74,12 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
+    [Header("Push & Pull")]
+    [SerializeField] private float PushPullLightSpeed;
+    [SerializeField] private float PushPullMediumSpeed;
+    [SerializeField] private float PushPullHeavySpeed;
+    [SerializeField] private bool IsPushPull;
+
     #endregion
 
     void Start()
@@ -195,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if(IsGrounded && !IsCrouching)
+        if(IsGrounded && !IsCrouching && !IsPushPull)
         {
             if (Direction.magnitude > 0.1)
             {
@@ -229,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
     //----------SPRINT----------//
     public void Sprint(bool Sprinting)
     {
-        if(Sprinting == true  && IsCrouching == false)
+        if(Sprinting == true  && IsCrouching == false && !IsPushPull)
         {
             IsSprinting = true;
             if(UnSprinting == false)
@@ -253,20 +259,20 @@ public class PlayerMovement : MonoBehaviour
     //----------CROUCH----------//
     public void Crouch(bool Crouching)
     {
-        if(Crouching == true && IsGrounded == true)
+        if(Crouching&& IsGrounded && !IsPushPull)
         {
             IsCrouching = true;
-            if(IsStanding == true && IsSprinting == false)
+            if(IsStanding && !IsSprinting)
             {
                 CrouchDown();
                 IsStanding = false;
             }
-            else if(IsStanding == false)
+            else if(!IsStanding)
             {
                 IsStanding = true;
             }
         }
-        else if(Crouching == false && IsStanding == true)
+        else if(!Crouching && IsStanding)
         {
             IsCrouching = false;
         }
@@ -353,32 +359,35 @@ public class PlayerMovement : MonoBehaviour
     #region Push/Pull
     //NOTE THIS IS ALL PSEUDOCODE
     /*
+    If you push an object off of a platform, the natual gravity should kick in for the ridgid body.
     public void PUSHPULL(INTERACTABLE, Object)
     {
         if(Object == Movable && INTERACTABLE && Interacted)
         {
+            IsPushPull = true;
             if(Object == Light)
             {
-                CurrentSpeed = PushLightSpeed;
-                Rigidbody.Move(Direction);
+                CurrentSpeed = PushPullLightSpeed;
+                rb.MovePosition(Direction);
                 Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
             }
             else if(Object == Medium)
             {
-                CurrentSpeed = PushMediumSpeed;
-                Rigidbody.Move(Direction);
+                CurrentSpeed = PushPullMediumSpeed;
+                rb.MovePosition(Direction);
                 Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
             }
             else if(Object == Heavy)
             {
-                CurrentSpeed = PushHeavySpeed;
-                Rigidbody.Move(Direction);
+                CurrentSpeed = PushPullHeavySpeed;
+                rb.MovePosition(Direction);
                 Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
             }
         }
         else if(!Interacted)
         {
             CurrentSpeed = WalkingSpeed;
+            IsPushPull = true
         }
     }
     */
