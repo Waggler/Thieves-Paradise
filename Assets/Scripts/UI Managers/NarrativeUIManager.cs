@@ -12,7 +12,7 @@ public class NarrativeUIManager : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private int currentDialogueValue;
-
+    
     [SerializeField] private GameObject speakerBox;
     [SerializeField] private GameObject textBox;
     [SerializeField] private GameObject choicePanel;
@@ -22,6 +22,8 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private GameObject choice3;
     [SerializeField] private GameObject choice4;
     [SerializeField] private GameObject choice5;
+
+    private Queue<string> sentences;
 
     public enum CurrentMission
     {
@@ -109,6 +111,8 @@ public class NarrativeUIManager : MonoBehaviour
     //--------------------------//
     {
         CurrentNight();
+
+        sentences = new Queue<string>();
 
     }//END Init
 
@@ -274,8 +278,70 @@ public class NarrativeUIManager : MonoBehaviour
 
     }//END OpenChoice
 
+    //-----------------------//
+    public void StartDialogue(DialogueManager dialogue)
+    //-----------------------//
+    {
+
+        speakerText.text = dialogue.characterName;
+
+        sentences.Clear();
+
+        foreach (string sentence in dialogue.sentences)
+        {
+            sentences.Enqueue(sentence);
+        }
+
+        DisplayNextSentence();
+
+    }//END StartDialogue
+
+    //-----------------------//
+    public void DisplayNextSentence()
+    //-----------------------//
+    {
+        if (sentences.Count == 0)
+        {
+            EndDialogue();
+            return;
+        }
+
+        string sentence = sentences.Dequeue();
+
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(sentence));
+
+    }//END DisplayNextSentence
+
+    //-----------------------//
+    public void EndDialogue()
+    //-----------------------//
+    {
+        Debug.Log("End of Convo");
+        return;
+
+    }//END EndDialogue
+
 
     #endregion Methods
+
+
+    #region Coroutines
+
+
+    IEnumerator TypeSentence(string sentence)
+    {
+        dialogueText.text = "";
+
+        foreach (char letter in sentence.ToCharArray())
+        {
+            dialogueText.text += letter;
+            yield return null; //Is the wait time between typed letters
+        }
+    }
+
+
+    #endregion
 
 
 }//END NarrativeUIManager
