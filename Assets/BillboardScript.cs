@@ -1,24 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BillboardScript : MonoBehaviour
 {
-    [SerializeField]private Transform target;
+    [SerializeField] private Transform target;
+    [SerializeField] private bool isDebug;   
+    [SerializeField] private GameObject self;
+
+    #region Awake
     private void Awake()
     {
-        if (target == null)
+        //Checkin to see if there is already an object assigned to the target var
+
+
+        //Used to disable or enable the debug text for objects depending on if a bool is true or false
+        if (isDebug == true)
         {
-            target = FindObjectOfType<Camera>().gameObject.transform;
+            self.SetActive(true);
+        }
+        else if (isDebug == false)
+        {
+            self.SetActive(false);
         }
     }
 
+    #endregion
+
+    #region Update
     void Update()
     {
         Vector3 direction = (target.position - transform.position).normalized;
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-        transform.rotation = lookRotation; 
+        transform.rotation = lookRotation;
     }
+    #endregion
 }

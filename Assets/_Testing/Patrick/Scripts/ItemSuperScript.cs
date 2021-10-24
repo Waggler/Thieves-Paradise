@@ -10,6 +10,11 @@ public class ItemSuperScript : MonoBehaviour
         get;
         set;
     }
+    public string itemName
+    {
+        get;
+        set;
+    }
 
     public void Pickup()
     {
