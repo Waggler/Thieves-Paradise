@@ -383,7 +383,7 @@ MonoBehaviour:
   RollingSpeed: 15
   RollingTime: 0.25
   IsRolling: 0
-  Deceleration: 0
+  Deceleration: 5
   IsSliding: 0
   DiveSpeed: 0
   DiveTime: 0
@@ -682,6 +682,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f38280ab-902e-47b4-9e9d-83dea4d1d4f1
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8140028994265413464}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: Roll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d7cd48c3-2145-40a3-a864-f20d1a57e5e0
+    m_ActionName: Player/Roll
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -864,7 +880,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6154727269138057277}
-  m_LocalRotation: {x: -0.027431767, y: -0.90273845, z: 0.34170943, w: -0.259895}
+  m_LocalRotation: {x: -0.027431786, y: -0.9027385, z: 0.34170943, w: -0.2598951}
   m_LocalPosition: {x: -1.1461531, y: -0.056518912, z: 7.193614}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1332,7 +1348,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6154727269659890724}
-  m_LocalRotation: {x: -0.060471833, y: -0.93905085, z: 0.22335109, w: -0.2542461}
+  m_LocalRotation: {x: -0.060471885, y: -0.9390508, z: 0.22335109, w: -0.25424615}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1675,7 +1691,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6154727270207063721}
-  m_LocalRotation: {x: -0.060471833, y: -0.93905085, z: 0.22335109, w: -0.2542461}
+  m_LocalRotation: {x: -0.060471885, y: -0.9390508, z: 0.22335109, w: -0.25424615}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
