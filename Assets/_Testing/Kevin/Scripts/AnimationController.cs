@@ -108,9 +108,18 @@ public class AnimationController : MonoBehaviour
     {
     }// END IsPlayerIdle
 
-    public void IsPlayerCrouchIdle(bool isPlayerRolling)
+    public void IsPlayerCrouchIdle(bool isPlayerCrouchIdle)
     //-------------------------------------------------//
     {
+        if (isPlayerCrouchIdle)
+        {
+            playerAnimator.SetBool("isCrouchIdle", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isCrouchIdle", false);
+        }
+
     }// END IsPlayerCrouchIdle
 
     public void IsPlayerSliding(bool isPlayerRolling)
