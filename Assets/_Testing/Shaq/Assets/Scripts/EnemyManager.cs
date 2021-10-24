@@ -186,6 +186,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float attackRadius = 10f;
     [SerializeField] private float waypointNextDistance = 2f;
     [SerializeField] private float rotateSpeed;
+    [SerializeField] private bool isWait;
+    [SerializeField] private float waitTime;
 
 
     //[Header("Debug Variables")]
@@ -221,6 +223,14 @@ public class EnemyManager : MonoBehaviour
             print("No waypoints added to guard instance");
         }
 
+        if (isWait == true)
+        {
+            //setting wait time
+        }
+        else
+        {
+            //waitTime = false;
+        }
 
         loseText.text = "";
     }//End Awake
@@ -462,6 +472,13 @@ public class EnemyManager : MonoBehaviour
             return true;
         }
     }//End Timer
+
+    //---------------------------------//
+    //Used to contribute to the Suspicion pool that is managed by the "SuspicionManager" script
+    private void AddSus()
+    {
+
+    }//End AddSus
 
     //---------------------------------//
     // Revive mechanic set for certain AI prefabs
