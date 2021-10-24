@@ -243,7 +243,7 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
 
-        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
         
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
@@ -455,7 +455,7 @@ public class EnemyManager : MonoBehaviour
         //Gizmo color
         Gizmos.color = Color.red;
         //Gizmo type
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position + Vector3.up, attackRadius);
     }
 
     //---------------------------------//
