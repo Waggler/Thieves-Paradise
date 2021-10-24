@@ -599,6 +599,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision Collider)
+    {
+        if(Collider.gameObject.name == "Vent")
+        {
+            isInVents = true;
+        }
+    }
+
     #endregion
 
     #endregion
