@@ -56,6 +56,9 @@ public class PauseSettingsManager : MonoBehaviour
     {
         AddResolutions();
 
+        Cursor.lockState = CursorLockMode.None;
+
+
     }//END Init
 
     //-----------------------//
