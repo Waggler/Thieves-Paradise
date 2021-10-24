@@ -76,6 +76,8 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
+    public bool isInVents = false;
+
     #endregion
 
     void Start()
