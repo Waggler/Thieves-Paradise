@@ -46,14 +46,14 @@ public class EyeballScript : MonoBehaviour
         Vector3 direction =  player.position - this.transform.position;
         if (direction.magnitude > sightRange)
         {
-            print("Too Far Away");
+            //print("Too Far Away");
             return false; //do nothing if the player is too far away
         }
 
         Debug.DrawLine(transform.position, player.position, Color.red);
         if (Physics.Linecast(transform.position, player.position, layerMask))
         {
-            print("Can't See Player");
+            //print("Can't See Player");
             return false; //do nothing if something is in the way
         }
 
@@ -64,7 +64,7 @@ public class EyeballScript : MonoBehaviour
 
         if (sightAngle > maxVisionAngle)
         {
-            print("Outside of Periphery");
+            //print("Outside of Periphery");
             return false; //do nothing if player is too far out of focus
         }
 

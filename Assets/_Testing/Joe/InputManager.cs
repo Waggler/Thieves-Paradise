@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private Vector3 moveVector;
-    private bool isSprinting;
+    public bool isSprinting;
     private bool isCrouching;
     private bool isRolling;
     private PlayerMovement playerMovement;
