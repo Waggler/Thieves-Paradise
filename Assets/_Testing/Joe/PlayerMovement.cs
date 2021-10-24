@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float WalkingSpeed;
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
+    [Tooltip("The increase in speed when sprinting.")]
     [SerializeField] private float Acceleration;
     [SerializeField] private bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 Direction;
 
     [Header("Crouching")]
+    [Tooltip("Normal Player height.")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
     [SerializeField] private bool IsCrouching = false;
@@ -25,8 +27,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Physics")]
     [SerializeField] private float Gravity;
+    [Tooltip("Your jump height while walking around.")]
     [SerializeField] private float MovingJumpHeight;
+    [Tooltip("Your jump height when standing still.")]
     [SerializeField] private float StillJumpHeight;
+    [Tooltip("Your jump height when you dive.")]
     [SerializeField] private float DiveHeight;
     [SerializeField] private float HeightFromGround;
     [SerializeField] private float CrouchingHeightFromGround;
@@ -38,18 +43,23 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Rolling")]
+    [Tooltip("How fast you roll.")]
     [SerializeField] private float RollingSpeed;
+    [Tooltip("How long you roll for.")]
     [SerializeField] private float RollingTime;
     [SerializeField] private bool IsRolling;
     private float CurrentRollTime;
     private Vector3 RollDirection;
 
     [Header("Sliding")]
+    [Tooltip("The speed at which you decrese down to slide.")]
     [SerializeField] private float Deceleration;
     [SerializeField] private bool IsSliding;
 
     [Header("Diving")]
+    [Tooltip("How far you dive.")]
     [SerializeField] private float DiveSpeed;
+    [Tooltip("How long you dive.")]
     [SerializeField] private float DiveTime;
     [SerializeField] private bool IsDiving;
     [SerializeField] private bool ResetDiving;
@@ -360,7 +370,7 @@ public class PlayerMovement : MonoBehaviour
     //NOTE THIS IS ALL PSEUDOCODE
     /*
     If you push an object off of a platform, the natual gravity should kick in for the ridgid body.
-    public void PUSHPULL(INTERACTABLE, Object)
+    public void PUSHPULL(Int WeightLevel)
     {
         if(Object == Movable && INTERACTABLE && Interacted)
         {
