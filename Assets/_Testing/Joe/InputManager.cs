@@ -10,10 +10,20 @@ public class InputManager : MonoBehaviour
     private bool isCrouching;
     private bool isRolling;
     private PlayerMovement playerMovement;
+    public float rollCooldownTime;
+    private float cooldownTimer;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+    }
+
+    void Update()
+    {
+        if (cooldownTimer < rollCooldownTime)
+        {
+            cooldownTimer += Time.deltaTime;
+        }
     }
 
     #region Inputs
@@ -80,10 +90,15 @@ public class InputManager : MonoBehaviour
     #region RollInput
     public void Roll(InputAction.CallbackContext context)
     {
+        if (cooldownTimer < rollCooldownTime)
+        {
+            return;
+        }
         if(context.performed)
         {
             isRolling = true;
             playerMovement.Roll(isRolling);
+            cooldownTimer = 0;
         }
     }//END ROLL
 

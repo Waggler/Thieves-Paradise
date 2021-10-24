@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 //Current Bugs:
 //    - AI currently moves to quickly to go to it's target without missing and having to loop back around
@@ -390,6 +391,8 @@ public class EnemyManager : MonoBehaviour
 
                     //Lose screen
                     loseText.text = "Game Over";
+                    SceneManager.LoadScene(3);
+                    
                 }
                 break;
             #endregion

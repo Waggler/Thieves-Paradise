@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class itemCheckerScript : MonoBehaviour
 {
@@ -29,6 +31,7 @@ public class itemCheckerScript : MonoBehaviour
             if(other.gameObject.GetComponent<InventoryController>().CheckHasItem(keyItemName))
             {
                 checkText.text = "Have " + keyItemName + "? Yes!";
+                GoToWinScreen();
             }else
             {
                 checkText.text = "Have " + keyItemName + "? No...";
@@ -39,5 +42,10 @@ public class itemCheckerScript : MonoBehaviour
     private void OnTriggerExit()
     {
         checkText.text = "Have " + keyItemName + "?";
+    }
+
+    private void GoToWinScreen()
+    {
+        SceneManager.LoadScene(2);
     }
 }
