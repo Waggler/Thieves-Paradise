@@ -11,7 +11,7 @@ public class itemCheckerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        checkText.text = "Have " + keyItemName + "?";
+        //checkText.text = "Have " + keyItemName + "?";
     }
 
     // Update is called once per frame
