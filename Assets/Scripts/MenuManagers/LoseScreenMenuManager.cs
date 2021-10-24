@@ -5,6 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class LoseScreenMenuManager : MonoBehaviour
 {
+
+    //-----------------------//
+    private void Start()
+    //-----------------------//
+    {
+        Init();
+
+    }//END Start
+
+    //-----------------------//
+    private void Init()
+    //-----------------------//
+    {
+        Cursor.lockState = CursorLockMode.None;
+
+    }//END Init
+
     //-----------------------//
     public void ChangeScreen(int screenValue)
     //-----------------------//
