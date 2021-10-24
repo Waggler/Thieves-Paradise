@@ -19,6 +19,8 @@ public class WinScreenMenuManager : MonoBehaviour
     //-----------------------//
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
 
     }//END Init
 
