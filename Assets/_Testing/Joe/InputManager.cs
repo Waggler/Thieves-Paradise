@@ -16,6 +16,7 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
