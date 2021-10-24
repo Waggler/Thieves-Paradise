@@ -98,6 +98,32 @@ public class AnimationController : MonoBehaviour
     }// END IsPlayerRolling
 
     //-------------------------------------------------//
+    public void IsPlayerJumping(bool isPlayerRolling)
+    //-------------------------------------------------//
+    {
+    }// END IsPlayerJumping
+
+    public void IsPlayerIdle(bool isPlayerRolling)
+    //-------------------------------------------------//
+    {
+    }// END IsPlayerIdle
+
+    public void IsPlayerCrouchIdle(bool isPlayerRolling)
+    //-------------------------------------------------//
+    {
+    }// END IsPlayerCrouchIdle
+
+    public void IsPlayerSliding(bool isPlayerRolling)
+    //-------------------------------------------------//
+    {
+    }// END IsPlayerSliding
+
+    public void IsPlayerDiving(bool isPlayerRolling)
+    //-------------------------------------------------//
+    {
+    }// END IsPlayerDiving
+
+    //-------------------------------------------------//
     private void DebugAnim()
     //-------------------------------------------------//
     {
