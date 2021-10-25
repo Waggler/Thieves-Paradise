@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PushPullScript : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PushPullScript : MonoBehaviour
     [SerializeField] private string Weight;
     [Tooltip("Check this off if you have written in the box above.")]
     [SerializeField] private bool IsWeighted;
+    [Tooltip("The Rigidboy of the object.")]
+    [SerializeField] private Rigidboy RB;
     private int Active;
     private PlayerMovement playerMovement;
 
@@ -17,7 +20,13 @@ public class PushPullScript : MonoBehaviour
 
     void Awake()
     {
+        Weight = Weight.ToUpper();
         playerMovement = GetComponent<PlayerMovement>();
+    }
+
+    void Update()
+    {
+        print(Active);
     }
 
     #region Giving Input

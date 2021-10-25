@@ -227,7 +227,6 @@ public class PlayerMovement : MonoBehaviour
                     IsDiving = true;
                     VerticalVelocity.y = Mathf.Sqrt(-2f * DiveHeight * -Gravity);
                     Controller.Move(VerticalVelocity * Time.deltaTime);
-                    print(RollDirection);
                 }
             }
             else if(Direction.magnitude <= 0.1)
