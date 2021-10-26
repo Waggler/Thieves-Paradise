@@ -46,11 +46,16 @@ public class CameraManager : MonoBehaviour
     [Header("Global Suspicion Manager Ref")]
     [SerializeField] private SuspicionManager suspicionManager;
 
+    [Header("Camera Light References")]
+    [SerializeField] private Light camLightRef;
+
+
     [Header("Debug Variables (May bite)")]
     [HideInInspector] private bool susFlag = false;
     [SerializeField] private Renderer rend;
 
     [SerializeField] private bool isDebug;
+
 
 
     #endregion
@@ -78,6 +83,8 @@ public class CameraManager : MonoBehaviour
 
         //Use this space for debug variables
         rend = GetComponent<Renderer>();
+
+        camLightRef.color = Color.green;
     }//End Awake
 
     #endregion
@@ -147,6 +154,7 @@ public class CameraManager : MonoBehaviour
                     break;
                 }
 
+                camLightRef.color = Color.green;
 
                 break;
             #endregion
@@ -206,6 +214,8 @@ public class CameraManager : MonoBehaviour
                     break;
                 }
 
+                camLightRef.color = Color.red;
+
                 break;
             #endregion
 
@@ -229,11 +239,26 @@ public class CameraManager : MonoBehaviour
         }
         #endregion
 
+
+        Init();
+
         #endregion
     }//End Update
     #endregion
 
     #region General Functions
+    //---------------------------------//
+    //
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.blue;
+
+    //    //Vector3 direction1 = transform.TransformDirection(Vector3.forward);
+    //    Vector3 direction2 = transform.TransformDirection(rotationMax);
+    //    //Gizmos.DrawRay(transform.position, direction1);
+    //    Gizmos.DrawRay(transform.position, direction2);
+    //}//End OnDrawGizmos
+
     //---------------------------------//
     //Function that makes the object face it's target
     void FaceTarget()
@@ -249,7 +274,6 @@ public class CameraManager : MonoBehaviour
 
     }//End FaceTarget
 
-
     //---------------------------------//
     //Used to preload all necessary variables or states in the Camera Manager script
     private void Init()
@@ -263,6 +287,14 @@ public class CameraManager : MonoBehaviour
 
         //Set's the CameraAI's state to MONITORING on awake
         cameraStateMachine = CamStates.MONITORING;
+
+        //Camera Light Variables
+        camLightRef.spotAngle = eyeball.maxVisionAngle;
+
+        camLightRef.range = eyeball.sightRange * 5;
+
+        ////Update Camera light intensity to be based on the current state that the camera is in
+        //camLightIntensity = [Insert random value];
     }//End Init
 
 

@@ -11,9 +11,9 @@ public class EyeballScript : MonoBehaviour
 
     //vision stats
     [Header("Vision Stats")]
-    [SerializeField] private float sightRange;
+    [SerializeField] public float sightRange;
     [Range(1.0f, 180.0f)]
-    [SerializeField] private float maxVisionAngle; // 0-180, 0 = directly in front, 90 = left/right, 180 = directly behind
+    [SerializeField] public float maxVisionAngle; // 0-180, 0 = directly in front, 90 = left/right, 180 = directly behind
     [SerializeField] public float susGrowthMultiplier = 1;
     [SerializeField] public float susDecreaseMultiplier = 1;
 

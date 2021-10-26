@@ -195,7 +195,7 @@ public class EnemyManager : MonoBehaviour
 
 
     //[Header("Debug Variables")]
-    //[SerializeField] bool shitBool = true;
+    //[SerializeField] bool testBool = true;
 
 
     #endregion
@@ -245,7 +245,6 @@ public class EnemyManager : MonoBehaviour
     //Function called every frame
     void Update()
     {
-
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
         
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
@@ -418,6 +417,7 @@ public class EnemyManager : MonoBehaviour
                 targetText.text = $"Target = {targetText}";
                 break;
             #endregion
+
         }
 
         suspicionManager.testInt = 1;
