@@ -18,6 +18,8 @@ public class NarrativeUIManager : MonoBehaviour
     [Header("Dialogue Components")]
     [SerializeField] private GameObject speakerBox;
     [SerializeField] private GameObject textBox;
+
+    public DialogueManager[] dialogues;
     
     [Header("Choice Components")]
     [SerializeField] private GameObject choicePanel;
@@ -27,6 +29,8 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private GameObject choice3;
     [SerializeField] private GameObject choice4;
     [SerializeField] private GameObject choice5;
+
+
 
     private Queue<string> sentences;
 
@@ -287,8 +291,6 @@ public class NarrativeUIManager : MonoBehaviour
     public void StartDialogue(DialogueManager dialogue)
     //-----------------------//
     {
-
-
         speakerText.text = dialogue.characterName;
 
         sentences.Clear();

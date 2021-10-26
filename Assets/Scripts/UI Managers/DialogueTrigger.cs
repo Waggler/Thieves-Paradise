@@ -29,8 +29,6 @@ public class DialogueTrigger : MonoBehaviour
     public void TriggerDialogue()
     //-----------------------//
     {
-        //FindObjectOfType<NarrativeUIManager>().StartDialogue(dialogue);
-
         narrativeUIManager.StartDialogue(dialogue);
 
 
