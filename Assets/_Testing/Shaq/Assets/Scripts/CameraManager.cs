@@ -43,9 +43,8 @@ public class CameraManager : MonoBehaviour
     [Header("Eyeball Integration / Eyeball Related Variables")]
     [SerializeField] private EyeballScript eyeball;
 
-    //Use this for the suspicion manager later on
-    [SerializeField] private EnemyManager enemyMngr;
-
+    [Header("Global Suspicion Manager Ref")]
+    [SerializeField] private SuspicionManager suspicionManager;
 
     [Header("Debug Variables (May bite)")]
     [HideInInspector] private bool susFlag = false;

@@ -190,6 +190,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private bool isWait;
     [SerializeField] private float waitTime;
 
+    [Header("Global Suspicion Manager Ref")]
+    [SerializeField] private SuspicionManager suspicionManager;
+
 
     //[Header("Debug Variables")]
     //[SerializeField] bool shitBool = true;
@@ -417,6 +420,7 @@ public class EnemyManager : MonoBehaviour
             #endregion
         }
 
+        suspicionManager.testInt = 1;
     }//End Update
     #endregion
 
