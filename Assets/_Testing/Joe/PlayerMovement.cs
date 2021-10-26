@@ -89,6 +89,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float PushPullMediumSpeed;
     [SerializeField] private float PushPullHeavySpeed;
     [SerializeField] private bool IsPushPull;
+    private PushPullScript pushPullScript;
+    //NOTE THIS IS A TEST VAR!
+    private int Carrying;
 
     #endregion
 
@@ -140,16 +143,19 @@ public class PlayerMovement : MonoBehaviour
         FacingDirection.y = 0f;
         FacingDirection = FacingDirection.normalized;
 
+        //Movement
         if(!IsRolling && !IsSliding && !IsDiving && !StillDiving)
         {
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
 
+        //Setting Roll Direction for rolling, diving, and sliding.
         if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {
             RollDirection = FacingDirection;
         }
 
+        //Facing direction.
         if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
@@ -189,6 +195,10 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+        #endregion
+
+        #region PushPull
+
         #endregion
 
         #region Check For Animations
@@ -366,11 +376,40 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Push/Pull
+    public void PushPull(int WeightLevel)
+    {
+        Carrying = WeightLevel;
+    }
     //NOTE THIS IS ALL PSEUDOCODE
     /*
     If you push an object off of a platform, the natual gravity should kick in for the ridgid body.
-    public void PUSHPULL(Int WeightLevel)
+    public void PushPull(Int WeightLevel)
     {
+        if(WeightLevel == 1)
+        {
+            CurrentSpeed = PushPullLightSpeed;
+            rb.MovePosition(Direction);
+            Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
+        }
+        else if(WeightLevel == 2)
+        {
+            CurrentSpeed = PushPullMediumSpeed;
+            rb.MovePosition(Direction);
+            Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
+        }
+        else if(WeightLevel == 3)
+        {
+            CurrentSpeed = PushPullHeavySpeed;
+            rb.MovePosition(Direction);
+            Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
+        }
+        else if()
+        {
+            CurrentSpeed = WalkingSpeed;
+        }
+        
+        //----BREAK IN IDEAS---//
+
         if(Object == Movable && INTERACTABLE && Interacted)
         {
             IsPushPull = true;

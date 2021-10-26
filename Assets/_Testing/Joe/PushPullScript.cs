@@ -12,8 +12,8 @@ public class PushPullScript : MonoBehaviour
     [Tooltip("Check this off if you have written in the box above.")]
     [SerializeField] private bool IsWeighted;
     [Tooltip("The Rigidboy of the object.")]
-    [SerializeField] private Rigidboy RB;
-    private int Active;
+    [SerializeField] private Rigidbody RB;
+    [SerializeField] private int Active;
     private PlayerMovement playerMovement;
 
     #endregion
@@ -21,17 +21,29 @@ public class PushPullScript : MonoBehaviour
     void Awake()
     {
         Weight = Weight.ToUpper();
+        if(Weight == "LIGHT" || Weight == "MEDIUM" || Weight == "Heavy")
+        {
+            IsWeighted = true;
+        }
         playerMovement = GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
-        print(Active);
+
     }
 
     #region Giving Input
     public void PushPullCheck()
     {
+        if(IsWeighted)
+        {
+            if(Weight == "LIGHT")
+            {
+                Active = 1;
+                playerMovement.PushPull(Active);
+            }
+        }
         /*
         if(Context.preformed && IsWeighted)
         {
@@ -72,13 +84,19 @@ public class PushPullScript : MonoBehaviour
     public void ObjectMove()
     {
         /*
+        if(Movement != Vector3.zero)
+        {
+            RB.MovePosition(Movement * Time.deltaTime * WeightSpeed);
+        }
+
+
         if(Moving)
         {
-            Rigidboy.Move(Direction * Time.deltaTime * WeightSpeed);
+            Rigidboy.MovePosition(Direction * Time.deltaTime * WeightSpeed);
         }
         else
         {
-            Rigidboy.Move(Stay Still);
+            Rigidboy.MovePosition(Stay Still);
         }
         */
     }
