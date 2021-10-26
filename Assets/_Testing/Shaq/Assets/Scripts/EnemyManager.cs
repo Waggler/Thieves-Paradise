@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 //Current Bugs:
 //    - AI currently moves to quickly to go to it's target without missing and having to loop back around
@@ -186,6 +187,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float attackRadius = 10f;
     [SerializeField] private float waypointNextDistance = 2f;
     [SerializeField] private float rotateSpeed;
+    [SerializeField] private bool isWait;
+    [SerializeField] private float waitTime;
 
 
     //[Header("Debug Variables")]
@@ -221,6 +224,14 @@ public class EnemyManager : MonoBehaviour
             print("No waypoints added to guard instance");
         }
 
+        if (isWait == true)
+        {
+            //setting wait time
+        }
+        else
+        {
+            //waitTime = false;
+        }
 
         loseText.text = "";
     }//End Awake
@@ -232,7 +243,7 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
 
-        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
         
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
@@ -380,6 +391,8 @@ public class EnemyManager : MonoBehaviour
 
                     //Lose screen
                     loseText.text = "Game Over";
+                    SceneManager.LoadScene(3);
+                    
                 }
                 break;
             #endregion
@@ -442,7 +455,7 @@ public class EnemyManager : MonoBehaviour
         //Gizmo color
         Gizmos.color = Color.red;
         //Gizmo type
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position + Vector3.up, attackRadius);
     }
 
     //---------------------------------//
@@ -462,6 +475,13 @@ public class EnemyManager : MonoBehaviour
             return true;
         }
     }//End Timer
+
+    //---------------------------------//
+    //Used to contribute to the Suspicion pool that is managed by the "SuspicionManager" script
+    private void AddSus()
+    {
+
+    }//End AddSus
 
     //---------------------------------//
     // Revive mechanic set for certain AI prefabs

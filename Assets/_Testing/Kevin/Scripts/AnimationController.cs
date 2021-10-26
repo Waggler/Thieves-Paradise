@@ -6,18 +6,24 @@ public class AnimationController : MonoBehaviour
 {
     [SerializeField] private Animator playerAnimator;
 
+    [Header("Debug Values")]
+    public bool isWalking;
+    public bool isSprinting;
+    public bool isCrouching;
+    public bool isRolling;
+
     private void Awake()
     {
         Init();
 
     }// END Awake
 
-    // // TO DO Methods should be called by PlayerMovement Through PlayerController
-    // private void Update()
-    // {
-    //     DebugAnim();
+    // TO DO Methods should be called by PlayerMovement Through PlayerController
+    private void Update()
+    {
+        DebugAnim();
 
-    // }// END Update
+    }// END Update
 
     private void Init()
     {
@@ -30,36 +36,6 @@ public class AnimationController : MonoBehaviour
 
 
     #region DebugMethods
-
-    //-------------------------------------------------//
-    public void IsPlayerIdle(bool isPlayerIdle)
-    //-------------------------------------------------//
-    {
-        if (isPlayerIdle == true)
-        {
-            playerAnimator.SetBool("isIdle", true);
-        }
-        else
-        {
-            playerAnimator.SetBool("isIdle", false);
-        }
-
-    }// END IsPlayerIdle
-
-    //-------------------------------------------------//
-    public void IsPlayerCrouchIdle(bool isPlayerCrouchIdle)
-    //-------------------------------------------------//
-    {
-        if (isPlayerCrouchIdle == true)
-        {
-            playerAnimator.SetBool("isCrouchIdle", true);
-        }
-        else
-        {
-            playerAnimator.SetBool("isCrouchIdle", false);
-        }
-
-    }// END IsPlayerCrouchIdle
 
     //-------------------------------------------------//
     public void IsPlayerWalking(bool isPlayerWalking)
@@ -107,21 +83,6 @@ public class AnimationController : MonoBehaviour
     }// END IsPlayerCrouching
 
     //-------------------------------------------------//
-    public void IsPlayerJumping(bool IsPlayerJumping)
-    //-------------------------------------------------//
-    {
-        if (IsPlayerJumping == true)
-        {
-            playerAnimator.SetBool("isJumping", true);
-        }
-        else
-        {
-            playerAnimator.SetBool("isJumping", false);
-        }
-
-    }// END IsPlayerJumping
-
-    //-------------------------------------------------//
     public void IsPlayerRolling(bool isPlayerRolling)
     //-------------------------------------------------//
     {
@@ -137,35 +98,84 @@ public class AnimationController : MonoBehaviour
     }// END IsPlayerRolling
 
     //-------------------------------------------------//
-    public void IsPlayerSliding(bool isPlayerSliding)
+    public void IsPlayerJumping(bool isPlayerRolling)
     //-------------------------------------------------//
     {
-        if (isPlayerSliding)
+    }// END IsPlayerJumping
+
+    public void IsPlayerIdle(bool isPlayerRolling)
+    //-------------------------------------------------//
+    {
+    }// END IsPlayerIdle
+
+    public void IsPlayerCrouchIdle(bool isPlayerCrouchIdle)
+    //-------------------------------------------------//
+    {
+        if (isPlayerCrouchIdle)
         {
-            playerAnimator.SetBool("isSliding", true);
+            playerAnimator.SetBool("isCrouchIdle", true);
         }
         else
         {
-            playerAnimator.SetBool("isSliding", false);
+            playerAnimator.SetBool("isCrouchIdle", false);
         }
 
+    }// END IsPlayerCrouchIdle
+
+    public void IsPlayerSliding(bool isPlayerRolling)
+    //-------------------------------------------------//
+    {
     }// END IsPlayerSliding
 
-    //-------------------------------------------------//
-    public void IsPlayerDiving(bool isPlayerDiving)
+    public void IsPlayerDiving(bool isPlayerRolling)
     //-------------------------------------------------//
     {
-        if (isPlayerDiving)
+    }// END IsPlayerDiving
+
+    //-------------------------------------------------//
+    private void DebugAnim()
+    //-------------------------------------------------//
+    {
+        if (isWalking == true)
         {
-            playerAnimator.SetBool("isDiving", true);
+            IsPlayerWalking(true);
         }
         else
         {
-            playerAnimator.SetBool("isDiving", false);
+            IsPlayerWalking(false);
         }
 
-    }// END IsPlayerDiving
+        if (isCrouching == true)
+        {
+            IsPlayerCrouching(true);
+        }
+        else
+        {
+            IsPlayerCrouching(false);
+        }
+
+        if (isSprinting == true)
+        {
+            IsPlayerSprinting(true);
+        }
+        else
+        {
+            IsPlayerSprinting(false);
+        }
+
+        if (isRolling == true)
+        {
+            IsPlayerRolling(true);
+        }
+        else
+        {
+            IsPlayerRolling(false);
+        }
+
+    }// END DebugAnim
+
 
     #endregion // END DebugMethods
+
 
 }// END Class
