@@ -12,9 +12,14 @@ public class NarrativeUIManager : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private int currentDialogueValue;
-    
+    [SerializeField] private float typingTime;
+    [SerializeField] private Animator dialogueAnimator;
+
+    [Header("Dialogue Components")]
     [SerializeField] private GameObject speakerBox;
     [SerializeField] private GameObject textBox;
+    
+    [Header("Choice Components")]
     [SerializeField] private GameObject choicePanel;
 
     [SerializeField] private GameObject choice1;
@@ -283,9 +288,12 @@ public class NarrativeUIManager : MonoBehaviour
     //-----------------------//
     {
 
+
         speakerText.text = dialogue.characterName;
 
         sentences.Clear();
+
+        dialogueAnimator.SetBool("isDialogueOpen", true);
 
         foreach (string sentence in dialogue.sentences)
         {
@@ -318,6 +326,8 @@ public class NarrativeUIManager : MonoBehaviour
     //-----------------------//
     {
         Debug.Log("End of Convo");
+        dialogueAnimator.SetBool("isDialogueOpen", false);
+
         return;
 
     }//END EndDialogue
@@ -336,7 +346,7 @@ public class NarrativeUIManager : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return null; //Is the wait time between typed letters
+            yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
         }
     }
 
