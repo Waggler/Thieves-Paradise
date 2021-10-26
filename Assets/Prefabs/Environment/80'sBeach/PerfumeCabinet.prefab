@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5872243443518491972}
   - component: {fileID: 8345453791740305369}
+  - component: {fileID: 4606545052227897315}
   m_Layer: 0
   m_Name: PerfumeCabinet
   m_TagString: Untagged
@@ -125,8 +126,24 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5104785, y: 1.598838, z: 2.1994379}
-  m_Center: {x: 0.0024437904, y: 0.793505, z: -1.0400282}
+  m_Size: {x: 2.5104785, y: 1.598838, z: 1.8402028}
+  m_Center: {x: 0.0024437904, y: 0.793505, z: -0.86041033}
+--- !u!208 &4606545052227897315
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6500302711428814846}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.255239, y: 0.799419, z: 0.9201015}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.0024437904, y: 0.793505, z: -0.86041033}
+  m_TimeToStationary: 0.5
 --- !u!1 &8006177253640849313
 GameObject:
   m_ObjectHideFlags: 0

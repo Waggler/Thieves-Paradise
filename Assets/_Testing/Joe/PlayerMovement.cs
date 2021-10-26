@@ -367,7 +367,7 @@ public class PlayerMovement : MonoBehaviour
         //Debug.DrawRay(Controller.transform.position + Controller.center, Vector3.down, Color.red, Controller.height / 2  + 0.1f);
         //Physics.Raycast(Controller.transform.position + Controller.center, Vector3.down, Controller.height / 2  + 0.1f)
         Vector3 groundCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight * 0.3f), transform.position.z);
-        
+        //StandardHeight / 4
         if(Physics.CheckSphere(groundCheck, StandardHeight / 4, mask))
         {
             IsGrounded = true;

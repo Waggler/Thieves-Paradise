@@ -20,6 +20,24 @@ public class MainMenuManager : MonoBehaviour
 
 
     //-----------------------//
+    private void Start()
+    //-----------------------//
+    {
+        Init();
+
+    }//END Start
+
+    //-----------------------//
+    private void Init()
+    //-----------------------//
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+    }//END Init
+
+
+    //-----------------------//
     public void ChangeScreen(int screenValue)
     //-----------------------//
     {
