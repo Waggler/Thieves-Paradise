@@ -781,8 +781,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2710827131102156305}
-  m_LocalRotation: {x: 0.047414277, y: 0.88520294, z: -0.13385265, w: -0.44300252}
-  m_LocalPosition: {x: 4.3701572, y: 2.3343549, z: 14.052918}
+  m_LocalRotation: {x: 0.047414273, y: 0.88520294, z: -0.13385266, w: -0.44300252}
+  m_LocalPosition: {x: 2.8124595, y: -0.46969557, z: 8.254408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 375958658}
@@ -1221,8 +1221,6 @@ MonoBehaviour:
   RunningSpeed: 20
   CrouchSpeed: 5
   Acceleration: 5
-  IsSprinting: 0
-  UnSprinting: 1
   StandardHeight: 2
   CrouchingHeight: 1
   IsCrouching: 0
@@ -1230,7 +1228,6 @@ MonoBehaviour:
   Gravity: 30
   MovingJumpHeight: 5
   StillJumpHeight: 10
-  DiveHeight: 0
   HeightFromGround: 1
   CrouchingHeightFromGround: 0.5
   Collider: {fileID: 2710827131430540289}
@@ -1238,24 +1235,7 @@ MonoBehaviour:
   IsGrounded: 1
   RollingSpeed: 20
   RollingTime: 0.25
-  IsRolling: 0
   Deceleration: 0
-  IsSliding: 0
-  DiveSpeed: 0
-  DiveTime: 0
-  IsDiving: 0
-  ResetDiving: 0
-  CurrentDiveTime: 0
-  animationController: {fileID: 8750750151077721225}
-  Idle: 0
-  IdleCrouch: 0
-  Moving: 0
-  Crouching: 0
-  Running: 0
-  Jumping: 0
-  CrouchRoll: 0
-  Slide: 0
-  Diving: 0
 --- !u!136 &2710827131430540289
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1576,7 +1556,10 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 2710827131966880125}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 2710827131308341344}
+  - {fileID: 2710827130288368182}
+  - {fileID: 2710827130549995253}
   m_Instructions:
   - m_FullHash: -1195735313
     m_VirtualCamera: {fileID: 2710827130288368182}
@@ -1903,17 +1886,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf4bc9fa7007a2849b8e9594f0a67879, type: 3}
---- !u!114 &8750750151077721225 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2328187937794480139, guid: bf4bc9fa7007a2849b8e9594f0a67879, type: 3}
-  m_PrefabInstance: {fileID: 6431011067680795778}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7923cd7b99c3ad044884c2964827821a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &9149715320721871719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2865938516165771237, guid: bf4bc9fa7007a2849b8e9594f0a67879, type: 3}
