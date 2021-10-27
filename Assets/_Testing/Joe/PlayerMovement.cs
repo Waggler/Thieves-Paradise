@@ -30,9 +30,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float StillJumpHeight;
     [SerializeField] private float DiveHeight;
     
-    [SerializeField] private CapsuleCollider Collider;
+    [SerializeField] public CapsuleCollider Collider;
     [SerializeField] private CharacterController Controller;
-    [SerializeField] private bool IsGrounded = true;
+    [SerializeField] public bool IsGrounded = true;
     private float GroundHeight;
     private Vector3 VerticalVelocity = Vector3.zero;
     private float HeightFromGround;
@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
-    public bool isInVents = false;
 
     #endregion
 
@@ -596,14 +595,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Diving = false;
             animationController.IsPlayerDiving(Diving);
-        }
-    }
-
-    private void OnCollisionEnter(Collision Collider)
-    {
-        if(Collider.gameObject.name == "Vent")
-        {
-            isInVents = true;
         }
     }
 
