@@ -33,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float StillJumpHeight;
     [Tooltip("Your jump height when you dive.")]
     [SerializeField] private float DiveHeight;
-    [SerializeField] private float HeightFromGround;
-    [SerializeField] private float CrouchingHeightFromGround;
+    private float HeightFromGround;
+    private float CrouchingHeightFromGround;
     [SerializeField] private CapsuleCollider Collider;
     [SerializeField] private CharacterController Controller;
     [SerializeField] private bool IsGrounded = true;
@@ -105,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
         PlayerCamera = Camera.main.transform;
         mask = LayerMask.GetMask("Player");
         mask = ~mask;
+        HeightFromGround = StandardHeight/2;
+        CrouchingHeightFromGround = CrouchingHeight/2;
     }
 
     void Update()
@@ -320,8 +322,8 @@ public class PlayerMovement : MonoBehaviour
             Controller.Move(RollDirection * CurrentSpeed * Time.deltaTime);
             Collider.height = CrouchingHeight;
             Controller.height = CrouchingHeight;
-            Controller.center = new Vector3 (0f, -0.5f, 0f);
-            Collider.center = new Vector3 (0f, -0.5f, 0f);
+            Controller.center = new Vector3 (0f, -(CrouchingHeightFromGround/2), 0f);
+            Collider.center = new Vector3 (0f, -(CrouchingHeightFromGround/2), 0f);
             GroundHeight = CrouchingHeightFromGround;
             CurrentSpeed -= Deceleration * Time.deltaTime; 
         }
@@ -447,7 +449,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Debug.DrawRay(Controller.transform.position + Controller.center, Vector3.down, Color.red, Controller.height / 2  + 0.1f);
         //Physics.Raycast(Controller.transform.position + Controller.center, Vector3.down, Controller.height / 2  + 0.1f)
-        Vector3 groundCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight * 0.3f), transform.position.z);
+        Vector3 groundCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight * 0.2f), transform.position.z);
         //StandardHeight / 4
         if(Physics.CheckSphere(groundCheck, StandardHeight / 4, mask))
         {
@@ -472,7 +474,7 @@ public class PlayerMovement : MonoBehaviour
     void CoveredCheck()
     {
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
-        if(Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f))
+        if(Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f) && IsGrounded)
         {
             IsStanding = false;
             IsCrouching = true;
@@ -483,7 +485,7 @@ public class PlayerMovement : MonoBehaviour
             StandUp();
         }
 
-        if(IsStanding == false)
+        if(IsStanding == false && IsGrounded)
         {
             CrouchDown();
         }
@@ -547,8 +549,8 @@ public class PlayerMovement : MonoBehaviour
         CurrentSpeed = WalkingSpeed;
         Collider.height = StandardHeight;
         Controller.height = StandardHeight;
-        Controller.center = new Vector3(0f, 0f, 0f);
-        Collider.center = new Vector3(0f, 0f, 0f);
+        Controller.center = new Vector3(0f, 0.2f, 0f);
+        Collider.center = new Vector3(0f, 0.2f, 0f);
         GroundHeight = HeightFromGround;
     }
 
@@ -561,8 +563,8 @@ public class PlayerMovement : MonoBehaviour
         CurrentSpeed = CrouchSpeed;
         Collider.height = CrouchingHeight;
         Controller.height = CrouchingHeight;
-        Controller.center = new Vector3 (0f, -0.5f, 0f);
-        Collider.center = new Vector3 (0f, -0.5f, 0f);
+        Controller.center = new Vector3 (0f, -(CrouchingHeightFromGround/2), 0f);
+        Collider.center = new Vector3 (0f, -(CrouchingHeightFromGround/2), 0f);
         GroundHeight = CrouchingHeightFromGround;
         IsCrouching = true;
     }
