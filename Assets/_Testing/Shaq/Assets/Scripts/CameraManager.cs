@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,26 +36,27 @@ public class CameraManager : MonoBehaviour
     //Transition speed between original rotation and look rotation in FaceTarget() method
     [SerializeField] private float snapSpeed;
 
-    [Header("Suspicion Variables")] 
-    [SerializeField] [Range(0, 10)] private float susMeter;
-    [SerializeField] private float susIncrem = 0.01f;
-    [SerializeField] private float susDecrim = 0.01f;
-
     [Header("Eyeball Integration / Eyeball Related Variables")]
     [SerializeField] private EyeballScript eyeball;
 
     [Header("Global Suspicion Manager Ref")]
     [SerializeField] private SuspicionManager suspicionManager;
 
-    [Header("Camera Light References")]
+    [Header("Guard ref")]
+    [SerializeField] private List<GameObject> guards;
+
+    [Header("Camera Light Variables")]
     [SerializeField] private Light camLightRef;
+    [SerializeField] [Range(0, 100)] private float camLightIntensity;
+    [SerializeField] [Range(0, 2)] private float camLightRange;
+    [SerializeField] [Range(0, 5)] private float camLightMaxAngle;
+    [SerializeField] [Range(0, 5)] private float camLightMinAngle;
 
 
-    [Header("Debug Variables (May bite)")]
-    [HideInInspector] private bool susFlag = false;
+    [Header("Debug Variables")]
     [SerializeField] private Renderer rend;
-
     [SerializeField] private bool isDebug;
+
 
 
 
@@ -135,16 +137,6 @@ public class CameraManager : MonoBehaviour
                     cameraStateMachine = CamStates.FOCUSED;
                 }
 
-                //Reducing suspicion level
-                if (susMeter > 0 && cameraStateMachine == CamStates.MONITORING)
-                {
-                    susMeter -= susDecrim;
-                }
-                else if (susMeter < 0)
-                {
-                    susMeter = 0;
-                }
-
                 if (isDebug == true)
                 {
                     rend.material.color = Color.green;
@@ -171,14 +163,9 @@ public class CameraManager : MonoBehaviour
                 targetText.text = $"{target}";
 
                 FaceTarget();
-
-                susFlag = true;
-
-
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
                 {
-                    susFlag = false;
 
                     //Reset's the camera's X & Z rotation
                     rotationRecord.x = 0;
@@ -190,20 +177,6 @@ public class CameraManager : MonoBehaviour
                     //FOCUSED >>> MONITORING
                     cameraStateMachine = CamStates.MONITORING;
                 }
-
-                //Raising suspicion level
-                //Use of the susFlag bool ensures that the suspicion level can only go up if there is visual confirmation
-                if (susFlag == true && susMeter < 10)
-                {
-                    susMeter += susIncrem;
-                }
-                else if (susMeter > 10)
-                {
-                    susMeter = 10;
-                }
-
-                //eyeball.lastKnownLocation;
-
 
                 if (isDebug == true)
                 {
@@ -240,13 +213,14 @@ public class CameraManager : MonoBehaviour
         #endregion
 
 
-        Init();
+        UpdateCamLightVars();
 
         #endregion
     }//End Update
     #endregion
 
     #region General Functions
+
     //---------------------------------//
     //
     //private void OnDrawGizmos()
@@ -258,6 +232,9 @@ public class CameraManager : MonoBehaviour
     //    //Gizmos.DrawRay(transform.position, direction1);
     //    Gizmos.DrawRay(transform.position, direction2);
     //}//End OnDrawGizmos
+    //---------------------------------//
+
+
 
     //---------------------------------//
     //Function that makes the object face it's target
@@ -289,13 +266,33 @@ public class CameraManager : MonoBehaviour
         cameraStateMachine = CamStates.MONITORING;
 
         //Camera Light Variables
-        camLightRef.spotAngle = eyeball.maxVisionAngle;
+        camLightRef.spotAngle = eyeball.maxVisionAngle * 5f;
+        camLightRef.innerSpotAngle = eyeball.maxVisionAngle * .8f;
 
         camLightRef.range = eyeball.sightRange * 5;
 
         ////Update Camera light intensity to be based on the current state that the camera is in
         //camLightIntensity = [Insert random value];
     }//End Init
+
+    //---------------------------------//
+    //Used to update all camera light related variables all at once
+    private void UpdateCamLightVars()
+    {
+        //Camera Light Variables
+
+        //Sets the camera light's intensity
+        camLightRef.intensity = camLightIntensity;
+
+        //Sets the camera light's range
+        camLightRef.range = eyeball.sightRange * camLightRange;
+
+        //Sets the camera light's outer spot angle
+        camLightRef.spotAngle = eyeball.maxVisionAngle * camLightMaxAngle;
+        //Sets the camera light's inner spot angle
+        camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
+
+    }//End UpdateCamVars
 
 
     private Vector3 AlertGuards(Vector3 targetLoc)
