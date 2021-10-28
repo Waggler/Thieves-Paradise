@@ -105,5 +105,13 @@ public class InputManager : MonoBehaviour
 
     #endregion
 
+    #region Push/Pull Interact
+    public void PushAndPull()
+    {
+        
+    }
+
+    #endregion
+
     #endregion
 }
