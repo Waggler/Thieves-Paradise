@@ -136,15 +136,6 @@ public class CameraManager : MonoBehaviour
                     cameraStateMachine = CamStates.FOCUSED;
                 }
 
-                if (isDebug == true)
-                {
-                    rend.material.color = Color.green;
-                }
-                else
-                {
-                    break;
-                }
-
                 camLightRef.color = Color.green;
 
                 break;
@@ -163,7 +154,10 @@ public class CameraManager : MonoBehaviour
 
                 FaceTarget();
 
+                camLightRef.color = Color.red;
+
                 AlertGuards(eyeball.lastKnownLocation);
+
 
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
@@ -180,17 +174,6 @@ public class CameraManager : MonoBehaviour
                     cameraStateMachine = CamStates.MONITORING;
                 }
 
-                if (isDebug == true)
-                {
-                    rend.material.color = Color.red;
-                }
-                else
-                {
-                    break;
-                }
-
-                camLightRef.color = Color.red;
-
                 break;
             #endregion
 
@@ -199,15 +182,6 @@ public class CameraManager : MonoBehaviour
             default:
                 stateText.text = "State Not Found";
                 targetText.text = "Null";
-
-                if (isDebug == true)
-                {
-                    rend.material.color = Color.yellow;
-                }
-                else
-                {
-                    break;
-                }
 
                 break;
             #endregion
@@ -293,7 +267,11 @@ public class CameraManager : MonoBehaviour
 
     private void AlertGuards(Vector3 targetLoc)
     {
-        enemyManager.lastKnownLocation = targetLoc;
+
+
+        enemyManager.Alert(targetLoc);
+        
+        
     }
 
 

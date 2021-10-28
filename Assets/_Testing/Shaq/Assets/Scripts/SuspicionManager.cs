@@ -142,11 +142,11 @@ public class SuspicionManager : MonoBehaviour
 
         if (testInt != 0)
         {
-            print("Int has changed");
+            //print("Int has changed");
 
         }
 
-        print($"{secState}");
+        //print($"{secState}");
 
         print($"Current references are {enemyManager} & {cameraManager}");
 

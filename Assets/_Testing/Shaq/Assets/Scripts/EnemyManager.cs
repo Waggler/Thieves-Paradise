@@ -196,7 +196,7 @@ public class EnemyManager : MonoBehaviour
     [Header("Misc. Variables")]
     [SerializeField] private float attackRadius = 10f;
     [SerializeField] private float waypointNextDistance = 2f;
-    [SerializeField] private float rotateSpeed;
+    [SerializeField] [Range (0, 50)]private float rotateSpeed;
     [SerializeField] private bool isWait;
     [SerializeField] private float waitTime;
 
@@ -320,7 +320,7 @@ public class EnemyManager : MonoBehaviour
 
                         SetAiSpeed(susSpeed);
 
-                        target.transform.position = eyeball.lastKnownLocation;
+                        target.transform.position = lastKnownLocation;
 
                         targetText.text = $"Player";
 
@@ -339,7 +339,7 @@ public class EnemyManager : MonoBehaviour
                 else if (eyeball.canCurrentlySeePlayer == false && eyeball.susLevel > 0)
                 {
                     //Using transform.position in order to translate Vector3 data to Transform
-                    target.transform.position = eyeball.lastKnownLocation;
+                    target.transform.position = lastKnownLocation;
 
                     SetAIDestination(target.transform.position);
 
@@ -530,6 +530,20 @@ public class EnemyManager : MonoBehaviour
     void AlertLocation()
     {
 
+    }
+
+
+    public void Alert(Vector3 alertLoc)
+    {
+        eyeball.susLevel = 5;
+
+
+
+
+
+        lastKnownLocation = alertLoc;
+
+        print("Ligma");
     }
     #endregion
 
