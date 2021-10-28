@@ -14,7 +14,6 @@ using UnityEngine.UI;
 //    - Visual Indicator of where the Eye can currently see in-game
 
 //Done:
-//    - Basic Camera functionality
 //    - 
 
 
@@ -43,7 +42,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private SuspicionManager suspicionManager;
 
     [Header("Guard ref")]
-    [SerializeField] private List<GameObject> guards;
+    [SerializeField] private EnemyManager enemyManager;
 
     [Header("Camera Light Variables")]
     [SerializeField] private Light camLightRef;
@@ -163,6 +162,9 @@ public class CameraManager : MonoBehaviour
                 targetText.text = $"{target}";
 
                 FaceTarget();
+
+                AlertGuards(eyeball.lastKnownLocation);
+
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
                 {
@@ -265,14 +267,8 @@ public class CameraManager : MonoBehaviour
         //Set's the CameraAI's state to MONITORING on awake
         cameraStateMachine = CamStates.MONITORING;
 
-        //Camera Light Variables
-        camLightRef.spotAngle = eyeball.maxVisionAngle * 5f;
-        camLightRef.innerSpotAngle = eyeball.maxVisionAngle * .8f;
+        UpdateCamLightVars();
 
-        camLightRef.range = eyeball.sightRange * 5;
-
-        ////Update Camera light intensity to be based on the current state that the camera is in
-        //camLightIntensity = [Insert random value];
     }//End Init
 
     //---------------------------------//
@@ -295,21 +291,11 @@ public class CameraManager : MonoBehaviour
     }//End UpdateCamVars
 
 
-    private Vector3 AlertGuards(Vector3 targetLoc)
+    private void AlertGuards(Vector3 targetLoc)
     {
-        //Record lastknownlocation from eyeball script
-
-        //Get ping radius
-
-        //Ping guards within this radius
-
-        //???
-
-        //profit
-
-
-        return targetLoc;
+        enemyManager.lastKnownLocation = targetLoc;
     }
+
 
     #endregion
 }

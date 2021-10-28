@@ -7,16 +7,26 @@ using UnityEngine.SceneManagement;
 
 //Current Bugs:
 //    - AI currently moves to quickly to go to it's target without missing and having to loop back around
+//    - 
+//    - 
+
 
 //Things to add:
-//    - Refactor SetAISpeed() method
+//    - ADD TOOL TIPS
+//    - 
+//    - 
 
 //Done:
 //    - Barebone functionality between eyeball prefab and guardAI
+//    - 
+//    - 
 
 
 //Suspicion Manager Notes:
 //  - Look at Among Us task manager / meter for reference/inspiration on the overall suspicion manager
+//    - 
+//    - 
+
 
 public class EnemyManager : MonoBehaviour
 {
@@ -190,6 +200,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private bool isWait;
     [SerializeField] private float waitTime;
 
+    [Header("Local Suspicion Manager Variables")]
+    [HideInInspector] public Vector3 lastKnownLocation;
+
     [Header("Global Suspicion Manager Ref")]
     [SerializeField] private SuspicionManager suspicionManager;
 
@@ -245,6 +258,8 @@ public class EnemyManager : MonoBehaviour
     //Function called every frame
     void Update()
     {
+        lastKnownLocation = eyeball.lastKnownLocation;
+
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
         
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
