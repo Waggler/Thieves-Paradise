@@ -16,8 +16,8 @@ public class CamSwitch : MonoBehaviour
     public PlayerMovement pm;
     public InputManager im;
 
-    public DoorOpen doorTrigger1;
-    public DoorOpen2 doorTrigger2;
+    public DoorTrigger trigger1;
+    public DoorTrigger trigger2;
 
     public Vents vent;
 
@@ -58,11 +58,11 @@ public class CamSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(im.isCrouching == true && doorTrigger1.inArea == true)
+        if(im.isCrouching == true && trigger1.inArea == true)
         {
            animator.Play("FreeLook");
         }
-        if(im.isCrouching == true && doorTrigger2.inArea == true)
+        if(im.isCrouching == true && trigger2.inArea == true)
         {
            animator.Play("FreeLook");
         }
