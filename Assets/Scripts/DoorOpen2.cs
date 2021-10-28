@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using UnityEngine.InputSystem;
 
-public class DoorOpen : MonoBehaviour
+public class DoorOpen2 : MonoBehaviour
 {
-    //Put this script on side away from other box trigger
-    [SerializeField]
+    //Put this script on box trigger on other side of door from other trigger
+    
+   [SerializeField]
 
     public bool inArea = false;
     public GameObject door;
@@ -52,7 +52,7 @@ public class DoorOpen : MonoBehaviour
     {
         if(doorOpens == true)
         {
-            maxAngle = 90f;
+            maxAngle = -90f;
         }
 
         else
@@ -62,12 +62,12 @@ public class DoorOpen : MonoBehaviour
 
         if(im.isSprinting == true)
         {
-            maxAngle = -151.55f;
+            maxAngle = 151.55f;
         }
 
         if(im.isCrouching == true)
         {
-            maxAngle = 75.44f;
+            maxAngle = -75.44f;
         } 
     }
 
@@ -91,7 +91,7 @@ public class DoorOpen : MonoBehaviour
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             door.transform.eulerAngles = new Vector3(0, angle, 0);
-            door.transform.position = new Vector3(8.34f, 2.1f, 7.17f);
+            door.transform.position = new Vector3(8.34f, 2.1f, 5.13f);
             
             
             // door.transform.eulerAngles = new Vector3(0f, -76.942f, 0f);
@@ -107,7 +107,7 @@ public class DoorOpen : MonoBehaviour
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             door.transform.eulerAngles = new Vector3(0, angle, 0);
-            door.transform.position = new Vector3(7.3f, 2.1f, 7.16f);
+            door.transform.position = new Vector3(7.3f, 2.1f, 5.63f);
             message.SetActive(false);
         }
     }

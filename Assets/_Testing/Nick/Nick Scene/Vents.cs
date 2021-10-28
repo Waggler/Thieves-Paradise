@@ -16,9 +16,9 @@ public class Vents : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(pm.IsGrounded == true)
-        {
-            Debug.Log("message received");
-        }
+        // if(pm.IsGrounded == true)
+        // {
+        //     Debug.Log("message received");
+        // }
     }
 }
