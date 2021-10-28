@@ -248,7 +248,6 @@ public class PlayerMovement : MonoBehaviour
                 animationController.IsPlayerJumping(Jumping);
                 VerticalVelocity.y = Mathf.Sqrt(-2f * StillJumpHeight * -Gravity);
                 Controller.Move(VerticalVelocity * Time.deltaTime);
-                print("JUMP?!");
             }
         }
     }

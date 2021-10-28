@@ -6,11 +6,15 @@ using System;
 public class PushPullScript : MonoBehaviour
 {
     #region Variables
+    enum WeightClasses
+    {
+        LIGHT,
+        MEDIUM,
+        HEAVY
+    }
     [Header("Push and Pull Variables.")]
     [Tooltip("This is for the weight of the object. Write either Light, Medium, or Heavy.")]
-    [SerializeField] private string Weight;
-    [Tooltip("Check this off if you have written in the box above.")]
-    [SerializeField] private bool IsWeighted;
+    [SerializeField] private WeightClasses Weight;
     [Tooltip("The Rigidboy of the object.")]
     [SerializeField] private Rigidbody RB;
     [SerializeField] private int Active;
@@ -20,62 +24,38 @@ public class PushPullScript : MonoBehaviour
 
     void Awake()
     {
-        Weight = Weight.ToUpper();
-        if(Weight == "LIGHT" || Weight == "MEDIUM" || Weight == "Heavy")
-        {
-            IsWeighted = true;
-        }
-        playerMovement = GetComponent<PlayerMovement>();
+        playerMovement = this.GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
-
+        PushPullCheck();
     }
 
     #region Giving Input
     public void PushPullCheck()
     {
-        if(IsWeighted)
+        switch(Weight)
         {
-            if(Weight == "LIGHT")
-            {
+            case WeightClasses.LIGHT:
                 Active = 1;
                 playerMovement.PushPull(Active);
-            }
-        }
-        /*
-        if(Context.preformed && IsWeighted)
-        {
-            if(Weight == "LIGHT")
-            {
-                Active = 1;
-            }
-            else if(Weight == "MEDIUM")
-            {
+                break;
+
+            case WeightClasses.MEDIUM:
                 Active = 2;
-            }
-            else if(Weight == "HEAVY")
-            {
+                playerMovement.PushPull(Active);
+                break;
+
+            case WeightClasses.HEAVY:
                 Active = 3;
-            }
+                playerMovement.PushPull(Active);
+                break;
+
+            default:
+                Weight = WeightClasses.LIGHT;
+                break;
         }
-        if(Context.canceled && IsWeighted)
-        {
-            if(Weight == "LIGHT")
-            {
-                Active = 0;
-            }
-            else if(Weight == "MEDIUM")
-            {
-                Active = 0;
-            }
-            else if(Weight == "HEAVY")
-            {
-                Active = 0;
-            }
-        }
-        */
     }
 
     #endregion
