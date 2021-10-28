@@ -90,7 +90,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float PushPullMediumSpeed;
     [SerializeField] private float PushPullHeavySpeed;
     [SerializeField] private bool IsPushPull;
-    private PushPullScript pushPullScript;
     //NOTE THIS IS A TEST VAR!
     private int Carrying;
 
@@ -177,6 +176,15 @@ public class PlayerMovement : MonoBehaviour
         {
             IsSliding = true;
             Sliding();
+        }
+        else if(IsSliding && IsSprinting &&!IsCrouching)
+        {
+            IsSliding = false;
+            Collider.height = StandardHeight;
+            Controller.height = StandardHeight;
+            Controller.center = new Vector3(0f, SetCenterHeight, 0f);
+            Collider.center = new Vector3(0f, SetCenterHeight, 0f);
+            GroundHeight = HeightFromGround;
         }
         else
         {
@@ -327,7 +335,7 @@ public class PlayerMovement : MonoBehaviour
             Controller.center = new Vector3 (0f, -(CrouchingHeightFromGround), 0f);
             Collider.center = new Vector3 (0f, -(CrouchingHeightFromGround), 0f);
             GroundHeight = CrouchingHeightFromGround;
-            CurrentSpeed -= Deceleration * Time.deltaTime; 
+            CurrentSpeed -= Deceleration * Time.deltaTime;
         }
         else if(CurrentSpeed <= CrouchSpeed)
         {

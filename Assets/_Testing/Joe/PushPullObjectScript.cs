@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PushPullScript : MonoBehaviour
+public class PushPullObjectScript : MonoBehaviour
 {
     #region Variables
     enum WeightClasses
@@ -61,22 +61,12 @@ public class PushPullScript : MonoBehaviour
     #endregion
 
     #region Receving Output
-    public void ObjectMove()
+    public void ObjectMove(Vector3 DeltaMove)
     {
         /*
-        if(Movement != Vector3.zero)
+        if(DeltaMove != Vector3.zero)
         {
-            RB.MovePosition(Movement * Time.deltaTime * WeightSpeed);
-        }
-
-
-        if(Moving)
-        {
-            Rigidboy.MovePosition(Direction * Time.deltaTime * WeightSpeed);
-        }
-        else
-        {
-            Rigidboy.MovePosition(Stay Still);
+            RB.MovePosition(DeltaMove);
         }
         */
     }
