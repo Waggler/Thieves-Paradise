@@ -9,11 +9,13 @@ using UnityEngine.UI;
 
 //Things to add:
 //    - Add rotational bounds to camera
-//      - Investigate using the eyeball visibility "cone" as rotational bounds for the camera
-//          - The camera essentitally can't rotate to an "unsupported" angle if the eyeball keeps it from doing that
-//    - Visual Indicator of where the Eye can currently see in-game
+//    - ADD TOOL TIPS
+//    - 
+//    - 
 
 //Done:
+//    - 
+//    - 
 //    - 
 
 
@@ -55,9 +57,8 @@ public class CameraManager : MonoBehaviour
     [Header("Debug Variables")]
     [SerializeField] private Renderer rend;
     [SerializeField] private bool isDebug;
-
-
-
+    [SerializeField] [Range(0, 50)]private float callRadius;
+    [HideInInspector] private float distanceToCamera;
 
     #endregion
 
@@ -72,6 +73,13 @@ public class CameraManager : MonoBehaviour
     [SerializeField] CamStates cameraStateMachine;
 
     #endregion
+
+    #region Lists
+
+    [Header("Guard List (Do not touch, auto generated)")]
+    [SerializeField] private List<GameObject> guardsList;
+
+    #endregion Lists
 
     #region Awake & Update (Start added for debug)
 
@@ -98,6 +106,9 @@ public class CameraManager : MonoBehaviour
         #region Update Specific Variables
         //Records rotaion of the camera object
         rotationRecord = new Vector3 (transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
+
+        //Calculating the camera's distance from the player
+        distanceToCamera = Vector3.Distance(enemyManager.transform.position, transform.position + Vector3.up);
 
         #endregion
 
@@ -263,15 +274,45 @@ public class CameraManager : MonoBehaviour
         camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
 
     }//End UpdateCamVars
+    private void OnDrawGizmos()
+    {
+        //Gizmo color
+        Gizmos.color = Color.yellow;
+        //Gizmo type
+        Gizmos.DrawWireSphere(transform.position + Vector3.up, callRadius);
+    }//End OnDrawGizmos
 
+    private void GenGuardList()
+    {
+        print("Generating List...");
+
+        //this is PROBABLY redundant as all fuck / doesn't work
+        if (!guardsList.Contains(jvalue) )
+        {
+            guardsList.Add(GameObject.FindGameObjectWithTag("Guard"));
+        }
+
+
+
+        print($"There are {guardsList.Count} guards in the scene");
+    }
 
     private void AlertGuards(Vector3 targetLoc)
     {
+        GenGuardList();
 
+        if (distanceToCamera <= callRadius && gameObject.CompareTag("Guard"))
+        {
+            //insert sphere check / conditional (probably an if statement)
 
-        enemyManager.Alert(targetLoc);
-        
-        
+            //enemyManager.Alert(targetLoc);
+
+            print("TOMFOOLERY DETECTED");
+        }
+        else
+        {
+            print("Condition Failed");
+        }
     }
 
 

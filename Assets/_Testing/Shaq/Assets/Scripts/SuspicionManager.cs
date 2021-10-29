@@ -148,7 +148,7 @@ public class SuspicionManager : MonoBehaviour
 
         //print($"{secState}");
 
-        print($"Current references are {enemyManager} & {cameraManager}");
+        //print($"Current references are {enemyManager} & {cameraManager}");
 
 
 
