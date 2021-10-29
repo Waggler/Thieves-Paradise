@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueTrigger : MonoBehaviour
+public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private NarrativeUIManager narrativeUIManager;
 
-    public DialogueManager dialogue;
+    public Dialogue[] dialogue;
+    public int currentDialogueIndex;
 
     //-----------------------//
     private void Start()
@@ -29,10 +30,10 @@ public class DialogueTrigger : MonoBehaviour
     public void TriggerDialogue()
     //-----------------------//
     {
-        narrativeUIManager.StartDialogue(dialogue);
+        narrativeUIManager.StartDialogue(dialogue[currentDialogueIndex]);
 
 
     }//END TriggerDialogue
 
 
-}//END DialogueTrigger
+}//END DialogueManager
