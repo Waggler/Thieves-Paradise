@@ -10,7 +10,7 @@ public class DoorOpen : MonoBehaviour
 
     public GameObject door;
     public GameObject message;
-    public bool buttonPressed = false;
+    //public bool buttonPressed = false;
     public bool doorOpens = false;
     public PlayerMovement pm;
     public InputManager im;
@@ -116,12 +116,17 @@ public class DoorOpen : MonoBehaviour
             message.SetActive(false);
         }
 
-        if(Input.GetButtonDown("e"))
-        {
-            buttonPressed = true;
-        }
+        // if(Input.GetButtonDown("e") && trigger1.inArea == true)
+        // {
+        //     buttonPressed = true;
+        // }
 
-        if(trigger1.inArea == true && buttonPressed == true && im.isSprinting == false)
+        // if(Input.GetButtonDown("e") && trigger2.inArea == true)
+        // {
+        //     buttonPressed = true;
+        // }
+
+        if(trigger1.inArea == true && trigger1.buttonPressed == true && im.isSprinting == false)
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             door.transform.eulerAngles = new Vector3(0, angle, 0);
@@ -133,7 +138,7 @@ public class DoorOpen : MonoBehaviour
             doorOpens = true;
         }
 
-        if(trigger2.inArea == true && buttonPressed == true && im.isSprinting == false)
+        if(trigger2.inArea == true && trigger2.buttonPressed == true && im.isSprinting == false)
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             door.transform.eulerAngles = new Vector3(0, angle, 0);
@@ -167,7 +172,7 @@ public class DoorOpen : MonoBehaviour
             door.transform.eulerAngles = new Vector3(0, angle, 0);
             // door.transform.eulerAngles = new Vector3(0f, 0f, 0f);
             door.transform.position = new Vector3(9.334243f, 2.1f, 6.08f);
-            buttonPressed = false;
+            // buttonPressed = false;
             doorOpens = false;
         // }
         message.SetActive(false);
