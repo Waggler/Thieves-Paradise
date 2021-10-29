@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float SetCenterHeight;
     [SerializeField] private bool IsCrouching = false;
     [SerializeField] private bool IsStanding = true;
+    [SerializeField] private bool IsCovered;
 
     [Header("Physics")]
     [SerializeField] private float Gravity;
@@ -113,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCheck();
 
-        if(IsCrouching == false && IsSprinting == false)
+        if(!IsCrouching && !IsSprinting)
         {
             CoveredCheck();
         }
@@ -124,7 +125,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #region Gravity
-        //FIX: Crouching Gravity is a bit wonky, talk to Patrick on Tuesday about this.
         if(IsGrounded)
         {
             VerticalVelocity.y = 0;
@@ -172,6 +172,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
     
         #region Slide Action
+
         if(IsSprinting == true && IsCrouching == true)
         {
             IsSliding = true;
@@ -179,12 +180,20 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(IsSliding && IsSprinting &&!IsCrouching)
         {
-            IsSliding = false;
-            Collider.height = StandardHeight;
-            Controller.height = StandardHeight;
-            Controller.center = new Vector3(0f, SetCenterHeight, 0f);
-            Collider.center = new Vector3(0f, SetCenterHeight, 0f);
-            GroundHeight = HeightFromGround;
+            CoveredCheck();
+            if(IsCovered)
+            {
+                return;
+            }
+            else
+            {
+                IsSliding = false;
+                Collider.height = StandardHeight;
+                Controller.height = StandardHeight;
+                Controller.center = new Vector3(0f, SetCenterHeight, 0f);
+                Collider.center = new Vector3(0f, SetCenterHeight, 0f);
+                GroundHeight = HeightFromGround;
+            }
         }
         else
         {
@@ -291,7 +300,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Crouching && IsGrounded && !IsPushPull)
         {
-            print("Crouched");
             IsCrouching = true;
             if(IsStanding && !IsSprinting)
             {
@@ -488,11 +496,13 @@ public class PlayerMovement : MonoBehaviour
         {
             IsStanding = false;
             IsCrouching = true;
+            IsCovered = true;
             return;
         }
-        else
+        else if(!IsSliding)
         {
             StandUp();
+            IsCovered = false;
         }
 
         if(IsStanding == false && IsGrounded)
