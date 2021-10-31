@@ -219,6 +219,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region PushPull
 
+
         #endregion
 
         #region Check For Animations
@@ -322,7 +323,7 @@ public class PlayerMovement : MonoBehaviour
     //----------ROLL----------//
     public void Roll(bool Rolling)
     {
-        if(Rolling == true && IsCrouching == true)
+        if(Rolling && IsCrouching)
         {
             IsRolling = true;
         }
@@ -334,7 +335,7 @@ public class PlayerMovement : MonoBehaviour
     //---SLIDING---//
     void Sliding()
     {
-        if(CurrentSpeed > CrouchSpeed)
+        if(CurrentSpeed > CrouchSpeed && Direction != Vector3.zero)
         {
             IsCrouching = true;
             Controller.Move(RollDirection * CurrentSpeed * Time.deltaTime);
@@ -396,12 +397,11 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Push/Pull
-    public void PushPull(int WeightLevel)
-    {
-        Carrying = WeightLevel;
-    }
     //NOTE THIS IS ALL PSEUDOCODE
     /*
+
+    I would like to work with patrick on this more, the idea of making the player a master interact script would be a smart idea and I would like to work with him on implimenting the code for it. Hopefully it's easier than I think.
+
     If you push an object off of a platform, the natual gravity should kick in for the ridgid body.
     public void PushPull(Int WeightLevel)
     {
