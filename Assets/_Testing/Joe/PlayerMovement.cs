@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float Acceleration;
     [SerializeField] private bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
-    private float CurrentSpeed;
+    public float CurrentSpeed;
     private Vector3 Direction;
 
     [Header("Crouching")]
@@ -91,8 +91,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float PushPullMediumSpeed;
     [SerializeField] private float PushPullHeavySpeed;
     [SerializeField] private bool IsPushPull;
-    //NOTE THIS IS A TEST VAR!
-    private int Carrying;
+
 
     #endregion
 
@@ -114,12 +113,12 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCheck();
 
-        if(!IsCrouching && !IsSprinting)
+        if(!IsCrouching && !IsSprinting && !IsPushPull)
         {
             CoveredCheck();
         }
 
-        if(IsSprinting == true && IsCrouching == false)
+        if(IsSprinting && !IsCrouching)
         {
             Sprinting();
         }
@@ -218,7 +217,6 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region PushPull
-
 
         #endregion
 
@@ -397,6 +395,43 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Push/Pull
+    public void PushPullCheck(bool IsNearPushPull, int CheckSpeed)
+    {
+        if(IsSprinting || IsCrouching)
+        {
+            print("No Good!");
+        }
+        else
+        {
+            print("Good to go!");
+            print(CheckSpeed);
+            if(CheckSpeed == 1)
+            {
+                CurrentSpeed = PushPullLightSpeed;
+                print("Speed Down.");
+                IsPushPull = true;
+            }
+            else if(CheckSpeed == 2)
+            {
+                CurrentSpeed = PushPullMediumSpeed;
+                print("Speed Down 2.");
+                IsPushPull = true;
+            }
+            else if(CheckSpeed == 3)
+            {
+                CurrentSpeed = PushPullHeavySpeed;
+                print("Speed Down 3.");
+                IsPushPull = true;
+            }
+        }
+        
+        if(!IsNearPushPull)
+        {
+            CurrentSpeed = WalkingSpeed;
+            print("Regular.");
+            IsPushPull = false;
+        }
+    }
     //NOTE THIS IS ALL PSEUDOCODE
     /*
 
@@ -429,34 +464,6 @@ public class PlayerMovement : MonoBehaviour
         }
         
         //----BREAK IN IDEAS---//
-
-        if(Object == Movable && INTERACTABLE && Interacted)
-        {
-            IsPushPull = true;
-            if(Object == Light)
-            {
-                CurrentSpeed = PushPullLightSpeed;
-                rb.MovePosition(Direction);
-                Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
-            }
-            else if(Object == Medium)
-            {
-                CurrentSpeed = PushPullMediumSpeed;
-                rb.MovePosition(Direction);
-                Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
-            }
-            else if(Object == Heavy)
-            {
-                CurrentSpeed = PushPullHeavySpeed;
-                rb.MovePosition(Direction);
-                Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
-            }
-        }
-        else if(!Interacted)
-        {
-            CurrentSpeed = WalkingSpeed;
-            IsPushPull = true
-        }
     }
     */
     #endregion

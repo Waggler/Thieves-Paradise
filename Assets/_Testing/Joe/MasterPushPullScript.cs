@@ -6,19 +6,29 @@ public class MasterPushPullScript : MonoBehaviour
 {
     #region Variables
     [SerializeField] private bool NearPushPullObject = false;
+    //TestVar for now.
+    [SerializeField] private int SetCheck;
+    private int ActivationCheck;
+    private PlayerMovement playerMovement;
     /*
         bool for checking if crouching, running, or jumping. Call the player movement most likly for that. Call that from the player?
         Now how do I have the other script come here and to the player?
     */
 
     #endregion
+    void Awake()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+    }
+
 
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Push&Pull")
         {
-            print("IN!");
             NearPushPullObject = true;
+            ActivationCheck = SetCheck;
+            playerMovement.PushPullCheck(NearPushPullObject, ActivationCheck);
         }
     }
 
@@ -26,8 +36,9 @@ public class MasterPushPullScript : MonoBehaviour
     {
         if(other.gameObject.tag == "Push&Pull")
         {
-            print("OUT!");
             NearPushPullObject = false;
+            ActivationCheck = 0;
+            playerMovement.PushPullCheck(NearPushPullObject, ActivationCheck);
         }
     }
 }
