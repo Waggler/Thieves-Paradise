@@ -38,6 +38,9 @@ public class ContextInteractManager : MonoBehaviour
         if (nearbyObjects.Count > 0)
         {
             FindObjectToHighlight();
+        } else if (highlightedObject != null)
+        {
+            UnHighlightObject();
         }
     }
 
@@ -82,6 +85,12 @@ public class ContextInteractManager : MonoBehaviour
         }
     }
 
+    private void UnHighlightObject()
+    {
+        highlightText.text = "Nothing Nearby";
+        highlightedObject = null;
+    }
+
     #region Object Selection
     private GameObject ObjectInFocus()
     {
@@ -91,9 +100,9 @@ public class ContextInteractManager : MonoBehaviour
         float distance = Vector3.Distance(camPos.position, transform.position);
         distance += 2f; //check 2 meters past the player
         
-        Debug.DrawRay(camPos.position, camPos.forward, Color.red, distance);
-        Physics.Raycast(camPos.position, camPos.forward, out hit, distance, layerMask);
-        if (hit.collider.gameObject != null)
+        Debug.DrawRay(camPos.position, camPos.forward * distance, Color.red, Time.deltaTime);
+        Physics.Raycast(camPos.position, camPos.forward * distance, out hit, distance, layerMask);
+        if (hit.collider != null)
         {
             objectInFocus = hit.collider.gameObject;
         }
