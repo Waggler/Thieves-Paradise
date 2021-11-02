@@ -18,12 +18,13 @@ public class PushPullObjectScript : MonoBehaviour
     [Tooltip("The Rigidboy of the object.")]
     [SerializeField] private Rigidbody RB;
     [SerializeField] private int Active;
+    private MasterPushPullScript masterPushPullScript;
 
     #endregion
 
     void Awake()
     {
-
+        masterPushPullScript.GetComponent<MasterPushPullScript>();
     }
 
     void Update()
@@ -38,14 +39,17 @@ public class PushPullObjectScript : MonoBehaviour
         {
             case WeightClasses.LIGHT:
                 Active = 1;
+                //SetValue(Active);
                 break;
 
             case WeightClasses.MEDIUM:
                 Active = 2;
+                //SetValue(Active);
                 break;
 
             case WeightClasses.HEAVY:
                 Active = 3;
+                //SetValue(Active);
                 break;
 
             default:
@@ -56,14 +60,4 @@ public class PushPullObjectScript : MonoBehaviour
 
     #endregion
 
-    #region Receving Output
-    public void ObjectMove(Vector3 DeltaMove)
-    {
-        if(DeltaMove != Vector3.zero)
-        {
-            RB.MovePosition(DeltaMove);
-        }  
-    }
-
-    #endregion
 }

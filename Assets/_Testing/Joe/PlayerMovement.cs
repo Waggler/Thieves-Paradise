@@ -216,10 +216,6 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-        #region PushPull
-
-        #endregion
-
         #region Check For Animations
         AnimationStates();
 
@@ -285,7 +281,7 @@ public class PlayerMovement : MonoBehaviour
                 UnSprinting = false;
             }
         }
-        else if(Sprinting == false && IsCrouching == false && UnSprinting == true)
+        else if(!Sprinting && !IsCrouching && UnSprinting && !IsPushPull)
         {
             CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
@@ -403,8 +399,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            print("Good to go!");
-            print(CheckSpeed);
+            print(FacingDirection);
             if(CheckSpeed == 1)
             {
                 CurrentSpeed = PushPullLightSpeed;
