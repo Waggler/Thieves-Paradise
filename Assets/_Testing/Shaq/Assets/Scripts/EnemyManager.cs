@@ -203,6 +203,7 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Local Suspicion Manager Variables")]
     [SerializeField] public Vector3 lastKnownLocation;
+    [SerializeField] public float susLevel;
 
     [Header("Global Suspicion Manager Ref")]
     [SerializeField] private SuspicionManager suspicionManager;

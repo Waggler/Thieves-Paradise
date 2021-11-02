@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 //Things to add:
 //    - (Backlog) Add rotational bounds to camera
+//    - Manipulate the susLevel of the guard instances
 //    - 
 //    - 
 
@@ -357,6 +358,7 @@ public class CameraManager : MonoBehaviour
             {
                 //Modifying the target location of the guard
                 enemyManager.lastKnownLocation = eyeball.lastKnownLocation;
+                
             }
             else
             {
