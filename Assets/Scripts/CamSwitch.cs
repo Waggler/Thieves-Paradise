@@ -16,8 +16,8 @@ public class CamSwitch : MonoBehaviour
     public PlayerMovement pm;
     public InputManager im;
 
-    public DoorTrigger trigger1;
-    public DoorTrigger trigger2;
+    public DoorOpen trigger1;
+    public DoorOpen2 trigger2;
 
     public Vents vent;
 
@@ -66,13 +66,21 @@ public class CamSwitch : MonoBehaviour
         {
            animator.Play("FreeLook");
         }
-        // if(im.isCrouching == false && door.inArea == true)
-        // {
-        //     animator.Play("VCam1");
-        // }
-        // if(im.isCrouching == false && door.inArea == false)
-        // {
-        //     animator.Play("VCam1");
-        // }
+        if(im.isCrouching == false && trigger1.inArea == true)
+        {
+            animator.Play("VCam1");
+        }
+        if(im.isCrouching == false && trigger1.inArea == false)
+        {
+            animator.Play("VCam1");
+        }
+        if(im.isCrouching == false && trigger2.inArea == true)
+        {
+            animator.Play("VCam1");
+        }
+        if(im.isCrouching == false && trigger2.inArea == false)
+        {
+            animator.Play("VCam1");
+        }
     }
 }
