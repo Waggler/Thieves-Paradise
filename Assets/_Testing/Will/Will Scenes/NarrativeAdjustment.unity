@@ -484,7 +484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -175}
+  m_AnchoredPosition: {x: 0, y: -180.50229}
   m_SizeDelta: {x: 500, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &323751316
@@ -987,12 +987,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
+  delayTime: 0.05
   dialogue:
   - characterName: DK
     sentences:
     - "hee hoo\t"
     - pee of nut
-  currentDialogueIndex: 0
+  - characterName: Pauline
+    sentences:
+    - forgot I existed eh?
+    - Me too
+  currentDialogueIndex: 1
 --- !u!4 &558106689
 Transform:
   m_ObjectHideFlags: 0
@@ -1595,6 +1600,7 @@ MonoBehaviour:
   typingTime: 0.05
   dialogueAnimator: {fileID: 2023648786}
   dialogueManager: {fileID: 558106688}
+  choiceManager: {fileID: 0}
   speakerBox: {fileID: 1522733952}
   textBox: {fileID: 1255347198}
   currentMission: 0
@@ -1772,6 +1778,16 @@ MonoBehaviour:
     characterName: 
     sentences: []
   choiceAnimator: {fileID: 323751317}
+  choiceIndex1: 1
+  choiceIndex2: -1
+  choiceIndex3: -1
+  choiceIndex4: -1
+  choiceIndex5: -1
+  choiceAmount1: 5
+  choiceAmount2: 0
+  choiceAmount3: 0
+  choiceAmount4: 0
+  choiceAmount5: 0
   choice1: {fileID: 1558279393}
   choice2: {fileID: 1977593599}
   choice3: {fileID: 907849300}
@@ -1782,11 +1798,31 @@ MonoBehaviour:
   choice3Text: {fileID: 1107494704}
   choice4Text: {fileID: 1314107101}
   choice5Text: {fileID: 89316301}
-  choice1String: weeeee wooo
-  choice2String: wee wooo
-  choice3String: weeeeeeeeeeeeee wooo
-  choice4String: I can't rememba
-  choice5String: da words
+  Index1Choice1String: Yes
+  Index1Choice2String: maybe
+  Index1Choice3String: No
+  Index1Choice4String: Who
+  Index1Choice5String: Why are you in my house
+  Index2Choice1String: 
+  Index2Choice2String: 
+  Index2Choice3String: 
+  Index2Choice4String: 
+  Index2Choice5String: 
+  Index3Choice1String: 
+  Index3Choice2String: 
+  Index3Choice3String: 
+  Index3Choice4String: 
+  Index3Choice5String: 
+  Index4Choice1String: 
+  Index4Choice2String: 
+  Index4Choice3String: 
+  Index4Choice4String: 
+  Index4Choice5String: 
+  Index5Choice1String: 
+  Index5Choice2String: 
+  Index5Choice3String: 
+  Index5Choice4String: 
+  Index5Choice5String: 
 --- !u!4 &808872836
 Transform:
   m_ObjectHideFlags: 0

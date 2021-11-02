@@ -6,8 +6,12 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private NarrativeUIManager narrativeUIManager;
 
+    [Tooltip("Set this value to less than 0.09, it allows the narrativeUIManager to initialize")]
+    [SerializeField] private float delayTime;
+
     public Dialogue[] dialogue;
     public int currentDialogueIndex;
+
 
     //-----------------------//
     private void Start()
@@ -21,7 +25,7 @@ public class DialogueManager : MonoBehaviour
     private void Init()
     //-----------------------//
     {
-        TriggerDialogue();
+        StartCoroutine(IStartDelay());
 
     }//END Start
 
@@ -35,5 +39,10 @@ public class DialogueManager : MonoBehaviour
 
     }//END TriggerDialogue
 
+    IEnumerator IStartDelay()
+    {
+        yield return new WaitForSeconds(delayTime);
+        TriggerDialogue();
+    }
 
 }//END DialogueManager

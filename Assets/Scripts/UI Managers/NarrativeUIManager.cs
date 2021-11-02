@@ -15,12 +15,13 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private Animator dialogueAnimator;
 
     [SerializeField] private DialogueManager dialogueManager;
+    [SerializeField] private ChoiceManager choiceManager;
 
     [Header("Dialogue Components")]
     [SerializeField] private GameObject speakerBox;
     [SerializeField] private GameObject textBox;
 
-    public Queue<string> sentences;
+    private Queue<string> sentences;
 
     public enum CurrentMission
     {
@@ -100,7 +101,10 @@ public class NarrativeUIManager : MonoBehaviour
     {
         speakerText.text = dialogue.characterName;
 
-        sentences.Clear();
+        if(sentences != null)
+        {
+            sentences.Clear();
+        }
 
         dialogueAnimator.SetBool("isDialogueOpen", true);
 
@@ -135,7 +139,31 @@ public class NarrativeUIManager : MonoBehaviour
     //-----------------------//
     {
         Debug.Log("End of Convo");
+
+        if(dialogueManager.currentDialogueIndex == choiceManager.choiceIndex1)
+        {
+            choiceManager.ShowChoices(choiceManager.choiceAmount1, 1);
+        }
+        if (dialogueManager.currentDialogueIndex == choiceManager.choiceIndex2)
+        {
+            choiceManager.ShowChoices(choiceManager.choiceAmount2, 2);
+        }
+        if (dialogueManager.currentDialogueIndex == choiceManager.choiceIndex3)
+        {
+            choiceManager.ShowChoices(choiceManager.choiceAmount3, 3);
+        }
+        if (dialogueManager.currentDialogueIndex == choiceManager.choiceIndex4)
+        {
+            choiceManager.ShowChoices(choiceManager.choiceAmount4, 4);
+        }
+        if (dialogueManager.currentDialogueIndex == choiceManager.choiceIndex5)
+        {
+            choiceManager.ShowChoices(choiceManager.choiceAmount5, 5);
+        }
+
+
         dialogueAnimator.SetBool("isDialogueOpen", false);
+        dialogueManager.currentDialogueIndex ++;
 
         return;
 
