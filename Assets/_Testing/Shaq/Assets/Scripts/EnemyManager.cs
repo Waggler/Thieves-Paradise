@@ -13,7 +13,8 @@ using UnityEngine.SceneManagement;
 
 //Things to add:
 //    - ADD TOOL TIPS
-//    - Have all entry conditions for states be based on the suspicion level read from the eyeball script
+//    - Improve lose condition (content for lose condition is fine for now)
+//    - 
 //    - 
 
 //Done:
@@ -201,7 +202,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float waitTime;
 
     [Header("Local Suspicion Manager Variables")]
-    [HideInInspector] public Vector3 lastKnownLocation;
+    [SerializeField] public Vector3 lastKnownLocation;
 
     [Header("Global Suspicion Manager Ref")]
     [SerializeField] private SuspicionManager suspicionManager;

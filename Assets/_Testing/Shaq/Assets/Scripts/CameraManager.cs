@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 //Current Bugs:
@@ -8,8 +9,7 @@ using UnityEngine.UI;
 //    - 
 
 //Things to add:
-//    - Add rotational bounds to camera
-//    - ADD TOOL TIPS
+//    - (Backlog) Add rotational bounds to camera
 //    - 
 //    - 
 
@@ -24,40 +24,59 @@ public class CameraManager : MonoBehaviour
     #region Variables
     [Header("Camera Target / Trigger")]
     private Transform target;
+    [Tooltip("References the player object")]
     [SerializeField] private GameObject player;
 
+
     [Header("Debug Text")]
+    [Tooltip("This text shows what state the camera is in")]
     [SerializeField] private Text stateText;
+    [Tooltip("This text shows what the camera's target is")]
     [SerializeField] private Text targetText;
 
+
     [Header("Camera Rotation Variables")]
+    [Tooltip("Camera rotation speed, range of 0 to 60")]
     [SerializeField] [Range(0, 60)] private float camSpeed;
+    [Tooltip("Maximum rotation vector for the camera (edit the Y-axis value)")]
     [SerializeField] private Vector3 rotationMax;
     [HideInInspector] private Vector3 rotationRecord;
     //Transition speed between original rotation and look rotation in FaceTarget() method
+    [Tooltip("The at which the camera looks at it's target")]
     [SerializeField] private float snapSpeed;
 
+
     [Header("Eyeball Integration / Eyeball Related Variables")]
+    [Tooltip("References the eyeball prefab attatched to the camera prefab")]
     [SerializeField] private EyeballScript eyeball;
 
+
     [Header("Global Suspicion Manager Ref")]
+    [Tooltip("References to the Suspicion Manager in the level")]
     [SerializeField] private SuspicionManager suspicionManager;
 
-    [Header("Guard ref")]
-    [SerializeField] private EnemyManager enemyManager;
 
     [Header("Camera Light Variables")]
+    [Tooltip("References the Spotlight attatched to the camera prefab")]
     [SerializeField] private Light camLightRef;
+    [Tooltip("Spotlight Intensity")]
     [SerializeField] [Range(0, 100)] private float camLightIntensity;
+    [Tooltip("Spotlight Range")]
     [SerializeField] [Range(0, 2)] private float camLightRange;
+    [Tooltip("Spotlight Maximum Angle")]
     [SerializeField] [Range(0, 5)] private float camLightMaxAngle;
+    [Tooltip("Spotlight Minimum Angle")]
     [SerializeField] [Range(0, 5)] private float camLightMinAngle;
 
 
     [Header("Debug Variables")]
+    [Tooltip("References the Renderer component of the camera")]
     [SerializeField] private Renderer rend;
+    [Tooltip("Disable this when making a build to have the State & Target text not show up")]
     [SerializeField] private bool isDebug;
-    [SerializeField] [Range(0, 50)]private float callRadius;
+    [Tooltip("Radius in which guards can be  'called'  by the camera")]
+    [SerializeField] [Range(0, 50)] private float callRadius;
+
     [HideInInspector] private float distanceToCamera;
 
     #endregion
@@ -70,14 +89,17 @@ public class CameraManager : MonoBehaviour
     }
 
     [Header("Camera States")]
+    [Tooltip("The current state that the camera is in")]
     [SerializeField] CamStates cameraStateMachine;
 
     #endregion
 
-    #region Lists
+    #region Lists & Arrays 
 
-    [Header("Guard List (Do not touch, auto generated)")]
-    [SerializeField] private List<GameObject> guardsList;
+    [Header("Guard Array")]
+    [Tooltip("Shows the list of guards")]
+    [SerializeField] private GameObject[] guardsArray;
+
 
     #endregion Lists
 
@@ -108,7 +130,6 @@ public class CameraManager : MonoBehaviour
         rotationRecord = new Vector3 (transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
         //Calculating the camera's distance from the player
-        distanceToCamera = Vector3.Distance(enemyManager.transform.position, transform.position + Vector3.up);
 
         #endregion
 
@@ -168,7 +189,6 @@ public class CameraManager : MonoBehaviour
                 camLightRef.color = Color.red;
 
                 AlertGuards(eyeball.lastKnownLocation);
-
 
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
@@ -274,47 +294,86 @@ public class CameraManager : MonoBehaviour
         camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
 
     }//End UpdateCamVars
+
+    //---------------------------------//
+    //Draws Gizmos / shapes in editor
     private void OnDrawGizmos()
     {
         //Gizmo color
         Gizmos.color = Color.yellow;
+
         //Gizmo type
-        Gizmos.DrawWireSphere(transform.position + Vector3.up, callRadius);
+        Gizmos.DrawWireSphere(transform.position/* + Vector3.up*/, callRadius);
     }//End OnDrawGizmos
-
-    private void GenGuardList()
-    {
-        print("Generating List...");
-
-        //this is PROBABLY redundant as all fuck / doesn't work
-        if (!guardsList.Contains(jvalue) )
-        {
-            guardsList.Add(GameObject.FindGameObjectWithTag("Guard"));
-        }
+    //---------------------------------//
 
 
 
-        print($"There are {guardsList.Count} guards in the scene");
-    }
 
+    ////---------------------------------//
+    ////
+    //private void GenGuardArray(GameObject guard)
+    //{
+    //    print($"Generating Array with {guard}...");
+
+    //    //generates array
+    //    for (int i = 0; i < guardsArray.Length; i++)
+    //    {
+    //        guard = guardsArray[i];
+    //    }
+
+    //    print($"There are {guardsArray.Length} guards in the scene");
+    //}//End GenGuardArray
+    ////---------------------------------//
+
+    ////---------------------------------//
+    ////Probably going to delete this
+    //private void ClearGuardArray()
+    //{
+
+    //}//End ClearGuardArray
+    ////---------------------------------//
+
+
+
+
+
+    ////---------------------------------//
+    ////
     private void AlertGuards(Vector3 targetLoc)
     {
-        GenGuardList();
+        //EnemyManager reference
+        EnemyManager enemyManager;
 
-        if (distanceToCamera <= callRadius && gameObject.CompareTag("Guard"))
+        //Used to reference each guard
+        foreach (GameObject guard in guardsArray)
         {
-            //insert sphere check / conditional (probably an if statement)
+            distanceToCamera = Vector3.Distance(guard.transform.position, transform.position + Vector3.up);
+            
+            //Individual guard reference
+            enemyManager = guard.GetComponent<EnemyManager>();
 
-            //enemyManager.Alert(targetLoc);
-
-            print("TOMFOOLERY DETECTED");
+            if (distanceToCamera <= callRadius)
+            {
+                //Modifying the target location of the guard
+                enemyManager.lastKnownLocation = eyeball.lastKnownLocation;
+            }
+            else
+            {
+                //Showing which guards are out of range (purely there for debug reasons)
+                print($"{guard} is outside of camera range.");
+            }
         }
-        else
-        {
-            print("Condition Failed");
-        }
-    }
 
+        //GenGuardArray(gameObject);
+
+        //Collider[] hitColliders = Physics.OverlapSphere(transform.position, callRadius);
+        //foreach (var hitcollider in hitColliders)
+        //{
+        //}
+
+    }//End AlertGuards
+}
+    //---------------------------------//
 
     #endregion
-}
