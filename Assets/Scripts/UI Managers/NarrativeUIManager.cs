@@ -140,30 +140,11 @@ public class NarrativeUIManager : MonoBehaviour
     {
         Debug.Log("End of Convo");
 
-        if(dialogueManager.currentDialogueIndex == choiceManager.choiceIndex1)
-        {
-            choiceManager.ShowChoices(choiceManager.choiceAmount1, 1);
-        }
-        if (dialogueManager.currentDialogueIndex == choiceManager.choiceIndex2)
-        {
-            choiceManager.ShowChoices(choiceManager.choiceAmount2, 2);
-        }
-        if (dialogueManager.currentDialogueIndex == choiceManager.choiceIndex3)
-        {
-            choiceManager.ShowChoices(choiceManager.choiceAmount3, 3);
-        }
-        if (dialogueManager.currentDialogueIndex == choiceManager.choiceIndex4)
-        {
-            choiceManager.ShowChoices(choiceManager.choiceAmount4, 4);
-        }
-        if (dialogueManager.currentDialogueIndex == choiceManager.choiceIndex5)
-        {
-            choiceManager.ShowChoices(choiceManager.choiceAmount5, 5);
-        }
-
 
         dialogueAnimator.SetBool("isDialogueOpen", false);
         dialogueManager.currentDialogueIndex ++;
+
+        dialogueManager.TriggerDialogue();
 
         return;
 

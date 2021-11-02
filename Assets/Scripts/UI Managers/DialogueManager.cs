@@ -5,9 +5,7 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private NarrativeUIManager narrativeUIManager;
-
-    [Tooltip("Set this value to less than 0.09, it allows the narrativeUIManager to initialize")]
-    [SerializeField] private float delayTime;
+    private float delayTime = 0.05f;
 
     public Dialogue[] dialogue;
     public int currentDialogueIndex;
@@ -34,8 +32,14 @@ public class DialogueManager : MonoBehaviour
     public void TriggerDialogue()
     //-----------------------//
     {
-        narrativeUIManager.StartDialogue(dialogue[currentDialogueIndex]);
-
+        try
+        {
+            narrativeUIManager.StartDialogue(dialogue[currentDialogueIndex]);
+        }
+        catch
+        {
+            Debug.Log("DialogueIndex Exceeded Array Bounds");
+        }
 
     }//END TriggerDialogue
 

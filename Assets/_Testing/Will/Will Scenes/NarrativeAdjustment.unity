@@ -987,7 +987,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
-  delayTime: 0.05
   dialogue:
   - characterName: DK
     sentences:
@@ -997,7 +996,7 @@ MonoBehaviour:
     sentences:
     - forgot I existed eh?
     - Me too
-  currentDialogueIndex: 1
+  currentDialogueIndex: 0
 --- !u!4 &558106689
 Transform:
   m_ObjectHideFlags: 0
@@ -1775,19 +1774,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 558106688}
   choiceOptions:
-    characterName: 
-    sentences: []
+    characterName: Choices
+    sentences:
+    - Yes
+    - No
+    - Maybe
+    - What
+    - Why
   choiceAnimator: {fileID: 323751317}
-  choiceIndex1: 1
-  choiceIndex2: -1
-  choiceIndex3: -1
-  choiceIndex4: -1
-  choiceIndex5: -1
-  choiceAmount1: 5
-  choiceAmount2: 0
-  choiceAmount3: 0
-  choiceAmount4: 0
-  choiceAmount5: 0
   choice1: {fileID: 1558279393}
   choice2: {fileID: 1977593599}
   choice3: {fileID: 907849300}
@@ -1798,31 +1792,6 @@ MonoBehaviour:
   choice3Text: {fileID: 1107494704}
   choice4Text: {fileID: 1314107101}
   choice5Text: {fileID: 89316301}
-  Index1Choice1String: Yes
-  Index1Choice2String: maybe
-  Index1Choice3String: No
-  Index1Choice4String: Who
-  Index1Choice5String: Why are you in my house
-  Index2Choice1String: 
-  Index2Choice2String: 
-  Index2Choice3String: 
-  Index2Choice4String: 
-  Index2Choice5String: 
-  Index3Choice1String: 
-  Index3Choice2String: 
-  Index3Choice3String: 
-  Index3Choice4String: 
-  Index3Choice5String: 
-  Index4Choice1String: 
-  Index4Choice2String: 
-  Index4Choice3String: 
-  Index4Choice4String: 
-  Index4Choice5String: 
-  Index5Choice1String: 
-  Index5Choice2String: 
-  Index5Choice3String: 
-  Index5Choice4String: 
-  Index5Choice5String: 
 --- !u!4 &808872836
 Transform:
   m_ObjectHideFlags: 0
