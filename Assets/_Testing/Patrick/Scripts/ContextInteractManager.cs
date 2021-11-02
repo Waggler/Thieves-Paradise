@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
 
 public class ContextInteractManager : MonoBehaviour
 {
@@ -21,6 +23,8 @@ public class ContextInteractManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nearbyObjects = new List<GameObject>();
+
         camPos = Camera.main.transform;
         inventory = this.GetComponent<InventoryController>();
         //get the player layer to make sure they don't block themselves from seeing interactables
@@ -45,7 +49,7 @@ public class ContextInteractManager : MonoBehaviour
             {
                 if (highlightedObject.GetComponent<BasicItemScript>() != null)
                 {
-                    
+                    print("Pickup Object");
                 }
             }
         }
@@ -57,7 +61,7 @@ public class ContextInteractManager : MonoBehaviour
 
         //first check if the player is looking directly at one of the objects
         tempObject = ObjectInFocus();
-        if (!nearbyObjects.Contains(tempObject))
+        if (tempObject == null || !nearbyObjects.Contains(tempObject))
         {
             //if they're not, then go with the nearest object
             tempObject = nearbyObjects[GetNearestObject()];
@@ -65,13 +69,16 @@ public class ContextInteractManager : MonoBehaviour
 
         HighlightObject(tempObject);
     }
+    public TextMeshProUGUI highlightText;
     private void HighlightObject(GameObject newObject)
     {
         if (newObject != highlightedObject)
         {
+            highlightText.text = newObject.name;
             //stop highlighting previous object
             //highlight new object
             //set new object to highlighted object
+            highlightedObject = newObject;
         }
     }
 
@@ -86,7 +93,11 @@ public class ContextInteractManager : MonoBehaviour
         
         Debug.DrawRay(camPos.position, camPos.forward, Color.red, distance);
         Physics.Raycast(camPos.position, camPos.forward, out hit, distance, layerMask);
-        objectInFocus = hit.collider.gameObject;
+        if (hit.collider.gameObject != null)
+        {
+            objectInFocus = hit.collider.gameObject;
+        }
+
 
         return objectInFocus;
     }
