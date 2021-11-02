@@ -358,7 +358,6 @@ public class CameraManager : MonoBehaviour
             {
                 //Modifying the target location of the guard
                 enemyManager.lastKnownLocation = eyeball.lastKnownLocation;
-                
             }
             else
             {
