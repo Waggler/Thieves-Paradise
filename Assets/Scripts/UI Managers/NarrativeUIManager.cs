@@ -20,7 +20,7 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private GameObject speakerBox;
     [SerializeField] private GameObject textBox;
 
-    private Queue<string> sentences;
+    public Queue<string> sentences;
 
     public enum CurrentMission
     {
