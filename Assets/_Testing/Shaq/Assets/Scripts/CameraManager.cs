@@ -354,10 +354,11 @@ public class CameraManager : MonoBehaviour
             //Individual guard reference
             enemyManager = guard.GetComponent<EnemyManager>();
 
+            //Radius Check
             if (distanceToCamera <= callRadius)
             {
                 //Modifying the target location of the guard
-                enemyManager.lastKnownLocation = eyeball.lastKnownLocation;
+                enemyManager.lastKnownLocation = targetLoc;
             }
             else
             {
