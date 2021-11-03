@@ -130,7 +130,7 @@ public class CameraManager : MonoBehaviour
         //Records rotaion of the camera object
         rotationRecord = new Vector3 (transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
-        GenGuardArray();
+        //GenGuardArray();
 
         #endregion
 
@@ -177,6 +177,10 @@ public class CameraManager : MonoBehaviour
             #region Focused State
             //When the camera sees the player / FOCUSED
             case CamStates.FOCUSED:
+
+                float stopWatch = Time.deltaTime;
+
+
 
                 stateText.text = $"{cameraStateMachine}";
 
@@ -228,21 +232,6 @@ public class CameraManager : MonoBehaviour
     #endregion
 
     #region General Functions
-
-    //---------------------------------//
-    //
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.blue;
-
-    //    //Vector3 direction1 = transform.TransformDirection(Vector3.forward);
-    //    Vector3 direction2 = transform.TransformDirection(rotationMax);
-    //    //Gizmos.DrawRay(transform.position, direction1);
-    //    Gizmos.DrawRay(transform.position, direction2);
-    //}//End OnDrawGizmos
-    //---------------------------------//
-
-
 
     //---------------------------------//
     //Function that makes the object face it's target
@@ -312,41 +301,12 @@ public class CameraManager : MonoBehaviour
 
 
 
-
-    ////---------------------------------//
-    ////
-    //private void GenGuardArray(GameObject guard)
-    //{
-    //    print($"Generating Array with {guard}...");
-
-    //    //generates array
-    //    for (int i = 0; i < guardsArray.Length; i++)
-    //    {
-    //        guard = guardsArray[i];
-    //    }
-
-    //    print($"There are {guardsArray.Length} guards in the scene");
-    //}//End GenGuardArray
-    ////---------------------------------//
-
-    ////---------------------------------//
-    ////Probably going to delete this
-    //private void ClearGuardArray()
-    //{
-
-    //}//End ClearGuardArray
-    ////---------------------------------//
-
-
-
-
-
-    ////---------------------------------//
+    //---------------------------------//
     ////
     private void AlertGuards(Vector3 targetLoc)
     {
-        //EnemyManager reference
         EnemyManager enemyManager;
+        //EnemyManager reference
 
         //Used to reference each guard
         foreach (GameObject guard in guardsArray)
