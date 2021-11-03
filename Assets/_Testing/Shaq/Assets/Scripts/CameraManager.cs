@@ -130,7 +130,7 @@ public class CameraManager : MonoBehaviour
         //Records rotaion of the camera object
         rotationRecord = new Vector3 (transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
-        //Calculating the camera's distance from the player
+        GenGuardArray();
 
         #endregion
 
@@ -275,6 +275,8 @@ public class CameraManager : MonoBehaviour
 
         UpdateCamLightVars();
 
+        GenGuardArray();
+
     }//End Init
 
     //---------------------------------//
@@ -355,10 +357,13 @@ public class CameraManager : MonoBehaviour
             enemyManager = guard.GetComponent<EnemyManager>();
 
             //Radius Check
-            if (distanceToCamera <= callRadius)
+            if (distanceToCamera <= callRadius /*&& GameObject.CompareTag("[Insert guard type here]")*/)
             {
                 //Modifying the target location of the guard
                 enemyManager.lastKnownLocation = targetLoc;
+                //Insert more enemy manager manipulation here
+                //enemyManager.susLevel = [Insert value for sus level]
+
             }
             else
             {
@@ -366,16 +371,20 @@ public class CameraManager : MonoBehaviour
                 print($"{guard} is outside of camera range.");
             }
         }
-
-        //GenGuardArray(gameObject);
-
-        //Collider[] hitColliders = Physics.OverlapSphere(transform.position, callRadius);
-        //foreach (var hitcollider in hitColliders)
-        //{
-        //}
-
     }//End AlertGuards
-}
-    //---------------------------------//
 
-    #endregion
+
+    //---------------------------------//
+    //Generates an array of guard instances in the scene
+    private void GenGuardArray()
+    {
+        guardsArray = GameObject.FindGameObjectsWithTag("Guard");
+
+        if (guardsArray.Length == 0 || guardsArray == null)
+        {
+            print("No guards in the level");
+        }
+    }//End GenGuardArray
+}
+
+#endregion
