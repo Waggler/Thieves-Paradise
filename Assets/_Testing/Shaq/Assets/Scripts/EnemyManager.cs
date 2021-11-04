@@ -37,9 +37,14 @@ public class EnemyManager : MonoBehaviour
 
     private enum EnemyStates
         {
-            //TO DO: Add a Staggered / Stunned State
+        //TO DO: Add a Staggered / Stunned State
+        //  - 
+        //  - 
+        //  - 
+        //  - 
+        //  - 
 
-            PASSIVE,
+        PASSIVE,
             WARY,
             SUSPICIOUS,
             HOSTILE,
