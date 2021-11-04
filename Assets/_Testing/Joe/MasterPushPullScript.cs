@@ -6,7 +6,11 @@ public class MasterPushPullScript : MonoBehaviour
 {
     #region Variables
     [SerializeField] private bool NearPushPullObject = false;
-    private int SetCheck;
+    [SerializeField] private int SetCheck;
+    private bool PushPullOn = false;
+    private bool PushPullOff = false;
+    private bool Crouching;
+    private bool Sprinting;
     private int ActivationCheck;
     private PlayerMovement playerMovement;
 
@@ -18,17 +22,30 @@ public class MasterPushPullScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<PushPullObjectScript>();
+        if(other.gameObject.tag == "Push&Pull" && PushPullOn)
+        {
+            SetCheck = other.gameObject.GetComponent<PushPullObjectScript>().Active;
+        }
     }
 
     void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.tag == "Push&Pull")
+        Crouching = GetComponent<PlayerMovement>().IsCrouching;
+        Sprinting = GetComponent<PlayerMovement>().IsSprinting;
+        
+        if(other.gameObject.tag == "Push&Pull" && PushPullOn && !Crouching && !Sprinting)
         {
             NearPushPullObject = true;
             ActivationCheck = SetCheck;
             playerMovement.PushPullCheck(NearPushPullObject, ActivationCheck);
             other.gameObject.transform.parent = transform;
+        }
+        else
+        {
+            NearPushPullObject = false;
+            ActivationCheck = 0;
+            playerMovement.PushPullCheck(NearPushPullObject, ActivationCheck);
+            other.gameObject.transform.parent = null;
         }
     }
 
@@ -39,10 +56,24 @@ public class MasterPushPullScript : MonoBehaviour
             NearPushPullObject = false;
             ActivationCheck = 0;
             playerMovement.PushPullCheck(NearPushPullObject, ActivationCheck);
+            other.gameObject.transform.parent = null;
         }
     }
-    public void SetValue(int Weight)
+
+    public void PushPullInput(bool PushingPulling)
     {
-        SetCheck = Weight;
+        if(PushingPulling)
+        {
+            PushPullOn = true;
+            if(PushPullOff)
+            {
+                PushPullOn = false;
+                PushPullOff = false;
+            }
+            else if(!PushPullOff)
+            {
+                PushPullOff = true;
+            }
+        }
     }
 }

@@ -15,19 +15,11 @@ public class PushPullObjectScript : MonoBehaviour
     [Header("Push and Pull Variables.")]
     [Tooltip("This is for the weight of the object. Write either Light, Medium, or Heavy.")]
     [SerializeField] private WeightClasses Weight;
-    [Tooltip("The Rigidboy of the object.")]
-    [SerializeField] private Rigidbody RB;
-    [SerializeField] private int Active;
-    private MasterPushPullScript masterPushPullScript;
+    [HideInInspector] public int Active;
 
     #endregion
 
     void Awake()
-    {
-        masterPushPullScript.GetComponent<MasterPushPullScript>();
-    }
-
-    void Update()
     {
         PushPullCheck();
     }
@@ -39,21 +31,18 @@ public class PushPullObjectScript : MonoBehaviour
         {
             case WeightClasses.LIGHT:
                 Active = 1;
-                //SetValue(Active);
                 break;
 
             case WeightClasses.MEDIUM:
                 Active = 2;
-                //SetValue(Active);
                 break;
 
             case WeightClasses.HEAVY:
                 Active = 3;
-                //SetValue(Active);
                 break;
 
             default:
-                Weight = WeightClasses.LIGHT;
+                Active = 1;
                 break;
         }
     }

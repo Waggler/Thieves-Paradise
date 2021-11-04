@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float CrouchSpeed;
     [Tooltip("The increase in speed when sprinting.")]
     [SerializeField] private float Acceleration;
-    [SerializeField] private bool IsSprinting = false;
+    [SerializeField] public bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
     public float CurrentSpeed;
     private Vector3 Direction;
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float CrouchingHeight;
     [Tooltip("Set this as the same Y center for the player controller & colider.")]
     [SerializeField] private float SetCenterHeight;
-    [SerializeField] private bool IsCrouching = false;
+    [SerializeField] public bool IsCrouching = false;
     [SerializeField] private bool IsStanding = true;
     [SerializeField] private bool IsCovered;
 
@@ -393,74 +393,32 @@ public class PlayerMovement : MonoBehaviour
     #region Push/Pull
     public void PushPullCheck(bool IsNearPushPull, int CheckSpeed)
     {
-        if(IsSprinting || IsCrouching)
+        if(!IsSprinting && !IsCrouching)
         {
-            print("No Good!");
-        }
-        else
-        {
-            print(FacingDirection);
             if(CheckSpeed == 1)
             {
                 CurrentSpeed = PushPullLightSpeed;
-                print("Speed Down.");
                 IsPushPull = true;
             }
             else if(CheckSpeed == 2)
             {
                 CurrentSpeed = PushPullMediumSpeed;
-                print("Speed Down 2.");
                 IsPushPull = true;
             }
             else if(CheckSpeed == 3)
             {
                 CurrentSpeed = PushPullHeavySpeed;
-                print("Speed Down 3.");
                 IsPushPull = true;
             }
         }
         
-        if(!IsNearPushPull)
+        if(!IsNearPushPull && !IsCrouching && !IsSprinting && !IsSliding && !IsRolling && !IsDiving)
         {
             CurrentSpeed = WalkingSpeed;
-            print("Regular.");
             IsPushPull = false;
         }
     }
-    //NOTE THIS IS ALL PSEUDOCODE
-    /*
-
-    I would like to work with patrick on this more, the idea of making the player a master interact script would be a smart idea and I would like to work with him on implimenting the code for it. Hopefully it's easier than I think.
-
-    If you push an object off of a platform, the natual gravity should kick in for the ridgid body.
-    public void PushPull(Int WeightLevel)
-    {
-        if(WeightLevel == 1)
-        {
-            CurrentSpeed = PushPullLightSpeed;
-            rb.MovePosition(Direction);
-            Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
-        }
-        else if(WeightLevel == 2)
-        {
-            CurrentSpeed = PushPullMediumSpeed;
-            rb.MovePosition(Direction);
-            Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
-        }
-        else if(WeightLevel == 3)
-        {
-            CurrentSpeed = PushPullHeavySpeed;
-            rb.MovePosition(Direction);
-            Move the object X and Z (NEVER MOVE Y Jump Cannot != true when this).
-        }
-        else if()
-        {
-            CurrentSpeed = WalkingSpeed;
-        }
-        
-        //----BREAK IN IDEAS---//
-    }
-    */
+    
     #endregion
 
     #region Ground
