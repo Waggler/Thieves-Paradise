@@ -92,6 +92,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float PushPullHeavySpeed;
     [SerializeField] private bool IsPushPull;
 
+    [Header("Togglable Buttons")]
+    public bool ToggleSprint;
+    public bool ToggleCrouch;
+    [SerializeField] private bool IsUncovered;
 
     #endregion
 
@@ -112,10 +116,18 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         GroundCheck();
+        Rolling();
+        AnimationStates();
 
-        if(!IsCrouching && !IsSprinting && !IsPushPull)
+        if((!IsCrouching && !IsSprinting && !IsPushPull) || IsUncovered)
         {
             CoveredCheck();
+            IsUncovered = false;
+        }
+
+        if(IsStanding && IsCrouching && IsCovered && ToggleCrouch)
+        {
+            UnCrouchedCheck();
         }
 
         if(IsSprinting && !IsCrouching)
@@ -164,11 +176,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #endregion
-
-        #region Roll Action
-        Rolling();
-
-        #endregion
     
         #region Slide Action
 
@@ -215,9 +222,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         #endregion
+    
+        #region Toggle Checks
+        if(ToggleSprint)
+        {
+            UnSprinting = true;
+        }
 
-        #region Check For Animations
-        AnimationStates();
+        if(ToggleCrouch)
+        {
+            IsStanding = true;
+        }
 
         #endregion
     }
@@ -238,7 +253,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(IsGrounded && !IsCrouching && !IsPushPull)
         {
-            if (Direction.magnitude > 0.1)
+            if(Direction.magnitude > 0.1)
             {
                 if(!IsSprinting)
                 {
@@ -261,6 +276,11 @@ public class PlayerMovement : MonoBehaviour
                 VerticalVelocity.y = Mathf.Sqrt(-2f * StillJumpHeight * -Gravity);
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
+        }
+        else if(IsGrounded && IsCrouching && !IsPushPull)
+        {
+            IsStanding = true;
+            CoveredCheck();
         }
     }
     #endregion
@@ -463,6 +483,10 @@ public class PlayerMovement : MonoBehaviour
         {
             StandUp();
             IsCovered = false;
+            if(IsCrouching)
+            {
+                IsCrouching = false;
+            }
         }
 
         if(IsStanding == false && IsGrounded)
@@ -654,5 +678,13 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
+    #region UnCrouched Check
+    void UnCrouchedCheck()
+    {
+        IsUncovered = true;
+    }
+
+    #endregion
+    
     #endregion
 }

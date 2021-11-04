@@ -142,6 +142,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NearPushPullObject: 0
   SetCheck: 0
+  PushPullOn: 0
+  PushPullOff: 0
+  Crouching: 0
+  Sprinting: 0
 --- !u!43 &542225272
 Mesh:
   m_ObjectHideFlags: 0
@@ -312,7 +316,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20286
+  m_Name: pb_Mesh20308
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -711,11 +715,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6908870513054023929, guid: 2dae41ef08573f64aada86b43614674c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.44542745
+      value: -0.44542748
       objectReference: {fileID: 0}
     - target: {fileID: 6908870513054023929, guid: 2dae41ef08573f64aada86b43614674c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.009678631
+      value: -0.009678629
       objectReference: {fileID: 0}
     - target: {fileID: 6908870513054023929, guid: 2dae41ef08573f64aada86b43614674c, type: 3}
       propertyPath: m_LocalRotation.z
@@ -731,7 +735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6908870513109798250, guid: 2dae41ef08573f64aada86b43614674c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 6908870513109798250, guid: 2dae41ef08573f64aada86b43614674c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1342,7 +1346,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1, z: 1.5}
+  m_Size: {x: 2.5, y: 1, z: 2.5}
   m_Center: {x: 0.5, y: 0.5, z: -0.5}
 --- !u!54 &1450396542
 Rigidbody:
@@ -1358,7 +1362,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!64 &1450396543
 MeshCollider:
@@ -2136,7 +2140,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-10270
+  m_Name: pb_Mesh20272
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2625,7 +2629,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1799189262
 BoxCollider:
@@ -2638,7 +2642,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1, z: 1.5}
+  m_Size: {x: 2.5, y: 1, z: 2.5}
   m_Center: {x: 0.5, y: 0.5, z: -0.5}
 --- !u!114 &1799189263
 MonoBehaviour:
@@ -2998,7 +3002,7 @@ GameObject:
   - component: {fileID: 2029866680}
   - component: {fileID: 2029866679}
   m_Layer: 8
-  m_Name: PushPullObject 2 (1)
+  m_Name: PushPullObject 3
   m_TagString: Push&Pull
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3042,7 +3046,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1, z: 1.5}
+  m_Size: {x: 2.5, y: 1, z: 2.5}
   m_Center: {x: 0.5, y: 0.5, z: -0.5}
 --- !u!54 &2029866682
 Rigidbody:
@@ -3058,7 +3062,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!64 &2029866683
 MeshCollider:
@@ -3359,7 +3363,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-50924
+  m_Name: pb_Mesh20340
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

@@ -7,10 +7,10 @@ public class MasterPushPullScript : MonoBehaviour
     #region Variables
     [SerializeField] private bool NearPushPullObject = false;
     [SerializeField] private int SetCheck;
-    private bool PushPullOn = false;
-    private bool PushPullOff = false;
-    private bool Crouching;
-    private bool Sprinting;
+    [SerializeField] private bool PushPullOn = false;
+    [SerializeField] private bool PushPullOff = false;
+    [SerializeField] private bool Crouching;
+    [SerializeField] private bool Sprinting;
     private int ActivationCheck;
     private PlayerMovement playerMovement;
 
@@ -57,6 +57,8 @@ public class MasterPushPullScript : MonoBehaviour
             ActivationCheck = 0;
             playerMovement.PushPullCheck(NearPushPullObject, ActivationCheck);
             other.gameObject.transform.parent = null;
+            PushPullOn = false;
+            PushPullOff = false;
         }
     }
 
