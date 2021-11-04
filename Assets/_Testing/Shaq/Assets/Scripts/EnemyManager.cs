@@ -203,7 +203,7 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Local Suspicion Manager Variables")]
     [SerializeField] public Vector3 lastKnownLocation;
-    [SerializeField] public float susLevel;
+    [SerializeField] public float guardSusLevel;
 
     [Header("Global Suspicion Manager Ref")]
     [SerializeField] private SuspicionManager suspicionManager;
@@ -255,12 +255,15 @@ public class EnemyManager : MonoBehaviour
     }//End Awake
     #endregion
 
-
+    #region Update
     //---------------------------------//
     //Function called every frame
     void Update()
     {
-        lastKnownLocation = eyeball.lastKnownLocation;
+        #region Variable Updates
+
+
+        #endregion Variable Updates
 
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
         
@@ -341,6 +344,7 @@ public class EnemyManager : MonoBehaviour
                         }
                 }
 
+                ////Double check the use of the > in this line, might be a type
                 else if (eyeball.canCurrentlySeePlayer == false && eyeball.susLevel > 0)
                 {
                     //Using transform.position in order to translate Vector3 data to Transform
@@ -429,10 +433,13 @@ public class EnemyManager : MonoBehaviour
 
         suspicionManager.testInt = 1;
     }//End Update
-    #endregion
+
+    #endregion Update
+
+    #endregion Awake & Update
 
     #region AI Functions
-    
+
     //---------------------------------//
     //Alert's the guard
     public void Alert(Vector3 alertLoc)

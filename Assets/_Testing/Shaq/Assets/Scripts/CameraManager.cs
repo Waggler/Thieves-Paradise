@@ -6,7 +6,7 @@ using UnityEngine.UI;
 //Current Bugs:
 //    - Camera can rotate outside of it's intended monitoring range in FOCUSED state
 //      - When returning to MONITORING state, the camera will freeze due to being outside of it's intended rotational bounds
-//    - 
+//    - If the playe ris tagged "player"
 
 //Things to add:
 //    - (Backlog) Add rotational bounds to camera
@@ -22,66 +22,6 @@ using UnityEngine.UI;
 
 public class CameraManager : MonoBehaviour
 {
-    #region Variables
-    [Header("Camera Target / Trigger")]
-    private Transform target;
-    [Tooltip("References the player object")]
-    [SerializeField] private GameObject player;
-
-
-    [Header("Debug Text")]
-    [Tooltip("This text shows what state the camera is in")]
-    [SerializeField] private Text stateText;
-    [Tooltip("This text shows what the camera's target is")]
-    [SerializeField] private Text targetText;
-
-
-    [Header("Camera Rotation Variables")]
-    [Tooltip("Camera rotation speed, range of 0 to 60")]
-    [SerializeField] [Range(0, 60)] private float camSpeed;
-    [Tooltip("Maximum rotation vector for the camera (edit the Y-axis value)")]
-    [SerializeField] private Vector3 rotationMax;
-    [HideInInspector] private Vector3 rotationRecord;
-    //Transition speed between original rotation and look rotation in FaceTarget() method
-    [Tooltip("The at which the camera looks at it's target")]
-    [SerializeField] private float snapSpeed;
-
-
-    [Header("Eyeball Integration / Eyeball Related Variables")]
-    [Tooltip("References the eyeball prefab attatched to the camera prefab")]
-    [SerializeField] private EyeballScript eyeball;
-
-
-    [Header("Global Suspicion Manager Ref")]
-    [Tooltip("References to the Suspicion Manager in the level")]
-    [SerializeField] private SuspicionManager suspicionManager;
-
-
-    [Header("Camera Light Variables")]
-    [Tooltip("References the Spotlight attatched to the camera prefab")]
-    [SerializeField] private Light camLightRef;
-    [Tooltip("Spotlight Intensity")]
-    [SerializeField] [Range(0, 100)] private float camLightIntensity;
-    [Tooltip("Spotlight Range")]
-    [SerializeField] [Range(0, 2)] private float camLightRange;
-    [Tooltip("Spotlight Maximum Angle")]
-    [SerializeField] [Range(0, 5)] private float camLightMaxAngle;
-    [Tooltip("Spotlight Minimum Angle")]
-    [SerializeField] [Range(0, 5)] private float camLightMinAngle;
-
-
-    [Header("Debug Variables")]
-    [Tooltip("References the Renderer component of the camera")]
-    [SerializeField] private Renderer rend;
-    [Tooltip("Disable this when making a build to have the State & Target text not show up")]
-    [SerializeField] private bool isDebug;
-    [Tooltip("Radius in which guards can be  'called'  by the camera")]
-    [SerializeField] [Range(0, 50)] private float callRadius;
-
-    [HideInInspector] private float distanceToCamera;
-
-    #endregion
-
     #region Enumerations
     private enum CamStates
     {
@@ -104,6 +44,70 @@ public class CameraManager : MonoBehaviour
 
     #endregion Lists
 
+    #region Variables
+    [Header("Camera Target / Trigger")]
+    private Transform target;
+    [Tooltip("References the player's vision target, auto generated")]
+    [SerializeField] private GameObject player;
+
+
+    [Header("Debug Text")]
+    [Tooltip("This text shows what state the camera is in")]
+    [SerializeField] private Text stateText;
+    [Tooltip("This text shows what the camera's target is")]
+    [SerializeField] private Text targetText;
+
+
+    [Header("Camera Rotation Variables")]
+    [Tooltip("Camera rotation speed, range of 0 to 60")]
+    [SerializeField] [Range(0, 60)] private float camSpeed;
+    [Tooltip("Maximum rotation vector for the camera (edit the Y-axis value)")]
+    [SerializeField] private Vector3 rotationMax;
+    [HideInInspector] private Vector3 rotationRecord;
+    [Tooltip("Transition speed between original rotation and look rotation in FaceTarget() method")]
+    [SerializeField] private float snapSpeed;
+
+
+    [Header("Eyeball Integration / Eyeball Related Variables")]
+    [Tooltip("References the eyeball prefab attatched to the camera prefab")]
+    [SerializeField] private EyeballScript eyeball;
+
+    //DO NOT DELETE
+    //[Header("Global Suspicion Manager")]
+    //[Tooltip("References the Global Suspicion Manager in the level")]
+    //[SerializeField] private GlobalSuspicionManager globalSusManager;
+
+    [Header("Local Suspicion Manager")]
+    [Tooltip("References the Local Suspicion Manager")]
+    [SerializeField] private SuspicionManager localSuspicionManager;
+    [Tooltip("Radius in which guards can be  'called'  by the camera")]
+    [SerializeField] [Range(0, 50)] private float callRadius;
+
+
+    [Header("Camera Light Variables")]
+    [Tooltip("When the player is this far away, the spotlight becomes disabled")]
+    [SerializeField] [Range(0, 500)]private float killRadius;
+    [Tooltip("References the Spotlight attatched to the camera prefab")]
+    [SerializeField] private Light camLightRef;
+    [Tooltip("Spotlight Intensity")]
+    [SerializeField] [Range(0, 100)] private float camLightIntensity;
+    [Tooltip("Spotlight Range")]
+    [SerializeField] [Range(0, 2)] private float camLightRange;
+    [Tooltip("Spotlight Maximum Angle")]
+    [SerializeField] [Range(0, 5)] private float camLightMaxAngle;
+    [Tooltip("Spotlight Minimum Angle")]
+    [SerializeField] [Range(0, 5)] private float camLightMinAngle;
+
+
+    [Header("Debug Variables")]
+    [Tooltip("Disable this when making a build to have the State & Target text not show up")]
+    [SerializeField] private bool isDebug;
+    
+
+    [HideInInspector] private float distanceToCamera;
+
+    #endregion
+
     #region Awake & Update (Start added for debug)
 
     //---------------------------------//
@@ -114,9 +118,9 @@ public class CameraManager : MonoBehaviour
         Init();
 
         //Use this space for debug variables
-        rend = GetComponent<Renderer>();
-
         camLightRef.color = Color.green;
+
+
     }//End Awake
 
     #endregion
@@ -130,7 +134,8 @@ public class CameraManager : MonoBehaviour
         //Records rotaion of the camera object
         rotationRecord = new Vector3 (transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
-        //GenGuardArray();
+        //Local player reference || delete if it blocks progress on other things
+        //player = GameObject.FindWithTag("PlayerVisionTarget");
 
         #endregion
 
@@ -179,8 +184,6 @@ public class CameraManager : MonoBehaviour
             case CamStates.FOCUSED:
 
                 float stopWatch = Time.deltaTime;
-
-
 
                 stateText.text = $"{cameraStateMachine}";
 
@@ -262,6 +265,8 @@ public class CameraManager : MonoBehaviour
         //Set's the CameraAI's state to MONITORING on awake
         cameraStateMachine = CamStates.MONITORING;
 
+        player = GameObject.FindWithTag("PlayerVisionTarget");
+
         UpdateCamLightVars();
 
         GenGuardArray();
@@ -274,6 +279,23 @@ public class CameraManager : MonoBehaviour
     {
         //Camera Light Variables
 
+        distanceToCamera = Vector3.Distance(player.transform.position, transform.position);
+
+        if (distanceToCamera >= killRadius)
+        {
+            camLightIntensity = Mathf.Lerp(camLightIntensity, 0, 5f);
+
+            camLightRef.enabled = false;
+        }
+        else if (distanceToCamera <= killRadius)
+        {
+            camLightIntensity = Mathf.Lerp(camLightIntensity, 50, 5f);
+
+            camLightRef.enabled = true;
+        }
+
+        #region Individual Variables
+
         //Sets the camera light's intensity
         camLightRef.intensity = camLightIntensity;
 
@@ -285,6 +307,8 @@ public class CameraManager : MonoBehaviour
         //Sets the camera light's inner spot angle
         camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
 
+        #endregion Individual Variables
+
     }//End UpdateCamVars
 
     //---------------------------------//
@@ -295,35 +319,40 @@ public class CameraManager : MonoBehaviour
         Gizmos.color = Color.yellow;
 
         //Gizmo type
-        Gizmos.DrawWireSphere(transform.position/* + Vector3.up*/, callRadius);
+        Gizmos.DrawWireSphere(transform.position, callRadius);
+
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position, killRadius);
+
     }//End OnDrawGizmos
     //---------------------------------//
 
 
-
     //---------------------------------//
-    ////
     private void AlertGuards(Vector3 targetLoc)
     {
-        EnemyManager enemyManager;
+        //Also generating an array of guards on the call of this function
+        GenGuardArray();
+
         //EnemyManager reference
+        EnemyManager enemyManager;
 
         //Used to reference each guard
         foreach (GameObject guard in guardsArray)
         {
-            distanceToCamera = Vector3.Distance(guard.transform.position, transform.position + Vector3.up);
+            distanceToCamera = Vector3.Distance(guard.transform.position, transform.position);
             
             //Individual guard reference
+            //DO NOT MOVE
             enemyManager = guard.GetComponent<EnemyManager>();
 
             //Radius Check
             if (distanceToCamera <= callRadius /*&& GameObject.CompareTag("[Insert guard type here]")*/)
             {
-                //Modifying the target location of the guard
-                enemyManager.lastKnownLocation = targetLoc;
-                //Insert more enemy manager manipulation here
-                //enemyManager.susLevel = [Insert value for sus level]
-
+                //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
+                enemyManager.Alert(targetLoc);
             }
             else
             {
