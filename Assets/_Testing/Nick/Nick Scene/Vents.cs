@@ -21,4 +21,9 @@ public class Vents : MonoBehaviour
         //     Debug.Log("message received");
         // }
     }
+
+    private void OnTriggerEnter()
+    {
+        isOnVents = true;
+    }
 }

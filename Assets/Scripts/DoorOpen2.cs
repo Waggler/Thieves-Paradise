@@ -16,6 +16,9 @@ public class DoorOpen2 : MonoBehaviour
     public PlayerMovement pm;
     public InputManager im;
     // private InputAction action;
+    public bool crouchOpen1 = false;
+    public bool crouchOpen2 = false;
+    public bool crouchOpen3 = false;
     
     // Start is called before the first frame update
     void Start()

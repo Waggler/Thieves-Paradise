@@ -21,6 +21,9 @@ public class CamSwitch : MonoBehaviour
 
     public Vents vent;
 
+    // public Camera mainCamera;
+    // public Camera Camera2;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -40,6 +43,8 @@ public class CamSwitch : MonoBehaviour
     void Start()
     {
         action.performed += _ => SwitchState();
+        // Camera2.enabled = false;
+        // mainCamera.enabled = true;
     }
 
     private void SwitchState()
@@ -55,32 +60,49 @@ public class CamSwitch : MonoBehaviour
             Cam1 = !Cam1;
     }
 
+    // private void CloseState()
+    // {
+    //     animator.Play("VCam2");
+    //     mainCamera.enabled = false;
+    //     Camera2.enabled = true;
+    // }
+
+    // private void MainState()
+    // {
+    //     mainCamera.enabled = true;
+    //     Camera2.enabled = false;
+    // }
+
     // Update is called once per frame
     void Update()
     {
         if(im.isCrouching == true && trigger1.inArea == true)
         {
-           animator.Play("FreeLook");
+           animator.Play("VCam2");
         }
         if(im.isCrouching == true && trigger2.inArea == true)
         {
-           animator.Play("FreeLook");
+           animator.Play("VCam2");
         }
-        if(im.isCrouching == false && trigger1.inArea == true)
+        if(im.isCrouching == true && vent.isOnVents == true)
         {
-            animator.Play("VCam1");
+           animator.Play("VCam2");
         }
-        if(im.isCrouching == false && trigger1.inArea == false)
-        {
-            animator.Play("VCam1");
-        }
-        if(im.isCrouching == false && trigger2.inArea == true)
-        {
-            animator.Play("VCam1");
-        }
-        if(im.isCrouching == false && trigger2.inArea == false)
-        {
-            animator.Play("VCam1");
-        }
+        // if(im.isCrouching == false && trigger1.inArea == true)
+        // {
+        //     animator.Play("FreeLook");
+        // }
+        // if(im.isCrouching == false && trigger1.inArea == false)
+        // {
+        //     animator.Play("FreeLook");
+        // }
+        // if(im.isCrouching == false && trigger2.inArea == true)
+        // {
+        //     animator.Play("FreeLook");
+        // }
+        // if(im.isCrouching == false && trigger2.inArea == false)
+        // {
+        //     animator.Play("FreeLook");
+        // }
     }
 }
