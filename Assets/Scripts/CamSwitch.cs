@@ -12,6 +12,7 @@ public class CamSwitch : MonoBehaviour
     private Animator animator;
 
     public bool Cam1 = true;
+    public bool firstPersonCam = false;
 
     public PlayerMovement pm;
     public InputManager im;
@@ -52,10 +53,12 @@ public class CamSwitch : MonoBehaviour
             if(Cam1 == false)
             {
                 animator.Play("FreeLook");
+                firstPersonCam = false;
             }
             else
             {
                 animator.Play("VCam1");
+                firstPersonCam = false;
             }
             Cam1 = !Cam1;
     }
@@ -79,30 +82,37 @@ public class CamSwitch : MonoBehaviour
         if(im.isCrouching == true && trigger1.inArea == true)
         {
            animator.Play("VCam2");
+           firstPersonCam = true;
         }
         if(im.isCrouching == true && trigger2.inArea == true)
         {
            animator.Play("VCam2");
+           firstPersonCam = true;
         }
         if(im.isCrouching == true && vent.isOnVents == true)
         {
            animator.Play("VCam2");
+           firstPersonCam = true;
+        }
+        if(im.isCrouching == true && vent.isOnVents == false)
+        {
+           firstPersonCam = false;
         }
         // if(im.isCrouching == false && trigger1.inArea == true)
         // {
-        //     animator.Play("FreeLook");
+        //     firstPersonCam = false;
         // }
-        // if(im.isCrouching == false && trigger1.inArea == false)
+        // if(im.isCrouching == true && trigger1.inArea == false)
         // {
-        //     animator.Play("FreeLook");
+        //     firstPersonCam = false;
         // }
         // if(im.isCrouching == false && trigger2.inArea == true)
         // {
-        //     animator.Play("FreeLook");
+        //     firstPersonCam = false;
         // }
-        // if(im.isCrouching == false && trigger2.inArea == false)
+        // if(im.isCrouching == true && trigger2.inArea == false)
         // {
-        //     animator.Play("FreeLook");
+        //     firstPersonCam = false;
         // }
     }
 }

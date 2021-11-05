@@ -26,4 +26,9 @@ public class Vents : MonoBehaviour
     {
         isOnVents = true;
     }
+
+    private void OnTriggerExit()
+    {
+        isOnVents = false;
+    }
 }
