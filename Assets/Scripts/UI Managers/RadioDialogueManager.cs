@@ -8,11 +8,12 @@ public class RadioDialogueManager : MonoBehaviour
     private float delayTime = 0.05f;
 
     public Dialogue[] dialogue;
+    [Tooltip("This is handled by the RadioManager script, do not alter unless you know what you're doing.")]
     public int currentDialogueIndex;
 
 
     //-----------------------//
-    private void Init()
+    public void Init()
     //-----------------------//
     {
         StartCoroutine(IStartDelay());

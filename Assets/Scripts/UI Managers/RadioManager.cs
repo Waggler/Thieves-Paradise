@@ -12,10 +12,14 @@ public class RadioManager : MonoBehaviour
 
 
     [Header("Components")]
+    [SerializeField] private RadioDialogueManager radioDialogueManager;
+
     [SerializeField] private TMP_Text subtitleText;
     [SerializeField] private TMP_Text speakerText;
 
     [SerializeField] private Animator subtitleAnimator;
+
+    [SerializeField] private float typingTime;
 
 
     private Queue<string> sentences;
@@ -77,6 +81,10 @@ public class RadioManager : MonoBehaviour
 
         string sentence = sentences.Dequeue();
 
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(sentence));
+
+
 
     }//END DisplayNextSentence
 
@@ -89,9 +97,24 @@ public class RadioManager : MonoBehaviour
 
         subtitleAnimator.SetBool("isSubtitlesOpen", false);
 
+        radioDialogueManager.currentDialogueIndex++;
+
         return;
 
     }//END EndDialogue
+
+
+
+    IEnumerator TypeSentence(string sentence)
+    {
+        subtitleText.text = "";
+
+        foreach (char letter in sentence.ToCharArray())
+        {
+            subtitleText.text += letter;
+            yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
+        }
+    }
 
 
     #endregion Methods
