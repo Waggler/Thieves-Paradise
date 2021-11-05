@@ -20,6 +20,7 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private Animator subtitleAnimator;
 
     [SerializeField] private float typingTime;
+    [SerializeField] private float waitTime;
 
 
     private Queue<string> sentences;
@@ -114,6 +115,8 @@ public class RadioManager : MonoBehaviour
             subtitleText.text += letter;
             yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
         }
+        yield return new WaitForSeconds(waitTime);
+        DisplayNextSentence();
     }
 
 
