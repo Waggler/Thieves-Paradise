@@ -11,6 +11,7 @@ public class MasterPushPullScript : MonoBehaviour
     [SerializeField] private bool PushPullOff = false;
     [SerializeField] private bool Crouching;
     [SerializeField] private bool Sprinting;
+    [SerializeField] private bool IsInteracting = false;
     private int ActivationCheck;
     private PlayerMovement playerMovement;
 
@@ -22,9 +23,10 @@ public class MasterPushPullScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Push&Pull" && PushPullOn)
+        if(other.gameObject.tag == "Push&Pull" && !IsInteracting)
         {
             SetCheck = other.gameObject.GetComponent<PushPullObjectScript>().Active;
+            IsInteracting = true;
         }
     }
 
@@ -59,6 +61,11 @@ public class MasterPushPullScript : MonoBehaviour
             other.gameObject.transform.parent = null;
             PushPullOn = false;
             PushPullOff = false;
+        }
+
+        if(IsInteracting && !PushPullOn)
+        {
+            IsInteracting = false;
         }
     }
 
