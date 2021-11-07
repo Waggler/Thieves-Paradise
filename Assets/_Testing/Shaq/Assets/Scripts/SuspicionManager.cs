@@ -1,10 +1,24 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Current Bugs:
+//    - 
+//    - 
+//    - 
 
-//Have prototype by Friday
+//Things to add:
+//    - 
+//    - 
+//    - 
+
+//Done:
+//    - 
+//    - 
+//    - 
+
+//Suspicion Manager Notes:
+//  - Look at Among Us task manager / meter for reference/inspiration on the overall suspicion manager
 
 public class SuspicionManager : MonoBehaviour
 {
@@ -48,11 +62,31 @@ public class SuspicionManager : MonoBehaviour
     #endregion
 
     #region Inspector Variables
+    //Note: The green squigglies just mean it's given a value in the inspector instead of in the script
     [Header("Suspicion Manager Variables")]
     [SerializeField] private Text susText;
     [SerializeField] private float susInc;
     [SerializeField] private float susDec;
     [SerializeField] private float susDecTimer;
+
+    [Header("Notification Radius Variables")]
+    [SerializeField] private Transform notifCenter;
+    [SerializeField] private float notifRad;
+
+
+    [Header("Guard Refs")]
+    [SerializeField] private EnemyManager enemyManager;
+
+
+    [Header("Camera Refs")]
+    [SerializeField] private CameraManager cameraManager;
+
+
+
+
+    //Be sure to make variables that will be manipulated by other scripts/classes PUBLIC
+    [Header("Communicated Variables")]
+    [SerializeField] public int testInt;
 
 
     #endregion
@@ -68,6 +102,8 @@ public class SuspicionManager : MonoBehaviour
     void Awake()
     {
         Init();
+
+        testInt = 0;
 
     }//End Awake
     #endregion
@@ -102,12 +138,34 @@ public class SuspicionManager : MonoBehaviour
                 susText.text = "LEVEL NOT FOUND";
                 break;
         }
+
+        if (testInt != 0)
+        {
+            //print("Int has changed");
+
+        }
+
+        //print($"{secState}");
+
+        //print($"Current references are {enemyManager} & {cameraManager}");
+
+
+
+
     }//End Update
     #endregion
 
     #endregion
 
     #region General Functions
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(notifCenter.position, notifRad);
+    }
+
+
 
     //---------------------------------//
     //Used on the Awake() function to initialize any values in one line
@@ -122,6 +180,5 @@ public class SuspicionManager : MonoBehaviour
     {
 
     }
-
     #endregion
 }
