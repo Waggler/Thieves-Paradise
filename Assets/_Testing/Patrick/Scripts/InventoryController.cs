@@ -83,7 +83,24 @@ public class InventoryController : MonoBehaviour
                 print("No Items Nearby");
             }
         }
-        
+    }
+
+    public void ContextInteract(ItemScript newItem)
+    {
+        if (!IsInventoryFull())
+        {
+            AddItem(newItem);
+            print("Grabbed Item");
+            newItem.gameObject.SetActive(false);
+
+            nearbyItems.Remove(newItem);
+            nearbyItems.TrimExcess();
+        }
+    }
+
+    public bool CanPickupItems()
+    {
+        return !IsInventoryFull();
     }
     public void UseItemPrimary()
     {

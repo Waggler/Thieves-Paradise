@@ -16,6 +16,24 @@ public class ItemSuperScript : MonoBehaviour
         set;
     }
 
+    private bool isThrown;
+    private float timeCounter;
+
+    void Start()
+    {
+
+    }
+    void Update()
+    {
+        if (isThrown  && timeCounter > 0)
+        {
+            timeCounter -= Time.deltaTime;
+        }else
+        {
+            isThrown = false;
+            timeCounter = 5;
+        }
+    }
     public void Pickup()
     {
         print("Pickup Item");
@@ -23,9 +41,10 @@ public class ItemSuperScript : MonoBehaviour
     public void Throw()
     {
         print("Throw Item");
+        isThrown = true;
     }
 
-    public void Use()
+    public void UseDurability()
     {
         if (durability > 0)
         {
@@ -34,8 +53,25 @@ public class ItemSuperScript : MonoBehaviour
         } else
         {
             print("Item Broke");
+            Destroy(this.gameObject);
         }
     }
 
+    public void HighlightItem()
+    {
 
+    }
+    private void MakeNoise()
+    {
+        //Alert Guards here
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (isThrown)
+        {
+            MakeNoise();
+            UseDurability();
+        }
+    }
 }

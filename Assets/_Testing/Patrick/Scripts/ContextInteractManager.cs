@@ -50,9 +50,10 @@ public class ContextInteractManager : MonoBehaviour
         {
             if(context.performed)
             {
-                if (highlightedObject.GetComponent<BasicItemScript>() != null)
+                if (highlightedObject.GetComponent<BasicItemScript>() != null && inventory.CanPickupItems())
                 {
-                    print("Pickup Object");
+                    print("Pickup Object: " + highlightedObject.name);
+                    inventory.ContextInteract(highlightedObject.GetComponent<ItemScript>());
                 }
             }
         }
@@ -101,7 +102,7 @@ public class ContextInteractManager : MonoBehaviour
         distance += 2f; //check 2 meters past the player
         
         Debug.DrawRay(camPos.position, camPos.forward * distance, Color.red, Time.deltaTime);
-        Physics.Raycast(camPos.position, camPos.forward * distance, out hit, distance, layerMask);
+        Physics.Raycast(camPos.position, camPos.forward * distance, out hit, distance, layerMask, QueryTriggerInteraction.Ignore);
         if (hit.collider != null)
         {
             objectInFocus = hit.collider.gameObject;
@@ -154,4 +155,5 @@ public class ContextInteractManager : MonoBehaviour
         }
     }
     #endregion
+    
 }
