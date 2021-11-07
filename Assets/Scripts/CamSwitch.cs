@@ -22,6 +22,9 @@ public class CamSwitch : MonoBehaviour
 
     public Vents vent;
 
+    public VentInTrigger ventIn;
+    public VentOutTrigger ventOut;
+
     // public Camera mainCamera;
     // public Camera Camera2;
 
@@ -89,15 +92,26 @@ public class CamSwitch : MonoBehaviour
            animator.Play("VCam2");
            firstPersonCam = true;
         }
-        if(im.isCrouching == true && vent.isOnVents == true)
+
+        if(ventIn.inVent == true)
         {
-           animator.Play("VCam2");
-           firstPersonCam = true;
+            animator.Play("VCam2");
+            firstPersonCam = true;
         }
-        if(im.isCrouching == true && vent.isOnVents == false)
+        if(ventOut.outVent == true)
         {
-           firstPersonCam = false;
+            animator.Play("FreeLook");
+            firstPersonCam = false;
         }
+        // if(im.isCrouching == true && vent.isOnVents == true)
+        // {
+        //    animator.Play("VCam2");
+        //    firstPersonCam = true;
+        // }
+        // if(vent.isOnVents == false)
+        // {
+        //    firstPersonCam = false;
+        // }
         // if(im.isCrouching == false && trigger1.inArea == true)
         // {
         //     firstPersonCam = false;
