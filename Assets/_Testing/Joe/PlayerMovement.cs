@@ -396,18 +396,18 @@ public class PlayerMovement : MonoBehaviour
         {
             Standing = false;
             IsCrouching = true;
-            print("something's overhead");
+            //print("something's overhead");
             return;
         }
         else
         {
-            print("standing up");
+            //print("standing up");
             StandUp();
         }
 
         if(Standing == false)
         {
-            print("Crouching");
+            //print("Crouching");
             CrouchDown();
         }
     }
