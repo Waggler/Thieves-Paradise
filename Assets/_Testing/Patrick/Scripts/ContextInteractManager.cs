@@ -78,17 +78,34 @@ public class ContextInteractManager : MonoBehaviour
     {
         if (newObject != highlightedObject)
         {
-            highlightText.text = newObject.name;
+            //highlightText.text = newObject.name;
             //stop highlighting previous object
-            //highlight new object
+            UnHighlightObject();
+            
             //set new object to highlighted object
             highlightedObject = newObject;
+            //highlight new object
+
+            if(highlightedObject.GetComponent<Outline>() == null)
+            {   //error check to handle if the object doesn't have an outline, just give it one real quick
+                //if people set up their objects right this shouldn't be an issue
+                highlightedObject.AddComponent<Outline>();
+                highlightedObject.GetComponent<Outline>().OutlineMode = Outline.Mode.OutlineAndSilhouette;
+                highlightedObject.GetComponent<Outline>().OutlineColor = Color.white;
+                highlightedObject.GetComponent<Outline>().OutlineWidth = 5f;
+                highlightedObject.GetComponent<Outline>().enabled = false;
+            }
+            highlightedObject.GetComponent<Outline>().enabled = true;
         }
     }
 
     private void UnHighlightObject()
     {
-        highlightText.text = "Nothing Nearby";
+        //highlightText.text = "Nothing Nearby";
+        if (highlightedObject != null && highlightedObject.GetComponent<Outline>() != null)
+        {
+            highlightedObject.GetComponent<Outline>().enabled = false;
+        }
         highlightedObject = null;
     }
 
@@ -140,9 +157,8 @@ public class ContextInteractManager : MonoBehaviour
             break;
 
             default:
-            //do nothing
+            //do literally nothing
             break;
-
         }
     }
 
