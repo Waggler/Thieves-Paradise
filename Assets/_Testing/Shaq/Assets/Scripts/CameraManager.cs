@@ -6,18 +6,19 @@ using UnityEngine.UI;
 //Current Bugs:
 //    - Camera can rotate outside of it's intended monitoring range in FOCUSED state
 //      - When returning to MONITORING state, the camera will freeze due to being outside of it's intended rotational bounds
-//    - If the playe ris tagged "player"
+//    - 
 
 //Things to add:
 //    - (Backlog) Add rotational bounds to camera
-//    - Manipulate the susLevel of the guard instances
-//    - 
+//    - Take orders from the Security hub / global suspicion manager 
 //    - 
 
-//Done:
-//    - 
-//    - 
-//    - 
+//Notes:
+//    - The script is looking for an object with the "PlayerVisionTarget" tag, so make sure the player has that or update accordingly
+//    - Rotational bounds still need a bit of work before it's TRULY done
+//    - DO NOT GET RID OF THE "rotationRecord" VARIABLE
+
+
 
 
 public class CameraManager : MonoBehaviour
@@ -33,7 +34,7 @@ public class CameraManager : MonoBehaviour
     [Tooltip("The current state that the camera is in")]
     [SerializeField] CamStates cameraStateMachine;
 
-    #endregion
+    #endregion Enumerations
 
     #region Lists & Arrays 
 
@@ -42,7 +43,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject[] guardsArray;
 
 
-    #endregion Lists
+    #endregion Lists & Arrays
 
     #region Variables
     [Header("Camera Target / Trigger")]
@@ -66,6 +67,7 @@ public class CameraManager : MonoBehaviour
     [HideInInspector] private Vector3 rotationRecord;
     [Tooltip("Transition speed between original rotation and look rotation in FaceTarget() method")]
     [SerializeField] private float snapSpeed;
+    [HideInInspector] private Vector3 startRotation;
 
 
     [Header("Eyeball Integration / Eyeball Related Variables")]
@@ -106,9 +108,9 @@ public class CameraManager : MonoBehaviour
 
     [HideInInspector] private float distanceToCamera;
 
-    #endregion
+    #endregion Variables
 
-    #region Awake & Update (Start added for debug)
+    #region Awake & Update
 
     //---------------------------------//
     //Callled when the object is spawned. Used instead of Start() because the camera could be spawned after the game has started
@@ -137,7 +139,7 @@ public class CameraManager : MonoBehaviour
         //Local player reference || delete if it blocks progress on other things
         //player = GameObject.FindWithTag("PlayerVisionTarget");
 
-        #endregion
+        #endregion Update Specific Variables
 
         #region Cam State Machine
         switch (cameraStateMachine)
@@ -177,7 +179,7 @@ public class CameraManager : MonoBehaviour
                 camLightRef.color = Color.green;
 
                 break;
-            #endregion
+            #endregion Monitoring State
 
             #region Focused State
             //When the camera sees the player / FOCUSED
@@ -207,14 +209,14 @@ public class CameraManager : MonoBehaviour
                     rotationRecord.z = 0;
 
                     //While the X & Z rotation are reset, the Y rotation is preserved
-                    transform.localEulerAngles = new Vector3(rotationRecord.x, rotationRecord.y, rotationRecord.z);
+                    transform.localEulerAngles = new Vector3(rotationRecord.x, 0, rotationRecord.z);
 
                     //FOCUSED >>> MONITORING
                     cameraStateMachine = CamStates.MONITORING;
                 }
 
                 break;
-            #endregion
+            #endregion Focused State
 
             #region Defualt state
             //Not exactly a state but acts as a net to catch any bugs that would prevent the game from running
@@ -223,16 +225,17 @@ public class CameraManager : MonoBehaviour
                 targetText.text = "Null";
 
                 break;
-            #endregion
+            #endregion Default State
         }
-        #endregion
+        #endregion Cam State Machine
 
 
         UpdateCamLightVars();
 
-        #endregion
     }//End Update
-    #endregion
+    #endregion Update
+
+    #endregion Awake & Update
 
     #region General Functions
 
@@ -258,14 +261,14 @@ public class CameraManager : MonoBehaviour
         stateText.text = "";
         targetText.text = "";
 
-        //rotationMax = new Vector3(0, 90, 0);
-
         rotationRecord = new Vector3(0, 0, 0);
 
         //Set's the CameraAI's state to MONITORING on awake
         cameraStateMachine = CamStates.MONITORING;
 
         player = GameObject.FindWithTag("PlayerVisionTarget");
+
+        startRotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
 
         UpdateCamLightVars();
 
@@ -376,4 +379,4 @@ public class CameraManager : MonoBehaviour
     }//End GenGuardArray
 }
 
-#endregion
+#endregion General Functions
