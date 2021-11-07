@@ -24,7 +24,7 @@ public class PushPullObjectScript : MonoBehaviour
         PushPullCheck();
     }
 
-    #region Giving Input
+    #region Setting the Active Number.
     public void PushPullCheck()
     {
         switch(Weight)
