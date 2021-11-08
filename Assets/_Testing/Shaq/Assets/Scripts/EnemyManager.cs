@@ -435,7 +435,7 @@ public class EnemyManager : MonoBehaviour
 
         }
 
-        suspicionManager.testInt = 1;
+        //suspicionManager.testInt = 1;
     }//End Update
 
     #endregion Update
