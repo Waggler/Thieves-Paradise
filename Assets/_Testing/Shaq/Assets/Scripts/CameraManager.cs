@@ -286,13 +286,14 @@ public class CameraManager : MonoBehaviour
 
         if (distanceToCamera >= killRadius)
         {
-            camLightIntensity = Mathf.Lerp(camLightIntensity, 0, 5f);
+            //Comment out these two lines for me pls
+            //camLightIntensity = Mathf.Lerp(camLightIntensity, 0, 5f);
 
             camLightRef.enabled = false;
         }
         else if (distanceToCamera <= killRadius)
         {
-            camLightIntensity = Mathf.Lerp(camLightIntensity, 50, 5f);
+            //camLightIntensity = Mathf.Lerp(camLightIntensity, 50, 5f);
 
             camLightRef.enabled = true;
         }
@@ -307,6 +308,7 @@ public class CameraManager : MonoBehaviour
 
         //Sets the camera light's outer spot angle
         camLightRef.spotAngle = eyeball.maxVisionAngle * camLightMaxAngle;
+
         //Sets the camera light's inner spot angle
         camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
 

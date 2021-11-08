@@ -8,19 +8,11 @@ using UnityEngine.SceneManagement;
 //Current Bugs:
 //    - AI currently moves to quickly to go to it's target without missing and having to loop back around
 //    - 
-//    - 
 
 
 //Things to add:
-//    - ADD TOOL TIPS
-//    - Improve lose condition (content for lose condition is fine for now)
-//    - 
-//    - 
-
-//Done:
-//    - Barebone functionality between eyeball prefab and guardAI
-//    - 
-//    - 
+//    - State history (store the current and previous state that the AI was in)
+//    - Rework AI pathing / pathfinding
 
 
 //Suspicion Manager Notes:
@@ -36,22 +28,50 @@ public class EnemyManager : MonoBehaviour
     #region AI State Machine
 
     private enum EnemyStates
-        {
-            //TO DO: Add a Staggered / Stunned State
-            //  - 
+    {
+        //TO DO: Add a Staggered / Stunned State
+        //  - 
 
-            PASSIVE,
-            WARY,
-            SUSPICIOUS,
-            HOSTILE,
-            ATTACK,
-            RANGEDATTACK, 
-            STUNNED
-        }
+        PASSIVE,
+        WARY,
+        SUSPICIOUS,
+        HOSTILE,
+        ATTACK,
+        RANGEDATTACK,
+        STUNNED
+    }
+
+    private enum CurrentState
+    {
+        PASSIVE,
+        WARY,
+        SUSPICIOUS,
+        HOSTILE,
+        ATTACK,
+        RANGEDATTACK,
+        STUNNED
+
+    }
+
+    private enum PreviousState
+    {
+        PASSIVE,
+        WARY,
+        SUSPICIOUS,
+        HOSTILE,
+        ATTACK,
+        RANGEDATTACK,
+        STUNNED
+    }
 
     [Header("AI State")]
 
     [SerializeField] EnemyStates stateMachine;
+
+    [Header("Test States")]
+    [SerializeField] CurrentState currentState;
+    [SerializeField] PreviousState previousState;
+
 
     #endregion.
 
@@ -180,42 +200,65 @@ public class EnemyManager : MonoBehaviour
     [Header("Private Variables")]
     private Transform target;
     private NavMeshAgent agent;
-    //bool NavMeshAgent.autoBraking();
+
+    //[Tooltip("")]
+
+    //[Header("State Tracker")]
+    //[Tooltip("The current state the object is in")]
+    //[SerializeField] private string currentState;
+    //[Tooltip("The last state the object was in")]
+    //[SerializeField] private string previousState;
 
 
     [Header("Object References")]
+    [Tooltip("References the player object")]
     [SerializeField] private GameObject player;
+    [Tooltip("References the guard's eyeball prefab / object")]
     [SerializeField] private EyeballScript eyeball;
     
 
     [Header("Diagnostic Text")]
+    [Tooltip("References the state text (displays the state the guard is in)")]
     [SerializeField] private Text stateText;
+    [Tooltip("References the target text (displays the guard's current target)")]
     [SerializeField] private Text targetText;
+    [Tooltip("References the lose text for the game (this is NOT permanent)")]
     [SerializeField] private Text loseText;
 
     [Header("Guard Movement Speed")]
+    [Tooltip("The speed that the AI moves at in the PATROL speed")]
     [SerializeField] [Range(0, 10)] private float patrolSpeed = 5f;
+    [Tooltip("The speed that the AI moves at in the SUSPICIOS speed")]
     [SerializeField] [Range(0, 10)] private float susSpeed = 6.5f;
+    [Tooltip("The speed that the AI moves at in the HOSTILE speed")]
     [SerializeField] [Range(0, 10)] private float hostileSpeed = 8f;
 
     [Header("Misc. Variables")]
+    [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
     [SerializeField] private float attackRadius = 10f;
+    [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
+    [Tooltip("The speed at which the guard turns to face a target (functionality varies)")]
     [SerializeField] [Range (0, 50)]private float rotateSpeed;
+    [Tooltip("When enabled, the guard will wait when it reaches it's 'waypointNextDistance'")]
     [SerializeField] private bool isWait;
+    [Tooltip("The amount of time that the guard waits when 'isWait' is enabled")]
     [SerializeField] private float waitTime;
 
     [Header("Local Suspicion Manager Variables")]
+    [Tooltip("Dynamically generated, the last known location of the guard's target as seen by the eyeball prefab")]
     [SerializeField] public Vector3 lastKnownLocation;
+    [Tooltip("The suspicion level of the guard (suspicion level, level inrement &, level decriment is handled by the relative eyeball prefab) ")]
     [SerializeField] public float guardSusLevel;
 
     [Header("Global Suspicion Manager Ref")]
+    [Tooltip("Reference to the suspicion manager")]
     [SerializeField] private SuspicionManager suspicionManager;
 
-
-    //[Header("Debug Variables")]
-    //[SerializeField] bool testBool = true;
-
+    [Header("Debug / Testing Variables")]
+    //Variable may need to be renamed in the future based on further implementations with Charlie
+    [Tooltip("Duration of the guard's Stun state duration")]
+    [SerializeField] private float stunTime;
 
     #endregion
 
@@ -423,6 +466,25 @@ public class EnemyManager : MonoBehaviour
                 break;
             #endregion
 
+            #region Stunned Behavior
+            case EnemyStates.STUNNED:
+                //Stores the user generated stun time
+                float timeRecord = stunTime;
+
+                //experimenting with Time.fixedDeltaTime & Time.deltaTime
+                stunTime -= Time.fixedDeltaTime;
+
+                if (stunTime <= 0)
+                {
+                    //STUNNED >>>> PREVIOUS STATE (SUSPICIOS for now)
+                    stateMachine = EnemyStates.SUSPICIOUS;
+
+                    //after changing states, the stun time returns to the initially recorded time
+                    stunTime = timeRecord;
+                }
+                break;
+            #endregion Stunned Behavior
+
             #region Default Behavior / Bug Catcher
             default:
                 stateText.text = "State not found";
@@ -436,8 +498,15 @@ public class EnemyManager : MonoBehaviour
         }
 
         suspicionManager.testInt = 1;
-    }//End Update
 
+        print($"Actual state = {stateMachine}");
+
+        print($"Current state = {currentState}");
+
+        print($"Previous state = {previousState}");
+
+
+    }//End Update
     #endregion Update
 
     #endregion Awake & Update
