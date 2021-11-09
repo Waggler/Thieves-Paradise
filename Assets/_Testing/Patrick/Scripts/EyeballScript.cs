@@ -11,16 +11,16 @@ public class EyeballScript : MonoBehaviour
 
     //vision stats
     [Header("Vision Stats")]
-    [SerializeField] private float sightRange;
+    [SerializeField] public float sightRange;
     [Range(1.0f, 180.0f)]
-    [SerializeField] private float maxVisionAngle; // 0-180, 0 = directly in front, 90 = left/right, 180 = directly behind
+    [SerializeField] public float maxVisionAngle; // 0-180, 0 = directly in front, 90 = left/right, 180 = directly behind
     [SerializeField] public float susGrowthMultiplier = 1;
     [SerializeField] public float susDecreaseMultiplier = 1;
 
     //Player Detection output
     [HideInInspector] public float sightAngle;
-    public float susLevel; //how suspicious the eyeball currently is
-    public float minSusLevel; //can't get less sus than this
+    [SerializeField]public float susLevel; //how suspicious the eyeball currently is
+    [SerializeField]public float minSusLevel; //can't get less sus than this
     [HideInInspector] public Vector3 lastKnownLocation;
     [HideInInspector] public bool canCurrentlySeePlayer;
 
