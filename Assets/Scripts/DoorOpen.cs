@@ -245,6 +245,8 @@ public class DoorOpen : MonoBehaviour
             // door.transform.eulerAngles = new Vector3(0f, 0f, 0f);
             door.transform.position = new Vector3(9.334243f, 2.1f, 6.08f);
             button1Pressed = false;
+            button2Pressed = false;
+            button3Pressed = false;
             doorOpens = false;
             crouchOpen1 = false;
             crouchOpen2 = false;

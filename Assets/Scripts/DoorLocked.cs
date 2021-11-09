@@ -5,6 +5,7 @@ using UnityEngine;
 public class DoorLocked : MonoBehaviour
 {
     //message1 is the message that talks about the locked door
+    public GameObject door;
     public bool isLocked = true;
     public GameObject message1;
     public GameObject message2;
