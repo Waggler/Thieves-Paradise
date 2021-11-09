@@ -23,7 +23,6 @@ using UnityEngine.UI;
 
 public class CameraManager : MonoBehaviour
 {
-    SuspicionManager susManager = new SuspicionManager();
 
     #region Enumerations
     private enum CamStates
@@ -105,6 +104,7 @@ public class CameraManager : MonoBehaviour
     [Header("Debug Variables")]
     [Tooltip("Disable this when making a build to have the State & Target text not show up")]
     [SerializeField] private bool isDebug;
+    [SerializeField] private SuspicionManager susManager;
     
 
     [HideInInspector] private float distanceToCamera;

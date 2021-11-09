@@ -23,7 +23,7 @@ using UnityEngine.UI;
 //Suspicion Manager Notes:
 //  - Look at Among Us task manager / meter for reference/inspiration on the overall suspicion manager
 
-public static class SuspicionManager : MonoBehaviour
+public class SuspicionManager : MonoBehaviour
 {
     #region Enumerations
     private enum SecurityLvl
@@ -163,7 +163,7 @@ public static class SuspicionManager : MonoBehaviour
 
     #region General Functions
 
-    private static void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(notifCenter.position, notifRad);
@@ -175,17 +175,17 @@ public static class SuspicionManager : MonoBehaviour
     //Used on the Awake() function to initialize any values in one line
     private static void Init()
     {
-        secState = SecurityLvl.SecLVL0;
+        //secState = SecurityLvl.SecLVL0;
     }
 
     //---------------------------------//
     //Raises / Lowers the security level based on the given context
-    private static void AdjustSecurityLevel(SecurityLvl securityLvl)
+    private void AdjustSecurityLevel(SecurityLvl securityLvl)
     {
 
     }
 
-    public static void AlertGuards(Vector3 targetLoc, Vector3 callerLoc, float callRadius)
+    public void AlertGuards(Vector3 targetLoc, Vector3 callerLoc, float callRadius)
     {
         //Also generating an array of guards on the call of this function
         GenGuardArray();
@@ -221,7 +221,7 @@ public static class SuspicionManager : MonoBehaviour
 
     //---------------------------------//
     //Generates an array of guard instances in the scene
-    public static void GenGuardArray()
+    public void GenGuardArray()
     {
         guardsList = GameObject.FindGameObjectsWithTag("Guard").ToList();
 
