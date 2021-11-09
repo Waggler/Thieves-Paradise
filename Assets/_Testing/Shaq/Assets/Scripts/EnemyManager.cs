@@ -337,7 +337,7 @@ public class EnemyManager : MonoBehaviour
                         //AI Passive state
                         stateText.text = EnemyStates.PASSIVE.ToString();
 
-                        print($"Wait is {isWait}");
+                        //print($"Wait is {isWait}");
 
                         //Checks to see if it is at specified distance for getting it's next waypoint
                         if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
@@ -385,7 +385,7 @@ public class EnemyManager : MonoBehaviour
                         //AI Passive state
                         stateText.text = EnemyStates.PASSIVE.ToString();
 
-                        print($"Wait is {isWait}");
+                        //print($"Wait is {isWait}");
 
                         if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
                         {
