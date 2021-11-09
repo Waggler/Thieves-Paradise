@@ -100,7 +100,7 @@ public class CamSwitch : MonoBehaviour
         }
         if(ventOut.outVent == true)
         {
-            animator.Play("FreeLook");
+            // animator.Play("FreeLook");
             firstPersonCam = false;
         }
         // if(im.isCrouching == true && vent.isOnVents == true)
