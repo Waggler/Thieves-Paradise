@@ -23,6 +23,9 @@ public class DoorOpen : MonoBehaviour
     public bool crouchOpen1 = false;
     public bool crouchOpen2 = false;
     public bool crouchOpen3 = false;
+    public int buttonPressed = 0;
+    public int buttonPressed2 = 0;
+    public int buttonPressed3 = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -62,28 +65,28 @@ public class DoorOpen : MonoBehaviour
             maxAngle = 90f;
         }
 
-        else
-        {
-            maxAngle = 0.0f;
-        }
+        // else
+        // {
+        //     maxAngle = 0.0f;
+        // }
 
         if(im.isSprinting == true)
         {
             maxAngle = -151.55f;
         }
 
-        if(crouchOpen1 == true)
-        {
-            maxAngle = -37.06f;
-        }
-        if(crouchOpen2 == true)
-        {
-            maxAngle = -48.15f;
-        }
-        if(crouchOpen3 == true)
-        {
-            maxAngle = -71.3f;
-        }
+        // if(crouchOpen1 == true)
+        // {
+        //     maxAngle = -37.06f;
+        // }
+        // if(crouchOpen2 == true)
+        // {
+        //     maxAngle = -48.15f;
+        // }
+        // if(crouchOpen3 == true)
+        // {
+        //     maxAngle = -71.3f;
+        // }
 
         // if(im.isCrouching == true)
         // {
@@ -127,6 +130,52 @@ public class DoorOpen : MonoBehaviour
         // {
         //     buttonPressed = false;
         // }
+
+        if(crouchOpen1 == true)
+        {
+            buttonPressed++;
+            message.SetActive(false);
+        }
+
+        if(buttonPressed > 1)
+        {
+            buttonPressed = 1;
+        }
+
+        if(buttonPressed == 1)
+        {
+            maxAngle = -37.06f;
+        }
+
+        if(crouchOpen2 == true)
+        {
+            buttonPressed2++;
+        }
+
+        if(buttonPressed2 > 1)
+        {
+            buttonPressed2 = 1;
+        }
+
+        if(buttonPressed2 == 1)
+        {
+            maxAngle = -48.15f;
+        }
+
+        // if(crouchOpen3 == true)
+        // {
+        //     buttonPressed3++;
+        // }
+
+        // if(buttonPressed3 > 1)
+        // {
+        //     buttonPressed3 = 1;
+        // }
+
+        // if(buttonPressed3 == 1)
+        // {
+        //     maxAngle = -71.3f;
+        // }
     }
 
     #region OpenDoor
@@ -140,22 +189,24 @@ public class DoorOpen : MonoBehaviour
             message.SetActive(false);
         }
 
-        if(Input.GetButtonDown("e"))
+        if(Input.GetKey("e") && im.isCrouching == true)
+        {
+            crouchOpen1 = true;
+        }
+
+        if(Input.GetKey("e"))
         {
             button1Pressed = true;
         }
-        if(Input.GetButtonDown("e") && button1Pressed == true)
+
+        if(Input.GetKey("e") && buttonPressed == 1)
         {
-            button2Pressed = true;
-        }
-        if(Input.GetButtonDown("e") && button2Pressed == true)
-        {
-            button3Pressed = true;
+            crouchOpen2 = true;
         }
 
-        // if(Input.GetButtonDown("e") && trigger2.inArea == true)
+        // if(Input.GetKey("e") && buttonPressed2 == 1)
         // {
-        //     buttonPressed = true;
+        //     crouchOpen3 = true;
         // }
 
         if(inArea == true && button1Pressed == true && im.isSprinting == false)
@@ -169,12 +220,6 @@ public class DoorOpen : MonoBehaviour
             message.SetActive(false);
             doorOpens = true;
 
-            if(im.isCrouching == true && crouchOpen1 == false && crouchOpen2 == false && crouchOpen3 == false)
-            {
-                crouchOpen1 = true;
-                crouchOpen2 = false;
-                crouchOpen3 = false;
-            }
             // if(im.isCrouching == true && crouchOpen1 == true && crouchOpen2 == false && crouchOpen3 == false)
             // {
             //     crouchOpen2 = true;
@@ -189,25 +234,25 @@ public class DoorOpen : MonoBehaviour
             // }
         }
 
-        if(inArea == true && button2Pressed == true && im.isSprinting == false)
-        {
-            if(im.isCrouching == true && crouchOpen1 == true && crouchOpen2 == false && crouchOpen3 == false)
-            {
-                crouchOpen2 = true;
-                crouchOpen1 = false;
-                crouchOpen3 = false;
-            }
-        }
+        // if(inArea == true && button2Pressed == true && im.isSprinting == false)
+        // {
+        //     if(im.isCrouching == true && crouchOpen1 == true && crouchOpen2 == false && crouchOpen3 == false)
+        //     {
+        //         crouchOpen2 = true;
+        //         crouchOpen1 = false;
+        //         crouchOpen3 = false;
+        //     }
+        // }
 
-         if(inArea == true && button3Pressed == true && im.isSprinting == false)
-        {
-            if(im.isCrouching == true && crouchOpen1 == false && crouchOpen2 == true && crouchOpen3 == false)
-            {
-                crouchOpen3 = true;
-                crouchOpen2 = false;
-                crouchOpen1 = false;
-            }
-        }
+        //  if(inArea == true && button3Pressed == true && im.isSprinting == false)
+        // {
+        //     if(im.isCrouching == true && crouchOpen1 == false && crouchOpen2 == true && crouchOpen3 == false)
+        //     {
+        //         crouchOpen3 = true;
+        //         crouchOpen2 = false;
+        //         crouchOpen1 = false;
+        //     }
+        // }
 
         // if(trigger2.inArea == true && buttonPressed == true && im.isSprinting == false)
         // {
@@ -251,6 +296,9 @@ public class DoorOpen : MonoBehaviour
             crouchOpen1 = false;
             crouchOpen2 = false;
             crouchOpen3 = false;
+            buttonPressed = 0;
+            buttonPressed2 = 0;
+            buttonPressed3 = 0;
         // }
         message.SetActive(false);
     }   //END LEAVE DOOR TRIGGER
