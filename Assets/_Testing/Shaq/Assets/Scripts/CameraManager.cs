@@ -104,8 +104,11 @@ public class CameraManager : MonoBehaviour
     [Header("Debug Variables")]
     [Tooltip("Disable this when making a build to have the State & Target text not show up")]
     [SerializeField] private bool isDebug;
-    [SerializeField] private SuspicionManager susManager;
-    
+    //References the "Suspicion Manager" object in the scene
+    [SerializeField] private GameObject susManagerOBJ;
+    //References the "SuspcionManager.cs" script found on the "Suspicion Manager" object
+    [SerializeField] private SuspicionManager susManagerRef;
+
 
     [HideInInspector] private float distanceToCamera;
 
@@ -199,7 +202,7 @@ public class CameraManager : MonoBehaviour
 
                 camLightRef.color = Color.red;
 
-                susManager.AlertGuards(eyeball.lastKnownLocation, transform.position, callRadius);
+                susManagerRef.AlertGuards(eyeball.lastKnownLocation, transform.position, callRadius);
 
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
@@ -262,6 +265,16 @@ public class CameraManager : MonoBehaviour
         stateText.text = "";
         targetText.text = "";
 
+
+        //Note: This method of referencing the suspicion manager is stupid and I should find a way to do it in one line
+        //Creates a reference to the suspicion manager object
+        susManagerOBJ = GameObject.FindGameObjectWithTag("GameController");
+
+        //creates a direct reference to the suspicion manager script
+        susManagerRef = susManagerOBJ.GetComponent<SuspicionManager>();
+
+        print($"SuspicionManager instance = {susManagerRef}");
+
         rotationRecord = new Vector3(0, 0, 0);
 
         //Set's the CameraAI's state to MONITORING on awake
@@ -273,7 +286,7 @@ public class CameraManager : MonoBehaviour
 
         UpdateCamLightVars();
 
-        susManager.GenGuardArray();
+        susManagerRef.GenGuardList();
 
     }//End Init
 
@@ -333,10 +346,8 @@ public class CameraManager : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, killRadius);
 
     }//End OnDrawGizmos
-    //---------------------------------//
 
-
-    ////---------------------------------//
+    ////-------------AlertGuards--------------------//
     //private void AlertGuards(Vector3 targetLoc)
     //{
     //    //Also generating an array of guards on the call of this function
