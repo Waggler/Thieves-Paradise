@@ -38,6 +38,7 @@ public class RadioManager : MonoBehaviour
     {
         Init();
 
+
     }//END Start
 
     //--------------------------//
@@ -46,7 +47,23 @@ public class RadioManager : MonoBehaviour
     {
         sentences = new Queue<string>();
 
+        SetTextColor();
+
     }//END Init
+
+    //--------------------------//
+    void SetTextColor()
+    //--------------------------//
+    {
+        float hue = PlayerPrefs.GetFloat("RadioHue");
+        float saturation = PlayerPrefs.GetFloat("RadioSaturation");
+
+        Color textColor = Color.HSVToRGB(hue, saturation, 1);
+
+        speakerText.color = textColor;
+        subtitleText.color =textColor;
+
+    }//END SetTextColor
 
     //-----------------------//
     public void StartDialogue(Dialogue dialogue)

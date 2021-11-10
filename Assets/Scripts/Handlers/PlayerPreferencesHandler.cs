@@ -126,6 +126,7 @@ public class PlayerPreferencesHandler : MonoBehaviour
     #region General
 
 
+    //-----------------------//
     public void SetCrouchToggle(int value)
     //-----------------------//
     {
@@ -133,7 +134,7 @@ public class PlayerPreferencesHandler : MonoBehaviour
 
     }//END SetCrouchToggle
 
-
+    //-----------------------//
     public void SetSprintToggle(int value)
     //-----------------------//
     {
@@ -141,6 +142,7 @@ public class PlayerPreferencesHandler : MonoBehaviour
 
     }//END SetSprintToggle
 
+    //-----------------------//
     public void SetVerticalToggle(int value)
     //-----------------------//
     {
@@ -148,6 +150,7 @@ public class PlayerPreferencesHandler : MonoBehaviour
 
     }//END SetVerticalToggle
 
+    //-----------------------//
     public void SetHorizontalToggle(int value)
     //-----------------------//
     {
@@ -155,12 +158,31 @@ public class PlayerPreferencesHandler : MonoBehaviour
 
     }//END SetHorizontalToggle
 
+    //-----------------------//
     public void SetUIToggle(int value)
     //-----------------------//
     {
         PlayerPrefs.SetInt("FlipUI", value);
 
     }//END SetUIToggle
+
+    //-----------------------//
+    public void SetRadioHue(float value)
+    //-----------------------//
+    {
+
+        PlayerPrefs.SetFloat("RadioHue", value);
+
+    }//END SetRadioHue
+
+    //-----------------------//
+    public void SetRadioSaturation(float value)
+    //-----------------------//
+    {
+
+        PlayerPrefs.SetFloat("RadioSaturation", value);
+
+    }//END SetRadioSaturation
 
 
     #endregion General
