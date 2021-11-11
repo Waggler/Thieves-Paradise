@@ -10,48 +10,58 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float WalkingSpeed;
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
+    [Tooltip("The increase in speed when sprinting.")]
     [SerializeField] private float Acceleration;
-    [SerializeField] private bool IsSprinting = false;
+    [SerializeField] public bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
-    private float CurrentSpeed;
+    public float CurrentSpeed;
     private Vector3 Direction;
 
     [Header("Crouching")]
+    [Tooltip("Normal Player height.")]
     [SerializeField] private float StandardHeight;
-    [Tooltip("Do NOT set this higher than half Standard Height")]
     [SerializeField] private float CrouchingHeight;
-    [SerializeField] private bool IsCrouching = false;
-    [SerializeField] private bool Standing = true;
-
+    [Tooltip("Set this as the same Y center for the player controller & colider.")]
+    [SerializeField] private float SetCenterHeight;
+    [SerializeField] public bool IsCrouching = false;
+    [SerializeField] private bool IsStanding = true;
+    [SerializeField] private bool IsCovered;
 
     [Header("Physics")]
     [SerializeField] private float Gravity;
+    [Tooltip("Your jump height while walking around.")]
     [SerializeField] private float MovingJumpHeight;
+    [Tooltip("Your jump height when standing still.")]
     [SerializeField] private float StillJumpHeight;
+    [Tooltip("Your jump height when you dive.")]
     [SerializeField] private float DiveHeight;
-    
     [SerializeField] private CapsuleCollider Collider;
     [SerializeField] private CharacterController Controller;
     [SerializeField] private bool IsGrounded = true;
-    private float GroundHeight;
-    private Vector3 VerticalVelocity = Vector3.zero;
     private float HeightFromGround;
     private float CrouchingHeightFromGround;
-
+    private float GroundHeight;
+    private Vector3 VerticalVelocity = Vector3.zero;
+    private Vector3 Test;
 
     [Header("Rolling")]
+    [Tooltip("How fast you roll.")]
     [SerializeField] private float RollingSpeed;
+    [Tooltip("How long you roll for.")]
     [SerializeField] private float RollingTime;
     [SerializeField] private bool IsRolling;
     private float CurrentRollTime;
     private Vector3 RollDirection;
 
     [Header("Sliding")]
+    [Tooltip("The speed at which you decrese down to slide.")]
     [SerializeField] private float Deceleration;
     [SerializeField] private bool IsSliding;
 
     [Header("Diving")]
+    [Tooltip("How far you dive.")]
     [SerializeField] private float DiveSpeed;
+    [Tooltip("How long you dive.")]
     [SerializeField] private float DiveTime;
     [SerializeField] private bool IsDiving;
     [SerializeField] private bool ResetDiving;
@@ -76,6 +86,17 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
+    [Header("Push & Pull")]
+    [SerializeField] private float PushPullLightSpeed;
+    [SerializeField] private float PushPullMediumSpeed;
+    [SerializeField] private float PushPullHeavySpeed;
+    [SerializeField] private bool IsPushPull;
+
+    [Header("Togglable Buttons")]
+    public bool ToggleSprint;
+    public bool ToggleCrouch;
+    [SerializeField] private bool IsUncovered;
+
     #endregion
 
     void Start()
@@ -88,33 +109,44 @@ public class PlayerMovement : MonoBehaviour
         PlayerCamera = Camera.main.transform;
         mask = LayerMask.GetMask("Player");
         mask = ~mask;
-
         HeightFromGround = StandardHeight/2;
         CrouchingHeightFromGround = CrouchingHeight/2;
     }
 
     void Update()
     {
-        GroundCheck();
 
-        if(IsCrouching == false && IsSprinting == false && Idle == false)
+        GroundCheck();
+        Rolling();
+        AnimationStates();
+
+        if((!IsCrouching && !IsSprinting && !IsPushPull) || IsUncovered)
         {
             CoveredCheck();
+            IsUncovered = false;
         }
 
-        if(IsSprinting == true && IsCrouching == false)
+        if(IsStanding && IsCrouching && IsCovered && ToggleCrouch)
+        {
+            UnCrouchedCheck();
+        }
+
+        if(IsSprinting && !IsCrouching)
         {
             Sprinting();
         }
 
         #region Gravity
-        //FIX: Crouching Gravity is a bit wonky, talk to Patrick on Tuesday about this.
-        if(IsGrounded)
+        if(IsGrounded && Controller.velocity.y > 0)
         {
             VerticalVelocity.y = 0;
         }
 
-        VerticalVelocity.y -= Gravity * Time.deltaTime;
+        if(!IsGrounded)
+        {
+            VerticalVelocity.y -= Gravity * Time.deltaTime;
+        }
+        print(VerticalVelocity);
         Controller.Move(VerticalVelocity * Time.deltaTime);
         
 
@@ -129,16 +161,19 @@ public class PlayerMovement : MonoBehaviour
         FacingDirection.y = 0f;
         FacingDirection = FacingDirection.normalized;
 
+        //Movement
         if(!IsRolling && !IsSliding && !IsDiving && !StillDiving)
         {
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
 
+        //Setting Roll Direction for rolling, diving, and sliding.
         if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {
             RollDirection = FacingDirection;
         }
 
+        //Facing direction.
         if(FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
@@ -146,17 +181,30 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #endregion
-
-        #region Roll Action
-        Rolling();
-
-        #endregion
     
         #region Slide Action
+
         if(IsSprinting == true && IsCrouching == true)
         {
             IsSliding = true;
             Sliding();
+        }
+        else if(IsSliding && IsSprinting &&!IsCrouching)
+        {
+            CoveredCheck();
+            if(IsCovered)
+            {
+                return;
+            }
+            else
+            {
+                IsSliding = false;
+                Collider.height = StandardHeight;
+                Controller.height = StandardHeight;
+                Controller.center = new Vector3(0f, SetCenterHeight, 0f);
+                Collider.center = new Vector3(0f, SetCenterHeight, 0f);
+                GroundHeight = HeightFromGround;
+            }
         }
         else
         {
@@ -179,9 +227,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         #endregion
+    
+        #region Toggle Checks
+        if(ToggleSprint)
+        {
+            UnSprinting = true;
+        }
 
-        #region Check For Animations
-        AnimationStates();
+        if(ToggleCrouch)
+        {
+            IsStanding = true;
+        }
 
         #endregion
     }
@@ -200,9 +256,9 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if(IsGrounded && !IsCrouching)
+        if(IsGrounded && !IsCrouching && !IsPushPull)
         {
-            if (Direction.magnitude > 0.1)
+            if(Direction.magnitude > 0.1)
             {
                 if(!IsSprinting)
                 {
@@ -216,7 +272,6 @@ public class PlayerMovement : MonoBehaviour
                     IsDiving = true;
                     VerticalVelocity.y = Mathf.Sqrt(-2f * DiveHeight * -Gravity);
                     Controller.Move(VerticalVelocity * Time.deltaTime);
-                    print(RollDirection);
                 }
             }
             else if(Direction.magnitude <= 0.1)
@@ -227,6 +282,11 @@ public class PlayerMovement : MonoBehaviour
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
         }
+        else if(IsGrounded && IsCrouching && !IsPushPull)
+        {
+            IsStanding = true;
+            CoveredCheck();
+        }
     }
     #endregion
 
@@ -234,7 +294,7 @@ public class PlayerMovement : MonoBehaviour
     //----------SPRINT----------//
     public void Sprint(bool Sprinting)
     {
-        if(Sprinting == true  && IsCrouching == false)
+        if(Sprinting == true  && IsCrouching == false && !IsPushPull)
         {
             IsSprinting = true;
             if(UnSprinting == false)
@@ -246,7 +306,7 @@ public class PlayerMovement : MonoBehaviour
                 UnSprinting = false;
             }
         }
-        else if(Sprinting == false && IsCrouching == false && UnSprinting == true)
+        else if(!Sprinting && !IsCrouching && UnSprinting && !IsPushPull)
         {
             CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
@@ -258,20 +318,20 @@ public class PlayerMovement : MonoBehaviour
     //----------CROUCH----------//
     public void Crouch(bool Crouching)
     {
-        if(Crouching == true && IsGrounded == true)
+        if(Crouching && IsGrounded && !IsPushPull)
         {
             IsCrouching = true;
-            if(Standing == true && IsSprinting == false)
+            if(IsStanding && !IsSprinting)
             {
                 CrouchDown();
-                Standing = false;
+                IsStanding = false;
             }
-            else if(Standing == false)
+            else if(!IsStanding)
             {
-                Standing = true;
+                IsStanding = true;
             }
         }
-        else if(Crouching == false && Standing == true)
+        else if(!Crouching && IsStanding)
         {
             IsCrouching = false;
         }
@@ -282,7 +342,7 @@ public class PlayerMovement : MonoBehaviour
     //----------ROLL----------//
     public void Roll(bool Rolling)
     {
-        if(Rolling == true && IsCrouching == true)
+        if(Rolling && IsCrouching)
         {
             IsRolling = true;
         }
@@ -294,24 +354,21 @@ public class PlayerMovement : MonoBehaviour
     //---SLIDING---//
     void Sliding()
     {
-        if(CurrentSpeed > CrouchSpeed)
+        if(CurrentSpeed > CrouchSpeed && Direction != Vector3.zero)
         {
             IsCrouching = true;
             Controller.Move(RollDirection * CurrentSpeed * Time.deltaTime);
             Collider.height = CrouchingHeight;
             Controller.height = CrouchingHeight;
-            //Controller.center = new Vector3 (0f, -0.5f, 0f);
-            //Collider.center = new Vector3 (0f, -0.5f, 0f);
-            //adjusting the center to be dependent on height
-            Controller.center = new Vector3 (0f, -1 * Controller.height/2, 0f);
-            Collider.center = new Vector3 (0f, -1 * Controller.height/2, 0f);
+            Controller.center = new Vector3 (0f, -(CrouchingHeightFromGround), 0f);
+            Collider.center = new Vector3 (0f, -(CrouchingHeightFromGround), 0f);
             GroundHeight = CrouchingHeightFromGround;
-            CurrentSpeed -= Deceleration * Time.deltaTime; 
+            CurrentSpeed -= Deceleration * Time.deltaTime;
         }
         else if(CurrentSpeed <= CrouchSpeed)
         {
             CrouchDown();
-            Standing = false;
+            IsStanding = false;
             IsSprinting = false;
             UnSprinting = true;
             IsSliding = false;
@@ -343,7 +400,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 IsSprinting = false;
                 UnSprinting = true;
-                Standing = false;
+                IsStanding = false;
                 ResetDiving = false;
                 StillDiving = false;
                 CrouchDown();
@@ -358,16 +415,48 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
+    #region Push/Pull
+    public void PushPullCheck(bool IsNearPushPull, int CheckSpeed)
+    {
+        if(!IsSprinting && !IsCrouching)
+        {
+            if(CheckSpeed == 1)
+            {
+                CurrentSpeed = PushPullLightSpeed;
+                IsPushPull = true;
+            }
+            else if(CheckSpeed == 2)
+            {
+                CurrentSpeed = PushPullMediumSpeed;
+                IsPushPull = true;
+            }
+            else if(CheckSpeed == 3)
+            {
+                CurrentSpeed = PushPullHeavySpeed;
+                IsPushPull = true;
+            }
+        }
+        
+        if(!IsNearPushPull && !IsCrouching && !IsSprinting && !IsSliding && !IsRolling && !IsDiving)
+        {
+            CurrentSpeed = WalkingSpeed;
+            IsPushPull = false;
+        }
+    }
+    
+    #endregion
+
     #region Ground
     //---GROUNDCHECK---//
     void GroundCheck()
     {
         //Debug.DrawRay(Controller.transform.position + Controller.center, Vector3.down, Color.red, Controller.height / 2  + 0.1f);
         //Physics.Raycast(Controller.transform.position + Controller.center, Vector3.down, Controller.height / 2  + 0.1f)
-        Vector3 groundCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight * 0.3f), transform.position.z);
+        Vector3 groundCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight/2.6f), transform.position.z);
         //StandardHeight / 4
-        if(Physics.CheckSphere(groundCheck, StandardHeight / 4, mask))
+        if(Physics.CheckSphere(groundCheck, StandardHeight/6f, mask))
         {
+            Test = groundCheck;
             IsGrounded = true;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
@@ -382,6 +471,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(Test, StandardHeight/6f);
+    }
+
     #endregion
 
     #region Covered
@@ -389,24 +485,25 @@ public class PlayerMovement : MonoBehaviour
     void CoveredCheck()
     {
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
-        Vector3 coverCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight * 0.4f), transform.position.z);
-        //Debug.DrawRay(coverCheck, Vector3.up, Color.red,  Controller.height / 2f + 0.1f);
-        if(Physics.Raycast(coverCheck, Vector3.up, Controller.height / 2 + 0.1f, mask))
+        if(Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f) && IsGrounded)
         {
-            Standing = false;
+            IsStanding = false;
             IsCrouching = true;
-            //print("something's overhead");
+            IsCovered = true;
             return;
         }
-        else
+        else if(!IsSliding)
         {
-            //print("standing up");
             StandUp();
+            IsCovered = false;
+            if(IsCrouching)
+            {
+                IsCrouching = false;
+            }
         }
 
-        if(Standing == false)
+        if(IsStanding == false && IsGrounded)
         {
-            //print("Crouching");
             CrouchDown();
         }
     }
@@ -466,12 +563,11 @@ public class PlayerMovement : MonoBehaviour
     //---STAND-UP---//
     void StandUp()
     {
-        
         CurrentSpeed = WalkingSpeed;
         Collider.height = StandardHeight;
         Controller.height = StandardHeight;
-        Controller.center = new Vector3(0f, 0f, 0f);
-        Collider.center = new Vector3(0f, 0f, 0f);
+        Controller.center = new Vector3(0f, SetCenterHeight, 0f);
+        Collider.center = new Vector3(0f, SetCenterHeight, 0f);
         GroundHeight = HeightFromGround;
     }
 
@@ -481,15 +577,11 @@ public class PlayerMovement : MonoBehaviour
     //---CROUCH-DOWN---//
     void CrouchDown()
     {
-        
         CurrentSpeed = CrouchSpeed;
         Collider.height = CrouchingHeight;
         Controller.height = CrouchingHeight;
-        //Controller.center = new Vector3 (0f, -0.5f, 0f);
-        //Collider.center = new Vector3 (0f, -0.5f, 0f);
-        //making hitbox center relative
-        Controller.center = new Vector3 (0f, -1 * Controller.height/2, 0f);
-        Collider.center = new Vector3 (0f, -1 * Controller.height/2, 0f);
+        Controller.center = new Vector3 (0f, -(CrouchingHeightFromGround), 0f);
+        Collider.center = new Vector3 (0f, -(CrouchingHeightFromGround), 0f);
         GroundHeight = CrouchingHeightFromGround;
         IsCrouching = true;
     }
@@ -599,5 +691,13 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
+    #region UnCrouched Check
+    void UnCrouchedCheck()
+    {
+        IsUncovered = true;
+    }
+
+    #endregion
+    
     #endregion
 }
