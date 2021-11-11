@@ -7,16 +7,27 @@ using UnityEngine.SceneManagement;
 
 //Current Bugs:
 //    - AI currently moves to quickly to go to it's target without missing and having to loop back around
+//    - 
+//    - 
+
 
 //Things to add:
-//    - Refactor SetAISpeed() method
+//    - ADD TOOL TIPS
+//    - Improve lose condition (content for lose condition is fine for now)
+//    - 
+//    - 
 
 //Done:
 //    - Barebone functionality between eyeball prefab and guardAI
+//    - 
+//    - 
 
 
 //Suspicion Manager Notes:
 //  - Look at Among Us task manager / meter for reference/inspiration on the overall suspicion manager
+//    - 
+//    - 
+
 
 public class EnemyManager : MonoBehaviour
 {
@@ -26,12 +37,16 @@ public class EnemyManager : MonoBehaviour
 
     private enum EnemyStates
         {
+            //TO DO: Add a Staggered / Stunned State
+            //  - 
+
             PASSIVE,
             WARY,
             SUSPICIOUS,
             HOSTILE,
             ATTACK,
-            RANGEDATTACK
+            RANGEDATTACK, 
+            STUNNED
         }
 
     [Header("AI State")]
@@ -157,7 +172,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     #endregion
-
+    
     #region Variables
 
 
@@ -186,13 +201,20 @@ public class EnemyManager : MonoBehaviour
     [Header("Misc. Variables")]
     [SerializeField] private float attackRadius = 10f;
     [SerializeField] private float waypointNextDistance = 2f;
-    [SerializeField] private float rotateSpeed;
+    [SerializeField] [Range (0, 50)]private float rotateSpeed;
     [SerializeField] private bool isWait;
     [SerializeField] private float waitTime;
 
+    [Header("Local Suspicion Manager Variables")]
+    [SerializeField] public Vector3 lastKnownLocation;
+    [SerializeField] public float guardSusLevel;
+
+    [Header("Global Suspicion Manager Ref")]
+    [SerializeField] private SuspicionManager suspicionManager;
+
 
     //[Header("Debug Variables")]
-    //[SerializeField] bool shitBool = true;
+    //[SerializeField] bool testBool = true;
 
 
     #endregion
@@ -237,11 +259,15 @@ public class EnemyManager : MonoBehaviour
     }//End Awake
     #endregion
 
-
+    #region Update
     //---------------------------------//
     //Function called every frame
     void Update()
     {
+        #region Variable Updates
+
+
+        #endregion Variable Updates
 
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
         
@@ -267,9 +293,12 @@ public class EnemyManager : MonoBehaviour
 
                 targetText.text = $"{target}";
 
+                FaceTarget();
 
+
+                //Exit condition
                 //Checking to see if the player is visible
-                if (eyeball.canCurrentlySeePlayer && eyeball.susLevel > 5)
+                if (eyeball.canCurrentlySeePlayer  /*&&*/ || eyeball.susLevel > 5)
                     {
                         //print("Player seen, susLevel over 5. Going into SUSPICIOUS state");
                         // PASSIVE >>>> SUSPICIOUS
@@ -296,51 +325,44 @@ public class EnemyManager : MonoBehaviour
                 //AI Suspicious state
                 stateText.text = EnemyStates.SUSPICIOUS.ToString();
 
+                FaceTarget();
+
                 //Checking if the player is within the AI's look radius
-                //if (distanceToPlayer <= lookRadius)
                 if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > 5)
                 {
 
                         SetAiSpeed(susSpeed);
 
-                        target.transform.position = eyeball.lastKnownLocation;
+                        target.transform.position = lastKnownLocation;
 
-                        targetText.text = $"Player";
+                        targetText.text = "Player";
 
                         //transform.position is being used because you cannot use Vector3 data when Transform is being called
                         SetAIDestination(player.transform.position);
 
-                        FaceTarget();
-                        
+                        //Rework this so that it's based on the suspicion level instead of a generic radius
                         if (distanceToPlayer <= attackRadius)
                         {
                         // SUSPICIOUS >> HOSTILE
                         stateMachine = EnemyStates.HOSTILE;
                         }
-                    }
+                }
 
+                ////Double check the use of the > in this line, might be a type
                 else if (eyeball.canCurrentlySeePlayer == false && eyeball.susLevel > 0)
                 {
                     //Using transform.position in order to translate Vector3 data to Transform
-                    target.transform.position = eyeball.lastKnownLocation;
+                    //Setting the target back to the guard's waypoints for it's passive behavior
+                    target.transform.position = waypoints[waypointIndex].transform.position;
 
+                    //setting the destination to the now waypoints target
                     SetAIDestination(target.transform.position);
 
-                    //SetAIDestination(waypoints[waypointIndex].transform.position);
+                    //Returns the guard to it's patrolling behavior
+                    stateMachine = EnemyStates.PASSIVE;
 
-                    //Destroy(GetComponent<PlayerController>);
                 }
 
-                else
-                    {
-                        target = waypoints[waypointIndex];
-
-                        //SetAIDestination(waypoints[waypointIndex].transform.position);
-                        SetAIDestination(target.transform.position);
-                        
-                        // SUSPICIOUS >> PASSIVE
-                        stateMachine = EnemyStates.PASSIVE;   
-                    }
                 break;
             #endregion
 
@@ -385,23 +407,18 @@ public class EnemyManager : MonoBehaviour
                 //Temp lose condition
                 if (distanceToPlayer <= attackRadius)
                 {
-                    //Kill player
-
-                    //Cut to black or
-
-                    //Lose screen
                     loseText.text = "Game Over";
                     SceneManager.LoadScene(3);
-                    
                 }
                 break;
             #endregion
 
             #region Ranged Attack Behavior
             case EnemyStates.RANGEDATTACK:
-                //AI Suspicious state
+
                 stateText.text = EnemyStates.RANGEDATTACK.ToString();
 
+                //Insert ranged attack code
 
                 break;
             #endregion
@@ -415,12 +432,29 @@ public class EnemyManager : MonoBehaviour
                 targetText.text = $"Target = {targetText}";
                 break;
             #endregion
+
         }
 
+        //suspicionManager.testInt = 1;
     }//End Update
-    #endregion
+
+    #endregion Update
+
+    #endregion Awake & Update
 
     #region AI Functions
+
+    //---------------------------------//
+    //Alert's the guard
+    public void Alert(Vector3 alertLoc)
+    {
+        eyeball.susLevel = 6;
+
+        lastKnownLocation = alertLoc;
+    }//End Alert
+    //---------------------------------//
+
+
     //---------------------------------//
     // Function for facing the player when the AI is withing stopping distance of the player
     void FaceTarget()
@@ -431,6 +465,7 @@ public class EnemyManager : MonoBehaviour
 
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
         }//End FaceTarget
+    //---------------------------------//
 
 
     //---------------------------------//
@@ -440,7 +475,8 @@ public class EnemyManager : MonoBehaviour
     {
         agent.speed = Mathf.Lerp(agent.speed, speed, 1);
     }//End SetSpeed
-    
+     //---------------------------------//
+
 
     //---------------------------------//
     // Function for setting AI destination
@@ -448,19 +484,30 @@ public class EnemyManager : MonoBehaviour
     {
         agent.SetDestination(point);
     }//End SetAIDestination
-    
+    //---------------------------------//
 
+    //---------------------------------//
+    void SetAIState()
+    {
+
+    }//End SetAIState
+    //---------------------------------//
+
+    //---------------------------------//
+    //Draws shapes only visible in the editor
     private void OnDrawGizmos()
     {
         //Gizmo color
         Gizmos.color = Color.red;
         //Gizmo type
         Gizmos.DrawWireSphere(transform.position + Vector3.up, attackRadius);
-    }
+    }//End OnDrawGizmos
+    //---------------------------------//
+
 
     //---------------------------------//
     //Used as a timer, insert a float for the time and it returns when the time is over
-    bool  Timer(float feedTime)
+    private bool Timer(float feedTime)
     {
         feedTime -= Time.deltaTime;
 
@@ -475,6 +522,8 @@ public class EnemyManager : MonoBehaviour
             return true;
         }
     }//End Timer
+    //---------------------------------//
+
 
     //---------------------------------//
     //Used to contribute to the Suspicion pool that is managed by the "SuspicionManager" script
@@ -482,14 +531,17 @@ public class EnemyManager : MonoBehaviour
     {
 
     }//End AddSus
+    //---------------------------------//
+
 
     //---------------------------------//
     // Revive mechanic set for certain AI prefabs
-    //Try to get started on this in the next sprint
     void Revive()
     {
 
     }//End Revive
+    //---------------------------------//
+
 
     //---------------------------------//
     // Raises the security level for the area
@@ -497,6 +549,8 @@ public class EnemyManager : MonoBehaviour
     {
 
     }//End RaiseSecurityLevel
+    //---------------------------------//
+
 
     //---------------------------------//
     //Alerts other guards to let them know the player's location
@@ -512,34 +566,9 @@ public class EnemyManager : MonoBehaviour
     {
 
     }
-    #endregion
-
-
-
-    #region Function Graveyard
-    //--------------Attempted Function for setting target variable-------------------//
-    //void SetTarget(Transform targetObj)
-    //    {
-    //        targetObj = target;
-    //        return targetObj;
-    //    }//End SetTarget
-    // Consider deleting this function as a whole; setting the target variable can already be done with a brief line of  code
     //---------------------------------//
 
 
 
-
-    //---------------------------------//
-    //-----------Failed attempt at a distance calculator------------//
-    //Used to calculate distance between two objects (using x, y, & z positions)
-    //Might actually delete this one, seems dumb in the long run
-    //void CalculateDistance(Vector3 obj1, Vector3 obj2)
-    //    {
-    //        float distance; 
-
-    //        distance = Vector3.Distance(obj1, obj2);
-
-    //        return distance;
-    //    }   
     #endregion
 }
