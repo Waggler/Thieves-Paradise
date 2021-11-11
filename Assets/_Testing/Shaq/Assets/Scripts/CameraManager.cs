@@ -273,7 +273,7 @@ public class CameraManager : MonoBehaviour
         //creates a direct reference to the suspicion manager script
         susManagerRef = susManagerOBJ.GetComponent<SuspicionManager>();
 
-        print($"SuspicionManager instance = {susManagerRef}");
+        //print($"SuspicionManager instance = {susManagerRef}");
 
         rotationRecord = new Vector3(0, 0, 0);
 

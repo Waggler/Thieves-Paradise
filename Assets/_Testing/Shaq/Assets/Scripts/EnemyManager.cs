@@ -136,10 +136,11 @@ public class EnemyManager : MonoBehaviour
 
     #region Variables
 
-    //Important Variables
     [Header("Private Variables")]
-    private Vector3 target;
-    private NavMeshAgent agent;
+    [HideInInspector] private Vector3 target;
+    [HideInInspector] private NavMeshAgent agent;
+    [HideInInspector] private Rigidbody m_Rigidbody;
+    [HideInInspector] public bool autoBraking = true;
 
     [Header("Object References")]
     [Tooltip("References the player object")]
@@ -177,7 +178,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private bool isWait;
     [Tooltip("The amount of time that the guard waits when 'isWait' is enabled")]
     [SerializeField] private float waitTime;
-    [SerializeField] public float waitTimeReset;
+    [HideInInspector] private float waitTimeReset;
 
     [Header("Global Suspicion Manager Ref")]
     [Tooltip("Reference to the suspicion manager")]
@@ -187,7 +188,8 @@ public class EnemyManager : MonoBehaviour
     //Variable may need to be renamed in the future based on further implementations with Charlie
     [Tooltip("Duration of the guard's Stun state duration")]
     [SerializeField] private float stunTime;
-    [SerializeField] public float stunTimeReset;
+    [HideInInspector] private float stunTimeReset;
+    [SerializeField] [Range (0, 50)]private float guardKnockbackForce;
 
     #endregion
 
@@ -207,6 +209,8 @@ public class EnemyManager : MonoBehaviour
     //Function called every frame
     void Update()
     {
+
+
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
@@ -215,14 +219,12 @@ public class EnemyManager : MonoBehaviour
             #region Passive Behavior
             case EnemyStates.PASSIVE:
 
+                stateText.text = stateMachine.ToString();
+
                 switch (isWait)
                 {
                 #region isWait == true
                     case true:
-                        //AI Passive state
-                        stateText.text = EnemyStates.PASSIVE.ToString();
-
-                        //print($"Wait is {isWait}");
 
                         //Checks to see if it is at specified distance for getting it's next waypoint
                         if (Vector3.Distance(target, transform.position) <= waypointNextDistance)
@@ -264,15 +266,12 @@ public class EnemyManager : MonoBehaviour
                         }
 
                         break;
-                    #endregion isWait == true
+                #endregion isWait == true
 
                 #region isWait == false
                     case false:
-                        //AI Passive state
-                        stateText.text = EnemyStates.PASSIVE.ToString();
 
-                        //print($"Wait is {isWait}");
-
+                        //Checks to see if it is at specified distance for getting it's next waypoint
                         if (Vector3.Distance(target, transform.position) <= waypointNextDistance)
                         {
                             SetNextWaypoint();
@@ -308,6 +307,10 @@ public class EnemyManager : MonoBehaviour
 
             #region Wary
             case EnemyStates.WARY:
+
+                stateText.text = stateMachine.ToString();
+
+
                 //AI Wary State 
                 FaceTarget(target);
                 // Insert timer
@@ -320,9 +323,8 @@ public class EnemyManager : MonoBehaviour
 
             #region Suspicious Behavior
             case EnemyStates.SUSPICIOUS:
-                //AI Suspicious state
-                stateText.text = EnemyStates.SUSPICIOUS.ToString();
 
+                stateText.text = stateMachine.ToString();
 
                 //Exit Condition > Hostile
                 //Checking if the player is within the AI's look radius
@@ -369,8 +371,8 @@ public class EnemyManager : MonoBehaviour
 
             #region Hostile Behavior
             case EnemyStates.HOSTILE:
-                //AI Hostile state
-                stateText.text = EnemyStates.HOSTILE.ToString();
+
+                stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(hostileSpeed);
 
@@ -396,9 +398,8 @@ public class EnemyManager : MonoBehaviour
             #region Attack Behavior
             //AI Attack state
             case EnemyStates.ATTACK:
-                //AI Attack State
-                stateText.text = EnemyStates.ATTACK.ToString();
 
+                stateText.text = stateMachine.ToString();
 
                 if (distanceToPlayer > attackRadius)
                 {
@@ -431,7 +432,7 @@ public class EnemyManager : MonoBehaviour
             #region Ranged Attack Behavior
             case EnemyStates.RANGEDATTACK:
 
-                stateText.text = EnemyStates.RANGEDATTACK.ToString();
+                stateText.text = stateMachine.ToString();
 
                 //Insert ranged attack code
 
@@ -440,10 +441,32 @@ public class EnemyManager : MonoBehaviour
 
             #region Stunned Behavior
             case EnemyStates.STUNNED:
+
+                stateText.text = stateMachine.ToString();
+
                 SetAiSpeed(stunSpeed);
 
                 //experimenting with Time.fixedDeltaTime & Time.deltaTime
                 stunTime -= Time.fixedDeltaTime;
+
+                //agent.Move(new Vector3(transform.forward.x, 0 , transform.forward.z).normalized);
+                //agent.Move(new Vector3((-transform.forward.x), 0, (transform.forward.z)).normalized);
+                agent.Move(new Vector3((transform.InverseTransformDirection(Vector3.forward).x), 0, (transform.InverseTransformDirection(Vector3.forward).z)));
+
+
+                //Note: Currently sending the guard backward
+                //Ideal force mode: Impulse
+                //()
+                //m_Rigidbody.AddForce((transform.InverseTransformDirection(Vector3.forward)) * (guardKnockbackForce), ForceMode.Impulse);
+                //m_Rigidbody.AddForce(transform.up, ForceMode.Force);
+
+
+
+
+
+
+
+
 
                 if (stunTime <= 0)
                 {
@@ -458,9 +481,8 @@ public class EnemyManager : MonoBehaviour
 
             #region Default Behavior / Bug Catcher
             default:
-                stateText.text = "State not found";
 
-                //target = null;
+                stateText.text = ("ERROR: State not found");
 
                 targetText.text = $"Target = {targetText}";
 
@@ -492,7 +514,7 @@ public class EnemyManager : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
-        stateMachine = EnemyStates.PASSIVE;
+        stateMachine = EnemyStates.STUNNED;
 
         //Checks to see if there is no value for the player object reference
         if (player == null)
@@ -500,6 +522,7 @@ public class EnemyManager : MonoBehaviour
             player = FindObjectOfType<PlayerMovement>().gameObject;
         }
 
+        #region Waypoints Check / Initial Start
         //checks to see if there are any objects in the waypoints list
         if (waypoints.Count > 0)
         {
@@ -509,6 +532,7 @@ public class EnemyManager : MonoBehaviour
         {
             print("No waypoints added to guard instance");
         }
+        #endregion Waypoints Check / Initial Start
 
         FaceTarget(target);
 
@@ -517,6 +541,8 @@ public class EnemyManager : MonoBehaviour
         waitTimeReset = waitTime;
 
         stunTimeReset = stunTime;
+
+        m_Rigidbody = GetComponent<Rigidbody>();
 
     }//End Init
 
