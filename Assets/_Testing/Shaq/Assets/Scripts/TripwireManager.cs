@@ -5,15 +5,21 @@ using UnityEngine;
 public class TripwireManager : MonoBehaviour
 {
 
-    [SerializeField] [Range (0, 10)]private float rayDistance;
-    [SerializeField] private Vector3 initialHitRecord;
+    [HideInInspector] [Range (0, 10)]private float rayDistance;
+    [HideInInspector] private Vector3 initialHitRecord;
 
     //References the "Suspicion Manager" object in the scene
-    [SerializeField] private GameObject susManagerOBJ;
+    [HideInInspector] private GameObject susManagerOBJ;
     //References the "SuspcionManager.cs" script found on the "Suspicion Manager" object
-    [SerializeField] private SuspicionManager susManagerRef;
+    [HideInInspector] private SuspicionManager susManagerRef;
 
+    [Header("Tripwire Variables")]
     [SerializeField] [Range(0, 50)] private float callRadius;
+
+    [Header("Particle Vars")]
+    [SerializeField] private ParticleSystem laserVFX;
+    private float startLFTM = 90;
+
 
 
 
@@ -47,6 +53,15 @@ public class TripwireManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        float distance = Vector3.Distance(transform.position, initialHitRecord);
+
+        print($"Distance = {distance}");
+
+        startLFTM = distance;
+
+        print($"startLFTM = {startLFTM}");
+
         //Hit instance of the raycast
         RaycastHit hit;
 
@@ -117,6 +132,19 @@ public class TripwireManager : MonoBehaviour
 
         //creates a direct reference to the suspicion manager script
         susManagerRef = susManagerOBJ.GetComponent<SuspicionManager>();
+
+        //laserVFX = GetComponentInChildren<ParticleSystem>();
+
+        //print($"LaserVFX = {laserVFX}");
+
+        var main = laserVFX.main;
+
+        //print($"Main = {main}");
+
+        main.startLifetime = startLFTM;
+
+        //print($"startLFTM = {main.startLifetime}");
+        //laserVFX = GetComponentInChildren<ParticleSystem>;
     }
 
     #endregion General Functions
