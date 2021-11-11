@@ -46,13 +46,16 @@ public class ContextInteractManager : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
+        
         if (nearbyObjects.Count > 0)
         {
+            //print("Something is Nearby");
             if(context.performed)
             {
-                if (highlightedObject.GetComponent<BasicItemScript>() != null && inventory.CanPickupItems())
+                //print("Input Recieved");
+                if (highlightedObject.GetComponent<ItemInterface>() != null && inventory.CanPickupItems())
                 {
-                    print("Pickup Object: " + highlightedObject.name);
+                    //print("Pickup Object: " + highlightedObject.name);
                     inventory.ContextInteract(highlightedObject.GetComponent<ItemScript>());
                 }
             }

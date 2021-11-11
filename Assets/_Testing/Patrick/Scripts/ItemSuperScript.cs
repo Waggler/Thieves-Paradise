@@ -15,14 +15,22 @@ public class ItemSuperScript : MonoBehaviour
         get;
         set;
     }
+
+    public float thrownNoiseRadius
+    {
+        get;
+        set;
+    }
     void Awake()
     {
-        var outline = gameObject.AddComponent<Outline>();
-
-        outline.OutlineMode = Outline.Mode.OutlineAndSilhouette;
-        outline.OutlineColor = Color.white;
-        outline.OutlineWidth = 5f;
-        outline.enabled = false;
+        if (gameObject.GetComponent<Outline>() == null)
+        {
+            var outline = gameObject.AddComponent<Outline>();
+            outline.OutlineMode = Outline.Mode.OutlineAndSilhouette;
+            outline.OutlineColor = Color.white;
+            outline.OutlineWidth = 5f;
+            outline.enabled = false;
+        }
     }
 
     private bool isThrown;
@@ -81,6 +89,7 @@ public class ItemSuperScript : MonoBehaviour
         {
             MakeNoise();
             UseDurability();
+            isThrown = false;
         }
     }
 }
