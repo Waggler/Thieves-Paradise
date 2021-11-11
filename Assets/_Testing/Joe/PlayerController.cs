@@ -9,5 +9,5 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputManager inputManager;
     [SerializeField] private CamSwitch camSwitch;
     [SerializeField] private AnimationController animationController;
-    // [SerializeField] private UniveralAdditionalCameraDatta UACD;
+    [SerializeField] private MasterPushPullScript masterPushPullScript;
 }
