@@ -23,6 +23,7 @@ using UnityEngine.UI;
 
 public class CameraManager : MonoBehaviour
 {
+
     #region Enumerations
     private enum CamStates
     {
@@ -38,11 +39,10 @@ public class CameraManager : MonoBehaviour
 
     #region Lists & Arrays 
 
-    [Header("Guard Array")]
-    [Tooltip("Shows the list of guards")]
-    [SerializeField] private GameObject[] guardsArray;
-
-
+    //[Header("Guard Array")]
+    //[Tooltip("Shows the list of guards")]
+    //[SerializeField] private GameObject[] guardsArray;
+    
     #endregion Lists & Arrays
 
     #region Variables
@@ -104,6 +104,7 @@ public class CameraManager : MonoBehaviour
     [Header("Debug Variables")]
     [Tooltip("Disable this when making a build to have the State & Target text not show up")]
     [SerializeField] private bool isDebug;
+    [SerializeField] private SuspicionManager susManager;
     
 
     [HideInInspector] private float distanceToCamera;
@@ -198,7 +199,7 @@ public class CameraManager : MonoBehaviour
 
                 camLightRef.color = Color.red;
 
-                AlertGuards(eyeball.lastKnownLocation);
+                susManager.AlertGuards(eyeball.lastKnownLocation, transform.position, callRadius);
 
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
@@ -272,7 +273,7 @@ public class CameraManager : MonoBehaviour
 
         UpdateCamLightVars();
 
-        GenGuardArray();
+        susManager.GenGuardArray();
 
     }//End Init
 
@@ -286,13 +287,14 @@ public class CameraManager : MonoBehaviour
 
         if (distanceToCamera >= killRadius)
         {
-            camLightIntensity = Mathf.Lerp(camLightIntensity, 0, 5f);
+            //Comment out these two lines for me pls
+            //camLightIntensity = Mathf.Lerp(camLightIntensity, 0, 5f);
 
             camLightRef.enabled = false;
         }
         else if (distanceToCamera <= killRadius)
         {
-            camLightIntensity = Mathf.Lerp(camLightIntensity, 50, 5f);
+            //camLightIntensity = Mathf.Lerp(camLightIntensity, 50, 5f);
 
             camLightRef.enabled = true;
         }
@@ -307,6 +309,7 @@ public class CameraManager : MonoBehaviour
 
         //Sets the camera light's outer spot angle
         camLightRef.spotAngle = eyeball.maxVisionAngle * camLightMaxAngle;
+
         //Sets the camera light's inner spot angle
         camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
 
@@ -333,50 +336,50 @@ public class CameraManager : MonoBehaviour
     //---------------------------------//
 
 
-    //---------------------------------//
-    private void AlertGuards(Vector3 targetLoc)
-    {
-        //Also generating an array of guards on the call of this function
-        GenGuardArray();
+    ////---------------------------------//
+    //private void AlertGuards(Vector3 targetLoc)
+    //{
+    //    //Also generating an array of guards on the call of this function
+    //    GenGuardArray();
 
-        //EnemyManager reference
-        EnemyManager enemyManager;
+    //    //EnemyManager reference
+    //    EnemyManager enemyManager;
 
-        //Used to reference each guard
-        foreach (GameObject guard in guardsArray)
-        {
-            distanceToCamera = Vector3.Distance(guard.transform.position, transform.position);
+    //    //Used to reference each guard
+    //    foreach (GameObject guard in guardsArray)
+    //    {
+    //        distanceToCamera = Vector3.Distance(guard.transform.position, transform.position);
             
-            //Individual guard reference
-            //DO NOT MOVE
-            enemyManager = guard.GetComponent<EnemyManager>();
+    //        //Individual guard reference
+    //        //DO NOT MOVE
+    //        enemyManager = guard.GetComponent<EnemyManager>();
 
-            //Radius Check
-            if (distanceToCamera <= callRadius /*&& GameObject.CompareTag("[Insert guard type here]")*/)
-            {
-                //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
-                enemyManager.Alert(targetLoc);
-            }
-            else
-            {
-                //Showing which guards are out of range (purely there for debug reasons)
-                print($"{guard} is outside of camera range.");
-            }
-        }
-    }//End AlertGuards
+    //        //Radius Check
+    //        if (distanceToCamera <= callRadius /*&& GameObject.CompareTag("[Insert guard type here]")*/)
+    //        {
+    //            //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
+    //            enemyManager.Alert(targetLoc);
+    //        }
+    //        else
+    //        {
+    //            //Showing which guards are out of range (purely there for debug reasons)
+    //            print($"{guard} is outside of camera range.");
+    //        }
+    //    }
+    //}//End AlertGuards
 
 
     //---------------------------------//
     //Generates an array of guard instances in the scene
-    private void GenGuardArray()
-    {
-        guardsArray = GameObject.FindGameObjectsWithTag("Guard");
+    //private void GenGuardArray()
+    //{
+    //    guardsArray = GameObject.FindGameObjectsWithTag("Guard");
 
-        if (guardsArray.Length == 0 || guardsArray == null)
-        {
-            print("No guards in the level");
-        }
-    }//End GenGuardArray
+    //    if (guardsArray.Length == 0 || guardsArray == null)
+    //    {
+    //        print("No guards in the level");
+    //    }
+    //}//End GenGuardArray
 }
 
 #endregion General Functions

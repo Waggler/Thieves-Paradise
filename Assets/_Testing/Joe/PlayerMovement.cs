@@ -35,14 +35,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float StillJumpHeight;
     [Tooltip("Your jump height when you dive.")]
     [SerializeField] private float DiveHeight;
-    private float HeightFromGround;
-    private float CrouchingHeightFromGround;
     [SerializeField] private CapsuleCollider Collider;
     [SerializeField] private CharacterController Controller;
     [SerializeField] private bool IsGrounded = true;
+    private float HeightFromGround;
+    private float CrouchingHeightFromGround;
     private float GroundHeight;
     private Vector3 VerticalVelocity = Vector3.zero;
-
+    private Vector3 Test;
 
     [Header("Rolling")]
     [Tooltip("How fast you roll.")]
@@ -115,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
         GroundCheck();
         Rolling();
         AnimationStates();
@@ -136,12 +137,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #region Gravity
-        if(IsGrounded)
+        if(IsGrounded && Controller.velocity.y > 0)
         {
             VerticalVelocity.y = 0;
         }
 
-        VerticalVelocity.y -= Gravity * Time.deltaTime;
+        if(!IsGrounded)
+        {
+            VerticalVelocity.y -= Gravity * Time.deltaTime;
+        }
+        print(VerticalVelocity);
         Controller.Move(VerticalVelocity * Time.deltaTime);
         
 
@@ -447,10 +452,11 @@ public class PlayerMovement : MonoBehaviour
     {
         //Debug.DrawRay(Controller.transform.position + Controller.center, Vector3.down, Color.red, Controller.height / 2  + 0.1f);
         //Physics.Raycast(Controller.transform.position + Controller.center, Vector3.down, Controller.height / 2  + 0.1f)
-        Vector3 groundCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight * 0.3f), transform.position.z);
+        Vector3 groundCheck = new Vector3 (transform.position.x, transform.position.y - (StandardHeight/2.6f), transform.position.z);
         //StandardHeight / 4
-        if(Physics.CheckSphere(groundCheck, StandardHeight / 4, mask))
+        if(Physics.CheckSphere(groundCheck, StandardHeight/6f, mask))
         {
+            Test = groundCheck;
             IsGrounded = true;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
@@ -465,6 +471,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(Test, StandardHeight/6f);
+    }
+
     #endregion
 
     #region Covered
