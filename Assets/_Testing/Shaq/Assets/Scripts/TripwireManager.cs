@@ -48,7 +48,7 @@ public class TripwireManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             //debugging hit
-            print(hit.collider.gameObject.name);
+            //print(hit.collider.gameObject.name);
 
 
             ////if (hit.collider != null  /*Replace with cehckin for the player tag*/)

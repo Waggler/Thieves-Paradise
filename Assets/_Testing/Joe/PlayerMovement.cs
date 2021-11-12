@@ -146,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
         {
             VerticalVelocity.y -= Gravity * Time.deltaTime;
         }
-        print(VerticalVelocity);
+        //print(VerticalVelocity);
         Controller.Move(VerticalVelocity * Time.deltaTime);
         
 

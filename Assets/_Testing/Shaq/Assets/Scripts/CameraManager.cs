@@ -273,6 +273,7 @@ public class CameraManager : MonoBehaviour
 
         UpdateCamLightVars();
 
+        susManager = FindObjectOfType<SuspicionManager>();
         susManager.GenGuardArray();
 
     }//End Init

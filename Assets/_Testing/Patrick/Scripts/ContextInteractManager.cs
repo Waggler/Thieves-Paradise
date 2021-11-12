@@ -57,6 +57,8 @@ public class ContextInteractManager : MonoBehaviour
                 {
                     //print("Pickup Object: " + highlightedObject.name);
                     inventory.ContextInteract(highlightedObject.GetComponent<ItemScript>());
+                    nearbyObjects.Remove(highlightedObject);
+                    nearbyObjects.TrimExcess();
                 }
             }
         }

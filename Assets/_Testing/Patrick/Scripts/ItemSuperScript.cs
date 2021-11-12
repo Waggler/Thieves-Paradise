@@ -31,39 +31,33 @@ public class ItemSuperScript : MonoBehaviour
             outline.OutlineWidth = 5f;
             outline.enabled = false;
         }
+        
+        susManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
     }
 
     private bool isThrown;
     private float timeCounter;
+    private SuspicionManager susManager;
 
     void Start()
     {
-
+        
+        
     }
     void Update()
     {
-        if (isThrown  && timeCounter > 0)
-        {
-            timeCounter -= Time.deltaTime;
-        }else
-        {
-            isThrown = false;
-            timeCounter = 5;
-        }
+        
     }
-    public void Pickup()
+
+    public void ThrowItem()
     {
-        print("Pickup Item");
-    }
-    public void Throw()
-    {
-        print("Throw Item");
         isThrown = true;
+        print("throwing item " + isThrown);
     }
 
     public void UseDurability()
     {
-        if (durability > 0)
+        if (durability > 1)
         {
             print("Used Item");
             durability--; //decriment durability
@@ -73,14 +67,12 @@ public class ItemSuperScript : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-    public void HighlightItem()
-    {
-
-    }
     private void MakeNoise()
     {
         //Alert Guards here
+        print("making noise");
+        susManager.AlertGuards(transform.position, transform.position, thrownNoiseRadius);
+        
     }
 
     void OnCollisionEnter(Collision other)
@@ -91,5 +83,6 @@ public class ItemSuperScript : MonoBehaviour
             UseDurability();
             isThrown = false;
         }
+        //play audio clip of object hitting something
     }
 }

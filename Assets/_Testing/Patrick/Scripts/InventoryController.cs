@@ -105,7 +105,7 @@ public class InventoryController : MonoBehaviour
     public void UseItemPrimary()
     {
         //do whatever the active item can
-        print("Use Item");
+        //print("Use Item");
     }
     public void UseItemSecondary(InputAction.CallbackContext context)
     {
@@ -117,7 +117,7 @@ public class InventoryController : MonoBehaviour
         if (context.canceled)
         {
             //Throw the Item
-            print("Item Secondary");
+            //print("Item Secondary");
             ThrowItem();
             throwForce = 0;
             throwing = false;
@@ -150,13 +150,15 @@ public class InventoryController : MonoBehaviour
             return;
         }
         //throw active item
-        print("Throw Item");
+        
         GameObject thrownItem = Instantiate(itemScriptInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
         thrownItem.SetActive(true);
         thrownItem.name = thrownItem.GetComponent<ItemScript>().objectName;
         Vector3 throwVector = transform.forward * throwForce + transform.up * throwForce;
         thrownItem.GetComponent<Rigidbody>().AddForce(throwVector);
-        print("Throw Force: " + throwVector);
+        thrownItem.GetComponent<ItemSuperScript>().ThrowItem();
+
+        
         RemoveActiveItem();
     }
     private void SwapItem(int selection)
