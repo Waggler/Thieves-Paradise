@@ -79,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
     public bool CrouchRoll;
     public bool Slide;
     public bool Diving;
+    public bool Stunned;
     
     //[Header("Camera")]
     private Transform PlayerCamera;
@@ -252,7 +253,7 @@ public class PlayerMovement : MonoBehaviour
         if(IsStunned)
         {
             CurrentStunTime += Time.deltaTime;
-            
+
             if(Direction != Vector3.zero)
             {
                 CurrentStunTime += BreakOutValue; 
@@ -619,7 +620,7 @@ public class PlayerMovement : MonoBehaviour
     void AnimationStates()
     {
         //---IDLE---//
-        if(Direction == Vector3.zero && IsGrounded && !IsCrouching && !IsSliding && !IsRolling)
+        if(Direction == Vector3.zero && IsGrounded && !IsCrouching && !IsSliding && !IsRolling && !IsStunned)
         {
             Idle = true;
             animationController.IsPlayerIdle(Idle);
@@ -631,7 +632,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---CROUCH-IDLE---//
-        if(Direction == Vector3.zero && IsGrounded && IsCrouching && !IsSliding && !IsRolling)
+        if(Direction == Vector3.zero && IsGrounded && IsCrouching && !IsSliding && !IsRolling && !IsStunned)
         {
             IdleCrouch = true;
             animationController.IsPlayerCrouchIdle(IdleCrouch);
@@ -643,7 +644,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---WALKING---//
-        if(Direction != Vector3.zero && IsGrounded && !IsSliding && !IsRolling)
+        if(Direction != Vector3.zero && IsGrounded && !IsSliding && !IsRolling && !IsStunned)
         {
             Moving = true;
             animationController.IsPlayerWalking(Moving);
@@ -655,7 +656,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---RUNNING---//
-        if(IsSprinting && !IsSliding && !IsDiving && !ResetDiving && Direction != Vector3.zero)
+        if(IsSprinting && !IsSliding && !IsDiving && !ResetDiving && !IsStunned && Direction != Vector3.zero)
         {
             Running = true;
             animationController.IsPlayerSprinting(Running);
@@ -667,7 +668,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---CROUCHING---//
-        if(IsCrouching && !IsSliding && Direction != Vector3.zero)
+        if(IsCrouching && !IsSliding && !IsStunned &&  Direction != Vector3.zero)
         {
             Crouching = true;
             animationController.IsPlayerCrouching(Crouching);
@@ -712,6 +713,18 @@ public class PlayerMovement : MonoBehaviour
         {
             Diving = false;
             animationController.IsPlayerDiving(Diving);
+        }
+
+        //---STUNNED---//
+        if(IsStunned)
+        {
+            Stunned = true;
+            animationController.IsPlayerStunned(Stunned);
+        }
+        else
+        {
+            Stunned = false;
+            animationController.IsPlayerStunned(Stunned);
         }
     }
 
