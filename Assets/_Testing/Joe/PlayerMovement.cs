@@ -97,6 +97,14 @@ public class PlayerMovement : MonoBehaviour
     public bool ToggleCrouch;
     [SerializeField] private bool IsUncovered;
 
+    [Header("Stun State")]
+    [Tooltip("This is for the total time the player will remained stuned with no action taken")]
+    [SerializeField] private float StunTime;
+    [Tooltip("This is the value that will be added when the player tries to shake off a stun.")]
+    [SerializeField] private float BreakOutValue;
+    [SerializeField] private bool IsStunned = false;
+    public float CurrentStunTime = 0;
+
     #endregion
 
     void Start()
@@ -146,7 +154,6 @@ public class PlayerMovement : MonoBehaviour
         {
             VerticalVelocity.y -= Gravity * Time.deltaTime;
         }
-        print(VerticalVelocity);
         Controller.Move(VerticalVelocity * Time.deltaTime);
         
 
@@ -154,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region Movement
         //Over the shoulder cam roll doesn't work. Cam is only going to be used for free cam.
-        if(!IsRolling && !IsSliding && !IsDiving && !StillDiving)
+        if(!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned)
         {
             FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
         }
@@ -162,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
         FacingDirection = FacingDirection.normalized;
 
         //Movement
-        if(!IsRolling && !IsSliding && !IsDiving && !StillDiving)
+        if(!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned)
         {
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
@@ -239,6 +246,25 @@ public class PlayerMovement : MonoBehaviour
             IsStanding = true;
         }
 
+        #endregion
+    
+        #region Stun Work
+        if(IsStunned)
+        {
+            CurrentStunTime += Time.deltaTime;
+            
+            if(Direction != Vector3.zero)
+            {
+                CurrentStunTime += BreakOutValue; 
+            }
+
+            if(CurrentStunTime >= StunTime)
+            {
+                CurrentStunTime = 0;
+                IsStunned = false;
+            }
+        }
+        
         #endregion
     }
 
