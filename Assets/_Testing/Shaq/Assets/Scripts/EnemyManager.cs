@@ -27,7 +27,7 @@ public class EnemyManager : MonoBehaviour
 
     #region AI State Machine
 
-    private enum EnemyStates
+    public enum EnemyStates
     {
         //TO DO: Add a Staggered / Stunned State
         //  - 
@@ -41,37 +41,9 @@ public class EnemyManager : MonoBehaviour
         STUNNED
     }
 
-    private enum CurrentState
-    {
-        PASSIVE,
-        WARY,
-        SUSPICIOUS,
-        HOSTILE,
-        ATTACK,
-        RANGEDATTACK,
-        STUNNED
-
-    }
-
-    private enum PreviousState
-    {
-        PASSIVE,
-        WARY,
-        SUSPICIOUS,
-        HOSTILE,
-        ATTACK,
-        RANGEDATTACK,
-        STUNNED
-    }
-
     [Header("AI State")]
 
     [SerializeField] EnemyStates stateMachine;
-
-    [Header("Test States")]
-    [SerializeField] CurrentState currentState;
-    [SerializeField] PreviousState previousState;
-
 
     #endregion.
 
@@ -102,6 +74,7 @@ public class EnemyManager : MonoBehaviour
 
     #region Waypoints Logic
     [Header("Waypoints List")]
+    //WILL BREAK IF THE LIST IS NOT THE TRANSFORM DATA TYPE
     [SerializeField] private List<Transform> waypoints;
     //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
     private int waypointIndex = 0;
@@ -120,15 +93,15 @@ public class EnemyManager : MonoBehaviour
                     {
                         waypointIndex = 0;
 
-                        target = waypoints[0];
+                        target = waypoints[0].position;
                     }
                 else
                     {
                         waypointIndex++;
 
-                        target = waypoints[waypointIndex];
+                        target = waypoints[waypointIndex].position;
                     }
-                SetAIDestination(target.position);
+                SetAIDestination(target);
 
                 break;
             case CycleMethods.Reverse:
@@ -139,15 +112,15 @@ public class EnemyManager : MonoBehaviour
 
                         waypoints.Reverse();
 
-                        target = waypoints[0];
+                        target = waypoints[0].position;
                     }
                 else
                     {
                         waypointIndex++;
 
-                        target = waypoints[waypointIndex];
+                        target = waypoints[waypointIndex].position;
                     }
-                SetAIDestination(target.position);
+                SetAIDestination(target);
 
                 break;
             default:
@@ -157,58 +130,17 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion
 
-    #region AI Coroutines
-    IEnumerator Attack()
-    {
-        //if (stateMachine == EnemyStates.ATTACK)
-        //{
-            float timer = 10f;
+    #region Coroutines
 
-            timer -= Time.deltaTime;
+    #endregion Coroutines
 
-            print($"The time is: {timer}");
-
-            print("YOU HAVE ENTERED THE COROUTINE");
-
-
-            targetText.text = "THWAK";
-
-            //print("Talkin' a lot of shit for someone in crusading distance");
-
-            if (timer <= 0)
-            {
-                stateMachine = EnemyStates.SUSPICIOUS;
-
-                targetText.text = $"{target}";
-
-                return null;
-            }
-            return null;
-        //}
-        //else
-        //{
-        //    return null;
-        //}
-    }
-
-    #endregion
-    
     #region Variables
 
-
-    //Important Variables
     [Header("Private Variables")]
-    private Transform target;
-    private NavMeshAgent agent;
-
-    //[Tooltip("")]
-
-    //[Header("State Tracker")]
-    //[Tooltip("The current state the object is in")]
-    //[SerializeField] private string currentState;
-    //[Tooltip("The last state the object was in")]
-    //[SerializeField] private string previousState;
-
+    [HideInInspector] private Vector3 target;
+    [HideInInspector] private NavMeshAgent agent;
+    [HideInInspector] private Rigidbody m_Rigidbody;
+    [HideInInspector] public bool autoBraking = true;
 
     [Header("Object References")]
     [Tooltip("References the player object")]
@@ -226,11 +158,13 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Text loseText;
 
     [Header("Guard Movement Speed")]
-    [Tooltip("The speed that the AI moves at in the PATROL speed")]
+    [Tooltip("The speed that the AI moves at in the PATROL state")]
     [SerializeField] [Range(0, 10)] private float patrolSpeed = 5f;
-    [Tooltip("The speed that the AI moves at in the SUSPICIOS speed")]
+    [Tooltip("The speed that the AI moves at in the SUSPICIOS state")]
     [SerializeField] [Range(0, 10)] private float susSpeed = 6.5f;
-    [Tooltip("The speed that the AI moves at in the HOSTILE speed")]
+    [Tooltip("The speed that the AI moves at in the STUNNED state")]
+    [SerializeField] [Range(0, 10)] private float stunSpeed = 0f;
+    [Tooltip("The speed that the AI moves at in the HOSTILE state")]
     [SerializeField] [Range(0, 10)] private float hostileSpeed = 8f;
 
     [Header("Misc. Variables")]
@@ -244,13 +178,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private bool isWait;
     [Tooltip("The amount of time that the guard waits when 'isWait' is enabled")]
     [SerializeField] private float waitTime;
-    [SerializeField] public float waitTimeReset;
-
-    [Header("Local Suspicion Manager Variables")]
-    [Tooltip("Dynamically generated, the last known location of the guard's target as seen by the eyeball prefab")]
-    [SerializeField] public Vector3 lastKnownLocation;
-    [Tooltip("The suspicion level of the guard (suspicion level, level inrement &, level decriment is handled by the relative eyeball prefab) ")]
-    [SerializeField] public float guardSusLevel;
+    [HideInInspector] private float waitTimeReset;
 
     [Header("Global Suspicion Manager Ref")]
     [Tooltip("Reference to the suspicion manager")]
@@ -260,7 +188,8 @@ public class EnemyManager : MonoBehaviour
     //Variable may need to be renamed in the future based on further implementations with Charlie
     [Tooltip("Duration of the guard's Stun state duration")]
     [SerializeField] private float stunTime;
-    [HideInInspector] public float stunTimeReset;
+    [HideInInspector] private float stunTimeReset;
+    [SerializeField] [Range (0, 50)]private float guardKnockbackForce;
 
     #endregion
 
@@ -272,12 +201,6 @@ public class EnemyManager : MonoBehaviour
     void Awake()
     {
         Init();
-
-
-
-
-
-
     }//End Awake
     #endregion
 
@@ -286,69 +209,33 @@ public class EnemyManager : MonoBehaviour
     //Function called every frame
     void Update()
     {
-        #region Variable Updates
 
-
-        #endregion Variable Updates
 
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
-        
+
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
         {
             #region Passive Behavior
             case EnemyStates.PASSIVE:
-                float waitTimeReset = waitTime;
 
-                #region Old Passive Behavior
-                ////AI Passive state
-                //stateText.text = EnemyStates.PASSIVE.ToString();
-
-                //if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
-                //    {
-                //        SetNextWaypoint();
-                //    }
-                ////transform.position is being used because you cannot use Vector3 data when Transform is being called
-                //SetAIDestination(waypoints[waypointIndex].transform.position);
-
-                //SetAiSpeed(patrolSpeed);
-
-                //target = waypoints[waypointIndex];
-
-                //targetText.text = $"{target}";
-
-                //FaceTarget();
-
-
-                ////Exit condition
-                ////Checking to see if the player is visible
-                //if (eyeball.canCurrentlySeePlayer  /*&&*/ || eyeball.susLevel > 5)
-                //    {
-                //        //print("Player seen, susLevel over 5. Going into SUSPICIOUS state");
-                //        // PASSIVE >>>> SUSPICIOUS
-                //        stateMachine = EnemyStates.SUSPICIOUS;
-                //    }
-                #endregion Old Passive Behavior
+                stateText.text = stateMachine.ToString();
 
                 switch (isWait)
                 {
                 #region isWait == true
                     case true:
-                        //AI Passive state
-                        stateText.text = EnemyStates.PASSIVE.ToString();
-
-                        //print($"Wait is {isWait}");
 
                         //Checks to see if it is at specified distance for getting it's next waypoint
-                        if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
+                        if (Vector3.Distance(target, transform.position) <= waypointNextDistance)
                         {
 
-                            if (waitTime >= 0)
+                            if (waitTime > 0)
                             {
-                                waitTime -= Time.deltaTime;
-                            }
+                                waitTime -= Time.fixedDeltaTime;
 
-                            if (waitTime <= 0)
+                            }
+                            else if (waitTime <= 0)
                             {
                                 waitTime = waitTimeReset;
 
@@ -356,16 +243,17 @@ public class EnemyManager : MonoBehaviour
                             }
 
                         }
-                        //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                        SetAIDestination(waypoints[waypointIndex].transform.position);
 
                         SetAiSpeed(patrolSpeed);
 
-                        target = waypoints[waypointIndex];
+                        target = waypoints[waypointIndex].position;
+
+                        //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                        SetAIDestination(target);
 
                         targetText.text = $"{target}";
 
-                        FaceTarget();
+                        FaceTarget(target);
 
 
                         //Exit condition
@@ -378,29 +266,29 @@ public class EnemyManager : MonoBehaviour
                         }
 
                         break;
-                    #endregion isWait == true
+                #endregion isWait == true
 
                 #region isWait == false
                     case false:
-                        //AI Passive state
-                        stateText.text = EnemyStates.PASSIVE.ToString();
 
-                        //print($"Wait is {isWait}");
-
-                        if (Vector3.Distance(target.transform.position, transform.position) <= waypointNextDistance)
+                        //Checks to see if it is at specified distance for getting it's next waypoint
+                        if (Vector3.Distance(target, transform.position) <= waypointNextDistance)
                         {
                             SetNextWaypoint();
                         }
-                        //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                        SetAIDestination(waypoints[waypointIndex].transform.position);
 
                         SetAiSpeed(patrolSpeed);
 
-                        target = waypoints[waypointIndex];
+                        target = waypoints[waypointIndex].position;
 
-                        targetText.text = $"{target}";
+                        //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                        SetAIDestination(target);
 
-                        FaceTarget();
+                        //targetText.text = $"{target}";
+                        //Less confusing when showing the target on the debug canvas
+                        targetText.text = $"{waypoints[waypointIndex]}";
+
+                        FaceTarget(target);
 
 
                         //Exit condition
@@ -415,39 +303,42 @@ public class EnemyManager : MonoBehaviour
                         #endregion isWait == false
                 }
                 break;
-            #endregion
+            #endregion Passive Behavior
 
             #region Wary
             case EnemyStates.WARY:
+
+                stateText.text = stateMachine.ToString();
+
+
                 //AI Wary State 
-                FaceTarget();
+                FaceTarget(target);
                 // Insert timer
                 //stateMachine = EnemyStates.PASSIVE;
 
                 //stateMachine = EnemyStates.SUSPICIOUS;
                 
                 break;
-            #endregion
+            #endregion Wary
 
             #region Suspicious Behavior
             case EnemyStates.SUSPICIOUS:
-                //AI Suspicious state
-                stateText.text = EnemyStates.SUSPICIOUS.ToString();
 
-                FaceTarget();
+                stateText.text = stateMachine.ToString();
 
+                //Exit Condition > Hostile
                 //Checking if the player is within the AI's look radius
                 if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > 5)
                 {
 
                         SetAiSpeed(susSpeed);
 
-                        target.transform.position = lastKnownLocation;
+                        target = eyeball.lastKnownLocation;
 
                         targetText.text = "Player";
 
                         //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                        SetAIDestination(player.transform.position);
+                        SetAIDestination(target);
 
                         //Rework this so that it's based on the suspicion level instead of a generic radius
                         if (distanceToPlayer <= attackRadius)
@@ -457,28 +348,31 @@ public class EnemyManager : MonoBehaviour
                         }
                 }
 
+                //Exit Condition > Passive
                 ////Double check the use of the > in this line, might be a type
-                else if (eyeball.canCurrentlySeePlayer == false && eyeball.susLevel > 0)
+                else if (eyeball.canCurrentlySeePlayer == false && eyeball.susLevel == 0)
                 {
                     //Using transform.position in order to translate Vector3 data to Transform
                     //Setting the target back to the guard's waypoints for it's passive behavior
-                    target.transform.position = waypoints[waypointIndex].transform.position;
+                    target = waypoints[waypointIndex].position;
 
                     //setting the destination to the now waypoints target
-                    SetAIDestination(target.transform.position);
+                    SetAIDestination(target);
 
                     //Returns the guard to it's patrolling behavior
                     stateMachine = EnemyStates.PASSIVE;
 
                 }
 
+                FaceTarget(target);
+
                 break;
-            #endregion
+            #endregion Suspicious Behavior
 
             #region Hostile Behavior
             case EnemyStates.HOSTILE:
-                //AI Hostile state
-                stateText.text = EnemyStates.HOSTILE.ToString();
+
+                stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(hostileSpeed);
 
@@ -486,56 +380,87 @@ public class EnemyManager : MonoBehaviour
                     {
                         // HOSTILE >> ATTACK
                         stateMachine = EnemyStates.ATTACK;
+
+
+
                     }
                 else
                     {
                         // HOSTILE >> SUSPICIOUS
                         stateMachine = EnemyStates.SUSPICIOUS;
                     }
+
+                FaceTarget(target);
+
                 break;
-            #endregion
+            #endregion Hostile Behavior
 
             #region Attack Behavior
             //AI Attack state
             case EnemyStates.ATTACK:
+
+                stateText.text = stateMachine.ToString();
+
                 if (distanceToPlayer > attackRadius)
                 {
-                    stateMachine = EnemyStates.SUSPICIOUS;
+
+                    // ATTACK >> HOSTILE
+                    stateMachine = EnemyStates.HOSTILE;
                 }
                 
-
-                FaceTarget();
-
-                stateText.text = EnemyStates.ATTACK.ToString();
-
+                //rework the timer method
                 if (Timer(5f) == false)
                 {
+
+                    // ATTACK >> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
 
                 //Temp lose condition
+                //Refine to take lack of player input from struggle QTE
                 if (distanceToPlayer <= attackRadius)
                 {
                     loseText.text = "Game Over";
                     SceneManager.LoadScene(3);
                 }
+
+                FaceTarget(target);
+
                 break;
-            #endregion
+            #endregion Attack Behavior
 
             #region Ranged Attack Behavior
             case EnemyStates.RANGEDATTACK:
 
-                stateText.text = EnemyStates.RANGEDATTACK.ToString();
+                stateText.text = stateMachine.ToString();
 
                 //Insert ranged attack code
 
                 break;
-            #endregion
+            #endregion Ranged Attack Behavior
 
             #region Stunned Behavior
             case EnemyStates.STUNNED:
+
+                stateText.text = stateMachine.ToString();
+
+                SetAiSpeed(stunSpeed);
+
                 //experimenting with Time.fixedDeltaTime & Time.deltaTime
                 stunTime -= Time.fixedDeltaTime;
+
+                #region Don't Touch
+                //agent.Move(new Vector3(transform.forward.x, 0 , transform.forward.z).normalized);
+                //agent.Move(new Vector3((-transform.forward.x), 0, (transform.forward.z)).normalized);
+                //agent.Move(new Vector3((transform.InverseTransformDirection(Vector3.forward).x), 0, (transform.InverseTransformDirection(Vector3.forward).z)));
+
+
+                //Note: Currently sending the guard backward
+                //Ideal force mode: Impulse
+                //()
+                //m_Rigidbody.AddForce((transform.InverseTransformDirection(Vector3.forward)) * (guardKnockbackForce), ForceMode.Impulse);
+                //m_Rigidbody.AddForce(transform.up, ForceMode.Force);
+                #endregion Don't Touch
 
                 if (stunTime <= 0)
                 {
@@ -550,24 +475,19 @@ public class EnemyManager : MonoBehaviour
 
             #region Default Behavior / Bug Catcher
             default:
-                stateText.text = "State not found";
 
-                target = null;
+                stateText.text = ("ERROR: State not found");
 
                 targetText.text = $"Target = {targetText}";
+
+                FaceTarget(target);
+
                 break;
-            #endregion
+            #endregion Default Behavior / Bug Catcher
 
         }
 
         suspicionManager.testInt = 1;
-
-        //print($"Actual state = {stateMachine}");
-
-        //print($"Current state = {currentState}");
-
-        //print($"Previous state = {previousState}");
-
 
     }//End Update
     #endregion Update
@@ -588,7 +508,7 @@ public class EnemyManager : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
-        stateMachine = EnemyStates.PASSIVE;
+        stateMachine = EnemyStates.STUNNED;
 
         //Checks to see if there is no value for the player object reference
         if (player == null)
@@ -596,18 +516,29 @@ public class EnemyManager : MonoBehaviour
             player = FindObjectOfType<PlayerMovement>().gameObject;
         }
 
+        #region Waypoints Check / Initial Start
         //checks to see if there are any objects in the waypoints list
         if (waypoints.Count > 0)
         {
-            target = waypoints[waypointIndex];
+            target = waypoints[waypointIndex].position;
         }
         else
         {
             print("No waypoints added to guard instance");
         }
+        #endregion Waypoints Check / Initial Start
+
+        FaceTarget(target);
 
         loseText.text = "";
-    }
+
+        waitTimeReset = waitTime;
+
+        stunTimeReset = stunTime;
+
+        m_Rigidbody = GetComponent<Rigidbody>();
+
+    }//End Init
 
 
     //---------------------------------//
@@ -616,23 +547,21 @@ public class EnemyManager : MonoBehaviour
     {
         eyeball.susLevel = 6;
 
-        lastKnownLocation = alertLoc;
+        //target = alertLoc;
+        eyeball.lastKnownLocation = alertLoc;
     }//End Alert
 
 
     //---------------------------------//
     // Function for facing the player when the AI is withing stopping distance of the player
-    void FaceTarget()
-        {
-            Vector3 direction = (target.position - transform.position).normalized;
+    void FaceTarget(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
 
-            if (direction.x == 0 && direction.z == 0)
-                return;
-            
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
-        }//End FaceTarget
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
+    }//End FaceTarget
 
 
     //---------------------------------//
@@ -667,6 +596,7 @@ public class EnemyManager : MonoBehaviour
     //Used as a timer, insert a float for the time and it returns when the time is over
     private bool Timer(float feedTime)
     {
+        //Delete this method, it's god awful
         feedTime -= Time.deltaTime;
 
         if (feedTime <= 0)
