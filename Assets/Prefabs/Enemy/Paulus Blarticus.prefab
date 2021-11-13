@@ -2047,10 +2047,11 @@ MonoBehaviour:
   stateText: {fileID: 3325092846354947751}
   targetText: {fileID: 3325092846449755120}
   loseText: {fileID: 0}
-  patrolSpeed: 0
+  patrolSpeed: 1
   susSpeed: 4
   stunSpeed: 0
   hostileSpeed: 5
+  attackSpeed: 0
   attackRadius: 1.48
   waypointNextDistance: 2
   rotateSpeed: 50
@@ -2059,6 +2060,7 @@ MonoBehaviour:
   suspicionManager: {fileID: 0}
   stunTime: 60
   guardKnockbackForce: 50
+  attackTime: 0
 --- !u!1 &3325092847375600196
 GameObject:
   m_ObjectHideFlags: 0
