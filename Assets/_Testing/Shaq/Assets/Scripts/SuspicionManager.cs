@@ -1,6 +1,9 @@
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+//fix issues caused by having the class be static
 
 //Current Bugs:
 //    - 
@@ -35,17 +38,18 @@ public class SuspicionManager : MonoBehaviour
     [Header("AI State")]
 
     [SerializeField] SecurityLvl secState;
-    #endregion
+    #endregion Enumerations
 
     #region Coroutines
 
-    #endregion
+    #endregion Coroutines
 
     #region Lists & Arrays
 
     #region Guard List
-    [Header("AI Lists")]
-    [SerializeField] private List<GameObject> guardsInLevel;
+    [Header("Guards List")]
+    [Tooltip("Shows the list of guards")]
+    [SerializeField] private List<GameObject> guardsList;
     //Try to generate the list by getting the children of an object
 
 
@@ -55,13 +59,12 @@ public class SuspicionManager : MonoBehaviour
     [SerializeField] private List<GameObject> camerasInLevel;
     //Try to generate the list by getting the children of an object
 
-    
-    #endregion
-
 
     #endregion
 
-    #region Inspector Variables
+    #endregion Lists & Arrays
+
+    #region Variables
     //Note: The green squigglies just mean it's given a value in the inspector instead of in the script
     [Header("Suspicion Manager Variables")]
     [SerializeField] private Text susText;
@@ -81,7 +84,7 @@ public class SuspicionManager : MonoBehaviour
     [Header("Camera Refs")]
     [SerializeField] private CameraManager cameraManager;
 
-
+    [Header("Debug / Testing Variables")]
 
 
     //Be sure to make variables that will be manipulated by other scripts/classes PUBLIC
@@ -89,11 +92,7 @@ public class SuspicionManager : MonoBehaviour
     [SerializeField] public int testInt;
 
 
-    #endregion
-
-    #region Debug Variables
-
-    #endregion
+    #endregion Variables
 
     #region Awake & Update
 
@@ -106,7 +105,7 @@ public class SuspicionManager : MonoBehaviour
         testInt = 0;
 
     }//End Awake
-    #endregion
+    #endregion Awake
 
     #region Update
     // Update is called once per frame
@@ -153,9 +152,9 @@ public class SuspicionManager : MonoBehaviour
 
 
     }//End Update
-    #endregion
+    #endregion Update
 
-    #endregion
+    #endregion Awake & Update
 
     #region General Functions
 
@@ -163,22 +162,70 @@ public class SuspicionManager : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(notifCenter.position, notifRad);
-    }
+    }//End OnDrawGizmos
 
 
 
     //---------------------------------//
     //Used on the Awake() function to initialize any values in one line
-    private void Init()
+    private static void Init()
     {
-        secState = SecurityLvl.SecLVL0;
-    }
+        //secState = SecurityLvl.SecLVL0;
+    }//End Init
 
     //---------------------------------//
     //Raises / Lowers the security level based on the given context
     private void AdjustSecurityLevel(SecurityLvl securityLvl)
     {
 
-    }
-    #endregion
+    }//End AdjustSecurityLevel
+
+    public void AlertGuards(Vector3 targetLoc, Vector3 callerLoc, float callRadius)
+    {
+        //Also generating an array of guards on the call of this function
+        GenGuardList();
+
+        //EnemyManager reference
+        EnemyManager enemyManager;
+
+        //Used to reference each guard
+        foreach (GameObject guard in guardsList)
+        {
+            float 
+
+            distance = Vector3.Distance(guard.transform.position, callerLoc);
+
+            //Individual guard reference
+            //DO NOT MOVE
+            enemyManager = guard.GetComponent<EnemyManager>();
+
+            //Radius Check
+            if (distance <= callRadius /*&& GameObject.CompareTag("[Insert guard type here]")*/)
+            {
+                //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
+                enemyManager.Alert(targetLoc);
+            }
+            else
+            {
+                //Showing which guards are out of range (purely there for debug reasons)
+                //print($"{guard} is outside of camera range.");
+            }
+        }
+    }//End AlertGuards
+
+
+    //---------------------------------//
+    //Generates an array of guard instances in the scene
+    public void GenGuardList()
+    {
+        guardsList = GameObject.FindGameObjectsWithTag("Guard").ToList();
+
+        if (guardsList.Count == 0 || guardsList == null)
+        {
+            print("No guards in the level");
+        }
+
+    }//End GenGuardArray
+
+    #endregion General Functions
 }
