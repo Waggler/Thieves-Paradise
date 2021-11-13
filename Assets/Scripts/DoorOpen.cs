@@ -62,7 +62,7 @@ public class DoorOpen : MonoBehaviour
     {
         if(doorOpens == true)
         {
-            maxAngle = 90f;
+            maxAngle = -90f;
         }
 
         // else
@@ -213,7 +213,7 @@ public class DoorOpen : MonoBehaviour
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             door.transform.eulerAngles = new Vector3(0, angle, 0);
-            door.transform.position = new Vector3(8.34f, 2.1f, 7.17f);
+            // door.transform.position = new Vector3(8.34f, 2.1f, 7.17f);
             
             
             // door.transform.eulerAngles = new Vector3(0f, -76.942f, 0f);
@@ -274,7 +274,7 @@ public class DoorOpen : MonoBehaviour
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             door.transform.eulerAngles = new Vector3(0, angle, 0);
-            door.transform.position = new Vector3(7.3f, 2.1f, 7.16f);
+            // door.transform.position = new Vector3(7.3f, 2.1f, 7.16f);
             message.SetActive(false);
         }
     }
@@ -288,7 +288,7 @@ public class DoorOpen : MonoBehaviour
             door.transform.eulerAngles = new Vector3(0, angle, 0);
             inArea = false;
             // door.transform.eulerAngles = new Vector3(0f, 0f, 0f);
-            door.transform.position = new Vector3(9.334243f, 2.1f, 6.08f);
+            // door.transform.position = new Vector3(9.334243f, 2.1f, 6.08f);
             button1Pressed = false;
             button2Pressed = false;
             button3Pressed = false;
