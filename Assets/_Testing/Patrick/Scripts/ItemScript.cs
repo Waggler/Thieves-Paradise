@@ -6,9 +6,19 @@ public class ItemScript : ItemSuperScript, ItemInterface
 {
     [SerializeField] private int itemDurability;
     [SerializeField] public string objectName;
-    [SerializeField] public GameObject myself;//reference to this object's prefab
+    private GameObject myPrefab;//reference to this object's prefab
     [SerializeField] private float noiseRadius = 15;
 
+    public GameObject myself
+    {
+        get {return myPrefab;}
+        set {myPrefab = value;}
+    }
+    public string itemName
+    {
+        get {return objectName;}
+        set {objectName = value;}
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +27,8 @@ public class ItemScript : ItemSuperScript, ItemInterface
         
         if (noiseRadius != 0)
             thrownNoiseRadius = noiseRadius;
-        
+
+        myself = this.gameObject;
     }
 
     // Update is called once per frame

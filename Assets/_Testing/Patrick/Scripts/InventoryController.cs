@@ -7,12 +7,10 @@ using TMPro;
 
 public class InventoryController : MonoBehaviour
 {
-    private ItemInterface[] inventory;
-    private ItemSuperScript[] inventory2;
-    private ItemScript[] itemScriptInventory;
+    private ItemInterface[] itemInterfaceInventory;
     private bool[] inventorySpace; //true = occupied, false = empty
     private int activeItemIndex; //array index
-    private List<ItemScript> nearbyItems;//for storing all items within reach
+    private List<ItemInterface> nearbyItems;//for storing all items within reach
     private TextMeshProUGUI[] hotbarText;
 
     private float throwForce;
@@ -24,12 +22,10 @@ public class InventoryController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventory = new ItemInterface[inventorySize];
-        inventory2 = new ItemSuperScript[inventorySize];
-        itemScriptInventory = new ItemScript[inventorySize];
+        itemInterfaceInventory = new ItemInterface[inventorySize];
 
         inventorySpace = new bool[inventorySize];
-        nearbyItems = new List<ItemScript>();
+        nearbyItems = new List<ItemInterface>();
 
         hotbarText = new TextMeshProUGUI[4];
 
@@ -61,7 +57,7 @@ public class InventoryController : MonoBehaviour
         {
             if (nearbyItems.Count > 0)
             {            
-                ItemScript newItem;
+                ItemInterface newItem;
                 if (nearbyItems.Count == 1)
                 {
                     newItem = nearbyItems[0];
@@ -73,7 +69,7 @@ public class InventoryController : MonoBehaviour
                 {
                     AddItem(newItem);
                     print("Grabbed Item");
-                    newItem.gameObject.SetActive(false);
+                    newItem.myself.SetActive(false);
 
                     nearbyItems.Remove(newItem);
                     nearbyItems.TrimExcess();
@@ -85,13 +81,13 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public void ContextInteract(ItemScript newItem)
+    public void ContextInteract(ItemInterface newItem)
     {
         if (!IsInventoryFull())
         {
             AddItem(newItem);
             print("Grabbed Item");
-            newItem.gameObject.SetActive(false);
+            newItem.myself.SetActive(false);
 
             nearbyItems.Remove(newItem);
             nearbyItems.TrimExcess();
@@ -151,9 +147,9 @@ public class InventoryController : MonoBehaviour
         }
         //throw active item
         
-        GameObject thrownItem = Instantiate(itemScriptInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
+        GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
         thrownItem.SetActive(true);
-        thrownItem.name = thrownItem.GetComponent<ItemScript>().objectName;
+        thrownItem.name = thrownItem.GetComponent<ItemInterface>().itemName;
         Vector3 throwVector = transform.forward * throwForce + transform.up * throwForce;
         thrownItem.GetComponent<Rigidbody>().AddForce(throwVector);
         thrownItem.GetComponent<ItemSuperScript>().ThrowItem();
@@ -179,7 +175,7 @@ public class InventoryController : MonoBehaviour
 
     private void UseActiveItem()
     {
-        inventory[activeItemIndex].UseItem();
+        itemInterfaceInventory[activeItemIndex].UseItem();
     }
     //check for if we have space in the inventory
     private bool IsInventoryFull()
@@ -195,14 +191,14 @@ public class InventoryController : MonoBehaviour
         return full;
     }
 
-    private void AddItem(ItemScript newItem)
+    private void AddItem(ItemInterface newItem)
     {
         int newItemIndex = -1;
-        print("Attempting to add " + newItem.name);
+        print("Attempting to add " + newItem.myself.name);
         //attempt to fill the current active inventory slot
         if (inventorySpace[activeItemIndex] == false)
         {
-            itemScriptInventory[activeItemIndex] = newItem;
+            itemInterfaceInventory[activeItemIndex] = newItem;
             inventorySpace[activeItemIndex] = true;
             newItemIndex = activeItemIndex;
         }else
@@ -212,7 +208,7 @@ public class InventoryController : MonoBehaviour
             {
                 if(inventorySpace[i] == false && newItemIndex == -1)
                 {
-                    itemScriptInventory[i] = newItem;
+                    itemInterfaceInventory[i] = newItem;
                     inventorySpace[i] = true;
                     newItemIndex = i;
                 }
@@ -230,9 +226,9 @@ public class InventoryController : MonoBehaviour
         if(inventorySpace[activeItemIndex] == true)
         {
             inventorySpace[activeItemIndex] = false;
-            Destroy(itemScriptInventory[activeItemIndex].gameObject);
+            Destroy(itemInterfaceInventory[activeItemIndex].myself);
             
-            itemScriptInventory[activeItemIndex] = null;
+            itemInterfaceInventory[activeItemIndex] = null;
             hotbarText[activeItemIndex].text = "Item Slot " + (activeItemIndex + 1);
         }
     }
@@ -240,9 +236,9 @@ public class InventoryController : MonoBehaviour
     public bool CheckHasItem(string keyItemName)
     {
         print("checking items");
-        for(int i = 0; i < itemScriptInventory.Length; i++)
+        for(int i = 0; i < itemInterfaceInventory.Length; i++)
         {
-            if (inventorySpace[i] == true && itemScriptInventory[i].objectName == keyItemName)
+            if (inventorySpace[i] == true && itemInterfaceInventory[i].myself.name == keyItemName)
             {
                 print("got the item!");
                 return true;
@@ -254,7 +250,7 @@ public class InventoryController : MonoBehaviour
 
     #region Nearby Items
     //stores all items currently within reach of the player
-    private void OnTriggerEnter(Collider other)
+/*     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Item")
         {
@@ -269,9 +265,9 @@ public class InventoryController : MonoBehaviour
             nearbyItems.Remove(other.gameObject.GetComponent<ItemScript>());
             nearbyItems.TrimExcess();
         }
-    }
+    } */
 
-    private ItemScript GetNearestItem()
+    private ItemInterface GetNearestItem()
     {
         if(nearbyItems.Count == 0)
         {
@@ -283,14 +279,14 @@ public class InventoryController : MonoBehaviour
         for (int i = 0; i < nearbyItems.Count; i++)
         {
             //find the item closest to the player
-            Vector3 distance = nearbyItems[i].transform.position - transform.position;
+            Vector3 distance = nearbyItems[i].myself.transform.position - transform.position;
             if (distance.magnitude < minDistance)
             {
                 minDistance = distance.magnitude;
                 itemIndex = i;
             }
         }
-        print(nearbyItems[itemIndex].name);
+        print(nearbyItems[itemIndex].myself.name);
         return nearbyItems[itemIndex];
     }
     #endregion

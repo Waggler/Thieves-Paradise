@@ -10,11 +10,11 @@ public class ItemSuperScript : MonoBehaviour
         get;
         set;
     }
-    public string itemName
+    /* public string itemName
     {
         get;
         set;
-    }
+    } */
 
     public float thrownNoiseRadius
     {
