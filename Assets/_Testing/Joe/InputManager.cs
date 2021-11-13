@@ -104,6 +104,11 @@ public class InputManager : MonoBehaviour
             playerMovement.Roll(isRolling);
             cooldownTimer = 0;
         }
+        if(context.canceled)
+        {
+            isRolling = false;
+            playerMovement.Roll(isRolling);
+        }
     }//END ROLL
 
     #endregion

@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("How long you roll for.")]
     [SerializeField] private float RollingTime;
     [SerializeField] private bool IsRolling;
+    [SerializeField] private bool StillRolling;
     private float CurrentRollTime;
     private Vector3 RollDirection;
 
@@ -321,7 +322,7 @@ public class PlayerMovement : MonoBehaviour
     //----------SPRINT----------//
     public void Sprint(bool Sprinting)
     {
-        if(Sprinting == true  && IsCrouching == false && !IsPushPull)
+        if(Sprinting && !IsCrouching && !IsPushPull)
         {
             IsSprinting = true;
             if(UnSprinting == false)
@@ -337,6 +338,13 @@ public class PlayerMovement : MonoBehaviour
         {
             CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
+        }
+        else if(IsGrounded && IsCrouching && !IsPushPull)
+        {
+            IsStanding = true;
+            IsSprinting = true;
+            UnSprinting = false;
+            CoveredCheck();
         }
     }
     #endregion
@@ -373,6 +381,8 @@ public class PlayerMovement : MonoBehaviour
         {
             IsRolling = true;
         }
+
+        StillRolling = Rolling;
     }
 
     #endregion
@@ -381,7 +391,7 @@ public class PlayerMovement : MonoBehaviour
     //---SLIDING---//
     void Sliding()
     {
-        if(CurrentSpeed > CrouchSpeed && Direction != Vector3.zero)
+        if(CurrentSpeed > CrouchSpeed)
         {
             IsCrouching = true;
             Controller.Move(RollDirection * CurrentSpeed * Time.deltaTime);
@@ -431,6 +441,12 @@ public class PlayerMovement : MonoBehaviour
                 ResetDiving = false;
                 StillDiving = false;
                 CrouchDown();
+                if(StillRolling)
+                {
+                    print("Check");
+                    IsRolling = true;
+                    StillRolling = false;
+                }
             }
             else
             {
@@ -563,7 +579,7 @@ public class PlayerMovement : MonoBehaviour
     #region Rolling
     void Rolling()
     {
-        if(IsRolling == true)
+        if(IsRolling)
         {
             if(CurrentRollTime > 0)
             {
@@ -575,7 +591,7 @@ public class PlayerMovement : MonoBehaviour
                 IsRolling = false;
             }
         }
-        if(IsRolling == false && CurrentRollTime < RollingTime)
+        if(!IsRolling && CurrentRollTime < RollingTime)
         {
             CurrentRollTime += Time.deltaTime;
             if(CurrentRollTime > RollingTime)
