@@ -82,6 +82,7 @@ public class CamSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if(im.isCrouching == true && trigger1.inArea == true)
         {
            animator.Play("VCam2");
@@ -98,11 +99,12 @@ public class CamSwitch : MonoBehaviour
             animator.Play("VCam2");
             firstPersonCam = true;
         }
-        if(ventOut.outVent == true)
+        if (ventOut.outVent == true)
         {
             // animator.Play("FreeLook");
             firstPersonCam = false;
         }
+        */
         // if(im.isCrouching == true && vent.isOnVents == true)
         // {
         //    animator.Play("VCam2");

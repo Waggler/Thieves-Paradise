@@ -21,7 +21,7 @@ public class AnimationController : MonoBehaviour
     // TO DO Methods should be called by PlayerMovement Through PlayerController
     private void Update()
     {
-        DebugAnim();
+        //DebugAnim();
 
     }// END Update
 
@@ -162,6 +162,7 @@ public class AnimationController : MonoBehaviour
         }
     }// END IsPlayerStunned
 
+    /*
     //-------------------------------------------------//
     private void DebugAnim()
     //-------------------------------------------------//
@@ -203,6 +204,7 @@ public class AnimationController : MonoBehaviour
         }
 
     }// END DebugAnim
+    */
 
 
     #endregion // END DebugMethods

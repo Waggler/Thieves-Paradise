@@ -8,7 +8,7 @@ public class GuardAnimatorScript : MonoBehaviour
 
     void Awake()
     {
-        anim.SetBool("isMoving", true);
+        //anim.SetBool("isMoving", true);
     }
 
 }
