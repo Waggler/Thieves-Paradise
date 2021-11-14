@@ -43,7 +43,7 @@ public class EnemyManager : MonoBehaviour
 
     [Header("AI State")]
 
-    [SerializeField] EnemyStates stateMachine;
+    public EnemyStates stateMachine;
 
     #endregion.
 
