@@ -34,7 +34,12 @@ public class ContextInteractManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        foreach (GameObject i in nearbyObjects)
+        {
+            print(i.name);
+        }
+
+
         if (nearbyObjects.Count > 0)
         {
             FindObjectToHighlight();
@@ -56,8 +61,9 @@ public class ContextInteractManager : MonoBehaviour
                 if (highlightedObject.GetComponent<ItemInterface>() != null && inventory.CanPickupItems())
                 {
                     //print("Pickup Object: " + highlightedObject.name);
-                    inventory.ContextInteract(highlightedObject.GetComponent<ItemScript>());
                     nearbyObjects.Remove(highlightedObject);
+                    inventory.ContextInteract(highlightedObject.GetComponent<ItemInterface>());
+                    
                     nearbyObjects.TrimExcess();
                 }
             }
@@ -158,7 +164,8 @@ public class ContextInteractManager : MonoBehaviour
         switch (other.tag)
         {
             case "Item":
-            nearbyObjects.Add(other.gameObject);
+            if (!nearbyObjects.Contains(other.gameObject))
+                nearbyObjects.Add(other.gameObject);
             break;
 
             default:

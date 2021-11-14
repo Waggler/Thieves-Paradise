@@ -182,7 +182,7 @@ public class SuspicionManager : MonoBehaviour
 
     public void AlertGuards(Vector3 targetLoc, Vector3 callerLoc, float callRadius)
     {
-        print("Alerting Guards");
+        //print("Alerting Guards");
         //Also generating an array of guards on the call of this function
         GenGuardList();
 

@@ -36,6 +36,10 @@ public class InventoryController : MonoBehaviour
         }
 
         SwapItem(0);
+
+        GameObject debugPlatform = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        debugPlatform.transform.position = Vector3.down * 1002;
+        debugPlatform.transform.localScale = new Vector3(10, 1, 10);
     }
 
     private bool throwing;
@@ -88,6 +92,7 @@ public class InventoryController : MonoBehaviour
             AddItem(newItem);
             print("Grabbed Item");
             newItem.myself.SetActive(false);
+            newItem.myself.transform.position = Vector3.down * 1000;
 
             nearbyItems.Remove(newItem);
             nearbyItems.TrimExcess();
