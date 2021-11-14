@@ -122,19 +122,44 @@ public class AnimationController : MonoBehaviour
 
     }// END IsPlayerCrouchIdle
 
-    public void IsPlayerSliding(bool isPlayerRolling)
+    public void IsPlayerSliding(bool isPlayerSliding)
     //-------------------------------------------------//
     {
+
+        if (isPlayerSliding)
+        {
+            playerAnimator.SetBool("isSliding", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isSliding", false);
+        }
     }// END IsPlayerSliding
 
-    public void IsPlayerDiving(bool isPlayerRolling)
+    public void IsPlayerDiving(bool isPlayerDiving)
     //-------------------------------------------------//
     {
+        if (isPlayerDiving)
+        {
+            playerAnimator.SetBool("isDiving", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isDviving", false);
+        }
     }// END IsPlayerDiving
 
     public void IsPlayerStunned(bool isPlayerStunned)
     //-------------------------------------------------//
     {
+        if (isPlayerStunned)
+        {
+            playerAnimator.SetBool("isStunned", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isStunned", false);
+        }
     }// END IsPlayerStunned
 
     //-------------------------------------------------//
