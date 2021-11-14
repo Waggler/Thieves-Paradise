@@ -10,32 +10,79 @@ public class ItemSuperScript : MonoBehaviour
         get;
         set;
     }
-    public string itemName
+    /* public string itemName
+    {
+        get;
+        set;
+    } */
+
+    public float thrownNoiseRadius
     {
         get;
         set;
     }
-
-    public void Pickup()
+    void Awake()
     {
-        print("Pickup Item");
+        if (gameObject.GetComponent<Outline>() == null)
+        {
+            var outline = gameObject.AddComponent<Outline>();
+            outline.OutlineMode = Outline.Mode.OutlineAndSilhouette;
+            outline.OutlineColor = Color.white;
+            outline.OutlineWidth = 5f;
+            outline.enabled = false;
+        }
+        
+        susManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
     }
-    public void Throw()
+
+    private bool isThrown;
+    private float timeCounter;
+    private SuspicionManager susManager;
+
+    void Start()
     {
-        print("Throw Item");
+        
+        
+    }
+    void Update()
+    {
+        
     }
 
-    public void Use()
+    public void ThrowItem()
     {
-        if (durability > 0)
+        isThrown = true;
+        print("throwing item " + isThrown);
+    }
+
+    public void UseDurability()
+    {
+        if (durability > 1)
         {
             print("Used Item");
             durability--; //decriment durability
         } else
         {
             print("Item Broke");
+            Destroy(this.gameObject);
         }
     }
+    private void MakeNoise()
+    {
+        //Alert Guards here
+        print("making noise");
+        susManager.AlertGuards(transform.position, transform.position, thrownNoiseRadius);
+        
+    }
 
-
+    void OnCollisionEnter(Collision other)
+    {
+        if (isThrown)
+        {
+            MakeNoise();
+            UseDurability();
+            isThrown = false;
+        }
+        //play audio clip of object hitting something
+    }
 }

@@ -106,7 +106,7 @@ public class TripwireManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, Vector3.forward);
+        Gizmos.DrawRay(transform.position, transform.forward);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, callRadius);

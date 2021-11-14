@@ -644,4 +644,13 @@ public class EnemyManager : MonoBehaviour
     }
 
     #endregion AI Functions
+
+    //finding and eating donuts
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<BaitItemScript>() != null)
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }
