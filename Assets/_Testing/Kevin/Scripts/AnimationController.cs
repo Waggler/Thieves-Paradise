@@ -145,7 +145,7 @@ public class AnimationController : MonoBehaviour
         }
         else
         {
-            playerAnimator.SetBool("isDviving", false);
+            playerAnimator.SetBool("isDiving", false);
         }
     }// END IsPlayerDiving
 
