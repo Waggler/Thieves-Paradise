@@ -161,10 +161,14 @@ public class ContextInteractManager : MonoBehaviour
     #region Nearby Object Tracker
     private void OnTriggerEnter(Collider other)
     {
+        //if we already know of the item, don't add it again
+        if (nearbyObjects.Contains(other.gameObject))
+            return;
+
         switch (other.tag)
         {
             case "Item":
-            if (!nearbyObjects.Contains(other.gameObject))
+            
                 nearbyObjects.Add(other.gameObject);
             break;
 
