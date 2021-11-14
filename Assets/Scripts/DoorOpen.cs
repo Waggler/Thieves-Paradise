@@ -145,6 +145,7 @@ public class DoorOpen : MonoBehaviour
         if(buttonPressed == 1)
         {
             maxAngle = -37.06f;
+            // buttonPressed = 0;
         }
 
         if(crouchOpen2 == true)
@@ -162,20 +163,20 @@ public class DoorOpen : MonoBehaviour
             maxAngle = -48.15f;
         }
 
-        // if(crouchOpen3 == true)
-        // {
-        //     buttonPressed3++;
-        // }
+        if(crouchOpen3 == true)
+        {
+            buttonPressed3++;
+        }
 
-        // if(buttonPressed3 > 1)
-        // {
-        //     buttonPressed3 = 1;
-        // }
+        if(buttonPressed3 > 1)
+        {
+            buttonPressed3 = 1;
+        }
 
-        // if(buttonPressed3 == 1)
-        // {
-        //     maxAngle = -71.3f;
-        // }
+        if(buttonPressed3 == 1)
+        {
+            maxAngle = -71.3f;
+        }
     }
 
     #region OpenDoor
@@ -204,10 +205,10 @@ public class DoorOpen : MonoBehaviour
             crouchOpen2 = true;
         }
 
-        // if(Input.GetKey("e") && buttonPressed2 == 1)
-        // {
-        //     crouchOpen3 = true;
-        // }
+        if(Input.GetKey("e") && buttonPressed2 == 1)
+        {
+            crouchOpen3 = true;
+        }
 
         if(inArea == true && button1Pressed == true && im.isSprinting == false)
         {

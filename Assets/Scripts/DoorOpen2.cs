@@ -11,7 +11,9 @@ public class DoorOpen2 : MonoBehaviour
     public bool inArea = false;
     public GameObject door;
     public GameObject message;
-    public bool buttonPressed = false;
+    public bool button1Pressed = false;
+    public bool button2Pressed = false;
+    public bool button3Pressed = false;
     public bool doorOpens = false;
     public PlayerMovement pm;
     public InputManager im;
@@ -19,6 +21,9 @@ public class DoorOpen2 : MonoBehaviour
     public bool crouchOpen1 = false;
     public bool crouchOpen2 = false;
     public bool crouchOpen3 = false;
+    public int buttonPressed = 0;
+    public int buttonPressed2 = 0;
+    public int buttonPressed3 = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -55,23 +60,70 @@ public class DoorOpen2 : MonoBehaviour
     {
         if(doorOpens == true)
         {
-            maxAngle = -90f;
+            maxAngle = 90f;
         }
 
-        else
-        {
-            maxAngle = 0.0f;
-        }
+        // else
+        // {
+        //     maxAngle = 0.0f;
+        // }
 
         if(im.isSprinting == true)
         {
             maxAngle = 151.55f;
         }
 
-        if(im.isCrouching == true)
+        // if(im.isCrouching == true)
+        // {
+        //     maxAngle = -75.44f;
+        // } 
+
+        if(crouchOpen1 == true)
         {
-            maxAngle = -75.44f;
-        } 
+            buttonPressed++;
+            message.SetActive(false);
+        }
+
+        if(buttonPressed > 1)
+        {
+            buttonPressed = 1;
+        }
+
+        if(buttonPressed == 1)
+        {
+            maxAngle = 37.06f;
+            // buttonPressed = 0;
+        }
+
+        if(crouchOpen2 == true)
+        {
+            buttonPressed2++;
+        }
+
+        if(buttonPressed2 > 1)
+        {
+            buttonPressed2 = 1;
+        }
+
+        if(buttonPressed2 == 1)
+        {
+            maxAngle = 48.15f;
+        }
+
+        if(crouchOpen3 == true)
+        {
+            buttonPressed3++;
+        }
+
+        if(buttonPressed3 > 1)
+        {
+            buttonPressed3 = 1;
+        }
+
+        if(buttonPressed3 == 1)
+        {
+            maxAngle = 71.3f;
+        }
     }
 
     #region OpenDoor
@@ -85,16 +137,31 @@ public class DoorOpen2 : MonoBehaviour
             message.SetActive(false);
         }
 
-        if(Input.GetButtonDown("e"))
+        if(Input.GetKey("e") && im.isCrouching == true)
         {
-            buttonPressed = true;
+            crouchOpen1 = true;
         }
 
-        if(inArea == true && buttonPressed == true && im.isSprinting == false)
+        if(Input.GetButtonDown("e"))
+        {
+            button1Pressed = true;
+        }
+
+        if(Input.GetKey("e") && buttonPressed == 1)
+        {
+            crouchOpen2 = true;
+        }
+
+        if(Input.GetKey("e") && buttonPressed2 == 1)
+        {
+            crouchOpen3 = true;
+        }
+
+        if(inArea == true && button1Pressed == true && im.isSprinting == false)
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             door.transform.eulerAngles = new Vector3(0, angle, 0);
-            door.transform.position = new Vector3(8.34f, 2.1f, 5.13f);
+            // door.transform.position = new Vector3(8.34f, 2.1f, 5.13f);
             
             
             // door.transform.eulerAngles = new Vector3(0f, -76.942f, 0f);
@@ -110,7 +177,7 @@ public class DoorOpen2 : MonoBehaviour
         {
             float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             door.transform.eulerAngles = new Vector3(0, angle, 0);
-            door.transform.position = new Vector3(7.3f, 2.1f, 5.63f);
+            // door.transform.position = new Vector3(7.3f, 2.1f, 5.63f);
             message.SetActive(false);
         }
     }
@@ -124,9 +191,17 @@ public class DoorOpen2 : MonoBehaviour
             door.transform.eulerAngles = new Vector3(0, angle, 0);
             inArea = false;
             // door.transform.eulerAngles = new Vector3(0f, 0f, 0f);
-            door.transform.position = new Vector3(9.334243f, 2.1f, 6.08f);
-            buttonPressed = false;
+            // door.transform.position = new Vector3(9.334243f, 2.1f, 6.08f);
+            button1Pressed = false;
+            button2Pressed = false;
+            button3Pressed = false;
             doorOpens = false;
+            crouchOpen1 = false;
+            crouchOpen2 = false;
+            crouchOpen3 = false;
+            buttonPressed = 0;
+            buttonPressed2 = 0;
+            buttonPressed3 = 0;
         // }
         message.SetActive(false);
     }   //END LEAVE DOOR TRIGGER
