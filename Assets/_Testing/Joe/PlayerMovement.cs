@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 Direction;
 
     [Header("Crouching")]
-    [Tooltip("Normal Player height.")]
+    [Tooltip("The standing capsule collider height.")]
     [SerializeField] private float StandardHeight;
     [SerializeField] private float CrouchingHeight;
     [Tooltip("Set this as the same Y center for the player controller & colider.")]
