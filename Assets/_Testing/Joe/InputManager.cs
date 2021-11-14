@@ -7,9 +7,9 @@ public class InputManager : MonoBehaviour
 {
     private Vector3 moveVector;
     public bool isSprinting;
-    private bool isCrouching;
-    private bool isRolling;
-    private bool isPushPull;
+    public bool isCrouching;
+    public bool isRolling;
+    public bool isPushPull;
     private PlayerMovement playerMovement;
     private MasterPushPullScript masterPushPullScript;
     public float rollCooldownTime;
