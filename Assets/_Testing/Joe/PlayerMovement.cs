@@ -49,9 +49,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float RollingSpeed;
     [Tooltip("How long you roll for.")]
     [SerializeField] private float RollingTime;
+    [Tooltip("This delays the player from rolling, this is used for roll + animation sync")]
+    [SerializeField] private float DelayTime;
     [SerializeField] private bool IsRolling;
     [SerializeField] private bool StillRolling;
     private float CurrentRollTime;
+    private float CurrentDelayTime;
     private Vector3 RollDirection;
 
     [Header("Sliding")]
@@ -114,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
         CurrentSpeed = WalkingSpeed;
         CurrentRollTime = RollingTime;
         CurrentDiveTime = DiveTime;
+        CurrentDelayTime = DelayTime;
         Controller = GetComponent<CharacterController>();
         Collider = GetComponent<CapsuleCollider>();
         PlayerCamera = Camera.main.transform;
@@ -581,19 +585,28 @@ public class PlayerMovement : MonoBehaviour
     {
         if(IsRolling)
         {
-            if(CurrentRollTime > 0)
+            if(CurrentDelayTime > 0)
             {
-                Controller.Move(RollDirection * RollingSpeed * Time.deltaTime);
-                CurrentRollTime -= Time.deltaTime;
+                CurrentDelayTime -= Time.deltaTime;
             }
-            else if(CurrentRollTime <= 0)
+            else
             {
-                IsRolling = false;
+                if(CurrentRollTime > 0)
+                {
+                    Controller.Move(RollDirection * RollingSpeed * Time.deltaTime);
+                    CurrentRollTime -= Time.deltaTime;
+                }
+                else if(CurrentRollTime <= 0)
+                {
+                    IsRolling = false;
+                }                
             }
+
         }
         if(!IsRolling && CurrentRollTime < RollingTime)
         {
             CurrentRollTime += Time.deltaTime;
+            CurrentDelayTime = DelayTime;
             if(CurrentRollTime > RollingTime)
             {
                 CurrentRollTime = RollingTime;
