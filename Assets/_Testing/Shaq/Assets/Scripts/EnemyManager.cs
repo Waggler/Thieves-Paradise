@@ -166,6 +166,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] [Range(0, 10)] private float stunSpeed = 0f;
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
     [SerializeField] [Range(0, 10)] private float hostileSpeed = 8f;
+    [Tooltip("The speed that the AI moves at in the ATTACK state")]
+    [SerializeField] [Range(0, 10)] private float attackSpeed = 0f;
+
 
     [Header("Misc. Variables")]
     [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
@@ -189,7 +192,12 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("Duration of the guard's Stun state duration")]
     [SerializeField] private float stunTime;
     [HideInInspector] private float stunTimeReset;
+    //Save implementation for next sprint
     [SerializeField] [Range (0, 50)]private float guardKnockbackForce;
+
+    [Tooltip("Duration of the guard's Attack state duration")]
+    [SerializeField] private float attackTime;
+    [HideInInspector] private float attackTimeReset;
 
     #endregion
 
@@ -401,28 +409,25 @@ public class EnemyManager : MonoBehaviour
 
                 stateText.text = stateMachine.ToString();
 
+                SetAiSpeed(attackSpeed);
+
+                #region Exit Condition(s)
                 if (distanceToPlayer > attackRadius)
                 {
-
                     // ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
-                
-                //rework the timer method
-                if (Timer(5f) == false)
-                {
+                #endregion Exit Condition(s)
 
-                    // ATTACK >> SUSPICIOUS
-                    stateMachine = EnemyStates.SUSPICIOUS;
-                }
 
-                //Temp lose condition
-                //Refine to take lack of player input from struggle QTE
-                if (distanceToPlayer <= attackRadius)
-                {
-                    loseText.text = "Game Over";
-                    SceneManager.LoadScene(3);
-                }
+
+                ////Temp lose condition
+                ////Refine to take lack of player input from struggle QTE
+                //if (distanceToPlayer <= attackRadius)
+                //{
+                //    loseText.text = "Game Over";
+                //    SceneManager.LoadScene(3);
+                //}
 
                 FaceTarget(target);
 
@@ -508,7 +513,7 @@ public class EnemyManager : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
-        stateMachine = EnemyStates.STUNNED;
+        stateMachine = EnemyStates.PASSIVE;
 
         //Checks to see if there is no value for the player object reference
         if (player == null)
