@@ -199,6 +199,10 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float attackTime;
     [HideInInspector] private float attackTimeReset;
 
+    [Header("Audio Variables")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private bool isAudioSourcePlaying;
+
     #endregion
 
     #region Awake & Update
@@ -228,6 +232,14 @@ public class EnemyManager : MonoBehaviour
             case EnemyStates.PASSIVE:
 
                 stateText.text = stateMachine.ToString();
+
+                //Reseting alert related variables
+                if (isAudioSourcePlaying == true)
+                {
+                    audioSource.Stop();
+
+                    isAudioSourcePlaying = false;
+                }
 
                 switch (isWait)
                 {
@@ -347,6 +359,14 @@ public class EnemyManager : MonoBehaviour
 
                         //transform.position is being used because you cannot use Vector3 data when Transform is being called
                         SetAIDestination(target);
+
+                        //Playing Alert Audio
+                        if (isAudioSourcePlaying == false)
+                        {
+                            audioSource.Play();
+
+                            isAudioSourcePlaying = true;
+                        }
 
                         //Rework this so that it's based on the suspicion level instead of a generic radius
                         if (distanceToPlayer <= attackRadius)
@@ -506,6 +526,8 @@ public class EnemyManager : MonoBehaviour
     //Called on Awake and initializes everything that is finalized and needs to be done at awake
     private void Init()
     {
+        isAudioSourcePlaying = false;
+
         //Stores the user generated wait time
         waitTimeReset = waitTime;
 
