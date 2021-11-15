@@ -5,7 +5,16 @@ using UnityEngine;
 public interface ItemInterface
 {
     //required functions
-
-     void UseItem();
+    GameObject myself
+    {
+        get;
+        set;
+    }
+    string itemName
+    {
+        get;
+        set;
+    }
+    void UseItem();
 
 }

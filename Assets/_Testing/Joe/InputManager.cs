@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
 {
     private Vector3 moveVector;
     public bool isSprinting;
-    private bool isCrouching;
+    public bool isCrouching;
     private bool isRolling;
     private bool isPushPull;
     private PlayerMovement playerMovement;
@@ -103,6 +103,11 @@ public class InputManager : MonoBehaviour
             isRolling = true;
             playerMovement.Roll(isRolling);
             cooldownTimer = 0;
+        }
+        if(context.canceled)
+        {
+            isRolling = false;
+            playerMovement.Roll(isRolling);
         }
     }//END ROLL
 

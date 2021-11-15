@@ -132,6 +132,11 @@ public class AnimationController : MonoBehaviour
     {
     }// END IsPlayerDiving
 
+    public void IsPlayerStunned(bool isPlayerStunned)
+    //-------------------------------------------------//
+    {
+    }// END IsPlayerStunned
+
     //-------------------------------------------------//
     private void DebugAnim()
     //-------------------------------------------------//
