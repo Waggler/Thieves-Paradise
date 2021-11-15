@@ -6,12 +6,22 @@ public class GuardAnimatorScript : MonoBehaviour
 {
     public Animator anim;
     public EnemyManager enemyManager;
+    public PlayerMovement Player;
+    private void Start()
+    {
+        if (Player == null)
+        {
+            Player = FindObjectOfType<PlayerMovement>();
+        }
+    }
+
     private void Update()
     {
         if (enemyManager.stateMachine == EnemyManager.EnemyStates.PASSIVE)
         {
             anim.SetBool("isPassive", true);
             anim.SetBool("isSuspicious", false);
+            anim.SetBool("isHostile", false);
             if (enemyManager.waitTime < 5 && enemyManager.waitTime > 0)
             {
                 anim.SetBool("isSearching", true);
@@ -25,7 +35,26 @@ public class GuardAnimatorScript : MonoBehaviour
         {
             anim.SetBool("isPassive", false);
             anim.SetBool("isSuspicious", true);
+            anim.SetBool("isHostile", false);
         }
+        else if (enemyManager.stateMachine == EnemyManager.EnemyStates.HOSTILE)
+        {
+            anim.SetBool("isSuspicious", false);
+            anim.SetBool("isHostile", true);
+        }
+        else if (enemyManager.stateMachine == EnemyManager.EnemyStates.ATTACK)
+        {
+            if (Player.IsStunned == false)
+            {
+                anim.SetBool("isPlayerFree", true);
+            }
+            else
+            {
+                anim.SetBool("isPlayerFree", false);
+            }
+        }
+
+        
 
     }
 

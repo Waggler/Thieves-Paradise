@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float StunTime;
     [Tooltip("This is the value that will be added when the player tries to shake off a stun.")]
     [SerializeField] private float BreakOutValue;
-    [SerializeField] private bool IsStunned = false;
+    public bool IsStunned = false;
     public float CurrentStunTime = 0;
 
     #endregion
@@ -257,6 +257,7 @@ public class PlayerMovement : MonoBehaviour
         #region Stun Work
         if(IsStunned)
         {
+            animationController.IsPlayerStunned(true);
             CurrentStunTime += Time.deltaTime;
 
             if(Direction != Vector3.zero)
@@ -268,6 +269,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 CurrentStunTime = 0;
                 IsStunned = false;
+                animationController.IsPlayerStunned(false);
             }
         }
         

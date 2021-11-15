@@ -353,6 +353,7 @@ public class EnemyManager : MonoBehaviour
                         {
                         // SUSPICIOUS >> HOSTILE
                         stateMachine = EnemyStates.HOSTILE;
+                        player.GetComponent<PlayerMovement>().IsStunned = true;
                         }
                 }
 
@@ -415,7 +416,7 @@ public class EnemyManager : MonoBehaviour
                 if (distanceToPlayer > attackRadius)
                 {
                     // ATTACK >> HOSTILE
-                    stateMachine = EnemyStates.HOSTILE;
+                    stateMachine = EnemyStates.SUSPICIOUS;
                 }
                 #endregion Exit Condition(s)
 

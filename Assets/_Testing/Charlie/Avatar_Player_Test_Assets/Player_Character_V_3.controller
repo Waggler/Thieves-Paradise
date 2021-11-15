@@ -33,8 +33,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: isEscaped
+  - m_ConditionMode: 2
+    m_ConditionEvent: isStunned
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7079735461819866624}
@@ -916,6 +916,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: Stunned
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1082,7 +1088,7 @@ AnimatorStateMachine:
     m_Position: {x: -90, y: -70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7079735461819866624}
-    m_Position: {x: 580, y: -260, z: 0}
+    m_Position: {x: 570, y: -260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7861692094698765975}
     m_Position: {x: 615, y: -195, z: 0}
@@ -1560,7 +1566,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isStruggling
+    m_ConditionEvent: isStunned
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5806963507388053476}
