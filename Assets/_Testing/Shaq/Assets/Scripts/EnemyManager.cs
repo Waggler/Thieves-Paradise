@@ -183,6 +183,10 @@ public class EnemyManager : MonoBehaviour
     public float waitTime;
     [HideInInspector] private float waitTimeReset;
 
+    public float donutWait;
+    [HideInInspector] private float donutWaitReset;
+
+
     [Header("Global Suspicion Manager Ref")]
     [Tooltip("Reference to the suspicion manager")]
     [SerializeField] private SuspicionManager suspicionManager;
@@ -674,11 +678,21 @@ public class EnemyManager : MonoBehaviour
     #endregion AI Functions
 
     //finding and eating donuts
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.gameObject.GetComponent<BaitItemScript>() != null)
         {
-            Destroy(other.gameObject);
+            if (donutWait > 0)
+            {
+                donutWait -= Time.fixedDeltaTime;
+
+            }
+            else if (donutWait <= 0)
+            {
+                donutWait = donutWaitReset;
+
+                Destroy(other.gameObject);
+            }
         }
     }
 }
