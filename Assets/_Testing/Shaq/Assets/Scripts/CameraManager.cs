@@ -109,6 +109,10 @@ public class CameraManager : MonoBehaviour
     //References the "SuspcionManager.cs" script found on the "Suspicion Manager" object
     [SerializeField] private SuspicionManager susManagerRef;
 
+    [Header("Audio Variables")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private bool isAudioSourcePlaying;
+
 
     [HideInInspector] private float distanceToCamera;
 
@@ -165,6 +169,20 @@ public class CameraManager : MonoBehaviour
 
 
 
+
+                //Reseting alert related variables
+                if (isAudioSourcePlaying == true)
+                {
+                    audioSource.Stop();
+
+                    isAudioSourcePlaying = false;
+                }
+
+
+
+
+
+
                 //Technically this snippet of code shouldn't work yet it does, will likely break in the future and need to be fixed
                 //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
                 if (transform.localRotation.eulerAngles.y >= rotationMax.y)
@@ -203,6 +221,20 @@ public class CameraManager : MonoBehaviour
                 camLightRef.color = Color.red;
 
                 susManagerRef.AlertGuards(eyeball.lastKnownLocation, transform.position, callRadius);
+
+
+
+
+                //Playing Alert Audio
+                if (isAudioSourcePlaying == false)
+                {
+                    audioSource.Play();
+
+                    isAudioSourcePlaying = true;
+                }
+
+
+
 
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
