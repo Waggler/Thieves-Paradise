@@ -98,9 +98,33 @@ public class AnimationController : MonoBehaviour
     }// END IsPlayerRolling
 
     //-------------------------------------------------//
-    public void IsPlayerJumping(bool isPlayerRolling)
+    public void IsPlayerJumping(bool isPlayerJumping)
     //-------------------------------------------------//
     {
+        if (isPlayerJumping)
+        {
+            playerAnimator.SetTrigger("Jump");
+        }
+        else
+        {
+            //playerAnimator.SetBool("isJumping", false);
+        }
+
+    }// END IsPlayerJumping
+
+    //-------------------------------------------------//
+    public void IsPlayerGrounded(bool isPlayerGrounded)
+    //-------------------------------------------------//
+    {
+        if (isPlayerGrounded)
+        {
+            playerAnimator.SetBool("isGrounded", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isGrounded", false);
+        }
+
     }// END IsPlayerJumping
 
     public void IsPlayerIdle(bool isPlayerRolling)

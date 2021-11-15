@@ -507,11 +507,13 @@ public class PlayerMovement : MonoBehaviour
             IsGrounded = true;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
+            animationController.IsPlayerGrounded(true);
         }
         else
         {
             IsGrounded = false;
-            if(IsCrouching)
+            animationController.IsPlayerGrounded(false);
+            if (IsCrouching)
             {
                 StandUp();
                 IsCrouching = false;
