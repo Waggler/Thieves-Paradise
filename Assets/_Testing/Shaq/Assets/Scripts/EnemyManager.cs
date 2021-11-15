@@ -180,7 +180,7 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("When enabled, the guard will wait when it reaches it's 'waypointNextDistance'")]
     [SerializeField] private bool isWait;
     [Tooltip("The amount of time that the guard waits when 'isWait' is enabled")]
-    [SerializeField] private float waitTime;
+    public float waitTime;
     [HideInInspector] private float waitTimeReset;
 
     [Header("Global Suspicion Manager Ref")]

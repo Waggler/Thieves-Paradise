@@ -546,6 +546,7 @@ MonoBehaviour:
   susSpeed: 4
   stunSpeed: 0
   hostileSpeed: 5
+  attackSpeed: 0
   attackRadius: 1.48
   waypointNextDistance: 2
   rotateSpeed: 50
@@ -554,6 +555,7 @@ MonoBehaviour:
   suspicionManager: {fileID: 0}
   stunTime: 60
   guardKnockbackForce: 50
+  attackTime: 0
 --- !u!114 &9215408676989096723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,6 +569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 2784144531686864480}
+  enemyManager: {fileID: 3325092846408855489}
 --- !u!1 &3325092847561006616
 GameObject:
   m_ObjectHideFlags: 0
