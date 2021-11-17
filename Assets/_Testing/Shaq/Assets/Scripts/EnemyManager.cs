@@ -43,7 +43,7 @@ public class EnemyManager : MonoBehaviour
 
     [Header("AI State")]
 
-    [SerializeField] EnemyStates stateMachine;
+    public EnemyStates stateMachine;
 
     #endregion.
 
@@ -166,6 +166,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] [Range(0, 10)] private float stunSpeed = 0f;
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
     [SerializeField] [Range(0, 10)] private float hostileSpeed = 8f;
+    [Tooltip("The speed that the AI moves at in the ATTACK state")]
+    [SerializeField] [Range(0, 10)] private float attackSpeed = 0f;
+
 
     [Header("Misc. Variables")]
     [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
@@ -177,7 +180,7 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("When enabled, the guard will wait when it reaches it's 'waypointNextDistance'")]
     [SerializeField] private bool isWait;
     [Tooltip("The amount of time that the guard waits when 'isWait' is enabled")]
-    [SerializeField] private float waitTime;
+    public float waitTime;
     [HideInInspector] private float waitTimeReset;
 
     [Header("Global Suspicion Manager Ref")]
@@ -189,7 +192,16 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("Duration of the guard's Stun state duration")]
     [SerializeField] private float stunTime;
     [HideInInspector] private float stunTimeReset;
+    //Save implementation for next sprint
     [SerializeField] [Range (0, 50)]private float guardKnockbackForce;
+
+    [Tooltip("Duration of the guard's Attack state duration")]
+    [SerializeField] private float attackTime;
+    [HideInInspector] private float attackTimeReset;
+
+    [Header("Audio Variables")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private bool isAudioSourcePlaying;
 
     #endregion
 
@@ -220,6 +232,14 @@ public class EnemyManager : MonoBehaviour
             case EnemyStates.PASSIVE:
 
                 stateText.text = stateMachine.ToString();
+
+                //Reseting alert related variables
+                if (isAudioSourcePlaying == true)
+                {
+                    audioSource.Stop();
+
+                    isAudioSourcePlaying = false;
+                }
 
                 switch (isWait)
                 {
@@ -340,11 +360,20 @@ public class EnemyManager : MonoBehaviour
                         //transform.position is being used because you cannot use Vector3 data when Transform is being called
                         SetAIDestination(target);
 
+                        //Playing Alert Audio
+                        if (isAudioSourcePlaying == false)
+                        {
+                            audioSource.Play();
+
+                            isAudioSourcePlaying = true;
+                        }
+
                         //Rework this so that it's based on the suspicion level instead of a generic radius
                         if (distanceToPlayer <= attackRadius)
                         {
                         // SUSPICIOUS >> HOSTILE
                         stateMachine = EnemyStates.HOSTILE;
+                        player.GetComponent<PlayerMovement>().IsStunned = true;
                         }
                 }
 
@@ -401,28 +430,25 @@ public class EnemyManager : MonoBehaviour
 
                 stateText.text = stateMachine.ToString();
 
+                SetAiSpeed(attackSpeed);
+
+                #region Exit Condition(s)
                 if (distanceToPlayer > attackRadius)
                 {
-
                     // ATTACK >> HOSTILE
-                    stateMachine = EnemyStates.HOSTILE;
-                }
-                
-                //rework the timer method
-                if (Timer(5f) == false)
-                {
-
-                    // ATTACK >> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
+                #endregion Exit Condition(s)
 
-                //Temp lose condition
-                //Refine to take lack of player input from struggle QTE
-                if (distanceToPlayer <= attackRadius)
-                {
-                    loseText.text = "Game Over";
-                    SceneManager.LoadScene(3);
-                }
+
+
+                ////Temp lose condition
+                ////Refine to take lack of player input from struggle QTE
+                //if (distanceToPlayer <= attackRadius)
+                //{
+                //    loseText.text = "Game Over";
+                //    SceneManager.LoadScene(3);
+                //}
 
                 FaceTarget(target);
 
@@ -500,6 +526,8 @@ public class EnemyManager : MonoBehaviour
     //Called on Awake and initializes everything that is finalized and needs to be done at awake
     private void Init()
     {
+        isAudioSourcePlaying = false;
+
         //Stores the user generated wait time
         waitTimeReset = waitTime;
 
@@ -508,7 +536,7 @@ public class EnemyManager : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
-        stateMachine = EnemyStates.STUNNED;
+        stateMachine = EnemyStates.PASSIVE;
 
         //Checks to see if there is no value for the player object reference
         if (player == null)
