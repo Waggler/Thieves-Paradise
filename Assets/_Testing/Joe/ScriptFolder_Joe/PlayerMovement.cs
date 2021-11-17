@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float StunTime;
     [Tooltip("This is the value that will be added when the player tries to shake off a stun.")]
     [SerializeField] private float BreakOutValue;
-    [SerializeField] private bool IsStunned = false;
+    public bool IsStunned = false;
     public float CurrentStunTime = 0;
 
     #endregion
