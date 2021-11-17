@@ -8,9 +8,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public Transform Target, Player;
     float mouseX, mouseY;
     public PlayerMovement pm;
-    public DoorOpen trigger1;
-    public DoorOpen2 trigger2;
-    public CamSwitch cam;
+    public DoorOpen door;
 
     //Start is called before the first frame update
     void Start()
@@ -33,19 +31,14 @@ public class ThirdPersonCamera : MonoBehaviour
 
         transform.LookAt(Target);
 
-        // Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+        Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
 
-        
-        if(cam.firstPersonCam == true)
+        /* commenting this out for the prototype
+        if(pm.Crouching == true && door.inArea == true)
         {
             Player.rotation = Quaternion.Euler(0, mouseX, 0);
         }
-        // if(pm.Crouching == true && trigger2.inArea == true)
-        // {
-        //     Player.rotation = Quaternion.Euler(0, mouseX, 0);
-        // }
-
+        */
         // Player.rotation = Quaternion.Euler(0, mouseX, 0);
-        //pm.Crouching == true && trigger1.inArea == true
    }
 }

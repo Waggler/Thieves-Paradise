@@ -111,6 +111,7 @@ public class SuspicionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         switch (secState)
         {
             case SecurityLvl.SecLVL0:
@@ -137,6 +138,7 @@ public class SuspicionManager : MonoBehaviour
                 susText.text = "LEVEL NOT FOUND";
                 break;
         }
+        */
 
         if (testInt != 0)
         {

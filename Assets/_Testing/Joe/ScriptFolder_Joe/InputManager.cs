@@ -8,8 +8,8 @@ public class InputManager : MonoBehaviour
     private Vector3 moveVector;
     public bool isSprinting;
     public bool isCrouching;
-    private bool isRolling;
-    private bool isPushPull;
+    public bool isRolling;
+    public bool isPushPull;
     private PlayerMovement playerMovement;
     private MasterPushPullScript masterPushPullScript;
     public float rollCooldownTime;

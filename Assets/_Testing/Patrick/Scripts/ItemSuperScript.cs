@@ -38,10 +38,10 @@ public class ItemSuperScript : MonoBehaviour
     private bool isThrown;
     private float timeCounter;
     private SuspicionManager susManager;
+    public SfxController sfxController;
 
     void Start()
     {
-        
         
     }
     void Update()
@@ -69,10 +69,12 @@ public class ItemSuperScript : MonoBehaviour
     }
     private void MakeNoise()
     {
+        sfxController = FindObjectOfType<SfxController>();
         //Alert Guards here
         print("making noise");
         susManager.AlertGuards(transform.position, transform.position, thrownNoiseRadius);
-        
+        AudioSource audio = sfxController.GetComponent<AudioSource>();
+        audio.Play();
     }
 
     void OnCollisionEnter(Collision other)
