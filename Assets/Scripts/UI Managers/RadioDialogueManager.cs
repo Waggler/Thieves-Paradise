@@ -2,25 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueManager : MonoBehaviour
+public class RadioDialogueManager : MonoBehaviour
 {
-    [SerializeField] private NarrativeUIManager narrativeUIManager;
+    [SerializeField] private RadioManager radioManager;
     private float delayTime = 0.05f;
 
     public Dialogue[] dialogue;
+    [Tooltip("This is handled by the RadioManager script, do not alter unless you know what you're doing.")]
     public int currentDialogueIndex;
 
 
     //-----------------------//
-    private void Start()
-    //-----------------------//
-    {
-        Init();
-
-    }//END Start
-
-    //-----------------------//
-    private void Init()
+    public void Init()
     //-----------------------//
     {
         StartCoroutine(IStartDelay());
@@ -34,7 +27,7 @@ public class DialogueManager : MonoBehaviour
     {
         try
         {
-            narrativeUIManager.StartDialogue(dialogue[currentDialogueIndex]);
+            radioManager.StartDialogue(dialogue[currentDialogueIndex]);
         }
         catch
         {
@@ -49,4 +42,4 @@ public class DialogueManager : MonoBehaviour
         TriggerDialogue();
     }
 
-}//END DialogueManager
+}//END RadioDialogueManager

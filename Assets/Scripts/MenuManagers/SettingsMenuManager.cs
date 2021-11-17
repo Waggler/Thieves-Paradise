@@ -14,6 +14,8 @@ public class SettingsMenuManager : MonoBehaviour
     [SerializeField] private GameObject videoTab;
     [SerializeField] private GameObject preferencesTab;
 
+    [SerializeField] private Image radioImage;
+
     [Header("Audio")]
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider soundEffectsVolumeSlider;
@@ -235,55 +237,18 @@ public class SettingsMenuManager : MonoBehaviour
 
     #endregion Video
 
-
-    #region Preferences
-
     //-----------------------//
-    public void CrouchToggle(bool isCrouchToggleOn)
+    public void UpdatePreview()
     //-----------------------//
     {
+        float hue = PlayerPrefs.GetFloat("RadioHue");
+        float saturation = PlayerPrefs.GetFloat("RadioSaturation");
 
-        Debug.Log($"The crouch toggle is set to {isCrouchToggleOn}");
+        Color previewColor = Color.HSVToRGB(hue, saturation, 1);
 
-    }//END CrouchToggle
+        radioImage.color = previewColor;
 
-    //-----------------------//
-    public void SprintToggle(bool isSprintToggleOn)
-    //-----------------------//
-    {
-
-        Debug.Log($"The sprint toggle is set to {isSprintToggleOn}");
-
-    }//END CrouchToggle
-
-    //-----------------------//
-    public void InvertHorizontalAxis(bool isInvertHorizontalOn)
-    //-----------------------//
-    {
-
-        Debug.Log($"The horizontal invert toggle is set to {isInvertHorizontalOn}");
-
-    }//END CrouchToggle
-
-    //-----------------------//
-    public void InvertVerticalAxis(bool isInvertVerticalOn)
-    //-----------------------//
-    {
-
-        Debug.Log($"The vertical invert toggle is set to {isInvertVerticalOn}");
-
-    }//END CrouchToggle
-
-    public void AdjustHUD(bool isInventoryRight)
-    //-----------------------//
-    {
-
-        Debug.Log($"The inventory toggle for the right side is set to {isInventoryRight}");
-
-    }//END CrouchToggle
-
-
-    #endregion Preferences
+    }//END UpdatePreview
 
 
     #endregion Methods
