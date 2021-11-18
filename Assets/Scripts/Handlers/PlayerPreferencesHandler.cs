@@ -33,23 +33,6 @@ public class PlayerPreferencesHandler : MonoBehaviour
     #endregion Startup
 
 
-    //-----------------------//
-    public void SetFloat(string keyName, float value)
-    //-----------------------//
-    {
-        PlayerPrefs.SetFloat(keyName, value);
-
-    }//END SetFloat
-
-    //-----------------------//
-    public void SetInt(string keyName, int value)
-    //-----------------------//
-    {
-        PlayerPrefs.SetInt(keyName, value);
-
-    }//END SetInt
-
-
     #region Audio
 
 
