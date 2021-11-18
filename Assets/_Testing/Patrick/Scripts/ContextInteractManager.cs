@@ -34,10 +34,10 @@ public class ContextInteractManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject i in nearbyObjects)
+        /* foreach (GameObject i in nearbyObjects)
         {
             print(i.name);
-        }
+        } */
 
 
         if (nearbyObjects.Count > 0)

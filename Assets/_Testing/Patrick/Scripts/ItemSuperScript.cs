@@ -35,7 +35,7 @@ public class ItemSuperScript : MonoBehaviour
         susManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
     }
 
-    private bool isThrown;
+    public bool isThrown;
     private float timeCounter;
     private SuspicionManager susManager;
     public SfxController sfxController;
@@ -59,7 +59,7 @@ public class ItemSuperScript : MonoBehaviour
     {
         if (durability > 1)
         {
-            print("Used Item");
+            print("Used Item \nDurability: " + durability);
             durability--; //decriment durability
         } else
         {
@@ -79,6 +79,7 @@ public class ItemSuperScript : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
+        print("Hit something");
         if (isThrown)
         {
             MakeNoise();
