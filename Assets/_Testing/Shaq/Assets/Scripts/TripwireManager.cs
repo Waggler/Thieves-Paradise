@@ -103,14 +103,14 @@ public class TripwireManager : MonoBehaviour
 
     //---------------------------------//
     //Draws Gizmos / shapes in editor
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.forward);
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawRay(transform.position, transform.forward);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, callRadius);
-    }//End OnDrawGizmos
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, callRadius);
+    //}//End OnDrawGizmos
 
     //---------------------------------//
     //Used on the Awake() function to initialize any values in one line
