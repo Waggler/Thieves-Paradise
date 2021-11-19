@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
+using Cinemachine;
 
 public class PauseSettingsManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PauseSettingsManager : MonoBehaviour
     [SerializeField] private GameObject audioTab;
     [SerializeField] private GameObject videoTab;
     [SerializeField] private GameObject preferencesTab;
+
+    [SerializeField] private Image radioImage;
 
     [Header("Audio")]
     [SerializeField] private Slider masterVolumeSlider;
@@ -26,6 +29,9 @@ public class PauseSettingsManager : MonoBehaviour
     [SerializeField] private TMP_Dropdown resolutionDropDown;
 
     [SerializeField] private Slider gammaSlider;
+
+    [Header("Tempe Crutch")]
+    [SerializeField] CinemachineFreeLook freeLookCam;
 
     private Resolution[] screenResolutions;
     int currentResolutionIndex;
@@ -280,6 +286,51 @@ public class PauseSettingsManager : MonoBehaviour
 
 
     #endregion Preferences
+
+
+    //-----------------------//
+    public void UpdatePreview()
+    //-----------------------//
+    {
+        float hue = PlayerPrefs.GetFloat("RadioHue");
+        float saturation = PlayerPrefs.GetFloat("RadioSaturation");
+
+        Color previewColor = Color.HSVToRGB(hue, saturation, 1);
+
+        radioImage.color = previewColor;
+
+    }//END UpdatePreview
+
+
+    //-----------------------//
+    public void InvertHorizontalTemp(int value)
+    //-----------------------//
+    {
+        if (value == 0)
+        {
+            freeLookCam.m_XAxis.m_InvertInput = false;
+        }
+        else if (value == 1)
+        {
+            freeLookCam.m_XAxis.m_InvertInput = true;
+        }
+
+    }//END InvertHorizontalTemp
+
+    //-----------------------//
+    public void InvertVerticalTemp(int value)
+    //-----------------------//
+    {
+        if (value == 0)
+        {
+            freeLookCam.m_YAxis.m_InvertInput = false;
+        }
+        else if (value == 1)
+        {
+            freeLookCam.m_YAxis.m_InvertInput = true;
+        }
+
+    }//END InvertVerticalTemp
 
     #endregion Methods
 

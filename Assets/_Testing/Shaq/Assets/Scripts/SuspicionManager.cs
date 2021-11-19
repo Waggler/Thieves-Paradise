@@ -38,11 +38,11 @@ public class SuspicionManager : MonoBehaviour
     [Header("AI State")]
 
     [SerializeField] SecurityLvl secState;
-    #endregion
+    #endregion Enumerations
 
     #region Coroutines
 
-    #endregion
+    #endregion Coroutines
 
     #region Lists & Arrays
 
@@ -59,13 +59,12 @@ public class SuspicionManager : MonoBehaviour
     [SerializeField] private List<GameObject> camerasInLevel;
     //Try to generate the list by getting the children of an object
 
-    
-    #endregion
-
 
     #endregion
 
-    #region Inspector Variables
+    #endregion Lists & Arrays
+
+    #region Variables
     //Note: The green squigglies just mean it's given a value in the inspector instead of in the script
     [Header("Suspicion Manager Variables")]
     [SerializeField] private Text susText;
@@ -85,7 +84,7 @@ public class SuspicionManager : MonoBehaviour
     [Header("Camera Refs")]
     [SerializeField] private CameraManager cameraManager;
 
-
+    [Header("Debug / Testing Variables")]
 
 
     //Be sure to make variables that will be manipulated by other scripts/classes PUBLIC
@@ -93,11 +92,7 @@ public class SuspicionManager : MonoBehaviour
     [SerializeField] public int testInt;
 
 
-    #endregion
-
-    #region Debug Variables
-
-    #endregion
+    #endregion Variables
 
     #region Awake & Update
 
@@ -110,12 +105,13 @@ public class SuspicionManager : MonoBehaviour
         testInt = 0;
 
     }//End Awake
-    #endregion
+    #endregion Awake
 
     #region Update
     // Update is called once per frame
     void Update()
     {
+        /*
         switch (secState)
         {
             case SecurityLvl.SecLVL0:
@@ -142,6 +138,7 @@ public class SuspicionManager : MonoBehaviour
                 susText.text = "LEVEL NOT FOUND";
                 break;
         }
+        */
 
         if (testInt != 0)
         {
@@ -157,9 +154,9 @@ public class SuspicionManager : MonoBehaviour
 
 
     }//End Update
-    #endregion
+    #endregion Update
 
-    #endregion
+    #endregion Awake & Update
 
     #region General Functions
 
@@ -167,7 +164,7 @@ public class SuspicionManager : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(notifCenter.position, notifRad);
-    }
+    }//End OnDrawGizmos
 
 
 
@@ -176,19 +173,20 @@ public class SuspicionManager : MonoBehaviour
     private static void Init()
     {
         //secState = SecurityLvl.SecLVL0;
-    }
+    }//End Init
 
     //---------------------------------//
     //Raises / Lowers the security level based on the given context
     private void AdjustSecurityLevel(SecurityLvl securityLvl)
     {
 
-    }
+    }//End AdjustSecurityLevel
 
     public void AlertGuards(Vector3 targetLoc, Vector3 callerLoc, float callRadius)
     {
+        //print("Alerting Guards");
         //Also generating an array of guards on the call of this function
-        GenGuardArray();
+        GenGuardList();
 
         //EnemyManager reference
         EnemyManager enemyManager;
@@ -213,7 +211,7 @@ public class SuspicionManager : MonoBehaviour
             else
             {
                 //Showing which guards are out of range (purely there for debug reasons)
-                print($"{guard} is outside of camera range.");
+                //print($"{guard} is outside of camera range.");
             }
         }
     }//End AlertGuards
@@ -221,7 +219,7 @@ public class SuspicionManager : MonoBehaviour
 
     //---------------------------------//
     //Generates an array of guard instances in the scene
-    public void GenGuardArray()
+    public void GenGuardList()
     {
         guardsList = GameObject.FindGameObjectsWithTag("Guard").ToList();
 
