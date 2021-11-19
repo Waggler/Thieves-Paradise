@@ -203,6 +203,11 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private bool isAudioSourcePlaying;
 
+    [Header("New Suspicion Behaviour Variables")]
+    [SerializeField] private float randWaitTime = 5f;
+    [HideInInspector] private float randWaitTimeReset;
+
+    Vector3 searchLoc;
     #endregion
 
     #region Awake & Update
@@ -259,6 +264,7 @@ public class EnemyManager : MonoBehaviour
                             {
                                 waitTime = waitTimeReset;
 
+                                //Figure out why this function is being called twice
                                 SetNextWaypoint();
                             }
 
@@ -282,7 +288,7 @@ public class EnemyManager : MonoBehaviour
                         {
                             //print("Player seen, susLevel over 5. Going into SUSPICIOUS state");
                             // PASSIVE >>>> SUSPICIOUS
-                            stateMachine = EnemyStates.SUSPICIOUS;
+                            stateMachine = EnemyStates.HOSTILE;
                         }
 
                         break;
@@ -317,7 +323,7 @@ public class EnemyManager : MonoBehaviour
                         {
                             //print("Player seen, susLevel over 5. Going into SUSPICIOUS state");
                             // PASSIVE >>>> SUSPICIOUS
-                            stateMachine = EnemyStates.SUSPICIOUS;
+                            stateMachine = EnemyStates.HOSTILE;
                         }
                         break;
                         #endregion isWait == false
@@ -346,35 +352,119 @@ public class EnemyManager : MonoBehaviour
 
                 stateText.text = stateMachine.ToString();
 
+
+                SetAiSpeed(susSpeed);
+
+                #region New Suspicious Behaviour
+
+                //New Sus Guard Behaviour:
+                //-When eyeball suslevel reaches threshold:
+                //  -Guard stops
+                //  - Goes in/ faces random directinos, enters searching anim, exits, goes in/ faces another random direction and repeats behaviour
+
+                //  -Repeats these actions until eyeball.suslevel reaches 0 again
+
+                //Add timer here
+
+                //Add timer reset & function call at the end of timer
+
+                if (randWaitTime > 0)
+                {
+                    randWaitTime -= Time.fixedDeltaTime;
+
+                }
+                else if (randWaitTime <= 0)
+                {
+                    randWaitTime = randWaitTimeReset;
+
+                    FaceTarget(target);
+
+                    targetText.text = ($"{target}");
+
+                    SetAIDestination(GenerateRandomPoint());
+
+                }
+
+                #region Delete later
+                ////Start of Method
+                //float randPointRad = 5f;
+
+                //float getNextPoint = 0.5f;
+
+                //Vector3 randDirection = Random.insideUnitSphere * randPointRad;
+
+                ////print(randDirection);
+
+                //NavMeshHit hit;
+
+                ////NavMesh.SamplePosition(transform.position, out hit, randPointRad, 1)
+                ////Returns a bool
+                ////Also generates a hit point via the HIT variable
+                //if (NavMesh.SamplePosition(transform.position, out hit, randPointRad, 1))
+                //{
+                //    //Copying code for AI getting new waypoint
+                //    if (Vector3.Distance(transform.position, hit.position) <= getNextPoint)
+                //    {
+                //        //Testing to see if conditino is met
+                //        print("New Point Generated");
+
+                //        //currently flawed
+                //        target = hit.position;
+
+                //        print(hit.position);
+                //    }
+
+                //    //target = randDirection;
+                //}
+
+
+                ////End of Method
+                #endregion
+
+                #endregion New Suspicious Behaviour
+                
+                FaceTarget(target);
+
+                break;
+            #endregion Suspicious Behavior
+
+            #region Hostile Behavior
+            case EnemyStates.HOSTILE:
+
+                stateText.text = stateMachine.ToString();
+
+                //SetAiSpeed(hostileSpeed);
+
+                #region New Hostile Behaviour
                 //Exit Condition > Hostile
                 //Checking if the player is within the AI's look radius
                 if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > 5)
                 {
 
-                        SetAiSpeed(susSpeed);
+                    SetAiSpeed(hostileSpeed);
 
-                        target = eyeball.lastKnownLocation;
+                    target = eyeball.lastKnownLocation;
 
-                        targetText.text = "Player";
+                    targetText.text = "Player";
 
-                        //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                        SetAIDestination(target);
+                    //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                    SetAIDestination(target);
 
-                        //Playing Alert Audio
-                        if (isAudioSourcePlaying == false)
-                        {
-                            audioSource.Play();
+                    //Playing Alert Audio
+                    if (isAudioSourcePlaying == false)
+                    {
+                        audioSource.Play();
 
-                            isAudioSourcePlaying = true;
-                        }
+                        isAudioSourcePlaying = true;
+                    }
 
-                        //Rework this so that it's based on the suspicion level instead of a generic radius
-                        if (distanceToPlayer <= attackRadius)
-                        {
-                        // SUSPICIOUS >> HOSTILE
-                        stateMachine = EnemyStates.HOSTILE;
+                    //Rework this so that it's based on the suspicion level instead of a generic radius
+                    if (distanceToPlayer <= attackRadius)
+                    {
+                        // HOSTILE >> SUSPICIOUS
+                        stateMachine = EnemyStates.SUSPICIOUS;
                         player.GetComponent<PlayerMovement>().IsStunned = true;
-                        }
+                    }
                 }
 
                 //Exit Condition > Passive
@@ -388,36 +478,27 @@ public class EnemyManager : MonoBehaviour
                     //setting the destination to the now waypoints target
                     SetAIDestination(target);
 
-                    //Returns the guard to it's patrolling behavior
-                    stateMachine = EnemyStates.PASSIVE;
+                    //Returns the guard to it's suspicious behaviour
+                    stateMachine = EnemyStates.SUSPICIOUS;
 
                 }
+                #endregion New Hostile Behaviour
 
-                FaceTarget(target);
-
-                break;
-            #endregion Suspicious Behavior
-
-            #region Hostile Behavior
-            case EnemyStates.HOSTILE:
-
-                stateText.text = stateMachine.ToString();
-
-                SetAiSpeed(hostileSpeed);
-
-                if (distanceToPlayer <= attackRadius)
-                    {
-                        // HOSTILE >> ATTACK
-                        stateMachine = EnemyStates.ATTACK;
+                #region Old Hostile Behaviour
+                //if (distanceToPlayer <= attackRadius)
+                //    {
+                //        // HOSTILE >> ATTACK
+                //        stateMachine = EnemyStates.ATTACK;
 
 
 
-                    }
-                else
-                    {
-                        // HOSTILE >> SUSPICIOUS
-                        stateMachine = EnemyStates.SUSPICIOUS;
-                    }
+                //    }
+                //else
+                //    {
+                //        // HOSTILE >> SUSPICIOUS
+                //        stateMachine = EnemyStates.SUSPICIOUS;
+                //    }
+                #endregion Old Hostile Behaviour
 
                 FaceTarget(target);
 
@@ -534,9 +615,19 @@ public class EnemyManager : MonoBehaviour
         //Stores the user generated stun time
         stunTimeReset = stunTime;
 
+        //Stores the user generated random direction time
+        randWaitTimeReset = randWaitTime;
+
         agent = GetComponent<NavMeshAgent>();
         agent.speed = patrolSpeed;
-        stateMachine = EnemyStates.PASSIVE;
+        stateMachine = EnemyStates.SUSPICIOUS;
+
+
+
+        //REMOVE THIS WHEN TELLING PEOPLE ITS FINE TO FUCK WITH GUARD
+        eyeball.susLevel = 10f;
+
+
 
         //Checks to see if there is no value for the player object reference
         if (player == null)
@@ -608,6 +699,43 @@ public class EnemyManager : MonoBehaviour
         agent.SetDestination(point);
     }//End SetAIDestination
 
+    //---------------------------------//
+    // Finding and eating donuts
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<BaitItemScript>() != null)
+        {
+            Destroy(other.gameObject);
+        }
+    }//End OnTriggerEnter
+
+
+    private Vector3 GenerateRandomPoint()
+    {
+        float randPointRad = 1f;
+
+        Vector3 randDirection = Random.insideUnitCircle * randPointRad;
+
+        //NavMesh.SamplePosition(transform.position, out hit, randPointRad, 1)
+        //Returns a bool
+        //Also generates a hit point via the HIT variable
+        //Possible Bug: the out hit is hitting the guard's mesh and fucking with the suspicion behaviour
+        if (NavMesh.SamplePosition(randDirection + transform.position, out NavMeshHit hit, randPointRad, 1) == true)
+        {
+                searchLoc = hit.position;
+
+                //Testing to see if conditino is met
+                print($"New Point Generated: {searchLoc}");
+
+                return searchLoc;
+        }
+        else
+        {
+            print("Random location not found");
+            return transform.position;
+        }
+    }
+
 
     //---------------------------------//
     //Draws shapes only visible in the editor
@@ -617,6 +745,10 @@ public class EnemyManager : MonoBehaviour
         Gizmos.color = Color.red;
         //Gizmo type
         Gizmos.DrawWireSphere(transform.position + Vector3.up, attackRadius);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(searchLoc, .5f);
+
     }//End OnDrawGizmos
 
 
@@ -641,44 +773,13 @@ public class EnemyManager : MonoBehaviour
 
 
     //---------------------------------//
-    // Revive mechanic set for certain AI prefabs
-    void Revive()
-    {
-
-    }//End Revive
-
-
-    //---------------------------------//
     // Raises the security level for the area
     void RaiseSecurityLevel()
     {
 
     }//End RaiseSecurityLevel
 
-
-    //---------------------------------//
-    //Alerts other guards to let them know the player's location
-    //Notes:
-    //  - This will probably be done using a radius that rapidly expands and shrink
-    //    guards that are caught within the radius of that rapid expansion / shrinking will have a condition met that runs another function / puts them in a suspicious state
-    //  - The lastKnownLocation variable (literally printed as eyeball.lastKnownLocation in this case) will be set to the messaging guards' player report location
-    //  - Guards will converge on this location
-    //  - When this is completed ask Kevin if the behavior should be tweaked
-    //
-    //  - Consider renaming this function to CallForHelp()
-    void AlertLocation()
-    {
-
-    }
-
     #endregion AI Functions
 
-    //finding and eating donuts
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.GetComponent<BaitItemScript>() != null)
-        {
-            Destroy(other.gameObject);
-        }
-    }
+
 }

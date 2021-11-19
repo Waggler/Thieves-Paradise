@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TripwireManager : MonoBehaviour
 {
-
+    #region Variables
     [HideInInspector] [Range (0, 10)]private float rayDistance;
     [HideInInspector] private Vector3 initialHitRecord;
 
@@ -20,8 +20,7 @@ public class TripwireManager : MonoBehaviour
     [SerializeField] private ParticleSystem laserVFX;
     private float startLFTM = 90;
 
-
-
+    #endregion Variables
 
     #region Awake & Update
 
@@ -56,11 +55,11 @@ public class TripwireManager : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, initialHitRecord);
 
-        print($"Distance = {distance}");
+        //print($"Distance = {distance}");
 
         startLFTM = distance;
 
-        print($"startLFTM = {startLFTM}");
+        //print($"startLFTM = {startLFTM}");
 
         //Hit instance of the raycast
         RaycastHit hit;
