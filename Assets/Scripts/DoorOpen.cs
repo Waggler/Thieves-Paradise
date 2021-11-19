@@ -26,6 +26,12 @@ public class DoorOpen : MonoBehaviour
     public int buttonPressed = 0;
     public int buttonPressed2 = 0;
     public int buttonPressed3 = 0;
+    //this is the value for the angle the door will open when approached normally
+    public float doorWalkOpen;
+    //this is the value for the angle the door will open when approached while sprinting
+    public float doorSprintOpen;
+    //these values are for the angles that the door opens while the player is crouching
+    public float doorCrouchOpen1, doorCrouchOpen2, doorCrouchOpen3;
     
     // Start is called before the first frame update
     void Start()
@@ -62,7 +68,8 @@ public class DoorOpen : MonoBehaviour
     {
         if(doorOpens == true)
         {
-            maxAngle = -90f;
+            maxAngle = doorWalkOpen;
+            //-90
         }
 
         // else
@@ -72,7 +79,8 @@ public class DoorOpen : MonoBehaviour
 
         if(im.isSprinting == true)
         {
-            maxAngle = -151.55f;
+            maxAngle = doorSprintOpen;
+            //preferred angle = -151.55f
         }
 
         // if(crouchOpen1 == true)
@@ -144,7 +152,8 @@ public class DoorOpen : MonoBehaviour
 
         if(buttonPressed == 1)
         {
-            maxAngle = -37.06f;
+            maxAngle = doorCrouchOpen1;
+            //preferred angle = -37.06f
             // buttonPressed = 0;
         }
 
@@ -160,7 +169,8 @@ public class DoorOpen : MonoBehaviour
 
         if(buttonPressed2 == 1)
         {
-            maxAngle = -48.15f;
+            maxAngle = doorCrouchOpen2;
+            //preferred angle = -48.15f
         }
 
         if(crouchOpen3 == true)
@@ -175,7 +185,8 @@ public class DoorOpen : MonoBehaviour
 
         if(buttonPressed3 == 1)
         {
-            maxAngle = -71.3f;
+            maxAngle = doorCrouchOpen3;
+            //preferred angle = -71.3f
         }
     }
 
