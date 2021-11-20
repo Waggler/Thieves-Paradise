@@ -18,12 +18,12 @@ public class CamSwitch : MonoBehaviour
     public InputManager im;
 
     public DoorOpen trigger1;
-    public DoorOpen2 trigger2;
+    public DoorOpen trigger2;
 
-    public Vents vent;
+    // public Vents vent;
 
-    public VentInTrigger ventIn;
-    public VentOutTrigger ventOut;
+    // public VentInTrigger ventIn;
+    // public VentOutTrigger ventOut;
 
     // public Camera mainCamera;
     // public Camera Camera2;
@@ -82,7 +82,7 @@ public class CamSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+        
         if(im.isCrouching == true && trigger1.inArea == true)
         {
            animator.Play("VCam2");
@@ -94,17 +94,17 @@ public class CamSwitch : MonoBehaviour
            firstPersonCam = true;
         }
 
-        if(ventIn.inVent == true)
-        {
-            animator.Play("VCam2");
-            firstPersonCam = true;
-        }
-        if (ventOut.outVent == true)
-        {
-            // animator.Play("FreeLook");
-            firstPersonCam = false;
-        }
-        */
+        // if(ventIn.inVent == true)
+        // {
+        //     animator.Play("VCam2");
+        //     firstPersonCam = true;
+        // }
+        // if (ventOut.outVent == true)
+        // {
+        //     // animator.Play("FreeLook");
+        //     firstPersonCam = false;
+        // }
+        // */
         // if(im.isCrouching == true && vent.isOnVents == true)
         // {
         //    animator.Play("VCam2");
