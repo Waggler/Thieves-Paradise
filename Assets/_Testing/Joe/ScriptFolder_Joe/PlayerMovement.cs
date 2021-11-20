@@ -98,9 +98,13 @@ public class PlayerMovement : MonoBehaviour
     public float CurrentStunTime = 0;
 
     [Header("Player Noise")]
+    [Tooltip("The detection radius of the player when they are standing still")]
     [SerializeField] private int IdleLevel = 0;
+    [Tooltip("The detection radius of the player when they are moving while crouched, diving, and sliding.")]
     [SerializeField] private int LowLevel = 1;
+    [Tooltip("The detection radius of the player when they are moving, jumping, and jumping while moving.")]
     [SerializeField] private int MidLevel = 2;
+    [Tooltip("The detection radius of the player when they are running and rolling.")]
     [SerializeField] private int HighLevel = 3;
     [SerializeField] private int CurrentLevel;
 
@@ -669,15 +673,15 @@ public class PlayerMovement : MonoBehaviour
         {
             CurrentLevel = IdleLevel;
         }
-        else if(Crouching || CrouchRoll || Diving)
+        else if((Crouching || Slide || Diving) && !CrouchRoll)
         {
             CurrentLevel = LowLevel;
         }
-        else if((Moving || Slide || Jumping) && !Diving && !Running)
+        else if((Moving || Jumping) && !Diving && !Running)
         {
             CurrentLevel = MidLevel;
         }
-        else if(Running && Moving)
+        else if((Running && Moving) || CrouchRoll)
         {
             CurrentLevel = HighLevel;
         }
