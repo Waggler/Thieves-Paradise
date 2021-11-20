@@ -101,12 +101,16 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The detection radius of the player when they are standing still")]
     [SerializeField] private int IdleLevel = 0;
     [Tooltip("The detection radius of the player when they are moving while crouched, diving, and sliding.")]
-    [SerializeField] private int LowLevel = 1;
+    [SerializeField] private int LowLevel = 3;
     [Tooltip("The detection radius of the player when they are moving, jumping, and jumping while moving.")]
-    [SerializeField] private int MidLevel = 2;
+    [SerializeField] private int MidLevel = 6;
     [Tooltip("The detection radius of the player when they are running and rolling.")]
-    [SerializeField] private int HighLevel = 3;
+    [SerializeField] private int HighLevel = 12;
     [SerializeField] private int CurrentLevel;
+    private float NoiseClock = 1;
+
+    //[Header("Suspicion Manager")]
+    public SuspicionManager SusMan;
 
     [Header("Animation States")]
     [SerializeField] private AnimationController animationController;
@@ -122,6 +126,12 @@ public class PlayerMovement : MonoBehaviour
     public bool Stunned;
 
     #endregion
+
+    void Awake()
+    {
+        //This might need to be updated for any changes to the sus manager.
+        SusMan = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
+    }
 
     void Start()
     {
@@ -145,10 +155,7 @@ public class PlayerMovement : MonoBehaviour
         Rolling();
         AnimationStates();
 
-        //REMOVE FROM UPDATE LATER!
-        PlayerSound();
-
-        if((!IsCrouching && !IsSprinting && !IsPushPull) || IsUncovered)
+        if ((!IsCrouching && !IsSprinting && !IsPushPull) || IsUncovered)
         {
             CoveredCheck();
             IsUncovered = false;
@@ -267,9 +274,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #endregion
-    
+
         #region Stun Work
-        if(IsStunned)
+        if (IsStunned)
         {
             CurrentStunTime += Time.deltaTime;
 
@@ -284,12 +291,22 @@ public class PlayerMovement : MonoBehaviour
                 IsStunned = false;
             }
         }
-        
+
+        #endregion
+
+        #region Noise Clock
+        //Might be replaced later.
+        if (NoiseClock < 0)
+        {
+            PlayerSound();
+            NoiseClock = 1;
+        }
+        NoiseClock -= Time.deltaTime;
         #endregion
     }
 
     #region Functions
- 
+
     #region Move
     //----------MOVEMENT----------//
     public void Movement(Vector3 Move)
@@ -685,6 +702,9 @@ public class PlayerMovement : MonoBehaviour
         {
             CurrentLevel = HighLevel;
         }
+
+        SusMan.AlertGuards(transform.position, transform.position, CurrentLevel);
+        //Play sounds here Doot.
     }
 
     #endregion
