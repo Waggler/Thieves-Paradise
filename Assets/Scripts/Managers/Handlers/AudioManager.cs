@@ -24,6 +24,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip mainMenuClip;
     [SerializeField] private AudioClip gameSceneClip;
 
+    public bool isGameStarted;
+
 
     #endregion Components
 
@@ -33,6 +35,14 @@ public class AudioManager : MonoBehaviour
 
     #region Startup
 
+
+    //-------------------------//
+    void Awake()
+    //-------------------------//
+    {
+        SetDefaultVolume();
+
+    }//END Start
 
     //-------------------------//
     void Start()
@@ -56,6 +66,22 @@ public class AudioManager : MonoBehaviour
 
 
     }//END Init
+
+    //-------------------------//
+    void SetDefaultVolume()
+    //-------------------------//
+    {
+        if (isGameStarted == true)
+        {
+            PlayerPrefs.SetFloat("MasterAudio", -25);
+            PlayerPrefs.SetFloat("MusicAudio", -25);
+            PlayerPrefs.SetFloat("SFXAudio", -25);
+            isGameStarted = false;
+        }
+
+
+
+    }//END SetDefaultVolume
 
 
     #endregion Startup
