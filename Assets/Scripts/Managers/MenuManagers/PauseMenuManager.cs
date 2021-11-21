@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -88,7 +89,7 @@ public class PauseMenuManager : MonoBehaviour
         }
         else if (screenValue == 2)
         {
-            Debug.Log("Back to Main Menu");
+            SceneManager.LoadScene(0);
 
         }
 
