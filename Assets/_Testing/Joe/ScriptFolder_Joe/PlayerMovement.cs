@@ -703,8 +703,15 @@ public class PlayerMovement : MonoBehaviour
             CurrentLevel = HighLevel;
         }
 
-        SusMan.AlertGuards(transform.position, transform.position, CurrentLevel);
-        //Play sounds here Doot.
+        if (CurrentLevel != IdleLevel)
+        {
+            SusMan.AlertGuards(transform.position, transform.position, CurrentLevel);
+            //Play sounds here Doot.
+        }
+        else
+        {
+            return;
+        }
     }
 
     #endregion
