@@ -21,6 +21,13 @@ public class ItemSuperScript : MonoBehaviour
         get;
         set;
     }
+    
+
+    public bool isThrown;
+    private float timeCounter;
+    private SuspicionManager susManager;
+    public SfxController sfxController;
+
     void Awake()
     {
         if (gameObject.GetComponent<Outline>() == null)
@@ -30,15 +37,11 @@ public class ItemSuperScript : MonoBehaviour
             outline.OutlineColor = Color.white;
             outline.OutlineWidth = 5f;
             outline.enabled = false;
+            GetComponent<MeshRenderer>().material.renderQueue = 1900;
         }
         
         susManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
     }
-
-    public bool isThrown;
-    private float timeCounter;
-    private SuspicionManager susManager;
-    public SfxController sfxController;
 
     void Start()
     {

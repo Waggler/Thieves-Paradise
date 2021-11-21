@@ -586,7 +586,11 @@ public class EnemyManager : MonoBehaviour
     {
         Vector3 direction = (target - transform.position).normalized;
 
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        Quaternion lookRotation = Quaternion.identity;
+        if (direction.x != 0 && direction.z != 0)
+        {
+            lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        }
 
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
     }//End FaceTarget

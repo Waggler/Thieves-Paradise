@@ -9,7 +9,6 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
     [SerializeField] public GameObject myPrefab;//reference to this object's prefab
     [SerializeField] private float noiseRadius = 5;
     [SerializeField] private float baitRadius = 10;
-    private SuspicionManager alertManager;
     private float baitInterval = 2; //how often the item tries to lure enemies
     private float timer;
 
@@ -33,7 +32,6 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
         if (noiseRadius != 0)
             thrownNoiseRadius = noiseRadius;
         
-        alertManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
     }
 
     // Update is called once per frame

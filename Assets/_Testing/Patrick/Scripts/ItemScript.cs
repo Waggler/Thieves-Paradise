@@ -41,9 +41,11 @@ public class ItemScript : ItemSuperScript, ItemInterface
 
     void OnCollisionEnter(Collision other)
     {
+        print("hit something");
         if (durability < 1 && deployableObject != null && isThrown)
         {
             Instantiate(deployableObject, transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
         }
     }   
 }
