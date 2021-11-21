@@ -37,14 +37,6 @@ public class AudioManager : MonoBehaviour
 
 
     //-------------------------//
-    void Awake()
-    //-------------------------//
-    {
-        SetDefaultVolume();
-
-    }//END Start
-
-    //-------------------------//
     void Start()
     //-------------------------//
     {
@@ -66,22 +58,6 @@ public class AudioManager : MonoBehaviour
 
 
     }//END Init
-
-    //-------------------------//
-    void SetDefaultVolume()
-    //-------------------------//
-    {
-        if (isGameStarted == true)
-        {
-            PlayerPrefs.SetFloat("MasterAudio", -25);
-            PlayerPrefs.SetFloat("MusicAudio", -25);
-            PlayerPrefs.SetFloat("SFXAudio", -25);
-            isGameStarted = false;
-        }
-
-
-
-    }//END SetDefaultVolume
 
 
     #endregion Startup
