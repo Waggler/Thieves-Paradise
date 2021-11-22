@@ -25,6 +25,9 @@ public class CamSwitch : MonoBehaviour
     public VentInTrigger ventIn;
     public VentOutTrigger ventOut;
 
+    public DoorLocked door1;
+    public DoorLocked door2;
+
     // public Camera mainCamera;
     // public Camera Camera2;
 
@@ -105,6 +108,12 @@ public class CamSwitch : MonoBehaviour
         {
             // animator.Play("FreeLook");
             firstPersonCam = false;
+        }
+
+        if(im.isCrouching == true && door1.inArea == true || im.isCrouching == true && door2.inArea == true)
+        {
+            animator.Play("VCam2");
+            firstPersonCam = true;
         }
         // */
         // if(im.isCrouching == true && vent.isOnVents == true)

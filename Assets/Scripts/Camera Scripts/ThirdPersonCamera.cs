@@ -10,6 +10,8 @@ public class ThirdPersonCamera : MonoBehaviour
     public InputManager im;
     public DoorOpen door;
     public DoorOpen door2;
+    public DoorLocked lockedDoor1;
+    public DoorLocked lockedDoor2;
 
     //Start is called before the first frame update
     void Start()
@@ -36,6 +38,11 @@ public class ThirdPersonCamera : MonoBehaviour
 
         
         if(im.isCrouching == true && door.inArea == true || im.isCrouching == true && door2.inArea == true)
+        {
+            Player.rotation = Quaternion.Euler(0, -mouseX, 0);
+        }
+
+        if(im.isCrouching == true && lockedDoor1.inArea == true || im.isCrouching == true && lockedDoor2.inArea == true)
         {
             Player.rotation = Quaternion.Euler(0, -mouseX, 0);
         }
