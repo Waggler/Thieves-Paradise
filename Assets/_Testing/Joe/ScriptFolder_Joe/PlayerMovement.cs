@@ -72,19 +72,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool StillDiving;
     private float CurrentDiveTime;
 
-    [Header("Animation States")]
-    [SerializeField] private AnimationController animationController;
-    public bool Idle;
-    public bool IdleCrouch;
-    public bool Moving;
-    public bool Crouching;
-    public bool Running;
-    public bool Jumping;
-    public bool CrouchRoll;
-    public bool Slide;
-    public bool Diving;
-    public bool Stunned;
-    
     //[Header("Camera")]
     private Transform PlayerCamera;
     private Vector3 FacingDirection;
@@ -110,6 +97,26 @@ public class PlayerMovement : MonoBehaviour
     public bool IsStunned = false;
     public float CurrentStunTime = 0;
 
+    [Header("Player Noise")]
+    [SerializeField] private int IdleLevel = 0;
+    [SerializeField] private int LowLevel = 1;
+    [SerializeField] private int MidLevel = 2;
+    [SerializeField] private int HighLevel = 3;
+    [SerializeField] private int CurrentLevel;
+
+    [Header("Animation States")]
+    [SerializeField] private AnimationController animationController;
+    public bool Idle;
+    public bool IdleCrouch;
+    public bool Moving;
+    public bool Crouching;
+    public bool Running;
+    public bool Jumping;
+    public bool CrouchRoll;
+    public bool Slide;
+    public bool Diving;
+    public bool Stunned;
+
     #endregion
 
     void Start()
@@ -133,6 +140,9 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         Rolling();
         AnimationStates();
+
+        //REMOVE FROM UPDATE LATER!
+        PlayerSound();
 
         if((!IsCrouching && !IsSprinting && !IsPushPull) || IsUncovered)
         {
@@ -628,7 +638,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
-    
+
     #region CrouchDown
     //---CROUCH-DOWN---//
     void CrouchDown()
@@ -643,7 +653,38 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
-    
+
+    #region UnCrouched Check
+    void UnCrouchedCheck()
+    {
+        IsUncovered = true;
+    }
+
+    #endregion
+
+    #region Player Sound Controller
+    void PlayerSound()
+    {
+        if((Idle || IdleCrouch) && !Moving && !Crouching)
+        {
+            CurrentLevel = IdleLevel;
+        }
+        else if(Crouching || CrouchRoll || Diving)
+        {
+            CurrentLevel = LowLevel;
+        }
+        else if((Moving || Slide || Jumping) && !Diving && !Running)
+        {
+            CurrentLevel = MidLevel;
+        }
+        else if(Running && Moving)
+        {
+            CurrentLevel = HighLevel;
+        }
+    }
+
+    #endregion
+
     #region Animation States
     //---ANIMATIONSTATES---//
     void AnimationStates()
@@ -759,13 +800,5 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    #region UnCrouched Check
-    void UnCrouchedCheck()
-    {
-        IsUncovered = true;
-    }
-
-    #endregion
-    
     #endregion
 }
