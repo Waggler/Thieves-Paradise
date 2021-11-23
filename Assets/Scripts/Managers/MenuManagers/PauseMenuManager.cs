@@ -12,10 +12,14 @@ public class PauseMenuManager : MonoBehaviour
 
 
     [Header("Components")]
+    [SerializeField] private PhotoScreenManager photoScreenManager;
+
     [Header("Screens")]
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject loadMenu;
     [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject photoScreen;
+
 
     public static bool isGamePaused;
 
@@ -92,33 +96,16 @@ public class PauseMenuManager : MonoBehaviour
             SceneManager.LoadScene(0);
 
         }
+        else if (screenValue == 3)
+        {
+            pauseMenu.SetActive(false);
+
+            photoScreenManager.RandomizeTag();
+            photoScreen.SetActive(true);
+        }
 
 
     }//END ChangeScreen
-
-
-    /*      
-//-------------------------//
-public void IncreaseRosterSize()        //In case we want to make the save list hella big
-//-------------------------//
-{
-    if (totalSaves >= 4)
-    {
-        saveListTransform.sizeDelta = new Vector2(saveListTransform.sizeDelta.x, saveListTransform.sizeDelta.y + 220f);
-    }
-    else if (totalSaves >= 7)
-    {
-        saveListTransform.sizeDelta = new Vector2(saveListTransform.sizeDelta.x, saveListTransform.sizeDelta.y + 220f);
-
-    }
-    else if (totalSaves >= 10)
-    {
-        saveListTransform.sizeDelta = new Vector2(saveListTransform.sizeDelta.x, saveListTransform.sizeDelta.y + 220f);
-
-    }
-
-}//END IncreaseRosterSize
-*/
 
 
     #endregion Methods
