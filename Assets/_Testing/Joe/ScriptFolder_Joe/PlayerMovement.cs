@@ -98,16 +98,16 @@ public class PlayerMovement : MonoBehaviour
     public float CurrentStunTime = 0;
 
     [Header("Player Noise")]
-    [Tooltip("The detection radius of the player when they are standing still")]
-    [SerializeField] private int IdleLevel = 0;
-    [Tooltip("The detection radius of the player when they are moving while crouched, diving, and sliding.")]
-    [SerializeField] private int LowLevel = 3;
-    [Tooltip("The detection radius of the player when they are moving, jumping, and jumping while moving.")]
-    [SerializeField] private int MidLevel = 6;
-    [Tooltip("The detection radius of the player when they are running and rolling.")]
-    [SerializeField] private int HighLevel = 12;
+    [Tooltip("The detection radius of the player when they are standing still and when they are moving while crouched")]
+    [SerializeField] private int SilentLevel = 0;
+    [Tooltip("The detection radius of the player when they are moving, jumping while standing still, jumping while moving, and rolling.")]
+    [SerializeField] private int QuietLevel = 3;
+    [Tooltip("The detection radius of the player when they are sliding")]
+    [SerializeField] private int MediumLevel = 6;
+    [Tooltip("The detection radius of the player when they are running and diving.")]
+    [SerializeField] private int LoudLevel = 12;
     [SerializeField] private int CurrentLevel;
-    private float NoiseClock = 1;
+    private float NoiseClock = 0.25f;
 
     //[Header("Suspicion Manager")]
     public SuspicionManager SusMan;
@@ -299,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
         if (NoiseClock < 0)
         {
             PlayerSound();
-            NoiseClock = 1;
+            NoiseClock = 0.25f;
         }
         NoiseClock -= Time.deltaTime;
         #endregion
@@ -686,24 +686,24 @@ public class PlayerMovement : MonoBehaviour
     #region Player Sound Controller
     void PlayerSound()
     {
-        if((Idle || IdleCrouch) && !Moving && !Crouching)
+        if((Idle || IdleCrouch || Crouching) && !CrouchRoll && !Jumping && !Slide && !Running)
         {
-            CurrentLevel = IdleLevel;
+            CurrentLevel = SilentLevel;
         }
-        else if((Crouching || Slide || Diving) && !CrouchRoll)
+        else if(((Moving || Jumping || CrouchRoll) || (Idle && Jumping)) && !Slide && !Running)
         {
-            CurrentLevel = LowLevel;
+            CurrentLevel = QuietLevel;
         }
-        else if((Moving || Jumping) && !Diving && !Running)
+        else if(Slide)
         {
-            CurrentLevel = MidLevel;
+            CurrentLevel = MediumLevel;
         }
-        else if((Running && Moving) || CrouchRoll)
+        else if((Running && Moving) || Diving)
         {
-            CurrentLevel = HighLevel;
+            CurrentLevel = LoudLevel;
         }
 
-        if (CurrentLevel != IdleLevel)
+        if (CurrentLevel != SilentLevel)
         {
             SusMan.AlertGuards(transform.position, transform.position, CurrentLevel);
             //Play sounds here Doot.
