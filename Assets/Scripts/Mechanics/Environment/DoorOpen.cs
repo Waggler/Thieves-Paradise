@@ -188,6 +188,10 @@ public class DoorOpen : MonoBehaviour
             maxAngle = doorCrouchOpen3;
             //preferred angle = -71.3f
         }
+
+        // OnTriggerStay(collider);
+        // OnTriggerEnter(collider);
+        // OnTriggerExit(collider);
     }
 
     #region OpenDoor
