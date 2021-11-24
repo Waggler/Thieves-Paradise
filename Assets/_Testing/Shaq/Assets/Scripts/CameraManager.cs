@@ -47,7 +47,7 @@ public class CameraManager : MonoBehaviour
 
     #region Variables
     [Header("Camera Target / Trigger")]
-    private Transform target;
+    private Vector3? target;
     [Tooltip("References the player's vision target, auto generated")]
     [SerializeField] private GameObject player;
 
@@ -217,7 +217,7 @@ public class CameraManager : MonoBehaviour
                 stateText.text = $"{cameraStateMachine}";
 
                 //referencing player variable from the eyeball script
-                target = player.transform;
+                target = player.transform.position;
 
                 targetText.text = $"{target}";
 
@@ -285,7 +285,9 @@ public class CameraManager : MonoBehaviour
     void FaceTarget()
     {
         //generates the direction that the camera needs to face
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (Vector3)(target - transform.position);
+
+        Vector3.Normalize(direction);
 
         //Creates a quaternion var and assings it a look rotation
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));

@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 //Things to add:
 //    - State history (store the current and previous state that the AI was in)
 //    - Rework AI pathing / pathfinding
+//    - Start adding event handlers for frequent things like changing target and speed
 
 
 //Suspicion Manager Notes:
@@ -130,84 +131,139 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion
 
-    #region Coroutines
+    #region EventHandlers?
 
-    #endregion Coroutines
+    #endregion EventHandlers?
 
     #region Variables
 
+    //---------------------------------------------------------------------------------------------------//
+
     [Header("Private Variables")]
-    [HideInInspector] private Vector3 target;
-    [HideInInspector] private NavMeshAgent agent;
-    [HideInInspector] private Rigidbody m_Rigidbody;
-    [HideInInspector] public bool autoBraking = true;
+
+    private Vector3 target;
+    private NavMeshAgent agent;
+    //DO not delete
+    private bool autoBraking = true;
+
+    //---------------------------------------------------------------------------------------------------//
 
     [Header("Object References")]
+
     [Tooltip("References the player object")]
     [SerializeField] private GameObject player;
+
     [Tooltip("References the guard's eyeball prefab / object")]
     [SerializeField] private EyeballScript eyeball;
-    
+
+    //---------------------------------------------------------------------------------------------------//
 
     [Header("Diagnostic Text")]
+
     [Tooltip("References the state text (displays the state the guard is in)")]
     [SerializeField] private Text stateText;
+
     [Tooltip("References the target text (displays the guard's current target)")]
     [SerializeField] private Text targetText;
+
     [Tooltip("References the lose text for the game (this is NOT permanent)")]
     [SerializeField] private Text loseText;
 
+    //---------------------------------------------------------------------------------------------------//
+
     [Header("Guard Movement Speed")]
+
     [Tooltip("The speed that the AI moves at in the PATROL state")]
     [SerializeField] [Range(0, 10)] private float patrolSpeed = 5f;
+
     [Tooltip("The speed that the AI moves at in the SUSPICIOS state")]
     [SerializeField] [Range(0, 10)] private float susSpeed = 6.5f;
+
     [Tooltip("The speed that the AI moves at in the STUNNED state")]
     [SerializeField] [Range(0, 10)] private float stunSpeed = 0f;
+
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
     [SerializeField] [Range(0, 10)] private float hostileSpeed = 8f;
+
     [Tooltip("The speed that the AI moves at in the ATTACK state")]
     [SerializeField] [Range(0, 10)] private float attackSpeed = 0f;
 
+    //---------------------------------------------------------------------------------------------------//
+    [Header("Patrol Wait Time")]
 
-    [Header("Misc. Variables")]
-    [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
-    [SerializeField] private float attackRadius = 10f;
-    [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
-    [SerializeField] private float waypointNextDistance = 2f;
-    [Tooltip("The speed at which the guard turns to face a target (functionality varies)")]
-    [SerializeField] [Range (0, 50)]private float rotateSpeed;
     [Tooltip("When enabled, the guard will wait when it reaches it's 'waypointNextDistance'")]
     [SerializeField] private bool isWait;
+
     [Tooltip("The amount of time that the guard waits when 'isWait' is enabled")]
-    public float waitTime;
-    [HideInInspector] private float waitTimeReset;
+    [SerializeField] public float waitTime;
+
+    [Tooltip("The minimum generated value for the wait time")]
+    [SerializeField] [Range (1, 3)] private float waitMin = 1f;
+
+    [Tooltip("The maximum generated value for the wait time")]
+    [SerializeField] [Range (3, 5)]  private float waitMax = 5f;
+
+
+    //---------------------------------------------------------------------------------------------------//
+    [Header("Suspicious Wait Time")]
+
+    [Tooltip("The minimum generated value for the wait time")]
+    [SerializeField] [Range(1, 3)] private float randWaitMin = 1f;
+
+    [Tooltip("The maximum generated value for the wait time")]
+    [SerializeField] [Range(3, 5)] private float randWaitMax = 5f;
+
+    private float randWaitTime = 3f;
+
+    //---------------------------------------------------------------------------------------------------//
 
     [Header("Global Suspicion Manager Ref")]
+
     [Tooltip("Reference to the suspicion manager")]
+
     [SerializeField] private SuspicionManager suspicionManager;
 
+    //---------------------------------------------------------------------------------------------------//
+
+    [Header("Audio Variables")]
+
+    [SerializeField] private AudioSource audioSource;
+
+    [SerializeField] private bool isAudioSourcePlaying;
+
+    //---------------------------------------------------------------------------------------------------//
+
     [Header("Debug / Testing Variables")]
+
     //Variable may need to be renamed in the future based on further implementations with Charlie
     [Tooltip("Duration of the guard's Stun state duration")]
     [SerializeField] private float stunTime;
-    [HideInInspector] private float stunTimeReset;
+
+    private float stunTimeReset;
+
     //Save implementation for next sprint
-    [SerializeField] [Range (0, 50)]private float guardKnockbackForce;
+    [SerializeField] [Range (0, 50)] private float guardKnockbackForce;
 
     [Tooltip("Duration of the guard's Attack state duration")]
     [SerializeField] private float attackTime;
-    [HideInInspector] private float attackTimeReset;
+    private float attackTimeReset;
 
-    [Header("Audio Variables")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private bool isAudioSourcePlaying;
+    //---------------------------------------------------------------------------------------------------//
 
-    [Header("New Suspicion Behaviour Variables")]
-    [SerializeField] private float randWaitTime = 5f;
-    [HideInInspector] private float randWaitTimeReset;
+    [Header("Misc. Variables")]
 
-    Vector3 searchLoc;
+    [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
+    [SerializeField] private float attackRadius = 10f;
+
+    [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
+    [SerializeField] private float waypointNextDistance = 2f;
+
+    [Tooltip("The speed at which the guard turns to face a target (functionality varies)")]
+    [SerializeField] [Range (0, 50)]private float rotateSpeed;
+
+    private float randWaitTimeReset;
+
+    private Vector3 searchLoc;
     #endregion
 
     #region Awake & Update
@@ -262,7 +318,8 @@ public class EnemyManager : MonoBehaviour
                             }
                             else if (waitTime <= 0)
                             {
-                                waitTime = waitTimeReset;
+                                //waitTime = waitTimeReset;
+                                waitTime = Random.Range(waitMin, waitMax);
 
                                 //Figure out why this function is being called twice
                                 SetNextWaypoint();
@@ -368,6 +425,7 @@ public class EnemyManager : MonoBehaviour
 
                 //Add timer reset & function call at the end of timer
 
+                //Think of better names for these variables, they are confusing as shit
                 if (randWaitTime > 0)
                 {
                     randWaitTime -= Time.fixedDeltaTime;
@@ -375,7 +433,9 @@ public class EnemyManager : MonoBehaviour
                 }
                 else if (randWaitTime <= 0)
                 {
-                    randWaitTime = randWaitTimeReset;
+
+                    //randWaitTime = randWaitTimeReset;
+                    randWaitTime = Random.Range(randWaitMin, randWaitMax);
 
                     FaceTarget(target);
 
@@ -609,9 +669,6 @@ public class EnemyManager : MonoBehaviour
     {
         isAudioSourcePlaying = false;
 
-        //Stores the user generated wait time
-        waitTimeReset = waitTime;
-
         //Stores the user generated stun time
         stunTimeReset = stunTime;
 
@@ -651,12 +708,7 @@ public class EnemyManager : MonoBehaviour
 
         loseText.text = "";
 
-        waitTimeReset = waitTime;
-
         stunTimeReset = stunTime;
-
-        m_Rigidbody = GetComponent<Rigidbody>();
-
     }//End Init
 
 
@@ -714,7 +766,8 @@ public class EnemyManager : MonoBehaviour
     {
         float randPointRad = 1f;
 
-        Vector3 randDirection = Random.insideUnitCircle * randPointRad;
+        //Vector3 randDirection = Random.insideUnitCircle * randPointRad;
+        Vector3 randDirection = (target - transform.position).normalized;
 
         //NavMesh.SamplePosition(transform.position, out hit, randPointRad, 1)
         //Returns a bool
@@ -723,10 +776,6 @@ public class EnemyManager : MonoBehaviour
         if (NavMesh.SamplePosition(randDirection + transform.position, out NavMeshHit hit, randPointRad, 1) == true)
         {
                 searchLoc = hit.position;
-
-                //Testing to see if conditino is met
-                print($"New Point Generated: {searchLoc}");
-
                 return searchLoc;
         }
         else
@@ -741,35 +790,12 @@ public class EnemyManager : MonoBehaviour
     //Draws shapes only visible in the editor
     private void OnDrawGizmos()
     {
-        //Gizmo color
         Gizmos.color = Color.red;
-        //Gizmo type
         Gizmos.DrawWireSphere(transform.position + Vector3.up, attackRadius);
 
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(searchLoc, .5f);
-
     }//End OnDrawGizmos
-
-
-    //---------------------------------//
-    //Used as a timer, insert a float for the time and it returns when the time is over
-    private bool Timer(float feedTime)
-    {
-        //Delete this method, it's god awful
-        feedTime -= Time.deltaTime;
-
-        if (feedTime <= 0)
-        {
-            return false;
-        }
-        else
-        {
-            //print($"{feedTime}");
-
-            return true;
-        }
-    }//End Timer
 
 
     //---------------------------------//
