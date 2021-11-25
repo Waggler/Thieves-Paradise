@@ -32,6 +32,11 @@ public class DoorOpen : MonoBehaviour
     public float doorSprintOpen;
     //these values are for the angles that the door opens while the player is crouching
     public float doorCrouchOpen1, doorCrouchOpen2, doorCrouchOpen3;
+    public bool normalOpen = false;
+    public bool SprintOpen = false;
+    public bool crouch1Open = false;
+    public bool crouch2Open = false;
+    public bool crouch3Open = false;
     
     // Start is called before the first frame update
     void Start()
@@ -192,6 +197,12 @@ public class DoorOpen : MonoBehaviour
         // OnTriggerStay(collider);
         // OnTriggerEnter(collider);
         // OnTriggerExit(collider);
+
+        if(normalOpen == true)
+        {
+            float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
+            door.transform.eulerAngles = new Vector3(0, angle, 0);
+        }
     }
 
     #region OpenDoor
@@ -227,14 +238,13 @@ public class DoorOpen : MonoBehaviour
 
         if(inArea == true && button1Pressed == true && im.isSprinting == false)
         {
-            float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
-            door.transform.eulerAngles = new Vector3(0, angle, 0);
             // door.transform.position = new Vector3(8.34f, 2.1f, 7.17f);
             
             
             // door.transform.eulerAngles = new Vector3(0f, -76.942f, 0f);
             message.SetActive(false);
             doorOpens = true;
+            normalOpen = true;
 
             // if(im.isCrouching == true && crouchOpen1 == true && crouchOpen2 == false && crouchOpen3 == false)
             // {
@@ -315,6 +325,7 @@ public class DoorOpen : MonoBehaviour
             buttonPressed = 0;
             buttonPressed2 = 0;
             buttonPressed3 = 0;
+            normalOpen = false;
         // }
         message.SetActive(false);
     }   //END LEAVE DOOR TRIGGER
