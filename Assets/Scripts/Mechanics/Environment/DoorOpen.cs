@@ -37,12 +37,14 @@ public class DoorOpen : MonoBehaviour
     public bool crouch1Open = false;
     public bool crouch2Open = false;
     public bool crouch3Open = false;
+    private Animation anim;
     
     // Start is called before the first frame update
     void Start()
     {
         message.SetActive(false);
         // action.performed += _ => OpenDoor();
+        anim = GetComponent<Animation>();
     }
 
     // private void OnEnable()
@@ -75,7 +77,13 @@ public class DoorOpen : MonoBehaviour
         {
             maxAngle = doorWalkOpen;
             //-90
+            //anim.Play("DoorOpening1");
         }
+
+        // if(doorOpens == false)
+        // {
+        //     anim.Play("DoorClosing1");
+        // }
 
         // else
         // {
@@ -311,7 +319,7 @@ public class DoorOpen : MonoBehaviour
         // if(inArea == true)
         // {
             float angle = Mathf.LerpAngle(maxAngle, minAngle, Time.time);
-            door.transform.eulerAngles = new Vector3(0, angle, 0);
+            //door.transform.eulerAngles = new Vector3(0, angle, 0);
             inArea = false;
             // door.transform.eulerAngles = new Vector3(0f, 0f, 0f);
             // door.transform.position = new Vector3(9.334243f, 2.1f, 6.08f);
