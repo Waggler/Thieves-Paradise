@@ -22,7 +22,7 @@ public class GuardAnimatorScript : MonoBehaviour
             anim.SetBool("isPassive", true);
             anim.SetBool("isSuspicious", false);
             anim.SetBool("isHostile", false);
-            if (enemyManager.waitTime < 5 && enemyManager.waitTime > 0)
+            if (enemyManager.patrolWaitTime < 5 && enemyManager.patrolWaitTime > 0)
             {
                 anim.SetBool("isSearching", true);
             }
