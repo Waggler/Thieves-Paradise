@@ -17,12 +17,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource uIAudio;
 
     [Header("Sound Effects")]
-    [SerializeField] private AudioClip buttonClip;
-    [SerializeField] private AudioClip narrativeContinueClip;
+    [SerializeField] private AudioClip buttonHoverClip;
+    [SerializeField] private AudioClip buttonClickClip;
 
     [Header("Music")]
     [SerializeField] private AudioClip mainMenuClip;
     [SerializeField] private AudioClip gameSceneClip;
+
+    public bool isGameStarted;
 
 
     #endregion Components
@@ -65,20 +67,20 @@ public class AudioManager : MonoBehaviour
 
 
     //-------------------------//
+    public void PlayButtonHover()
+    //-------------------------//
+    {
+        uIAudio.PlayOneShot(buttonHoverClip);
+
+    }//END PlayButtonHover
+
+    //-------------------------//
     public void PlayButtonClick()
     //-------------------------//
     {
-        uIAudio.PlayOneShot(buttonClip);
+        uIAudio.PlayOneShot(buttonClickClip);
 
     }//END PlayButtonClick
-
-    //-------------------------//
-    public void PlayNarrativeClick()
-    //-------------------------//
-    {
-        uIAudio.PlayOneShot(narrativeContinueClip);
-
-    }//END PlayNarrativeClick
 
 
     #endregion SFX
