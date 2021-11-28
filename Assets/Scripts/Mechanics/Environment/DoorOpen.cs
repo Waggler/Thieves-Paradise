@@ -38,6 +38,8 @@ public class DoorOpen : MonoBehaviour
     public bool crouch2Open = false;
     public bool crouch3Open = false;
     private Animation anim;
+    public float Timer = 0f;
+    //REMEMBER TP ATTEMPT TO PUT DOOR-OPENING CODE IN UPDATE AND TO USE A TIMER WITH TIME.DELTA TIME FOR OPENING DOOR
     
     // Start is called before the first frame update
     void Start()
@@ -321,7 +323,7 @@ public class DoorOpen : MonoBehaviour
             float angle = Mathf.LerpAngle(maxAngle, minAngle, Time.time);
             //door.transform.eulerAngles = new Vector3(0, angle, 0);
             inArea = false;
-            // door.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            door.transform.eulerAngles = new Vector3(0f, 0f, 0f);
             // door.transform.position = new Vector3(9.334243f, 2.1f, 6.08f);
             button1Pressed = false;
             button2Pressed = false;
