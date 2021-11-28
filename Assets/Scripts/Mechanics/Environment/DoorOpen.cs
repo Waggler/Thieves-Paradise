@@ -210,9 +210,25 @@ public class DoorOpen : MonoBehaviour
 
         if(normalOpen == true)
         {
-            float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
-            door.transform.eulerAngles = new Vector3(0, angle, 0);
+            
+            Timer = Timer + Time.deltaTime;
+
+            if(Timer < 1.00f)
+            {
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+                door.transform.eulerAngles = new Vector3(0, angle, 0);
+                doorOpens = true;
+            }
+            if(Timer >= 1.00f)
+            {
+                Timer = 1.00f;
+            }
         }
+
+        // if(normalOpen == false)
+        // {
+        //     Timer = Timer - Time.deltaTime;
+        // }
     }
 
     #region OpenDoor
@@ -253,7 +269,7 @@ public class DoorOpen : MonoBehaviour
             
             // door.transform.eulerAngles = new Vector3(0f, -76.942f, 0f);
             message.SetActive(false);
-            doorOpens = true;
+            //doorOpens = true;
             normalOpen = true;
 
             // if(im.isCrouching == true && crouchOpen1 == true && crouchOpen2 == false && crouchOpen3 == false)
