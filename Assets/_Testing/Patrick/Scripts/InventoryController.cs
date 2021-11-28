@@ -11,7 +11,7 @@ public class InventoryController : MonoBehaviour
     private bool[] inventorySpace; //true = occupied, false = empty
     private int activeItemIndex; //array index
     private List<ItemInterface> nearbyItems;//for storing all items within reach
-    private TextMeshProUGUI[] hotbarText;
+    private GameObject[] hotbarMesh = new GameObject[4];
 
     private float throwForce;
     
@@ -27,12 +27,13 @@ public class InventoryController : MonoBehaviour
         inventorySpace = new bool[inventorySize];
         nearbyItems = new List<ItemInterface>();
 
-        hotbarText = new TextMeshProUGUI[4];
-
-        for(int i = 0; i < hotbarText.Length; i++)
+        for(int i = 0; i < hotbarMesh.Length; i++)
         {
-            string slotName = "Slot " + (i + 1) + " Text";
-            hotbarText[i] = GameObject.Find(slotName).GetComponent<TextMeshProUGUI>();
+            string slotName = "Object Mesh (" + (i + 1) + ")";
+            hotbarMesh[i] = GameObject.Find(slotName);
+
+            hotbarMesh[i].GetComponent<MeshFilter>().mesh = null;
+            hotbarMesh[i].GetComponent<MeshRenderer>().material = null;
         }
 
         SwapItem(0);
@@ -166,14 +167,14 @@ public class InventoryController : MonoBehaviour
     {
         activeItemIndex = selection;
         //update UI Visual
-        for(int i = 0; i < hotbarText.Length; i++)
+        for(int i = 0; i < hotbarMesh.Length; i++)
         {
             if (activeItemIndex == i)
             {
-                hotbarText[i].color = Color.red;
+                hotbarMesh[i].transform.localScale = Vector3.one * 8;
             }else
             {
-                hotbarText[i].color = Color.black;
+                hotbarMesh[i].transform.localScale = Vector3.one * 6;
             }
         }
     }
@@ -220,7 +221,9 @@ public class InventoryController : MonoBehaviour
             }
         }
         print(newItemIndex);
-        hotbarText[newItemIndex].text = newItem.itemName;
+        //update mesh
+        hotbarMesh[newItemIndex].GetComponent<MeshFilter>().mesh = newItem.myself.GetComponent<MeshFilter>().mesh;
+        hotbarMesh[newItemIndex].GetComponent<MeshRenderer>().material = newItem.myself.GetComponent<MeshRenderer>().material;
         nearbyItems.Remove(newItem);
         nearbyItems.TrimExcess();
         
@@ -234,7 +237,10 @@ public class InventoryController : MonoBehaviour
             Destroy(itemInterfaceInventory[activeItemIndex].myself);
             
             itemInterfaceInventory[activeItemIndex] = null;
-            hotbarText[activeItemIndex].text = "Item Slot " + (activeItemIndex + 1);
+
+            hotbarMesh[activeItemIndex].GetComponent<MeshFilter>().mesh = null;
+            hotbarMesh[activeItemIndex].GetComponent<MeshRenderer>().material = null;
+            //hotbarMesh[activeItemIndex].text = "Item Slot " + (activeItemIndex + 1);
         }
     }
 

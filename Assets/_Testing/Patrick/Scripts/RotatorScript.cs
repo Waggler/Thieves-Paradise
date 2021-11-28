@@ -5,16 +5,20 @@ using UnityEngine;
 public class RotatorScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    RectTransform me;
+    Transform me;
+    Vector3 modifier;
     void Start()
     {
-        me = GetComponent<RectTransform>();
+        me = GetComponent<Transform>();
+
+        //randomize the rotation to make it less boring
+        modifier = new Vector3(Random.Range(5,10),Random.Range(5,10),Random.Range(5,10));
     }
 
     // Update is called once per frame
     void Update()
     {
-        me.Rotate(Vector3.one * Time.deltaTime * 10, Space.Self);
+        me.Rotate(modifier * Time.deltaTime);
         //transform.Rotate(Vector3.one * Time.deltaTime * 100, Space.Self);
     }
 }
