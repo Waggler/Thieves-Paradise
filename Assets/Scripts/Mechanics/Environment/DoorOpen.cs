@@ -225,9 +225,40 @@ public class DoorOpen : MonoBehaviour
             }
         }
 
+        if(SprintOpen == true)
+        {
+            Timer = Timer + Time.deltaTime;
+
+            if(Timer < 1.00f)
+            {
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+                door.transform.eulerAngles = new Vector3(0, angle, 0);
+                doorOpens = true;
+            }
+            if(Timer >= 1.00f)
+            {
+                Timer = 1.00f;
+            }
+        }
+
         // if(normalOpen == false)
         // {
-        //     Timer = Timer - Time.deltaTime;
+        //     Timer = 0.0f;
+
+        //     Timer = Timer + Time.deltaTime;
+        //     // if(Timer == 1.00f && Timer >= 0.0f)
+        //     // {
+        //     if(Timer < 1.00f)
+        //     {
+        //     doorOpens = false;
+        //     float angle = Mathf.LerpAngle(maxAngle, minAngle, Timer);
+        //     door.transform.eulerAngles = new Vector3(0f, angle, 0f);
+        //     }
+        //     //}
+        //     if(Timer >= 1.00f)
+        //     {
+        //         Timer = 1.00f;
+        //     }
         // }
     }
 
@@ -324,10 +355,11 @@ public class DoorOpen : MonoBehaviour
     {
         if(im.isSprinting == true)
         {
-            float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
-            door.transform.eulerAngles = new Vector3(0, angle, 0);
+            // float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
+            // door.transform.eulerAngles = new Vector3(0, angle, 0);
             // door.transform.position = new Vector3(7.3f, 2.1f, 7.16f);
             message.SetActive(false);
+            SprintOpen = true;
         }
     }
 
@@ -352,6 +384,8 @@ public class DoorOpen : MonoBehaviour
             buttonPressed2 = 0;
             buttonPressed3 = 0;
             normalOpen = false;
+            Timer = 0.00f;
+            SprintOpen = false;
         // }
         message.SetActive(false);
     }   //END LEAVE DOOR TRIGGER
