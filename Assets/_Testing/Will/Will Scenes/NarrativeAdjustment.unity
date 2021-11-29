@@ -347,7 +347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &162811382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -365,9 +365,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -245}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &309061112
@@ -989,13 +989,30 @@ MonoBehaviour:
   narrativeUIManager: {fileID: 709244987}
   dialogue:
   - characterName: DK
+    characterImage: {fileID: 0}
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choiceId: 0
     sentences:
     - "hee hoo\t"
     - pee of nut
+    choiceOptions:
+    - Caustic Caramel Cream
+    - Horrific Hazelnut
+    - Mutating Marshmellow
+    - Antidote
   - characterName: Pauline
+    characterImage: {fileID: 0}
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choiceId: 0
     sentences:
     - forgot I existed eh?
     - Me too
+    choiceOptions:
+    - 
   currentDialogueIndex: 0
 --- !u!4 &558106689
 Transform:
@@ -1599,7 +1616,7 @@ MonoBehaviour:
   typingTime: 0.05
   dialogueAnimator: {fileID: 2023648786}
   dialogueManager: {fileID: 558106688}
-  choiceManager: {fileID: 0}
+  choiceManager: {fileID: 808872835}
   speakerBox: {fileID: 1522733952}
   textBox: {fileID: 1255347198}
   currentMission: 0
@@ -1773,20 +1790,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 558106688}
-  choiceOptions:
-    characterName: Choices
-    sentences:
-    - Yes
-    - No
-    - Maybe
-    - What
-    - Why
+  currentChoice:
+    characterName: 
+    characterImage: {fileID: 0}
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choiceId: 0
+    sentences: []
+    choiceOptions: []
   choiceAnimator: {fileID: 323751317}
+  choiceUiObjects:
+  - {fileID: 1558279393}
+  - {fileID: 1977593599}
+  - {fileID: 907849300}
+  - {fileID: 162811381}
+  - {fileID: 1698581076}
   choice1: {fileID: 1558279393}
   choice2: {fileID: 1977593599}
   choice3: {fileID: 907849300}
   choice4: {fileID: 162811381}
   choice5: {fileID: 1698581076}
+  choiceTexts:
+  - {fileID: 837332297}
+  - {fileID: 482229163}
+  - {fileID: 1107494704}
+  - {fileID: 1314107101}
+  - {fileID: 89316301}
   choice1Text: {fileID: 837332297}
   choice2Text: {fileID: 482229163}
   choice3Text: {fileID: 1107494704}
@@ -1955,7 +1985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &907849301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1973,9 +2003,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -175}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &945366142
@@ -3545,7 +3575,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1558279394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3563,9 +3593,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -35}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1594310714
@@ -3715,7 +3745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1698581077
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3733,9 +3763,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -315}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1757380225
@@ -4022,7 +4052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1977593600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4040,9 +4070,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -105}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2016748344

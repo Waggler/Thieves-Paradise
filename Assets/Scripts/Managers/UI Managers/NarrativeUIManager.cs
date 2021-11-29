@@ -89,7 +89,7 @@ public class NarrativeUIManager : MonoBehaviour
         {
 
 
-            
+           
         }
 
     }//END ChangePortrait
@@ -112,6 +112,7 @@ public class NarrativeUIManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
+        choiceManager.currentChoice = dialogue;
 
         DisplayNextSentence();
 
@@ -123,7 +124,9 @@ public class NarrativeUIManager : MonoBehaviour
     {
         if (sentences.Count == 0)
         {
+
             EndDialogue();
+            
             return;
         }
 
@@ -140,11 +143,18 @@ public class NarrativeUIManager : MonoBehaviour
     {
         Debug.Log("End of Convo");
 
-
         dialogueAnimator.SetBool("isDialogueOpen", false);
         dialogueManager.currentDialogueIndex ++;
 
-        dialogueManager.TriggerDialogue();
+        if (choiceManager.currentChoice.isChoice == true)
+        {
+            choiceManager.InitChoices();
+        }
+        else
+        {
+            dialogueManager.TriggerDialogue();
+        }
+        
 
         return;
 
