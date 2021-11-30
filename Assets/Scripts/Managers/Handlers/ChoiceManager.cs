@@ -13,23 +13,13 @@ public class ChoiceManager : MonoBehaviour
     [Header("Components")]
     [Header("Choice Components")]
     [SerializeField] private DialogueManager dialogueManager;
-    public Dialogue currentChoice;
+    [HideInInspector]public Dialogue currentChoice;
 
     [SerializeField] private Animator choiceAnimator;
 
     [SerializeField] private GameObject[] choiceUiObjects;
-    [SerializeField] private GameObject choice1;
-    [SerializeField] private GameObject choice2;
-    [SerializeField] private GameObject choice3;
-    [SerializeField] private GameObject choice4;
-    [SerializeField] private GameObject choice5;
 
     [SerializeField] private TMP_Text[] choiceTexts;
-    [SerializeField] private TMP_Text choice1Text;
-    [SerializeField] private TMP_Text choice2Text;
-    [SerializeField] private TMP_Text choice3Text;
-    [SerializeField] private TMP_Text choice4Text;
-    [SerializeField] private TMP_Text choice5Text;
 
 
     #endregion Components
@@ -40,12 +30,12 @@ public class ChoiceManager : MonoBehaviour
 
     public void InitChoices()
     {
-        for (int i = 0; i < currentChoice.choiceOptions.Length && i < 6; i++)
+        for (int i = 0; i < currentChoice.choices.Length && i < 6; i++)
         {
-            choiceTexts[i].text = currentChoice.choiceOptions[i];
+            choiceTexts[i].text = currentChoice.choices[i].choiceOption;
         }
 
-        ShowChoices(currentChoice.choiceOptions.Length);
+        ShowChoices(currentChoice.choices.Length);
     }
 
 
@@ -53,76 +43,36 @@ public class ChoiceManager : MonoBehaviour
     public void ShowChoices(int choiceAmount)
     //--------------------------//
     {
-        /*
-        if (choiceAmount == 1)
-        {
-            choice1.SetActive(true);
-
-        }
-        if (choiceAmount == 2)
-        {
-            choice1.SetActive(true);
-            choice2.SetActive(true);
-
-        }
-        if (choiceAmount == 3)
-        {
-            choice1.SetActive(true);
-            choice2.SetActive(true);
-            choice3.SetActive(true);
-
-        }
-        if (choiceAmount == 4)
-        {
-            choice1.SetActive(true);
-            choice2.SetActive(true);
-            choice3.SetActive(true);
-            choice4.SetActive(true);
-
-        }
-        if (choiceAmount == 5)
-        {
-            choice1.SetActive(true);
-            choice2.SetActive(true);
-            choice3.SetActive(true);
-            choice4.SetActive(true);
-            choice5.SetActive(true);
-
-        }*/
-
         switch (choiceAmount)
         {
             default:
-                choice1.SetActive(true);
-                choice2.SetActive(true);
-                choice3.SetActive(true);
-                choice4.SetActive(true);
-                choice5.SetActive(true);
+                choiceUiObjects[4].SetActive(true);
+                choiceUiObjects[3].SetActive(true);
+                choiceUiObjects[2].SetActive(true);
+                choiceUiObjects[1].SetActive(true);
+                choiceUiObjects[0].SetActive(true);
                 break;
             case 4:
-                choice1.SetActive(true);
-                choice2.SetActive(true);
-                choice3.SetActive(true);
-                choice4.SetActive(true);
+                choiceUiObjects[3].SetActive(true);
+                choiceUiObjects[2].SetActive(true);
+                choiceUiObjects[1].SetActive(true);
+                choiceUiObjects[0].SetActive(true);
                 break;
             case 3:
-                choice1.SetActive(true);
-                choice2.SetActive(true);
-                choice3.SetActive(true);
+                choiceUiObjects[2].SetActive(true);
+                choiceUiObjects[1].SetActive(true);
+                choiceUiObjects[0].SetActive(true);
                 break;
             case 2:
-                choice1.SetActive(true);
-                choice2.SetActive(true);
+                choiceUiObjects[1].SetActive(true);
+                choiceUiObjects[0].SetActive(true);
                 break;
             case 1:
-                choice1.SetActive(true);
-                choice2.SetActive(true);
-                choice3.SetActive(true);
+                choiceUiObjects[0].SetActive(true);
                 break;
         }
 
         choiceAnimator.SetBool("isChoiceBoxOpen", true);
-
 
     }//END ShowChoices
 
@@ -132,17 +82,23 @@ public class ChoiceManager : MonoBehaviour
     {
         choiceAnimator.SetBool("isChoiceBoxOpen", false);
 
-        choice1.SetActive(false);
-        choice2.SetActive(false);
-        choice3.SetActive(false);
-        choice4.SetActive(false);
-        choice5.SetActive(false);
+        foreach (GameObject choiceUiObject in choiceUiObjects)
+            choiceUiObject.SetActive(false);
+
 
     }//END CloseChoices
 
     public void ChooseChoiceOption(int optionId)
     {
 
+        
+    }
+
+    public void ShowResponse(int optionId)
+    {
+        currentChoice.isChoice = false;
+        dialogueManager.TriggerResponse(currentChoice.responses[optionId]);
+        CloseChoices();
     }
 
 

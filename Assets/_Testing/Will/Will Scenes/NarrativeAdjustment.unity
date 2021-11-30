@@ -347,7 +347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &162811382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -365,9 +365,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -245}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &309061112
@@ -988,31 +988,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
   dialogue:
-  - characterName: DK
+  - characterName: ChoclateSailor
     characterImage: {fileID: 0}
+    sentences:
+    - Now, Billy, this a very special assortment of enchanted choclates. You must
+      choose only one.
+    - But choose wisely, Billy, for only one contains the antidote. Will it be...
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     isChoice: 1
-    choiceId: 0
-    sentences:
-    - "hee hoo\t"
-    - pee of nut
-    choiceOptions:
-    - Caustic Caramel Cream
-    - Horrific Hazelnut
-    - Mutating Marshmellow
-    - Antidote
-  - characterName: Pauline
+    choices:
+    - choiceOption: Caustic Caramel
+      choiceId: 0
+    - choiceOption: Horrific Hazelnut
+      choiceId: 1
+    - choiceOption: Mutating Marshmellow
+      choiceId: 2
+    - choiceOption: Antidote
+      choiceId: 3
+    - choiceOption: Eat Them All!
+      choiceId: 4
+    responses:
+    - responseOption:
+      - Get absolutely pranked
+      - Bingus!!!
+      responseSpeaker: God
+      responseId: 0
+    - responseOption:
+      - Will why did you screw up the rects!!
+      - I HURT ME!!!
+      responseSpeaker: God
+      responseId: 1
+    - responseOption:
+      - We're no strangers to love You know the rules and so do I A full commitment's
+        what I'm thinking of You wouldn't get this from any other guy I just wanna
+        tell you how I'm feeling Gotta make you understand Never gonna give you up
+        Never gonna let you down Never gonna run around and desert you Never gonna
+        make you cry Never gonna say goodbye Never gonna tell a lie and hurt you
+        We've known each other for so long Your heart's been aching but you're too
+        shy to say it Inside we both know what's been going on We know the game and
+        we're gonna play it And if you ask me how I'm feeling Don't tell me you're
+        too blind to see Never gonna give you up Never gonna let you down Never gonna
+        run around and desert you Never gonna make you cry Never gonna say goodbye
+        Never gonna tell a lie and hurt you Never gonna give you up Never gonna let
+        you down Never gonna run around and desert you Never gonna make you cry Never
+        gonna say goodbye Never gonna tell a lie and hurt you Never gonna give, never
+        gonna give (Give you up)
+      - 'We''ve known each other for so long Your heart''s been aching but you''re
+        too shy to say it Inside we both know what''s been going on We know the game
+        and we''re gonna play it I just wanna tell you how I''m feeling Gotta make
+        you understand Never gonna give you up Never gonna let you down Never gonna
+        run around and desert you Never gonna make you cry Never gonna say goodbye
+        Never gonna tell a lie and hurt you Never gonna give you up Never gonna let
+        you down Never gonna run around and desert you Never gonna make you cry Never
+        gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you
+        up Never gonna let you down Never gonna run around and desert you Never gonna
+        make you cry Never gonna say goodbye Source: Musixmatch'
+      responseSpeaker: God
+      responseId: 2
+    - responseOption:
+      - Help me, I've been held to code at gunpoint
+      - please send help. Oh wait I hear them coming. Oh god oh FUCK OH FUCK GET
+        AW
+      responseSpeaker: Kevin
+      responseId: 3
+    - responseOption:
+      - Great gobs!
+      - No one has ever eaten the whole danged assortment!
+      responseSpeaker: ChoclateSailor
+      responseId: 4
+  - characterName: God
     characterImage: {fileID: 0}
+    sentences:
+    - That was crazy...
+    - You've witnessed too much. BEGONE!
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     isChoice: 0
-    choiceId: 0
-    sentences:
-    - forgot I existed eh?
-    - Me too
-    choiceOptions:
-    - 
+    choices: []
+    responses: []
   currentDialogueIndex: 0
 --- !u!4 &558106689
 Transform:
@@ -1323,7 +1377,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 300}
+  m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &647536279
@@ -1370,14 +1424,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757380225}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 808872835}
+        m_TargetAssemblyTypeName: ChoiceManager, Assembly-CSharp
+        m_MethodName: ShowResponse
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1710,13 +1764,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757380225}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 808872835}
+        m_TargetAssemblyTypeName: ChoiceManager, Assembly-CSharp
+        m_MethodName: ShowResponse
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1793,12 +1847,12 @@ MonoBehaviour:
   currentChoice:
     characterName: 
     characterImage: {fileID: 0}
+    sentences: []
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     isChoice: 0
-    choiceId: 0
-    sentences: []
-    choiceOptions: []
+    choices: []
+    responses: []
   choiceAnimator: {fileID: 323751317}
   choiceUiObjects:
   - {fileID: 1558279393}
@@ -1806,22 +1860,12 @@ MonoBehaviour:
   - {fileID: 907849300}
   - {fileID: 162811381}
   - {fileID: 1698581076}
-  choice1: {fileID: 1558279393}
-  choice2: {fileID: 1977593599}
-  choice3: {fileID: 907849300}
-  choice4: {fileID: 162811381}
-  choice5: {fileID: 1698581076}
   choiceTexts:
   - {fileID: 837332297}
   - {fileID: 482229163}
   - {fileID: 1107494704}
   - {fileID: 1314107101}
   - {fileID: 89316301}
-  choice1Text: {fileID: 837332297}
-  choice2Text: {fileID: 482229163}
-  choice3Text: {fileID: 1107494704}
-  choice4Text: {fileID: 1314107101}
-  choice5Text: {fileID: 89316301}
 --- !u!4 &808872836
 Transform:
   m_ObjectHideFlags: 0
@@ -1985,7 +2029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &907849301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2003,9 +2047,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -175}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &945366142
@@ -2118,7 +2162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 75}
+  m_AnchoredPosition: {x: 0, y: -1.3999939}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1013594617
@@ -2165,14 +2209,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757380225}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 808872835}
+        m_TargetAssemblyTypeName: ChoiceManager, Assembly-CSharp
+        m_MethodName: ShowResponse
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3056,7 +3100,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 225}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1319051405
@@ -3103,14 +3147,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757380225}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 808872835}
+        m_TargetAssemblyTypeName: ChoiceManager, Assembly-CSharp
+        m_MethodName: ShowResponse
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3504,6 +3548,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f38280ab-902e-47b4-9e9d-83dea4d1d4f1
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d7cd48c3-2145-40a3-a864-f20d1a57e5e0
+    m_ActionName: Player/Roll[/Keyboard/r,/XInputControllerWindows/leftShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: UI
@@ -3575,7 +3623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1558279394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3593,9 +3641,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -35}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1594310714
@@ -3633,7 +3681,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 150}
+  m_AnchoredPosition: {x: 0, y: 0.19999695}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1594310716
@@ -3680,14 +3728,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757380225}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 808872835}
+        m_TargetAssemblyTypeName: ChoiceManager, Assembly-CSharp
+        m_MethodName: ShowResponse
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3745,7 +3793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1698581077
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3763,9 +3811,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -315}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1757380225
@@ -4052,7 +4100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1977593600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4070,9 +4118,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -105}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2016748344
