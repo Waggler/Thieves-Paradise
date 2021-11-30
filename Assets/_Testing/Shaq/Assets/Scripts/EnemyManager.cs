@@ -176,16 +176,22 @@ public class EnemyManager : MonoBehaviour
     [Header("Minimum Sus Levels for States")]
 
     [Tooltip("Minimum Suspicion level to enter this state")]
-    [SerializeField] [Range(0, 10)] private int passiveSusMin = 1;
-
+    //Implied Min Value of 0
+    [SerializeField] private float passiveSusMax = 3;
+                                            
     [Tooltip("Minimum Suspicion level to enter this state")]
-    [SerializeField] [Range(0, 10)] private int warySusMin = 2;
-
+    [SerializeField] private float warySusMin = 3.1f;
+                                            
+    [SerializeField] private float warySusMax = 4;
+                                            
     [Tooltip("Minimum Suspicion level to enter this state")]
-    [SerializeField] [Range(0, 10)] private int sussySusMin = 3;
-
+    [SerializeField] private float sussySusMin = 4.1f;
+                                            
+    [SerializeField] private float sussySusMax = 5;
+                                            
     [Tooltip("Minimum Suspicion level to enter this state")]
-    [SerializeField] [Range(0, 10)] private int hostileSusMin = 5;
+    //Implied Max Value of eyeball.susLevel max
+    [SerializeField]  private float hostileSusMin = 5.1f;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -271,15 +277,12 @@ public class EnemyManager : MonoBehaviour
     [Header("Misc. Variables")]
 
     [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
-    [SerializeField] private float attackRadius = 10f;
+    [SerializeField] [Range (0, 2)]private float attackRadius = 10f;
 
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
 
-    [Tooltip("The speed at which the guard turns to face a target (functionality varies)")]
-    [SerializeField] [Range (0, 50)]private float rotateSpeed;
-
-    private float randWaitTimeReset;
+    [SerializeField] private GameObject playerTeleportLoc;
 
     #endregion
 
@@ -302,8 +305,7 @@ public class EnemyManager : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
 
 
-        eyeball.susLevel = warySusMin;
-
+        //eyeball.susLevel = warySusMin;
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
@@ -367,10 +369,10 @@ public class EnemyManager : MonoBehaviour
 
                 //Exit condition
                 //Checking to see if the player is visible
-                if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > passiveSusMin)
+                if (eyeball.susLevel > passiveSusMax)
                 {
                     // PASSIVE >>>> SUSPICIOUS
-                    stateMachine = EnemyStates.SUSPICIOUS;
+                    stateMachine = EnemyStates.WARY;
                 }
 
 
@@ -439,7 +441,13 @@ public class EnemyManager : MonoBehaviour
 
                 //Exit condition
                 //Checking to see if the player is visible
-                if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > warySusMin)
+                if (eyeball.susLevel < warySusMin)
+                {
+                    // PASSIVE >>>> SUSPICIOUS
+                    stateMachine = EnemyStates.PASSIVE;
+                }
+
+                if (eyeball.susLevel > warySusMax)
                 {
                     // PASSIVE >>>> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
@@ -494,18 +502,20 @@ public class EnemyManager : MonoBehaviour
                     FaceTarget(target);
                 }
 
+                #region Exit Conditions
                 //Exit Condition
                 if (eyeball.susLevel < sussySusMin)
                 {
                     //SUSPICIOUS >> WARY
-                    stateMachine = EnemyStates.PASSIVE;
+                    stateMachine = EnemyStates.WARY;
                 }
 
-                if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > hostileSusMin)
+                if (eyeball.susLevel > sussySusMax)
                 {
                     //SUSPICIOUS >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
+                #endregion Exit Conditions
 
                 break;
             #endregion Suspicious Behavior
@@ -553,7 +563,7 @@ public class EnemyManager : MonoBehaviour
 
                 //Exit Condition > Passive
                 ////Double check the use of the > in this line, might be a type
-                else if (eyeball.canCurrentlySeePlayer == false ||    eyeball.susLevel < hostileSusMin)
+                else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < hostileSusMin)
                 {
                     ////Using transform.position in order to translate Vector3 data to Transform
                     ////Setting the target back to the guard's waypoints for it's passive behavior
@@ -581,23 +591,15 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(attackSpeed);
 
+                player.transform.position = playerTeleportLoc.transform.position;
 
                 #region Exit Condition(s)
                 if (distanceToPlayer > attackRadius)
                 {
                     // ATTACK >> HOSTILE
-                    stateMachine = EnemyStates.SUSPICIOUS;
+                    stateMachine = EnemyStates.HOSTILE;
                 }
                 #endregion Exit Condition(s)
-
-
-                ////Temp lose condition
-                ////Refine to take lack of player input from struggle QTE
-                //if (distanceToPlayer <= attackRadius)
-                //{
-                //    loseText.text = "Game Over";
-                //    SceneManager.LoadScene(3);
-                //}
 
                 FaceTarget(target);
 
@@ -678,8 +680,6 @@ public class EnemyManager : MonoBehaviour
         stunTimeReset = stunTime;
 
         //Stores the user generated random direction time
-        randWaitTimeReset = randWaitTime;
-
         agent = GetComponent<NavMeshAgent>();
 
         agent.autoBraking = true;

@@ -93,6 +93,7 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isPassive", false);
         anim.SetBool("isSuspicious", true);
         anim.SetBool("isHostile", false);
+        anim.SetBool("isPlayerFree", true);
     }
     //---------------------------------//
     
@@ -105,8 +106,9 @@ public class GuardAnimatorScript : MonoBehaviour
     {
         anim.SetBool("isSuspicious", false);
         anim.SetBool("isHostile", true);
+        anim.SetBool("isPlayerFree", true);
     }
-    
+
 
     //---------------------------------//
     //Sets the guard animation to attack
@@ -130,6 +132,7 @@ public class GuardAnimatorScript : MonoBehaviour
     {
         anim.SetBool("isWalking", true);
         anim.SetBool("isPassive", false);
+        anim.SetBool("isPlayerFree", true);
     }
     //---------------------------------//
 
