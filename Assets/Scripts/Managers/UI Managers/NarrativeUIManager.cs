@@ -85,11 +85,11 @@ public class NarrativeUIManager : MonoBehaviour
     //--------------------------//
     {
 
-        if(dialogueManager.currentDialogueIndex == 0) //Use this to adjust portrait images
+        if (dialogueManager.currentDialogueIndex == 0) //Use this to adjust portrait images
         {
 
 
-            
+
         }
 
     }//END ChangePortrait
@@ -101,7 +101,7 @@ public class NarrativeUIManager : MonoBehaviour
     {
         speakerText.text = dialogue.characterName;
 
-        if(sentences != null)
+        if (sentences != null)
         {
             sentences.Clear();
         }
@@ -112,10 +112,35 @@ public class NarrativeUIManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
+        choiceManager.currentChoice = dialogue;
 
         DisplayNextSentence();
 
     }//END StartDialogue
+
+
+    //-----------------------//
+    public void StartResponse(Response response)
+    //-----------------------//
+    {
+        speakerText.text = response.responseSpeaker;
+
+        if (sentences != null)
+        {
+            sentences.Clear();
+        }
+
+        dialogueAnimator.SetBool("isDialogueOpen", true);
+
+        foreach (string sentence in response.responseOption)
+        {
+            sentences.Enqueue(sentence);
+        }
+
+        DisplayNextSentence();
+
+    }//END StartDialogue
+
 
     //-----------------------//
     public void DisplayNextSentence()
@@ -123,7 +148,9 @@ public class NarrativeUIManager : MonoBehaviour
     {
         if (sentences.Count == 0)
         {
+
             EndDialogue();
+
             return;
         }
 
@@ -138,13 +165,25 @@ public class NarrativeUIManager : MonoBehaviour
     public void EndDialogue()
     //-----------------------//
     {
+
+
         Debug.Log("End of Convo");
 
-
         dialogueAnimator.SetBool("isDialogueOpen", false);
-        dialogueManager.currentDialogueIndex ++;
+        if (choiceManager.currentChoice.isChoice == true)
+        {
+            choiceManager.InitChoices();
+        }
+        else
+        {
 
-        dialogueManager.TriggerDialogue();
+
+            dialogueManager.currentDialogueIndex++;
+
+
+            dialogueManager.TriggerDialogue();
+        }
+
 
         return;
 

@@ -43,6 +43,11 @@ public class DialogueManager : MonoBehaviour
 
     }//END TriggerDialogue
 
+    public void TriggerResponse(Response response)
+    {
+        narrativeUIManager.StartResponse(response);
+    }
+
     IEnumerator IStartDelay()
     {
         yield return new WaitForSeconds(delayTime);
