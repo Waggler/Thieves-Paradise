@@ -21,6 +21,13 @@ public class ItemSuperScript : MonoBehaviour
         get;
         set;
     }
+    
+
+    public bool isThrown;
+    private float timeCounter;
+    private SuspicionManager susManager;
+    public SfxController sfxController;
+
     void Awake()
     {
         if (gameObject.GetComponent<Outline>() == null)
@@ -30,15 +37,11 @@ public class ItemSuperScript : MonoBehaviour
             outline.OutlineColor = Color.white;
             outline.OutlineWidth = 5f;
             outline.enabled = false;
+            GetComponent<MeshRenderer>().material.renderQueue = 1900;
         }
         
         susManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
     }
-
-    private bool isThrown;
-    private float timeCounter;
-    private SuspicionManager susManager;
-    public SfxController sfxController;
 
     void Start()
     {
@@ -59,7 +62,7 @@ public class ItemSuperScript : MonoBehaviour
     {
         if (durability > 1)
         {
-            print("Used Item");
+            print("Used Item \nDurability: " + durability);
             durability--; //decriment durability
         } else
         {
@@ -67,7 +70,7 @@ public class ItemSuperScript : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    private void MakeNoise()
+    public void MakeNoise()
     {
         sfxController = FindObjectOfType<SfxController>();
         //Alert Guards here
@@ -77,8 +80,9 @@ public class ItemSuperScript : MonoBehaviour
         audio.Play();
     }
 
-    void OnCollisionEnter(Collision other)
+    /* void OnCollisionEnter(Collision other)
     {
+        print("Hit something");
         if (isThrown)
         {
             MakeNoise();
@@ -86,5 +90,5 @@ public class ItemSuperScript : MonoBehaviour
             isThrown = false;
         }
         //play audio clip of object hitting something
-    }
+    } */
 }
