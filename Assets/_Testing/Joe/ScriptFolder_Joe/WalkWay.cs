@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class WalkWay : MonoBehaviour
 {
-    void OnCollisionEnter(Collision other)
+    private Color DefaultColor = Color.white;
+
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            print("Beep");
+            Renderer renderer = GetComponent<Renderer>();
+
+            DefaultColor = renderer.material.color;
+            renderer.material.color = Color.green;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            Renderer renderer = GetComponent<Renderer>();
+            renderer.material.color = DefaultColor;
         }
     }
 }

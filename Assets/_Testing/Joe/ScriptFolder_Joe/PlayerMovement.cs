@@ -106,8 +106,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int MediumLevel = 6;
     [Tooltip("The detection radius of the player when they are running and diving.")]
     [SerializeField] private int LoudLevel = 12;
+    [Tooltip("This is the time it will take to update the states and send out a sound check for the guard.")]
+    [SerializeField] private float NoiseClock = 0.25f;
     [SerializeField] private int CurrentLevel;
-    private float NoiseClock = 0.25f;
+    private float CurrentNoiseClock;
+
 
     //[Header("Suspicion Manager")]
     public SuspicionManager SusMan;
@@ -296,12 +299,12 @@ public class PlayerMovement : MonoBehaviour
 
         #region Noise Clock
         //Might be replaced later.
-        if (NoiseClock < 0)
+        if (CurrentNoiseClock < 0)
         {
             PlayerSound();
-            NoiseClock = 0.25f;
+            CurrentNoiseClock = NoiseClock;
         }
-        NoiseClock -= Time.deltaTime;
+        CurrentNoiseClock -= Time.deltaTime;
         #endregion
     }
 
@@ -703,15 +706,7 @@ public class PlayerMovement : MonoBehaviour
             CurrentLevel = LoudLevel;
         }
 
-        if (CurrentLevel != SilentLevel)
-        {
-            SusMan.AlertGuards(transform.position, transform.position, CurrentLevel);
-            //Play sounds here Doot.
-        }
-        else
-        {
-            return;
-        }
+        SusMan.AlertGuards(transform.position, transform.position, CurrentLevel);
     }
 
     #endregion
