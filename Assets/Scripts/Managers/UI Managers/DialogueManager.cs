@@ -10,7 +10,6 @@ public class DialogueManager : MonoBehaviour
     public Dialogue[] dialogue;
     public int currentDialogueIndex;
 
-
     //-----------------------//
     private void Start()
     //-----------------------//
@@ -35,6 +34,8 @@ public class DialogueManager : MonoBehaviour
         try
         {
             narrativeUIManager.StartDialogue(dialogue[currentDialogueIndex]);
+            narrativeUIManager.ChangeLeftPortrait();
+            narrativeUIManager.ChangeRightPortrait();
         }
         catch
         {

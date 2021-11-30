@@ -21,6 +21,8 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private GameObject speakerBox;
     [SerializeField] private GameObject textBox;
 
+    [SerializeField] private int dialoguePortraitSwapIndex;
+
     private Queue<string> sentences;
 
     public enum CurrentMission
@@ -41,14 +43,22 @@ public class NarrativeUIManager : MonoBehaviour
 
     [Header("Images")]
     [SerializeField] private Image portrait1Image;
-    [SerializeField] private Image[] portrait1ImageList;
+    [SerializeField] private Sprite[] portrait1ImageList;
 
     [SerializeField] private Image portrait2Image;
-    [SerializeField] private Image[] portrait2ImageList;
+    [SerializeField] private Sprite[] portrait2ImageList;
 
     [SerializeField] private Image backgroundImage;
-    [SerializeField] private Image[] backgroundImageList;
+    [SerializeField] private Sprite[] backgroundImageList;
 
+    [SerializeField] private int rightCharacterOneIntroIndex;
+    [SerializeField] private int rightCharacterTwoIntroIndex;
+    [SerializeField] private int rightCharacterThreeIntroIndex;
+    [SerializeField] private int rightCharacterFourIntroIndex;
+    [SerializeField] private int leftCharacterOneIntroIndex;
+    [SerializeField] private int leftCharacterTwoIntroIndex;
+    [SerializeField] private int leftCharacterThreeIntroIndex;
+    [SerializeField] private int leftCharacterFourIntroIndex;
 
     #endregion Components
 
@@ -81,19 +91,60 @@ public class NarrativeUIManager : MonoBehaviour
 
 
     //--------------------------//
-    void ChangePortrait()
+    public void ChangeLeftPortrait()
     //--------------------------//
     {
 
-        if (dialogueManager.currentDialogueIndex == 0) //Use this to adjust portrait images
+        if (dialogueManager.currentDialogueIndex == leftCharacterOneIntroIndex) 
         {
+            portrait1Image.sprite = portrait1ImageList[0];
 
+        }
+        if (dialogueManager.currentDialogueIndex == leftCharacterTwoIntroIndex) 
+        {
+            portrait1Image.sprite = portrait1ImageList[1];
 
+        }
+        if (dialogueManager.currentDialogueIndex == leftCharacterThreeIntroIndex)
+        {
+            portrait1Image.sprite = portrait1ImageList[2];
+
+        }
+        if (dialogueManager.currentDialogueIndex == leftCharacterFourIntroIndex)
+        {
+            portrait1Image.sprite = portrait1ImageList[3];
 
         }
 
-    }//END ChangePortrait
+    }//END ChangeLeftPortrait
 
+    //--------------------------//
+    public void ChangeRightPortrait()
+    //--------------------------//
+    {
+
+        if (dialogueManager.currentDialogueIndex == rightCharacterOneIntroIndex)
+        {
+            portrait2Image.sprite = portrait2ImageList[0];
+
+        }
+        if (dialogueManager.currentDialogueIndex == rightCharacterTwoIntroIndex)
+        {
+            portrait2Image.sprite = portrait2ImageList[1];
+
+        }
+        if (dialogueManager.currentDialogueIndex == rightCharacterThreeIntroIndex)
+        {
+            portrait2Image.sprite = portrait2ImageList[2];
+
+        }
+        if (dialogueManager.currentDialogueIndex == rightCharacterFourIntroIndex)
+        {
+            portrait2Image.sprite = portrait2ImageList[3];
+
+        }
+
+    }//END ChangeRightPortrait
 
     //-----------------------//
     public void StartDialogue(Dialogue dialogue)
