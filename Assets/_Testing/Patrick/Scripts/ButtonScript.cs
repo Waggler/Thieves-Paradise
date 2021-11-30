@@ -14,4 +14,10 @@ public class ButtonScript : MonoBehaviour
             onPress.Invoke();
         }
     }
+
+    public void Unlock()
+    {
+        isLocked = false;
+        //put logic for changing visuals here
+    }
 }

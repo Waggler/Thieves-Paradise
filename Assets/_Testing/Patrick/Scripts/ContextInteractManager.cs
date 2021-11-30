@@ -72,7 +72,7 @@ public class ContextInteractManager : MonoBehaviour
                     {
                         if(inventory.CheckHasItem("Keycard"))
                         {
-                            highlightedObject.GetComponent<ButtonScript>().isLocked = false;
+                            highlightedObject.GetComponent<ButtonScript>().Unlock();
                         }
                     }else
                     {
