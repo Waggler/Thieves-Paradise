@@ -32,11 +32,14 @@ public class DoorOpen : MonoBehaviour
     public float doorSprintOpen;
     //these values are for the angles that the door opens while the player is crouching
     public float doorCrouchOpen1, doorCrouchOpen2, doorCrouchOpen3;
+    //this value is for the angle that the door will close to
+    public float leaveDoorClose;
     public bool normalOpen = false;
     public bool SprintOpen = false;
     public bool crouch1Open = false;
     public bool crouch2Open = false;
     public bool crouch3Open = false;
+    public bool leaveDoor = false;
     private Animation anim;
     public float Timer = 0f;
     //REMEMBER TP ATTEMPT TO PUT DOOR-OPENING CODE IN UPDATE AND TO USE A TIMER WITH TIME.DELTA TIME FOR OPENING DOOR
@@ -96,6 +99,11 @@ public class DoorOpen : MonoBehaviour
         {
             maxAngle = doorSprintOpen;
             //preferred angle = -151.55f
+        }
+
+        if(leaveDoor == true)
+        {
+            maxAngle = leaveDoorClose;
         }
 
         // if(crouchOpen1 == true)
@@ -213,7 +221,7 @@ public class DoorOpen : MonoBehaviour
             
             Timer = Timer + Time.deltaTime;
 
-            if(Timer < 1.00f)
+            if(Timer <= 1.00f)
             {
                 float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
                 door.transform.eulerAngles = new Vector3(0, angle, 0);
@@ -229,7 +237,7 @@ public class DoorOpen : MonoBehaviour
         {
             Timer = Timer + Time.deltaTime;
 
-            if(Timer < 1.00f)
+            if(Timer <= 1.00f)
             {
                 float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
                 door.transform.eulerAngles = new Vector3(0, angle, 0);
@@ -238,6 +246,29 @@ public class DoorOpen : MonoBehaviour
             if(Timer >= 1.00f)
             {
                 Timer = 1.00f;
+            }
+        }
+
+        if(leaveDoor == true)
+        {
+            Timer = Timer - Time.deltaTime;
+            minAngle = 0f;
+            maxAngle = doorWalkOpen;
+            
+            // if(normalOpen == true)
+            // {
+            //     maxAngle = doorWalkOpen;
+            // }
+            
+            if(Timer > 0f)
+            {
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+                door.transform.eulerAngles = new Vector3(0, angle, 0);
+            }
+
+            if(Timer < 0f)
+            {
+                Timer = 0f;
             }
         }
 
@@ -267,6 +298,7 @@ public class DoorOpen : MonoBehaviour
     {
         inArea = true;
         message.SetActive(true);
+        leaveDoor = false;
 
         if(im.isSprinting == true)
         {
@@ -368,10 +400,10 @@ public class DoorOpen : MonoBehaviour
     {
         // if(inArea == true)
         // {
-            float angle = Mathf.LerpAngle(maxAngle, minAngle, Time.time);
+            //float angle = Mathf.LerpAngle(maxAngle, minAngle, Time.time);
             //door.transform.eulerAngles = new Vector3(0, angle, 0);
             inArea = false;
-            door.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            //door.transform.eulerAngles = new Vector3(0f, 0f, 0f);
             // door.transform.position = new Vector3(9.334243f, 2.1f, 6.08f);
             button1Pressed = false;
             button2Pressed = false;
@@ -384,8 +416,9 @@ public class DoorOpen : MonoBehaviour
             buttonPressed2 = 0;
             buttonPressed3 = 0;
             normalOpen = false;
-            Timer = 0.00f;
             SprintOpen = false;
+            leaveDoor = true;
+            //Timer = Timer - Time.deltaTime;
         // }
         message.SetActive(false);
     }   //END LEAVE DOOR TRIGGER
