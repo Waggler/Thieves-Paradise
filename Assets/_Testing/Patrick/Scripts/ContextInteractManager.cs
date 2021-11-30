@@ -66,6 +66,19 @@ public class ContextInteractManager : MonoBehaviour
                     
                     nearbyObjects.TrimExcess();
                 }
+                if (highlightedObject.GetComponent<ButtonScript>() != null)
+                {
+                    if (highlightedObject.GetComponent<ButtonScript>().isLocked)
+                    {
+                        if(inventory.CheckHasItem("Keycard"))
+                        {
+                            highlightedObject.GetComponent<ButtonScript>().isLocked = false;
+                        }
+                    }else
+                    {
+                        highlightedObject.GetComponent<ButtonScript>().PressButton();
+                    }
+                }
             }
         }
     }
@@ -168,6 +181,11 @@ public class ContextInteractManager : MonoBehaviour
         switch (other.tag)
         {
             case "Item":
+            
+                nearbyObjects.Add(other.gameObject);
+            break;
+
+            case "Button":
             
                 nearbyObjects.Add(other.gameObject);
             break;

@@ -12,7 +12,7 @@ public class RotatorScript : MonoBehaviour
         me = GetComponent<Transform>();
 
         //randomize the rotation to make it less boring
-        modifier = new Vector3(Random.Range(5,10),Random.Range(5,10),Random.Range(5,10));
+        modifier = new Vector3(0,Random.Range(5,10),0);
     }
 
     // Update is called once per frame

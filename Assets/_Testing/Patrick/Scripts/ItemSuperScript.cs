@@ -70,7 +70,7 @@ public class ItemSuperScript : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    private void MakeNoise()
+    public void MakeNoise()
     {
         sfxController = FindObjectOfType<SfxController>();
         //Alert Guards here
@@ -80,7 +80,7 @@ public class ItemSuperScript : MonoBehaviour
         audio.Play();
     }
 
-    void OnCollisionEnter(Collision other)
+    /* void OnCollisionEnter(Collision other)
     {
         print("Hit something");
         if (isThrown)
@@ -90,5 +90,5 @@ public class ItemSuperScript : MonoBehaviour
             isThrown = false;
         }
         //play audio clip of object hitting something
-    }
+    } */
 }
