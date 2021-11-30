@@ -7,10 +7,14 @@ public class ButtonScript : MonoBehaviour
 {
     public UnityEvent onPress;
     public bool isLocked;
+
+    [SerializeField] private AudioClip confirm;
+    [SerializeField] private AudioClip deny;
     public void PressButton()
     {
         if(!isLocked)
         {
+            //play confirm sound
             onPress.Invoke();
         }
     }
@@ -19,5 +23,13 @@ public class ButtonScript : MonoBehaviour
     {
         isLocked = false;
         //put logic for changing visuals here
+        //play confirm sound
+        //PressButton();
+    }
+
+    public void Deny()
+    {
+        //play deny sound
+
     }
 }
