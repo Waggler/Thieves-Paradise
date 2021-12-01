@@ -74,6 +74,11 @@ public class CameraManager : MonoBehaviour
     [Tooltip("References the eyeball prefab attatched to the camera prefab [Not auto generated]")]
     [SerializeField] private EyeballScript eyeball;
 
+    [SerializeField] private GameObject surpriseVFX;
+
+    [SerializeField] private GameObject confusedVFX;
+
+
     //DO NOT DELETE
     //[Header("Global Suspicion Manager")]
     //[Tooltip("References the Global Suspicion Manager in the level")]
@@ -199,6 +204,8 @@ public class CameraManager : MonoBehaviour
                 //if (distanceToPlayer <= lookRadius)
                 if (eyeball.canCurrentlySeePlayer == true)
                 {
+                    Instantiate(surpriseVFX, transform.position, transform.rotation);
+
                     //MONITORING >>> FOCUSED
                     cameraStateMachine = CamStates.FOCUSED;
                 }

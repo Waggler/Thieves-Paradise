@@ -155,6 +155,11 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the guard's animator script")]
     [SerializeField] GuardAnimatorScript guardAnim;
 
+    //[SerializeField] private ParticleSystem surpriseVFX;
+
+    //[SerializeField] private ParticleSystem confusedVFX;
+
+
     //[Tooltip("Reference to the suspicion manager")]
     //[SerializeField] private SuspicionManager suspicionManager;
 

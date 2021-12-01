@@ -15,7 +15,6 @@ public class TripwireManager : MonoBehaviour
     [HideInInspector] private Vector3 initialHitRecord;
 
 
-
     [Header("Tripwire Variables")]
     [Tooltip("Radius in which guards can be  'called'  by the camera")]
     [SerializeField] [Range (0, 50)] private float callRadius;
