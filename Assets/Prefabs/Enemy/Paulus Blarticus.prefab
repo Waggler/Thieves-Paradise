@@ -481,7 +481,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3325092846946898786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.528}
+  m_LocalPosition: {x: 0, y: 0.375, z: -0.053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3325092847091794028}
@@ -721,12 +721,16 @@ MonoBehaviour:
   player: {fileID: 0}
   eyeball: {fileID: 3325092846946898784}
   guardAnim: {fileID: 0}
+  surpriseVFX: {fileID: 6601558147272798859, guid: 9d485028bdafb9246a1565bd23a02523, type: 3}
+  confusedVFX: {fileID: 7643393555500499959, guid: 89095cc91168384459bfa84330f555fd, type: 3}
   stateText: {fileID: 3325092846354947751}
   targetText: {fileID: 3325092846449755120}
   loseText: {fileID: 0}
-  passiveSusMin: 2
+  passiveSusMax: 3
   warySusMin: 4
+  warySusMax: 4
   sussySusMin: 6
+  sussySusMax: 5
   hostileSusMin: 10
   patrolSpeed: 0
   warySpeed: 4

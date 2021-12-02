@@ -155,9 +155,9 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the guard's animator script")]
     [SerializeField] GuardAnimatorScript guardAnim;
 
-    //[SerializeField] private ParticleSystem surpriseVFX;
+    [SerializeField] private GameObject surpriseVFX;
 
-    //[SerializeField] private ParticleSystem confusedVFX;
+    [SerializeField] private GameObject confusedVFX;
 
 
     //[Tooltip("Reference to the suspicion manager")]
@@ -454,6 +454,10 @@ public class EnemyManager : MonoBehaviour
 
                 if (eyeball.susLevel > warySusMax)
                 {
+                    var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
+
+                    AmConfuse.transform.parent = gameObject.transform;
+
                     // PASSIVE >>>> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
@@ -519,6 +523,12 @@ public class EnemyManager : MonoBehaviour
                 {
                     //SUSPICIOUS >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
+
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    MGSsurprise.transform.parent = gameObject.transform;
+
                 }
                 #endregion Exit Conditions
 
@@ -566,16 +576,12 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
 
-                //Exit Condition > Passive
-                ////Double check the use of the > in this line, might be a type
+                //Exit Condition
                 else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < hostileSusMin)
                 {
-                    ////Using transform.position in order to translate Vector3 data to Transform
-                    ////Setting the target back to the guard's waypoints for it's passive behavior
-                    //target = waypoints[waypointIndex].position;
+                    var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
 
-                    ////setting the destination to the now waypoints target
-                    //SetAIDestination(target);
+                    AmConfuse.transform.parent = gameObject.transform;
 
                     //HOSTILE >> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
