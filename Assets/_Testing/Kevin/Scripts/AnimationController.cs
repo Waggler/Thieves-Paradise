@@ -103,11 +103,13 @@ public class AnimationController : MonoBehaviour
     {
         if (isPlayerJumping)
         {
-            playerAnimator.SetTrigger("Jump");
+            playerAnimator.SetBool("isJumping", true);
+            //playerAnimator.SetTrigger("Jump");
         }
         else
         {
-            //playerAnimator.SetBool("isJumping", false);
+            //playerAnimator.ResetTrigger("Jump");
+            playerAnimator.SetBool("isJumping", false);
         }
 
     }// END IsPlayerJumping
