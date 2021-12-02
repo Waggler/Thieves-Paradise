@@ -166,6 +166,9 @@ public class DoorOpen : MonoBehaviour
         {
             buttonPressed++;
             message.SetActive(false);
+            crouch1Open = true;
+            crouch2Open = false;
+            crouch3Open = false;
         }
 
         if(buttonPressed > 1)
@@ -183,6 +186,9 @@ public class DoorOpen : MonoBehaviour
         if(crouchOpen2 == true)
         {
             buttonPressed2++;
+            crouch2Open = true;
+            crouch1Open = false;
+            crouch3Open = false;
         }
 
         if(buttonPressed2 > 1)
@@ -199,6 +205,9 @@ public class DoorOpen : MonoBehaviour
         if(crouchOpen3 == true)
         {
             buttonPressed3++;
+            crouch3Open = true;
+            crouch1Open = false;
+            crouch2Open = false;
         }
 
         if(buttonPressed3 > 1)
@@ -221,31 +230,32 @@ public class DoorOpen : MonoBehaviour
             
             Timer = Timer + Time.deltaTime;
 
-            if(Timer <= 1.00f)
+            if(Timer <= 1.05f)
             {
                 float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
                 door.transform.eulerAngles = new Vector3(0, angle, 0);
                 doorOpens = true;
             }
-            if(Timer >= 1.00f)
+            if(Timer >= 1.05f)
             {
-                Timer = 1.00f;
+                Timer = 1.05f;
             }
         }
 
         if(SprintOpen == true)
         {
             Timer = Timer + Time.deltaTime;
+            Timer = Timer + Time.deltaTime;
 
-            if(Timer <= 1.00f)
+            if(Timer <= 1.05f)
             {
                 float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
                 door.transform.eulerAngles = new Vector3(0, angle, 0);
                 doorOpens = true;
             }
-            if(Timer >= 1.00f)
+            if(Timer >= 1.05f)
             {
-                Timer = 1.00f;
+                Timer = 1.05f;
             }
         }
 
@@ -260,15 +270,67 @@ public class DoorOpen : MonoBehaviour
             //     maxAngle = doorWalkOpen;
             // }
             
-            if(Timer > 0f)
+            if(Timer >= -0.05f)
             {
                 float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
                 door.transform.eulerAngles = new Vector3(0, angle, 0);
             }
 
-            if(Timer < 0f)
+            if(Timer <= -0.05f)
             {
-                Timer = 0f;
+                Timer = -0.05f;
+            }
+        }
+
+        if(crouch1Open == true)
+        {
+            Timer = Timer + Time.deltaTime;
+
+            if(Timer <= 1.05f)
+            {
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+                door.transform.eulerAngles = new Vector3(0, angle, 0);
+                doorOpens = true;
+            }
+            if(Timer >= 1.05f)
+            {
+                Timer = 1.05f;
+            }
+        }
+
+        if(crouch2Open == true && Timer == 1.05f)
+        {
+            // if(Timer == 1.05f)
+            // {
+            //     Timer = 0f;
+            // }
+            Timer = Timer + Time.deltaTime;
+
+            if(Timer <= 1.05f)
+            {
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+                door.transform.eulerAngles = new Vector3(0, angle, 0);
+                doorOpens = true;
+            }
+            if(Timer >= 1.05f)
+            {
+                Timer = 1.05f;
+            }
+        }
+
+        if(crouch3Open == true && Timer == 1.05f)
+        {
+            Timer = Timer + Time.deltaTime;
+
+            if(Timer <= 1.05f)
+            {
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+                door.transform.eulerAngles = new Vector3(0, angle, 0);
+                doorOpens = true;
+            }
+            if(Timer >= 1.05f)
+            {
+                Timer = 1.05f;
             }
         }
 
@@ -308,6 +370,7 @@ public class DoorOpen : MonoBehaviour
         if(Input.GetKey("e") && im.isCrouching == true)
         {
             crouchOpen1 = true;
+            normalOpen = false;
         }
 
         if(Input.GetKey("e"))
@@ -418,6 +481,9 @@ public class DoorOpen : MonoBehaviour
             normalOpen = false;
             SprintOpen = false;
             leaveDoor = true;
+            crouch1Open = false;
+            crouch2Open = false;
+            crouch3Open = false;
             //Timer = Timer - Time.deltaTime;
         // }
         message.SetActive(false);
