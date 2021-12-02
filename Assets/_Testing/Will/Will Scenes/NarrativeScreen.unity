@@ -1419,79 +1419,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db643154b549b044a413cab6bbff481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDialogueValue: 0
   typingTime: 0.05
   dialogueAnimator: {fileID: 2023648786}
+  dialogueManager: {fileID: 1461293472}
+  choiceManager: {fileID: 0}
   speakerBox: {fileID: 1522733952}
   textBox: {fileID: 1255347198}
-  dialogues:
-  - characterName: LADY
-    sentences:
-    - Tally ho!
-    - Good chap!
-  - characterName: 
-    sentences: []
-  - characterName: 
-    sentences: []
-  - characterName: 
-    sentences: []
-  - characterName: 
-    sentences: []
-  - characterName: 
-    sentences: []
-  - characterName: 
-    sentences: []
-  - characterName: 
-    sentences: []
-  - characterName: 
-    sentences: []
-  - characterName: 
-    sentences: []
-  choicePanel: {fileID: 1757380225}
-  choice1: {fileID: 1558279393}
-  choice2: {fileID: 1977593599}
-  choice3: {fileID: 907849300}
-  choice4: {fileID: 162811381}
-  choice5: {fileID: 1698581076}
   currentMission: 0
   speakerText: {fileID: 1283500031}
   dialogueText: {fileID: 1372220631}
-  choice1Text: {fileID: 837332297}
-  choice2Text: {fileID: 482229163}
-  choice3Text: {fileID: 1107494704}
-  choice4Text: {fileID: 1314107101}
-  choice5Text: {fileID: 89316301}
-  lastDialogueText: {fileID: 1802576170}
   portrait1Image: {fileID: 443753603}
-  portrait1ImageList: []
+  portrait1ImageList:
+  - {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
   portrait2Image: {fileID: 380297126}
-  portrait2ImageList: []
+  portrait2ImageList:
+  - {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
   backgroundImage: {fileID: 706666558}
   backgroundImageList: []
-  isLadyNightOne: 0
-  isLadyNightTwo: 0
-  isLadyNightThree: 0
-  isLadyBonusComplete: 0
-  isMassesNightOne: 0
-  isMassesNightTwo: 0
-  isMassesNightThree: 0
-  isMassesBonusComplete: 0
-  isUnionNightOne: 0
-  isUnionNightTwo: 0
-  isUnionNightThree: 0
-  isUnionBonusComplete: 0
-  isCIANightOne: 0
-  isCIANightTwo: 0
-  isCIANightThree: 0
-  isCIABonusComplete: 0
-  isMafiaNightOne: 0
-  isMafiaNightTwo: 0
-  isMafiaNightThree: 0
-  isMafiaBonusComplete: 0
-  isVoicesNightOne: 0
-  isVoicesNightTwo: 0
-  isVoicesNightThree: 0
-  isVoicesBonusComplete: 0
 --- !u!1 &837332295
 GameObject:
   m_ObjectHideFlags: 0
@@ -2942,11 +2886,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
   dialogue:
-    characterName: The Lady
-    sentences:
-    - Hi how are ya.
-    - I'm da Lady.
-    - Get me a dress would ya.
+  - characterName: 
+    characterImage: {fileID: 0}
+    sentences: []
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: 
+    characterImage: {fileID: 0}
+    sentences: []
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  currentDialogueIndex: 0
 --- !u!4 &1461293473
 Transform:
   m_ObjectHideFlags: 0
