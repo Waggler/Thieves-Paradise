@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelfDestruct : MonoBehaviour
 {
-    private float timeLeft = 1.1f;
+    [SerializeField] [Range (1, 30)]private float timeLeft = 1.1f;
 
     private float timeLeftReset;
 
