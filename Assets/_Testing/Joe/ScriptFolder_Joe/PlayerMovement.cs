@@ -98,11 +98,22 @@ public class PlayerMovement : MonoBehaviour
     public float CurrentStunTime = 0;
 
     [Header("Player Noise")]
-    [SerializeField] private int IdleLevel = 0;
-    [SerializeField] private int LowLevel = 1;
-    [SerializeField] private int MidLevel = 2;
-    [SerializeField] private int HighLevel = 3;
+    [Tooltip("The detection radius of the player when they are standing still and when they are moving while crouched")]
+    [SerializeField] private int SilentLevel = 0;
+    [Tooltip("The detection radius of the player when they are moving, jumping while standing still, jumping while moving, and rolling.")]
+    [SerializeField] private int QuietLevel = 3;
+    [Tooltip("The detection radius of the player when they are sliding")]
+    [SerializeField] private int MediumLevel = 6;
+    [Tooltip("The detection radius of the player when they are running and diving.")]
+    [SerializeField] private int LoudLevel = 12;
+    [Tooltip("This is the time it will take to update the states and send out a sound check for the guard.")]
+    [SerializeField] private float NoiseClock = 0.25f;
     [SerializeField] private int CurrentLevel;
+    private float CurrentNoiseClock;
+
+
+    //[Header("Suspicion Manager")]
+    public SuspicionManager SusMan;
 
     [Header("Animation States")]
     [SerializeField] private AnimationController animationController;
@@ -118,6 +129,12 @@ public class PlayerMovement : MonoBehaviour
     public bool Stunned;
 
     #endregion
+
+    void Awake()
+    {
+        //This might need to be updated for any changes to the sus manager.
+        SusMan = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
+    }
 
     void Start()
     {
@@ -141,10 +158,7 @@ public class PlayerMovement : MonoBehaviour
         Rolling();
         AnimationStates();
 
-        //REMOVE FROM UPDATE LATER!
-        PlayerSound();
-
-        if((!IsCrouching && !IsSprinting && !IsPushPull) || IsUncovered)
+        if ((!IsCrouching && !IsSprinting && !IsPushPull) || IsUncovered)
         {
             CoveredCheck();
             IsUncovered = false;
@@ -263,9 +277,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #endregion
-    
+
         #region Stun Work
-        if(IsStunned)
+        if (IsStunned)
         {
             CurrentStunTime += Time.deltaTime;
 
@@ -280,12 +294,22 @@ public class PlayerMovement : MonoBehaviour
                 IsStunned = false;
             }
         }
-        
+
+        #endregion
+
+        #region Noise Clock
+        //Might be replaced later.
+        if (CurrentNoiseClock < 0)
+        {
+            PlayerSound();
+            CurrentNoiseClock = NoiseClock;
+        }
+        CurrentNoiseClock -= Time.deltaTime;
         #endregion
     }
 
     #region Functions
- 
+
     #region Move
     //----------MOVEMENT----------//
     public void Movement(Vector3 Move)
@@ -665,22 +689,24 @@ public class PlayerMovement : MonoBehaviour
     #region Player Sound Controller
     void PlayerSound()
     {
-        if((Idle || IdleCrouch) && !Moving && !Crouching)
+        if((Idle || IdleCrouch || Crouching) && !CrouchRoll && !Jumping && !Slide && !Running)
         {
-            CurrentLevel = IdleLevel;
+            CurrentLevel = SilentLevel;
         }
-        else if(Crouching || CrouchRoll || Diving)
+        else if(((Moving || Jumping || CrouchRoll) || (Idle && Jumping)) && !Slide && !Running)
         {
-            CurrentLevel = LowLevel;
+            CurrentLevel = QuietLevel;
         }
-        else if((Moving || Slide || Jumping) && !Diving && !Running)
+        else if(Slide)
         {
-            CurrentLevel = MidLevel;
+            CurrentLevel = MediumLevel;
         }
-        else if(Running && Moving)
+        else if((Running && Moving) || Diving)
         {
-            CurrentLevel = HighLevel;
+            CurrentLevel = LoudLevel;
         }
+
+        SusMan.AlertGuards(transform.position, transform.position, CurrentLevel);
     }
 
     #endregion
