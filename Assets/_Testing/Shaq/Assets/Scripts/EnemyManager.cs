@@ -493,6 +493,7 @@ public class EnemyManager : MonoBehaviour
 
                 #endregion New Behavior Notes
 
+                //Buffer timer
                 //Find a more efficient way of doing this
                 if (oneTimeUseTimer > 0)
                 {
@@ -651,19 +652,6 @@ public class EnemyManager : MonoBehaviour
 
                 //experimenting with Time.fixedDeltaTime & Time.deltaTime
                 stunTime -= Time.fixedDeltaTime;
-
-                #region Don't Touch
-                //agent.Move(new Vector3(transform.forward.x, 0 , transform.forward.z).normalized);
-                //agent.Move(new Vector3((-transform.forward.x), 0, (transform.forward.z)).normalized);
-                //agent.Move(new Vector3((transform.InverseTransformDirection(Vector3.forward).x), 0, (transform.InverseTransformDirection(Vector3.forward).z)));
-
-
-                //Note: Currently sending the guard backward
-                //Ideal force mode: Impulse
-                //()
-                //m_Rigidbody.AddForce((transform.InverseTransformDirection(Vector3.forward)) * (guardKnockbackForce), ForceMode.Impulse);
-                //m_Rigidbody.AddForce(transform.up, ForceMode.Force);
-                #endregion Don't Touch
 
                 if (stunTime <= 0)
                 {

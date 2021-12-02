@@ -97,7 +97,7 @@ public class TripwireManager : MonoBehaviour
                 if (!hit.collider.gameObject.CompareTag("Guard"))
                 {
                     //Add logic for what to do when an object that isn't the guard sets off the alarm / tripwire
-                    print(hit.collider.gameObject.name);
+                    //print(hit.collider.gameObject.name);
 
                     //Always generate the guard list before alerting guards
                     susManagerRef.GenGuardList();
@@ -133,7 +133,7 @@ public class TripwireManager : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
 
         //Logic for handlin ray collision
-        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, layerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance /*layerMask*/))
         {
             //Records the initial hit point of the raycast
             initialHitRecord = hit.point;
