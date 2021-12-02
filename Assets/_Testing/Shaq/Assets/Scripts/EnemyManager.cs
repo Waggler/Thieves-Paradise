@@ -203,22 +203,22 @@ public class EnemyManager : MonoBehaviour
     [Header("Guard Movement Speeds")]
 
     [Tooltip("The speed that the AI moves at in the PATROL state")]
-    [SerializeField] [Range(0, 10)] public float patrolSpeed = 5f;
+    [SerializeField] [Range(0, 30)] public float patrolSpeed = 5f;
 
     [Tooltip("The speed that the AI moves at in the WARY state")]
-    [SerializeField] [Range(0, 10)] public float warySpeed = 4f;
+    [SerializeField] [Range(0, 30)] public float warySpeed = 4f;
 
     [Tooltip("The speed that the AI moves at in the SUSPICIOS state")]
-    [SerializeField] [Range(0, 10)] public float susSpeed = 6.5f;
+    [SerializeField] [Range(0, 30)] public float susSpeed = 6.5f;
 
     [Tooltip("The speed that the AI moves at in the STUNNED state")]
-    [SerializeField] [Range(0, 10)] public float stunSpeed = 0f;
+    [SerializeField] [Range(0, 30)] public float stunSpeed = 0f;
 
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
-    [SerializeField] [Range(0, 10)] public float hostileSpeed = 8f;
+    [SerializeField] [Range(0, 30)] public float hostileSpeed = 8f;
 
     [Tooltip("The speed that the AI moves at in the ATTACK state")]
-    [SerializeField] [Range(0, 10)] public float attackSpeed = 0f;
+    [SerializeField] [Range(0, 30)] public float attackSpeed = 0f;
 
     //---------------------------------------------------------------------------------------------------//
     [Header("Patrol Wait Time")]
