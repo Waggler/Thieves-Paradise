@@ -383,7 +383,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870511522111461}
-  m_LocalRotation: {x: -0.009678641, y: 0.89505446, z: -0.01944853, w: -0.44542754}
+  m_LocalRotation: {x: -0.00967864, y: 0.89505446, z: -0.01944853, w: -0.44542754}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -519,17 +519,6 @@ MonoBehaviour:
   IsDiving: 0
   ResetDiving: 0
   StillDiving: 0
-  animationController: {fileID: 3981163847744517998}
-  Idle: 0
-  IdleCrouch: 0
-  Moving: 0
-  Crouching: 0
-  Running: 0
-  Jumping: 0
-  CrouchRoll: 0
-  Slide: 0
-  Diving: 0
-  Stunned: 0
   PushPullLightSpeed: 0
   PushPullMediumSpeed: 0
   PushPullHeavySpeed: 0
@@ -541,6 +530,24 @@ MonoBehaviour:
   BreakOutValue: 1
   IsStunned: 0
   CurrentStunTime: 0
+  SilentLevel: 0
+  QuietLevel: 3
+  MediumLevel: 6
+  LoudLevel: 12
+  NoiseClock: 0.25
+  CurrentLevel: 0
+  SusMan: {fileID: 0}
+  animationController: {fileID: 3981163847744517998}
+  Idle: 0
+  IdleCrouch: 0
+  Moving: 0
+  Crouching: 0
+  Running: 0
+  Jumping: 0
+  CrouchRoll: 0
+  Slide: 0
+  Diving: 0
+  Stunned: 0
 --- !u!136 &6908870511578677740
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1182,7 +1189,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870512041837564}
-  m_LocalRotation: {x: 0.047414266, y: 0.88520294, z: -0.13385266, w: -0.44300255}
+  m_LocalRotation: {x: 0.04741427, y: 0.88520294, z: -0.13385266, w: -0.44300255}
   m_LocalPosition: {x: 2.8124592, y: -0.4696958, z: 8.254407}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2204,7 +2211,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: e4d6787ff63346845846ca85d668085a, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 7d4c1690ab3fddd4ead3320b0b5d5eb1, type: 2}
+      objectReference: {fileID: 9100000, guid: 0333d4902d7bf0345b98a7ec352bed54, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4d6787ff63346845846ca85d668085a, type: 3}
 --- !u!95 &1800649934323940943 stripped
