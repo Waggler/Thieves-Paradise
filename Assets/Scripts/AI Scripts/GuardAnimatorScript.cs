@@ -93,7 +93,6 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isPassive", false);
         anim.SetBool("isSuspicious", true);
         anim.SetBool("isHostile", false);
-        anim.SetBool("isPlayerFree", true);
     }//End EnterSusAnim
 
 
@@ -153,7 +152,6 @@ public class GuardAnimatorScript : MonoBehaviour
     {
         anim.SetBool("isWalking", true);
         anim.SetBool("isPassive", false);
-        anim.SetBool("isPlayerFree", true);
     }
     //---------------------------------//
 

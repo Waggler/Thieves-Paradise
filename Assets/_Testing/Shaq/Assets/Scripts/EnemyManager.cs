@@ -262,6 +262,8 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Debug / Testing Variables")]
 
+    public bool isStunned;
+
     //Variable may need to be renamed in the future based on further implementations with Charlie
     [Tooltip("Duration of the guard's Stun state duration")]
     [SerializeField] private float stunTime;
@@ -545,6 +547,8 @@ public class EnemyManager : MonoBehaviour
                 {
                     oneTimeUseTimer = oneTimeUseTimerReset;
 
+                    guardAnim.ExitSearchingAnim();
+
                     //SUSPICIOUS >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
 
@@ -581,13 +585,15 @@ public class EnemyManager : MonoBehaviour
                     //transform.position is being used because you cannot use Vector3 data when Transform is being called
                     SetAIDestination(target);
 
-                    if (Vector3.Distance(target, transform.position) < attackRadius)
+                    if (Vector3.Distance(player.transform.position, transform.position) < attackRadius)
                     {
                         guardAnim.EnterAttackAnim();
-
+                        player.GetComponent<PlayerMovement>().IsStunned = true;
+                        player.transform.position = playerTeleportLoc.transform.position;
+                        SetAIDestination(this.transform.position);
+                        //player.transform.SetParent(playerTeleportLoc.transform, false);
                         //HOSTILE >> ATTACK
                         stateMachine = EnemyStates.ATTACK;
-
                     }
 
                     //Playing Alert Audio
@@ -619,32 +625,30 @@ public class EnemyManager : MonoBehaviour
             //AI Attack state
             case EnemyStates.ATTACK:
 
-                guardAnim.EnterAttackAnim();
-
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(attackSpeed);
 
-                player.transform.position = playerTeleportLoc.transform.position;
 
 
 
                 #region Exit Condition(s)
-                if (distanceToPlayer > attackRadius)
+                
+                if (isStunned == true)
                 {
-                    // ATTACK >> HOSTILE
-                    stateMachine = EnemyStates.HOSTILE;
-                }
-                else if (player.GetComponent<PlayerMovement>().IsStunned == false)
-                {
-                    // ATTACK >>  STUNNED
-                    stateMachine = EnemyStates.STUNNED;
-
-                    player.GetComponent<PlayerMovement>().IsStunned = true;
-
+                    //player.transform.parent = null;
                     guardAnim.ExitAttackAnim();
 
                     guardAnim.EnterStunAnim();
+                    // ATTACK >>  STUNNED
+                    stateMachine = EnemyStates.STUNNED;
+
+                    
+                }
+                else if (Vector3.Distance(target, transform.position) > attackRadius && !isStunned)
+                {
+                    // ATTACK >> HOSTILE
+                    stateMachine = EnemyStates.HOSTILE;
                 }
 
 
@@ -667,22 +671,22 @@ public class EnemyManager : MonoBehaviour
 
             #region Stunned Behavior
             case EnemyStates.STUNNED:
-
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(stunSpeed);
 
                 //experimenting with Time.fixedDeltaTime & Time.deltaTime
-                stunTime -= Time.fixedDeltaTime;
+                stunTime -= Time.deltaTime;
 
                 if (stunTime <= 0)
                 {
                     guardAnim.ExitStunAnim();
+                    isStunned = false;
 
                     eyeball.susLevel = sussySusMax;
 
                     //STUNNED >>>> PREVIOUS STATE (SUSPICIOS for now)
-                    stateMachine = EnemyStates.SUSPICIOUS;
+                    stateMachine = EnemyStates.HOSTILE;
 
                     //after changing states, the stun time returns to the initially recorded time
                     stunTime = stunTimeReset;
@@ -870,6 +874,11 @@ public class EnemyManager : MonoBehaviour
     void RaiseSecurityLevel()
     {
     }//End RaiseSecurityLevel
+
+    public IEnumerator IBreakFreeDelay()
+    {
+        yield return new WaitForSeconds(2);
+    }
 
     #endregion AI Functions
 }
