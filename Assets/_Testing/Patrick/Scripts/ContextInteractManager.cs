@@ -34,10 +34,10 @@ public class ContextInteractManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject i in nearbyObjects)
+        /* foreach (GameObject i in nearbyObjects)
         {
             print(i.name);
-        }
+        } */
 
 
         if (nearbyObjects.Count > 0)
@@ -65,6 +65,19 @@ public class ContextInteractManager : MonoBehaviour
                     inventory.ContextInteract(highlightedObject.GetComponent<ItemInterface>());
                     
                     nearbyObjects.TrimExcess();
+                }
+                if (highlightedObject.GetComponent<ButtonScript>() != null)
+                {
+                    if (highlightedObject.GetComponent<ButtonScript>().isLocked)
+                    {
+                        if(inventory.CheckHasItem("Keycard"))
+                        {
+                            highlightedObject.GetComponent<ButtonScript>().Unlock();
+                        }
+                    }else
+                    {
+                        highlightedObject.GetComponent<ButtonScript>().PressButton();
+                    }
                 }
             }
         }
@@ -168,6 +181,11 @@ public class ContextInteractManager : MonoBehaviour
         switch (other.tag)
         {
             case "Item":
+            
+                nearbyObjects.Add(other.gameObject);
+            break;
+
+            case "Button":
             
                 nearbyObjects.Add(other.gameObject);
             break;

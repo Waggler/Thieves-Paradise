@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6325493192996657352}
   - component: {fileID: 5171975812865568345}
   - component: {fileID: 3132059187102836409}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cup_Borgar
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -97,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582fe1802d0f4454f85825824ecd4874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxController: {fileID: 0}
   itemDurability: 5
   objectName: Borgor Cup
-  myPrefab: {fileID: 5661592833397855461}
   noiseRadius: 15
 --- !u!54 &6325493192996657352
 Rigidbody:

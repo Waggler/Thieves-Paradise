@@ -9,6 +9,8 @@ public class ItemScript : ItemSuperScript, ItemInterface
     private GameObject myPrefab;//reference to this object's prefab
     [SerializeField] private float noiseRadius = 15;
 
+    [SerializeField] private GameObject deployableObject;
+
     public GameObject myself
     {
         get {return myPrefab;}
@@ -35,5 +37,23 @@ public class ItemScript : ItemSuperScript, ItemInterface
     public void UseItem()
     {
         print("Used Active Item");
-    }    
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        
+        //MakeNoise();
+        
+
+        print("hit something " + isThrown + " " + durability);
+
+        if (durability < 2 && deployableObject != null && isThrown)
+        {
+            print("spawning object");
+            Instantiate(deployableObject, transform.position, Quaternion.identity);
+            UseDurability();
+            //Destroy(this.gameObject);
+        }
+        
+    }   
 }

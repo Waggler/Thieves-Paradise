@@ -203,7 +203,7 @@ public class SuspicionManager : MonoBehaviour
             enemyManager = guard.GetComponent<EnemyManager>();
 
             //Radius Check
-            if (distance <= callRadius /*&& GameObject.CompareTag("[Insert guard type here]")*/)
+            if (distance <= callRadius && enemyManager.isStunned == false/*&& GameObject.CompareTag("[Insert guard type here]")*/)
             {
                 //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
                 enemyManager.Alert(targetLoc);
