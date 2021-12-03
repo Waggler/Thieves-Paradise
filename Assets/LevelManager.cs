@@ -25,53 +25,23 @@ public class LevelManager : MonoBehaviour
     //-----------------------//
     {
         currentSceneIndex = PlayerPrefs.GetInt("currentScene");
-        sceneTransition.SetBool("isClosing", false);
+        sceneTransition.SetBool("isClosing", true);
+        sceneTransition.SetBool("isClosing", true);
+
 
     }//END Init
 
     //-----------------------//
-    public void PlayGame()
+    public void ChangeLevel(int sceneIndex)
     //-----------------------//
     {
-        currentSceneIndex++;
-        PlayerPrefs.SetInt("currentScene", currentSceneIndex);
-        StartCoroutine(INextLevel());
-
-    }//END PlayGame
-
-    //-----------------------//
-    public void MainMenu()
-    //-----------------------//
-    {
-        StartCoroutine(IMainMenu());
-
-
-    }//END MainMenu
-
-    //-----------------------//
-    public void NextLevel()
-    //-----------------------//
-    {
-        StartCoroutine(INextLevel());
-        currentSceneIndex++;
+        StartCoroutine(IChangeScene());
+        currentSceneIndex = sceneIndex;
 
     }//END NextLevel
 
     //-----------------------//
-    public IEnumerator IMainMenu()
-    //-----------------------//
-    {
-        sceneTransition.SetBool("isClosing", true);
-
-        yield return new WaitForSeconds(waitTime);
-
-        PlayerPrefs.SetInt("currentScene", 0);
-        SceneManager.LoadScene(0);
-
-    }//END IMainMenu
-
-    //-----------------------//
-    public IEnumerator INextLevel()
+    public IEnumerator IChangeScene()
     //-----------------------//
     {
         sceneTransition.SetBool("isClosing", true);
@@ -79,7 +49,7 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         SceneManager.LoadScene(currentSceneIndex);
 
-    }//END INextLevel
+    }//END IChangeScene
 
 
 
