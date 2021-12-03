@@ -161,6 +161,8 @@ public class NarrativeUIManager : MonoBehaviour
 
         foreach (string sentence in dialogue.sentences)
         {
+            char[] lettters = sentence.ToCharArray();
+
             sentences.Enqueue(sentence);
         }
         choiceManager.currentChoice = dialogue;
@@ -250,11 +252,29 @@ public class NarrativeUIManager : MonoBehaviour
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
-
+        bool skipDelimiter = false;
         foreach (char letter in sentence.ToCharArray())
         {
-            dialogueText.text += letter;
-            yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
+
+            if (letter == '<')
+            {
+                skipDelimiter = true;
+            }
+            if (!skipDelimiter)
+            {
+                dialogueText.text += letter;
+                yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
+            }    
+            else
+            {
+                dialogueText.text += letter;
+            }
+
+            if (letter == '>')
+            {
+                skipDelimiter = false;
+            }
+
         }
     }
 
