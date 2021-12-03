@@ -262,6 +262,8 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Debug / Testing Variables")]
 
+    public bool isStunned;
+
     //Variable may need to be renamed in the future based on further implementations with Charlie
     [Tooltip("Duration of the guard's Stun state duration")]
     [SerializeField] private float stunTime;
@@ -471,6 +473,8 @@ public class EnemyManager : MonoBehaviour
             #region Suspicious Behavior
             case EnemyStates.SUSPICIOUS:
 
+                float searchLocCheck = .5f;
+
                 guardAnim.EnterSusAnim();
 
                 stateText.text = stateMachine.ToString();
@@ -493,6 +497,10 @@ public class EnemyManager : MonoBehaviour
 
                 #endregion New Behavior Notes
 
+                //To Do: Add a distance buffer for entering the search animation
+                //  - Might take a bit of refacotring
+
+
                 //Buffer timer
                 //Find a more efficient way of doing this
                 if (oneTimeUseTimer > 0)
@@ -506,22 +514,24 @@ public class EnemyManager : MonoBehaviour
                     {
                         randWaitTime -= Time.fixedDeltaTime;
 
+                        guardAnim.ExitSearchingAnim();
                     }
                     else if (randWaitTime <= 0)
                     {
 
-                        //randWaitTime = randWaitTimeReset;
                         randWaitTime = Random.Range(randWaitMin, randWaitMax);
-
-                        FaceTarget(target);
 
                         targetText.text = ($"{target}");
 
-                        SetAIDestination(GenerateRandomPoint());
+                        target = GenerateRandomPoint();
 
                         FaceTarget(target);
+
+                        guardAnim.EnterSearchingAnim();
                     }
                 }
+
+                SetAIDestination(target);
 
                 #region Exit Conditions
                 //Exit Condition
@@ -536,6 +546,8 @@ public class EnemyManager : MonoBehaviour
                 if (eyeball.susLevel > sussySusMax)
                 {
                     oneTimeUseTimer = oneTimeUseTimerReset;
+
+                    guardAnim.ExitSearchingAnim();
 
                     //SUSPICIOUS >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
@@ -573,14 +585,15 @@ public class EnemyManager : MonoBehaviour
                     //transform.position is being used because you cannot use Vector3 data when Transform is being called
                     SetAIDestination(target);
 
-
-                    //Rework this so that it's based on the suspicion level instead of a generic radius
-                    if (distanceToPlayer <= attackRadius)
+                    if (Vector3.Distance(player.transform.position, transform.position) < attackRadius)
                     {
-                        // HOSTILE >> SUSPICIOUS
-                        stateMachine = EnemyStates.SUSPICIOUS;
-                        //Sets the player to stunned
+                        guardAnim.EnterAttackAnim();
                         player.GetComponent<PlayerMovement>().IsStunned = true;
+                        player.transform.position = playerTeleportLoc.transform.position;
+                        SetAIDestination(this.transform.position);
+                        //player.transform.SetParent(playerTeleportLoc.transform, false);
+                        //HOSTILE >> ATTACK
+                        stateMachine = EnemyStates.ATTACK;
                     }
 
                     //Playing Alert Audio
@@ -612,20 +625,33 @@ public class EnemyManager : MonoBehaviour
             //AI Attack state
             case EnemyStates.ATTACK:
 
-                guardAnim.EnterAttackAnim();
-
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(attackSpeed);
 
-                player.transform.position = playerTeleportLoc.transform.position;
+
+
 
                 #region Exit Condition(s)
-                if (distanceToPlayer > attackRadius)
+                
+                if (isStunned == true)
+                {
+                    //player.transform.parent = null;
+                    guardAnim.ExitAttackAnim();
+
+                    guardAnim.EnterStunAnim();
+                    // ATTACK >>  STUNNED
+                    stateMachine = EnemyStates.STUNNED;
+
+                    
+                }
+                else if (Vector3.Distance(target, transform.position) > attackRadius && !isStunned)
                 {
                     // ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
+
+
                 #endregion Exit Condition(s)
 
                 FaceTarget(target);
@@ -645,18 +671,22 @@ public class EnemyManager : MonoBehaviour
 
             #region Stunned Behavior
             case EnemyStates.STUNNED:
-
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(stunSpeed);
 
                 //experimenting with Time.fixedDeltaTime & Time.deltaTime
-                stunTime -= Time.fixedDeltaTime;
+                stunTime -= Time.deltaTime;
 
                 if (stunTime <= 0)
                 {
+                    guardAnim.ExitStunAnim();
+                    isStunned = false;
+
+                    eyeball.susLevel = sussySusMax;
+
                     //STUNNED >>>> PREVIOUS STATE (SUSPICIOS for now)
-                    stateMachine = EnemyStates.SUSPICIOUS;
+                    stateMachine = EnemyStates.HOSTILE;
 
                     //after changing states, the stun time returns to the initially recorded time
                     stunTime = stunTimeReset;
@@ -778,15 +808,17 @@ public class EnemyManager : MonoBehaviour
     //---------------------------------//
     // Sets the AI speed
     // Needs to be reworked / improved
-    void SetAiSpeed(float speed) => agent.speed = Mathf.Lerp(agent.speed, speed, 1);//End SetSpeed
-    //---------------------------------//
+    void SetAiSpeed(float speed)
+    {
+        agent.speed = Mathf.Lerp(agent.speed, speed, 1);//End SetSpeed
+
+        guardAnim.SetAgentSpeed(speed);
+    }//End SetAiSpeed
 
 
     //---------------------------------//
     // Function for setting AI destination
     void SetAIDestination(Vector3 point) => agent.SetDestination(point); //End SetAIDestination
-    //---------------------------------//
-
 
 
     //---------------------------------//
@@ -842,6 +874,11 @@ public class EnemyManager : MonoBehaviour
     void RaiseSecurityLevel()
     {
     }//End RaiseSecurityLevel
+
+    public IEnumerator IBreakFreeDelay()
+    {
+        yield return new WaitForSeconds(2);
+    }
 
     #endregion AI Functions
 }

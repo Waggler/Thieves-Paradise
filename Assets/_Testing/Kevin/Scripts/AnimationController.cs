@@ -188,6 +188,19 @@ public class AnimationController : MonoBehaviour
         }
     }// END IsPlayerStunned
 
+    public void IsPlayerFree(bool isPlayerFree)
+    //-------------------------------------------------//
+    {
+        if (isPlayerFree)
+        {
+            playerAnimator.SetBool("isFree", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isFree", false);
+        }
+    }// END IsPlayerStunned
+
     /*
     //-------------------------------------------------//
     private void DebugAnim()

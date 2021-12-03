@@ -93,10 +93,21 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isPassive", false);
         anim.SetBool("isSuspicious", true);
         anim.SetBool("isHostile", false);
-        anim.SetBool("isPlayerFree", true);
-    }
+    }//End EnterSusAnim
+
+
     //---------------------------------//
-    
+    public void EnterSearchingAnim()
+    {
+        anim.SetBool("isSearching", true);
+    }//End EnterSearchingAnim
+
+    //---------------------------------//
+    public void ExitSearchingAnim()
+    {
+        anim.SetBool("isSearching", false);
+    }//End ExitSearchingAnim
+
 
     //---------------------------------//
     //Sets the guard animation to "isHostile"
@@ -106,25 +117,34 @@ public class GuardAnimatorScript : MonoBehaviour
     {
         anim.SetBool("isSuspicious", false);
         anim.SetBool("isHostile", true);
-        anim.SetBool("isPlayerFree", true);
+        //anim.SetBool("isPlayerFree", true);
+    }
+
+    public void EnterStunAnim()
+    {
+        anim.SetBool("isStunned", true);
     }
 
 
+    public void ExitStunAnim()
+    {
+        anim.SetBool("isStunned", false);
+    }
+
     //---------------------------------//
-    //Sets the guard animation to attack
     //Rear naked choke
     public void EnterAttackAnim()
     {
-        if (Player.IsStunned == false)
-        {
-            anim.SetBool("isPlayerFree", true);
-        }
-        else
-        {
-            anim.SetBool("isPlayerFree", false);
-        }
+        anim.SetBool("isAttacking", true);
     }
     //---------------------------------//
+
+
+    public void ExitAttackAnim()
+    {
+        anim.SetBool("isAttacking", false);
+    }
+
 
     //---------------------------------//
     //Sets the guard animation to walking
@@ -132,9 +152,13 @@ public class GuardAnimatorScript : MonoBehaviour
     {
         anim.SetBool("isWalking", true);
         anim.SetBool("isPassive", false);
-        anim.SetBool("isPlayerFree", true);
     }
     //---------------------------------//
 
+
+    public void SetAgentSpeed(float speed)
+    {
+        anim.SetFloat("guardSpeed", speed);
+    }
 }
 
