@@ -30,6 +30,7 @@ public class PlayerAudio : MonoBehaviour
     public void WalkingFootStep()
     //-----------------------//
     {
+        playerSource.volume = 0.015f;
         int i = Random.Range(0, walkClips.Length);
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(walkClips[i]);
@@ -41,6 +42,7 @@ public class PlayerAudio : MonoBehaviour
     public void RunningFootStep()
     //-----------------------//
     {
+        playerSource.volume = 0.015f;
         int i = Random.Range(0, runClips.Length);
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(runClips[i]);
@@ -52,6 +54,7 @@ public class PlayerAudio : MonoBehaviour
     public void VentFootStep()
     //-----------------------//
     {
+        playerSource.volume = 0.015f;
         int i = Random.Range(0, ventClips.Length);
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(ventClips[i]);
@@ -63,7 +66,6 @@ public class PlayerAudio : MonoBehaviour
     public void BeginStruggle()
     //-----------------------//
     {
-        playerSource.pitch = 1;
         struggleSource.Play();
 
     }//END BeginStruggle
@@ -80,6 +82,7 @@ public class PlayerAudio : MonoBehaviour
     public void Slide()
     //-----------------------//
     {
+        playerSource.volume = 1;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(slideClip);
 
@@ -98,6 +101,7 @@ public class PlayerAudio : MonoBehaviour
     public void Roll()
     //-----------------------//
     {
+        playerSource.volume = 1;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(rollClip);
 
