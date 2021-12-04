@@ -82,7 +82,7 @@ public class PlayerAudio : MonoBehaviour
     public void Slide()
     //-----------------------//
     {
-        playerSource.volume = 1;
+        playerSource.volume = .02f;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(slideClip);
 
@@ -101,7 +101,7 @@ public class PlayerAudio : MonoBehaviour
     public void Roll()
     //-----------------------//
     {
-        playerSource.volume = 1;
+        playerSource.volume = 0.02f;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(rollClip);
 
