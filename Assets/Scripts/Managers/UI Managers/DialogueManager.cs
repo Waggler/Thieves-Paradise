@@ -10,6 +10,10 @@ public class DialogueManager : MonoBehaviour
     public Dialogue[] dialogue;
     public int currentDialogueIndex;
 
+    public int characterOneCurrentSpriteIndex;
+    public int characterTwoCurrentSpriteIndex;
+    public int backgroundCurrentSpriteIndex;
+
     //-----------------------//
     private void Start()
     //-----------------------//
@@ -24,7 +28,7 @@ public class DialogueManager : MonoBehaviour
     {
         StartCoroutine(IStartDelay());
 
-    }//END Start
+    }//END Init
 
 
     //-----------------------//
@@ -34,8 +38,7 @@ public class DialogueManager : MonoBehaviour
         try
         {
             narrativeUIManager.StartDialogue(dialogue[currentDialogueIndex]);
-            narrativeUIManager.ChangeLeftPortrait();
-            narrativeUIManager.ChangeRightPortrait();
+
         }
         catch
         {
