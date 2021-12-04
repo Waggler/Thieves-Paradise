@@ -41,18 +41,19 @@ public class ItemScript : ItemSuperScript, ItemInterface
 
     void OnCollisionEnter(Collision other)
     {
-        
-        //MakeNoise();
-        
-
-        print("hit something " + isThrown + " " + durability);
+        print(this.gameObject.name + " hit something " + isThrown + " " + durability);
+        MakeNoise();
 
         if (durability < 2 && deployableObject != null && isThrown)
         {
             print("spawning object");
             Instantiate(deployableObject, transform.position, Quaternion.identity);
             UseDurability();
-            //Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }else if (isThrown)
+        {
+            UseDurability();
+            isThrown = false;
         }
         
     }   

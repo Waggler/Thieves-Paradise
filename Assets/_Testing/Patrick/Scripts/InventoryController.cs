@@ -158,6 +158,7 @@ public class InventoryController : MonoBehaviour
         thrownItem.name = thrownItem.GetComponent<ItemInterface>().itemName;
         Vector3 throwVector = transform.forward * throwForce + transform.up * throwForce;
         thrownItem.GetComponent<Rigidbody>().AddForce(throwVector);
+        thrownItem.GetComponent<Rigidbody>().AddTorque(Vector3.one * Random.Range(5f,15f));
         thrownItem.GetComponent<ItemSuperScript>().ThrowItem();
 
         
@@ -300,5 +301,24 @@ public class InventoryController : MonoBehaviour
         print(nearbyItems[itemIndex].myself.name);
         return nearbyItems[itemIndex];
     }
+    #endregion
+
+    #region Saving&Loading
+    public ItemInterface[] SaveInventory()
+    {
+        return itemInterfaceInventory;
+    }
+    
+    public void LoadInventory(ItemInterface[] savedItems)
+    {
+        foreach(ItemInterface item in savedItems)
+        {
+            if(item != null)
+            {
+                AddItem(item);
+            }
+        }
+    }
+
     #endregion
 }
