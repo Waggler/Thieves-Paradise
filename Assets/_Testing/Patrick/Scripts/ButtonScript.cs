@@ -7,6 +7,7 @@ public class ButtonScript : MonoBehaviour
 {
     public UnityEvent onPress;
     public bool isLocked;
+    public string keyItem;
 
     [SerializeField] private AudioClip confirm;
     [SerializeField] private AudioClip deny;
