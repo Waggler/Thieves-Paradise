@@ -115,6 +115,8 @@ public class PlayerMovement : MonoBehaviour
 
     //[Header("Suspicion Manager")]
     public SuspicionManager SusMan;
+    public GameController gameController;
+    public InventoryController inventoryController;
 
     [Header("Animation States")]
     [SerializeField] private AnimationController animationController;
@@ -134,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         //This might need to be updated for any changes to the sus manager.
-        SusMan = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
+        
     }
 
     void Start()
@@ -150,11 +152,20 @@ public class PlayerMovement : MonoBehaviour
         mask = ~mask;
         HeightFromGround = StandardHeight / 2;
         CrouchingHeightFromGround = CrouchingHeight / 2;
+
+        SusMan = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
+
+        if (gameController == null)
+        {
+            gameController = FindObjectOfType<GameController>();
+        }
+
+        transform.position = gameController.lastCheckPoint;
     }
 
     void Update()
     {
-
+        
         GroundCheck();
         Rolling();
         AnimationStates();

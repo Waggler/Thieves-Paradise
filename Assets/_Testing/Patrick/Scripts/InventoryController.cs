@@ -5,9 +5,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Serializable]
 public class InventoryController : MonoBehaviour
 {
-    private ItemInterface[] itemInterfaceInventory;
+    public ItemInterface[] itemInterfaceInventory;
     private bool[] inventorySpace; //true = occupied, false = empty
     private int activeItemIndex; //array index
     private List<ItemInterface> nearbyItems;//for storing all items within reach
