@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6722811032156077983}
-  - component: {fileID: 6722811032156077980}
   - component: {fileID: 6722811032156077981}
+  - component: {fileID: 9093366807501584362}
   m_Layer: 0
   m_Name: LockedDoorTrigger1
   m_TagString: Untagged
@@ -32,41 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6722811032156077980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6722811032156077922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24cdebb203311e948973d970c6d14c75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  door: {fileID: 0}
-  isLocked: 1
-  inArea: 0
-  message1: {fileID: 0}
-  message2: {fileID: 0}
-  key: {fileID: 0}
-  button1Pressed: 0
-  button2Pressed: 0
-  button3Pressed: 0
-  doorOpens: 0
-  pm: {fileID: 0}
-  im: {fileID: 0}
-  crouchOpen1: 0
-  crouchOpen2: 0
-  crouchOpen3: 0
-  buttonPressed: 0
-  buttonPressed2: 0
-  buttonPressed3: 0
-  doorWalkOpen: 0
-  doorSprintOpen: 0
-  doorCrouchOpen1: 0
-  doorCrouchOpen2: 0
-  doorCrouchOpen3: 0
 --- !u!65 &6722811032156077981
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80,3 +45,46 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.63, y: 1.99, z: 2.23}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9093366807501584362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6722811032156077922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa8c076703a26e4994567533fca0b71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  door: {fileID: 0}
+  message: {fileID: 0}
+  message2: {fileID: 0}
+  key: {fileID: 0}
+  isLocked: 1
+  button1Pressed: 0
+  button2Pressed: 0
+  button3Pressed: 0
+  doorOpens: 0
+  pm: {fileID: 0}
+  im: {fileID: 0}
+  inArea: 0
+  crouchOpen1: 0
+  crouchOpen2: 0
+  crouchOpen3: 0
+  buttonPressed: 0
+  buttonPressed2: 0
+  buttonPressed3: 0
+  doorWalkOpen: 0
+  doorSprintOpen: 0
+  doorCrouchOpen1: 0
+  doorCrouchOpen2: 0
+  doorCrouchOpen3: 0
+  leaveDoorClose: 0
+  normalOpen: 0
+  SprintOpen: 0
+  crouch1Open: 0
+  crouch2Open: 0
+  crouch3Open: 0
+  leaveDoor: 0
+  Timer: 0

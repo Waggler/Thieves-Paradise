@@ -10,6 +10,9 @@ public class DoorOpen : MonoBehaviour
 
     public GameObject door;
     public GameObject message;
+    public GameObject message2;
+    public Key key;
+    public bool isLocked = true;
     public bool button1Pressed = false;
     public bool button2Pressed = false;
     public bool button3Pressed = false;
@@ -42,12 +45,17 @@ public class DoorOpen : MonoBehaviour
     public bool leaveDoor = false;
     private Animation anim;
     public float Timer = 0f;
+    public float Timer2 = 0f;
+    public float Timer3 = 0f;
+    public bool reachedTimer = false;
+    public bool reachedTimer2 = false;
     //REMEMBER TP ATTEMPT TO PUT DOOR-OPENING CODE IN UPDATE AND TO USE A TIMER WITH TIME.DELTA TIME FOR OPENING DOOR
     
     // Start is called before the first frame update
     void Start()
     {
         message.SetActive(false);
+        message2.SetActive(false);
         // action.performed += _ => OpenDoor();
         anim = GetComponent<Animation>();
     }
@@ -78,6 +86,11 @@ public class DoorOpen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(key.gotKey == true)
+        {
+            isLocked = false;
+        }
+
         if(doorOpens == true)
         {
             maxAngle = doorWalkOpen;
@@ -264,6 +277,8 @@ public class DoorOpen : MonoBehaviour
             Timer = Timer - Time.deltaTime;
             minAngle = 0f;
             maxAngle = doorWalkOpen;
+            Timer2 = 0f;
+            Timer3 = 0f;
             
             // if(normalOpen == true)
             // {
@@ -284,6 +299,8 @@ public class DoorOpen : MonoBehaviour
 
         if(crouch1Open == true)
         {
+            normalOpen = false;
+
             Timer = Timer + Time.deltaTime;
 
             if(Timer <= 1.05f)
@@ -298,39 +315,52 @@ public class DoorOpen : MonoBehaviour
             }
         }
 
-        if(crouch2Open == true && Timer == 1.05f)
+        if(crouch2Open == true)
         {
-            // if(Timer == 1.05f)
+            normalOpen = false;
+
+            // if(Timer == 1.05f && reachedTimer == false)
+            // {
+            //     Timer3 = 0f;
+            // }
+
+            Timer3 = Timer3 + Time.deltaTime;
+
+            if(Timer3 <= 1.05f)
+            {
+                float angle = Mathf.LerpAngle(doorCrouchOpen1, maxAngle, Timer3);
+                door.transform.eulerAngles = new Vector3(0, angle, 0);
+                doorOpens = true;
+            }
+            if(Timer3 >= 1.05f)
+            {
+                Timer3 = 1.05f;
+                //reachedTimer = true;
+            }
+        }
+
+        if(crouch3Open == true)
+        {
+            Timer = 1.05f;
+            normalOpen = false;
+
+            // if(Timer == 1.05f && reachedTimer2 == false)
             // {
             //     Timer = 0f;
             // }
-            Timer = Timer + Time.deltaTime;
 
-            if(Timer <= 1.05f)
+            Timer2 = Timer2 + Time.deltaTime;
+
+            if(Timer2 <= 1.05f)
             {
-                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+                float angle = Mathf.LerpAngle(doorCrouchOpen2, maxAngle, Timer2);
                 door.transform.eulerAngles = new Vector3(0, angle, 0);
                 doorOpens = true;
             }
-            if(Timer >= 1.05f)
+            if(Timer2 >= 1.05f)
             {
-                Timer = 1.05f;
-            }
-        }
-
-        if(crouch3Open == true && Timer == 1.05f)
-        {
-            Timer = Timer + Time.deltaTime;
-
-            if(Timer <= 1.05f)
-            {
-                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
-                door.transform.eulerAngles = new Vector3(0, angle, 0);
-                doorOpens = true;
-            }
-            if(Timer >= 1.05f)
-            {
-                Timer = 1.05f;
+                Timer2 = 1.05f;
+                //reachedTimer2 = true;
             }
         }
 
@@ -359,7 +389,7 @@ public class DoorOpen : MonoBehaviour
     private void OnTriggerStay(Collider collider)
     {
         inArea = true;
-        message.SetActive(true);
+        //message.SetActive(true);
         leaveDoor = false;
 
         if(im.isSprinting == true)
@@ -367,7 +397,7 @@ public class DoorOpen : MonoBehaviour
             message.SetActive(false);
         }
 
-        if(Input.GetKey("e") && im.isCrouching == true)
+        if(Input.GetKey("e") && im.isCrouching == true && isLocked == false)
         {
             crouchOpen1 = true;
             normalOpen = false;
@@ -388,7 +418,7 @@ public class DoorOpen : MonoBehaviour
             crouchOpen3 = true;
         }
 
-        if(inArea == true && button1Pressed == true && im.isSprinting == false)
+        if(inArea == true && button1Pressed == true && im.isSprinting == false && isLocked == false)
         {
             // door.transform.position = new Vector3(8.34f, 2.1f, 7.17f);
             
@@ -448,7 +478,16 @@ public class DoorOpen : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if(im.isSprinting == true)
+        if(isLocked == true)
+        {
+            message2.SetActive(true);
+        }
+        if(isLocked == false)
+        {
+            message.SetActive(true);
+        }
+
+        if(im.isSprinting == true && isLocked == false)
         {
             // float angle = Mathf.LerpAngle(minAngle, maxAngle, Time.time);
             // door.transform.eulerAngles = new Vector3(0, angle, 0);
@@ -461,6 +500,14 @@ public class DoorOpen : MonoBehaviour
     #region LeaveDoor
     private void OnTriggerExit(Collider collider)
     {
+        if(isLocked == true)
+        {
+            message2.SetActive(false);
+        }
+        if(isLocked == false)
+        {
+            message.SetActive(false);
+        }
         // if(inArea == true)
         // {
             //float angle = Mathf.LerpAngle(maxAngle, minAngle, Time.time);
@@ -484,9 +531,16 @@ public class DoorOpen : MonoBehaviour
             crouch1Open = false;
             crouch2Open = false;
             crouch3Open = false;
+            reachedTimer = false;
+            reachedTimer2 = false;
             //Timer = Timer - Time.deltaTime;
         // }
         message.SetActive(false);
     }   //END LEAVE DOOR TRIGGER
     #endregion
+
+    public void UnlockDoor()
+    {
+        isLocked = false;
+    }
 }
