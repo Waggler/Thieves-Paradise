@@ -198,6 +198,11 @@ public class ContextInteractManager : MonoBehaviour
             //do literally nothing
             break;
         }
+
+        if (other.gameObject.GetComponent<NoteScript>() != null)
+        {
+            other.gameObject.GetComponent<NoteScript>().PlayNote();
+        }
     }
 
     private void OnTriggerExit(Collider other)

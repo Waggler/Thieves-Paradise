@@ -302,4 +302,23 @@ public class InventoryController : MonoBehaviour
         return nearbyItems[itemIndex];
     }
     #endregion
+
+    #region Saving&Loading
+    public ItemInterface[] SaveInventory()
+    {
+        return itemInterfaceInventory;
+    }
+    
+    public void LoadInventory(ItemInterface[] savedItems)
+    {
+        foreach(ItemInterface item in savedItems)
+        {
+            if(item != null)
+            {
+                AddItem(item);
+            }
+        }
+    }
+
+    #endregion
 }

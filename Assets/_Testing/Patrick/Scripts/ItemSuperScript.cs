@@ -41,6 +41,7 @@ public class ItemSuperScript : MonoBehaviour
         }
         
         susManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
+        
     }
 
     void Start()
@@ -72,12 +73,21 @@ public class ItemSuperScript : MonoBehaviour
     }
     public void MakeNoise()
     {
-        sfxController = FindObjectOfType<SfxController>();
         //Alert Guards here
         print("making noise");
         susManager.AlertGuards(transform.position, transform.position, thrownNoiseRadius);
-        AudioSource audio = sfxController.GetComponent<AudioSource>();
-        audio.Play();
+        /* 
+        sfxController = FindObjectOfType<SfxController>();
+        
+        if (sfxController != null)
+        {
+            AudioSource audio = sfxController.GetComponent<AudioSource>();
+            audio.Play();
+        }else
+        {
+            print("SFX Controller Not Found!");
+        } */
+        
     }
 
     /* void OnCollisionEnter(Collision other)
