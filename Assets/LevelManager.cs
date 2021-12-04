@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
     {
         currentSceneIndex = PlayerPrefs.GetInt("currentScene");
         sceneTransition.SetBool("isClosing", true);
-        sceneTransition.SetBool("isClosing", true);
+        sceneTransition.SetBool("isClosing", false);
 
 
     }//END Init
