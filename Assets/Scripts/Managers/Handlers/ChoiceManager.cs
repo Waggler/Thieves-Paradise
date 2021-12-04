@@ -13,22 +13,13 @@ public class ChoiceManager : MonoBehaviour
     [Header("Components")]
     [Header("Choice Components")]
     [SerializeField] private DialogueManager dialogueManager;
-    [SerializeField] public Dialogue choiceOptions;
+    [HideInInspector]public Dialogue currentChoice;
 
     [SerializeField] private Animator choiceAnimator;
 
+    [SerializeField] private GameObject[] choiceUiObjects;
 
-    [SerializeField] private GameObject choice1;
-    [SerializeField] private GameObject choice2;
-    [SerializeField] private GameObject choice3;
-    [SerializeField] private GameObject choice4;
-    [SerializeField] private GameObject choice5;
-
-    [SerializeField] private TMP_Text choice1Text;
-    [SerializeField] private TMP_Text choice2Text;
-    [SerializeField] private TMP_Text choice3Text;
-    [SerializeField] private TMP_Text choice4Text;
-    [SerializeField] private TMP_Text choice5Text;
+    [SerializeField] private TMP_Text[] choiceTexts;
 
 
     #endregion Components
@@ -37,49 +28,51 @@ public class ChoiceManager : MonoBehaviour
     #region Methods
 
 
+    public void InitChoices()
+    {
+        for (int i = 0; i < currentChoice.choices.Length && i < 6; i++)
+        {
+            choiceTexts[i].text = currentChoice.choices[i].choiceOption;
+        }
+
+        ShowChoices(currentChoice.choices.Length);
+    }
+
+
     //--------------------------//
-    public void ShowChoices(int choiceAmount, int index)
+    public void ShowChoices(int choiceAmount)
     //--------------------------//
     {
-
-        if (choiceAmount == 1)
+        switch (choiceAmount)
         {
-            choice1.SetActive(true);
-
-        }
-        if (choiceAmount == 2)
-        {
-            choice1.SetActive(true);
-            choice2.SetActive(true);
-
-        }
-        if (choiceAmount == 3)
-        {
-            choice1.SetActive(true);
-            choice2.SetActive(true);
-            choice3.SetActive(true);
-
-        }
-        if (choiceAmount == 4)
-        {
-            choice1.SetActive(true);
-            choice2.SetActive(true);
-            choice3.SetActive(true);
-            choice4.SetActive(true);
-
-        }
-        if (choiceAmount == 5)
-        {
-            choice1.SetActive(true);
-            choice2.SetActive(true);
-            choice3.SetActive(true);
-            choice4.SetActive(true);
-            choice5.SetActive(true);
-
+            default:
+                choiceUiObjects[4].SetActive(true);
+                choiceUiObjects[3].SetActive(true);
+                choiceUiObjects[2].SetActive(true);
+                choiceUiObjects[1].SetActive(true);
+                choiceUiObjects[0].SetActive(true);
+                break;
+            case 4:
+                choiceUiObjects[3].SetActive(true);
+                choiceUiObjects[2].SetActive(true);
+                choiceUiObjects[1].SetActive(true);
+                choiceUiObjects[0].SetActive(true);
+                break;
+            case 3:
+                choiceUiObjects[2].SetActive(true);
+                choiceUiObjects[1].SetActive(true);
+                choiceUiObjects[0].SetActive(true);
+                break;
+            case 2:
+                choiceUiObjects[1].SetActive(true);
+                choiceUiObjects[0].SetActive(true);
+                break;
+            case 1:
+                choiceUiObjects[0].SetActive(true);
+                break;
         }
 
         choiceAnimator.SetBool("isChoiceBoxOpen", true);
-
 
     }//END ShowChoices
 
@@ -89,13 +82,24 @@ public class ChoiceManager : MonoBehaviour
     {
         choiceAnimator.SetBool("isChoiceBoxOpen", false);
 
-            choice1.SetActive(false);
-            choice2.SetActive(false);
-            choice3.SetActive(false);
-            choice4.SetActive(false);
-            choice5.SetActive(false);
+        foreach (GameObject choiceUiObject in choiceUiObjects)
+            choiceUiObject.SetActive(false);
+
 
     }//END CloseChoices
+
+    public void ChooseChoiceOption(int optionId)
+    {
+
+        
+    }
+
+    public void ShowResponse(int optionId)
+    {
+        currentChoice.isChoice = false;
+        dialogueManager.TriggerResponse(currentChoice.responses[optionId]);
+        CloseChoices();
+    }
 
 
     #endregion Methods

@@ -38,7 +38,7 @@ public class MainMenuCameramanager : MonoBehaviour
     }//END Start
 
     //-----------------------//
-    private void Init()
+    public void Init()
     //-----------------------//
     {
         //mainCamera = this.gameObject; //In case we want to put this script on the camera itself
