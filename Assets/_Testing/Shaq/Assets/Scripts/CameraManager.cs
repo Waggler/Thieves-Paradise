@@ -47,7 +47,7 @@ public class CameraManager : MonoBehaviour
 
     #region Variables
     [Header("Camera Target / Trigger")]
-    private Transform target;
+    private Vector3? target;
     [Tooltip("References the player's vision target, auto generated")]
     [SerializeField] private GameObject player;
 
@@ -70,9 +70,14 @@ public class CameraManager : MonoBehaviour
     [HideInInspector] private Vector3 startRotation;
 
 
-    [Header("Eyeball Integration / Eyeball Related Variables")]
-    [Tooltip("References the eyeball prefab attatched to the camera prefab")]
+    [Header("Eyeball Integration")]
+    [Tooltip("References the eyeball prefab attatched to the camera prefab [Not auto generated]")]
     [SerializeField] private EyeballScript eyeball;
+
+    [SerializeField] private GameObject surpriseVFX;
+
+    [SerializeField] private GameObject confusedVFX;
+
 
     //DO NOT DELETE
     //[Header("Global Suspicion Manager")]
@@ -117,6 +122,11 @@ public class CameraManager : MonoBehaviour
     [HideInInspector] private float distanceToCamera;
 
     #endregion Variables
+
+    private void Start()
+    {
+        startRotation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+    }
 
     #region Awake & Update
 
@@ -194,6 +204,8 @@ public class CameraManager : MonoBehaviour
                 //if (distanceToPlayer <= lookRadius)
                 if (eyeball.canCurrentlySeePlayer == true)
                 {
+                    Instantiate(surpriseVFX, transform.position, transform.rotation);
+
                     //MONITORING >>> FOCUSED
                     cameraStateMachine = CamStates.FOCUSED;
                 }
@@ -212,7 +224,7 @@ public class CameraManager : MonoBehaviour
                 stateText.text = $"{cameraStateMachine}";
 
                 //referencing player variable from the eyeball script
-                target = player.transform;
+                target = player.transform.position;
 
                 targetText.text = $"{target}";
 
@@ -245,7 +257,7 @@ public class CameraManager : MonoBehaviour
                     rotationRecord.z = 0;
 
                     //While the X & Z rotation are reset, the Y rotation is preserved
-                    transform.localEulerAngles = new Vector3(rotationRecord.x, 0, rotationRecord.z);
+                    transform.localEulerAngles = new Vector3(-startRotation.x, 0, 0);
 
                     //FOCUSED >>> MONITORING
                     cameraStateMachine = CamStates.MONITORING;
@@ -280,7 +292,9 @@ public class CameraManager : MonoBehaviour
     void FaceTarget()
     {
         //generates the direction that the camera needs to face
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (Vector3)(target - transform.position);
+
+        Vector3.Normalize(direction);
 
         //Creates a quaternion var and assings it a look rotation
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
@@ -297,6 +311,7 @@ public class CameraManager : MonoBehaviour
         stateText.text = "";
         targetText.text = "";
 
+        //startRotation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         //Note: This method of referencing the suspicion manager is stupid and I should find a way to do it in one line
         //Creates a reference to the suspicion manager object
@@ -313,8 +328,6 @@ public class CameraManager : MonoBehaviour
         cameraStateMachine = CamStates.MONITORING;
 
         player = GameObject.FindWithTag("PlayerVisionTarget");
-
-        startRotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
 
         UpdateCamLightVars();
 
@@ -373,9 +386,9 @@ public class CameraManager : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, callRadius);
 
 
-        Gizmos.color = Color.red;
+        //Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(transform.position, killRadius);
+        //Gizmos.DrawWireSphere(transform.position, killRadius);
 
     }//End OnDrawGizmos
 

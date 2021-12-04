@@ -60,6 +60,12 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private int leftCharacterThreeIntroIndex;
     [SerializeField] private int leftCharacterFourIntroIndex;
 
+    [SerializeField] private int backgroundOneIndex;
+    [SerializeField] private int backgroundTwoIndex;
+    [SerializeField] private int backgroundThreeIndex;
+    [SerializeField] private int backgroundFourIndex;
+
+
     #endregion Components
 
 
@@ -146,6 +152,34 @@ public class NarrativeUIManager : MonoBehaviour
 
     }//END ChangeRightPortrait
 
+    //--------------------------//
+    public void ChangeBackground()
+    //--------------------------//
+    {
+
+        if (dialogueManager.currentDialogueIndex == backgroundOneIndex)
+        {
+            backgroundImage.sprite = backgroundImageList[0];
+
+        }
+        if (dialogueManager.currentDialogueIndex == backgroundTwoIndex)
+        {
+            backgroundImage.sprite = backgroundImageList[1];
+
+        }
+        if (dialogueManager.currentDialogueIndex == backgroundThreeIndex)
+        {
+            backgroundImage.sprite = backgroundImageList[2];
+
+        }
+        if (dialogueManager.currentDialogueIndex == backgroundFourIndex)
+        {
+            backgroundImage.sprite = backgroundImageList[3];
+
+        }
+
+    }//END ChangeRightPortrait
+
     //-----------------------//
     public void StartDialogue(Dialogue dialogue)
     //-----------------------//
@@ -161,6 +195,8 @@ public class NarrativeUIManager : MonoBehaviour
 
         foreach (string sentence in dialogue.sentences)
         {
+            char[] lettters = sentence.ToCharArray();
+
             sentences.Enqueue(sentence);
         }
         choiceManager.currentChoice = dialogue;
@@ -250,11 +286,29 @@ public class NarrativeUIManager : MonoBehaviour
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
-
+        bool skipDelimiter = false;
         foreach (char letter in sentence.ToCharArray())
         {
-            dialogueText.text += letter;
-            yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
+
+            if (letter == '<')
+            {
+                skipDelimiter = true;
+            }
+            if (!skipDelimiter)
+            {
+                dialogueText.text += letter;
+                yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
+            }    
+            else
+            {
+                dialogueText.text += letter;
+            }
+
+            if (letter == '>')
+            {
+                skipDelimiter = false;
+            }
+
         }
     }
 

@@ -103,11 +103,13 @@ public class AnimationController : MonoBehaviour
     {
         if (isPlayerJumping)
         {
-            playerAnimator.SetTrigger("Jump");
+            playerAnimator.SetBool("isJumping", true);
+            //playerAnimator.SetTrigger("Jump");
         }
         else
         {
-            //playerAnimator.SetBool("isJumping", false);
+            //playerAnimator.ResetTrigger("Jump");
+            playerAnimator.SetBool("isJumping", false);
         }
 
     }// END IsPlayerJumping
@@ -183,6 +185,19 @@ public class AnimationController : MonoBehaviour
         else
         {
             playerAnimator.SetBool("isStunned", false);
+        }
+    }// END IsPlayerStunned
+
+    public void IsPlayerFree(bool isPlayerFree)
+    //-------------------------------------------------//
+    {
+        if (isPlayerFree)
+        {
+            playerAnimator.SetBool("isFree", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isFree", false);
         }
     }// END IsPlayerStunned
 
