@@ -60,6 +60,12 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private int leftCharacterThreeIntroIndex;
     [SerializeField] private int leftCharacterFourIntroIndex;
 
+    [SerializeField] private int backgroundOneIndex;
+    [SerializeField] private int backgroundTwoIndex;
+    [SerializeField] private int backgroundThreeIndex;
+    [SerializeField] private int backgroundFourIndex;
+
+
     #endregion Components
 
 
@@ -141,6 +147,34 @@ public class NarrativeUIManager : MonoBehaviour
         if (dialogueManager.currentDialogueIndex == rightCharacterFourIntroIndex)
         {
             portrait2Image.sprite = portrait2ImageList[3];
+
+        }
+
+    }//END ChangeRightPortrait
+
+    //--------------------------//
+    public void ChangeBackground()
+    //--------------------------//
+    {
+
+        if (dialogueManager.currentDialogueIndex == backgroundOneIndex)
+        {
+            backgroundImage.sprite = backgroundImageList[0];
+
+        }
+        if (dialogueManager.currentDialogueIndex == backgroundTwoIndex)
+        {
+            backgroundImage.sprite = backgroundImageList[1];
+
+        }
+        if (dialogueManager.currentDialogueIndex == backgroundThreeIndex)
+        {
+            backgroundImage.sprite = backgroundImageList[2];
+
+        }
+        if (dialogueManager.currentDialogueIndex == backgroundFourIndex)
+        {
+            backgroundImage.sprite = backgroundImageList[3];
 
         }
 
