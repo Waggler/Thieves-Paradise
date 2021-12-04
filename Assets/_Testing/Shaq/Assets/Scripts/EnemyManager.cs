@@ -172,8 +172,8 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the target text (displays the guard's current target)")]
     [SerializeField] private Text targetText;
 
-    [Tooltip("References the lose text for the game (this is NOT permanent)")]
-    [SerializeField] private Text loseText;
+    //[Tooltip("References the lose text for the game (this is NOT permanent)")]  TEMPE WUZ HERE
+    //[SerializeField] private Text loseText;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -754,7 +754,7 @@ public class EnemyManager : MonoBehaviour
 
         FaceTarget(target);
 
-        loseText.text = "";
+        //loseText.text = "";
 
         stunTimeReset = stunTime;
 
@@ -774,6 +774,11 @@ public class EnemyManager : MonoBehaviour
     //Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
+        //the cool lil MGS thing
+        var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation); //TEMPE WAS HERE
+
+        MGSsurprise.transform.parent = gameObject.transform;
+
         eyeball.susLevel = 10;
 
         stateMachine = EnemyStates.HOSTILE;
