@@ -26,6 +26,7 @@ public class GuardAudio : MonoBehaviour
     public void WalkingFootStep()
     //-----------------------//
     {
+        guardSource.volume = 0.03f;
         int i = Random.Range(0, walkClips.Length);
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(walkClips[i]);
@@ -37,6 +38,7 @@ public class GuardAudio : MonoBehaviour
     public void RunningFootStep()
     //-----------------------//
     {
+        guardSource.volume = 0.05f;
         int i = Random.Range(0, runClips.Length);
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(runClips[i]);
@@ -48,6 +50,7 @@ public class GuardAudio : MonoBehaviour
     public void SpotPlayer()
     //-----------------------//
     {
+        guardSource.volume = 0.05f;
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(spottedClip);
 
@@ -57,6 +60,7 @@ public class GuardAudio : MonoBehaviour
     public void StruggleFall()
     //-----------------------//
     {
+        guardSource.volume = 0.035f;
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(fallClip);
 
@@ -66,6 +70,7 @@ public class GuardAudio : MonoBehaviour
     public void StruggleHit()
     //-----------------------//
     {
+        guardSource.volume = 0.035f;
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(hitClip);
 
@@ -75,6 +80,7 @@ public class GuardAudio : MonoBehaviour
     public void Chew()
     //-----------------------//
     {
+        guardSource.volume = 0.03f;
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(chewingClip);
 

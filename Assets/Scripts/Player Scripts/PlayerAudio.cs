@@ -30,7 +30,7 @@ public class PlayerAudio : MonoBehaviour
     public void WalkingFootStep()
     //-----------------------//
     {
-        playerSource.volume = 0.01f;
+        playerSource.volume = 0.005f;
         int i = Random.Range(0, walkClips.Length);
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(walkClips[i]);
@@ -102,7 +102,7 @@ public class PlayerAudio : MonoBehaviour
     public void Roll()
     //-----------------------//
     {
-        playerSource.volume = 0.01f;
+        playerSource.volume = 0.005f;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(rollClip);
 
