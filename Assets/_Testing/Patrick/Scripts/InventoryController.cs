@@ -115,13 +115,16 @@ public class InventoryController : MonoBehaviour
     }
     public void UseItemSecondary(InputAction.CallbackContext context)
     {
+        GetComponentInChildren<AnimationController>().IsPlayerWinding(true);
         if (context.performed)
         {
+
             throwing = true;
             //display throw arc preview
         }
         if (context.canceled)
         {
+            GetComponentInChildren<AnimationController>().IsPlayerWinding(false);
             //Throw the Item
             //print("Item Secondary");
             ThrowItem();
@@ -155,6 +158,20 @@ public class InventoryController : MonoBehaviour
             print("Slot Empty");
             return;
         }
+        //throw active item
+
+
+        //play anim
+        GetComponentInChildren<AnimationController>().TriggerLowThrow(true);
+        GetComponentInChildren<AnimationController>().TriggerLowThrow(false);
+        GetComponentInChildren<AnimationController>().IsPlayerWinding(false);
+
+        if (inventorySpace[activeItemIndex] == false)
+        {
+            //cancel if current selected item is empty
+            print("Slot Empty");
+            return;
+        }
         //check if something is in the way of the spawn
         /* if (Physics.Raycast(holdItemPos.position,transform.forward, 1f, layerMask, QueryTriggerInteraction.Ignore))
         {
@@ -177,6 +194,10 @@ public class InventoryController : MonoBehaviour
     }
     private void SwapItem(int selection)
     {
+        //play anim
+        GetComponentInChildren<AnimationController>().TriggerItemSwitch(true);
+        GetComponentInChildren<AnimationController>().TriggerItemSwitch(false);
+
         activeItemIndex = selection;
         //update UI Visual
         for(int i = 0; i < hotbarMesh.Length; i++)
