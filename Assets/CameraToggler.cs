@@ -11,6 +11,12 @@ public class CameraToggler : MonoBehaviour
     [SerializeField] private Toggle xToggle;
     [SerializeField] private Toggle yToggle;
 
+    void Awake()
+    {
+        vCam = (CinemachineFreeLook)FindObjectOfType(typeof(CinemachineFreeLook));
+        print(vCam.gameObject.name);
+
+    }
     void Start()
     {
         if (PlayerPrefs.GetInt("InvertHorizontalToggle") == 0)
