@@ -316,7 +316,7 @@ public class EnemyManager : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
 
-        if (stateMachine != EnemyStates.HOSTILE)
+        if (stateMachine == EnemyStates.HOSTILE)
         {
             surpriseVFXBoolCheck = true;
         }
@@ -557,6 +557,11 @@ public class EnemyManager : MonoBehaviour
 
                     guardAnim.ExitSearchingAnim();
 
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    MGSsurprise.transform.parent = gameObject.transform;
+
                     //SUSPICIOUS >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
@@ -567,20 +572,6 @@ public class EnemyManager : MonoBehaviour
 
             #region Hostile Behavior
             case EnemyStates.HOSTILE:
-
-
-                //DELTE THIS OVER WINTER BREAK
-                //ITS VERY BAD PRACTICE AND THUS CRINGE
-                if (surpriseVFXBoolCheck != false)
-                {
-                    //the cool lil MGS thing
-                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
-
-                    MGSsurprise.transform.parent = gameObject.transform;
-
-                    surpriseVFXBoolCheck = true;
-                }
-
 
                 guardAnim.EnterHostileAnim();
 
@@ -660,6 +651,11 @@ public class EnemyManager : MonoBehaviour
                 }
                 else if (Vector3.Distance(target, transform.position) > attackRadius && !isStunned)
                 {
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    MGSsurprise.transform.parent = gameObject.transform;
+
                     // ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
@@ -699,6 +695,11 @@ public class EnemyManager : MonoBehaviour
                     isStunned = false;
 
                     eyeball.susLevel = sussySusMax;
+
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    MGSsurprise.transform.parent = gameObject.transform;
 
                     //STUNNED >>>> PREVIOUS STATE (SUSPICIOS for now)
                     stateMachine = EnemyStates.HOSTILE;
