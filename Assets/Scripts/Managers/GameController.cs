@@ -32,7 +32,10 @@ public class GameController : MonoBehaviour
     }
     public void Update()
     {
-        
+        if (playerTransform == null)
+        {
+            playerTransform = FindObjectOfType<PlayerMovement>().gameObject.transform;
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -54,20 +57,11 @@ public class GameController : MonoBehaviour
     public void SaveCheckPoint()
     {
         gameControllerInstance.lastCheckPoint = playerTransform.position;
-        gameControllerInstance.savedInventory = playerTransform.GetComponent<InventoryController>().SaveInventory();
+        //gameControllerInstance.savedInventory = playerTransform.GetComponent<InventoryController>().SaveInventory();
     }
 
     public void LoadCheckPoint()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        if (playerTransform == null)
-        {
-            playerTransform = FindObjectOfType<PlayerMovement>().gameObject.transform;
-        }
-        playerTransform.position = lastCheckPoint;
-        if (savedInventory != null)
-        {
-            playerTransform.GetComponent<InventoryController>().LoadInventory(gameControllerInstance.savedInventory);
-        }
     }
 }

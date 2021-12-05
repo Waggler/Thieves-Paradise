@@ -160,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
             gameController = FindObjectOfType<GameController>();
         }
 
-        transform.position = gameController.lastCheckPoint;
+        transform.position = GameController.gameControllerInstance.lastCheckPoint;
     }
 
     void Update()
