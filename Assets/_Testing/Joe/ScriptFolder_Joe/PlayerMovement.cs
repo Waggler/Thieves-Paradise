@@ -299,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
             canMove = false;
             CurrentStunTime += Time.deltaTime;
 
-            if (BreakOutCounter >= BreakOutThreshold)
+            if (BreakOutCounter >= BreakOutThreshold || hp > 1)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(playerCollider.transform.position, 10f, 1 << 8);
                 foreach (Collider collider in hitColliders)
@@ -317,22 +317,9 @@ public class PlayerMovement : MonoBehaviour
                 hp -= 1;
             }
 
-            else if (CurrentStunTime >= StunTime)
+            else if (CurrentStunTime >= StunTime || hp <= 0)
             {
-                Collider[] hitColliders = Physics.OverlapSphere(playerCollider.transform.position, 10f, 1 << 8);
-                foreach (Collider collider in hitColliders)
-                {
-                    if (collider.GetComponent<EnemyManager>() != null)
-                    {
-                        collider.GetComponent<EnemyManager>().isStunned = true;
-                    }
-                    
-                }
-                IsStunned = false;
-                StartCoroutine(IBreakFreeDelay());
-                CurrentStunTime = 0;
-                BreakOutCounter = 0;
-                hp -= 1;
+                //DEATH
             }
         }
 
