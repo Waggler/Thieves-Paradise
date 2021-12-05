@@ -294,6 +294,8 @@ public class EnemyManager : MonoBehaviour
 
     private float oneTimeUseTimerReset;
 
+    private bool surpriseVFXBoolCheck;
+
     #endregion
 
     #region Awake & Update
@@ -313,6 +315,12 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
+
+        if (stateMachine != EnemyStates.HOSTILE)
+        {
+            surpriseVFXBoolCheck = true;
+        }
+
 
         //eyeball.susLevel = warySusMin;
 
@@ -472,6 +480,7 @@ public class EnemyManager : MonoBehaviour
             #region Suspicious Behavior
             case EnemyStates.SUSPICIOUS:
 
+
                 float searchLocCheck = .5f;
 
                 guardAnim.EnterSusAnim();
@@ -550,12 +559,6 @@ public class EnemyManager : MonoBehaviour
 
                     //SUSPICIOUS >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
-
-                    //the cool lil MGS thing
-                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
-
-                    MGSsurprise.transform.parent = gameObject.transform;
-
                 }
                 #endregion Exit Conditions
 
@@ -564,6 +567,20 @@ public class EnemyManager : MonoBehaviour
 
             #region Hostile Behavior
             case EnemyStates.HOSTILE:
+
+
+                //DELTE THIS OVER WINTER BREAK
+                //ITS VERY BAD PRACTICE AND THUS CRINGE
+                if (surpriseVFXBoolCheck != true)
+                {
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    MGSsurprise.transform.parent = gameObject.transform;
+
+                    surpriseVFXBoolCheck = true;
+                }
+
 
                 guardAnim.EnterHostileAnim();
 
@@ -627,9 +644,6 @@ public class EnemyManager : MonoBehaviour
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(attackSpeed);
-
-
-
 
                 #region Exit Condition(s)
                 
