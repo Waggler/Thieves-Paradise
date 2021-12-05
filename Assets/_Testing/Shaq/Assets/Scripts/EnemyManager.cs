@@ -609,6 +609,8 @@ public class EnemyManager : MonoBehaviour
                         audioSource.Play();
 
                         isAudioSourcePlaying = true;
+
+                        
                     }
                 }
 
@@ -789,11 +791,6 @@ public class EnemyManager : MonoBehaviour
     //Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
-        //the cool lil MGS thing
-        var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation); //TEMPE WAS HERE
-
-        MGSsurprise.transform.parent = gameObject.transform;
-
         eyeball.susLevel = 10;
 
         stateMachine = EnemyStates.HOSTILE;
