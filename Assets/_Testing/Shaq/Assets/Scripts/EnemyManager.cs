@@ -571,7 +571,7 @@ public class EnemyManager : MonoBehaviour
 
                 //DELTE THIS OVER WINTER BREAK
                 //ITS VERY BAD PRACTICE AND THUS CRINGE
-                if (surpriseVFXBoolCheck != true)
+                if (surpriseVFXBoolCheck != false)
                 {
                     //the cool lil MGS thing
                     var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
