@@ -47,7 +47,7 @@ public class RadioManager : MonoBehaviour
     {
         sentences = new Queue<string>();
 
-        SetTextColor();
+        //SetTextColor();
 
     }//END Init
 
