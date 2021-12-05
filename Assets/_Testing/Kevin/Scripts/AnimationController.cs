@@ -201,6 +201,59 @@ public class AnimationController : MonoBehaviour
         }
     }// END IsPlayerStunned
 
+    public void IsPlayerWinding(bool isWinding)
+    //-------------------------------------------------//
+    {
+        if (isWinding)
+        {
+            playerAnimator.SetBool("isWinding", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isWinding", false);
+        }
+    }// END IsPlayerStunned
+
+    public void TriggerPickup(bool isReset)
+    //-------------------------------------------------//
+    {
+        if (!isReset)
+        {
+            playerAnimator.SetTrigger("pickUp");
+        }
+        else
+        {
+            playerAnimator.ResetTrigger("pickUp");
+        }
+    }// END IsPlayerStunned
+
+    public void TriggerItemSwitch(bool isReset)
+    //-------------------------------------------------//
+    {
+        if (!isReset)
+        {
+            playerAnimator.SetTrigger("switchItem");
+        }
+        else
+        {
+            playerAnimator.ResetTrigger("switchItem");
+        }
+    }// END IsPlayerStunned
+
+    public void TriggerLowThrow(bool isReset)
+    //-------------------------------------------------//
+    {
+        if (!isReset)
+        {
+            playerAnimator.SetTrigger("lowThrow");
+        }
+        else
+        {
+            playerAnimator.ResetTrigger("lowThrow");
+        }
+    }// END IsPlayerStunned
+
+
     /*
     //-------------------------------------------------//
     private void DebugAnim()
