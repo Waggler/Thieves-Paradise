@@ -60,6 +60,7 @@ public class LevelManager : MonoBehaviour
     public void RestartLevel()
     //-----------------------//
     {
+
         isRestartingLevel = true;
         StartCoroutine(IChangeScene());
 
@@ -90,7 +91,7 @@ public class LevelManager : MonoBehaviour
 
         if (isRestartingLevel == true)
         {
-            SceneManager.LoadScene(previousSceneIndex);
+            SceneManager.LoadScene(currentSceneIndex);
 
         }
         else
