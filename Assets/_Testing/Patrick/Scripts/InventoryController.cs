@@ -111,13 +111,16 @@ public class InventoryController : MonoBehaviour
     }
     public void UseItemSecondary(InputAction.CallbackContext context)
     {
+        GetComponentInChildren<AnimationController>().IsPlayerWinding(true);
         if (context.performed)
         {
+            
             throwing = true;
             //display throw arc preview
         }
         if (context.canceled)
         {
+            GetComponentInChildren<AnimationController>().IsPlayerWinding(false);
             //Throw the Item
             //print("Item Secondary");
             ThrowItem();
@@ -152,7 +155,12 @@ public class InventoryController : MonoBehaviour
             return;
         }
         //throw active item
-        
+
+        //play anim
+        GetComponentInChildren<AnimationController>().TriggerLowThrow(true);
+        GetComponentInChildren<AnimationController>().TriggerLowThrow(false);
+        GetComponentInChildren<AnimationController>().IsPlayerWinding(false);
+
         GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
         thrownItem.SetActive(true);
         thrownItem.name = thrownItem.GetComponent<ItemInterface>().itemName;
@@ -166,6 +174,10 @@ public class InventoryController : MonoBehaviour
     }
     private void SwapItem(int selection)
     {
+        //play anim
+        GetComponentInChildren<AnimationController>().TriggerItemSwitch(true);
+        GetComponentInChildren<AnimationController>().TriggerItemSwitch(false);
+
         activeItemIndex = selection;
         //update UI Visual
         for(int i = 0; i < hotbarMesh.Length; i++)
