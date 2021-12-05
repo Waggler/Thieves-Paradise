@@ -18,6 +18,8 @@ public class InventoryController : MonoBehaviour
 
     [SerializeField] private int inventorySize = 4;
     [SerializeField] private Transform holdItemPos;
+
+    private LayerMask layerMask;
     
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,8 @@ public class InventoryController : MonoBehaviour
         GameObject debugPlatform = GameObject.CreatePrimitive(PrimitiveType.Cube);
         debugPlatform.transform.position = Vector3.down * 1002;
         debugPlatform.transform.localScale = new Vector3(10, 1, 10);
+
+        layerMask = ~LayerMask.GetMask("Player"); 
     }
 
     private bool throwing;
@@ -111,16 +115,13 @@ public class InventoryController : MonoBehaviour
     }
     public void UseItemSecondary(InputAction.CallbackContext context)
     {
-        GetComponentInChildren<AnimationController>().IsPlayerWinding(true);
         if (context.performed)
         {
-            
             throwing = true;
             //display throw arc preview
         }
         if (context.canceled)
         {
-            GetComponentInChildren<AnimationController>().IsPlayerWinding(false);
             //Throw the Item
             //print("Item Secondary");
             ThrowItem();
@@ -154,13 +155,15 @@ public class InventoryController : MonoBehaviour
             print("Slot Empty");
             return;
         }
+        //check if something is in the way of the spawn
+        /* if (Physics.Raycast(holdItemPos.position,transform.forward, 1f, layerMask, QueryTriggerInteraction.Ignore))
+        {
+            Debug.DrawRay(holdItemPos.position,transform.forward, Color.red, 0.5f);
+            print("Something is in the way");
+            return;
+        } */
+
         //throw active item
-
-        //play anim
-        GetComponentInChildren<AnimationController>().TriggerLowThrow(true);
-        GetComponentInChildren<AnimationController>().TriggerLowThrow(false);
-        GetComponentInChildren<AnimationController>().IsPlayerWinding(false);
-
         GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
         thrownItem.SetActive(true);
         thrownItem.name = thrownItem.GetComponent<ItemInterface>().itemName;
@@ -174,10 +177,6 @@ public class InventoryController : MonoBehaviour
     }
     private void SwapItem(int selection)
     {
-        //play anim
-        GetComponentInChildren<AnimationController>().TriggerItemSwitch(true);
-        GetComponentInChildren<AnimationController>().TriggerItemSwitch(false);
-
         activeItemIndex = selection;
         //update UI Visual
         for(int i = 0; i < hotbarMesh.Length; i++)

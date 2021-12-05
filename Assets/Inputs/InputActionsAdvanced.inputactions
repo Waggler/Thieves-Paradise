@@ -103,7 +103,7 @@
                 },
                 {
                     "name": "Contextual Interact",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "b4d2f15d-f9c5-44b5-b9bc-04e1e26aead2",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -113,14 +113,6 @@
                     "name": "Roll",
                     "type": "Button",
                     "id": "d7cd48c3-2145-40a3-a864-f20d1a57e5e0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "e902c30e-0399-4c86-bfd1-01c2227f77e4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -674,39 +666,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f3ff7c78-e7c4-47ef-a71b-235bd81006b8",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a1b433b1-15f9-445c-b890-6cb3bff8142f",
-                    "path": "<XInputController>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f3ca48eb-4762-406c-846b-280879ad0370",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
