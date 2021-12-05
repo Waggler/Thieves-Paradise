@@ -10,8 +10,8 @@ public class ThirdPersonCamera : MonoBehaviour
     public InputManager im;
     public DoorOpen door;
     public DoorOpen door2;
-    public DoorLocked lockedDoor1;
-    public DoorLocked lockedDoor2;
+    public DoorOpen lockedDoor1;
+    public DoorOpen lockedDoor2;
 
     //Start is called before the first frame update
     void Start()
