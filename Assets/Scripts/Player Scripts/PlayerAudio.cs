@@ -92,7 +92,7 @@ public class PlayerAudio : MonoBehaviour
     public void Dive()
     //-----------------------//
     {
-        playerSource.volume = 0.02f;
+        playerSource.volume = 0.015f;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(diveClip);
 
