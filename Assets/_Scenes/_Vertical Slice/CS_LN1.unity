@@ -347,7 +347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &162811382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -365,9 +365,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -245}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &235460358
@@ -1090,15 +1090,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
   dialogue:
-  - characterName: ChoclateSailor
-    characterImage: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+  - characterName: Narration
+    characterImage: {fileID: 0}
     sentences:
-    - Now, <color=blue>Billy</color=blue>, this a very special assortment of enchanted
-      choclates. You must choose only one
-    - But choose wisely, Billy, for only one contains the antidote. Will it be...
+    - "*After a long week\u2019s work, you\u2019ve finally earned a day off and could
+      think of no better way to spend it than enjoying a nice meal at your favorite
+      place, Borgar.*"
+    - "*Your waitress places your burger and fries down in front of you, as you pick
+      it up and prepare to take a bite out of it\u2026 but something interrupts your
+      focus at that moment*"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    isChoice: 1
+    isChoice: 0
     choices:
     - choiceOption: Caustic Caramel
       choiceId: 0
@@ -1114,21 +1117,13 @@ MonoBehaviour:
     - responseOption:
       - Get absolutely pranked
       - Bingus!!!
-      responseSpeaker:
-      - 
-      - 
-      - 
-      choiceReferenceId: 0
-      responseID: 0
+      responseSpeaker: God
+      responseId: 0
     - responseOption:
       - Will why did you screw up the rects!!
       - I HURT ME!!!
-      responseSpeaker:
-      - 
-      - 
-      - 
-      choiceReferenceId: 1
-      responseID: 0
+      responseSpeaker: God
+      responseId: 1
     - responseOption:
       - We're no strangers to love You know the rules and so do I A full commitment's
         what I'm thinking of You wouldn't get this from any other guy I just wanna
@@ -1154,42 +1149,390 @@ MonoBehaviour:
         gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you
         up Never gonna let you down Never gonna run around and desert you Never gonna
         make you cry Never gonna say goodbye Source: Musixmatch'
-      responseSpeaker:
-      - 
-      - 
-      - 
-      choiceReferenceId: 2
-      responseID: 0
+      responseSpeaker: God
+      responseId: 2
     - responseOption:
       - Help me, I've been held to code at gunpoint
       - please send help. Oh wait I hear them coming. Oh god oh FUCK OH FUCK GET
         AW
-      responseSpeaker:
-      - 
-      - 
-      - 
-      - 
-      - 
-      choiceReferenceId: 3
-      responseID: 0
+      responseSpeaker: Kevin
+      responseId: 3
     - responseOption:
       - Great gobs!
       - No one has ever eaten the whole danged assortment!
-      responseSpeaker:
-      - Me
-      - YOu
-      choiceReferenceId: 4
-      responseID: 0
-  - characterName: God
-    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+      responseSpeaker: ChoclateSailor
+      responseId: 4
+  - characterName: ???
+    characterImage: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
     sentences:
-    - That was crazy...
-    - You've witnessed too much. BEGONE!
+    - "\u201CYou seriously didn\u2019t think someone like you stood a chance with
+      me\u2026 did you?\u201D\r\n"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     isChoice: 0
     choices: []
     responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*You lower your burger back to your plate and turn around to inspect the commotion
+      at the table behind you. *'
+    - '*You see an embarrassed man standing next to the table of a woman sitting
+      alone.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Man
+    characterImage: {fileID: 0}
+    sentences:
+    - "\u201CN-No! I mean\u2026 yes! I mean\u2026\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201CThe answer is \u2018No\u2019. Someone like you doesn\u2019t stand a
+      chance with someone like me, especially not with how you look right now.\""
+    - "\"Now run along, I have someone I\u2019d actually like to speak with calling
+      me. Hello?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*You see the man run off in shock, as the lady picks up her ringing phone
+      to address her friend.*'
+    - "*Now that it\u2019s quiet again, you are about to go back to enjoying your
+      burger, yet you seem to be unable to stop looking at the lady speaking on her
+      phone*"
+    - "*It is love at first sight, but you already know how this story ends, you\u2019ve
+      just seen it. You dejectedly stare back at your plate as she continues to speak
+      on the phone.*"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201COh my god, Kelly! I haven\u2019t spoken to you in forever! How\u2019s
+      your boyfriend? Ex-boyfriend now huh?\"\n"
+    - "\"Oh, are you bringing your new boyfriend to the charity event this weekend?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+    sentences:
+    - "\u201CCharity event\u2026?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201COh, me? I\u2019m still looking for a date myself\u2026  Any day now
+      my Prince Charming will find me. Wherever he is.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+    sentences:
+    - "\u201CPrince\u2026 Charming\u2026?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201CAnyway, my schedule this week is packed. Can you believe how busy I
+      am?\""
+    - "\"I\u2019ve got to get my hair and nails done, pick up my dress today, test
+      out my new makeup, and worst of all my favorite perfume just ran out!\""
+    - "\"I don\u2019t have the time to pick it up before I have dinner with my father
+      and his friends!\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+    sentences:
+    - "\u201CShe needs a bottle of perfume, huh?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - "*In this moment, you\u2019ve spent enough time eavesdropping on her conversation
+      that you have finally come up with a way that you can go speak to her.*"
+    - "*If she is looking for her Prince Charming, YOU will be her Prince Charming.
+      One problem. You couldn\u2019t be further from a Prince Charming if you tried.*"
+    - "*But she doesn\u2019t know that, and if you want to have a chance with her,
+      you have to make sure she never does.*"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201CAnyway, I need to head out now, my driver\u2019s here to pick me up
+      for my teeth whitening. Toodles!\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - "*As she begins to gather her things and get up out of her seat, you smoothly
+      get out as well and call out to her.*\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+    sentences:
+    - "\u201CHey, while I was eating, I couldn\u2019t help but hear about your little
+      predicament.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*The Lady gives you an annoyed look before rolling her eyes and sighing.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    sentences:
+    - "\u201COh, so you were listening in on a lady while she was using her phone.
+      Well surely you listened in on me sending the last loser coming to my table,
+      back home.\""
+    - "\"Now please don\u2019t stand around wasting my time, I\u2019m actually someone
+      that needs to be somewhere.\u201D\r\n"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+    sentences:
+    - "\u201CI promise you that I\u2019m not a loser. And to prove it, I wanted to
+      help you get that perfume you need. Free of charge!\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    sentences:
+    - "*scoffs* \u201CReally, someone like you can get the perfume that I need? I
+      use quite the pricey brand from Honeydew, are you sure you can even afford
+      it?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+    sentences:
+    - "\u201CYou don't have to worry, price is no issue for me, I\u2019m just looking
+      to step up and help out those who need it.You've got nothing to lose in trusting
+      me, right?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*The Lady gets an interested look on her face as you mention that you have
+      no issue with the price.*
+
+'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201CFine, I\u2019ll humor you. What do you want in return? Just looking
+      to make money off me?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+    sentences:
+    - "\u201CMoney isn\u2019t my goal. But, if you have to ask, if you\u2019re willing
+      to meet me back here tomorrow around this time.\""
+    - "\"I will hand you the perfume in exchange for just the time to be able to
+      talk with you\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: 'The Lady '
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201CJust bring the perfume here tomorrow, and then we\u2019ll see if I consider
+      your offer. Do you need me to remind you what I wanted?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CMascara from Honeydew, right?\u201D "
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    sentences:
+    - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: 'The Lady '
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201CMy driver\u2019s here, so I\u2019m headed out now. If you don\u2019t
+      have the perfume, don\u2019t bother showing up tomorrow at all.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - Peepo Bongo
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: The lady
+      responseId: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Narration
+    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+    sentences:
+    - '*The Lady leaves out the entrance of Borgar, leaving you alone in your thoughts.*'
+    - "*You know that  you don\u2019t have the money to actually buy the perfume
+      for her, but you already have that covered.*"
+    - "*You know what she needs, where she needs it from\u2026 and you know what
+      time that place closes tonight. It\u2019s time to break into the local Shopping
+      World and take it yourself!*"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: You
+      responseId: 2
   currentDialogueIndex: 0
 --- !u!4 &558106689
 Transform:
@@ -2000,14 +2343,10 @@ MonoBehaviour:
   - {fileID: 1558279393}
   - {fileID: 1977593599}
   - {fileID: 907849300}
-  - {fileID: 162811381}
-  - {fileID: 1698581076}
   choiceTexts:
   - {fileID: 837332297}
   - {fileID: 482229163}
   - {fileID: 1107494704}
-  - {fileID: 1314107101}
-  - {fileID: 89316301}
 --- !u!4 &808872836
 Transform:
   m_ObjectHideFlags: 0
@@ -2171,7 +2510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &907849301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2189,9 +2528,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -175}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &945366142
@@ -3797,7 +4136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1558279394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3815,9 +4154,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -35}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1594310714
@@ -3967,7 +4306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1698581077
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3985,9 +4324,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -315}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1757380225
@@ -4335,7 +4674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1977593600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4353,9 +4692,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -105}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2016748344
