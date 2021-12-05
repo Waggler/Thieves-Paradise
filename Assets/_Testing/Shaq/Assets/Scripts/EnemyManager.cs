@@ -172,8 +172,8 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the target text (displays the guard's current target)")]
     [SerializeField] private Text targetText;
 
-    [Tooltip("References the lose text for the game (this is NOT permanent)")]
-    [SerializeField] private Text loseText;
+    //[Tooltip("References the lose text for the game (this is NOT permanent)")]  TEMPE WUZ HERE
+    //[SerializeField] private Text loseText;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -294,6 +294,8 @@ public class EnemyManager : MonoBehaviour
 
     private float oneTimeUseTimerReset;
 
+    private bool surpriseVFXBoolCheck;
+
     #endregion
 
     #region Awake & Update
@@ -313,6 +315,12 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
+
+        if (stateMachine == EnemyStates.HOSTILE)
+        {
+            surpriseVFXBoolCheck = true;
+        }
+
 
         //eyeball.susLevel = warySusMin;
 
@@ -472,6 +480,7 @@ public class EnemyManager : MonoBehaviour
             #region Suspicious Behavior
             case EnemyStates.SUSPICIOUS:
 
+
                 float searchLocCheck = .5f;
 
                 guardAnim.EnterSusAnim();
@@ -548,14 +557,13 @@ public class EnemyManager : MonoBehaviour
 
                     guardAnim.ExitSearchingAnim();
 
-                    //SUSPICIOUS >> HOSTILE
-                    stateMachine = EnemyStates.HOSTILE;
-
                     //the cool lil MGS thing
                     var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
 
                     MGSsurprise.transform.parent = gameObject.transform;
 
+                    //SUSPICIOUS >> HOSTILE
+                    stateMachine = EnemyStates.HOSTILE;
                 }
                 #endregion Exit Conditions
 
@@ -628,9 +636,6 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(attackSpeed);
 
-
-
-
                 #region Exit Condition(s)
                 
                 if (isStunned == true)
@@ -646,6 +651,11 @@ public class EnemyManager : MonoBehaviour
                 }
                 else if (Vector3.Distance(target, transform.position) > attackRadius && !isStunned)
                 {
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    MGSsurprise.transform.parent = gameObject.transform;
+
                     // ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
@@ -685,6 +695,11 @@ public class EnemyManager : MonoBehaviour
                     isStunned = false;
 
                     eyeball.susLevel = sussySusMax;
+
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    MGSsurprise.transform.parent = gameObject.transform;
 
                     //STUNNED >>>> PREVIOUS STATE (SUSPICIOS for now)
                     stateMachine = EnemyStates.HOSTILE;
@@ -754,7 +769,7 @@ public class EnemyManager : MonoBehaviour
 
         FaceTarget(target);
 
-        loseText.text = "";
+        //loseText.text = "";
 
         stunTimeReset = stunTime;
 
@@ -774,6 +789,11 @@ public class EnemyManager : MonoBehaviour
     //Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
+        //the cool lil MGS thing
+        var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation); //TEMPE WAS HERE
+
+        MGSsurprise.transform.parent = gameObject.transform;
+
         eyeball.susLevel = 10;
 
         stateMachine = EnemyStates.HOSTILE;
