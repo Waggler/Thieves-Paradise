@@ -89,20 +89,20 @@ public class CamSwitch : MonoBehaviour
     void Update()
     {
         
-        if(im.isCrouching == true && trigger1.inArea == true || im.isCrouching == true && trigger2.inArea == true 
-        || im.isCrouching == true && door1.inArea == true || im.isCrouching == true && door2.inArea == true
-        || ventIn.inVent == true || ventIn2.inVent == true)
-        {
-           animator.Play("VCam2");
-           firstPersonCam = true;
-        //    mainCamera.enabled = false;
-        //    Camera2.enabled = true;
-        }
-        else
-        {
-            animator.Play("FreeLook");
-            firstPersonCam = false;
-        }
+        //if(im.isCrouching == true && trigger1.inArea == true || im.isCrouching == true && trigger2.inArea == true 
+        //|| im.isCrouching == true && door1.inArea == true || im.isCrouching == true && door2.inArea == true
+        //|| ventIn.inVent == true || ventIn2.inVent == true)
+        //{
+        //   animator.Play("VCam2");
+        //   firstPersonCam = true;
+        ////    mainCamera.enabled = false;
+        ////    Camera2.enabled = true;
+        //}
+        //else
+        //{
+        //    animator.Play("FreeLook");
+        //    firstPersonCam = false;
+        //}
         // if(im.isCrouching == true && trigger1.inArea == false || im.isCrouching == true && trigger2.inArea == false )
         // {
         //    animator.Play("FreeLook");

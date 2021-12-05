@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 3334425950312530302}
   - component: {fileID: 1867191923978407643}
   - component: {fileID: 4471351366163823121}
+  - component: {fileID: 497757456318003881}
   m_Layer: 3
   m_Name: FoldSign_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 9
   m_IsActive: 1
 --- !u!4 &3334425950312530302
 Transform:
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &497757456318003881
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2669950754211060676}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100.000015, y: 88.17741, z: 100.000015}
+  m_Center: {x: 49.998055, y: 44.040234, z: -50.000496}

@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 6.899994, y: 10.6}
+  m_SizeDelta: {x: 160.4032, y: 36.9218}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &262556187
 MonoBehaviour:
@@ -230,10 +230,10 @@ RectTransform:
   m_Father: {fileID: 1665196694}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 47.830173, y: 10.600005}
+  m_SizeDelta: {x: 404.14, y: 80.9924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &278220001
 MonoBehaviour:
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
+  m_overrideHtmlColors: 1
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
@@ -1576,14 +1576,120 @@ MonoBehaviour:
   dialogue:
   - characterName: The Lady
     sentences:
-    - hullo
-    - gib dress
-  - characterName: The Don
+    - '"Hey, it''s me again! Just checking in about that dress! I''ve been worried
+      about it all night."'
+    - '"The fashion boutique on the second floor of Shopping World has some dresses
+      by my favorite designer!"'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
     sentences:
-    - Hey ey ey
-    - where's da gabbagool
-  - characterName: Agent
+    - "\u201CHave you picked out my dress yet?\u201D"
+    - "\u201C...\u201D"
+    - "\u201CI shouldn\u2019t need to remind you why this is wrong, but you clearly
+      weren\u2019t paying attention. I asked for a dress that ISN\u2019T red.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
     sentences:
-    - The IRS called
-    - you can no longer evade your taxes
+    - "\u201CHave you picked out my dress yet?\u201D\r"
+    - "\u201CThat one looks gorgeous, I can see myself wearing it already!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    sentences:
+    - "\u201CHello, what\u2019s going on? Why does it sound like someone is grabbing
+      you?\""
+    - "\u201COh, I thought it was something much more pressing. Just try wiggling
+      around until they let you go and run home.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    sentences:
+    - "\u201COh, that\u2019s a smoke bomb. My mother used to let me light those in
+      our driveway.\u201D"
+    - "\u201CThe Shopping World one\u2019s give off a lot of smoke and you can\u2019t
+      even see through them. Although they don\u2019t last long\u2026\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    sentences:
+    - "\u201CI recommend just leaving that donut, no doubt someone more desperate
+      than you will get just as distracted by it.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    sentences:
+    - "\u201CThis place is far filthier than a store should be.\""
+    - "\u201CBe careful with those glass bottles! It could shatter if you dropped
+      it.\u201D\r\n"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    sentences:
+    - '"Honeydew sure does bring back a lot of memories for me, the fruit furniture
+      is too cute."'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    sentences:
+    - '"Do you think the jewelry store has those protective lasers to stop people
+      from stealing things. I wouldn''t want to get caught doing that!"'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    sentences:
+    - '"My favorite part of this store was playing music on the floor keyboard!"'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
   currentDialogueIndex: 0
