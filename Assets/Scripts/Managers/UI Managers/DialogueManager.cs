@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour
     {
         StartCoroutine(IStartDelay());
 
-    }//END Start
+    }//END Init
 
 
     //-----------------------//
@@ -34,8 +34,7 @@ public class DialogueManager : MonoBehaviour
         try
         {
             narrativeUIManager.StartDialogue(dialogue[currentDialogueIndex]);
-            narrativeUIManager.ChangeLeftPortrait();
-            narrativeUIManager.ChangeRightPortrait();
+
         }
         catch
         {
