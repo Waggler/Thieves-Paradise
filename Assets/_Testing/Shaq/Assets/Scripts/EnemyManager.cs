@@ -600,7 +600,10 @@ public class EnemyManager : MonoBehaviour
                         player.GetComponent<PlayerMovement>().IsStunned = true;
                         player.transform.position = playerCaptureTeleportLoc.transform.position;
                         SetAIDestination(this.transform.position);
-                        //player.transform.SetParent(playerTeleportLoc.transform, false);
+
+
+                        //player.transform.SetParent(playerCaptureTeleportLoc.transform, false);
+
                         //HOSTILE >> ATTACK
                         stateMachine = EnemyStates.ATTACK;
                     }

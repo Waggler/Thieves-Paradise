@@ -151,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791299338356384477}
   m_LocalRotation: {x: -0, y: -0.9999792, z: 0, w: 0.0064577665}
-  m_LocalPosition: {x: 0.004, y: 1.701, z: 0.134}
+  m_LocalPosition: {x: 0.016, y: 1.701, z: 0.729}
   m_LocalScale: {x: 0.99999964, y: 1, z: 0.99999964}
   m_Children: []
   m_Father: {fileID: 3325092847221503260}
@@ -880,7 +880,7 @@ MonoBehaviour:
   attackTime: 0
   attackRadius: 2
   waypointNextDistance: 0.5
-  playerCaptureTeleportLoc: {fileID: 0}
+  playerCaptureTeleportLoc: {fileID: 1791299338356384477}
   playerReleaseTeleportLoc: {fileID: 7543830123775770894}
 --- !u!114 &9215408676989096723
 MonoBehaviour:
@@ -1270,7 +1270,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7543830123775770894}
   m_LocalRotation: {x: -0, y: -0.9999792, z: -0, w: 0.0064577665}
-  m_LocalPosition: {x: 0.023, y: 1.701, z: 1.682}
+  m_LocalPosition: {x: 0.028, y: 1.701, z: 1.721}
   m_LocalScale: {x: 0.99999964, y: 1, z: 0.99999964}
   m_Children: []
   m_Father: {fileID: 3325092847221503260}
@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255b1ce6c57b1544fa4c776510864d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardSource: {fileID: 0}
+  guardSource: {fileID: 8697056619069672712}
   normalVolume: 0.55
   loudVolume: 0.9
   pitchMin: 0.85
