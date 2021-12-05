@@ -37,6 +37,11 @@ public class GameController : MonoBehaviour
             playerTransform = FindObjectOfType<PlayerMovement>().gameObject.transform;
         }
 
+        if (gameControllerInstance.lastCheckPoint == new Vector3(0,0,0))
+        {
+            gameControllerInstance.lastCheckPoint = playerTransform.position;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
