@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Your jump height when you dive.")]
     [SerializeField] private float DiveHeight;
     public CapsuleCollider playerCollider;
-    [SerializeField] private CharacterController Controller;
+    [SerializeField] public CharacterController Controller;
     [SerializeField] private bool IsGrounded = true;
     private float HeightFromGround;
     private float CrouchingHeightFromGround;
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sliding")]
     [Tooltip("The speed at which you decrese down to slide.")]
     [SerializeField] private float Deceleration;
-    [SerializeField] private bool IsSliding;
+    [SerializeField] public bool IsSliding;
 
     [Header("Diving")]
     [Tooltip("How far you dive.")]
