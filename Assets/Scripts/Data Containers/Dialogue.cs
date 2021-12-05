@@ -7,7 +7,6 @@ public class Dialogue
 {
     [Header("Character Settings")]
     public string characterName;
-    public Sprite characterImage;
 
     [TextArea(1, 9999)]
     public string[] sentences;
@@ -15,6 +14,10 @@ public class Dialogue
     [Header("Second Character Settings")]
     public bool isSecondCharacter;
     public bool isSecondCharacterTalking;
+
+    [Header("Sprites")]
+    public Sprite characterOneSprite;
+    public Sprite characterTwoSprite;
 
     [Header("Choice Settings")]
     public bool isChoice;
@@ -36,6 +39,8 @@ public class Choice
 public class Response
 {
     public string[] responseOption;
-    public string responseSpeaker;
-    public int responseId;
+    public string[] responseSpeaker;
+    public int choiceReferenceId;
+
+    [HideInInspector]public int responseID;
 }

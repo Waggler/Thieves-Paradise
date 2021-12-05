@@ -43,27 +43,17 @@ public class NarrativeUIManager : MonoBehaviour
 
     [Header("Images")]
     [SerializeField] private Image portrait1Image;
-    [SerializeField] private Sprite[] portrait1ImageList;
+    //[SerializeField] private Sprite[] portrait1ImageList;
 
     [SerializeField] private Image portrait2Image;
-    [SerializeField] private Sprite[] portrait2ImageList;
+    //[SerializeField] private Sprite[] portrait2ImageList;
 
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite[] backgroundImageList;
 
-    [SerializeField] private int rightCharacterOneIntroIndex;
-    [SerializeField] private int rightCharacterTwoIntroIndex;
-    [SerializeField] private int rightCharacterThreeIntroIndex;
-    [SerializeField] private int rightCharacterFourIntroIndex;
-    [SerializeField] private int leftCharacterOneIntroIndex;
-    [SerializeField] private int leftCharacterTwoIntroIndex;
-    [SerializeField] private int leftCharacterThreeIntroIndex;
-    [SerializeField] private int leftCharacterFourIntroIndex;
 
-    [SerializeField] private int backgroundOneIndex;
-    [SerializeField] private int backgroundTwoIndex;
-    [SerializeField] private int backgroundThreeIndex;
-    [SerializeField] private int backgroundFourIndex;
+    private bool isResponding;
+    private Response currentResponse;
 
 
     #endregion Components
@@ -96,95 +86,15 @@ public class NarrativeUIManager : MonoBehaviour
     #region Methods
 
 
-    //--------------------------//
-    public void ChangeLeftPortrait()
-    //--------------------------//
-    {
-
-        if (dialogueManager.currentDialogueIndex == leftCharacterOneIntroIndex) 
-        {
-            portrait1Image.sprite = portrait1ImageList[0];
-
-        }
-        if (dialogueManager.currentDialogueIndex == leftCharacterTwoIntroIndex) 
-        {
-            portrait1Image.sprite = portrait1ImageList[1];
-
-        }
-        if (dialogueManager.currentDialogueIndex == leftCharacterThreeIntroIndex)
-        {
-            portrait1Image.sprite = portrait1ImageList[2];
-
-        }
-        if (dialogueManager.currentDialogueIndex == leftCharacterFourIntroIndex)
-        {
-            portrait1Image.sprite = portrait1ImageList[3];
-
-        }
-
-    }//END ChangeLeftPortrait
-
-    //--------------------------//
-    public void ChangeRightPortrait()
-    //--------------------------//
-    {
-
-        if (dialogueManager.currentDialogueIndex == rightCharacterOneIntroIndex)
-        {
-            portrait2Image.sprite = portrait2ImageList[0];
-
-        }
-        if (dialogueManager.currentDialogueIndex == rightCharacterTwoIntroIndex)
-        {
-            portrait2Image.sprite = portrait2ImageList[1];
-
-        }
-        if (dialogueManager.currentDialogueIndex == rightCharacterThreeIntroIndex)
-        {
-            portrait2Image.sprite = portrait2ImageList[2];
-
-        }
-        if (dialogueManager.currentDialogueIndex == rightCharacterFourIntroIndex)
-        {
-            portrait2Image.sprite = portrait2ImageList[3];
-
-        }
-
-    }//END ChangeRightPortrait
-
-    //--------------------------//
-    public void ChangeBackground()
-    //--------------------------//
-    {
-
-        if (dialogueManager.currentDialogueIndex == backgroundOneIndex)
-        {
-            backgroundImage.sprite = backgroundImageList[0];
-
-        }
-        if (dialogueManager.currentDialogueIndex == backgroundTwoIndex)
-        {
-            backgroundImage.sprite = backgroundImageList[1];
-
-        }
-        if (dialogueManager.currentDialogueIndex == backgroundThreeIndex)
-        {
-            backgroundImage.sprite = backgroundImageList[2];
-
-        }
-        if (dialogueManager.currentDialogueIndex == backgroundFourIndex)
-        {
-            backgroundImage.sprite = backgroundImageList[3];
-
-        }
-
-    }//END ChangeRightPortrait
-
     //-----------------------//
     public void StartDialogue(Dialogue dialogue)
     //-----------------------//
     {
         speakerText.text = dialogue.characterName;
+
+        portrait1Image.sprite = dialogue.characterOneSprite;
+        portrait2Image.sprite = dialogue.characterTwoSprite;
+
 
         if (sentences != null)
         {
@@ -210,8 +120,9 @@ public class NarrativeUIManager : MonoBehaviour
     public void StartResponse(Response response)
     //-----------------------//
     {
-        speakerText.text = response.responseSpeaker;
+        isResponding = true;
 
+        currentResponse = response;
         if (sentences != null)
         {
             sentences.Clear();
@@ -230,7 +141,7 @@ public class NarrativeUIManager : MonoBehaviour
 
 
     //-----------------------//
-    public void DisplayNextSentence()
+    public void DisplayNextResponseSentence(Response response)
     //-----------------------//
     {
         if (sentences.Count == 0)
@@ -245,6 +156,29 @@ public class NarrativeUIManager : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
+
+    }//END DisplayNextSentence
+
+
+    //-----------------------//
+    public void DisplayNextSentence()
+    //-----------------------//
+    {
+        if (sentences.Count == 0)
+        {
+
+            EndDialogue();
+
+            return;
+        }
+
+        string sentence = sentences.Dequeue();
+
+        StopAllCoroutines();
+
+            StartCoroutine(TypeSentence(sentence));
+
+        
 
     }//END DisplayNextSentence
 
@@ -264,7 +198,7 @@ public class NarrativeUIManager : MonoBehaviour
         else
         {
 
-
+            isResponding = false;
             dialogueManager.currentDialogueIndex++;
 
 
@@ -276,6 +210,12 @@ public class NarrativeUIManager : MonoBehaviour
 
     }//END EndDialogue
 
+    public void IncremenetResponse()
+    {
+        speakerText.text = currentResponse.responseSpeaker[currentResponse.responseID];
+        currentResponse.responseID++;
+    }
+
 
     #endregion Methods
 
@@ -285,6 +225,12 @@ public class NarrativeUIManager : MonoBehaviour
 
     IEnumerator TypeSentence(string sentence)
     {
+
+        if (isResponding)
+        {
+            IncremenetResponse();
+        }
+
         dialogueText.text = "";
         bool skipDelimiter = false;
         foreach (char letter in sentence.ToCharArray())
@@ -311,6 +257,39 @@ public class NarrativeUIManager : MonoBehaviour
 
         }
     }
+
+    /*
+    IEnumerator TypeResponse(Response response, string sentence)
+    {
+        speakerText.text = response.responseSpeaker[response.responseID];
+        response.responseID++;
+
+        dialogueText.text = "";
+        bool skipDelimiter = false;
+        foreach (char letter in sentence.ToCharArray())
+        {
+
+            if (letter == '<')
+            {
+                skipDelimiter = true;
+            }
+            if (!skipDelimiter)
+            {
+                dialogueText.text += letter;
+                yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
+            }
+            else
+            {
+                dialogueText.text += letter;
+            }
+
+            if (letter == '>')
+            {
+                skipDelimiter = false;
+            }
+
+        }
+    }*/
 
 
     #endregion
