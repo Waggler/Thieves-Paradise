@@ -5,10 +5,17 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private NarrativeUIManager narrativeUIManager;
+
+
     private float delayTime = 0.05f;
 
     public Dialogue[] dialogue;
     public int currentDialogueIndex;
+
+    [Header("Levelmanager")]
+    [SerializeField] private LevelManager levelManager;
+    [SerializeField] private int nextSceneIndex;
+    [SerializeField] private bool isEndCredits;
 
     //-----------------------//
     private void Start()
@@ -38,7 +45,14 @@ public class DialogueManager : MonoBehaviour
         }
         catch
         {
-            Debug.Log("DialogueIndex Exceeded Array Bounds");
+
+            if (isEndCredits == true)
+            {
+                PlayerPrefs.SetInt("endCredits", 1);
+            }
+            levelManager.ChangeLevel(nextSceneIndex);
+
+            //Debug.Log("DialogueIndex Exceeded Array Bounds");
         }
 
     }//END TriggerDialogue

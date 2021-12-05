@@ -1380,6 +1380,9 @@ MonoBehaviour:
     choices: []
     responses: []
   currentDialogueIndex: 0
+  levelManager: {fileID: 1976344117}
+  nextSceneIndex: 0
+  isEndCredits: 1
 --- !u!4 &558106689
 Transform:
   m_ObjectHideFlags: 0
@@ -4490,6 +4493,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db84db7e9304e84eb663af020a3b8ae, type: 3}
+--- !u!114 &1976344117 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8243807951229541536, guid: 6db84db7e9304e84eb663af020a3b8ae, type: 3}
+  m_PrefabInstance: {fileID: 1976344116}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20184d3bba4e0e349a3b4a4fa8c2476b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1977593599
 GameObject:
   m_ObjectHideFlags: 0

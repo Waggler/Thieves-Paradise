@@ -15,8 +15,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private AudioManager audioManager;
 
 
-
-
     #region Methods
 
 
@@ -36,6 +34,14 @@ public class MainMenuManager : MonoBehaviour
         Cursor.visible = true;
 
         audioManager.PlayMainMenuMusic();
+
+        if (PlayerPrefs.GetInt("endCredits") == 1)
+        {
+            mainMenu.SetActive(false);
+            creditsScreen.SetActive(true);
+
+            PlayerPrefs.SetInt("endCredits", 0);
+        }
 
     }//END Init
 
