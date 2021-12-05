@@ -9,15 +9,16 @@ public class Player_VFX : MonoBehaviour
     [SerializeField] private GameObject slideParticles;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         runParticles.SetActive(false);
+        slideParticles.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerMovement.IsSprinting == true && playerMovement.Controller.velocity.magnitude > 0) 
+        if (playerMovement.IsSprinting == true && playerMovement.Controller.velocity.magnitude > 0)
         {
             runParticles.SetActive(true);
         }
@@ -25,7 +26,7 @@ public class Player_VFX : MonoBehaviour
         {
             runParticles.SetActive(false);
         }
-        if (playerMovement.IsSliding == true && playerMovement.Controller.velocity.magnitude > 0)
+        if (playerMovement.IsSliding == true)
         {
             slideParticles.SetActive(true);
             runParticles.SetActive(false);
@@ -36,3 +37,4 @@ public class Player_VFX : MonoBehaviour
         }
     }
 }
+
