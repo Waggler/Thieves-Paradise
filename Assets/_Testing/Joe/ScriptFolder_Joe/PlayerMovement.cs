@@ -299,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
             canMove = false;
             CurrentStunTime += Time.deltaTime;
 
-            if (BreakOutCounter >= BreakOutThreshold || hp > 1)
+            if (BreakOutCounter >= BreakOutThreshold && hp >= 1)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(playerCollider.transform.position, 10f, 1 << 8);
                 foreach (Collider collider in hitColliders)
@@ -319,7 +319,7 @@ public class PlayerMovement : MonoBehaviour
 
             else if (CurrentStunTime >= StunTime || hp <= 0)
             {
-                //DEATH
+                FindObjectOfType<LoseScreenMenuManager>().LoseGame();
             }
         }
 
