@@ -51,13 +51,17 @@ public class ContextInteractManager : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
+        if (context.canceled)
+        {
+            return;
+        }
         
         if (nearbyObjects.Count > 0)
         {
             //print("Something is Nearby");
             if(context.performed)
             {
-                //print("Input Recieved");
+                print("Input Recieved");
                 if (highlightedObject.GetComponent<ItemInterface>() != null && inventory.CanPickupItems())
                 {
                     //print("Pickup Object: " + highlightedObject.name);
@@ -70,7 +74,7 @@ public class ContextInteractManager : MonoBehaviour
                 {
                     if (highlightedObject.GetComponent<ButtonScript>().isLocked)
                     {
-                        if(inventory.CheckHasItem("Keycard"))
+                        if(inventory.CheckHasItem(highlightedObject.GetComponent<ButtonScript>().keyItem))
                         {
                             highlightedObject.GetComponent<ButtonScript>().Unlock();
                         }
@@ -193,6 +197,11 @@ public class ContextInteractManager : MonoBehaviour
             default:
             //do literally nothing
             break;
+        }
+
+        if (other.gameObject.GetComponent<NoteScript>() != null)
+        {
+            other.gameObject.GetComponent<NoteScript>().PlayNote();
         }
     }
 

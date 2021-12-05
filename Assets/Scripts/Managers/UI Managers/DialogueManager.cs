@@ -10,7 +10,6 @@ public class DialogueManager : MonoBehaviour
     public Dialogue[] dialogue;
     public int currentDialogueIndex;
 
-
     //-----------------------//
     private void Start()
     //-----------------------//
@@ -25,7 +24,7 @@ public class DialogueManager : MonoBehaviour
     {
         StartCoroutine(IStartDelay());
 
-    }//END Start
+    }//END Init
 
 
     //-----------------------//
@@ -35,6 +34,7 @@ public class DialogueManager : MonoBehaviour
         try
         {
             narrativeUIManager.StartDialogue(dialogue[currentDialogueIndex]);
+
         }
         catch
         {
@@ -42,6 +42,11 @@ public class DialogueManager : MonoBehaviour
         }
 
     }//END TriggerDialogue
+
+    public void TriggerResponse(Response response)
+    {
+        narrativeUIManager.StartResponse(response);
+    }
 
     IEnumerator IStartDelay()
     {

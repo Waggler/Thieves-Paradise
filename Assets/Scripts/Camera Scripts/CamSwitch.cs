@@ -18,12 +18,17 @@ public class CamSwitch : MonoBehaviour
     public InputManager im;
 
     public DoorOpen trigger1;
-    public DoorOpen2 trigger2;
+    public DoorOpen trigger2;
 
-    public Vents vent;
+    //public Vents vent;
 
     public VentInTrigger ventIn;
     public VentOutTrigger ventOut;
+    public VentInTrigger ventIn2;
+    public VentOutTrigger ventOut2;
+
+    public DoorOpen door1;
+    public DoorOpen door2;
 
     // public Camera mainCamera;
     // public Camera Camera2;
@@ -33,38 +38,39 @@ public class CamSwitch : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void OnEnable()
-    {
-        action.Enable();
-    }
+    // private void OnEnable()
+    // {
+    //     action.Enable();
+    // }
 
-    private void OnDisable()
-    {
-        action.Disable();
-    }
+    // private void OnDisable()
+    // {
+    //     action.Disable();
+    // }
     
     // Start is called before the first frame update
     void Start()
     {
-        action.performed += _ => SwitchState();
+        //action.performed += _ => SwitchState();
         // Camera2.enabled = false;
         // mainCamera.enabled = true;
+        //animator.Play("FreeLook");
     }
 
-    private void SwitchState()
-    {
-            if(Cam1 == false)
-            {
-                animator.Play("FreeLook");
-                firstPersonCam = false;
-            }
-            else
-            {
-                animator.Play("VCam1");
-                firstPersonCam = false;
-            }
-            Cam1 = !Cam1;
-    }
+    // private void SwitchState()
+    // {
+    //         if(Cam1 == false)
+    //         {
+    //             animator.Play("FreeLook");
+    //             firstPersonCam = false;
+    //         }
+    //         else
+    //         {
+    //             animator.Play("VCam1");
+    //             firstPersonCam = false;
+    //         }
+    //         Cam1 = !Cam1;
+    // }
 
     // private void CloseState()
     // {
@@ -82,29 +88,66 @@ public class CamSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if(im.isCrouching == true && trigger1.inArea == true)
+        
+        if(im.isCrouching == true && trigger1.inArea == true || im.isCrouching == true && trigger2.inArea == true 
+        || im.isCrouching == true && door1.inArea == true || im.isCrouching == true && door2.inArea == true
+        || ventIn.inVent == true || ventIn2.inVent == true)
         {
            animator.Play("VCam2");
            firstPersonCam = true;
+        //    mainCamera.enabled = false;
+        //    Camera2.enabled = true;
         }
-        if(im.isCrouching == true && trigger2.inArea == true)
+        else
         {
-           animator.Play("VCam2");
-           firstPersonCam = true;
-        }
-
-        if(ventIn.inVent == true)
-        {
-            animator.Play("VCam2");
-            firstPersonCam = true;
-        }
-        if (ventOut.outVent == true)
-        {
-            // animator.Play("FreeLook");
+            animator.Play("FreeLook");
             firstPersonCam = false;
         }
-        */
+        // if(im.isCrouching == true && trigger1.inArea == false || im.isCrouching == true && trigger2.inArea == false )
+        // {
+        //    animator.Play("FreeLook");
+        //    firstPersonCam = false;
+        // //    mainCamera.enabled = false;
+        // //    Camera2.enabled = true;
+        // }
+        // if(im.isCrouching == true && trigger2.inArea == true)
+        // {
+        //    animator.Play("VCam2");
+        //    firstPersonCam = true;
+        // }
+
+        // if(ventIn.inVent == true || ventIn2.inVent == true)
+        // {
+        //     animator.Play("VCam2");
+        //     firstPersonCam = true;
+        // }
+        // else
+        // {
+        //     animator.Play("FreeLook");
+        //     firstPersonCam = false;
+        // }
+        // if (ventOut.outVent == true)
+        // {
+        //     animator.Play("FreeLook");
+        //     firstPersonCam = false;
+        // }
+        // if(ventIn2.inVent == true)
+        // {
+        //     animator.Play("VCam2");
+        //     firstPersonCam = true;
+        // }
+        // if (ventOut2.outVent == true)
+        // {
+        //     animator.Play("FreeLook");
+        //     firstPersonCam = false;
+        // }
+
+        // if(im.isCrouching == true && door1.inArea == true || im.isCrouching == true && door2.inArea == true)
+        // {
+        //     animator.Play("VCam2");
+        //     firstPersonCam = true;
+        // }
+        // */
         // if(im.isCrouching == true && vent.isOnVents == true)
         // {
         //    animator.Play("VCam2");
