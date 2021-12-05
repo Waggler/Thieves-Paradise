@@ -79,10 +79,6 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject confusedVFX;
 
 
-    //DO NOT DELETE
-    //[Header("Global Suspicion Manager")]
-    //[Tooltip("References the Global Suspicion Manager in the level")]
-    //[SerializeField] private GlobalSuspicionManager globalSusManager;
 
     [Header("Local Suspicion Manager")]
     [Tooltip("References the Local Suspicion Manager")]
@@ -176,10 +172,6 @@ public class CameraManager : MonoBehaviour
                 //Rotating at degreesPerSec relative to the World Space
                 transform.Rotate(new Vector3(0, camSpeed, 0) * Time.deltaTime, Space.World);
 
-
-
-
-
                 //Reseting alert related variables
                 if (isAudioSourcePlaying == true)
                 {
@@ -187,11 +179,6 @@ public class CameraManager : MonoBehaviour
 
                     isAudioSourcePlaying = false;
                 }
-
-
-
-
-
 
                 //Technically this snippet of code shouldn't work yet it does, will likely break in the future and need to be fixed
                 //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
