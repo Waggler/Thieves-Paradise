@@ -11,14 +11,19 @@ public class RadioTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) //Use this for the player walking into a collider
     {
-        radioManager.currentDialogueIndex = radioDialogueIndex;
-        radioManager.Init();
-
-        if (isDestroyedAfterEntry == true)
+        if (other.tag == "Player")
         {
-            Destroy(this.gameObject);
+            radioManager.currentDialogueIndex = radioDialogueIndex;
+            radioManager.Init();
 
+            if (isDestroyedAfterEntry == true)
+            {
+                Destroy(this.gameObject);
+
+            }
         }
+
+
     }
 
 }//END RadioTrigger
