@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float waitTime;
 
     int currentSceneIndex;
+    int previousSceneIndex;
 
 
     //-----------------------//
@@ -24,6 +25,7 @@ public class LevelManager : MonoBehaviour
     void Init()
     //-----------------------//
     {
+        previousSceneIndex = PlayerPrefs.GetInt("previousScene");
         currentSceneIndex = PlayerPrefs.GetInt("currentScene");
         sceneTransition.SetBool("isClosing", true);
         sceneTransition.SetBool("isClosing", false);
@@ -35,10 +37,38 @@ public class LevelManager : MonoBehaviour
     public void ChangeLevel(int sceneIndex)
     //-----------------------//
     {
+        previousSceneIndex = currentSceneIndex;
+        PlayerPrefs.SetInt("previousScene", previousSceneIndex);
+
         StartCoroutine(IChangeScene());
         currentSceneIndex = sceneIndex;
 
-    }//END NextLevel
+    }//END ChangeLevel
+
+    //-----------------------//
+    public void RestartLevel()
+    //-----------------------//
+    {
+        currentSceneIndex = previousSceneIndex;
+
+        StartCoroutine(IChangeScene());
+
+    }//END RestartLevel
+
+    //-----------------------//
+    public void QuitGame()
+    //-----------------------//
+    {
+
+        Debug.Log("Quit Game!");
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+                Application.Quit();
+#endif
+
+    }//END QuitGame
 
     //-----------------------//
     public IEnumerator IChangeScene()

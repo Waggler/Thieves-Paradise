@@ -314,7 +314,6 @@ public class EnemyManager : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
 
-
         //eyeball.susLevel = warySusMin;
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
@@ -678,6 +677,8 @@ public class EnemyManager : MonoBehaviour
                 //experimenting with Time.fixedDeltaTime & Time.deltaTime
                 stunTime -= Time.deltaTime;
 
+
+                //Exit Condition
                 if (stunTime <= 0)
                 {
                     guardAnim.ExitStunAnim();
