@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LoseScreenMenuManager : MonoBehaviour
 {
+    [Header("Components")]
+    [SerializeField] private Animator loseAnimator;
 
     //-----------------------//
     private void Start()
@@ -18,29 +20,28 @@ public class LoseScreenMenuManager : MonoBehaviour
     private void Init()
     //-----------------------//
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
+        loseAnimator.SetBool("loseOpen", false);
 
     }//END Init
 
     //-----------------------//
-    public void ChangeScreen(int screenValue)
+    public void LoseGame()
     //-----------------------//
     {
+        loseAnimator.SetBool("loseOpen", true);
 
-        if (screenValue == 0)
-        {
-            SceneManager.LoadScene(0);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
 
-        }
-        else if (screenValue == 1)
-        {
-            Debug.Log("Quit Game");
-            Application.Quit();
+    }//END LoseGame
 
-        }
+    //-----------------------//
+    public void LoadCheckpoint() //Remove after VS
+    //-----------------------//
+    {
+        GameController.gameControllerInstance.LoadCheckPoint();
 
-    }//END ChangeScreen
+    }//END LoadCheckpoint
+
 
 }//END LoseScreenMenuManager
