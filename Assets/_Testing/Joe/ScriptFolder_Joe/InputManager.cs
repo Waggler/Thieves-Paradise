@@ -40,6 +40,10 @@ public class InputManager : MonoBehaviour
         if(context.performed)
         {
             moveVector = new Vector3(contextValue.x, 0, contextValue.y);
+            if (playerMovement.IsStunned)
+            {
+                playerMovement.BreakOutCounter += playerMovement.BreakOutValue;
+            }
         }
         if(context.canceled)
         {

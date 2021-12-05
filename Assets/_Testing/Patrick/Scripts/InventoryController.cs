@@ -5,9 +5,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Serializable]
 public class InventoryController : MonoBehaviour
 {
-    private ItemInterface[] itemInterfaceInventory;
+    public ItemInterface[] itemInterfaceInventory;
     private bool[] inventorySpace; //true = occupied, false = empty
     private int activeItemIndex; //array index
     private List<ItemInterface> nearbyItems;//for storing all items within reach
@@ -18,6 +19,8 @@ public class InventoryController : MonoBehaviour
 
     [SerializeField] private int inventorySize = 4;
     [SerializeField] private Transform holdItemPos;
+
+    private LayerMask layerMask;
     
     // Start is called before the first frame update
     void Start()
@@ -41,6 +44,8 @@ public class InventoryController : MonoBehaviour
         GameObject debugPlatform = GameObject.CreatePrimitive(PrimitiveType.Cube);
         debugPlatform.transform.position = Vector3.down * 1002;
         debugPlatform.transform.localScale = new Vector3(10, 1, 10);
+
+        layerMask = ~LayerMask.GetMask("Player"); 
     }
 
     private bool throwing;
@@ -114,7 +119,7 @@ public class InventoryController : MonoBehaviour
         GetComponentInChildren<AnimationController>().IsPlayerWinding(true);
         if (context.performed)
         {
-            
+
             throwing = true;
             //display throw arc preview
         }
@@ -156,11 +161,27 @@ public class InventoryController : MonoBehaviour
         }
         //throw active item
 
+
         //play anim
         GetComponentInChildren<AnimationController>().TriggerLowThrow(true);
         GetComponentInChildren<AnimationController>().TriggerLowThrow(false);
         GetComponentInChildren<AnimationController>().IsPlayerWinding(false);
 
+        if (inventorySpace[activeItemIndex] == false)
+        {
+            //cancel if current selected item is empty
+            print("Slot Empty");
+            return;
+        }
+        //check if something is in the way of the spawn
+        /* if (Physics.Raycast(holdItemPos.position,transform.forward, 1f, layerMask, QueryTriggerInteraction.Ignore))
+        {
+            Debug.DrawRay(holdItemPos.position,transform.forward, Color.red, 0.5f);
+            print("Something is in the way");
+            return;
+        } */
+
+        //throw active item
         GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
         thrownItem.SetActive(true);
         thrownItem.name = thrownItem.GetComponent<ItemInterface>().itemName;
