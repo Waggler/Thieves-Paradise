@@ -34,10 +34,10 @@ public class ContextInteractManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject i in nearbyObjects)
+        /* foreach (GameObject i in nearbyObjects)
         {
             print(i.name);
-        }
+        } */
 
 
         if (nearbyObjects.Count > 0)
@@ -51,13 +51,17 @@ public class ContextInteractManager : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
+        if (context.canceled)
+        {
+            return;
+        }
         
         if (nearbyObjects.Count > 0)
         {
             //print("Something is Nearby");
             if(context.performed)
             {
-                //print("Input Recieved");
+                print("Input Recieved");
                 if (highlightedObject.GetComponent<ItemInterface>() != null && inventory.CanPickupItems())
                 {
                     //print("Pickup Object: " + highlightedObject.name);
@@ -65,6 +69,19 @@ public class ContextInteractManager : MonoBehaviour
                     inventory.ContextInteract(highlightedObject.GetComponent<ItemInterface>());
                     
                     nearbyObjects.TrimExcess();
+                }
+                if (highlightedObject.GetComponent<ButtonScript>() != null)
+                {
+                    if (highlightedObject.GetComponent<ButtonScript>().isLocked)
+                    {
+                        if(inventory.CheckHasItem(highlightedObject.GetComponent<ButtonScript>().keyItem))
+                        {
+                            highlightedObject.GetComponent<ButtonScript>().Unlock();
+                        }
+                    }else
+                    {
+                        highlightedObject.GetComponent<ButtonScript>().PressButton();
+                    }
                 }
             }
         }
@@ -172,9 +189,19 @@ public class ContextInteractManager : MonoBehaviour
                 nearbyObjects.Add(other.gameObject);
             break;
 
+            case "Button":
+            
+                nearbyObjects.Add(other.gameObject);
+            break;
+
             default:
             //do literally nothing
             break;
+        }
+
+        if (other.gameObject.GetComponent<NoteScript>() != null)
+        {
+            other.gameObject.GetComponent<NoteScript>().PlayNote();
         }
     }
 

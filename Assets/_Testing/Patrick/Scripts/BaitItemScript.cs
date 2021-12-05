@@ -9,9 +9,7 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
     [SerializeField] public GameObject myPrefab;//reference to this object's prefab
     [SerializeField] private float noiseRadius = 5;
     [SerializeField] private float baitRadius = 10;
-    [SerializeField] private bool isActive;
-    private SuspicionManager alertManager;
-    private float baitInterval = 2;
+    private float baitInterval = 2; //how often the item tries to lure enemies
     private float timer;
 
 
@@ -34,18 +32,17 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
         if (noiseRadius != 0)
             thrownNoiseRadius = noiseRadius;
         
-        alertManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isActive && timer < 0)
+        if (isThrown && timer < 0)
         {
             //only lure once every 5 seconds
             LurePigs();
             timer = baitInterval;
-        }else if (isActive)
+        }else if (isThrown)
         {
             timer -= Time.deltaTime;
         }
@@ -53,7 +50,50 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
 
     private void LurePigs()
     {
-        alertManager.AlertGuards(transform.position, transform.position, baitRadius);
+        //alertManager.AlertGuards(transform.position, transform.position, baitRadius);
+
+        //grab everything within a radius
+        List<Collider> hitColliders = new List<Collider>(Physics.OverlapSphere(transform.position, baitRadius));
+
+        int layer = 1 << LayerMask.NameToLayer("Default");
+        foreach (Collider i in hitColliders.ToArray())
+        {
+            if (i.tag != "Guard")
+            {
+                //trim everything that isn't a guard
+                hitColliders.Remove(i);
+                hitColliders.TrimExcess();
+            }else if (Physics.Linecast(transform.position, i.transform.position, layer, QueryTriggerInteraction.Ignore))
+            {
+                //trim guards that can't see the donut
+                hitColliders.Remove(i);
+                hitColliders.TrimExcess();
+
+                Debug.DrawLine(transform.position, i.transform.position, Color.red, 1f);
+            }else
+            {
+                Debug.DrawLine(transform.position, i.transform.position, Color.green, 2f);
+            }
+            
+        }
+
+        //calculate distance
+        float minDistance = baitRadius;
+        EnemyManager enemy = hitColliders[0].gameObject.GetComponent<EnemyManager>();
+        foreach (Collider guard in hitColliders)
+        {
+            float distance = Vector3.Distance(guard.transform.position, transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                enemy = guard.GetComponent<EnemyManager>();
+            }
+        }
+        
+        //finally lure in the guard
+        enemy.Alert(transform.position);
+        //set the timer really high so that more guards aren't alerted unless something happens
+        timer = 60;
     }
 
     public void UseItem()

@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject creditsScreen;
     [SerializeField] private GameObject loadScreen;
     [SerializeField] private GameObject missionSelectMenu;
+    [SerializeField] private AudioManager audioManager;
 
 
 
@@ -33,6 +34,8 @@ public class MainMenuManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        audioManager.PlayMainMenuMusic();
 
     }//END Init
 

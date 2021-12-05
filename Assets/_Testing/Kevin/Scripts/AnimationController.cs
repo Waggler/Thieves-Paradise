@@ -103,11 +103,13 @@ public class AnimationController : MonoBehaviour
     {
         if (isPlayerJumping)
         {
-            playerAnimator.SetTrigger("Jump");
+            playerAnimator.SetBool("isJumping", true);
+            //playerAnimator.SetTrigger("Jump");
         }
         else
         {
-            //playerAnimator.SetBool("isJumping", false);
+            //playerAnimator.ResetTrigger("Jump");
+            playerAnimator.SetBool("isJumping", false);
         }
 
     }// END IsPlayerJumping
@@ -185,6 +187,72 @@ public class AnimationController : MonoBehaviour
             playerAnimator.SetBool("isStunned", false);
         }
     }// END IsPlayerStunned
+
+    public void IsPlayerFree(bool isPlayerFree)
+    //-------------------------------------------------//
+    {
+        if (isPlayerFree)
+        {
+            playerAnimator.SetBool("isFree", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isFree", false);
+        }
+    }// END IsPlayerStunned
+
+    public void IsPlayerWinding(bool isWinding)
+    //-------------------------------------------------//
+    {
+        if (isWinding)
+        {
+            playerAnimator.SetBool("isWinding", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isWinding", false);
+        }
+    }// END IsPlayerStunned
+
+    public void TriggerPickup(bool isReset)
+    //-------------------------------------------------//
+    {
+        if (!isReset)
+        {
+            playerAnimator.SetTrigger("pickUp");
+        }
+        else
+        {
+            playerAnimator.ResetTrigger("pickUp");
+        }
+    }// END IsPlayerStunned
+
+    public void TriggerItemSwitch(bool isReset)
+    //-------------------------------------------------//
+    {
+        if (!isReset)
+        {
+            playerAnimator.SetTrigger("switchItem");
+        }
+        else
+        {
+            playerAnimator.ResetTrigger("switchItem");
+        }
+    }// END IsPlayerStunned
+
+    public void TriggerLowThrow(bool isReset)
+    //-------------------------------------------------//
+    {
+        if (!isReset)
+        {
+            playerAnimator.SetTrigger("lowThrow");
+        }
+        else
+        {
+            playerAnimator.ResetTrigger("lowThrow");
+        }
+    }// END IsPlayerStunned
+
 
     /*
     //-------------------------------------------------//

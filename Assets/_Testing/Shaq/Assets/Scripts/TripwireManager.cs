@@ -3,25 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TripwireManager : MonoBehaviour
-{
 
+    //REMINDER:
+    //  - RE-ENABLE TRIPWIRE PREFABS IN SCENE BEFORE SUBMITTING A MERGE REQUEST
+
+
+
+{
+    #region Variables
     [HideInInspector] [Range (0, 10)]private float rayDistance;
     [HideInInspector] private Vector3 initialHitRecord;
 
-    //References the "Suspicion Manager" object in the scene
-    [HideInInspector] private GameObject susManagerOBJ;
-    //References the "SuspcionManager.cs" script found on the "Suspicion Manager" object
-    [HideInInspector] private SuspicionManager susManagerRef;
 
     [Header("Tripwire Variables")]
-    [SerializeField] [Range(0, 50)] private float callRadius;
+    [Tooltip("Radius in which guards can be  'called'  by the camera")]
+    [SerializeField] [Range (0, 50)] private float callRadius;
+
+    [Tooltip("Radius in which guards can be  'called'  by the camera")]
+    [SerializeField] [Range (0, 100)]private float maxDistance = 60;
+
+    
+    [SerializeField] [Range (0, 7)] private int layerMask = 0 >> 7;
+
 
     [Header("Particle Vars")]
     [SerializeField] private ParticleSystem laserVFX;
     private float startLFTM = 90;
 
 
+    //References the "Suspicion Manager" object in the scene
+    [HideInInspector] private GameObject susManagerOBJ;
+    //References the "SuspcionManager.cs" script found on the "Suspicion Manager" object
+    [HideInInspector] private SuspicionManager susManagerRef;
 
+    #endregion Variables
 
     #region Awake & Update
 
@@ -56,11 +71,11 @@ public class TripwireManager : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, initialHitRecord);
 
-        print($"Distance = {distance}");
+        //print($"Distance = {distance}");
 
         startLFTM = distance;
 
-        print($"startLFTM = {startLFTM}");
+        //print($"startLFTM = {startLFTM}");
 
         //Hit instance of the raycast
         RaycastHit hit;
@@ -71,9 +86,10 @@ public class TripwireManager : MonoBehaviour
         //Visualization of the made ray (visible in the scene view)
         Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.magenta);
 
+        float initHitDistance = Vector3.Distance(transform.position, initialHitRecord);
 
         //Logic for handling ray collision
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, initHitDistance))
         {
             if (hit.point != initialHitRecord)
             {
@@ -81,8 +97,7 @@ public class TripwireManager : MonoBehaviour
                 if (!hit.collider.gameObject.CompareTag("Guard"))
                 {
                     //Add logic for what to do when an object that isn't the guard sets off the alarm / tripwire
-                    print(hit.collider.gameObject.name);
-
+                    //print(hit.collider.gameObject.name);
 
                     //Always generate the guard list before alerting guards
                     susManagerRef.GenGuardList();
@@ -90,8 +105,6 @@ public class TripwireManager : MonoBehaviour
                     susManagerRef.AlertGuards(hit.point, transform.position, callRadius);
                 }
             }
-
-
         }
     }
 
@@ -103,14 +116,14 @@ public class TripwireManager : MonoBehaviour
 
     //---------------------------------//
     //Draws Gizmos / shapes in editor
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.forward);
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawRay(transform.position, transform.forward);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, callRadius);
-    }//End OnDrawGizmos
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, callRadius);
+    //}//End OnDrawGizmos
 
     //---------------------------------//
     //Used on the Awake() function to initialize any values in one line
@@ -120,10 +133,14 @@ public class TripwireManager : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
 
         //Logic for handlin ray collision
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance /*layerMask*/))
         {
             //Records the initial hit point of the raycast
             initialHitRecord = hit.point;
+        }
+        else
+        {
+            print("Either the distance or the layer mask is broken");
         }
 
         //Note: This method of referencing the suspicion manager is stupid and I should find a way to do it in one line
@@ -133,18 +150,12 @@ public class TripwireManager : MonoBehaviour
         //creates a direct reference to the suspicion manager script
         susManagerRef = susManagerOBJ.GetComponent<SuspicionManager>();
 
-        //laserVFX = GetComponentInChildren<ParticleSystem>();
-
-        //print($"LaserVFX = {laserVFX}");
-
         var main = laserVFX.main;
-
-        //print($"Main = {main}");
 
         main.startLifetime = startLFTM;
 
-        //print($"startLFTM = {main.startLifetime}");
-        //laserVFX = GetComponentInChildren<ParticleSystem>;
+        layerMask = ~LayerMask.GetMask("Wall"); //get the wall
+
     }
 
     #endregion General Functions
