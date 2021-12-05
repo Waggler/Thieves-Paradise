@@ -65,6 +65,9 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private int backgroundThreeIndex;
     [SerializeField] private int backgroundFourIndex;
 
+    private bool isResponding;
+    private Response currentResponse;
+
 
     #endregion Components
 
@@ -210,8 +213,9 @@ public class NarrativeUIManager : MonoBehaviour
     public void StartResponse(Response response)
     //-----------------------//
     {
-        speakerText.text = response.responseSpeaker;
+        isResponding = true;
 
+        currentResponse = response;
         if (sentences != null)
         {
             sentences.Clear();
@@ -230,7 +234,7 @@ public class NarrativeUIManager : MonoBehaviour
 
 
     //-----------------------//
-    public void DisplayNextSentence()
+    public void DisplayNextResponseSentence(Response response)
     //-----------------------//
     {
         if (sentences.Count == 0)
@@ -245,6 +249,29 @@ public class NarrativeUIManager : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
+
+    }//END DisplayNextSentence
+
+
+    //-----------------------//
+    public void DisplayNextSentence()
+    //-----------------------//
+    {
+        if (sentences.Count == 0)
+        {
+
+            EndDialogue();
+
+            return;
+        }
+
+        string sentence = sentences.Dequeue();
+
+        StopAllCoroutines();
+
+            StartCoroutine(TypeSentence(sentence));
+
+        
 
     }//END DisplayNextSentence
 
@@ -264,7 +291,7 @@ public class NarrativeUIManager : MonoBehaviour
         else
         {
 
-
+            isResponding = false;
             dialogueManager.currentDialogueIndex++;
 
 
@@ -276,6 +303,12 @@ public class NarrativeUIManager : MonoBehaviour
 
     }//END EndDialogue
 
+    public void IncremenetResponse()
+    {
+        speakerText.text = currentResponse.responseSpeaker[currentResponse.responseID];
+        currentResponse.responseID++;
+    }
+
 
     #endregion Methods
 
@@ -285,6 +318,12 @@ public class NarrativeUIManager : MonoBehaviour
 
     IEnumerator TypeSentence(string sentence)
     {
+
+        if (isResponding)
+        {
+            IncremenetResponse();
+        }
+
         dialogueText.text = "";
         bool skipDelimiter = false;
         foreach (char letter in sentence.ToCharArray())
@@ -311,6 +350,39 @@ public class NarrativeUIManager : MonoBehaviour
 
         }
     }
+
+    /*
+    IEnumerator TypeResponse(Response response, string sentence)
+    {
+        speakerText.text = response.responseSpeaker[response.responseID];
+        response.responseID++;
+
+        dialogueText.text = "";
+        bool skipDelimiter = false;
+        foreach (char letter in sentence.ToCharArray())
+        {
+
+            if (letter == '<')
+            {
+                skipDelimiter = true;
+            }
+            if (!skipDelimiter)
+            {
+                dialogueText.text += letter;
+                yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
+            }
+            else
+            {
+                dialogueText.text += letter;
+            }
+
+            if (letter == '>')
+            {
+                skipDelimiter = false;
+            }
+
+        }
+    }*/
 
 
     #endregion

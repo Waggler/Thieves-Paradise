@@ -36,6 +36,7 @@ public class Choice
 public class Response
 {
     public string[] responseOption;
-    public string responseSpeaker;
-    public int responseId;
+    public string[] responseSpeaker;
+    public int choiceReferenceId;
+    [HideInInspector]public int responseID;
 }
