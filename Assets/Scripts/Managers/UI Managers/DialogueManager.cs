@@ -10,10 +10,6 @@ public class DialogueManager : MonoBehaviour
     public Dialogue[] dialogue;
     public int currentDialogueIndex;
 
-    public int characterOneCurrentSpriteIndex;
-    public int characterTwoCurrentSpriteIndex;
-    public int backgroundCurrentSpriteIndex;
-
     //-----------------------//
     private void Start()
     //-----------------------//

@@ -43,27 +43,14 @@ public class NarrativeUIManager : MonoBehaviour
 
     [Header("Images")]
     [SerializeField] private Image portrait1Image;
-    [SerializeField] private Sprite[] portrait1ImageList;
+    //[SerializeField] private Sprite[] portrait1ImageList;
 
     [SerializeField] private Image portrait2Image;
-    [SerializeField] private Sprite[] portrait2ImageList;
+    //[SerializeField] private Sprite[] portrait2ImageList;
 
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite[] backgroundImageList;
 
-    [SerializeField] private int rightCharacterOneIntroIndex;
-    [SerializeField] private int rightCharacterTwoIntroIndex;
-    [SerializeField] private int rightCharacterThreeIntroIndex;
-    [SerializeField] private int rightCharacterFourIntroIndex;
-    [SerializeField] private int leftCharacterOneIntroIndex;
-    [SerializeField] private int leftCharacterTwoIntroIndex;
-    [SerializeField] private int leftCharacterThreeIntroIndex;
-    [SerializeField] private int leftCharacterFourIntroIndex;
-
-    [SerializeField] private int backgroundOneIndex;
-    [SerializeField] private int backgroundTwoIndex;
-    [SerializeField] private int backgroundThreeIndex;
-    [SerializeField] private int backgroundFourIndex;
 
     private bool isResponding;
     private Response currentResponse;
@@ -99,95 +86,15 @@ public class NarrativeUIManager : MonoBehaviour
     #region Methods
 
 
-    //--------------------------//
-    public void ChangeLeftPortrait()
-    //--------------------------//
-    {
-
-        if (dialogueManager.currentDialogueIndex == leftCharacterOneIntroIndex) 
-        {
-            portrait1Image.sprite = portrait1ImageList[0];
-
-        }
-        if (dialogueManager.currentDialogueIndex == leftCharacterTwoIntroIndex) 
-        {
-            portrait1Image.sprite = portrait1ImageList[1];
-
-        }
-        if (dialogueManager.currentDialogueIndex == leftCharacterThreeIntroIndex)
-        {
-            portrait1Image.sprite = portrait1ImageList[2];
-
-        }
-        if (dialogueManager.currentDialogueIndex == leftCharacterFourIntroIndex)
-        {
-            portrait1Image.sprite = portrait1ImageList[3];
-
-        }
-
-    }//END ChangeLeftPortrait
-
-    //--------------------------//
-    public void ChangeRightPortrait()
-    //--------------------------//
-    {
-
-        if (dialogueManager.currentDialogueIndex == rightCharacterOneIntroIndex)
-        {
-            portrait2Image.sprite = portrait2ImageList[0];
-
-        }
-        if (dialogueManager.currentDialogueIndex == rightCharacterTwoIntroIndex)
-        {
-            portrait2Image.sprite = portrait2ImageList[1];
-
-        }
-        if (dialogueManager.currentDialogueIndex == rightCharacterThreeIntroIndex)
-        {
-            portrait2Image.sprite = portrait2ImageList[2];
-
-        }
-        if (dialogueManager.currentDialogueIndex == rightCharacterFourIntroIndex)
-        {
-            portrait2Image.sprite = portrait2ImageList[3];
-
-        }
-
-    }//END ChangeRightPortrait
-
-    //--------------------------//
-    public void ChangeBackground()
-    //--------------------------//
-    {
-
-        if (dialogueManager.currentDialogueIndex == backgroundOneIndex)
-        {
-            backgroundImage.sprite = backgroundImageList[0];
-
-        }
-        if (dialogueManager.currentDialogueIndex == backgroundTwoIndex)
-        {
-            backgroundImage.sprite = backgroundImageList[1];
-
-        }
-        if (dialogueManager.currentDialogueIndex == backgroundThreeIndex)
-        {
-            backgroundImage.sprite = backgroundImageList[2];
-
-        }
-        if (dialogueManager.currentDialogueIndex == backgroundFourIndex)
-        {
-            backgroundImage.sprite = backgroundImageList[3];
-
-        }
-
-    }//END ChangeRightPortrait
-
     //-----------------------//
     public void StartDialogue(Dialogue dialogue)
     //-----------------------//
     {
         speakerText.text = dialogue.characterName;
+
+        portrait1Image.sprite = dialogue.characterOneSprite;
+        portrait2Image.sprite = dialogue.characterTwoSprite;
+
 
         if (sentences != null)
         {
