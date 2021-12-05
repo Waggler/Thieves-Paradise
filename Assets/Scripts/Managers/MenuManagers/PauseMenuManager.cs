@@ -46,9 +46,15 @@ public class PauseMenuManager : MonoBehaviour
     }//END Update
 
     //-----------------------//
-    void PauseGame()
+    public void PauseGame()
     //-----------------------//
     {
+        if (isGamePaused)
+        {
+            ResumeGame();
+            return;
+        }
+        
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
         photoScreen.SetActive(false);
