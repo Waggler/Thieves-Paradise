@@ -9,6 +9,9 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private AudioSource playerSource;
     [SerializeField] private AudioSource struggleSource;
 
+    [SerializeField] private float noiseLevelOneVolume;
+    [SerializeField] private float noiseLevelTwoVolume;
+    [SerializeField] private float noiseLevelThreeVolume;
 
     [SerializeField] private float pitchMin;
     [SerializeField] private float pitchMax;
@@ -30,7 +33,7 @@ public class PlayerAudio : MonoBehaviour
     public void WalkingFootStep()
     //-----------------------//
     {
-        playerSource.volume = 0.005f;
+        playerSource.volume = noiseLevelOneVolume;
         int i = Random.Range(0, walkClips.Length);
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(walkClips[i]);
@@ -42,7 +45,7 @@ public class PlayerAudio : MonoBehaviour
     public void RunningFootStep()
     //-----------------------//
     {
-        playerSource.volume = 0.015f;
+        playerSource.volume = noiseLevelThreeVolume;
         int i = Random.Range(0, runClips.Length);
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(runClips[i]);
@@ -54,7 +57,7 @@ public class PlayerAudio : MonoBehaviour
     public void VentFootStep()
     //-----------------------//
     {
-        playerSource.volume = 0.015f;
+        playerSource.volume = noiseLevelOneVolume;
         int i = Random.Range(0, ventClips.Length);
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(ventClips[i]);
@@ -66,6 +69,7 @@ public class PlayerAudio : MonoBehaviour
     public void BeginStruggle()
     //-----------------------//
     {
+        struggleSource.volume = noiseLevelThreeVolume;
         struggleSource.Play();
 
     }//END BeginStruggle
@@ -74,6 +78,7 @@ public class PlayerAudio : MonoBehaviour
     public void EndStruggle()
     //-----------------------//
     {
+        struggleSource.volume = noiseLevelThreeVolume;
         struggleSource.Stop();
 
     }//END BeginStruggle
@@ -82,7 +87,7 @@ public class PlayerAudio : MonoBehaviour
     public void Slide()
     //-----------------------//
     {
-        playerSource.volume = .02f;
+        playerSource.volume = noiseLevelTwoVolume;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(slideClip);
 
@@ -92,7 +97,7 @@ public class PlayerAudio : MonoBehaviour
     public void Dive()
     //-----------------------//
     {
-        playerSource.volume = 0.015f;
+        playerSource.volume = noiseLevelThreeVolume;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(diveClip);
 
@@ -102,7 +107,7 @@ public class PlayerAudio : MonoBehaviour
     public void Roll()
     //-----------------------//
     {
-        playerSource.volume = 0.005f;
+        playerSource.volume = noiseLevelOneVolume;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(rollClip);
 
