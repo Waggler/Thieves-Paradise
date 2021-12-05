@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variables
     [Header("Movement")]
+    public int hp;
     [SerializeField] private float WalkingSpeed;
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
@@ -94,7 +95,9 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("This is for the total time the player will remained stuned with no action taken")]
     [SerializeField] private float StunTime;
     [Tooltip("This is the value that will be added when the player tries to shake off a stun.")]
-    [SerializeField] private float BreakOutValue;
+    public float BreakOutValue;
+    public float BreakOutCounter;
+    [SerializeField] private float BreakOutThreshold;
     public bool IsStunned = false;
     public float CurrentStunTime = 0;
 
@@ -204,10 +207,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
-        else if (IsStunned)
-        {
-            CurrentStunTime += BreakOutValue;
-        }
 
         //Setting Roll Direction for rolling, diving, and sliding.
         if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
@@ -289,7 +288,25 @@ public class PlayerMovement : MonoBehaviour
             canMove = false;
             CurrentStunTime += Time.deltaTime;
 
-            if (CurrentStunTime >= StunTime)
+            if (BreakOutCounter >= BreakOutThreshold)
+            {
+                Collider[] hitColliders = Physics.OverlapSphere(playerCollider.transform.position, 10f, 1 << 8);
+                foreach (Collider collider in hitColliders)
+                {
+                    if (collider.GetComponent<EnemyManager>() != null)
+                    {
+                        collider.GetComponent<EnemyManager>().isStunned = true;
+                    }
+
+                }
+                IsStunned = false;
+                StartCoroutine(IBreakFreeDelay());
+                CurrentStunTime = 0;
+                BreakOutCounter = 0;
+                hp -= 1;
+            }
+
+            else if (CurrentStunTime >= StunTime)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(playerCollider.transform.position, 10f, 1 << 8);
                 foreach (Collider collider in hitColliders)
@@ -303,6 +320,8 @@ public class PlayerMovement : MonoBehaviour
                 IsStunned = false;
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
+                BreakOutCounter = 0;
+                hp -= 1;
             }
         }
 
