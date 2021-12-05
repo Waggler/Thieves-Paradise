@@ -347,7 +347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &162811382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -365,9 +365,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -245}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &235460358
@@ -1090,85 +1090,600 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
   dialogue:
-  - characterName: ChoclateSailor
-    characterImage: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+  - characterName: Narration
+    characterImage: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     sentences:
-    - Now, <color=blue>Billy</color=blue>, this a very special assortment of enchanted
-      choclates. You must choose only one
-    - But choose wisely, Billy, for only one contains the antidote. Will it be...
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    isChoice: 1
-    choices:
-    - choiceOption: Caustic Caramel
-      choiceId: 0
-    - choiceOption: Horrific Hazelnut
-      choiceId: 1
-    - choiceOption: Mutating Marshmellow
-      choiceId: 2
-    - choiceOption: Antidote
-      choiceId: 3
-    - choiceOption: Eat Them All!
-      choiceId: 4
-    responses:
-    - responseOption:
-      - Get absolutely pranked
-      - Bingus!!!
-      responseSpeaker: God
-      responseId: 0
-    - responseOption:
-      - Will why did you screw up the rects!!
-      - I HURT ME!!!
-      responseSpeaker: God
-      responseId: 1
-    - responseOption:
-      - We're no strangers to love You know the rules and so do I A full commitment's
-        what I'm thinking of You wouldn't get this from any other guy I just wanna
-        tell you how I'm feeling Gotta make you understand Never gonna give you up
-        Never gonna let you down Never gonna run around and desert you Never gonna
-        make you cry Never gonna say goodbye Never gonna tell a lie and hurt you
-        We've known each other for so long Your heart's been aching but you're too
-        shy to say it Inside we both know what's been going on We know the game and
-        we're gonna play it And if you ask me how I'm feeling Don't tell me you're
-        too blind to see Never gonna give you up Never gonna let you down Never gonna
-        run around and desert you Never gonna make you cry Never gonna say goodbye
-        Never gonna tell a lie and hurt you Never gonna give you up Never gonna let
-        you down Never gonna run around and desert you Never gonna make you cry Never
-        gonna say goodbye Never gonna tell a lie and hurt you Never gonna give, never
-        gonna give (Give you up)
-      - 'We''ve known each other for so long Your heart''s been aching but you''re
-        too shy to say it Inside we both know what''s been going on We know the game
-        and we''re gonna play it I just wanna tell you how I''m feeling Gotta make
-        you understand Never gonna give you up Never gonna let you down Never gonna
-        run around and desert you Never gonna make you cry Never gonna say goodbye
-        Never gonna tell a lie and hurt you Never gonna give you up Never gonna let
-        you down Never gonna run around and desert you Never gonna make you cry Never
-        gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you
-        up Never gonna let you down Never gonna run around and desert you Never gonna
-        make you cry Never gonna say goodbye Source: Musixmatch'
-      responseSpeaker: God
-      responseId: 2
-    - responseOption:
-      - Help me, I've been held to code at gunpoint
-      - please send help. Oh wait I hear them coming. Oh god oh FUCK OH FUCK GET
-        AW
-      responseSpeaker: Kevin
-      responseId: 3
-    - responseOption:
-      - Great gobs!
-      - No one has ever eaten the whole danged assortment!
-      responseSpeaker: ChoclateSailor
-      responseId: 4
-  - characterName: God
-    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
-    sentences:
-    - That was crazy...
-    - You've witnessed too much. BEGONE!
+    - '*After your heist, you show up back to Borgar at the agreed meeting time.*'
+    - '*Your fears that she might have ghosted you disappear as you walk through
+      the door, and see the Lady sitting in the same booth, checking on her phone
+      and looking very impatient.*'
+    - "*You approach her table and let out a small whistle to get her attention.*\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     isChoice: 0
     choices: []
     responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    sentences: []
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*You place a bag containing the perfume onto the table. The Lady takes a look
+      inside to confirm that is what she asked for.*'
+    - '*She is surprised to see the bottle of perfume she asked for inside.*
+
+'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201COh? You actually did manage to bring back what I wanted? This isn\u2019t
+      a joke, right?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*The Lady picks up the bottle and examines it, before spritzing the bottle
+      into the air to confirm that it is even the scent she likes.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - '"It would be an honor!"'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*You take the seat across from her at her table*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Choice
+    characterImage: {fileID: 0}
+    sentences:
+    - '*You take the seat across from her at her table*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - "*As you are about to speak up, the Lady\u2019s phone begins ringing.*"
+    - "*She gestures for you to wait a moment, as she answers her call and addresses
+      her friend she was speaking to when you overheard yesterday.*\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201CHey! How\u2019s it going? I\u2019m doing great! I actually managed to
+      get a bottle of the perfume I needed just in time for tonight! What do you
+      mean you have bad news?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*The Lady stands out of her seat, and shouts into her phone*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    sentences:
+    - "\u201CWhat do you mean she\u2019s wearing a red dress! She knew that I was
+      already coming with one! I can\u2019t stand out if people think our dresses
+      look too similar!\""
+    - "\"Where am I supposed to find a new designer dress by tomorrow!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*You point your finger at yourself, until the Lady notices*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201CLet me call you back later\u2026 I might have an idea.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*The Lady places her phone away*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    sentences:
+    - "\u201CApologies for that, but as you may have heard, a \u2018friend\u2019
+      of mine was going to be wearing a RED dress similar to the one I was planning
+      on attending with.\""
+    - "\"So now I need to procure a new one before the charity event.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    sentences:
+    - "\u201CWell that\u2019s already something that I can help you with. If you
+      need a fancy new dress, I can spare you one of mine.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201CI would be very thankful if you did that for me! Any fine dress will
+      do, as long as it isn\u2019t RED.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    sentences:
+    - "\u201CYou have my word. I\u2019ll bring you the nicest dress I can find, as
+      long as you come here to pick it up tomorrow!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201CGreat, I\u2019ll see you then!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
+  - characterName: Narration
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - '*The Lady heads out the door, leaving you alone. Once again, you find yourself
+      making a promise with the only way to keep it being to steal what you need.*'
+    - "*It\u2019s time to head back in to shopping world and get the Lady what she
+      wants*\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: You
+      responseId: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: You
+      responseId: 1
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: You
+      responseId: 2
   currentDialogueIndex: 0
 --- !u!4 &558106689
 Transform:
@@ -2150,7 +2665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &907849301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2168,9 +2683,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -175}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &945366142
@@ -3776,7 +4291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1558279394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3794,9 +4309,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -35}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1594310714
@@ -3946,7 +4461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1698581077
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3964,9 +4479,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -315}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1757380225
@@ -4314,7 +4829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1977593600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4332,9 +4847,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -105}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2016748344

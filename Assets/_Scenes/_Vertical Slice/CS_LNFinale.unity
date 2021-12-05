@@ -347,7 +347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &162811382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -365,9 +365,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -175}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &235460358
@@ -1090,80 +1090,264 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
   dialogue:
-  - characterName: ChoclateSailor
-    characterImage: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
+  - characterName: Narration
+    characterImage: {fileID: 0}
     sentences:
-    - Now, <color=blue>Billy</color=blue>, this a very special assortment of enchanted
-      choclates. You must choose only one
-    - But choose wisely, Billy, for only one contains the antidote. Will it be...
+    - '*With the necklace in tow, you return to Borgar one final time to speak to
+      the Lady. You walk up to her table and greet her as usual.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    isChoice: 1
-    choices:
-    - choiceOption: Caustic Caramel
-      choiceId: 0
-    - choiceOption: Horrific Hazelnut
-      choiceId: 1
-    - choiceOption: Mutating Marshmellow
-      choiceId: 2
-    - choiceOption: Antidote
-      choiceId: 3
-    - choiceOption: Eat Them All!
-      choiceId: 4
-    responses:
-    - responseOption:
-      - Get absolutely pranked
-      - Bingus!!!
-      responseSpeaker: God
-      responseId: 0
-    - responseOption:
-      - Will why did you screw up the rects!!
-      - I HURT ME!!!
-      responseSpeaker: God
-      responseId: 1
-    - responseOption:
-      - We're no strangers to love You know the rules and so do I A full commitment's
-        what I'm thinking of You wouldn't get this from any other guy I just wanna
-        tell you how I'm feeling Gotta make you understand Never gonna give you up
-        Never gonna let you down Never gonna run around and desert you Never gonna
-        make you cry Never gonna say goodbye Never gonna tell a lie and hurt you
-        We've known each other for so long Your heart's been aching but you're too
-        shy to say it Inside we both know what's been going on We know the game and
-        we're gonna play it And if you ask me how I'm feeling Don't tell me you're
-        too blind to see Never gonna give you up Never gonna let you down Never gonna
-        run around and desert you Never gonna make you cry Never gonna say goodbye
-        Never gonna tell a lie and hurt you Never gonna give you up Never gonna let
-        you down Never gonna run around and desert you Never gonna make you cry Never
-        gonna say goodbye Never gonna tell a lie and hurt you Never gonna give, never
-        gonna give (Give you up)
-      - 'We''ve known each other for so long Your heart''s been aching but you''re
-        too shy to say it Inside we both know what''s been going on We know the game
-        and we''re gonna play it I just wanna tell you how I''m feeling Gotta make
-        you understand Never gonna give you up Never gonna let you down Never gonna
-        run around and desert you Never gonna make you cry Never gonna say goodbye
-        Never gonna tell a lie and hurt you Never gonna give you up Never gonna let
-        you down Never gonna run around and desert you Never gonna make you cry Never
-        gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you
-        up Never gonna let you down Never gonna run around and desert you Never gonna
-        make you cry Never gonna say goodbye Source: Musixmatch'
-      responseSpeaker: God
-      responseId: 2
-    - responseOption:
-      - Help me, I've been held to code at gunpoint
-      - please send help. Oh wait I hear them coming. Oh god oh FUCK OH FUCK GET
-        AW
-      responseSpeaker: Kevin
-      responseId: 3
-    - responseOption:
-      - Great gobs!
-      - No one has ever eaten the whole danged assortment!
-      responseSpeaker: ChoclateSailor
-      responseId: 4
-  - characterName: God
-    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     sentences:
-    - That was crazy...
-    - You've witnessed too much. BEGONE!
+    - "\u201CYou\u2019re finally here! How are you doing?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - "\u201CI\u2019m doing great, and I hope you are as well!\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201CI just got done with my final preparations for tonight, and I made sure
+      to save a little time to come meet you here today.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - "\u201CWell I\u2019m glad I made it just in time, and don\u2019t think I forgot
+      about the gift.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*You present the necklace box to the Lady. She opens the box and stares at
+      the necklace in wonder*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201COh my\u2026 this is beautiful\u2026\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 0}
+    sentences:
+    - "\u201CI spared no expense on getting you the finest necklace I could find!
+      You shouldn\u2019t have much trouble stealing the show while wearing that!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201CI\u2019m at a loss for words just looking at it now\u2026\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - "\u201CI wanted to make sure you had something nice for tonight, and it looks
+      like I did my job well.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201CThis is so much more than I ever could have imagined\u2026 Thank you.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - "\u201CIt was the least I could do, after all you actually stuck around here
+      to talk to me these past few days.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201CUsually men just come to ask me out, but you actually took the time
+      yourself to listen to my problems and help me out.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - "\u201CWell if you want, we can always talk more once you can relax after the
+      charity event.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - "\u201CWell if you want, we can always talk more once you can relax after the
+      charity event.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - "\u201CI\u2019m afraid that won\u2019t be possible for me in the near future\u2026\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    sentences:
+    - "\u201CDid I do something wrong?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201COh heavens no! It\u2019s just that talking to you has made me realize
+      that it\u2019s time I step out into the world on my own.\""
+    - "\"I really would like to accept your offer, however it\u2019s simply not the
+      time for me to be worrying about finding love.\u201D\r\n"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*You chuckle to yourself before smiling back at the Lady*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - "\u201CI was worried I had done something to upset you. But, hearing that makes
+      me happy for you.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*The Lady checks her phone and sighs*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    sentences:
+    - "\u201CMy driver is bugging me to head out now, apologies.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - "\u201CIt\u2019s all good, have a good time tonight!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - '*You and the Lady both got to stand up at the same time, but she quickly moves
+      toward you and gives you a hug.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    characterImage: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    sentences:
+    - "\u201CThank you for helping me realize my future. I won\u2019t hesitate to
+      give you a call if I need help for anything.\""
+    - "\"Maybe once I figure some things out we can meet each other like this again.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    characterImage: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    sentences:
+    - "\u201CI\u2019d like that. Hopefully your driver won\u2019t interrupt then.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    characterImage: {fileID: 0}
+    sentences:
+    - "*The Lady laughs a bit before gathering her things heading out for the last
+      time. You\u2019re happy for her, but at the same time sad that it ended this
+      way.*"
+    - "*You think that maybe if you had the suit, things would have ended differently.\r*\n"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     isChoice: 0
@@ -2150,7 +2334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &907849301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2168,9 +2352,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -58.333336}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &945366142
@@ -3776,7 +3960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1558279394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3794,9 +3978,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -35}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1594310714
@@ -3946,7 +4130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1698581077
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3964,9 +4148,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -291.6667}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1757380225
@@ -4314,7 +4498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1977593600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4332,9 +4516,9 @@ RectTransform:
   m_Father: {fileID: 323751315}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -43.75}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2016748344
