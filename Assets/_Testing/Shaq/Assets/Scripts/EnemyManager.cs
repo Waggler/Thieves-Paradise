@@ -298,6 +298,8 @@ public class EnemyManager : MonoBehaviour
 
     private bool surpriseVFXBoolCheck;
 
+    private float eyeballSightRangeRecord;
+
     #endregion
 
     #region Awake & Update
@@ -688,15 +690,23 @@ public class EnemyManager : MonoBehaviour
 
             #region Stunned Behavior
             case EnemyStates.STUNNED:
-                
+
+                guardAnim.EnterStunAnim();
 
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(stunSpeed);
 
+                target = transform.position;
+
+                SetAIDestination(target);
+
+                eyeball.susLevel = 0;
+
                 //experimenting with Time.fixedDeltaTime & Time.deltaTime
                 stunTime -= Time.deltaTime;
 
+                eyeball.sightRange = 0;
 
                 //Exit Condition
                 if (stunTime <= 0)
@@ -716,6 +726,8 @@ public class EnemyManager : MonoBehaviour
 
                     //after changing states, the stun time returns to the initially recorded time
                     stunTime = stunTimeReset;
+
+                    eyeball.sightRange = eyeballSightRangeRecord;
                 }
                 break;
             #endregion Stunned Behavior
@@ -791,6 +803,8 @@ public class EnemyManager : MonoBehaviour
         }
 
         oneTimeUseTimerReset = oneTimeUseTimer;
+
+        eyeballSightRangeRecord = eyeball.sightRange;
 
     }//End Init
 

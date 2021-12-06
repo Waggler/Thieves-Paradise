@@ -123,7 +123,11 @@ public class GuardAnimatorScript : MonoBehaviour
 
     public void EnterStunAnim()
     {
+        anim.SetBool("isHostile", false);
+        anim.SetBool("isSuspicious", false);
+        anim.SetBool("isSearching", false);
         anim.SetBool("isStunned", true);
+
     }
 
 
