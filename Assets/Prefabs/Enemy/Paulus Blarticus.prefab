@@ -626,8 +626,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d1db55617854c46ba6cc599bedf958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 5
-  maxVisionAngle: 38.3
+  sightRange: 11.93
+  maxVisionAngle: 36.5
   susGrowthMultiplier: 4
   susDecreaseMultiplier: 1
   sightAngle: 0
@@ -904,9 +904,9 @@ AudioSource:
   m_GameObject: {fileID: 3325092847374484679}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 4811569767427667623, guid: 26540bb816a2f4e45b9a60fcc4b052be, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 21a03755c58e2af479c27b9ebacadf7f, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1256,7 +1256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255b1ce6c57b1544fa4c776510864d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardSource: {fileID: 0}
+  guardSource: {fileID: 8697056619069672712}
   normalVolume: 0.55
   loudVolume: 0.9
   pitchMin: 0.85
