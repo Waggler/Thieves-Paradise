@@ -66,6 +66,7 @@ public class NarrativeUIManager : MonoBehaviour
     void Start()
     //--------------------------//
     {
+        Cursor.lockState = CursorLockMode.None;
         Init();
 
     }//END Start

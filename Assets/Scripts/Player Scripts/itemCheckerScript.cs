@@ -4,16 +4,18 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 
 public class itemCheckerScript : MonoBehaviour
 {
+    public string sceneNameToLoad;
     public string keyItemName;
-    public TextMeshProUGUI checkText;
+    //public TextMeshProUGUI checkText;
     // Start is called before the first frame update
     void Start()
     {
-        checkText.text = "Have " + keyItemName + "?";
+        //checkText.text = "Have " + keyItemName + "?";
     }
 
     // Update is called once per frame
@@ -30,22 +32,22 @@ public class itemCheckerScript : MonoBehaviour
             print("touched player!");
             if(other.gameObject.GetComponent<InventoryController>().CheckHasItem(keyItemName))
             {
-                checkText.text = "Have " + keyItemName + "? Yes!";
+                //checkText.text = "Have " + keyItemName + "? Yes!";
                 GoToWinScreen();
             }else
             {
-                checkText.text = "Have " + keyItemName + "? No...";
+                //checkText.text = "Have " + keyItemName + "? No...";
             }
 
         }
     }
     private void OnTriggerExit()
     {
-        checkText.text = "Have " + keyItemName + "?";
+        //checkText.text = "Have " + keyItemName + "?";
     }
 
     private void GoToWinScreen()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(sceneNameToLoad);
     }
 }

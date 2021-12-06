@@ -24,9 +24,14 @@ public class DevPauseHandler : MonoBehaviour
     }//END Update
 
     //-----------------------//
-    void PauseGame()
+    public void PauseGame()
     //-----------------------//
     {
+        if (Time.timeScale == 0)
+        {
+            ResumeGame();
+            return;
+        }
         Time.timeScale = 0f;
 
     }//END PauseGame

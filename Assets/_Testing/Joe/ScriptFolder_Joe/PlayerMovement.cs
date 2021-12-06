@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Your jump height when you dive.")]
     [SerializeField] private float DiveHeight;
     public CapsuleCollider playerCollider;
-    [SerializeField] private CharacterController Controller;
+    [SerializeField] public CharacterController Controller;
     [SerializeField] private bool IsGrounded = true;
     private float HeightFromGround;
     private float CrouchingHeightFromGround;
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sliding")]
     [Tooltip("The speed at which you decrese down to slide.")]
     [SerializeField] private float Deceleration;
-    [SerializeField] private bool IsSliding;
+    [SerializeField] public bool IsSliding;
 
     [Header("Diving")]
     [Tooltip("How far you dive.")]
@@ -299,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
             canMove = false;
             CurrentStunTime += Time.deltaTime;
 
-            if (BreakOutCounter >= BreakOutThreshold)
+            if (BreakOutCounter >= BreakOutThreshold && hp >= 1)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(playerCollider.transform.position, 10f, 1 << 8);
                 foreach (Collider collider in hitColliders)
@@ -317,22 +317,9 @@ public class PlayerMovement : MonoBehaviour
                 hp -= 1;
             }
 
-            else if (CurrentStunTime >= StunTime)
+            else if (CurrentStunTime >= StunTime || hp <= 0)
             {
-                Collider[] hitColliders = Physics.OverlapSphere(playerCollider.transform.position, 10f, 1 << 8);
-                foreach (Collider collider in hitColliders)
-                {
-                    if (collider.GetComponent<EnemyManager>() != null)
-                    {
-                        collider.GetComponent<EnemyManager>().isStunned = true;
-                    }
-                    
-                }
-                IsStunned = false;
-                StartCoroutine(IBreakFreeDelay());
-                CurrentStunTime = 0;
-                BreakOutCounter = 0;
-                hp -= 1;
+                FindObjectOfType<LoseScreenMenuManager>().LoseGame();
             }
         }
 
