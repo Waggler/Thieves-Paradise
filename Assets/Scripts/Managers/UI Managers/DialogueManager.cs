@@ -50,6 +50,9 @@ public class DialogueManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("endCredits", 1);
             }
+
+            Cursor.visible = false;
+
             levelManager.ChangeLevel(nextSceneIndex);
 
             //Debug.Log("DialogueIndex Exceeded Array Bounds");
