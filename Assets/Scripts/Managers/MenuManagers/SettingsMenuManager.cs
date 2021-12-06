@@ -58,7 +58,8 @@ public class SettingsMenuManager : MonoBehaviour
     void Init()
     //-----------------------//
     {
-        AddResolutions();
+        //AddResolutions();
+        SetFullScreen(true);
 
     }//END Init
 
