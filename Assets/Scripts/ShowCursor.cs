@@ -8,6 +8,7 @@ public class ShowCursor : MonoBehaviour
     void Start()
     {
         Cursor.visible = true;
+        PlayerPrefs.SetInt("InvertHorizontalToggle", 0);
 
     }
 
