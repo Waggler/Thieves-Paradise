@@ -31,6 +31,7 @@ public class ItemScript : ItemSuperScript, ItemInterface
             thrownNoiseRadius = noiseRadius;
 
         myself = this.gameObject;
+        myself.name = itemName;
     }
 
     // Update is called once per frame
@@ -42,7 +43,7 @@ public class ItemScript : ItemSuperScript, ItemInterface
     void OnCollisionEnter(Collision other)
     {
         print(this.gameObject.name + " hit something " + isThrown + " " + durability);
-        
+
         if (isThrown)
         {
             MakeNoise();
