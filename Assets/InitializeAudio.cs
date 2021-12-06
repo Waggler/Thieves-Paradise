@@ -17,9 +17,9 @@ public class InitializeAudio : MonoBehaviour
     void SetDefaultVolume()
     //-------------------------//
     {
-        PlayerPrefs.SetFloat("MasterAudio", -25);
-        PlayerPrefs.SetFloat("MusicAudio", -25);
-        PlayerPrefs.SetFloat("SFXAudio", -25);
+        PlayerPrefs.SetFloat("MasterAudio", 0);
+        PlayerPrefs.SetFloat("MusicAudio", 0);
+        PlayerPrefs.SetFloat("SFXAudio", 0);
 
         this.gameObject.SetActive(false);
 
