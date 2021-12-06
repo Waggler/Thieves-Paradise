@@ -44,6 +44,8 @@ public class CameraToggler : MonoBehaviour
 
         }
 
+        
+
     }
 
     public void InvertX()
