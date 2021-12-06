@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
         currentSceneIndex = currentScene.buildIndex;
 
         //sceneTransition.SetBool("isClosing", true);
-        sceneTransition.SetBool("isClosing", false);
+        //sceneTransition.SetBool("isClosing", false);
 
 
         previousSceneIndex = PlayerPrefs.GetInt("previousScene");
@@ -85,7 +85,7 @@ public class LevelManager : MonoBehaviour
     public IEnumerator IChangeScene()
     //-----------------------//
     {
-        sceneTransition.SetBool("isClosing", true);
+        //sceneTransition.SetBool("isClosing", true);
 
         yield return new WaitForSeconds(waitTime);
 
