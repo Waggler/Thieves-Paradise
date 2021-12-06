@@ -14,7 +14,7 @@ public class CameraToggler : MonoBehaviour
     void Awake()
     {
         vCam = (CinemachineFreeLook)FindObjectOfType(typeof(CinemachineFreeLook));
-        print(vCam.gameObject.name);
+        //print(vCam.gameObject.name);
 
     }
     void Start()
@@ -46,38 +46,33 @@ public class CameraToggler : MonoBehaviour
 
     }
 
-    public void InvertX(int value)
+    public void InvertX()
     {
-        if (value == 0)
+        vCam.m_XAxis.m_InvertInput = !vCam.m_XAxis.m_InvertInput;
+        
+
+        if (vCam.m_XAxis.m_InvertInput == false)
         {
             PlayerPrefs.SetInt("InvertHorizontalToggle", 0);
-            vCam.m_XAxis.m_InvertInput = false;
-
-        }
-        else if (value == 1)
+        }else
         {
             PlayerPrefs.SetInt("InvertHorizontalToggle", 1);
-            vCam.m_XAxis.m_InvertInput = true;
-
         }
 
+        print("Toggling X Camera " + vCam.m_XAxis.m_InvertInput);
     }//ENDInvertX
 
-    public void InvertY(int value)
+    public void InvertY()
     {
-        if (value == 0)
+        vCam.m_YAxis.m_InvertInput = !vCam.m_YAxis.m_InvertInput;
+
+        if (vCam.m_YAxis.m_InvertInput == false)
         {
             PlayerPrefs.SetInt("InvertVerticalToggle", 0);
-            vCam.m_YAxis.m_InvertInput = false;
-
-        }
-        else if (value == 1)
+        }else
         {
             PlayerPrefs.SetInt("InvertVerticalToggle", 1);
-            vCam.m_YAxis.m_InvertInput = true;
-
         }
-
     }//ENDInvertX
 
 }//END CameraToggler
