@@ -14,7 +14,7 @@ public class PuddleAppearScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer < 1f)
+        if (timer < 2f)
         {
             this.gameObject.transform.localScale = Vector3.one * Mathf.Lerp(0,1,timer);
             timer += Time.deltaTime * 5;

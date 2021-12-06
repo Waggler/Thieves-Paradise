@@ -180,6 +180,11 @@ public class InventoryController : MonoBehaviour
             print("Something is in the way");
             return;
         } */
+        
+        if (throwForce < 200)
+        {
+            throwForce = 200;
+        }
 
         //throw active item
         GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
