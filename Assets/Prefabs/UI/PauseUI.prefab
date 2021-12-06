@@ -2944,7 +2944,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2246062193512160051}
         m_TargetAssemblyTypeName: CameraToggler, Assembly-CSharp
         m_MethodName: InvertY
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9018,7 +9018,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2246062193512160051}
         m_TargetAssemblyTypeName: CameraToggler, Assembly-CSharp
         m_MethodName: InvertX
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -12249,7 +12249,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &2246062193460712363
 MonoBehaviour:
@@ -17184,7 +17184,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &2246062193758497476
 MonoBehaviour:
@@ -24287,7 +24287,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &2246062194041231678
 MonoBehaviour:
@@ -38521,7 +38521,7 @@ MonoBehaviour:
     m_ActionName: Player/DevPause[/Keyboard/p,/XInputControllerWindows/select,/XInputControllerWindows/select]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1001 &2246062193825771005
@@ -38578,6 +38578,10 @@ PrefabInstance:
     - target: {fileID: 3983442467371881454, guid: 35daed2dec54418468f823357085acdf, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881454, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35daed2dec54418468f823357085acdf, type: 3}
