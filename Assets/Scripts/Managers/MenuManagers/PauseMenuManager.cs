@@ -29,23 +29,6 @@ public class PauseMenuManager : MonoBehaviour
 
 
     //-----------------------//
-    //*private void Update()
-    //-----------------------//
-    //{
-       // if (Input.GetKeyDown(KeyCode.Tab))     //Remove this code once inputs are set up
-        //{
-            //if (isGamePaused == true)
-           // {
-            //    ResumeGame(); TEMPE WUZ HERE 0w0   >w<
-           // }
-           // else     
-           // {
-           //     PauseGame();   OwO    LOL! 
-           // }
-       // }
-    ////END Update*/
-
-    //-----------------------//
     public void PauseGame()
     //-----------------------//
     {
