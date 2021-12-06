@@ -42,17 +42,17 @@ public class GameController : MonoBehaviour
             gameControllerInstance.lastCheckPoint = playerTransform.position;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Insert))
         {
             Application.Quit();
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Return)) //Tempe wuz here
         {
             SaveCheckPoint();
         }
 
-        if (Input.GetKeyDown(KeyCode.CapsLock))
+        if (Input.GetKeyDown(KeyCode.Backspace)) //Cuz you go back in time
         {
             LoadCheckPoint();
         }
