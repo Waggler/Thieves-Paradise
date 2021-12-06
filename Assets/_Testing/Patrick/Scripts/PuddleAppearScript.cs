@@ -20,4 +20,17 @@ public class PuddleAppearScript : MonoBehaviour
             timer += Time.deltaTime * 5;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Guard"))
+        {
+            //Theoretically the guard
+            other.gameObject.GetComponent<EnemyManager>().stateMachine = EnemyManager.EnemyStates.STUNNED;
+
+            //References itself (The puddle in this case)
+            Destroy(gameObject);
+        }
+        
+    }
 }
