@@ -288,7 +288,9 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
 
-    [SerializeField] private GameObject playerTeleportLoc;
+    [SerializeField] private GameObject playerCaptureTeleportLoc;
+
+    [SerializeField] private GameObject playerReleaseTeleportLoc;
 
     private float oneTimeUseTimer = 2f;
 
@@ -596,9 +598,12 @@ public class EnemyManager : MonoBehaviour
                     {
                         guardAnim.EnterAttackAnim();
                         player.GetComponent<PlayerMovement>().IsStunned = true;
-                        player.transform.position = playerTeleportLoc.transform.position;
+                        player.transform.position = playerCaptureTeleportLoc.transform.position;
                         SetAIDestination(this.transform.position);
-                        //player.transform.SetParent(playerTeleportLoc.transform, false);
+
+
+                        //player.transform.SetParent(playerCaptureTeleportLoc.transform, false);
+
                         //HOSTILE >> ATTACK
                         stateMachine = EnemyStates.ATTACK;
                     }
@@ -609,8 +614,6 @@ public class EnemyManager : MonoBehaviour
                         audioSource.Play();
 
                         isAudioSourcePlaying = true;
-
-                        
                     }
                 }
 
@@ -646,10 +649,13 @@ public class EnemyManager : MonoBehaviour
                     guardAnim.ExitAttackAnim();
 
                     guardAnim.EnterStunAnim();
+
                     // ATTACK >>  STUNNED
                     stateMachine = EnemyStates.STUNNED;
 
-                    
+                    player.GetComponent<PlayerMovement>().IsStunned = false;
+                    player.transform.position = playerReleaseTeleportLoc.transform.position;
+
                 }
                 else if (Vector3.Distance(target, transform.position) > attackRadius && !isStunned)
                 {
@@ -682,6 +688,8 @@ public class EnemyManager : MonoBehaviour
 
             #region Stunned Behavior
             case EnemyStates.STUNNED:
+                
+
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(stunSpeed);
