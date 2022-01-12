@@ -43,7 +43,8 @@ public class EnemyManager : MonoBehaviour
     private enum CycleMethods
     {
         Cycle,
-        Reverse
+        Reverse,
+        Random
     }
 
     [Header("Waypoint Cycling")]
@@ -55,11 +56,11 @@ public class EnemyManager : MonoBehaviour
     #endregion Enumerations
 
     #region Waypoint Cycle Methods List
-    [SerializeField] private static readonly List<CycleMethods> Methods = new List<CycleMethods>
-    {
-        CycleMethods.Cycle,
-        CycleMethods.Reverse
-    };
+    //[SerializeField] private static readonly List<CycleMethods> Methods = new List<CycleMethods>
+    //{
+    //    CycleMethods.Cycle,
+    //    CycleMethods.Reverse
+    //};
     #endregion
 
     #region Waypoints Logic
@@ -113,6 +114,12 @@ public class EnemyManager : MonoBehaviour
                 SetAIDestination(target);
 
                 break;
+
+            case CycleMethods.Random:
+                print("Current cycling method is random");
+
+                break;
+
             default:
                 print("Cycling method not found \a");
                 break;
@@ -485,7 +492,7 @@ public class EnemyManager : MonoBehaviour
             case EnemyStates.SUSPICIOUS:
 
 
-                float searchLocCheck = .5f;
+                //float searchLocCheck = .5f;
 
                 guardAnim.EnterSusAnim();
 
@@ -509,9 +516,9 @@ public class EnemyManager : MonoBehaviour
 
                 #endregion New Behavior Notes
 
+
                 //To Do: Add a distance buffer for entering the search animation
                 //  - Might take a bit of refacotring
-
 
                 //Buffer timer
                 //Find a more efficient way of doing this
@@ -591,7 +598,7 @@ public class EnemyManager : MonoBehaviour
 
                     target = eyeball.lastKnownLocation;
 
-                    targetText.text = "Player";
+                    targetText.text = target.ToString();
 
                     //transform.position is being used because you cannot use Vector3 data when Transform is being called
                     SetAIDestination(target);
@@ -750,7 +757,7 @@ public class EnemyManager : MonoBehaviour
 
     #endregion Awake & Update
 
-    #region AI Functions
+    #region AI Methods
 
     //---------------------------------//
     //Called on Awake and initializes everything that is finalized and needs to be done at awake
@@ -805,6 +812,11 @@ public class EnemyManager : MonoBehaviour
         oneTimeUseTimerReset = oneTimeUseTimer;
 
         eyeballSightRangeRecord = eyeball.sightRange;
+
+        //if (player == null)
+        //{
+        //    player = GameObject.FindGameObjectWithTag("PlayerVisionTarget");
+        //}
 
     }//End Init
 
@@ -920,5 +932,5 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(2);
     }
 
-    #endregion AI Functions
+    #endregion AI Methods
 }

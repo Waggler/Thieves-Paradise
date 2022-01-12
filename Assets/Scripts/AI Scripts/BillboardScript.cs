@@ -21,6 +21,11 @@ public class BillboardScript : MonoBehaviour
         {
             self.SetActive(false);
         }
+
+        if (target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("PlayerVisionTarget").transform;
+        }
     }
 
     #endregion
