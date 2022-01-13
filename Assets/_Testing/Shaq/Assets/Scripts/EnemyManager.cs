@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 //      - Transition from PASSIVE to HOSTILE is currently broken
 //  - Continue testing improvements and redundancies that are removed from script
 //  - Consider making a seperate section of script for managing states (seperation of State actions and State management)
+//  - Apply "Object Pooling" concept to all applications of INSTANTIATE & GAMEOBJECT.DESTROY (or other versions of it) being used in your parts of the game (Guard, Camera, Tripwire, water puddle)
 
 public class EnemyManager : MonoBehaviour
 {
@@ -307,6 +308,18 @@ public class EnemyManager : MonoBehaviour
 
     private float eyeballSightRangeRecord;
 
+    //---------------------------------------------------------------------------------------------------//
+    //Extremely temporary timer variables
+
+    [Header("Extremely temporary timer variables")]
+
+    [SerializeField] [Range(0, 10)] private float tempTaserTimer;
+
+    [Tooltip("References the taser prefab for the guard to spawn")]
+    [SerializeField] private GameObject taserProjectile;
+
+
+
     #endregion
 
     #region Awake & Update
@@ -331,6 +344,29 @@ public class EnemyManager : MonoBehaviour
         {
             surpriseVFXBoolCheck = true;
         }
+
+        //BIG STUPID TIMER FOR TESTING FUNNY AND GOOFY MECHANICS PLEASE DELETE OR COMMENT OUT WHEN NOT IN USE / WHEN YOU WANT STUFF TO WORK PROPERLY (I AM AWARE THIS MAY NOT BE THE ONLY PART OF MY CODE THAT IS FUNNY AND GOOFY LIKE THIS, I AM SORRY)
+
+        //Notes for improving the "spawning of the taser prefab"
+        //  - Apply object pool method
+        //  - when "spawning" the taser prefab, be sure to feed in information such as the direction that the prefab should be facing before being fired
+        //  - in the taser prefab's script, be sure to make variables relating to it's movement editable in the inspector
+        //  - figure out what else to do with the taser prefab to make it nice and usable
+
+        if (tempTaserTimer > 0)
+        {
+            //countdown
+            tempTaserTimer -= Time.fixedDeltaTime;
+        }
+        else if (tempTaserTimer <= 0)
+        {
+            //Spawn projectile in the forward direction of the guard
+            //later on change the spawn position to be the tip of the taser(assuming conditions and animations are already in place)
+
+            //var taserPrefab = Instantiate(taserProjectile, transform.position,  /*get forward direction from the guard*/);
+        }
+
+
 
 
         //eyeball.susLevel = warySusMin;
