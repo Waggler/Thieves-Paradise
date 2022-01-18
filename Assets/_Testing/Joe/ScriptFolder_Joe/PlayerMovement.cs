@@ -301,6 +301,7 @@ public class PlayerMovement : MonoBehaviour
                     
                 }
                 IsStunned = false;
+                IsDiving = false;
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
             }
@@ -492,7 +493,6 @@ public class PlayerMovement : MonoBehaviour
                 CrouchDown();
                 if (StillRolling)
                 {
-                    print("Check");
                     IsRolling = true;
                     StillRolling = false;
                 }
@@ -545,10 +545,10 @@ public class PlayerMovement : MonoBehaviour
         //Debug.DrawRay(Controller.transform.position + Controller.center, Vector3.down, Color.red, Controller.height / 2  + 0.1f);
         //Physics.Raycast(Controller.transform.position + Controller.center, Vector3.down, Controller.height / 2  + 0.1f)
         Vector3 groundCheck = new Vector3(transform.position.x, transform.position.y - (StandardHeight / 2.6f), transform.position.z);
+        Test = groundCheck;
         //StandardHeight / 4
         if (Physics.CheckSphere(groundCheck, StandardHeight / 6f, mask, QueryTriggerInteraction.Ignore))
         {
-            Test = groundCheck;
             IsGrounded = true;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
@@ -568,6 +568,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(Test, StandardHeight / 6f);
+        Gizmos.color = Color.blue;
     }
 
     #endregion
