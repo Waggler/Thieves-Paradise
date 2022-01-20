@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class TaserManager : MonoBehaviour
 {
+    /*
+    Spawn
+    
+    Receive Orientation
+
+    Launch
+
+    Check for collision with the PLAYER
+
+    COLLIDE 
+
+    DO WHATEVER IS SUPPOSED TO HAPPEN ON COLLISION
+
+    RETURN TO THE GUARD'S "HOLSTER"
+
+    */
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +31,14 @@ public class TaserManager : MonoBehaviour
     {
         
     }
+
+    #region Methods
+
+    private void Init()
+    {
+    
+    }
+
+
+    #endregion Methods
 }

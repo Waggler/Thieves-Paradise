@@ -739,8 +739,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.71
-  m_Height: 2.17
+  m_Radius: 0.46
+  m_Height: 1.93
   m_Direction: 1
   m_Center: {x: 0, y: 1.49, z: 0}
 --- !u!54 &3325092847374484678
@@ -810,6 +810,8 @@ MonoBehaviour:
   waypointNextDistance: 0.5
   playerCaptureTeleportLoc: {fileID: 1791299338356384477}
   playerReleaseTeleportLoc: {fileID: 7543830123775770894}
+  tempTaserTimer: 0
+  taserProjectile: {fileID: 0}
 --- !u!114 &9215408676989096723
 MonoBehaviour:
   m_ObjectHideFlags: 0
