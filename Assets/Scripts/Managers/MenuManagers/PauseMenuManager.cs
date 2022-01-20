@@ -16,7 +16,6 @@ public class PauseMenuManager : MonoBehaviour
 
     [Header("Screens")]
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject loadMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject photoScreen;
 
@@ -30,32 +29,23 @@ public class PauseMenuManager : MonoBehaviour
 
 
     //-----------------------//
-    private void Update()
+    public void PauseGame()
     //-----------------------//
     {
-       /*               
-        if (Input.GetButtonDown("Pause"))       //Remove this code once inputs are set up
+        if (isGamePaused)
         {
-            if (isGamePaused == true)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
+            ResumeGame();
+            return;
         }
-        */
-    }//END Update
-
-    //-----------------------//
-    void PauseGame()
-    //-----------------------//
-    {
+        
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
+        photoScreen.SetActive(false);
 
         Time.timeScale = 0f;
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
 
         isGamePaused = true;
 
@@ -68,9 +58,13 @@ public class PauseMenuManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
-        loadMenu.SetActive(false);
+        photoScreen.SetActive(false);
 
         Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
 
         isGamePaused = false;
 
@@ -83,7 +77,7 @@ public class PauseMenuManager : MonoBehaviour
         if (screenValue == 0)
         {
             pauseMenu.SetActive(false);
-            loadMenu.SetActive(true);
+            //loadMenu.SetActive(true);
 
         }
         else if (screenValue == 1)

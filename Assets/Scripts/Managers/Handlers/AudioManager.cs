@@ -24,9 +24,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip mainMenuClip;
     [SerializeField] private AudioClip gameSceneClip;
 
-    public bool isGameStarted;
-
-
     #endregion Components
 
 

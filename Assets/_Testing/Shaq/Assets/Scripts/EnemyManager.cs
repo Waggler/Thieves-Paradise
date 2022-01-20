@@ -172,8 +172,8 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the target text (displays the guard's current target)")]
     [SerializeField] private Text targetText;
 
-    [Tooltip("References the lose text for the game (this is NOT permanent)")]
-    [SerializeField] private Text loseText;
+    //[Tooltip("References the lose text for the game (this is NOT permanent)")]  TEMPE WUZ HERE
+    //[SerializeField] private Text loseText;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -288,11 +288,17 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
 
-    [SerializeField] private GameObject playerTeleportLoc;
+    [SerializeField] private GameObject playerCaptureTeleportLoc;
+
+    [SerializeField] private GameObject playerReleaseTeleportLoc;
 
     private float oneTimeUseTimer = 2f;
 
     private float oneTimeUseTimerReset;
+
+    private bool surpriseVFXBoolCheck;
+
+    private float eyeballSightRangeRecord;
 
     #endregion
 
@@ -313,6 +319,11 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
+
+        if (stateMachine == EnemyStates.HOSTILE)
+        {
+            surpriseVFXBoolCheck = true;
+        }
 
 
         //eyeball.susLevel = warySusMin;
@@ -473,6 +484,7 @@ public class EnemyManager : MonoBehaviour
             #region Suspicious Behavior
             case EnemyStates.SUSPICIOUS:
 
+
                 float searchLocCheck = .5f;
 
                 guardAnim.EnterSusAnim();
@@ -549,14 +561,13 @@ public class EnemyManager : MonoBehaviour
 
                     guardAnim.ExitSearchingAnim();
 
-                    //SUSPICIOUS >> HOSTILE
-                    stateMachine = EnemyStates.HOSTILE;
-
                     //the cool lil MGS thing
                     var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
 
                     MGSsurprise.transform.parent = gameObject.transform;
 
+                    //SUSPICIOUS >> HOSTILE
+                    stateMachine = EnemyStates.HOSTILE;
                 }
                 #endregion Exit Conditions
 
@@ -589,9 +600,12 @@ public class EnemyManager : MonoBehaviour
                     {
                         guardAnim.EnterAttackAnim();
                         player.GetComponent<PlayerMovement>().IsStunned = true;
-                        player.transform.position = playerTeleportLoc.transform.position;
+                        player.transform.position = playerCaptureTeleportLoc.transform.position;
                         SetAIDestination(this.transform.position);
-                        //player.transform.SetParent(playerTeleportLoc.transform, false);
+
+
+                        //player.transform.SetParent(playerCaptureTeleportLoc.transform, false);
+
                         //HOSTILE >> ATTACK
                         stateMachine = EnemyStates.ATTACK;
                     }
@@ -629,9 +643,6 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(attackSpeed);
 
-
-
-
                 #region Exit Condition(s)
                 
                 if (isStunned == true)
@@ -640,13 +651,21 @@ public class EnemyManager : MonoBehaviour
                     guardAnim.ExitAttackAnim();
 
                     guardAnim.EnterStunAnim();
+
                     // ATTACK >>  STUNNED
                     stateMachine = EnemyStates.STUNNED;
 
-                    
+                    player.GetComponent<PlayerMovement>().IsStunned = false;
+                    player.transform.position = playerReleaseTeleportLoc.transform.position;
+
                 }
                 else if (Vector3.Distance(target, transform.position) > attackRadius && !isStunned)
                 {
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    MGSsurprise.transform.parent = gameObject.transform;
+
                     // ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
@@ -671,13 +690,25 @@ public class EnemyManager : MonoBehaviour
 
             #region Stunned Behavior
             case EnemyStates.STUNNED:
+
+                guardAnim.EnterStunAnim();
+
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(stunSpeed);
 
+                target = transform.position;
+
+                SetAIDestination(target);
+
+                eyeball.susLevel = 0;
+
                 //experimenting with Time.fixedDeltaTime & Time.deltaTime
                 stunTime -= Time.deltaTime;
 
+                eyeball.sightRange = 0;
+
+                //Exit Condition
                 if (stunTime <= 0)
                 {
                     guardAnim.ExitStunAnim();
@@ -685,11 +716,18 @@ public class EnemyManager : MonoBehaviour
 
                     eyeball.susLevel = sussySusMax;
 
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    MGSsurprise.transform.parent = gameObject.transform;
+
                     //STUNNED >>>> PREVIOUS STATE (SUSPICIOS for now)
                     stateMachine = EnemyStates.HOSTILE;
 
                     //after changing states, the stun time returns to the initially recorded time
                     stunTime = stunTimeReset;
+
+                    eyeball.sightRange = eyeballSightRangeRecord;
                 }
                 break;
             #endregion Stunned Behavior
@@ -753,7 +791,7 @@ public class EnemyManager : MonoBehaviour
 
         FaceTarget(target);
 
-        loseText.text = "";
+        //loseText.text = "";
 
         stunTimeReset = stunTime;
 
@@ -765,6 +803,8 @@ public class EnemyManager : MonoBehaviour
         }
 
         oneTimeUseTimerReset = oneTimeUseTimer;
+
+        eyeballSightRangeRecord = eyeball.sightRange;
 
     }//End Init
 

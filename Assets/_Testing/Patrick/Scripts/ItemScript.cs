@@ -31,6 +31,7 @@ public class ItemScript : ItemSuperScript, ItemInterface
             thrownNoiseRadius = noiseRadius;
 
         myself = this.gameObject;
+        myself.name = itemName;
     }
 
     // Update is called once per frame
@@ -41,18 +42,23 @@ public class ItemScript : ItemSuperScript, ItemInterface
 
     void OnCollisionEnter(Collision other)
     {
-        
-        //MakeNoise();
-        
+        print(this.gameObject.name + " hit something " + isThrown + " " + durability);
 
-        print("hit something " + isThrown + " " + durability);
+        if (isThrown)
+        {
+            MakeNoise();
+        }
 
         if (durability < 2 && deployableObject != null && isThrown)
         {
             print("spawning object");
             Instantiate(deployableObject, transform.position, Quaternion.identity);
             UseDurability();
-            //Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }else if (isThrown)
+        {
+            UseDurability();
+            isThrown = false;
         }
         
     }   

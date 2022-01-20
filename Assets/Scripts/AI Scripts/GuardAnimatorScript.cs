@@ -116,13 +116,18 @@ public class GuardAnimatorScript : MonoBehaviour
     public void EnterHostileAnim()
     {
         anim.SetBool("isSuspicious", false);
+        anim.SetBool("isSearching", false);
         anim.SetBool("isHostile", true);
         //anim.SetBool("isPlayerFree", true);
     }
 
     public void EnterStunAnim()
     {
+        anim.SetBool("isHostile", false);
+        anim.SetBool("isSuspicious", false);
+        anim.SetBool("isSearching", false);
         anim.SetBool("isStunned", true);
+
     }
 
 

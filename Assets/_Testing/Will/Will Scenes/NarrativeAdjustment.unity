@@ -347,7 +347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &162811382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -989,13 +989,14 @@ MonoBehaviour:
   narrativeUIManager: {fileID: 709244987}
   dialogue:
   - characterName: ChoclateSailor
-    characterImage: {fileID: 21300000, guid: aa300c76bbc780f44addebeeff76391a, type: 3}
     sentences:
     - Now, <color=blue>Billy</color=blue>, this a very special assortment of enchanted
       choclates. You must choose only one
     - But choose wisely, Billy, for only one contains the antidote. Will it be...
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
     isChoice: 1
     choices:
     - choiceOption: Caustic Caramel
@@ -1012,13 +1013,19 @@ MonoBehaviour:
     - responseOption:
       - Get absolutely pranked
       - Bingus!!!
-      responseSpeaker: God
-      responseId: 0
+      responseSpeaker: []
+      choiceReferenceId: 0
+      characterOneSprite: {fileID: 21300000, guid: f5dda4bb923704e4685a6e9654101287, type: 3}
+      characterTwoSprite: {fileID: 21300000, guid: fd77cd23fa2495045947ec7f00c2b08a, type: 3}
+      responseID: 0
     - responseOption:
       - Will why did you screw up the rects!!
       - I HURT ME!!!
-      responseSpeaker: God
-      responseId: 1
+      responseSpeaker: []
+      choiceReferenceId: 0
+      characterOneSprite: {fileID: 0}
+      characterTwoSprite: {fileID: 0}
+      responseID: 0
     - responseOption:
       - We're no strangers to love You know the rules and so do I A full commitment's
         what I'm thinking of You wouldn't get this from any other guy I just wanna
@@ -1044,26 +1051,36 @@ MonoBehaviour:
         gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you
         up Never gonna let you down Never gonna run around and desert you Never gonna
         make you cry Never gonna say goodbye Source: Musixmatch'
-      responseSpeaker: God
-      responseId: 2
+      responseSpeaker: []
+      choiceReferenceId: 0
+      characterOneSprite: {fileID: 0}
+      characterTwoSprite: {fileID: 0}
+      responseID: 0
     - responseOption:
       - Help me, I've been held to code at gunpoint
       - please send help. Oh wait I hear them coming. Oh god oh FUCK OH FUCK GET
         AW
-      responseSpeaker: Kevin
-      responseId: 3
+      responseSpeaker: []
+      choiceReferenceId: 0
+      characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+      characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+      responseID: 0
     - responseOption:
       - Great gobs!
       - No one has ever eaten the whole danged assortment!
-      responseSpeaker: ChoclateSailor
-      responseId: 4
+      responseSpeaker: []
+      choiceReferenceId: 0
+      characterOneSprite: {fileID: 0}
+      characterTwoSprite: {fileID: 0}
+      responseID: 0
   - characterName: God
-    characterImage: {fileID: 21300000, guid: 9704a785f12fe5a47992ab70e3402d64, type: 3}
     sentences:
     - That was crazy...
     - You've witnessed too much. BEGONE!
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
     isChoice: 0
     choices: []
     responses: []
@@ -1076,7 +1093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558106687}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 357.60483, y: 60.157665, z: -27.167747}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1678,29 +1695,9 @@ MonoBehaviour:
   speakerText: {fileID: 1283500031}
   dialogueText: {fileID: 1372220631}
   portrait1Image: {fileID: 443753603}
-  portrait1ImageList:
-  - {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-  - {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
-  - {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
   portrait2Image: {fileID: 380297126}
-  portrait2ImageList:
-  - {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-  - {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-  - {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
   backgroundImage: {fileID: 706666558}
   backgroundImageList: []
-  rightCharacterOneIntroIndex: 0
-  rightCharacterTwoIntroIndex: 999
-  rightCharacterThreeIntroIndex: 999
-  rightCharacterFourIntroIndex: 999
-  leftCharacterOneIntroIndex: 0
-  leftCharacterTwoIntroIndex: 999
-  leftCharacterThreeIntroIndex: 999
-  leftCharacterFourIntroIndex: 999
-  backgroundOneIndex: 999
-  backgroundTwoIndex: 999
-  backgroundThreeIndex: 999
-  backgroundFourIndex: 999
 --- !u!1 &748461194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,10 +1862,11 @@ MonoBehaviour:
   dialogueManager: {fileID: 558106688}
   currentChoice:
     characterName: 
-    characterImage: {fileID: 0}
     sentences: []
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 0}
+    characterTwoSprite: {fileID: 0}
     isChoice: 0
     choices: []
     responses: []
@@ -1893,7 +1891,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 808872834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 404.34467, y: 175.12057, z: -154.16689}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2048,7 +2046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &907849301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3642,7 +3640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1558279394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3812,7 +3810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1698581077
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3853,7 +3851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1757380226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3883,7 +3881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -4119,7 +4117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1977593600
 RectTransform:
   m_ObjectHideFlags: 0

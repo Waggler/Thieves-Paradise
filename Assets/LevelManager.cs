@@ -9,8 +9,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Animator sceneTransition;
     [SerializeField] private float waitTime;
 
-    int currentSceneIndex;
+    Scene currentScene;
 
+    int currentSceneIndex;
+    int previousSceneIndex;
+    int nextSceneIndex;
+
+    bool isRestartingLevel;
 
     //-----------------------//
     void Start()
@@ -24,10 +29,17 @@ public class LevelManager : MonoBehaviour
     void Init()
     //-----------------------//
     {
-        currentSceneIndex = PlayerPrefs.GetInt("currentScene");
-        sceneTransition.SetBool("isClosing", true);
-        sceneTransition.SetBool("isClosing", true);
+        isRestartingLevel = false;
 
+        currentScene = SceneManager.GetActiveScene();
+
+        currentSceneIndex = currentScene.buildIndex;
+
+        //sceneTransition.SetBool("isClosing", true);
+        //sceneTransition.SetBool("isClosing", false);
+
+
+        previousSceneIndex = PlayerPrefs.GetInt("previousScene");
 
     }//END Init
 
@@ -35,22 +47,59 @@ public class LevelManager : MonoBehaviour
     public void ChangeLevel(int sceneIndex)
     //-----------------------//
     {
-        StartCoroutine(IChangeScene());
-        currentSceneIndex = sceneIndex;
 
-    }//END NextLevel
+        previousSceneIndex = currentSceneIndex;
+
+        PlayerPrefs.SetInt("previousScene", previousSceneIndex);
+        nextSceneIndex = sceneIndex;
+        StartCoroutine(IChangeScene());
+
+    }//END ChangeLevel
+
+    //-----------------------//
+    public void RestartLevel()
+    //-----------------------//
+    {
+
+        isRestartingLevel = true;
+        StartCoroutine(IChangeScene());
+
+    }//END RestartLevel
+
+    //-----------------------//
+    public void QuitGame()
+    //-----------------------//
+    {
+
+        Debug.Log("Quit Game!");
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+                Application.Quit();
+#endif
+
+    }//END QuitGame
 
     //-----------------------//
     public IEnumerator IChangeScene()
     //-----------------------//
     {
-        sceneTransition.SetBool("isClosing", true);
+        //sceneTransition.SetBool("isClosing", true);
 
         yield return new WaitForSeconds(waitTime);
-        SceneManager.LoadScene(currentSceneIndex);
+
+        if (isRestartingLevel == true)
+        {
+            SceneManager.LoadScene(currentSceneIndex);
+
+        }
+        else
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+
+        }
 
     }//END IChangeScene
-
-
 
 }//END LevelManager
