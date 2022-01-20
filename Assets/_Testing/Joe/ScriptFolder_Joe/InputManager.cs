@@ -11,14 +11,12 @@ public class InputManager : MonoBehaviour
     public bool isRolling;
     public bool isPushPull;
     private PlayerMovement playerMovement;
-    private MasterPushPullScript masterPushPullScript;
     public float rollCooldownTime;
     private float cooldownTimer;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        masterPushPullScript = GetComponent<MasterPushPullScript>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -116,20 +114,6 @@ public class InputManager : MonoBehaviour
     }//END ROLL
 
     #endregion
-
-    //TO BE DELETED: TEST!
-    public void PushPullActivation(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-        {
-            isPushPull = true;
-        }
-        if(context.canceled)
-        {
-            isPushPull = false;
-        }
-        masterPushPullScript.PushPullInput(isPushPull);
-    }//END PUSHPULLACTIVATION
 
     #endregion
 }
