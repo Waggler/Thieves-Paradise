@@ -80,12 +80,6 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
-    [Header("Push & Pull")]
-    [SerializeField] private float PushPullLightSpeed;
-    [SerializeField] private float PushPullMediumSpeed;
-    [SerializeField] private float PushPullHeavySpeed;
-    [SerializeField] private bool IsPushPull;
-
     [Header("Togglable Buttons")]
     public bool ToggleSprint;
     public bool ToggleCrouch;
@@ -173,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
         Rolling();
         AnimationStates();
 
-        if ((!IsCrouching && !IsSprinting && !IsPushPull) || IsUncovered)
+        if ((!IsCrouching && !IsSprinting) || IsUncovered)
         {
             CoveredCheck();
             IsUncovered = false;
@@ -311,6 +305,7 @@ public class PlayerMovement : MonoBehaviour
 
                 }
                 IsStunned = false;
+                IsDiving = false;
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
@@ -350,7 +345,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if (IsGrounded && !IsCrouching && !IsPushPull)
+        if (IsGrounded && !IsCrouching)
         {
             if (Direction.magnitude > 0.1)
             {
@@ -376,7 +371,7 @@ public class PlayerMovement : MonoBehaviour
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
         }
-        else if (IsGrounded && IsCrouching && !IsPushPull)
+        else if (IsGrounded && IsCrouching)
         {
             IsStanding = true;
             CoveredCheck();
@@ -388,7 +383,7 @@ public class PlayerMovement : MonoBehaviour
     //----------SPRINT----------//
     public void Sprint(bool Sprinting)
     {
-        if (Sprinting && !IsCrouching && !IsPushPull)
+        if (Sprinting && !IsCrouching)
         {
             IsSprinting = true;
             if (UnSprinting == false)
@@ -400,12 +395,12 @@ public class PlayerMovement : MonoBehaviour
                 UnSprinting = false;
             }
         }
-        else if (!Sprinting && !IsCrouching && UnSprinting && !IsPushPull)
+        else if (!Sprinting && !IsCrouching && UnSprinting)
         {
             CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
         }
-        else if (IsGrounded && IsCrouching && !IsPushPull)
+        else if (IsGrounded && IsCrouching)
         {
             IsStanding = true;
             IsSprinting = true;
@@ -419,7 +414,7 @@ public class PlayerMovement : MonoBehaviour
     //----------CROUCH----------//
     public void Crouch(bool Crouching)
     {
-        if (Crouching && IsGrounded && !IsPushPull)
+        if (Crouching && IsGrounded)
         {
             IsCrouching = true;
             if (IsStanding && !IsSprinting)
@@ -509,7 +504,6 @@ public class PlayerMovement : MonoBehaviour
                 CrouchDown();
                 if (StillRolling)
                 {
-                    print("Check");
                     IsRolling = true;
                     StillRolling = false;
                 }
@@ -524,37 +518,6 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    #region Push/Pull
-    public void PushPullCheck(bool IsNearPushPull, int CheckSpeed)
-    {
-        if (!IsSprinting && !IsCrouching)
-        {
-            if (CheckSpeed == 1)
-            {
-                CurrentSpeed = PushPullLightSpeed;
-                IsPushPull = true;
-            }
-            else if (CheckSpeed == 2)
-            {
-                CurrentSpeed = PushPullMediumSpeed;
-                IsPushPull = true;
-            }
-            else if (CheckSpeed == 3)
-            {
-                CurrentSpeed = PushPullHeavySpeed;
-                IsPushPull = true;
-            }
-        }
-
-        if (!IsNearPushPull && !IsCrouching && !IsSprinting && !IsSliding && !IsRolling && !IsDiving)
-        {
-            CurrentSpeed = WalkingSpeed;
-            IsPushPull = false;
-        }
-    }
-
-    #endregion
-
     #region Ground
     //---GROUNDCHECK---//
     void GroundCheck()
@@ -562,10 +525,10 @@ public class PlayerMovement : MonoBehaviour
         //Debug.DrawRay(Controller.transform.position + Controller.center, Vector3.down, Color.red, Controller.height / 2  + 0.1f);
         //Physics.Raycast(Controller.transform.position + Controller.center, Vector3.down, Controller.height / 2  + 0.1f)
         Vector3 groundCheck = new Vector3(transform.position.x, transform.position.y - (StandardHeight / 2.6f), transform.position.z);
+        Test = groundCheck;
         //StandardHeight / 4
         if (Physics.CheckSphere(groundCheck, StandardHeight / 6f, mask, QueryTriggerInteraction.Ignore))
         {
-            Test = groundCheck;
             IsGrounded = true;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
@@ -585,6 +548,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(Test, StandardHeight / 6f);
+        Gizmos.color = Color.blue;
     }
 
     #endregion
