@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
     #region JumpInput
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if(context.performed)
         {
             playerMovement.Jump();
         }
