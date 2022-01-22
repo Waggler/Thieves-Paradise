@@ -308,6 +308,8 @@ public class EnemyManager : MonoBehaviour
 
     private float eyeballSightRangeRecord;
 
+    private System.Threading.Timer timer;
+
     //---------------------------------------------------------------------------------------------------//
     //Extremely temporary timer variables
 
