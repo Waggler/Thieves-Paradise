@@ -306,6 +306,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 IsStunned = false;
                 IsDiving = false;
+
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
@@ -345,7 +346,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if (IsGrounded && !IsCrouching)
+        if (IsGrounded && !IsCrouching && !IsStunned)
         {
             if (Direction.magnitude > 0.1)
             {

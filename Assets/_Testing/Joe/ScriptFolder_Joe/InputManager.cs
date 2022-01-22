@@ -64,7 +64,7 @@ public class InputManager : MonoBehaviour
     #region SprintInput
     public void Sprint(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if(context.started)
         {
             isSprinting = true;
             playerMovement.Sprint(isSprinting);
@@ -80,7 +80,7 @@ public class InputManager : MonoBehaviour
     #region CrouchInput
     public void Crouch(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if(context.started)
         {
             isCrouching = true;
             playerMovement.Crouch(isCrouching);
@@ -100,7 +100,7 @@ public class InputManager : MonoBehaviour
         {
             return;
         }
-        if(context.performed)
+        if(context.started)
         {
             isRolling = true;
             playerMovement.Roll(isRolling);
