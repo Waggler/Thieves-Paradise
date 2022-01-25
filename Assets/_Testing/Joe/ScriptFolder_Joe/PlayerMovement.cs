@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
     [Tooltip("The increase in speed when sprinting.")]
-    [SerializeField] private float Acceleration;
+    [SerializeField] private float SprintAcceleration;
+    [SerializeField] private float WalkAcceleration;
     [SerializeField] public bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
     private bool canMove = true;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public CapsuleCollider playerCollider;
     [SerializeField] public CharacterController Controller;
     [SerializeField] private bool IsGrounded = true;
+    [SerializeField] private float AirSpeed;
     private float HeightFromGround;
     private float CrouchingHeightFromGround;
     private float GroundHeight;
@@ -162,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
+
         GroundCheck();
         Rolling();
         AnimationStates();
@@ -182,6 +184,28 @@ public class PlayerMovement : MonoBehaviour
         {
             Sprinting();
         }
+
+        #region Inertia
+        if (CurrentSpeed != WalkingSpeed && !IsCrouching && !IsSprinting && IsGrounded)
+        {
+            if (CurrentSpeed > WalkingSpeed)
+            {
+                CurrentSpeed -= Deceleration * Time.deltaTime;
+                if (WalkingSpeed > CurrentSpeed)
+                {
+                    CurrentSpeed = WalkingSpeed;
+                }
+            }
+            else if(CurrentSpeed < WalkingSpeed)
+            {
+                CurrentSpeed += WalkAcceleration * Time.deltaTime;
+                if (WalkingSpeed < CurrentSpeed)
+                {
+                    CurrentSpeed = WalkingSpeed;
+                }
+            }
+        }
+        #endregion
 
         #region Gravity
         if (IsGrounded && Controller.velocity.y > 0)
@@ -398,7 +422,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (!Sprinting && !IsCrouching && UnSprinting)
         {
-            CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
         }
         else if (IsGrounded && IsCrouching)
@@ -533,10 +556,19 @@ public class PlayerMovement : MonoBehaviour
             IsGrounded = true;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
+            if(CurrentSpeed == AirSpeed)
+            {
+                CurrentSpeed = WalkingSpeed;
+            }
         }
         else
         {
             IsGrounded = false;
+            if (!IsDiving || !IsSprinting)
+            {
+                CurrentSpeed = AirSpeed;
+            }
+
             if (IsCrouching)
             {
                 StandUp();
@@ -598,7 +630,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (CurrentSpeed < RunningSpeed)
         {
-            CurrentSpeed += Acceleration * Time.deltaTime;
+            CurrentSpeed += SprintAcceleration * Time.deltaTime;
         }
         else if (CurrentSpeed >= RunningSpeed)
         {
@@ -646,7 +678,6 @@ public class PlayerMovement : MonoBehaviour
     //---STAND-UP---//
     void StandUp()
     {
-        CurrentSpeed = WalkingSpeed;
         playerCollider.height = StandardHeight;
         Controller.height = StandardHeight;
         Controller.center = new Vector3(0f, SetCenterHeight, 0f);

@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     private PlayerMovement playerMovement;
     public float rollCooldownTime;
     private float cooldownTimer;
+    private int pressCounter = 1;
 
     void Awake()
     {
@@ -54,9 +55,17 @@ public class InputManager : MonoBehaviour
     #region JumpInput
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if (context.performed)
         {
-            playerMovement.Jump();
+            if (pressCounter == 1)
+            {
+                playerMovement.Jump();
+                pressCounter++;
+            }
+            else if(pressCounter == 2)
+            {
+                pressCounter = 1;
+            }
         }
     }// END JUMP
     #endregion
