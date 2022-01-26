@@ -139,7 +139,7 @@ public class EnemyManager : MonoBehaviour
     //Private Variables
 
     [Tooltip("The guard's target")]
-    private Vector3 target;
+    [HideInInspector] public Vector3 target;
 
     [Tooltip("The NavMesh Agent component the object that this script is attatched to")]
     private NavMeshAgent agent;
@@ -190,20 +190,20 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("Minimum Suspicion level to enter this state")]
     //Implied Min Value of 0
     [SerializeField] private float passiveSusMax = 3;
-                                            
+
     [Tooltip("Minimum Suspicion level to enter this state")]
     [SerializeField] private float warySusMin = 3.1f;
-                                            
+
     [SerializeField] private float warySusMax = 4;
-                                            
+
     [Tooltip("Minimum Suspicion level to enter this state")]
     [SerializeField] private float sussySusMin = 4.1f;
-                                            
+
     [SerializeField] private float sussySusMax = 5;
-                                            
+
     [Tooltip("Minimum Suspicion level to enter this state")]
     //Implied Max Value of eyeball.susLevel max
-    [SerializeField]  private float hostileSusMin = 5.1f;
+    [SerializeField] private float hostileSusMin = 5.1f;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -256,7 +256,7 @@ public class EnemyManager : MonoBehaviour
     private float randWaitTime = 3f;
 
     [Tooltip("The distance from the guard that a random point can be generated")]
-    [SerializeField] [Range (1, 3)] private float randPointRad = 1f;
+    [SerializeField] [Range(1, 3)] private float randPointRad = 1f;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -280,7 +280,7 @@ public class EnemyManager : MonoBehaviour
     private float stunTimeReset;
 
     //Save implementation for next sprint
-    [SerializeField] [Range (0, 50)] private float guardKnockbackForce;
+    [SerializeField] [Range(0, 50)] private float guardKnockbackForce;
 
     [Tooltip("Duration of the guard's Attack state duration")]
     [SerializeField] private float attackTime;
@@ -291,7 +291,9 @@ public class EnemyManager : MonoBehaviour
     [Header("Misc. Variables")]
 
     [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
-    [SerializeField] [Range (0, 2)]private float attackRadius = 10f;
+    [SerializeField] [Range(0, 2)] private float attackRadius = 10f;
+
+    [SerializeField] [Range(3, 12)] private float taserRadius = 3f;
 
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
@@ -308,9 +310,11 @@ public class EnemyManager : MonoBehaviour
 
     private float eyeballSightRangeRecord;
 
-    private System.Threading.Timer timer;
+    //Delete this in the future
+    //private System.Threading.Timer timer;
 
     //---------------------------------------------------------------------------------------------------//
+    
     //Extremely temporary timer variables
 
     [Header("Extremely temporary timer variables")]
@@ -319,6 +323,9 @@ public class EnemyManager : MonoBehaviour
 
     [Tooltip("References the taser prefab for the guard to spawn")]
     [SerializeField] private GameObject taserProjectile;
+
+    [Tooltip("References the spawn location of the taser prefeab")]
+    [SerializeField] private GameObject taserSpawnLoc;
 
 
 
@@ -355,23 +362,7 @@ public class EnemyManager : MonoBehaviour
         //  - in the taser prefab's script, be sure to make variables relating to it's movement editable in the inspector
         //  - figure out what else to do with the taser prefab to make it nice and usable
 
-        if (tempTaserTimer > 0)
-        {
-            //countdown
-            tempTaserTimer -= Time.fixedDeltaTime;
-        }
-        else if (tempTaserTimer <= 0)
-        {
-            //Spawn projectile in the forward direction of the guard
-            //later on change the spawn position to be the tip of the taser(assuming conditions and animations are already in place)
 
-            //var taserPrefab = Instantiate(taserProjectile, transform.position,  /*get forward direction from the guard*/);
-        }
-
-
-
-
-        //eyeball.susLevel = warySusMin;
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
@@ -654,6 +645,12 @@ public class EnemyManager : MonoBehaviour
                         //HOSTILE >> ATTACK
                         stateMachine = EnemyStates.ATTACK;
                     }
+                    //Conditionds needed for ranged attack / taser
+                    else if (eyeball.canCurrentlySeePlayer == true && agent.CalculatePath(target, agent.path) == false && distanceToPlayer <= taserRadius)
+                    {
+                        //HOSTILE >> RANGED ATTACK
+                        stateMachine = EnemyStates.RANGEDATTACK;
+                    }
 
                     //Playing Alert Audio
                     if (isAudioSourcePlaying == false)
@@ -664,7 +661,7 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
 
-                //Exit Condition
+                //Exit Conditions
                 else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < hostileSusMin)
                 {
                     var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
@@ -674,6 +671,7 @@ public class EnemyManager : MonoBehaviour
                     //HOSTILE >> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
+
 
                 FaceTarget(target);
 
@@ -728,7 +726,36 @@ public class EnemyManager : MonoBehaviour
 
                 stateText.text = stateMachine.ToString();
 
+                SetAiSpeed(0);
+
+                FaceTarget(target);
+
                 //Insert ranged attack code
+                //Temporary Code
+                if (tempTaserTimer > 0)
+                {
+                    //countdown
+                    tempTaserTimer -= Time.fixedDeltaTime;
+                }
+                else if (tempTaserTimer <= 0)
+                {
+                    //Spawn projectile in the forward direction of the guard
+                    //later on change the spawn position to be the tip of the taser(assuming conditions and animations are already in place)
+
+                    var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
+
+                    taserPrefab.transform.LookAt(target);
+
+                    tempTaserTimer = Random.Range(5f, 5f);
+                }
+
+                //Exit Condition(s)
+                if (eyeball.canCurrentlySeePlayer == false || agent.CalculatePath(target, agent.path) == true || distanceToPlayer >= taserRadius)
+                {
+                    //RANGED ATTACK >> HOSTILE
+                    stateMachine = EnemyStates.HOSTILE;
+                }
+
 
                 break;
             #endregion Ranged Attack Behavior
@@ -954,8 +981,12 @@ public class EnemyManager : MonoBehaviour
         Gizmos.color = Color.blue; 
         Gizmos.DrawWireSphere(transform.position, randPointRad);
 
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, taserRadius);
+
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(searchLoc, .5f);
+
     }//End OnDrawGizmos
 
 
