@@ -1,19 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NoteScript : MonoBehaviour
 {
     public float semitones;
     private float pitchModifier;
     public AudioSource aud;
-    // Start is called before the first frame update
+    
+    private void Awake() 
+    {
+        if (transform.GetComponent<PassiveReciever>() == null)
+        {
+            this.gameObject.AddComponent<PassiveReciever>();
+            GetComponent<PassiveReciever>().triggeredEvent.AddListener(PlayNote);
+            //GetComponent<PassiveReciever>().triggeredEvent.AddListener(PlayNote);
+
+        }
+    }
+    
     void Start()
     {
         pitchModifier = Mathf.Pow(1.0594631f,semitones);
     }
 
-    void OnTriggerEnter(Collider other)
+    /*void OnTriggerEnter(Collider other)
     {
         PlayNote();
     }
@@ -21,11 +33,11 @@ public class NoteScript : MonoBehaviour
     void OnCollisionCnter(Collision other)
     {
         PlayNote();
-    }
+    }*/
 
     public void PlayNote()
     {
-        print("something touched me!");
+        print("Playing Note");
         aud.pitch = pitchModifier;
         aud.Play();
     }
