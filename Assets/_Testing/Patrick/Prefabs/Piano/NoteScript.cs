@@ -11,13 +11,7 @@ public class NoteScript : MonoBehaviour
     
     private void Awake() 
     {
-        if (transform.GetComponent<PassiveReciever>() == null)
-        {
-            this.gameObject.AddComponent<PassiveReciever>();
-            GetComponent<PassiveReciever>().triggeredEvent.AddListener(PlayNote);
-            //GetComponent<PassiveReciever>().triggeredEvent.AddListener(PlayNote);
 
-        }
     }
     
     void Start()
@@ -25,20 +19,17 @@ public class NoteScript : MonoBehaviour
         pitchModifier = Mathf.Pow(1.0594631f,semitones);
     }
 
-    /*void OnTriggerEnter(Collider other)
-    {
-        PlayNote();
-    }
-
-    void OnCollisionCnter(Collision other)
-    {
-        PlayNote();
-    }*/
-
     public void PlayNote()
     {
-        print("Playing Note");
+        //print("Playing Note");
         aud.pitch = pitchModifier;
         aud.Play();
+        this.GetComponent<Renderer>().material.color = Color.cyan;
+    }
+
+    public void EndNote()
+    {
+        //print("Stopping Note");
+        this.GetComponent<Renderer>().material.color = Color.white;
     }
 }
