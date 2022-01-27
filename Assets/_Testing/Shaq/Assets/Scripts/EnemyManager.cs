@@ -293,7 +293,7 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
     [SerializeField] [Range(0, 2)] private float attackRadius = 10f;
 
-    [SerializeField] [Range(3, 12)] private float taserRadius = 3f;
+    [SerializeField] [Range(3, 10)] private float taserRadius;
 
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
@@ -619,6 +619,8 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(hostileSpeed);
 
+                FaceTarget(target);
+
                 //Checking if the player is within the AI's look radius
                 if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > hostileSusMin)
                 {
@@ -650,6 +652,12 @@ public class EnemyManager : MonoBehaviour
                     {
                         //HOSTILE >> RANGED ATTACK
                         stateMachine = EnemyStates.RANGEDATTACK;
+                        
+
+                        //Check if the player is jumping (isJump) or diving (isDive)
+                        //if ()
+                        //{
+                        //}
                     }
 
                     //Playing Alert Audio
@@ -673,7 +681,6 @@ public class EnemyManager : MonoBehaviour
                 }
 
 
-                FaceTarget(target);
 
                 break;
             #endregion Hostile Behavior
