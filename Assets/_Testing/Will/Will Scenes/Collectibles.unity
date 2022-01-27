@@ -459,37 +459,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &134544780
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 134544781}
-  m_Layer: 0
-  m_Name: Heist Screens
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &134544781
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 134544780}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 288181496}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &165169991
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +731,7 @@ GameObject:
   - component: {fileID: 288181498}
   - component: {fileID: 288181497}
   m_Layer: 5
-  m_Name: Screen
+  m_Name: Collectible Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -783,8 +752,8 @@ RectTransform:
   - {fileID: 357222017}
   - {fileID: 314114300}
   - {fileID: 1010849610}
-  m_Father: {fileID: 134544781}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -800,22 +769,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 288181495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b85a96252e871bd41b690525f14d7f8e, type: 3}
+  m_Script: {fileID: 11500000, guid: 90e14cfa914f77f45974f85d5cfb9f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ladyButton: {fileID: 0}
-  massesButton: {fileID: 0}
-  unionButton: {fileID: 0}
-  mafiaButton: {fileID: 0}
-  ciaButton: {fileID: 0}
-  finaleButton: {fileID: 0}
-  mainScreen: {fileID: 0}
-  ladyScreen: {fileID: 0}
-  unionScreen: {fileID: 0}
-  massesScreen: {fileID: 0}
-  mafiaScreen: {fileID: 0}
-  ciaScreen: {fileID: 0}
-  finaleScreen: {fileID: 0}
+  currentHeist: 0
+  titleText: {fileID: 0}
+  collectible1Button: {fileID: 0}
+  collectible2Button: {fileID: 0}
+  collectible3Button: {fileID: 0}
+  collectible4Button: {fileID: 0}
+  collectible5Button: {fileID: 0}
+  collectible6Button: {fileID: 0}
+  collectible7Button: {fileID: 0}
+  collectible8Button: {fileID: 0}
+  collectible9Button: {fileID: 0}
 --- !u!114 &288181498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1590,6 +1557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b85a96252e871bd41b690525f14d7f8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heistCollectionManager: {fileID: 0}
   ladyButton: {fileID: 1297487495}
   massesButton: {fileID: 1132532641}
   unionButton: {fileID: 292106482}
@@ -1597,12 +1565,7 @@ MonoBehaviour:
   ciaButton: {fileID: 724845820}
   finaleButton: {fileID: 1743754698}
   mainScreen: {fileID: 0}
-  ladyScreen: {fileID: 0}
-  unionScreen: {fileID: 0}
-  massesScreen: {fileID: 0}
-  mafiaScreen: {fileID: 0}
-  ciaScreen: {fileID: 0}
-  finaleScreen: {fileID: 0}
+  heistScreen: {fileID: 0}
 --- !u!114 &520909417
 MonoBehaviour:
   m_ObjectHideFlags: 0
