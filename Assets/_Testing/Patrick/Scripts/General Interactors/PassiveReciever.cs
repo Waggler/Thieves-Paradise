@@ -9,6 +9,15 @@ public class PassiveReciever : MonoBehaviour
     [Tooltip("Don't have to assign this one, just use if you need an effect on exit")]
     public UnityEvent triggeredEventEnd;
 
+    void Awake()
+    {
+        if (GetComponent<Rigidbody>() == null)
+        {
+            this.gameObject.AddComponent<Rigidbody>();
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
     public void Activate()
     {
         triggeredEvent.Invoke();
