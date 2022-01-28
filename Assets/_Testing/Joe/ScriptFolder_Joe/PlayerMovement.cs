@@ -237,6 +237,9 @@ public class PlayerMovement : MonoBehaviour
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
 
+        //Inertia Stopping
+        
+
         //Setting Roll Direction for rolling, diving, and sliding.
         if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {

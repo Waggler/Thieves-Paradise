@@ -14,11 +14,15 @@ public class InputManager : MonoBehaviour
     public float rollCooldownTime;
     private float cooldownTimer;
     private int pressCounter = 1;
+    [SerializeField] private float InertiaTimeWalking;
+    private float SlowDownTime;
+    private Vector3 slowDownVector;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         Cursor.lockState = CursorLockMode.Locked;
+        SlowDownTime = InertiaTimeWalking;
     }
 
     void Update()
@@ -39,14 +43,25 @@ public class InputManager : MonoBehaviour
         if(context.performed)
         {
             moveVector = new Vector3(contextValue.x, 0, contextValue.y);
+            slowDownVector = moveVector;
             if (playerMovement.IsStunned)
             {
                 playerMovement.BreakOutCounter += playerMovement.BreakOutValue;
             }
+            print(moveVector);
         }
         if(context.canceled)
         {
+            while(SlowDownTime > 0)
+            {
+                moveVector = slowDownVector;
+                print(moveVector);
+            }
+
+            SlowDownTime = InertiaTimeWalking;
             moveVector = Vector3.zero;
+            slowDownVector = Vector3.zero;
+            print(moveVector);
         }
         playerMovement.Movement(moveVector);
     }// END MOVE
