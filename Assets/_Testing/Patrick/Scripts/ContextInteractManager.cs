@@ -70,6 +70,7 @@ public class ContextInteractManager : MonoBehaviour
                     
                     nearbyObjects.TrimExcess();
                 }
+
                 if (highlightedObject.GetComponent<ButtonScript>() != null)
                 {
                     if (highlightedObject.GetComponent<ButtonScript>().isLocked)
