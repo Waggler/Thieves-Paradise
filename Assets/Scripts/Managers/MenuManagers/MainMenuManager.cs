@@ -100,9 +100,18 @@ public class MainMenuManager : MonoBehaviour
     //-----------------------//
     {
         SceneManager.LoadScene(1);
-        
 
-    }//END QuitGame
+
+    }//END PlayPrototype
+
+    //-----------------------//
+    public void GoToCollectibles()
+    //-----------------------//
+    {
+        SceneManager.LoadScene("Collectibles");
+
+
+    }//END GoToCollectibles
 
 
     #endregion Methods

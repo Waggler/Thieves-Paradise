@@ -220,6 +220,12 @@ public class NarrativeUIManager : MonoBehaviour
     }
 
 
+    public void SkipLevel()
+    {
+        dialogueManager.currentDialogueIndex += 99999999;
+        dialogueManager.TriggerDialogue();  
+    }
+
     #endregion Methods
 
 

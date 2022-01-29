@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PointofEntryManager : MonoBehaviour
 {
@@ -77,21 +78,33 @@ public class PointofEntryManager : MonoBehaviour
     }//END Init
 
     //-----------------------//
-    public void EntryPoint1()
+    public void EntryPoint(int sceneIndex)
     //-----------------------//
-    {
-        Debug.Log("Entry Point 1 chosen.");
+    {        
+        //TODO Add playerpref/gamecontroller flag for spawn point
+
+        SceneManager.LoadScene(sceneIndex);
 
     }//END EntryPoint1
 
 
     //-----------------------//
-    public void EntryPoint2()
+    public void ResetEntryPoints()
     //-----------------------//
     {
-        Debug.Log("Entry Point 2 chosen.");
+        PlayerPrefs.SetInt("entryPoint1Available", 1);//Reuse as needed to reset entry points client to client
 
-    }//END EntryPoint2
+
+    }//END ResetEntryPoints
+
+    //-----------------------//
+    public void MainMenu()
+    //-----------------------//
+    {
+        SceneManager.LoadScene(0);
+
+
+    }//END MainMenu
 
 
     #endregion Methods
