@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WalkWay : MonoBehaviour
 {
+    [SerializeField] private float Move;
     private Color DefaultColor = Color.white;
 
     void OnTriggerEnter(Collider other)
