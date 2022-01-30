@@ -220,6 +220,7 @@ public class InventoryController : MonoBehaviour
 
     private void UseActiveItem()
     {
+        print("Attempting to use Item");
         itemInterfaceInventory[activeItemIndex].UseItem();
     }
     //check for if we have space in the inventory
