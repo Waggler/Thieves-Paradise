@@ -14,15 +14,11 @@ public class InputManager : MonoBehaviour
     public float rollCooldownTime;
     private float cooldownTimer;
     private int jumpPressCounter = 1;
-    [SerializeField] private float InertiaTimeWalking;
-    private float SlowDownTime;
-    private Vector3 slowDownVector;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         Cursor.lockState = CursorLockMode.Locked;
-        SlowDownTime = InertiaTimeWalking;
     }
 
     void Update()
@@ -43,27 +39,20 @@ public class InputManager : MonoBehaviour
         if(context.performed)
         {
             moveVector = new Vector3(contextValue.x, 0, contextValue.y);
-            slowDownVector = moveVector;
+            
             if (playerMovement.IsStunned)
             {
                 playerMovement.BreakOutCounter += playerMovement.BreakOutValue;
             }
-            print(moveVector);
-            print(slowDownVector);
-        }
-        if(context.canceled)
-        {
-            while(SlowDownTime > 0)
-            {
-                moveVector = slowDownVector;
-                print(moveVector);
-            }
 
-            SlowDownTime = InertiaTimeWalking;
-            moveVector = Vector3.zero;
-            slowDownVector = Vector3.zero;
+            if (moveVector == Vector3.zero)
+            {
+                //Have a new var be the last movement direction then set up a check as well for if the speed is sprinting or walking.
+                //Have a timer so the player only moves that way for about a second after the button push or two if they are sprinting.
+                //playerMovement.CurrentSpeed/2;
+                //
+            }
             print(moveVector);
-            print(slowDownVector);
         }
         playerMovement.Movement(moveVector);
     }// END MOVE
