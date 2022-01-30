@@ -6,6 +6,8 @@ public class DisplayCase : MonoBehaviour
 {
     public GameObject caseDoor;
     public Key key;
+    public GameObject lockedMessage;
+    public GameObject openMessage;
     public bool isLocked = true;
     public bool isOpened = false;
     public bool buttonPressed = false;
@@ -56,9 +58,71 @@ public class DisplayCase : MonoBehaviour
             }
         }
 
+        // if(leaveCase == true)
+        // {
+        //     maxAngle = doorClose;
+        // }
+
         if(leaveCase == true)
         {
+            Timer = Timer - Time.deltaTime;
+            minAngle = 0f;
             maxAngle = doorClose;
+
+            if(Timer >= - 0.05f)
+            {
+                float angle = Mathf.LerpAngle(maxAngle, minAngle, Timer);
+                caseDoor.transform.eulerAngles = new Vector3(0, angle, 0);
+            }
+
+            if(Timer <= -0.05f)
+            {
+                Timer = -0.05f;
+            }
         }
     }
+
+    #region OpenDoor
+    private void OnTriggerStay(Collider collider)
+    {
+        inArea = true;
+        leaveCase = false;
+
+        if(Input.GetKey("e") && isLocked == false)
+        {
+            buttonPressed = true;
+        }
+    }
+    #endregion
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if(isLocked == true)
+        {
+            lockedMessage.SetActive(true);
+        }
+        if(isLocked == false)
+        {
+            openMessage.SetActive(true);
+        }
+    }
+
+    #region CloseCase
+    private void OnTriggerExit(Collider collider)
+    {
+        if(isLocked == true)
+        {
+            lockedMessage.SetActive(false);
+        }
+        if(isLocked == false)
+        {
+            openMessage.SetActive(false);
+        }
+
+        inArea = false;
+        isOpened = false;
+        leaveCase = true;
+        buttonPressed = false;
+    }
+    #endregion
 }

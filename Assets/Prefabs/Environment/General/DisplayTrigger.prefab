@@ -58,12 +58,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   caseDoor: {fileID: 5277554220543866585}
-  key: {fileID: 0}
+  key: {fileID: 2253341528453120401, guid: bebc2b9d52dce874c9acd179cffab977, type: 3}
+  lockedMessage: {fileID: 3276721645062669382, guid: f5bfcbd1607738b4f9fdad264a93ff83, type: 3}
+  openMessage: {fileID: 3691599794092296882, guid: 2ca9f74b41af81e449b699b177139a13, type: 3}
   isLocked: 1
   isOpened: 0
+  buttonPressed: 0
   pm: {fileID: 0}
   im: {fileID: 0}
   inArea: 0
+  leaveCase: 0
   doorOpen: 90
+  doorClose: 0
   Timer: 0
   reachedTimer: 0
