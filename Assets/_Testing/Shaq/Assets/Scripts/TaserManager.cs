@@ -104,7 +104,8 @@ public class TaserManager : MonoBehaviour
             lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         }
 
-        transform.rotation = lookRotation;//Quaternion.Slerp(transform.rotation, lookRotation, 1);
+        transform.rotation = lookRotation; //Quaternion.Slerp(transform.rotation, lookRotation, 1);
+        //Slerp is used for rotating something over time, we just want to set the rotation, so simply setting the rotation to lookRotation was all you needed. 
     }//End FaceTarget
 
     #endregion Methods
