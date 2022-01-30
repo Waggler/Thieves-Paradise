@@ -21,7 +21,6 @@ public class TaserManager : MonoBehaviour
     RETURN TO THE GUARD'S "HOLSTER"
 
     */
-    // Start is called before the first frame update
 
     #region Variables
 
@@ -30,13 +29,6 @@ public class TaserManager : MonoBehaviour
     [SerializeField] [Range(0f, 5f)] private float taserSpeed = 3.5f;
 
     [SerializeField] private Vector3 target;
-
-    [SerializeField] [Range(0.5f, 5f)] private float killTimer;
-
-    //[SerializeField] private EnemyManager enemyManager;
-
-
-
 
     //---------------------------------------------------------------------------------------------------//
     #endregion Variabels
@@ -50,12 +42,6 @@ public class TaserManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        killTimer -= Time.fixedDeltaTime;
-
-        if (killTimer < 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     #endregion Awake & Update

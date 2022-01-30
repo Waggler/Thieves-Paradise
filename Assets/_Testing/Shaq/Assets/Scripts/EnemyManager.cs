@@ -327,6 +327,8 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the spawn location of the taser prefeab")]
     [SerializeField] private GameObject taserSpawnLoc;
 
+    private bool SussyWaypointMade;
+
 
 
     #endregion
@@ -529,6 +531,24 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(susSpeed);
 
+                /*
+                 * Check if bool is already ticked
+                 * Spawn new obj titled "SussyPatrolLoc"
+                 * Add it to waypoints list of patrol locations
+                 * ????
+                 * Profit
+                 */
+
+                if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
+                {
+                    waypoints.Add(GameObjectContructor("SussyPatrolLoc", transform.position).transform);
+
+                    GameObject.Find("SussyPatrolLoc").transform.position = eyeball.lastKnownLocation;
+
+                    SussyWaypointMade = true;
+                }
+
+
                 #region New Behavior Notes
                 //---------------------------------//
                 //New Sus Guard Behaviour:
@@ -544,7 +564,6 @@ public class EnemyManager : MonoBehaviour
                 //---------------------------------//
 
                 #endregion New Behavior Notes
-
 
                 //To Do: Add a distance buffer for entering the search animation
                 //  - Might take a bit of refacotring
@@ -895,6 +914,20 @@ public class EnemyManager : MonoBehaviour
 
 
     //---------------------------------//
+    //Constructs an empty game object with a transform component
+    private GameObject GameObjectContructor(string objName, Vector3 objSpawnLoc)
+    {
+        GameObject go1 = new GameObject();
+        go1.name = objName;
+        go1.AddComponent<Transform>();
+        go1.transform.position = objSpawnLoc;
+
+        return go1;
+    }
+
+
+
+    //---------------------------------//
     //Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
@@ -912,6 +945,7 @@ public class EnemyManager : MonoBehaviour
             target = eyeball.lastKnownLocation;
         }
     }//End Alert
+
 
 
     //---------------------------------//
