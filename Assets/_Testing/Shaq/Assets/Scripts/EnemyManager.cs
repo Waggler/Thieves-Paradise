@@ -751,7 +751,8 @@ public class EnemyManager : MonoBehaviour
 
                     var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
 
-                    taserPrefab.transform.LookAt(target);
+                    //taserPrefab.transform.LookAt(eyeball.lastKnownLocation);
+                    //print(eyeball.lastKnownLocation);
 
                     tempTaserTimer = Random.Range(5f, 5f);
                 }

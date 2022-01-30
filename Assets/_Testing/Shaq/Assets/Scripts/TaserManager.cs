@@ -104,7 +104,7 @@ public class TaserManager : MonoBehaviour
             lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         }
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 0.1f);
+        transform.rotation = lookRotation;//Quaternion.Slerp(transform.rotation, lookRotation, 1);
     }//End FaceTarget
 
     #endregion Methods
