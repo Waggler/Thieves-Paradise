@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
     private PlayerMovement playerMovement;
     public float rollCooldownTime;
     private float cooldownTimer;
-    private int pressCounter = 1;
+    private int jumpPressCounter = 1;
     [SerializeField] private float InertiaTimeWalking;
     private float SlowDownTime;
     private Vector3 slowDownVector;
@@ -49,6 +49,7 @@ public class InputManager : MonoBehaviour
                 playerMovement.BreakOutCounter += playerMovement.BreakOutValue;
             }
             print(moveVector);
+            print(slowDownVector);
         }
         if(context.canceled)
         {
@@ -62,6 +63,7 @@ public class InputManager : MonoBehaviour
             moveVector = Vector3.zero;
             slowDownVector = Vector3.zero;
             print(moveVector);
+            print(slowDownVector);
         }
         playerMovement.Movement(moveVector);
     }// END MOVE
@@ -72,14 +74,14 @@ public class InputManager : MonoBehaviour
     {
         if (context.performed)
         {
-            if (pressCounter == 1)
+            if (jumpPressCounter == 1)
             {
                 playerMovement.Jump();
-                pressCounter++;
+                jumpPressCounter++;
             }
-            else if(pressCounter == 2)
+            else if(jumpPressCounter == 2)
             {
-                pressCounter = 1;
+                jumpPressCounter = 1;
             }
         }
     }// END JUMP
