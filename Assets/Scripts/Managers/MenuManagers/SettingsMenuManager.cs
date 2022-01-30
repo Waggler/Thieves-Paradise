@@ -59,7 +59,7 @@ public class SettingsMenuManager : MonoBehaviour
     //-----------------------//
     {
         //AddResolutions();
-        SetFullScreen(true);
+        //SetFullScreen(true);
 
     }//END Init
 
