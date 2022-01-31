@@ -8,6 +8,7 @@ public class CollectibleMenuManager : MonoBehaviour
 {
 
     [Header("Components")]
+    [SerializeField] private HeistCollectionManager heistCollectionManager;
     [Header("Buttons")]
     [SerializeField] private Button ladyButton;
     [SerializeField] private Button massesButton;
@@ -20,12 +21,7 @@ public class CollectibleMenuManager : MonoBehaviour
 
     [Header("Screens")]
     [SerializeField] private GameObject mainScreen;
-    [SerializeField] private GameObject ladyScreen;
-    [SerializeField] private GameObject unionScreen;
-    [SerializeField] private GameObject massesScreen;
-    [SerializeField] private GameObject mafiaScreen;
-    [SerializeField] private GameObject ciaScreen;
-    [SerializeField] private GameObject finaleScreen;
+    [SerializeField] private GameObject heistScreen;
 
 
     //-----------------------//
@@ -103,33 +99,45 @@ public class CollectibleMenuManager : MonoBehaviour
     {
         if (screenValue == 0)
         {
-            mainScreen.SetActive(true);
-            ladyScreen.SetActive(true);
+            mainScreen.SetActive(false);
+            heistCollectionManager.currentHeist = HeistCollectionManager.CurrentHeist.LADY;
+            heistCollectionManager.Init();
+            heistScreen.SetActive(true);
         }
         if (screenValue == 1)
         {
-            mainScreen.SetActive(true);
-            unionScreen.SetActive(true);
+            mainScreen.SetActive(false);
+            heistCollectionManager.currentHeist = HeistCollectionManager.CurrentHeist.MASSES;
+            heistCollectionManager.Init();
+            heistScreen.SetActive(true);
         }
         if (screenValue == 2)
         {
-            mainScreen.SetActive(true);
-            massesScreen.SetActive(true);
+            mainScreen.SetActive(false);
+            heistCollectionManager.currentHeist = HeistCollectionManager.CurrentHeist.UNION;
+            heistCollectionManager.Init();
+            heistScreen.SetActive(true);
         }
         if (screenValue == 3)
         {
-            mainScreen.SetActive(true);
-            mafiaScreen.SetActive(true);
+            mainScreen.SetActive(false);
+            heistCollectionManager.currentHeist = HeistCollectionManager.CurrentHeist.MAFIA;
+            heistCollectionManager.Init();
+            heistScreen.SetActive(true);
         }
         if (screenValue == 4)
         {
-            mainScreen.SetActive(true);
-            ciaScreen.SetActive(true);
+            mainScreen.SetActive(false);
+            heistCollectionManager.currentHeist = HeistCollectionManager.CurrentHeist.CIA;
+            heistCollectionManager.Init();
+            heistScreen.SetActive(true);
         }
         if (screenValue == 5)
         {
-            mainScreen.SetActive(true);
-            finaleScreen.SetActive(true);
+            mainScreen.SetActive(false);
+            heistCollectionManager.currentHeist = HeistCollectionManager.CurrentHeist.FINALE;
+            heistCollectionManager.Init();
+            heistScreen.SetActive(true);
         }
 
     }//END OpenHeistScreen
