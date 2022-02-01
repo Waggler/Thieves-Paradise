@@ -83,7 +83,7 @@ public class DisplayCase : MonoBehaviour
     }
 
     #region OpenDoor
-    private void OnTriggerStay(Collider collider)
+    public void OnTriggerStay(Collider collider)
     {
         inArea = true;
         leaveCase = false;
@@ -108,7 +108,7 @@ public class DisplayCase : MonoBehaviour
     }
 
     #region CloseCase
-    private void OnTriggerExit(Collider collider)
+    public void OnTriggerExit(Collider collider)
     {
         if(isLocked == true)
         {
