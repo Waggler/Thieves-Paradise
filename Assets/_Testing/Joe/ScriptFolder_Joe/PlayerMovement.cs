@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
     private bool canMove = true;
-    public float CurrentSpeed;
+    private float CurrentSpeed;
     private Vector3 Direction;
 
     [Header("Crouching")]
@@ -97,6 +97,11 @@ public class PlayerMovement : MonoBehaviour
     public bool IsStunned = false;
     public float CurrentStunTime = 0;
 
+    [Header("Inertia")]
+    public bool Inertia = false;
+    [SerializeField] private float WalkingInertiaTime;
+    private float CurrentInertiaTime;
+
     [Header("Player Noise")]
     [Tooltip("The detection radius of the player when they are standing still and when they are moving while crouched")]
     [SerializeField] private int SilentLevel = 0;
@@ -144,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
         CurrentRollTime = RollingTime;
         CurrentDiveTime = DiveTime;
         CurrentDelayTime = DelayTime;
+        CurrentInertiaTime = WalkingInertiaTime;
         Controller = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
         PlayerCamera = Camera.main.transform;
@@ -234,12 +240,23 @@ public class PlayerMovement : MonoBehaviour
         //Movement
         if (!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned && canMove)
         {
-            Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+            if (!Inertia)
+            {
+                Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+            }
+            else
+            {
+                if (CurrentInertiaTime > 0)
+                {
+                    Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+                    CurrentInertiaTime -= Time.deltaTime;
+                }
+                else if (CurrentInertiaTime <= 0)
+                {
+                    Direction = Vector3.zero;
+                }
+            }
         }
-
-        //Inertia Stopping
-        
-
         //Setting Roll Direction for rolling, diving, and sliding.
         if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {

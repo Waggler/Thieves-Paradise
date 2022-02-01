@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private Vector3 moveVector;
+    private Vector3 directionVector;
     public bool isSprinting;
     public bool isCrouching;
     public bool isRolling;
@@ -45,16 +46,23 @@ public class InputManager : MonoBehaviour
                 playerMovement.BreakOutCounter += playerMovement.BreakOutValue;
             }
 
-            if (moveVector == Vector3.zero)
+            if (moveVector != Vector3.zero)
+            {
+                directionVector = moveVector;
+                playerMovement.Movement(moveVector);
+                playerMovement.Inertia = false;
+            }
+            else if (moveVector == Vector3.zero)
             {
                 //Have a new var be the last movement direction then set up a check as well for if the speed is sprinting or walking.
                 //Have a timer so the player only moves that way for about a second after the button push or two if they are sprinting.
                 //playerMovement.CurrentSpeed/2;
-                //
+                
+                playerMovement.Movement(directionVector);
+                playerMovement.Inertia = true;
             }
             print(moveVector);
         }
-        playerMovement.Movement(moveVector);
     }// END MOVE
     #endregion
 
