@@ -696,7 +696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3325092847374484679}
   m_LocalRotation: {x: 0, y: 0.9999792, z: 0, w: 0.0064577665}
-  m_LocalPosition: {x: -12.06, y: 3.423177, z: -5.89}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 544382310378740329}
@@ -809,7 +809,7 @@ MonoBehaviour:
   guardKnockbackForce: 50
   attackTime: 0
   attackRadius: 2
-  rangedAttackRadius: 3
+  taserRadius: 0
   waypointNextDistance: 0.5
   playerCaptureTeleportLoc: {fileID: 1791299338356384477}
   playerReleaseTeleportLoc: {fileID: 7543830123775770894}
@@ -1204,7 +1204,7 @@ GameObject:
   m_Layer: 0
   m_Name: TaserSpawnPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

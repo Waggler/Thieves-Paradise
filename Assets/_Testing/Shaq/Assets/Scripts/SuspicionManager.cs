@@ -20,19 +20,13 @@ using UnityEngine.UI;
 //    - 
 //    - 
 
-//Suspicion Manager Notes:
-//  - Look at Among Us task manager / meter for reference/inspiration on the overall suspicion manager
-
 public class SuspicionManager : MonoBehaviour
 {
     #region Enumerations
     private enum SecurityLvl
     {
         SecLVL0,
-        SecLVL1,
-        SecLVL2,
-        SecLVL3,
-        SecLVL4
+        SecLVL1
     }
 
     [Header("AI State")]
@@ -46,50 +40,38 @@ public class SuspicionManager : MonoBehaviour
 
     #region Lists & Arrays
 
-    #region Guard List
     [Header("Guards List")]
-    [Tooltip("Shows the list of guards")]
+    [Tooltip("Shows the list of guards in the level")]
     [SerializeField] private List<GameObject> guardsList;
-    //Try to generate the list by getting the children of an object
 
-
-    #endregion
-
-    #region Camera List
+    [Header("Cameras List")]
+    [Tooltip("Shows the list of cameras in the level")]
     [SerializeField] private List<GameObject> camerasInLevel;
-    //Try to generate the list by getting the children of an object
-
-
-    #endregion
 
     #endregion Lists & Arrays
 
     #region Variables
+    //---------------------------------------------------------------------------------------------------//
+
     //Note: The green squigglies just mean it's given a value in the inspector instead of in the script
     [Header("Suspicion Manager Variables")]
     [SerializeField] private Text susText;
-    [SerializeField] private float susInc;
-    [SerializeField] private float susDec;
-    [SerializeField] private float susDecTimer;
 
-    [Header("Notification Radius Variables")]
-    [SerializeField] private Transform notifCenter;
-    [SerializeField] private float notifRad;
-
+    //---------------------------------------------------------------------------------------------------//
 
     [Header("Guard Refs")]
     [SerializeField] private EnemyManager enemyManager;
 
+    //---------------------------------------------------------------------------------------------------//
 
     [Header("Camera Refs")]
     [SerializeField] private CameraManager cameraManager;
 
+    //---------------------------------------------------------------------------------------------------//
+
     [Header("Debug / Testing Variables")]
-
-
-    //Be sure to make variables that will be manipulated by other scripts/classes PUBLIC
-    [Header("Communicated Variables")]
-    [SerializeField] public int testInt;
+    [Tooltip("This thing literally has not legitimate purpose other than to occupy space for a header")]
+    [SerializeField] private bool stupidBoolToMakeCSharpShutTheHellUp;
 
 
     #endregion Variables
@@ -102,8 +84,6 @@ public class SuspicionManager : MonoBehaviour
     {
         Init();
 
-        testInt = 0;
-
     }//End Awake
     #endregion Awake
 
@@ -111,48 +91,29 @@ public class SuspicionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
         switch (secState)
         {
+            #region Security Level 0
             case SecurityLvl.SecLVL0:
-                susText.text = "Level 0";
-                break;
+                print("Security Level 0");
 
+                break;
+            #endregion
+
+            #region Security Level 1
             case SecurityLvl.SecLVL1:
-                susText.text = "Level 1";
-                break;
+                print("Security Level 1");
 
-            case SecurityLvl.SecLVL2:
-                susText.text = "Level 2";
                 break;
+            #endregion
 
-            case SecurityLvl.SecLVL3:
-                susText.text = "Level 3";
-                break;
-
-            case SecurityLvl.SecLVL4:
-                susText.text = "Level 4";
-                break;
-
+            #region Default case / Bug Catcher
             default:
-                susText.text = "LEVEL NOT FOUND";
+                print("Security Level not found! \a");
                 break;
-        }
-        */
-
-        if (testInt != 0)
-        {
-            //print("Int has changed");
+            #endregion
 
         }
-
-        //print($"{secState}");
-
-        //print($"Current references are {enemyManager} & {cameraManager}");
-
-
-
-
     }//End Update
     #endregion Update
 
@@ -160,10 +121,11 @@ public class SuspicionManager : MonoBehaviour
 
     #region General Functions
 
+    //---------------------------------//
+    //Draws Gizmos
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(notifCenter.position, notifRad);
+
     }//End OnDrawGizmos
 
 
@@ -175,6 +137,8 @@ public class SuspicionManager : MonoBehaviour
         //secState = SecurityLvl.SecLVL0;
     }//End Init
 
+
+
     //---------------------------------//
     //Raises / Lowers the security level based on the given context
     private void AdjustSecurityLevel(SecurityLvl securityLvl)
@@ -182,6 +146,10 @@ public class SuspicionManager : MonoBehaviour
 
     }//End AdjustSecurityLevel
 
+
+
+    //---------------------------------//
+    //Alerts available guards in a set radius
     public void AlertGuards(Vector3 targetLoc, Vector3 callerLoc, float callRadius)
     {
         //print("Alerting Guards");

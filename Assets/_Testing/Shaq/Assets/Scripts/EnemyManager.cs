@@ -27,6 +27,7 @@ public class EnemyManager : MonoBehaviour
         WARY,
         SUSPICIOUS,
         HOSTILE,
+        REPORT,
         ATTACK,
         RANGEDATTACK,
         STUNNED
@@ -209,8 +210,8 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Guard Movement Speeds")]
 
-    [Tooltip("The speed that the AI moves at in the PATROL state")]
-    [SerializeField] [Range(0, 30)] public float patrolSpeed = 5f;
+    [Tooltip("The speed that the AI moves at in the PASSIVE state")]
+    [SerializeField] [Range(0, 30)] public float passiveSpeed = 5f;
 
     [Tooltip("The speed that the AI moves at in the WARY state")]
     [SerializeField] [Range(0, 30)] public float warySpeed = 4f;
@@ -306,7 +307,7 @@ public class EnemyManager : MonoBehaviour
 
     private float oneTimeUseTimerReset;
 
-    private bool surpriseVFXBoolCheck;
+    //private bool surpriseVFXBoolCheck;
 
     private float eyeballSightRangeRecord;
 
@@ -351,10 +352,10 @@ public class EnemyManager : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
 
-        if (stateMachine == EnemyStates.HOSTILE)
-        {
-            surpriseVFXBoolCheck = true;
-        }
+        //if (stateMachine == EnemyStates.HOSTILE)
+        //{
+        //    surpriseVFXBoolCheck = true;
+        //}
 
         //BIG STUPID TIMER FOR TESTING FUNNY AND GOOFY MECHANICS PLEASE DELETE OR COMMENT OUT WHEN NOT IN USE / WHEN YOU WANT STUFF TO WORK PROPERLY (I AM AWARE THIS MAY NOT BE THE ONLY PART OF MY CODE THAT IS FUNNY AND GOOFY LIKE THIS, I AM SORRY)
 
@@ -378,7 +379,7 @@ public class EnemyManager : MonoBehaviour
 
                 stateText.text = stateMachine.ToString();
 
-                SetAiSpeed(patrolSpeed);
+                SetAiSpeed(passiveSpeed);
 
                 //Reseting alert related variables
                 if (isAudioSourcePlaying == true)
@@ -520,6 +521,7 @@ public class EnemyManager : MonoBehaviour
             #endregion Wary Behavior
 
             #region Suspicious Behavior
+            //Finding random
             case EnemyStates.SUSPICIOUS:
 
 
@@ -704,6 +706,16 @@ public class EnemyManager : MonoBehaviour
                 break;
             #endregion Hostile Behavior
 
+            #region Report Behaviour
+            case EnemyStates.REPORT:
+                stateText.text = stateMachine.ToString();
+
+                //targetText.text = target.ToString();
+                targetText.text = "Security Station";
+
+                break;
+            #endregion Report Behaviour
+
             #region Attack Behavior
             //AI Attack state
             case EnemyStates.ATTACK:
@@ -865,10 +877,10 @@ public class EnemyManager : MonoBehaviour
 
         agent.autoBraking = true;
 
-        SetAiSpeed(patrolSpeed);
+        SetAiSpeed(passiveSpeed);
         
         //FIX THIS WHEN TELLING PEOPLE ITS FINE TO FUCK WITH GUARD
-        stateMachine = EnemyStates.PASSIVE;
+        stateMachine = EnemyStates.REPORT;
 
         //Checks to see if there is no value for the player object reference
         if (player == null)
@@ -889,8 +901,6 @@ public class EnemyManager : MonoBehaviour
         #endregion Waypoints Check / Initial Start
 
         FaceTarget(target);
-
-        //loseText.text = "";
 
         stunTimeReset = stunTime;
 
@@ -915,6 +925,7 @@ public class EnemyManager : MonoBehaviour
 
     //---------------------------------//
     //Constructs an empty game object with a transform component
+    //  - The constructed object is intended to be used as a waypoint for the guard
     private GameObject GameObjectContructor(string objName, Vector3 objSpawnLoc)
     {
         GameObject go1 = new GameObject();
@@ -924,7 +935,6 @@ public class EnemyManager : MonoBehaviour
 
         return go1;
     }
-
 
 
     //---------------------------------//
@@ -991,7 +1001,7 @@ public class EnemyManager : MonoBehaviour
     }//End OnTriggerEnter
 
     //---------------------------------//
-    //
+    // Generates a random point for the guard to go to
     private Vector3 GenerateRandomPoint()
     {
         //Generates the initial random point
