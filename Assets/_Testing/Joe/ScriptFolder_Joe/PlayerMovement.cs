@@ -243,12 +243,13 @@ public class PlayerMovement : MonoBehaviour
             if (!Inertia)
             {
                 Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+                CurrentInertiaTime = WalkingInertiaTime;
             }
             else
             {
                 if (CurrentInertiaTime > 0)
                 {
-                    Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+                    Controller.Move(FacingDirection * (CurrentSpeed/2) * Time.deltaTime);
                     CurrentInertiaTime -= Time.deltaTime;
                 }
                 else if (CurrentInertiaTime <= 0)
@@ -571,7 +572,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 groundCheck = new Vector3(transform.position.x, transform.position.y - (StandardHeight / 2.6f), transform.position.z);
         Test = groundCheck;
         //StandardHeight / 4
-        if (Physics.CheckSphere(groundCheck, StandardHeight / 6f, mask, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(groundCheck, StandardHeight / 7f, mask, QueryTriggerInteraction.Ignore))
         {
             IsGrounded = true;
             Jumping = false;
@@ -600,7 +601,7 @@ public class PlayerMovement : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Test, StandardHeight / 6f);
+        Gizmos.DrawWireSphere(Test, StandardHeight / 7f);
         Gizmos.color = Color.blue;
     }
 
