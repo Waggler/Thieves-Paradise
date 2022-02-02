@@ -11,14 +11,13 @@ public class InputManager : MonoBehaviour
     public bool isRolling;
     public bool isPushPull;
     private PlayerMovement playerMovement;
-    private MasterPushPullScript masterPushPullScript;
     public float rollCooldownTime;
     private float cooldownTimer;
+    private int jumpPressCounter = 1;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        masterPushPullScript = GetComponent<MasterPushPullScript>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -40,14 +39,20 @@ public class InputManager : MonoBehaviour
         if(context.performed)
         {
             moveVector = new Vector3(contextValue.x, 0, contextValue.y);
+            
             if (playerMovement.IsStunned)
             {
                 playerMovement.BreakOutCounter += playerMovement.BreakOutValue;
             }
-        }
-        if(context.canceled)
-        {
-            moveVector = Vector3.zero;
+
+            if (moveVector == Vector3.zero)
+            {
+                //Have a new var be the last movement direction then set up a check as well for if the speed is sprinting or walking.
+                //Have a timer so the player only moves that way for about a second after the button push or two if they are sprinting.
+                //playerMovement.CurrentSpeed/2;
+                //
+            }
+            print(moveVector);
         }
         playerMovement.Movement(moveVector);
     }// END MOVE
@@ -56,9 +61,17 @@ public class InputManager : MonoBehaviour
     #region JumpInput
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if (context.performed)
         {
-            playerMovement.Jump();
+            if (jumpPressCounter == 1)
+            {
+                playerMovement.Jump();
+                jumpPressCounter++;
+            }
+            else if(jumpPressCounter == 2)
+            {
+                jumpPressCounter = 1;
+            }
         }
     }// END JUMP
     #endregion
@@ -66,7 +79,7 @@ public class InputManager : MonoBehaviour
     #region SprintInput
     public void Sprint(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if(context.started)
         {
             isSprinting = true;
             playerMovement.Sprint(isSprinting);
@@ -82,7 +95,7 @@ public class InputManager : MonoBehaviour
     #region CrouchInput
     public void Crouch(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if(context.started)
         {
             isCrouching = true;
             playerMovement.Crouch(isCrouching);
@@ -102,7 +115,7 @@ public class InputManager : MonoBehaviour
         {
             return;
         }
-        if(context.performed)
+        if(context.started)
         {
             isRolling = true;
             playerMovement.Roll(isRolling);
@@ -116,20 +129,6 @@ public class InputManager : MonoBehaviour
     }//END ROLL
 
     #endregion
-
-    //TO BE DELETED: TEST!
-    public void PushPullActivation(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-        {
-            isPushPull = true;
-        }
-        if(context.canceled)
-        {
-            isPushPull = false;
-        }
-        masterPushPullScript.PushPullInput(isPushPull);
-    }//END PUSHPULLACTIVATION
 
     #endregion
 }
