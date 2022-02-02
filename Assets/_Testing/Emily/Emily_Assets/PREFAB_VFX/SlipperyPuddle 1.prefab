@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2959082817430366711}
   - component: {fileID: 7769121994793182918}
   m_Layer: 0
-  m_Name: SlipperyPuddle
+  m_Name: SlipperyPuddle 1
   m_TagString: Slippery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7980188694579236807}
-  - {fileID: 7264594259014456455}
+  - {fileID: 7476432260437028078}
+  - {fileID: 6671617682403202563}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -90,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88dd085baa685a4092d3a8c9f5580cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puddleVFX: {fileID: 0}
 --- !u!1 &6439961398479008976
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,20 +173,62 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &2843691277171020956
+--- !u!1 &8044807674190955365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7476432260437028078}
+  m_Layer: 0
+  m_Name: PuddleVFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7476432260437028078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8044807674190955365}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 855176862887650731}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2247735144340936216
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 855176862887650731}
     m_Modifications:
+    - target: {fileID: 516705650256165578, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 845988643376404767, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
       propertyPath: m_Name
       value: WaterBalloon_VFX
       objectReference: {fileID: 0}
+    - target: {fileID: 1731998964912212078, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2217278019900989178, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4875102458847805467, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4875102458847805467, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
       propertyPath: m_LocalPosition.x
@@ -192,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4875102458847805467, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.375
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4875102458847805467, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
       propertyPath: m_LocalPosition.z
@@ -228,8 +272,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
---- !u!4 &7264594259014456455 stripped
+--- !u!4 &6671617682403202563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4875102458847805467, guid: 7908e3e6449e18f4b8afde1bec0b2f68, type: 3}
-  m_PrefabInstance: {fileID: 2843691277171020956}
+  m_PrefabInstance: {fileID: 2247735144340936216}
   m_PrefabAsset: {fileID: 0}
