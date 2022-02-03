@@ -37,7 +37,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
     // Update is called once per frame
     public void UseItem()
     {
-        print("Used Active Item");
+        print("Used Laser Pointer Item");
         
     }
 }

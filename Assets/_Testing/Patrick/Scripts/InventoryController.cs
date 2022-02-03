@@ -111,8 +111,8 @@ public class InventoryController : MonoBehaviour
     }
     public void UseItemPrimary()
     {
-        //do whatever the active item can
-        //print("Use Item");
+        print("Attempting to use Item");
+        itemInterfaceInventory[activeItemIndex].UseItem();
     }
     public void UseItemSecondary(InputAction.CallbackContext context)
     {
@@ -198,6 +198,7 @@ public class InventoryController : MonoBehaviour
         
         RemoveActiveItem();
     }
+
     private void SwapItem(int selection)
     {
         //play anim
@@ -216,12 +217,6 @@ public class InventoryController : MonoBehaviour
                 hotbarMesh[i].transform.localScale = Vector3.one * 6;
             }
         }
-    }
-
-    private void UseActiveItem()
-    {
-        print("Attempting to use Item");
-        itemInterfaceInventory[activeItemIndex].UseItem();
     }
     //check for if we have space in the inventory
     private bool IsInventoryFull()

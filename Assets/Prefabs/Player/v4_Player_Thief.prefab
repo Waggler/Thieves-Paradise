@@ -822,7 +822,8 @@ MonoBehaviour:
   WalkingSpeed: 3.25
   RunningSpeed: 5.5
   CrouchSpeed: 2.25
-  Acceleration: 5
+  SprintAcceleration: 0
+  WalkAcceleration: 0
   IsSprinting: 0
   UnSprinting: 1
   CurrentSpeed: 0
@@ -839,6 +840,7 @@ MonoBehaviour:
   playerCollider: {fileID: 0}
   Controller: {fileID: 8827046240343522463}
   IsGrounded: 1
+  AirSpeed: 0
   RollingSpeed: 5
   RollingTime: 1
   DelayTime: 0.1
@@ -851,10 +853,6 @@ MonoBehaviour:
   IsDiving: 0
   ResetDiving: 0
   StillDiving: 0
-  PushPullLightSpeed: 0
-  PushPullMediumSpeed: 0
-  PushPullHeavySpeed: 0
-  IsPushPull: 0
   ToggleSprint: 1
   ToggleCrouch: 0
   IsUncovered: 0
@@ -1076,13 +1074,13 @@ MonoBehaviour:
     m_ActionName: Player/Inventory Slot 4[/Keyboard/4]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6908870511578677741}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 6908870511578677739}
+        m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
+        m_MethodName: UseItemPrimary
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1575,8 +1573,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870512041837564}
-  m_LocalRotation: {x: 0.047414277, y: 0.88520294, z: -0.13385265, w: -0.44300252}
-  m_LocalPosition: {x: 2.8124597, y: -0.4696958, z: 8.254408}
+  m_LocalRotation: {x: 0.047414266, y: 0.88520294, z: -0.13385266, w: -0.44300246}
+  m_LocalPosition: {x: -6.517541, y: -12.585442, z: -52.200436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8827046241353447791}
@@ -2169,7 +2167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870512855580632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5256748, y: 5.161736, z: -10.177526}
+  m_LocalPosition: {x: -0.52567494, y: 5.161736, z: -10.177527}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6908870512813823779}
@@ -2370,8 +2368,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870513109798248}
-  m_LocalRotation: {x: -0.009678631, y: 0.89505446, z: -0.019448511, w: -0.4454275}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.00967863, y: 0.89505446, z: -0.019448511, w: -0.4454275}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00000047683716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6908870511053644490}
