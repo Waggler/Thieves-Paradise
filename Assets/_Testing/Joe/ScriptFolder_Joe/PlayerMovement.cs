@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
     [Tooltip("The increase in speed when sprinting.")]
-    [SerializeField] private float Acceleration;
+    [SerializeField] private float SprintAcceleration;
+    [SerializeField] private float WalkAcceleration;
     [SerializeField] public bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
     private bool canMove = true;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public CapsuleCollider playerCollider;
     [SerializeField] public CharacterController Controller;
     [SerializeField] private bool IsGrounded = true;
+    [SerializeField] private float AirSpeed;
     private float HeightFromGround;
     private float CrouchingHeightFromGround;
     private float GroundHeight;
@@ -79,12 +81,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 FacingDirection;
 
     private LayerMask mask; //player layer mask to occlude the player from themselves
-
-    [Header("Push & Pull")]
-    [SerializeField] private float PushPullLightSpeed;
-    [SerializeField] private float PushPullMediumSpeed;
-    [SerializeField] private float PushPullHeavySpeed;
-    [SerializeField] private bool IsPushPull;
 
     [Header("Togglable Buttons")]
     public bool ToggleSprint;
@@ -168,12 +164,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
+
         GroundCheck();
         Rolling();
         AnimationStates();
 
-        if ((!IsCrouching && !IsSprinting && !IsPushPull) || IsUncovered)
+        if ((!IsCrouching && !IsSprinting) || IsUncovered)
         {
             CoveredCheck();
             IsUncovered = false;
@@ -188,6 +184,28 @@ public class PlayerMovement : MonoBehaviour
         {
             Sprinting();
         }
+
+        #region Inertia
+        if (CurrentSpeed != WalkingSpeed && !IsCrouching && !IsSprinting && IsGrounded)
+        {
+            if (CurrentSpeed > WalkingSpeed)
+            {
+                CurrentSpeed -= Deceleration * Time.deltaTime;
+                if (WalkingSpeed > CurrentSpeed)
+                {
+                    CurrentSpeed = WalkingSpeed;
+                }
+            }
+            else if(CurrentSpeed < WalkingSpeed)
+            {
+                CurrentSpeed += WalkAcceleration * Time.deltaTime;
+                if (WalkingSpeed < CurrentSpeed)
+                {
+                    CurrentSpeed = WalkingSpeed;
+                }
+            }
+        }
+        #endregion
 
         #region Gravity
         if (IsGrounded && Controller.velocity.y > 0)
@@ -218,6 +236,9 @@ public class PlayerMovement : MonoBehaviour
         {
             Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
+
+        //Inertia Stopping
+        
 
         //Setting Roll Direction for rolling, diving, and sliding.
         if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
@@ -311,6 +332,8 @@ public class PlayerMovement : MonoBehaviour
 
                 }
                 IsStunned = false;
+                IsDiving = false;
+
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
@@ -350,7 +373,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if (IsGrounded && !IsCrouching && !IsPushPull)
+        if (IsGrounded && !IsCrouching && !IsStunned)
         {
             if (Direction.magnitude > 0.1)
             {
@@ -376,7 +399,7 @@ public class PlayerMovement : MonoBehaviour
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
         }
-        else if (IsGrounded && IsCrouching && !IsPushPull)
+        else if (IsGrounded && IsCrouching)
         {
             IsStanding = true;
             CoveredCheck();
@@ -388,7 +411,7 @@ public class PlayerMovement : MonoBehaviour
     //----------SPRINT----------//
     public void Sprint(bool Sprinting)
     {
-        if (Sprinting && !IsCrouching && !IsPushPull)
+        if (Sprinting && !IsCrouching)
         {
             IsSprinting = true;
             if (UnSprinting == false)
@@ -400,12 +423,11 @@ public class PlayerMovement : MonoBehaviour
                 UnSprinting = false;
             }
         }
-        else if (!Sprinting && !IsCrouching && UnSprinting && !IsPushPull)
+        else if (!Sprinting && !IsCrouching && UnSprinting)
         {
-            CurrentSpeed = WalkingSpeed;
             IsSprinting = false;
         }
-        else if (IsGrounded && IsCrouching && !IsPushPull)
+        else if (IsGrounded && IsCrouching)
         {
             IsStanding = true;
             IsSprinting = true;
@@ -419,7 +441,7 @@ public class PlayerMovement : MonoBehaviour
     //----------CROUCH----------//
     public void Crouch(bool Crouching)
     {
-        if (Crouching && IsGrounded && !IsPushPull)
+        if (Crouching && IsGrounded)
         {
             IsCrouching = true;
             if (IsStanding && !IsSprinting)
@@ -509,7 +531,6 @@ public class PlayerMovement : MonoBehaviour
                 CrouchDown();
                 if (StillRolling)
                 {
-                    print("Check");
                     IsRolling = true;
                     StillRolling = false;
                 }
@@ -524,37 +545,6 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    #region Push/Pull
-    public void PushPullCheck(bool IsNearPushPull, int CheckSpeed)
-    {
-        if (!IsSprinting && !IsCrouching)
-        {
-            if (CheckSpeed == 1)
-            {
-                CurrentSpeed = PushPullLightSpeed;
-                IsPushPull = true;
-            }
-            else if (CheckSpeed == 2)
-            {
-                CurrentSpeed = PushPullMediumSpeed;
-                IsPushPull = true;
-            }
-            else if (CheckSpeed == 3)
-            {
-                CurrentSpeed = PushPullHeavySpeed;
-                IsPushPull = true;
-            }
-        }
-
-        if (!IsNearPushPull && !IsCrouching && !IsSprinting && !IsSliding && !IsRolling && !IsDiving)
-        {
-            CurrentSpeed = WalkingSpeed;
-            IsPushPull = false;
-        }
-    }
-
-    #endregion
-
     #region Ground
     //---GROUNDCHECK---//
     void GroundCheck()
@@ -562,17 +552,26 @@ public class PlayerMovement : MonoBehaviour
         //Debug.DrawRay(Controller.transform.position + Controller.center, Vector3.down, Color.red, Controller.height / 2  + 0.1f);
         //Physics.Raycast(Controller.transform.position + Controller.center, Vector3.down, Controller.height / 2  + 0.1f)
         Vector3 groundCheck = new Vector3(transform.position.x, transform.position.y - (StandardHeight / 2.6f), transform.position.z);
+        Test = groundCheck;
         //StandardHeight / 4
         if (Physics.CheckSphere(groundCheck, StandardHeight / 6f, mask, QueryTriggerInteraction.Ignore))
         {
-            Test = groundCheck;
             IsGrounded = true;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
+            if(CurrentSpeed == AirSpeed)
+            {
+                CurrentSpeed = WalkingSpeed;
+            }
         }
         else
         {
             IsGrounded = false;
+            if (!IsDiving || !IsSprinting)
+            {
+                CurrentSpeed = AirSpeed;
+            }
+
             if (IsCrouching)
             {
                 StandUp();
@@ -585,6 +584,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(Test, StandardHeight / 6f);
+        Gizmos.color = Color.blue;
     }
 
     #endregion
@@ -633,7 +633,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (CurrentSpeed < RunningSpeed)
         {
-            CurrentSpeed += Acceleration * Time.deltaTime;
+            CurrentSpeed += SprintAcceleration * Time.deltaTime;
         }
         else if (CurrentSpeed >= RunningSpeed)
         {
@@ -681,7 +681,6 @@ public class PlayerMovement : MonoBehaviour
     //---STAND-UP---//
     void StandUp()
     {
-        CurrentSpeed = WalkingSpeed;
         playerCollider.height = StandardHeight;
         Controller.height = StandardHeight;
         Controller.center = new Vector3(0f, SetCenterHeight, 0f);
