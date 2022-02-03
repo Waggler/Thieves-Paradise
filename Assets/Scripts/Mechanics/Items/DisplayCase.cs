@@ -44,6 +44,7 @@ public class DisplayCase : MonoBehaviour
         if(buttonPressed == true)
         {
             Timer = Timer + Time.deltaTime;
+            openMessage.SetActive(false);
 
             if(Timer <= 1.05f)
             {
@@ -69,9 +70,9 @@ public class DisplayCase : MonoBehaviour
             minAngle = 0f;
             maxAngle = doorClose;
 
-            if(Timer >= - 0.05f)
+            if(Timer >= -0.05f)
             {
-                float angle = Mathf.LerpAngle(maxAngle, minAngle, Timer);
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
                 caseDoor.transform.eulerAngles = new Vector3(0, angle, 0);
             }
 
@@ -108,7 +109,7 @@ public class DisplayCase : MonoBehaviour
     }
 
     #region CloseCase
-    public void OnTriggerExit(Collider collider)
+    private void OnTriggerExit(Collider collider)
     {
         if(isLocked == true)
         {
@@ -125,4 +126,9 @@ public class DisplayCase : MonoBehaviour
         buttonPressed = false;
     }
     #endregion
+
+    public void ShutCase()
+    {
+        leaveCase = true;
+    }
 }
