@@ -1100,11 +1100,8 @@ MonoBehaviour:
   dialogue:
   - characterName: Narration
     sentences:
-    - '*After your heist, you show up back to Borgar at the agreed meeting time.*'
-    - '*Your fears that she might have ghosted you disappear as you walk through
-      the door, and see the Lady sitting in the same booth, checking on her phone
-      and looking very impatient.*'
-    - "*You approach her table and let out a small whistle to get her attention.*\r"
+    - "*After your heist, you show up to Borgar at the agreed meeting time. You approach
+      the lady\u2019s table once more and let out a small whistle to get her attention.*\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1150,9 +1147,6 @@ MonoBehaviour:
     sentences:
     - '*You place a bag containing the perfume onto the table. The Lady takes a look
       inside to confirm that is what she asked for.*'
-    - '*She is surprised to see the bottle of perfume she asked for inside.*
-
-'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1184,7 +1178,7 @@ MonoBehaviour:
       responseID: 0
   - characterName: The Lady
     sentences:
-    - "\u201COh? You actually did manage to bring back what I wanted? This isn\u2019t
+    - "\u201COh? Did you actually  manage to bring back what I wanted? This isn\u2019t
       a joke, right?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
@@ -1217,8 +1211,8 @@ MonoBehaviour:
       responseID: 0
   - characterName: Narration
     sentences:
-    - '*The Lady picks up the bottle and examines it, before spritzing the bottle
-      into the air to confirm that it is even the scent she likes.*'
+    - "*The Lady picks up the bottle and examines it, before spritzing the perfume
+      into the air to confirm it\u2019s  the scent she likes.*"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
@@ -1250,10 +1244,9 @@ MonoBehaviour:
       responseID: 0
   - characterName: The Lady
     sentences:
-    - "\u201CI suppose you were telling the truth then\u2026 And I suppose I should
-      uphold my promise as well. Come."
-    - "\"You may sit at my table and talk with me until my driver arrives to pick
-      me up.\u201D"
+    - "\u201CI suppose you were telling the truth then\u2026 Then I should uphold
+      my promise as well. Come. You may sit at my table, and we\u2019ll talk until
+      my driver arrives to pick me up.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
@@ -1333,13 +1326,13 @@ MonoBehaviour:
     responses:
     - responseOption:
       - "\u201CSo, why that brand of perfume? Couldn\u2019t any other brand have
-        worked?\u201D "
+        worked?\u201D"
       - "\u201CThis is the scent and brand I\u2019ve been using ever since I was
         old enough to buy my own perfume. It\u2019s what I remember my mother used
-        to wear.\u201D "
+        to wear.\u201D"
       - "\u201CI guess it means a lot to you then?\u201D"
-      - "\u201CIt\u2019s embarrassing to admit, but yes. You getting this brand for
-        me by tonight was very important to me, and I\u2019m truly thankful.\u201D"
+      - "\u201CIt\u2019s embarrassing to admit, but yes. You acquiring this brand
+        for me by tonight was very important, and I\u2019m truly thankful.\u201D"
       responseSpeaker:
       - You
       - The Lady
@@ -1364,14 +1357,13 @@ MonoBehaviour:
       choiceReferenceId: 1
       responseID: 0
     - responseOption:
-      - "\u201CYou sure seem to be in a hurry these past few days. Everything alright?\u201D"
+      - "\u201CYou sure seem to be in a hurry these past few days. Everything alright?\u201D "
       - "\u201CYeah, I\u2019ve been having to run around town non-stop these past
-        few days, too many errands, too little time.\u201D"
+        few days, too many errands, too little time.\u201D "
       - "\u201CWell, now that I\u2019ve shown I\u2019m the real deal, I can get you
-        anything you might need. As long as we can keep talking like this!\u201D"
-      - "\u201CI\u2019ve still got plenty more to do, but it should all be stuff
-        I need to be present for. Although if something comes up, I will be sure
-        to let you know first. \u201D"
+        anything you might need. As long as we can keep talking like this!\u201D "
+      - "\u201CI\u2019ve still got plenty more to do, but it should all be simple
+        from here on out.  something comes up, I will be sure to let you know. \u201D "
       responseSpeaker:
       - You
       - The Lady
@@ -1381,9 +1373,8 @@ MonoBehaviour:
       responseID: 0
   - characterName: Narration
     sentences:
-    - "*As you are about to speak up, the Lady\u2019s phone begins ringing.*"
-    - "*She gestures for you to wait a moment, as she answers her call and addresses
-      her friend she was speaking to when you overheard yesterday.*\r"
+    - "*As you are about to speak up, the Lady\u2019s phone begins ringing. She gestures
+      for you to wait a moment, as she answers her call and addresses her friend.*"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1415,9 +1406,9 @@ MonoBehaviour:
       responseID: 0
   - characterName: The Lady
     sentences:
-    - "\u201CHey! How\u2019s it going? I\u2019m doing great! I actually managed to
-      get a bottle of the perfume I needed just in time for tonight! What do you
-      mean you have bad news?\u201D\r"
+    - "\"Hey! How\u2019s it going? I\u2019m doing great! I actually managed to get
+      the perfume I needed just in time for tonight! \u2026What do you mean you have
+      bad news?\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1481,10 +1472,9 @@ MonoBehaviour:
       responseID: 0
   - characterName: The Lady
     sentences:
-    - "\u201CWhat do you mean she\u2019s wearing a red dress! She knew that I was
-      already coming with one! I can\u2019t stand out if people think our dresses
-      look too similar!\""
-    - "\"Where am I supposed to find a new designer dress by tomorrow!\u201D"
+    - "\u201CWhat do you mean she\u2019s wearing a red dress! She knew my plans!  
+      I won\u2019t stand out if our dresses look too similar! Where am I supposed
+      to find a new designer dress by tomorrow!\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
@@ -1578,44 +1568,11 @@ MonoBehaviour:
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
-  - characterName: Narration
-    sentences:
-    - '*The Lady places her phone away*'
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
   - characterName: The Lady
     sentences:
     - "\u201CApologies for that, but as you may have heard, a \u2018friend\u2019
-      of mine was going to be wearing a RED dress similar to the one I was planning
-      on attending with.\""
-    - "\"So now I need to procure a new one before the charity event.\u201D"
+      of mine is going to be wearing a RED dress similar to the one I was planning
+      on attending with,so now I need to procure a new one before the charity event."
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1647,8 +1604,8 @@ MonoBehaviour:
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CWell that\u2019s already something that I can help you with. If you
-      need a fancy new dress, I can spare you one of mine.\u201D\r"
+    - "\u201CWell that\u2019s something that I can help you with. If you need a fancy
+      new dress, I can spare you one of mine!\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1680,12 +1637,54 @@ MonoBehaviour:
       responseID: 0
   - characterName: The Lady
     sentences:
-    - "\u201CI would be very thankful if you did that for me! Any fine dress will
-      do, as long as it isn\u2019t RED.\u201D\r"
+    - "\u201CYou\u2026  Have a lot of dresses?\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 1
+    choices:
+    - choiceOption: I own a dress store
+      choiceId: 0
+    - choiceOption: I have a lot of girlfriends
+      choiceId: 1
+    - choiceOption: I perform at a theater
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CDon\u2019t get the wrong idea.  I own a fine dress store!\u201D"
+      - "\u201CHmm\u2026  Somehow I have trouble believing that. \u201C"
+      responseSpeaker:
+      - You
+      - The Lady
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CI have a lot of girlfriends.\u201D"
+      - "\u201CHah!  No offense, but I have trouble believing that.\u201D"
+      responseSpeaker:
+      - You
+      - The Lady
+      choiceReferenceId: 1
+      responseID: 0
+    - responseOption:
+      - "\u201CI perform at a theater.  I\u2019ve got all kinds of fancy costumes,
+        dresses included.\u201D"
+      - "\u201CHuh.  That\u2019s awfully fitting, for a hopeless romantic such as
+        yourself\u2026\u201D"
+      responseSpeaker:
+      - You
+      - The Lady
+      choiceReferenceId: 2
+      responseID: 0
+  - characterName: The Lady
+    sentences:
+    - "\u201CRegardless, I would be very thankful if you found a new outfit for me. 
+      Any fine dress will do, as long as it isn\u2019t RED.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
     - choiceOption: "\u201CI brought you a gift\u201D"
@@ -1779,9 +1778,7 @@ MonoBehaviour:
   - characterName: Narration
     sentences:
     - '*The Lady heads out the door, leaving you alone. Once again, you find yourself
-      making a promise with the only way to keep it being to steal what you need.*'
-    - "*It\u2019s time to head back in to shopping world and get the Lady what she
-      wants*\r"
+      making a promise with the only way to keep it being to return to Shopping World.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
