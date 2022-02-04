@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 //      - Transition from PASSIVE to HOSTILE is currently broken
 //  - Continue testing improvements and redundancies that are removed from script
 //  - Consider making a seperate section of script for managing states (seperation of State actions and State management)
+//  - Apply "Object Pooling" concept to all applications of INSTANTIATE & GAMEOBJECT.DESTROY (or other versions of it) being used in your parts of the game (Guard, Camera, Tripwire, water puddle)
 
 public class EnemyManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class EnemyManager : MonoBehaviour
         WARY,
         SUSPICIOUS,
         HOSTILE,
+        REPORT,
         ATTACK,
         RANGEDATTACK,
         STUNNED
@@ -43,7 +45,8 @@ public class EnemyManager : MonoBehaviour
     private enum CycleMethods
     {
         Cycle,
-        Reverse
+        Reverse,
+        Random
     }
 
     [Header("Waypoint Cycling")]
@@ -55,11 +58,11 @@ public class EnemyManager : MonoBehaviour
     #endregion Enumerations
 
     #region Waypoint Cycle Methods List
-    [SerializeField] private static readonly List<CycleMethods> Methods = new List<CycleMethods>
-    {
-        CycleMethods.Cycle,
-        CycleMethods.Reverse
-    };
+    //[SerializeField] private static readonly List<CycleMethods> Methods = new List<CycleMethods>
+    //{
+    //    CycleMethods.Cycle,
+    //    CycleMethods.Reverse
+    //};
     #endregion
 
     #region Waypoints Logic
@@ -113,6 +116,12 @@ public class EnemyManager : MonoBehaviour
                 SetAIDestination(target);
 
                 break;
+
+            case CycleMethods.Random:
+                print("Current cycling method is random");
+
+                break;
+
             default:
                 print("Cycling method not found \a");
                 break;
@@ -131,7 +140,7 @@ public class EnemyManager : MonoBehaviour
     //Private Variables
 
     [Tooltip("The guard's target")]
-    private Vector3 target;
+    [HideInInspector] public Vector3 target;
 
     [Tooltip("The NavMesh Agent component the object that this script is attatched to")]
     private NavMeshAgent agent;
@@ -182,27 +191,27 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("Minimum Suspicion level to enter this state")]
     //Implied Min Value of 0
     [SerializeField] private float passiveSusMax = 3;
-                                            
+
     [Tooltip("Minimum Suspicion level to enter this state")]
     [SerializeField] private float warySusMin = 3.1f;
-                                            
+
     [SerializeField] private float warySusMax = 4;
-                                            
+
     [Tooltip("Minimum Suspicion level to enter this state")]
     [SerializeField] private float sussySusMin = 4.1f;
-                                            
+
     [SerializeField] private float sussySusMax = 5;
-                                            
+
     [Tooltip("Minimum Suspicion level to enter this state")]
     //Implied Max Value of eyeball.susLevel max
-    [SerializeField]  private float hostileSusMin = 5.1f;
+    [SerializeField] private float hostileSusMin = 5.1f;
 
     //---------------------------------------------------------------------------------------------------//
 
     [Header("Guard Movement Speeds")]
 
-    [Tooltip("The speed that the AI moves at in the PATROL state")]
-    [SerializeField] [Range(0, 30)] public float patrolSpeed = 5f;
+    [Tooltip("The speed that the AI moves at in the PASSIVE state")]
+    [SerializeField] [Range(0, 30)] public float passiveSpeed = 5f;
 
     [Tooltip("The speed that the AI moves at in the WARY state")]
     [SerializeField] [Range(0, 30)] public float warySpeed = 4f;
@@ -248,7 +257,7 @@ public class EnemyManager : MonoBehaviour
     private float randWaitTime = 3f;
 
     [Tooltip("The distance from the guard that a random point can be generated")]
-    [SerializeField] [Range (1, 3)] private float randPointRad = 1f;
+    [SerializeField] [Range(1, 3)] private float randPointRad = 1f;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -272,7 +281,7 @@ public class EnemyManager : MonoBehaviour
     private float stunTimeReset;
 
     //Save implementation for next sprint
-    [SerializeField] [Range (0, 50)] private float guardKnockbackForce;
+    [SerializeField] [Range(0, 50)] private float guardKnockbackForce;
 
     [Tooltip("Duration of the guard's Attack state duration")]
     [SerializeField] private float attackTime;
@@ -283,7 +292,9 @@ public class EnemyManager : MonoBehaviour
     [Header("Misc. Variables")]
 
     [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
-    [SerializeField] [Range (0, 2)]private float attackRadius = 10f;
+    [SerializeField] [Range(0, 2)] private float attackRadius = 10f;
+
+    [SerializeField] [Range(3, 10)] private float taserRadius;
 
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
@@ -296,9 +307,30 @@ public class EnemyManager : MonoBehaviour
 
     private float oneTimeUseTimerReset;
 
-    private bool surpriseVFXBoolCheck;
+    //private bool surpriseVFXBoolCheck;
 
     private float eyeballSightRangeRecord;
+
+    //Delete this in the future
+    //private System.Threading.Timer timer;
+
+    //---------------------------------------------------------------------------------------------------//
+    
+    //Extremely temporary timer variables
+
+    [Header("Extremely temporary timer variables")]
+
+    [SerializeField] [Range(0, 10)] private float tempTaserTimer;
+
+    [Tooltip("References the taser prefab for the guard to spawn")]
+    [SerializeField] private GameObject taserProjectile;
+
+    [Tooltip("References the spawn location of the taser prefeab")]
+    [SerializeField] private GameObject taserSpawnLoc;
+
+    private bool SussyWaypointMade;
+
+
 
     #endregion
 
@@ -320,13 +352,20 @@ public class EnemyManager : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
 
-        if (stateMachine == EnemyStates.HOSTILE)
-        {
-            surpriseVFXBoolCheck = true;
-        }
+        //if (stateMachine == EnemyStates.HOSTILE)
+        //{
+        //    surpriseVFXBoolCheck = true;
+        //}
+
+        //BIG STUPID TIMER FOR TESTING FUNNY AND GOOFY MECHANICS PLEASE DELETE OR COMMENT OUT WHEN NOT IN USE / WHEN YOU WANT STUFF TO WORK PROPERLY (I AM AWARE THIS MAY NOT BE THE ONLY PART OF MY CODE THAT IS FUNNY AND GOOFY LIKE THIS, I AM SORRY)
+
+        //Notes for improving the "spawning of the taser prefab"
+        //  - Apply object pool method
+        //  - when "spawning" the taser prefab, be sure to feed in information such as the direction that the prefab should be facing before being fired
+        //  - in the taser prefab's script, be sure to make variables relating to it's movement editable in the inspector
+        //  - figure out what else to do with the taser prefab to make it nice and usable
 
 
-        //eyeball.susLevel = warySusMin;
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
@@ -340,7 +379,7 @@ public class EnemyManager : MonoBehaviour
 
                 stateText.text = stateMachine.ToString();
 
-                SetAiSpeed(patrolSpeed);
+                SetAiSpeed(passiveSpeed);
 
                 //Reseting alert related variables
                 if (isAudioSourcePlaying == true)
@@ -482,16 +521,35 @@ public class EnemyManager : MonoBehaviour
             #endregion Wary Behavior
 
             #region Suspicious Behavior
+            //Finding random
             case EnemyStates.SUSPICIOUS:
 
 
-                float searchLocCheck = .5f;
+                //float searchLocCheck = .5f;
 
                 guardAnim.EnterSusAnim();
 
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(susSpeed);
+
+                /*
+                 * Check if bool is already ticked
+                 * Spawn new obj titled "SussyPatrolLoc"
+                 * Add it to waypoints list of patrol locations
+                 * ????
+                 * Profit
+                 */
+
+                if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
+                {
+                    waypoints.Add(GameObjectContructor("SussyPatrolLoc", transform.position).transform);
+
+                    GameObject.Find("SussyPatrolLoc").transform.position = eyeball.lastKnownLocation;
+
+                    SussyWaypointMade = true;
+                }
+
 
                 #region New Behavior Notes
                 //---------------------------------//
@@ -511,7 +569,6 @@ public class EnemyManager : MonoBehaviour
 
                 //To Do: Add a distance buffer for entering the search animation
                 //  - Might take a bit of refacotring
-
 
                 //Buffer timer
                 //Find a more efficient way of doing this
@@ -583,6 +640,8 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(hostileSpeed);
 
+                FaceTarget(target);
+
                 //Checking if the player is within the AI's look radius
                 if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > hostileSusMin)
                 {
@@ -591,7 +650,7 @@ public class EnemyManager : MonoBehaviour
 
                     target = eyeball.lastKnownLocation;
 
-                    targetText.text = "Player";
+                    targetText.text = target.ToString();
 
                     //transform.position is being used because you cannot use Vector3 data when Transform is being called
                     SetAIDestination(target);
@@ -609,6 +668,18 @@ public class EnemyManager : MonoBehaviour
                         //HOSTILE >> ATTACK
                         stateMachine = EnemyStates.ATTACK;
                     }
+                    //Conditionds needed for ranged attack / taser
+                    else if (eyeball.canCurrentlySeePlayer == true && agent.CalculatePath(target, agent.path) == false && distanceToPlayer <= taserRadius)
+                    {
+                        //HOSTILE >> RANGED ATTACK
+                        stateMachine = EnemyStates.RANGEDATTACK;
+                        
+
+                        //Check if the player is jumping (isJump) or diving (isDive)
+                        //if ()
+                        //{
+                        //}
+                    }
 
                     //Playing Alert Audio
                     if (isAudioSourcePlaying == false)
@@ -619,7 +690,7 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
 
-                //Exit Condition
+                //Exit Conditions
                 else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < hostileSusMin)
                 {
                     var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
@@ -630,10 +701,20 @@ public class EnemyManager : MonoBehaviour
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
 
-                FaceTarget(target);
+
 
                 break;
             #endregion Hostile Behavior
+
+            #region Report Behaviour
+            case EnemyStates.REPORT:
+                stateText.text = stateMachine.ToString();
+
+                //targetText.text = target.ToString();
+                targetText.text = "Security Station";
+
+                break;
+            #endregion Report Behaviour
 
             #region Attack Behavior
             //AI Attack state
@@ -683,7 +764,37 @@ public class EnemyManager : MonoBehaviour
 
                 stateText.text = stateMachine.ToString();
 
+                SetAiSpeed(0);
+
+                FaceTarget(target);
+
                 //Insert ranged attack code
+                //Temporary Code
+                if (tempTaserTimer > 0)
+                {
+                    //countdown
+                    tempTaserTimer -= Time.fixedDeltaTime;
+                }
+                else if (tempTaserTimer <= 0)
+                {
+                    //Spawn projectile in the forward direction of the guard
+                    //later on change the spawn position to be the tip of the taser(assuming conditions and animations are already in place)
+
+                    var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
+
+                    //taserPrefab.transform.LookAt(eyeball.lastKnownLocation);
+                    //print(eyeball.lastKnownLocation);
+
+                    tempTaserTimer = Random.Range(5f, 5f);
+                }
+
+                //Exit Condition(s)
+                if (eyeball.canCurrentlySeePlayer == false || agent.CalculatePath(target, agent.path) == true || distanceToPlayer >= taserRadius)
+                {
+                    //RANGED ATTACK >> HOSTILE
+                    stateMachine = EnemyStates.HOSTILE;
+                }
+
 
                 break;
             #endregion Ranged Attack Behavior
@@ -750,7 +861,7 @@ public class EnemyManager : MonoBehaviour
 
     #endregion Awake & Update
 
-    #region AI Functions
+    #region AI Methods
 
     //---------------------------------//
     //Called on Awake and initializes everything that is finalized and needs to be done at awake
@@ -766,10 +877,10 @@ public class EnemyManager : MonoBehaviour
 
         agent.autoBraking = true;
 
-        SetAiSpeed(patrolSpeed);
+        SetAiSpeed(passiveSpeed);
         
         //FIX THIS WHEN TELLING PEOPLE ITS FINE TO FUCK WITH GUARD
-        stateMachine = EnemyStates.PASSIVE;
+        stateMachine = EnemyStates.REPORT;
 
         //Checks to see if there is no value for the player object reference
         if (player == null)
@@ -791,8 +902,6 @@ public class EnemyManager : MonoBehaviour
 
         FaceTarget(target);
 
-        //loseText.text = "";
-
         stunTimeReset = stunTime;
 
         path = new NavMeshPath();
@@ -806,7 +915,26 @@ public class EnemyManager : MonoBehaviour
 
         eyeballSightRangeRecord = eyeball.sightRange;
 
+        //if (player == null)
+        //{
+        //    player = GameObject.FindGameObjectWithTag("PlayerVisionTarget");
+        //}
+
     }//End Init
+
+
+    //---------------------------------//
+    //Constructs an empty game object with a transform component
+    //  - The constructed object is intended to be used as a waypoint for the guard
+    private GameObject GameObjectContructor(string objName, Vector3 objSpawnLoc)
+    {
+        GameObject go1 = new GameObject();
+        go1.name = objName;
+        go1.AddComponent<Transform>();
+        go1.transform.position = objSpawnLoc;
+
+        return go1;
+    }
 
 
     //---------------------------------//
@@ -827,6 +955,7 @@ public class EnemyManager : MonoBehaviour
             target = eyeball.lastKnownLocation;
         }
     }//End Alert
+
 
 
     //---------------------------------//
@@ -872,7 +1001,7 @@ public class EnemyManager : MonoBehaviour
     }//End OnTriggerEnter
 
     //---------------------------------//
-    //
+    // Generates a random point for the guard to go to
     private Vector3 GenerateRandomPoint()
     {
         //Generates the initial random point
@@ -904,8 +1033,12 @@ public class EnemyManager : MonoBehaviour
         Gizmos.color = Color.blue; 
         Gizmos.DrawWireSphere(transform.position, randPointRad);
 
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, taserRadius);
+
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(searchLoc, .5f);
+
     }//End OnDrawGizmos
 
 
@@ -920,5 +1053,5 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(2);
     }
 
-    #endregion AI Functions
+    #endregion AI Methods
 }

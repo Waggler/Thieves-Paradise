@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 7679381466794906044}
   - component: {fileID: 2239794315487167771}
   - component: {fileID: 5509465203315217008}
+  - component: {fileID: 300213906764411376}
   m_Layer: 3
   m_Name: 80's_Bench
   m_TagString: Untagged
@@ -499,6 +500,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6353065, y: 0.42357525, z: 0.20664167}
   m_Center: {x: 0.0015495325, y: 0.5764247, z: -0.15495287}
+--- !u!208 &300213906764411376
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7050794704697756422}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.905, y: 0.425, z: 0.485}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.4, z: 0.09}
+  m_TimeToStationary: 0.5
 --- !u!1 &8045935871691540949
 GameObject:
   m_ObjectHideFlags: 0
