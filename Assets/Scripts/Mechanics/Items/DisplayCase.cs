@@ -59,16 +59,16 @@ public class DisplayCase : MonoBehaviour
             }
         }
 
-        // if(leaveCase == true)
-        // {
-        //     maxAngle = doorClose;
-        // }
+        if(leaveCase == true)
+        {
+            maxAngle = doorClose;
+        }
 
         if(leaveCase == true)
         {
             Timer = Timer - Time.deltaTime;
             minAngle = 0f;
-            maxAngle = doorClose;
+            maxAngle = doorOpen;
 
             if(Timer >= -0.05f)
             {
