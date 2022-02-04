@@ -1204,8 +1204,8 @@ MonoBehaviour:
   dialogue:
   - characterName: Narration
     sentences:
-    - "*You return back to Borgar the next day, carrying the dress in tow. Once again,
-      you approach the Lady as she is sitting down.*\r"
+    - '*You return to Borgar the next day, carrying the dress in tow. Once again,
+      you approach the Lady as she is sitting down.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1286,7 +1286,7 @@ MonoBehaviour:
     responses: []
   - characterName: The Lady
     sentences:
-    - "\u201CLike it? I love it! Thank you so much for letting me wear  it!\u201D\r\n"
+    - "\u201CI love it! Thanks so much!\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
@@ -1493,7 +1493,7 @@ MonoBehaviour:
   - characterName: The Lady
     sentences:
     - "\u201CYou would really still do that for me?  After all you\u2019ve done already?
-      I really can\u2019t thank you enough...\u201D"
+      I really can\u2019t thank you enough...\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
@@ -1504,6 +1504,16 @@ MonoBehaviour:
   - characterName: You
     sentences:
     - "\u201CJust leave it to me, and I\u2019ll meet you back here tomorrow. Alright?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: The Lady
+    sentences:
+    - "\u201CAlright. I must be going now\u2026 but thanks for everything.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
