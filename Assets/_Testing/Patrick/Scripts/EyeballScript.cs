@@ -70,7 +70,19 @@ public class EyeballScript : MonoBehaviour
 
         //only update known location after confirming they can see the player
         //this means that the known location will remain where it was whenever they can't
-        lastKnownLocation = player.position;
+        //lastKnownLocation = player.position;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(player.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        {
+            lastKnownLocation = hit.point;
+        }
+        else
+        {
+            print("lastKnownLocation for player cannot be found. \a");
+        }
+
         return true;
     }//END FindPlayer
 

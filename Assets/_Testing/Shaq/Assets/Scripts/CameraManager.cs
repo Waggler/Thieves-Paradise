@@ -119,10 +119,13 @@ public class CameraManager : MonoBehaviour
 
     #endregion Variables
 
+    #region Start
     private void Start()
     {
         startRotation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
+
+    #endregion Start
 
     #region Awake & Update
 
@@ -253,14 +256,14 @@ public class CameraManager : MonoBehaviour
                 break;
             #endregion Focused State
 
-            #region Defualt state
+            #region Default / Error state
             //Not exactly a state but acts as a net to catch any bugs that would prevent the game from running
             default:
                 stateText.text = "State Not Found";
                 targetText.text = "Null";
 
                 break;
-            #endregion Default State
+            #endregion Default / Error State
         }
         #endregion Cam State Machine
 
@@ -272,7 +275,7 @@ public class CameraManager : MonoBehaviour
 
     #endregion Awake & Update
 
-    #region General Functions
+    #region General Methods
 
     //---------------------------------//
     //Function that makes the object face it's target
@@ -366,63 +369,14 @@ public class CameraManager : MonoBehaviour
     //Draws Gizmos / shapes in editor
     private void OnDrawGizmos()
     {
-        //Gizmo color
         Gizmos.color = Color.yellow;
-
-        //Gizmo type
         Gizmos.DrawWireSphere(transform.position, callRadius);
-
-
-        //Gizmos.color = Color.red;
-
-        //Gizmos.DrawWireSphere(transform.position, killRadius);
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, killRadius);
 
     }//End OnDrawGizmos
 
-    ////-------------AlertGuards--------------------//
-    //private void AlertGuards(Vector3 targetLoc)
-    //{
-    //    //Also generating an array of guards on the call of this function
-    //    GenGuardArray();
-
-    //    //EnemyManager reference
-    //    EnemyManager enemyManager;
-
-    //    //Used to reference each guard
-    //    foreach (GameObject guard in guardsArray)
-    //    {
-    //        distanceToCamera = Vector3.Distance(guard.transform.position, transform.position);
-            
-    //        //Individual guard reference
-    //        //DO NOT MOVE
-    //        enemyManager = guard.GetComponent<EnemyManager>();
-
-    //        //Radius Check
-    //        if (distanceToCamera <= callRadius /*&& GameObject.CompareTag("[Insert guard type here]")*/)
-    //        {
-    //            //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
-    //            enemyManager.Alert(targetLoc);
-    //        }
-    //        else
-    //        {
-    //            //Showing which guards are out of range (purely there for debug reasons)
-    //            print($"{guard} is outside of camera range.");
-    //        }
-    //    }
-    //}//End AlertGuards
-
-
-    //---------------------------------//
-    //Generates an array of guard instances in the scene
-    //private void GenGuardArray()
-    //{
-    //    guardsArray = GameObject.FindGameObjectsWithTag("Guard");
-
-    //    if (guardsArray.Length == 0 || guardsArray == null)
-    //    {
-    //        print("No guards in the level");
-    //    }
-    //}//End GenGuardArray
 }
 
-#endregion General Functions
+#endregion General Methods
