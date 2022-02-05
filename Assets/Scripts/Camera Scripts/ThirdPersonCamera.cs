@@ -20,7 +20,7 @@ public class ThirdPersonCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    
+    //DELETE ME!
     void LateUpdate()
     {
         CamControl();
