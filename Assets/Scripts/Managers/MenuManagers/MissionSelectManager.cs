@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MissionSelectManager : MonoBehaviour
 {
@@ -18,20 +19,8 @@ public class MissionSelectManager : MonoBehaviour
     [SerializeField] private Button unionButton;
     [SerializeField] private Button massesButton;
     [SerializeField] private Button mafiaButton;
-    [SerializeField] private Button voicesButton;
+    [SerializeField] private Button finaleButton;
     [SerializeField] private Button ciaButton;
-
-    [Header("Bools")]
-    public bool isTierOneComplete;
-    public bool isTierTwoComplete;
-    public bool isTierThreeComplete;
-
-    public bool isLadyComplete;
-    public bool isUnionComplete;
-    public bool isMassesComplete;
-    public bool isMafiaComplete;
-    public bool isVoicesComplete;
-    public bool isCIAComplete;
 
 
     #endregion Components
@@ -53,39 +42,43 @@ public class MissionSelectManager : MonoBehaviour
     private void Init()
     //-----------------------//
     {
-        if (isTierOneComplete == false)
+        if (PlayerPrefs.GetInt("isLadyComplete") == 0)
         {
             unionButton.interactable = false;
             massesButton.interactable = false;
         }
-        else if (isTierOneComplete == true)
+        else
         {
+            unionButton.interactable = true;
+            massesButton.interactable = true;
             ladyButton.interactable = false;
         }
 
-        if (isTierTwoComplete == false)
+        if (PlayerPrefs.GetInt("isUnionComplete") == 0 || PlayerPrefs.GetInt("isMassesComplete") == 0)
         {
             mafiaButton.interactable = false;
             ciaButton.interactable = false;
         }
-        else if (isTierTwoComplete == true)
+        else if (PlayerPrefs.GetInt("isUnionComplete") == 1 && PlayerPrefs.GetInt("isMassesComplete") == 1)
         {
-
+            unionButton.interactable = false;
+            massesButton.interactable = false;
             mafiaButton.interactable = true;
             ciaButton.interactable = true;
         }
 
-        if (isTierThreeComplete == false)
+        if (PlayerPrefs.GetInt("isMafiaComplete") == 0 || PlayerPrefs.GetInt("isCIAComplete") == 0)
         {
-            voicesButton.interactable = false;
+            finaleButton.interactable = false;
         }
-        else if (isTierThreeComplete == true)
+        else if (PlayerPrefs.GetInt("isMafiaComplete") == 1 && PlayerPrefs.GetInt("isCIAComplete") == 1)
         {
-            voicesButton.interactable = true;
+            mafiaButton.interactable = false;
+            ciaButton.interactable = false;
+            finaleButton.interactable = true;
 
         }
 
-        CloseMission();
 
     }//END Init
 
@@ -93,99 +86,18 @@ public class MissionSelectManager : MonoBehaviour
     public void ChangeScreen()
     //-----------------------//
     {
-
         mainMenu.SetActive(true);
         missionMenu.SetActive(false);
-
 
     }//END ChangeScreen
 
     //-----------------------//
-    private void CloseMission()
+    public void LoadMission(int sceneIndex)
     //-----------------------//
     {
-        if (isLadyComplete == true)
-        {
-            ladyButton.interactable = false;
-        }
-        if (isMassesComplete == true)
-        {
-            massesButton.interactable = false;
-        }
-        if (isUnionComplete == true)
-        {
-            unionButton.interactable = false;
-        }
-        if (isCIAComplete == true)
-        {
-            ciaButton.interactable = false;
-        }
-        if (isMafiaComplete == true)
-        {
-            mafiaButton.interactable = false;
-        }
-        if (isVoicesComplete == true)
-        {
-            Debug.Log("Finale Complete.");
-        }
+        SceneManager.LoadScene(sceneIndex);
 
-    }//END CloseMission
-
-    //-----------------------//
-    public void MainMenu()
-    //-----------------------//
-    {
-        Debug.Log("Back to Main Menu");
-
-    }//END MainMenu
-
-    //-----------------------//
-    public void LadyMission()
-    //-----------------------//
-    {
-        Debug.Log("Selected the Lady Mission");
-
-    }//END LadyMission
-
-    //-----------------------//
-    public void MassesMission()
-    //-----------------------//
-    {
-        Debug.Log("Selected the Masses Mission");
-
-    }//END MassesMission
-
-    //-----------------------//
-    public void UnionMission()
-    //-----------------------//
-    {
-        Debug.Log("Selected the Union Mission");
-
-    }//END UnionMission
-
-    //-----------------------//
-    public void MafiaMission()
-    //-----------------------//
-    {
-        Debug.Log("Selected the Mafia Mission");
-
-    }//END MafiaMission
-
-    //-----------------------//
-    public void CIAMission()
-    //-----------------------//
-    {
-        Debug.Log("Selected the CIA Mission");
-
-    }//END CIAMission
-
-    //-----------------------//
-    public void VoicesMission()
-    //-----------------------//
-    {
-        Debug.Log("Selected the Voices Mission");
-
-    }//END VoicesMission
+    }//END LoadMission
 
 
     #endregion Methods
