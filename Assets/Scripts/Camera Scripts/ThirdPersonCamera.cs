@@ -6,7 +6,7 @@ public class ThirdPersonCamera : MonoBehaviour
 {
     public float RotationSpeed = 1;
     public Transform Target, Player;
-    private float mouseX, mouseY;
+    float mouseX, mouseY;
     public InputManager im;
     public DoorOpen door;
     public DoorOpen door2;

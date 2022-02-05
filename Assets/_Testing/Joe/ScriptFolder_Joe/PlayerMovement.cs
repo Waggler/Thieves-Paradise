@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
     private bool canMove = true;
-    private float CurrentSpeed;
+    public float CurrentSpeed;
     private Vector3 Direction;
 
     [Header("Crouching")]
@@ -97,11 +97,6 @@ public class PlayerMovement : MonoBehaviour
     public bool IsStunned = false;
     public float CurrentStunTime = 0;
 
-    [Header("Inertia")]
-    public bool Inertia = false;
-    [SerializeField] private float WalkingInertiaTime;
-    private float CurrentInertiaTime;
-
     [Header("Player Noise")]
     [Tooltip("The detection radius of the player when they are standing still and when they are moving while crouched")]
     [SerializeField] private int SilentLevel = 0;
@@ -149,7 +144,6 @@ public class PlayerMovement : MonoBehaviour
         CurrentRollTime = RollingTime;
         CurrentDiveTime = DiveTime;
         CurrentDelayTime = DelayTime;
-        CurrentInertiaTime = WalkingInertiaTime;
         Controller = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
         PlayerCamera = Camera.main.transform;
@@ -240,24 +234,12 @@ public class PlayerMovement : MonoBehaviour
         //Movement
         if (!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned && canMove)
         {
-            if (!Inertia)
-            {
-                Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
-                CurrentInertiaTime = WalkingInertiaTime;
-            }
-            else
-            {
-                if (CurrentInertiaTime > 0)
-                {
-                    Controller.Move(FacingDirection * (CurrentSpeed/2) * Time.deltaTime);
-                    CurrentInertiaTime -= Time.deltaTime;
-                }
-                else if (CurrentInertiaTime <= 0)
-                {
-                    Direction = Vector3.zero;
-                }
-            }
+            Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
+
+        //Inertia Stopping
+        
+
         //Setting Roll Direction for rolling, diving, and sliding.
         if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {
@@ -572,7 +554,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 groundCheck = new Vector3(transform.position.x, transform.position.y - (StandardHeight / 2.6f), transform.position.z);
         Test = groundCheck;
         //StandardHeight / 4
-        if (Physics.CheckSphere(groundCheck, StandardHeight / 7f, mask, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(groundCheck, StandardHeight / 6f, mask, QueryTriggerInteraction.Ignore))
         {
             IsGrounded = true;
             Jumping = false;
@@ -601,7 +583,7 @@ public class PlayerMovement : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Test, StandardHeight / 7f);
+        Gizmos.DrawWireSphere(Test, StandardHeight / 6f);
         Gizmos.color = Color.blue;
     }
 
