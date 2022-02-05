@@ -109,10 +109,17 @@ public class InventoryController : MonoBehaviour
     {
         return !IsInventoryFull();
     }
-    public void UseItemPrimary()
+    public void UseItemPrimary(InputAction.CallbackContext context)
     {
         print("Attempting to use Item");
-        itemInterfaceInventory[activeItemIndex].UseItem();
+        
+        if (context.started)
+        {
+            itemInterfaceInventory[activeItemIndex].UseItem();
+        } else if (context.canceled)
+        {
+            itemInterfaceInventory[activeItemIndex].UseItemEnd();
+        }
     }
     public void UseItemSecondary(InputAction.CallbackContext context)
     {
@@ -217,6 +224,23 @@ public class InventoryController : MonoBehaviour
                 hotbarMesh[i].transform.localScale = Vector3.one * 6;
             }
         }
+
+        ChangeHeldItemDisplay();
+    }
+
+    private void ChangeHeldItemDisplay()
+    {
+        //hotbarMesh[newItemIndex].GetComponent<MeshFilter>().mesh = newItem.myself.GetComponent<MeshFilter>().mesh;
+        //hotbarMesh[newItemIndex].GetComponent<MeshRenderer>().material = newItem.myself.GetComponent<MeshRenderer>().material;
+        if (inventorySpace[activeItemIndex] == true)
+        {
+            holdItemPos.gameObject.GetComponent<MeshFilter>().mesh = itemInterfaceInventory[activeItemIndex].myself.GetComponent<MeshFilter>().mesh;
+            holdItemPos.gameObject.GetComponent<MeshRenderer>().material = itemInterfaceInventory[activeItemIndex].myself.GetComponent<MeshRenderer>().material;
+        }else //no item in active slot
+        {
+            holdItemPos.gameObject.GetComponent<MeshFilter>().mesh = null;
+            holdItemPos.gameObject.GetComponent<MeshRenderer>().material = null;
+        }
     }
     //check for if we have space in the inventory
     private bool IsInventoryFull()
@@ -261,6 +285,8 @@ public class InventoryController : MonoBehaviour
         hotbarMesh[newItemIndex].GetComponent<MeshRenderer>().material = newItem.myself.GetComponent<MeshRenderer>().material;
         nearbyItems.Remove(newItem);
         nearbyItems.TrimExcess();
+
+        ChangeHeldItemDisplay();
         
     }//END AddItem
 
@@ -277,6 +303,7 @@ public class InventoryController : MonoBehaviour
             hotbarMesh[activeItemIndex].GetComponent<MeshRenderer>().material = null;
             //hotbarMesh[activeItemIndex].text = "Item Slot " + (activeItemIndex + 1);
         }
+        ChangeHeldItemDisplay();
     }
 
     public bool CheckHasItem(string keyItemName)

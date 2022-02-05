@@ -98,7 +98,11 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
 
     public void UseItem()
     {
-
+        //no use;
+    }
+    public void UseItemEnd()
+    {
+        //no use;
     }
 
     void OnDrawGizmos()

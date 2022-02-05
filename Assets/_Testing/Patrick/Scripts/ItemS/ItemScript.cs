@@ -39,10 +39,14 @@ public class ItemScript : ItemSuperScript, ItemInterface
     {
         print("Used Active Item");
     }
+    public void UseItemEnd()
+    {
+        print("Stopped Using Active Item");
+    }
 
     void OnCollisionEnter(Collision other)
     {
-        print(this.gameObject.name + " hit something " + isThrown + " " + durability);
+        //print(this.gameObject.name + " hit something " + isThrown + " " + durability);
 
         if (isThrown)
         {

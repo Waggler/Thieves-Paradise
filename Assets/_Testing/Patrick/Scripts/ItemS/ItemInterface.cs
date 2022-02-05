@@ -17,4 +17,6 @@ public interface ItemInterface
     }
     void UseItem();
 
+    void UseItemEnd();
+
 }
