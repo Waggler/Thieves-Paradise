@@ -52,7 +52,7 @@ public class InputManager : MonoBehaviour
                 //playerMovement.CurrentSpeed/2;
                 //
             }
-            print(moveVector);
+            //print(moveVector);
         }
         playerMovement.Movement(moveVector);
     }// END MOVE

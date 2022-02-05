@@ -95,7 +95,7 @@ public class SuspicionManager : MonoBehaviour
         {
             #region Security Level 0
             case SecurityLvl.SecLVL0:
-                print("Security Level 0");
+                //print("Security Level 0");
 
                 break;
             #endregion

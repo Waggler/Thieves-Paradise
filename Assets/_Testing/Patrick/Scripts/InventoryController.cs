@@ -45,7 +45,7 @@ public class InventoryController : MonoBehaviour
         debugPlatform.transform.position = Vector3.down * 1002;
         debugPlatform.transform.localScale = new Vector3(10, 1, 10);
 
-        layerMask = ~LayerMask.GetMask("Player"); 
+        layerMask = ~LayerMask.GetMask("Player");
     }
 
     private bool throwing;
@@ -96,7 +96,7 @@ public class InventoryController : MonoBehaviour
         if (!IsInventoryFull())
         {
             AddItem(newItem);
-            print("Grabbed Item");
+            //print("Grabbed Item");
             newItem.myself.SetActive(false);
             newItem.myself.transform.position = Vector3.down * 1000;
 
@@ -111,12 +111,17 @@ public class InventoryController : MonoBehaviour
     }
     public void UseItemPrimary(InputAction.CallbackContext context)
     {
-        print("Attempting to use Item");
+        //print("Attempting to use Item");
+        if (inventorySpace[activeItemIndex] == false)
+        {
+            return;
+        }
         
         if (context.started)
         {
             itemInterfaceInventory[activeItemIndex].UseItem();
-        } else if (context.canceled)
+        }
+        if (context.canceled)
         {
             itemInterfaceInventory[activeItemIndex].UseItemEnd();
         }
@@ -232,6 +237,7 @@ public class InventoryController : MonoBehaviour
     {
         //hotbarMesh[newItemIndex].GetComponent<MeshFilter>().mesh = newItem.myself.GetComponent<MeshFilter>().mesh;
         //hotbarMesh[newItemIndex].GetComponent<MeshRenderer>().material = newItem.myself.GetComponent<MeshRenderer>().material;
+        /*
         if (inventorySpace[activeItemIndex] == true)
         {
             holdItemPos.gameObject.GetComponent<MeshFilter>().mesh = itemInterfaceInventory[activeItemIndex].myself.GetComponent<MeshFilter>().mesh;
@@ -240,6 +246,31 @@ public class InventoryController : MonoBehaviour
         {
             holdItemPos.gameObject.GetComponent<MeshFilter>().mesh = null;
             holdItemPos.gameObject.GetComponent<MeshRenderer>().material = null;
+        }
+        */
+
+        for (int i = 0; i < itemInterfaceInventory.Length; i++)
+        {
+            if (inventorySpace[i] == true) //first check if the slot isn't empty
+            {
+                GameObject curObj = itemInterfaceInventory[i].myself;
+                if (i == activeItemIndex)
+                {
+                    curObj.transform.SetParent(holdItemPos);
+                    curObj.transform.position = holdItemPos.position;
+                    curObj.GetComponent<Rigidbody>().isKinematic = true;
+                    curObj.GetComponent<SphereCollider>().enabled = false;
+
+                    curObj.SetActive(true);
+                }else
+                {
+                    curObj.transform.SetParent(null);
+                    
+                    curObj.GetComponent<Rigidbody>().isKinematic = false;
+                    curObj.GetComponent<SphereCollider>().enabled = true;
+                    curObj.SetActive(false);
+                }
+            }
         }
     }
     //check for if we have space in the inventory
@@ -279,7 +310,7 @@ public class InventoryController : MonoBehaviour
                 }
             }
         }
-        print(newItemIndex);
+        //print(newItemIndex);
         //update mesh
         hotbarMesh[newItemIndex].GetComponent<MeshFilter>().mesh = newItem.myself.GetComponent<MeshFilter>().mesh;
         hotbarMesh[newItemIndex].GetComponent<MeshRenderer>().material = newItem.myself.GetComponent<MeshRenderer>().material;
@@ -287,6 +318,7 @@ public class InventoryController : MonoBehaviour
         nearbyItems.TrimExcess();
 
         ChangeHeldItemDisplay();
+        SwapItem(newItemIndex);
         
     }//END AddItem
 
@@ -308,15 +340,15 @@ public class InventoryController : MonoBehaviour
 
     public bool CheckHasItem(string keyItemName)
     {
-        print("checking items");
+        //print("checking items");
         for(int i = 0; i < itemInterfaceInventory.Length; i++)
         {
             if (inventorySpace[i] == true && itemInterfaceInventory[i].myself.name == keyItemName)
             {
-                print("got the item!");
+                //print("got the item!");
                 return true;
             }
-            print("not the item");
+            //print("not the item");
         }
         return false;
     }

@@ -14,6 +14,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
     private GameObject heldItemTransform;
     private GameObject cameraTransform;
     private bool isLaserOn = false;
+    private LayerMask layerMask;
 
     public GameObject myself
     {
@@ -37,19 +38,12 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
         myself = this.gameObject;
         myself.name = itemName;
 
+        layerMask = ~LayerMask.GetMask("Player"); 
+
         InitLine();
     }
 
-    void Update()
-    {
-        if (isLaserOn)
-        {
-            print("Firing my lasers");
-            var line = heldItemTransform.GetComponent<LineRenderer>();
-            line.SetPosition(0, heldItemTransform.transform.position);
-            line.SetPosition(1, cameraTransform.transform.position + (cameraTransform.transform.forward*100) );
-        }
-    }
+    
 
     private void InitLine()
     {
@@ -61,12 +55,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
         if (heldItemTransform.GetComponent<LineRenderer>() == null)
         {
             heldItemTransform.AddComponent<LineRenderer>();
-        } else
-        {
-            return;
         }
-        
-        
 
         var line = heldItemTransform.GetComponent<LineRenderer>();
         //establish line details
@@ -78,31 +67,83 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
 
         Material randoMaterial = new Material(Shader.Find("Mobile/Particles/Additive"));
         line.material = randoMaterial;
-        line.material.SetColor("_Color", Color.red);
-        
-
-        print(heldItemTransform.transform.position);
-
+        //line.material.SetColor("_Color", Color.red);
     }
 
     // Update is called once per frame
     public void UseItem()
     {
-        print("Used Laser Pointer Item");
+        //print("Used Laser Pointer Item");
         InitLine();
 
-        var line = heldItemTransform.GetComponent<LineRenderer>();
+        var line = GetComponent<LineRenderer>();
         line.enabled = true;
-
+        
         isLaserOn = true; //activate Real-Time Laser calculations
-
-        print(line.GetPosition(0) + " " + line.GetPosition(1));
+        StartCoroutine("FireLaser");
     }
 
     public void UseItemEnd()
     {
-        print("Stopped using Laser Pointer");
-        heldItemTransform.GetComponent<LineRenderer>().enabled = false;
+        //print("Stopped using Laser Pointer");
+        GetComponent<LineRenderer>().enabled = false;
         isLaserOn = false; //deactivate math
+    }
+    IEnumerator FireLaser()
+    {
+        var line = GetComponent<LineRenderer>();
+
+        line.startColor = Color.red;
+        line.endColor = Color.red;
+        line.startWidth = 0.01f;
+        line.endWidth = 0.1f;
+        line.positionCount = 2;
+
+        Material randoMaterial = new Material(Shader.Find("Mobile/Particles/Additive"));
+        line.material = randoMaterial;
+
+        print("Firing my lasers");
+
+        RaycastHit hit;
+
+        Vector3 startPoint = Vector3.zero;
+        Vector3 endPoint = Vector3.zero;
+
+        while (isLaserOn)
+        {
+            startPoint = heldItemTransform.transform.position + heldItemTransform.transform.forward*0.1f;
+            line.SetPosition(0, startPoint);
+
+            endPoint = startPoint + heldItemTransform.transform.forward*100f;//backup endpoint in case raycast fails for some reason
+
+            /*if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
+            {
+                //first do a cast from the camera to figre out where the player is looking
+                endPoint = hit.point;
+            }else
+            {
+                endPoint = cameraTransform.transform.forward * 1000;
+            }*/
+            endPoint = cameraTransform.transform.forward * 1000;
+
+            if (Physics.Raycast(startPoint, (endPoint-startPoint).normalized, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
+            {
+                //now do a cast from the laser pointer to where the player is looking to figure out if anything is in the way.
+                endPoint = hit.point;
+
+                if (hit.transform.gameObject.GetComponent<CameraManager>())
+                {
+                    print("Hit a camera");
+                    durability--;
+                    UseItemEnd();
+                    //hit.transform.gameObject.GetComponent<CameraManager>().Disable(disableTime);
+                }
+            }
+
+            line.SetPosition(1, endPoint);
+
+            //print(line.GetPosition(0) + " " + line.GetPosition(1));
+            yield return new WaitForSeconds(Time.deltaTime/2);
+        }
     }
 }
