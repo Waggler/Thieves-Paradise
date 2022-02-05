@@ -140,4 +140,5 @@ public class InputManager : MonoBehaviour
 
     #endregion
 
-#endregion
+    #endregion
+}
