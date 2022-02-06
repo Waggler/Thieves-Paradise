@@ -37,12 +37,12 @@ public class ItemScript : ItemSuperScript, ItemInterface
     // Update is called once per frame
     public void UseItem()
     {
-        print("Used Active Item");
+        //print("Used Active Item");
     }
 
     void OnCollisionEnter(Collision other)
     {
-        print(this.gameObject.name + " hit something " + isThrown + " " + durability);
+        //print(this.gameObject.name + " hit something " + isThrown + " " + durability);
 
         if (isThrown)
         {
@@ -51,7 +51,7 @@ public class ItemScript : ItemSuperScript, ItemInterface
 
         if (durability < 2 && deployableObject != null && isThrown)
         {
-            print("spawning object");
+            //print("spawning object");
             Instantiate(deployableObject, transform.position, Quaternion.identity);
             UseDurability();
             Destroy(this.gameObject);

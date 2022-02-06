@@ -6,13 +6,6 @@ public class SelfDestruct : MonoBehaviour
 {
     [SerializeField] [Range (1, 30)]private float timeLeft = 1.1f;
 
-    private float timeLeftReset;
-
-    void Start()
-    {
-        Init();
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -22,10 +15,5 @@ public class SelfDestruct : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Init()
-    {
-        timeLeftReset = timeLeft;
     }
 }
