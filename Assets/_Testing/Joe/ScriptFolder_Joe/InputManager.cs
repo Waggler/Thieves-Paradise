@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private Vector3 moveVector;
+    private Vector3 directionVector;
     public bool isSprinting;
     public bool isCrouching;
     public bool isRolling;
@@ -29,6 +30,8 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    //DELETE ME
+
     #region Inputs
 
     #region MoveInput
@@ -36,25 +39,32 @@ public class InputManager : MonoBehaviour
     {
         Vector2 contextValue = context.ReadValue<Vector2>();
 
-        if(context.performed)
+        if (context.performed)
         {
             moveVector = new Vector3(contextValue.x, 0, contextValue.y);
-            
+
             if (playerMovement.IsStunned)
             {
                 playerMovement.BreakOutCounter += playerMovement.BreakOutValue;
             }
 
-            if (moveVector == Vector3.zero)
+            if (moveVector != Vector3.zero)
+            {
+                directionVector = moveVector;
+                playerMovement.Movement(moveVector);
+                playerMovement.Inertia = false;
+            }
+            else if (moveVector == Vector3.zero)
             {
                 //Have a new var be the last movement direction then set up a check as well for if the speed is sprinting or walking.
                 //Have a timer so the player only moves that way for about a second after the button push or two if they are sprinting.
                 //playerMovement.CurrentSpeed/2;
-                //
+
+                playerMovement.Movement(directionVector);
+                playerMovement.Inertia = true;
             }
             //print(moveVector);
         }
-        playerMovement.Movement(moveVector);
     }// END MOVE
     #endregion
 
@@ -68,7 +78,7 @@ public class InputManager : MonoBehaviour
                 playerMovement.Jump();
                 jumpPressCounter++;
             }
-            else if(jumpPressCounter == 2)
+            else if (jumpPressCounter == 2)
             {
                 jumpPressCounter = 1;
             }
@@ -79,12 +89,12 @@ public class InputManager : MonoBehaviour
     #region SprintInput
     public void Sprint(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started)
         {
             isSprinting = true;
             playerMovement.Sprint(isSprinting);
         }
-        if(context.canceled)
+        if (context.canceled)
         {
             isSprinting = false;
             playerMovement.Sprint(isSprinting);
@@ -95,12 +105,12 @@ public class InputManager : MonoBehaviour
     #region CrouchInput
     public void Crouch(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started)
         {
             isCrouching = true;
             playerMovement.Crouch(isCrouching);
         }
-        if(context.canceled)
+        if (context.canceled)
         {
             isCrouching = false;
             playerMovement.Crouch(isCrouching);
@@ -115,13 +125,13 @@ public class InputManager : MonoBehaviour
         {
             return;
         }
-        if(context.started)
+        if (context.started)
         {
             isRolling = true;
             playerMovement.Roll(isRolling);
             cooldownTimer = 0;
         }
-        if(context.canceled)
+        if (context.canceled)
         {
             isRolling = false;
             playerMovement.Roll(isRolling);

@@ -37,7 +37,7 @@ public class ItemScript : ItemSuperScript, ItemInterface
     // Update is called once per frame
     public void UseItem()
     {
-        print("Used Active Item");
+        //print("Used Active Item");
     }
     public void UseItemEnd()
     {
@@ -55,7 +55,7 @@ public class ItemScript : ItemSuperScript, ItemInterface
 
         if (durability < 2 && deployableObject != null && isThrown)
         {
-            print("spawning object");
+            //print("spawning object");
             Instantiate(deployableObject, transform.position, Quaternion.identity);
             UseDurability();
             Destroy(this.gameObject);
