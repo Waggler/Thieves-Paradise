@@ -56,25 +56,25 @@ public class ItemSuperScript : MonoBehaviour
     public void ThrowItem()
     {
         isThrown = true;
-        print("throwing item " + isThrown);
+        //print("throwing item " + isThrown);
     }
 
     public void UseDurability()
     {
         if (durability > 1)
         {
-            print("Used Item \nDurability: " + durability);
+            //print("Used Item \nDurability: " + durability);
             durability--; //decriment durability
         } else
         {
-            print("Item Broke");
+            //print("Item Broke");
             Destroy(this.gameObject);
         }
     }
     public void MakeNoise()
     {
         //Alert Guards here
-        print("making noise");
+        //print("making noise");
         susManager.AlertGuards(transform.position, transform.position, thrownNoiseRadius);
         /* 
         sfxController = FindObjectOfType<SfxController>();
