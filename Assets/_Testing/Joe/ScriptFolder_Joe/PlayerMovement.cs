@@ -572,7 +572,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 groundCheck = new Vector3(transform.position.x, transform.position.y - (StandardHeight / 2.6f), transform.position.z);
         Test = groundCheck;
         //StandardHeight / 4
-        if (Physics.CheckSphere(groundCheck, StandardHeight / 7f, mask, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(groundCheck, StandardHeight / 6.5f, mask, QueryTriggerInteraction.Ignore))
         {
             IsGrounded = true;
             Jumping = false;
@@ -601,7 +601,7 @@ public class PlayerMovement : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Test, StandardHeight / 7f);
+        Gizmos.DrawWireSphere(Test, StandardHeight / 6.5f);
         Gizmos.color = Color.blue;
     }
 
