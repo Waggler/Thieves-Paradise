@@ -102,7 +102,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
         Material randoMaterial = new Material(Shader.Find("Mobile/Particles/Additive"));
         line.material = randoMaterial;
 
-        print("Firing my lasers");
+        //print("Firing my lasers");
 
         RaycastHit hit;
 
