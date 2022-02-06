@@ -45,7 +45,7 @@ public class InventoryController : MonoBehaviour
         debugPlatform.transform.position = Vector3.down * 1002;
         debugPlatform.transform.localScale = new Vector3(10, 1, 10);
 
-        layerMask = ~LayerMask.GetMask("Player"); 
+        layerMask = ~LayerMask.GetMask("Player");
     }
 
     private bool throwing;
@@ -96,9 +96,9 @@ public class InventoryController : MonoBehaviour
         if (!IsInventoryFull())
         {
             AddItem(newItem);
-            print("Grabbed Item");
-            newItem.myself.SetActive(false);
-            newItem.myself.transform.position = Vector3.down * 1000;
+            //print("Grabbed Item");
+            //newItem.myself.SetActive(false);
+            //newItem.myself.transform.position = Vector3.down * 1000;
 
             nearbyItems.Remove(newItem);
             nearbyItems.TrimExcess();
@@ -109,10 +109,22 @@ public class InventoryController : MonoBehaviour
     {
         return !IsInventoryFull();
     }
-    public void UseItemPrimary()
+    public void UseItemPrimary(InputAction.CallbackContext context)
     {
-        //do whatever the active item can
-        //print("Use Item");
+        //print("Attempting to use Item");
+        if (inventorySpace[activeItemIndex] == false)
+        {
+            return;
+        }
+        
+        if (context.started)
+        {
+            itemInterfaceInventory[activeItemIndex].UseItem();
+        }
+        if (context.canceled)
+        {
+            itemInterfaceInventory[activeItemIndex].UseItemEnd();
+        }
     }
     public void UseItemSecondary(InputAction.CallbackContext context)
     {
@@ -185,6 +197,8 @@ public class InventoryController : MonoBehaviour
         {
             throwForce = 200;
         }
+        //reset item to normal status
+        ResetItem(activeItemIndex);
 
         //throw active item
         GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
@@ -198,6 +212,7 @@ public class InventoryController : MonoBehaviour
         
         RemoveActiveItem();
     }
+
     private void SwapItem(int selection)
     {
         //play anim
@@ -216,11 +231,48 @@ public class InventoryController : MonoBehaviour
                 hotbarMesh[i].transform.localScale = Vector3.one * 6;
             }
         }
+
+        ChangeHeldItemDisplay();
     }
 
-    private void UseActiveItem()
+    private void ChangeHeldItemDisplay()
     {
-        itemInterfaceInventory[activeItemIndex].UseItem();
+        for (int i = 0; i < itemInterfaceInventory.Length; i++)
+        {
+            if (inventorySpace[i] == true) //first check if the slot isn't empty
+            {
+                GameObject curObj = itemInterfaceInventory[i].myself;
+                if (i == activeItemIndex)
+                {
+                    DisplayItem(i);
+                }else
+                {
+                    ResetItem(i);
+                }
+            }
+        }
+    }
+
+    private void DisplayItem(int displayIndex)
+    {
+        GameObject curObj = itemInterfaceInventory[displayIndex].myself;
+
+        curObj.transform.SetParent(holdItemPos);
+        curObj.transform.position = holdItemPos.position;
+        curObj.GetComponent<Rigidbody>().isKinematic = true;
+        curObj.GetComponent<SphereCollider>().enabled = false;
+
+        curObj.SetActive(true);        
+    }
+
+    private void ResetItem(int resetIndex)
+    {
+        GameObject curObj = itemInterfaceInventory[resetIndex].myself;
+        curObj.transform.SetParent(null);
+                    
+        curObj.GetComponent<Rigidbody>().isKinematic = false;
+        curObj.GetComponent<SphereCollider>().enabled = true;
+        curObj.SetActive(false);
     }
     //check for if we have space in the inventory
     private bool IsInventoryFull()
@@ -259,12 +311,15 @@ public class InventoryController : MonoBehaviour
                 }
             }
         }
-        print(newItemIndex);
+        //print(newItemIndex);
         //update mesh
         hotbarMesh[newItemIndex].GetComponent<MeshFilter>().mesh = newItem.myself.GetComponent<MeshFilter>().mesh;
         hotbarMesh[newItemIndex].GetComponent<MeshRenderer>().material = newItem.myself.GetComponent<MeshRenderer>().material;
         nearbyItems.Remove(newItem);
         nearbyItems.TrimExcess();
+
+        SwapItem(newItemIndex);
+        //DisplayItem(newItemIndex);
         
     }//END AddItem
 
@@ -281,19 +336,20 @@ public class InventoryController : MonoBehaviour
             hotbarMesh[activeItemIndex].GetComponent<MeshRenderer>().material = null;
             //hotbarMesh[activeItemIndex].text = "Item Slot " + (activeItemIndex + 1);
         }
+        ChangeHeldItemDisplay();
     }
 
     public bool CheckHasItem(string keyItemName)
     {
-        print("checking items");
+        //print("checking items");
         for(int i = 0; i < itemInterfaceInventory.Length; i++)
         {
             if (inventorySpace[i] == true && itemInterfaceInventory[i].myself.name == keyItemName)
             {
-                print("got the item!");
+                //print("got the item!");
                 return true;
             }
-            print("not the item");
+            //print("not the item");
         }
         return false;
     }
