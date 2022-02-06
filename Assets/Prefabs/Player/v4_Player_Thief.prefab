@@ -519,6 +519,7 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Action
       m_Flags: 0
+    m_Flags: 0
   Cam1: 1
   firstPersonCam: 0
   pm: {fileID: 8827046240343522462}
@@ -711,7 +712,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870511522111461}
-  m_LocalRotation: {x: -0.009678641, y: 0.89505446, z: -0.01944853, w: -0.44542754}
+  m_LocalRotation: {x: -0.00967863, y: 0.89505446, z: -0.019448511, w: -0.4454275}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -821,13 +822,13 @@ MonoBehaviour:
   WalkingSpeed: 3.25
   RunningSpeed: 5.5
   CrouchSpeed: 2.25
-  Acceleration: 5
+  SprintAcceleration: 0.75
+  WalkAcceleration: 0.5
   IsSprinting: 0
   UnSprinting: 1
-  CurrentSpeed: 0
-  StandardHeight: 1.7
-  CrouchingHeight: 0.8
-  SetCenterHeight: 0
+  StandardHeight: 1.6
+  CrouchingHeight: 0.7
+  SetCenterHeight: 0.05
   IsCrouching: 0
   IsStanding: 1
   IsCovered: 0
@@ -838,6 +839,7 @@ MonoBehaviour:
   playerCollider: {fileID: 0}
   Controller: {fileID: 8827046240343522463}
   IsGrounded: 1
+  AirSpeed: 1.5
   RollingSpeed: 5
   RollingTime: 1
   DelayTime: 0.1
@@ -850,10 +852,6 @@ MonoBehaviour:
   IsDiving: 0
   ResetDiving: 0
   StillDiving: 0
-  PushPullLightSpeed: 0
-  PushPullMediumSpeed: 0
-  PushPullHeavySpeed: 0
-  IsPushPull: 0
   ToggleSprint: 1
   ToggleCrouch: 0
   IsUncovered: 0
@@ -863,6 +861,8 @@ MonoBehaviour:
   BreakOutThreshold: 10
   IsStunned: 0
   CurrentStunTime: 0
+  Inertia: 0
+  WalkingInertiaTime: 0
   SilentLevel: 0
   QuietLevel: 3
   MediumLevel: 6
@@ -1181,6 +1181,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d7cd48c3-2145-40a3-a864-f20d1a57e5e0
     m_ActionName: Player/Roll[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3fba19de-88d9-4d1b-a50d-e133b15e68a2
+    m_ActionName: Player/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5efa1ec4-bc14-4638-9006-d3dfa0933703
+    m_ActionName: Player/DevPause[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1290,7 +1298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870511693327474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0934887, y: 4.041736, z: -4.4997926}
+  m_LocalPosition: {x: 2.0934892, y: 4.041736, z: -4.4997916}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6908870513109798250}
@@ -1554,8 +1562,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870512041837564}
-  m_LocalRotation: {x: 0.047414266, y: 0.88520294, z: -0.13385266, w: -0.44300255}
-  m_LocalPosition: {x: 2.8124592, y: -0.4696958, z: 8.254407}
+  m_LocalRotation: {x: 0.047414277, y: 0.88520294, z: -0.13385265, w: -0.44300252}
+  m_LocalPosition: {x: 2.8124597, y: -0.4696958, z: 8.254408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8827046241353447791}
@@ -2148,7 +2156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870512855580632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5256748, y: 5.161736, z: -10.177526}
+  m_LocalPosition: {x: -0.52567494, y: 5.161736, z: -10.177527}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6908870512813823779}
@@ -2244,7 +2252,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870513054023935}
-  m_LocalRotation: {x: -0.009678641, y: 0.89505446, z: -0.01944853, w: -0.44542754}
+  m_LocalRotation: {x: -0.00967863, y: 0.89505446, z: -0.019448511, w: -0.4454275}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2349,7 +2357,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870513109798248}
-  m_LocalRotation: {x: -0.009678641, y: 0.89505446, z: -0.01944853, w: -0.44542754}
+  m_LocalRotation: {x: -0.00967863, y: 0.89505446, z: -0.019448511, w: -0.4454275}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
