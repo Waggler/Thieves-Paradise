@@ -97,8 +97,8 @@ public class InventoryController : MonoBehaviour
         {
             AddItem(newItem);
             //print("Grabbed Item");
-            newItem.myself.SetActive(false);
-            newItem.myself.transform.position = Vector3.down * 1000;
+            //newItem.myself.SetActive(false);
+            //newItem.myself.transform.position = Vector3.down * 1000;
 
             nearbyItems.Remove(newItem);
             nearbyItems.TrimExcess();
@@ -197,6 +197,8 @@ public class InventoryController : MonoBehaviour
         {
             throwForce = 200;
         }
+        //reset item to normal status
+        ResetItem(activeItemIndex);
 
         //throw active item
         GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
@@ -235,20 +237,6 @@ public class InventoryController : MonoBehaviour
 
     private void ChangeHeldItemDisplay()
     {
-        //hotbarMesh[newItemIndex].GetComponent<MeshFilter>().mesh = newItem.myself.GetComponent<MeshFilter>().mesh;
-        //hotbarMesh[newItemIndex].GetComponent<MeshRenderer>().material = newItem.myself.GetComponent<MeshRenderer>().material;
-        /*
-        if (inventorySpace[activeItemIndex] == true)
-        {
-            holdItemPos.gameObject.GetComponent<MeshFilter>().mesh = itemInterfaceInventory[activeItemIndex].myself.GetComponent<MeshFilter>().mesh;
-            holdItemPos.gameObject.GetComponent<MeshRenderer>().material = itemInterfaceInventory[activeItemIndex].myself.GetComponent<MeshRenderer>().material;
-        }else //no item in active slot
-        {
-            holdItemPos.gameObject.GetComponent<MeshFilter>().mesh = null;
-            holdItemPos.gameObject.GetComponent<MeshRenderer>().material = null;
-        }
-        */
-
         for (int i = 0; i < itemInterfaceInventory.Length; i++)
         {
             if (inventorySpace[i] == true) //first check if the slot isn't empty
@@ -256,22 +244,35 @@ public class InventoryController : MonoBehaviour
                 GameObject curObj = itemInterfaceInventory[i].myself;
                 if (i == activeItemIndex)
                 {
-                    curObj.transform.SetParent(holdItemPos);
-                    curObj.transform.position = holdItemPos.position;
-                    curObj.GetComponent<Rigidbody>().isKinematic = true;
-                    curObj.GetComponent<SphereCollider>().enabled = false;
-
-                    curObj.SetActive(true);
+                    DisplayItem(i);
                 }else
                 {
-                    curObj.transform.SetParent(null);
-                    
-                    curObj.GetComponent<Rigidbody>().isKinematic = false;
-                    curObj.GetComponent<SphereCollider>().enabled = true;
-                    curObj.SetActive(false);
+                    ResetItem(i);
                 }
             }
         }
+    }
+
+    private void DisplayItem(int displayIndex)
+    {
+        GameObject curObj = itemInterfaceInventory[displayIndex].myself;
+
+        curObj.transform.SetParent(holdItemPos);
+        curObj.transform.position = holdItemPos.position;
+        curObj.GetComponent<Rigidbody>().isKinematic = true;
+        curObj.GetComponent<SphereCollider>().enabled = false;
+
+        curObj.SetActive(true);        
+    }
+
+    private void ResetItem(int resetIndex)
+    {
+        GameObject curObj = itemInterfaceInventory[resetIndex].myself;
+        curObj.transform.SetParent(null);
+                    
+        curObj.GetComponent<Rigidbody>().isKinematic = false;
+        curObj.GetComponent<SphereCollider>().enabled = true;
+        curObj.SetActive(false);
     }
     //check for if we have space in the inventory
     private bool IsInventoryFull()
@@ -317,8 +318,8 @@ public class InventoryController : MonoBehaviour
         nearbyItems.Remove(newItem);
         nearbyItems.TrimExcess();
 
-        ChangeHeldItemDisplay();
         SwapItem(newItemIndex);
+        //DisplayItem(newItemIndex);
         
     }//END AddItem
 
