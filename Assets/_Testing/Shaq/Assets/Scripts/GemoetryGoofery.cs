@@ -85,8 +85,27 @@ public class GemoetryGoofery : MonoBehaviour
 
         calculatedPoint.z = Random.Range(origin.z, zEndpoint.z);
 
-        print($"Generated point = {calculatedPoint}");
+        //print($"Generated point = {calculatedPoint}");
 
         return calculatedPoint;
+
+        ////Generates the initial random point
+        //Vector3 randpoint = Random.insideUnitSphere * randPointRad;
+
+        ////Returns a bool
+        ////First portion tests the randomly generated point to see if it can be reached.
+        ////Second portion tests the path to the genreated point and to see if it's possible to reach that point
+        //if (NavMesh.SamplePosition(randpoint + transform.position, out NavMeshHit hit, randPointRad, 1) && NavMesh.CalculatePath(transform.position, hit.position, NavMesh.AllAreas, path))
+        //{
+        //    searchLoc = hit.position;
+        //    return searchLoc;
+        //}
+        //else
+        //{
+        //    print("Point or Path is invalid");
+        //    return transform.position;
+        //}       
+        
+        //Generates the initial random point
     }
 }

@@ -28,7 +28,8 @@ public class CameraManager : MonoBehaviour
     private enum CamStates
     {
         MONITORING,
-        FOCUSED
+        FOCUSED,
+        DISABLED
     }
 
     [Header("Camera States")]
@@ -42,12 +43,12 @@ public class CameraManager : MonoBehaviour
     //[Header("Guard Array")]
     //[Tooltip("Shows the list of guards")]
     //[SerializeField] private GameObject[] guardsArray;
-    
+
     #endregion Lists & Arrays
 
     #region Variables
     [Header("Camera Target / Trigger")]
-    private Vector3? target;
+    private Vector3 target;
     [Tooltip("References the player's vision target, auto generated")]
     [SerializeField] private GameObject player;
 
@@ -89,7 +90,7 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Light Variables")]
     [Tooltip("When the player is this far away, the spotlight becomes disabled")]
-    [SerializeField] [Range(0, 500)]private float killRadius;
+    [SerializeField] [Range(0, 500)] private float killRadius;
     [Tooltip("References the Spotlight attatched to the camera prefab")]
     [SerializeField] private Light camLightRef;
     [Tooltip("Spotlight Intensity")]
@@ -115,7 +116,16 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private bool isAudioSourcePlaying;
 
 
+    [Header("Testing / Temp Variables")]
+
     [HideInInspector] private float distanceToCamera;
+
+    [HideInInspector] private float timeLeft;
+
+    [SerializeField] private GameObject disabledTarget;
+
+    private bool timerBool;
+
 
     #endregion Variables
 
@@ -161,14 +171,12 @@ public class CameraManager : MonoBehaviour
         #region Cam State Machine
         switch (cameraStateMachine)
         {
-
             #region Monitoring State
             //When the camera does not see the player / MONITORING
             case CamStates.MONITORING:
                 stateText.text = $"{cameraStateMachine}";
 
                 //Since there is no target when monitoring, the value is set to null
-                target = null;
 
                 targetText.text = $"{target}";
 
@@ -204,7 +212,7 @@ public class CameraManager : MonoBehaviour
 
                 break;
             #endregion Monitoring State
-
+            
             #region Focused State
             //When the camera sees the player / FOCUSED
             case CamStates.FOCUSED:
@@ -218,14 +226,11 @@ public class CameraManager : MonoBehaviour
 
                 targetText.text = $"{target}";
 
-                FaceTarget();
+                FaceTarget(target);
 
                 camLightRef.color = Color.red;
 
                 susManagerRef.AlertGuards(eyeball.lastKnownLocation, transform.position, callRadius);
-
-
-
 
                 //Playing Alert Audio
                 if (isAudioSourcePlaying == false)
@@ -234,9 +239,6 @@ public class CameraManager : MonoBehaviour
 
                     isAudioSourcePlaying = true;
                 }
-
-
-
 
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
@@ -255,6 +257,25 @@ public class CameraManager : MonoBehaviour
 
                 break;
             #endregion Focused State
+
+            //Do not use, currently broken
+            #region Disabled State
+            case CamStates.DISABLED:
+                //Insert timer here
+
+                DisableCamera(5f);
+
+                timeLeft -= Time.deltaTime;
+
+                if (timeLeft < 0)
+                {
+
+                }
+
+                camLightRef.color = Color.yellow;
+
+                break;
+            #endregion Disabled State
 
             #region Default / Error state
             //Not exactly a state but acts as a net to catch any bugs that would prevent the game from running
@@ -279,19 +300,17 @@ public class CameraManager : MonoBehaviour
 
     //---------------------------------//
     //Function that makes the object face it's target
-    void FaceTarget()
+    void FaceTarget(Vector3 target)
     {
-        //generates the direction that the camera needs to face
-        Vector3 direction = (Vector3)(target - transform.position);
+        Vector3 direction = (target - transform.position).normalized;
 
-        Vector3.Normalize(direction);
+        Quaternion lookRotation = Quaternion.identity;
+        if (direction.x != 0 && direction.z != 0)
+        {
+            lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        }
 
-        //Creates a quaternion var and assings it a look rotation
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
-
-        //Using Quaternion.Slerp instead of transform.rotation = lookRotation in order to keep camera snapping smooth
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * snapSpeed);
-
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 0.1f);
     }//End FaceTarget
 
     //---------------------------------//
@@ -320,9 +339,6 @@ public class CameraManager : MonoBehaviour
         player = GameObject.FindWithTag("PlayerVisionTarget");
 
         UpdateCamLightVars();
-
-        susManagerRef.GenGuardList();
-
     }//End Init
 
     //---------------------------------//
@@ -364,6 +380,30 @@ public class CameraManager : MonoBehaviour
         #endregion Individual Variables
 
     }//End UpdateCamVars
+
+
+    //---------------------------------//
+    //Disables the camera
+    public void DisableCamera(float disableTime)
+    {
+        camLightRef.color = Color.yellow;
+
+        FaceTarget(disabledTarget.transform.position);
+
+        //Be sure to also disable the camera's eyeball component
+
+        timeLeft = disableTime;
+
+        cameraStateMachine = CamStates.DISABLED;
+    }
+
+    public void EnableCamera()
+    {
+
+        eyeball.sightRange = 8f;
+
+        cameraStateMachine = CamStates.MONITORING;
+    }
 
     //---------------------------------//
     //Draws Gizmos / shapes in editor
