@@ -38,7 +38,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
         myself = this.gameObject;
         myself.name = itemName;
 
-        layerMask = ~LayerMask.GetMask("Player"); 
+        layerMask = ~LayerMask.GetMask("Player");
 
         InitLine();
     }
@@ -52,10 +52,11 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
             heldItemTransform = GameObject.FindGameObjectWithTag("HeldItemPosition");
             cameraTransform = Camera.main.gameObject;
         }
+        /*
         if (heldItemTransform.GetComponent<LineRenderer>() == null)
         {
             heldItemTransform.AddComponent<LineRenderer>();
-        }
+        }*/
 
         var line = heldItemTransform.GetComponent<LineRenderer>();
         //establish line details
@@ -74,7 +75,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
     public void UseItem()
     {
         //print("Used Laser Pointer Item");
-        InitLine();
+        //InitLine();
 
         var line = GetComponent<LineRenderer>();
         line.enabled = true;
@@ -96,7 +97,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
         line.startColor = Color.red;
         line.endColor = Color.red;
         line.startWidth = 0.01f;
-        line.endWidth = 0.1f;
+        line.endWidth = 0.03f;
         line.positionCount = 2;
 
         Material randoMaterial = new Material(Shader.Find("Mobile/Particles/Additive"));
@@ -111,10 +112,10 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
 
         while (isLaserOn)
         {
-            startPoint = heldItemTransform.transform.position + heldItemTransform.transform.forward*0.1f;
+            startPoint = transform.position + transform.forward*0.1f;
             line.SetPosition(0, startPoint);
 
-            endPoint = startPoint + heldItemTransform.transform.forward*100f;//backup endpoint in case raycast fails for some reason
+            endPoint = startPoint + transform.forward*100f;//backup endpoint in case raycast fails for some reason
 
             /*if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.transform.forward, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
             {
