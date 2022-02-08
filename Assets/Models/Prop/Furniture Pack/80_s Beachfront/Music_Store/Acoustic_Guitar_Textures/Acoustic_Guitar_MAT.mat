@@ -21,14 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Acoustic_Guitar_MAT
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _GLOSSYREFLECTIONS_OFF _METALLICSPECGLOSSMAP _OCCLUSIONMAP
+  m_Shader: {fileID: -6465566751694194690, guid: 0ebf76504491d0f4db7e392566b40cfe, type: 3}
+  m_ShaderKeywords: _ENVIRONMENTREFLECTIONS_OFF _METALLICSPECGLOSSMAP _NORMALMAP
+    _OCCLUSIONMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -65,6 +65,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: d2ebfe8548b685844acbe800754a79dc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NRM:
+        m_Texture: {fileID: 2800000, guid: 428df1329aa36d54e8f91cb290a59bdb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ORM:
+        m_Texture: {fileID: 2800000, guid: 55b5dcef3777a1a4a93ecabd8480f695, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 2800000, guid: 3e36aa986c4cce546b00f2bd0bc2030b, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -73,8 +81,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ec79243ae2384b7e8943a9190a1de8b7_Texture_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 2800000, guid: 4c7ca4b8f18e5fb4fa56f13c12a323d4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _basecolor:
+        m_Texture: {fileID: 2800000, guid: 251520f90edee4949bffbe39b9e78922, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _emissive:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -90,6 +110,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AO: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -124,6 +145,12 @@ Material:
     - _UseRoughnessMap: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _metallic: 0
+    - _smoothness: 0
+    - _useBasecolor: 1
+    - _useEmissive: 0
+    - _useNRM: 1
+    - _useORM: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -131,4 +158,6 @@ Material:
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _UvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UvTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _basecolorDefault: {r: 1, g: 1, b: 1, a: 0}
+    - _emissiveDefault: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
