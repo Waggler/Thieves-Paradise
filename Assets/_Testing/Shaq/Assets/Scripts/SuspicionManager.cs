@@ -3,41 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//fix issues caused by having the class be static
-
-//Current Bugs:
-//    - 
-//    - 
-//    - 
-
-//Things to add:
-//    - 
-//    - 
-//    - 
-
-//Done:
-//    - 
-//    - 
-//    - 
-
-//Suspicion Manager Notes:
-//  - Look at Among Us task manager / meter for reference/inspiration on the overall suspicion manager
 
 public class SuspicionManager : MonoBehaviour
 {
     #region Enumerations
-    private enum SecurityLvl
+    public enum SecurityLvl
     {
         SecLVL0,
-        SecLVL1,
-        SecLVL2,
-        SecLVL3,
-        SecLVL4
+        SecLVL1
     }
 
-    [Header("AI State")]
-
-    [SerializeField] SecurityLvl secState;
+    [Header("Global Security Level")]
+    //[SerializeField] public SecurityLvl secState;
+    [SerializeField] public SecurityLvl secState;
     #endregion Enumerations
 
     #region Coroutines
@@ -46,51 +24,41 @@ public class SuspicionManager : MonoBehaviour
 
     #region Lists & Arrays
 
-    #region Guard List
     [Header("Guards List")]
-    [Tooltip("Shows the list of guards")]
+
+    [Tooltip("Shows the list of guards in the level")]
     [SerializeField] private List<GameObject> guardsList;
-    //Try to generate the list by getting the children of an object
 
+    [Header("Cameras List")]
 
-    #endregion
-
-    #region Camera List
-    [SerializeField] private List<GameObject> camerasInLevel;
-    //Try to generate the list by getting the children of an object
-
-
-    #endregion
+    [Tooltip("Shows the list of cameras in the level")]
+    [SerializeField] private List<GameObject> camerasList;
 
     #endregion Lists & Arrays
 
     #region Variables
-    //Note: The green squigglies just mean it's given a value in the inspector instead of in the script
-    [Header("Suspicion Manager Variables")]
-    [SerializeField] private Text susText;
-    [SerializeField] private float susInc;
-    [SerializeField] private float susDec;
-    [SerializeField] private float susDecTimer;
-
-    [Header("Notification Radius Variables")]
-    [SerializeField] private Transform notifCenter;
-    [SerializeField] private float notifRad;
-
+    //---------------------------------------------------------------------------------------------------//
 
     [Header("Guard Refs")]
+
     [SerializeField] private EnemyManager enemyManager;
 
+    //---------------------------------------------------------------------------------------------------//
 
     [Header("Camera Refs")]
+
     [SerializeField] private CameraManager cameraManager;
+
+    //---------------------------------------------------------------------------------------------------//
 
     [Header("Debug / Testing Variables")]
 
 
-    //Be sure to make variables that will be manipulated by other scripts/classes PUBLIC
-    [Header("Communicated Variables")]
-    [SerializeField] public int testInt;
+    [Tooltip("Flag for Suspicion Level 0")]
+    [HideInInspector] private bool susZeroFlag;
 
+    [Tooltip("Flag for Suspicion Level 1")]
+    [HideInInspector] private bool susOneFlag;
 
     #endregion Variables
 
@@ -102,7 +70,7 @@ public class SuspicionManager : MonoBehaviour
     {
         Init();
 
-        testInt = 0;
+        GenGuardList();
 
     }//End Awake
     #endregion Awake
@@ -111,48 +79,35 @@ public class SuspicionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
         switch (secState)
         {
+            #region Security Level 0
             case SecurityLvl.SecLVL0:
-                susText.text = "Level 0";
-                break;
+                //print("Security Level 0");
 
+                break;
+            #endregion
+
+            #region Security Level 1
+            //Security station reaches this state when a guard interacts with it
             case SecurityLvl.SecLVL1:
-                susText.text = "Level 1";
-                break;
+                //print("Security Level 1");
 
-            case SecurityLvl.SecLVL2:
-                susText.text = "Level 2";
-                break;
+                //Forcing all guards to have an eyeball sus level of [warySusMin]
+                //ModEyeSus(enemyManager.warySusMin);
+                ModEyeSus(3.5f);
 
-            case SecurityLvl.SecLVL3:
-                susText.text = "Level 3";
-                break;
 
-            case SecurityLvl.SecLVL4:
-                susText.text = "Level 4";
                 break;
+            #endregion
 
+            #region Default case / Bug Catcher
             default:
-                susText.text = "LEVEL NOT FOUND";
+                print("Security Level not found! \a");
                 break;
-        }
-        */
-
-        if (testInt != 0)
-        {
-            //print("Int has changed");
+            #endregion
 
         }
-
-        //print($"{secState}");
-
-        //print($"Current references are {enemyManager} & {cameraManager}");
-
-
-
-
     }//End Update
     #endregion Update
 
@@ -160,31 +115,38 @@ public class SuspicionManager : MonoBehaviour
 
     #region General Functions
 
+    //---------------------------------//
+    //Draws Gizmos
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(notifCenter.position, notifRad);
-    }//End OnDrawGizmos
 
+    }//End OnDrawGizmos
 
 
     //---------------------------------//
     //Used on the Awake() function to initialize any values in one line
     private static void Init()
     {
-        //secState = SecurityLvl.SecLVL0;
     }//End Init
 
+
     //---------------------------------//
-    //Raises / Lowers the security level based on the given context
-    private void AdjustSecurityLevel(SecurityLvl securityLvl)
+    //Get's right into the sus level of all guards and modifies them
+    public void ModEyeSus(float insertedValue)
     {
+        foreach (GameObject guard in guardsList)
+        {
+            enemyManager = guard.GetComponent<EnemyManager>();
 
-    }//End AdjustSecurityLevel
+            enemyManager.eyeball.susLevel = insertedValue;
+        }
+    }
 
+
+    //---------------------------------//
+    //Alerts available guards in a set radius
     public void AlertGuards(Vector3 targetLoc, Vector3 callerLoc, float callRadius)
     {
-        //print("Alerting Guards");
         //Also generating an array of guards on the call of this function
         GenGuardList();
 
@@ -194,9 +156,7 @@ public class SuspicionManager : MonoBehaviour
         //Used to reference each guard
         foreach (GameObject guard in guardsList)
         {
-            float 
-
-            distance = Vector3.Distance(guard.transform.position, callerLoc);
+            float distance = Vector3.Distance(guard.transform.position, callerLoc);
 
             //Individual guard reference
             //DO NOT MOVE
@@ -225,9 +185,8 @@ public class SuspicionManager : MonoBehaviour
 
         if (guardsList.Count == 0 || guardsList == null)
         {
-            print("No guards in the level");
+            //print("No guards in the level");
         }
-
     }//End GenGuardArray
 
     #endregion General Functions
