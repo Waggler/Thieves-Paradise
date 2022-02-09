@@ -41,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
     public CapsuleCollider playerCollider;
     [SerializeField] public CharacterController Controller;
     [SerializeField] private bool IsGrounded = true;
-    [SerializeField] private float AirSpeed;
     [SerializeField] private float AirInertiaTime;
     public float CurrentAirInertiaTime;
     private float HeightFromGround;
@@ -374,7 +373,6 @@ public class PlayerMovement : MonoBehaviour
                 animationController.IsPlayerJumping(Jumping);
                 VerticalVelocity.y = Mathf.Sqrt(-2f * StillJumpHeight * -Gravity);
                 Controller.Move(VerticalVelocity * Time.deltaTime);
-                CurrentSpeed = AirSpeed;
             }
         }
         else if (IsGrounded && IsCrouching)
@@ -537,10 +535,6 @@ public class PlayerMovement : MonoBehaviour
             IsGrounded = true;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
-            if (CurrentSpeed == AirSpeed)
-            {
-                CurrentSpeed = WalkingSpeed;
-            }
 
             if(CurrentAirInertiaTime <= 0)
             {
