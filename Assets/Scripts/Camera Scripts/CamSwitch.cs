@@ -38,39 +38,39 @@ public class CamSwitch : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // private void OnEnable()
-    // {
-    //     action.Enable();
-    // }
+    private void OnEnable()
+    {
+        action.Enable();
+    }
 
-    // private void OnDisable()
-    // {
-    //     action.Disable();
-    // }
-    
+    private void OnDisable()
+    {
+        action.Disable();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        //action.performed += _ => SwitchState();
+        action.performed += _ => SwitchState();
         // Camera2.enabled = false;
         // mainCamera.enabled = true;
         //animator.Play("FreeLook");
     }
 
-    // private void SwitchState()
-    // {
-    //         if(Cam1 == false)
-    //         {
-    //             animator.Play("FreeLook");
-    //             firstPersonCam = false;
-    //         }
-    //         else
-    //         {
-    //             animator.Play("VCam1");
-    //             firstPersonCam = false;
-    //         }
-    //         Cam1 = !Cam1;
-    // }
+    private void SwitchState()
+    {
+        if (Cam1 == false)
+        {
+            animator.Play("FreeLook");
+            firstPersonCam = false;
+        }
+        else
+        {
+            animator.Play("VCam1");
+            firstPersonCam = false;
+        }
+        Cam1 = !Cam1;
+    }
 
     // private void CloseState()
     // {

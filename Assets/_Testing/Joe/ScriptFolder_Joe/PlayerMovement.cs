@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float CrouchingHeight;
     [Tooltip("Set this as the same Y center for the player controller & colider.")]
     [SerializeField] private float SetCenterHeight;
-    [SerializeField] public bool IsCrouching = false;
+    public bool IsCrouching = false;
     [SerializeField] private bool IsStanding = true;
     [SerializeField] private bool IsCovered;
 
