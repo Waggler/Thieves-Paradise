@@ -21,7 +21,12 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private GameObject speakerBox;
     [SerializeField] private GameObject textBox;
 
+    [SerializeField] private Button skipButton;
+
     [SerializeField] private int dialoguePortraitSwapIndex;
+
+    [SerializeField] private int[] skipIndex;
+    private int currentSkipIndex = 0;
 
     private Queue<string> sentences;
 
@@ -106,6 +111,7 @@ public class NarrativeUIManager : MonoBehaviour
 
         dialogueAnimator.SetBool("isDialogueOpen", true);
 
+
         foreach (string sentence in dialogue.sentences)
         {
             char[] lettters = sentence.ToCharArray();
@@ -167,6 +173,18 @@ public class NarrativeUIManager : MonoBehaviour
     public void DisplayNextSentence()
     //-----------------------//
     {
+        if (dialogueManager.currentDialogueIndex == skipIndex[currentSkipIndex])
+        {
+            skipButton.gameObject.SetActive(false);
+
+        }
+        else
+        {
+            skipButton.gameObject.SetActive(true);
+        }
+
+        //if()
+
         if (sentences.Count == 0)
         {
 
@@ -179,9 +197,9 @@ public class NarrativeUIManager : MonoBehaviour
 
         StopAllCoroutines();
 
-            StartCoroutine(TypeSentence(sentence));
+        StartCoroutine(TypeSentence(sentence));
 
-        
+
 
     }//END DisplayNextSentence
 
@@ -213,18 +231,36 @@ public class NarrativeUIManager : MonoBehaviour
 
     }//END EndDialogue
 
-    public void IncremenetResponse()
+    //-----------------------//
+    public void IncrementResponse()
+    //-----------------------//
     {
         speakerText.text = currentResponse.responseSpeaker[currentResponse.responseID];
         currentResponse.responseID++;
-    }
+    }//END IncrementResponse
 
-
-    public void SkipLevel()
+    //-----------------------//
+    public void SkiptoChoice()
+    //-----------------------//
     {
-        dialogueManager.currentDialogueIndex += 99999999;
-        dialogueManager.TriggerDialogue();  
-    }
+
+        if (dialogueManager.currentDialogueIndex < skipIndex[currentSkipIndex])
+        {
+            dialogueManager.currentDialogueIndex = skipIndex[currentSkipIndex];
+            dialogueManager.TriggerDialogue();
+
+        }
+        else if (dialogueManager.currentDialogueIndex > skipIndex[currentSkipIndex])
+        {
+            currentSkipIndex++;
+            SkiptoChoice(); //Continues incrementing the index, skips once it gets to the next one.
+
+        }
+       
+        skipButton.gameObject.SetActive(false);
+
+    }//END SkiptoChoice
+
 
     #endregion Methods
 
@@ -237,7 +273,7 @@ public class NarrativeUIManager : MonoBehaviour
 
         if (isResponding)
         {
-            IncremenetResponse();
+            IncrementResponse();
         }
 
         dialogueText.text = "";
@@ -253,7 +289,7 @@ public class NarrativeUIManager : MonoBehaviour
             {
                 dialogueText.text += letter;
                 yield return new WaitForSeconds(typingTime); //Is the wait time between typed letters
-            }    
+            }
             else
             {
                 dialogueText.text += letter;
@@ -267,7 +303,7 @@ public class NarrativeUIManager : MonoBehaviour
         }
     }
 
-    /*
+
     IEnumerator TypeResponse(Response response, string sentence)
     {
         speakerText.text = response.responseSpeaker[response.responseID];
@@ -298,7 +334,7 @@ public class NarrativeUIManager : MonoBehaviour
             }
 
         }
-    }*/
+    }
 
 
     #endregion
