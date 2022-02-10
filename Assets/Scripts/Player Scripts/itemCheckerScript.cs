@@ -26,10 +26,10 @@ public class itemCheckerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("touched something!");
+        //print("touched something!");
         if (other.gameObject.GetComponent<InventoryController>() != null)
         {
-            print("touched player!");
+            //print("touched player!");
             if(other.gameObject.GetComponent<InventoryController>().CheckHasItem(keyItemName))
             {
                 //checkText.text = "Have " + keyItemName + "? Yes!";

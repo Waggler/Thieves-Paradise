@@ -63,7 +63,7 @@ public class InputManager : MonoBehaviour
                 playerMovement.Movement(directionVector);
                 playerMovement.Inertia = true;
             }
-            print(moveVector);
+            //print(moveVector);
         }
     }// END MOVE
     #endregion
