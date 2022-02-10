@@ -28,6 +28,14 @@ public class CheatCodes : MonoBehaviour
             {
                 ToggleGodMode();
             }
+            if (godText.text == "God Mode Enabled (G)")
+            {
+                PlayerMovement player = (PlayerMovement)FindObjectOfType(typeof(PlayerMovement));
+                if (player.hp < 5)
+                {
+                    godText.text = "God Mode Disabled (G)";
+                }
+            }
         }
     }
 
