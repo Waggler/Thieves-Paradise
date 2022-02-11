@@ -27,13 +27,8 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private AudioClip diveClip;
 
     [SerializeField] private AudioClip struggleClip;
+    [SerializeField] private AudioClip throwClip;
 
-    [Header("Items")]
-    [SerializeField] private AudioClip borgarClip;
-    [SerializeField] private AudioClip smokeBombClip;
-    [SerializeField] private AudioClip waterBalloonClip;
-    [SerializeField] private AudioClip bottleClip;
-    [SerializeField] private AudioClip crowbarClip;
 
     //-----------------------//
     public void WalkingFootStep()
@@ -118,52 +113,14 @@ public class PlayerAudio : MonoBehaviour
         playerSource.PlayOneShot(rollClip);
 
     }//END Roll
-
     //-----------------------//
-    public void BorgarThrow()
-    //-----------------------//
-    {
-        playerSource.volume = noiseLevelThreeVolume;
-        playerSource.pitch = Random.Range(pitchMin, pitchMax);
-        playerSource.PlayOneShot(borgarClip);
-    }//END Borgar Cup Throw
-
-    //-----------------------//
-    public void SmokeBombThrow()
+    public void Throw()
     //-----------------------//
     {
         playerSource.volume = noiseLevelOneVolume;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
-        playerSource.PlayOneShot(smokeBombClip);
-    }//END Smoke Bomb Throw
-
-    //-----------------------//
-    public void WaterBalloonThrow()
-    //-----------------------//
-    {
-        playerSource.volume = noiseLevelOneVolume;
-        playerSource.pitch = Random.Range(pitchMin, pitchMax);
-        playerSource.PlayOneShot(waterBalloonClip);
-    }//END Water Balloon Throw
-
-    //-----------------------//
-    public void BottleThrow()
-    //-----------------------//
-    {
-        playerSource.volume = noiseLevelThreeVolume;
-        playerSource.pitch = Random.Range(pitchMin, pitchMax);
-        playerSource.PlayOneShot(bottleClip);
-    }//END Bottle Throw
-
-    //-----------------------//
-    public void CrowbarThrow()
-    //-----------------------//
-    {
-        playerSource.volume = noiseLevelThreeVolume;
-        playerSource.pitch = Random.Range(pitchMin, pitchMax);
-        playerSource.PlayOneShot(crowbarClip);
-    }//END Crowbar Throw
-
+        playerSource.PlayOneShot(throwClip);
+    }
 
 
 }//END PlayerAudio
