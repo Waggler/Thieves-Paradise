@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     public bool isRolling;
     public bool isPushPull;
     private PlayerMovement playerMovement;
+    private CamSwitch camSwitch;
     public float rollCooldownTime;
     private float cooldownTimer;
     private int jumpPressCounter = 1;
@@ -50,8 +51,6 @@ public class InputManager : MonoBehaviour
                 
             directionVector = moveVector;
             playerMovement.Movement(moveVector);
-            
-            //print(moveVector);
         }
     }// END MOVE
     #endregion
@@ -125,6 +124,23 @@ public class InputManager : MonoBehaviour
             playerMovement.Roll(isRolling);
         }
     }//END ROLL
+
+    #endregion
+
+    #region ZoomIn
+    public void ZoomIn(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            Debug.Log("On");
+            camSwitch.SwitchState();
+        }
+        else if(context.canceled)
+        {
+            Debug.Log("Off");
+            camSwitch.SwitchState();
+        }
+    }
 
     #endregion
 

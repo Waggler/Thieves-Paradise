@@ -57,7 +57,7 @@ public class CamSwitch : MonoBehaviour
         //animator.Play("FreeLook");
     }
 
-    private void SwitchState()
+    public void SwitchState()
     {
         if (Cam1 == false)
         {
