@@ -6,13 +6,13 @@ public class BalloonPop : MonoBehaviour
 {
     public GameObject balloon;
     [SerializeField]
-    private AudioClip pop;
+    private AudioSource pop;
 
     // Start is called before the first frame update
     void Start()
     {
         balloon.SetActive(true);
-        //AudioSource pop = GetComponent<AudioSource>();
+        pop = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,8 +23,14 @@ public class BalloonPop : MonoBehaviour
 
     public void OnTriggerEnter()
     {
+        pop.Play();
+        Debug.Log("Pop sound played!");
         Destroy(gameObject);
         //balloon.SetActive(false);
-        //pop.Play();
+    }
+
+    public void Pop()
+    {
+        
     }
 }
