@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Components")]
-
+    [SerializeField] private SettingsMenuManager settingsManager;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject creditsScreen;
@@ -42,6 +42,22 @@ public class MainMenuManager : MonoBehaviour
 
             PlayerPrefs.SetInt("endCredits", 0);
         }
+
+        if(PlayerPrefs.GetInt("thirtyFPSON") == 1)
+        {
+            Application.targetFrameRate = 30;
+
+            settingsManager.thirtyFPSButton.interactable = false;
+            settingsManager.sixtyFPSButton.interactable = true;
+        }
+        else
+        {
+            Application.targetFrameRate = 60;
+
+            settingsManager.thirtyFPSButton.interactable = true;
+            settingsManager.sixtyFPSButton.interactable = false;
+        }
+
 
     }//END Init
 
