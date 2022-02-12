@@ -14,6 +14,9 @@ public class GuardAudio : MonoBehaviour
     [SerializeField] private float pitchMin;
     [SerializeField] private float pitchMax;
 
+    [Header("Vocalizations")]
+    [SerializeField] private AudioClip[] spotBarks;
+
     [Header("Footsteps")]
     [SerializeField] private AudioClip[] walkClips;
     [SerializeField] private AudioClip[] runClips;
@@ -23,7 +26,6 @@ public class GuardAudio : MonoBehaviour
     [SerializeField] private AudioClip chewingClip;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private AudioClip fallClip;
-
 
     //-----------------------//
     public void WalkingFootStep()
@@ -54,8 +56,9 @@ public class GuardAudio : MonoBehaviour
     //-----------------------//
     {
         guardSource.volume = loudVolume;
+        int i = Random.Range(0, spotBarks.Length);
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
-        guardSource.PlayOneShot(spottedClip);
+        guardSource.PlayOneShot(spotBarks[i]);
 
     }//END SpotPlayer
 
