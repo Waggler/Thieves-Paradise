@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class NarrativeUIManager : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class NarrativeUIManager : MonoBehaviour
 
     [SerializeField] private int[] skipIndex;
     private int currentSkipIndex = 0;
+    private int lastSkipIndex;
+    private bool isPastLastSkip = false;
 
     private Queue<string> sentences;
 
@@ -83,6 +86,7 @@ public class NarrativeUIManager : MonoBehaviour
     //--------------------------//
     {
         sentences = new Queue<string>();
+        lastSkipIndex = Enumerable.Last(skipIndex);
 
     }//END Init
 
@@ -153,6 +157,17 @@ public class NarrativeUIManager : MonoBehaviour
     public void DisplayNextResponseSentence(Response response)
     //-----------------------//
     {
+        if (dialogueManager.currentDialogueIndex == skipIndex[currentSkipIndex] && dialogueManager.currentDialogueIndex == lastSkipIndex)
+        {
+            skipButton.gameObject.SetActive(false);
+            isPastLastSkip = true;
+
+        }
+        if (isPastLastSkip != true);
+        {
+            skipButton.gameObject.SetActive(true);
+        }
+
         if (sentences.Count == 0)
         {
 
@@ -173,12 +188,13 @@ public class NarrativeUIManager : MonoBehaviour
     public void DisplayNextSentence()
     //-----------------------//
     {
-        if (dialogueManager.currentDialogueIndex == skipIndex[currentSkipIndex])
+        if (dialogueManager.currentDialogueIndex == skipIndex[currentSkipIndex] && dialogueManager.currentDialogueIndex == lastSkipIndex)
         {
             skipButton.gameObject.SetActive(false);
+            isPastLastSkip = true;
 
         }
-        else
+        if (isPastLastSkip != true);
         {
             skipButton.gameObject.SetActive(true);
         }
@@ -257,6 +273,8 @@ public class NarrativeUIManager : MonoBehaviour
 
         }
        
+
+
         skipButton.gameObject.SetActive(false);
 
     }//END SkiptoChoice
