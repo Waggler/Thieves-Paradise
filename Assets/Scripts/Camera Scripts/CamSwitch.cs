@@ -5,10 +5,6 @@ using UnityEngine.InputSystem;
 
 public class CamSwitch : MonoBehaviour
 {
-    [SerializeField]
-
-    private InputAction action;
-
     private Animator animator;
 
     public bool Cam1 = true;
@@ -38,33 +34,23 @@ public class CamSwitch : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void OnEnable()
-    {
-        action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        action.Disable();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        action.performed += _ => SwitchState();
+        //action.performed += _ => SwitchState();
         // Camera2.enabled = false;
         // mainCamera.enabled = true;
         //animator.Play("FreeLook");
     }
 
-    public void SwitchState()
+    public void SwitchState(bool Zooming)
     {
-        if (Cam1 == false)
+        if(Zooming)
         {
             animator.Play("FreeLook");
             firstPersonCam = false;
         }
-        else
+        else if(!Zooming)
         {
             animator.Play("VCam1");
             firstPersonCam = false;

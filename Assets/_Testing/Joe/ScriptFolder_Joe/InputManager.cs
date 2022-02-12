@@ -12,7 +12,7 @@ public class InputManager : MonoBehaviour
     public bool isRolling;
     public bool isPushPull;
     private PlayerMovement playerMovement;
-    private CamSwitch camSwitch;
+    [SerializeField] private CamSwitch camSwitch;
     public float rollCooldownTime;
     private float cooldownTimer;
     private int jumpPressCounter = 1;
@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        //camSwitch = GetComponent<CamSwitch>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -130,15 +131,13 @@ public class InputManager : MonoBehaviour
     #region ZoomIn
     public void ZoomIn(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if(context.performed)
         {
-            Debug.Log("On");
-            camSwitch.SwitchState();
+            camSwitch.SwitchState(true);
         }
         else if(context.canceled)
         {
-            Debug.Log("Off");
-            camSwitch.SwitchState();
+            camSwitch.SwitchState(false);
         }
     }
 
