@@ -1098,14 +1098,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
   dialogue:
+  - characterName: 'NOTE:'
+    sentences:
+    - 'DEVELOPER NOTE: THE SPRITES SHOWN THROUGHOUT THIS SECTION ARE MISSING OR INCOMPLETE
+      AND ARE FOR DEVELOPMENT USE ONLY'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
   - characterName: Narration
     sentences:
-    - "*After a long week\u2019s work, you\u2019ve finally earned a day off and could
-      think of no better way to spend it than enjoying a nice meal at your favorite
-      place, Borgar.*"
-    - "*Your waitress places your burger and fries down in front of you, as you pick
-      it up and prepare to take a bite out of it\u2026 but something interrupts your
-      focus at that moment*"
+    - "*You find yourself once again enjoying a dirt-cheap sandwich l at your favorite
+      fast food stand, Borgar. As you prepare to enjoy your meal, you\u2019re interrupted
+      by nearby commotion.  *\r\n"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1189,20 +1219,10 @@ MonoBehaviour:
     responses: []
   - characterName: Narration
     sentences:
-    - '*You lower your burger back to your plate and turn around to inspect the commotion
-      at the table behind you. *'
-    - '*You see an embarrassed man standing next to the table of a woman sitting
-      alone.*'
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: Man
-    sentences:
-    - "\u201CN-No! I mean\u2026 yes! I mean\u2026\u201D\r"
+    - '*You lower your burger back to your plate and turn around to inspect the commotion.
+      You see an embarrassed man standing next to the table of a woman sitting alone.*
+
+'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
@@ -1213,9 +1233,8 @@ MonoBehaviour:
   - characterName: The Lady
     sentences:
     - "\u201CThe answer is \u2018No\u2019. Someone like you doesn\u2019t stand a
-      chance with someone like me, especially not with how you look right now.\""
-    - "\"Now run along, I have someone I\u2019d actually like to speak with calling
-      me. Hello?\u201D"
+      chance with someone like me. Now run along, I have someone I\u2019d actually
+      like to speak with calling me. Hello?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
@@ -1225,14 +1244,9 @@ MonoBehaviour:
     responses: []
   - characterName: Narration
     sentences:
-    - '*You see the man run off in shock, as the lady picks up her ringing phone
-      to address her friend.*'
-    - "*Now that it\u2019s quiet again, you are about to go back to enjoying your
-      burger, yet you seem to be unable to stop looking at the lady speaking on her
-      phone*"
-    - "*It is love at first sight, but you already know how this story ends, you\u2019ve
-      just seen it. You dejectedly stare back at your plate as she continues to speak
-      on the phone.*"
+    - "*The man runs off in shock, as the lady picks up her phone. Now that peace
+      has returned, you\u2019re ready to return to eating. However, you just can\u2019t
+      look away from the lady. It is love at first sight.*\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
@@ -1243,8 +1257,7 @@ MonoBehaviour:
   - characterName: The Lady
     sentences:
     - "\u201COh my god, Kelly! I haven\u2019t spoken to you in forever! How\u2019s
-      your boyfriend? Ex-boyfriend now huh?\"\n"
-    - "\"Oh, are you bringing your new boyfriend to the charity event this weekend?\u201D\r"
+      your boyfriend? Are you bringing him to our charity event this weekend?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
@@ -1265,7 +1278,7 @@ MonoBehaviour:
   - characterName: The Lady
     sentences:
     - "\u201COh, me? I\u2019m still looking for a date myself\u2026  Any day now
-      my Prince Charming will find me. Wherever he is.\u201D\r"
+      my Prince Charming will find me. Wherever he is\u2026\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
@@ -1275,7 +1288,7 @@ MonoBehaviour:
     responses: []
   - characterName: You
     sentences:
-    - "\u201CPrince\u2026 Charming\u2026?\u201D\r"
+    - "\u201C...What?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
@@ -1285,12 +1298,9 @@ MonoBehaviour:
     responses: []
   - characterName: The Lady
     sentences:
-    - "\u201CAnyway, my schedule this week is packed. Can you believe how busy I
-      am?\""
-    - "\"I\u2019ve got to get my hair and nails done, pick up my dress today, test
-      out my new makeup, and worst of all my favorite perfume just ran out!\""
-    - "\"I don\u2019t have the time to pick it up before I have dinner with my father
-      and his friends!\u201D\r"
+    - "\u201CAnyway, I\u2019ve hardly had any time for myself this week with how
+      much I\u2019ve been running around town. I can\u2019t even find time to pick
+      up my perfume from the boutique!\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1300,7 +1310,7 @@ MonoBehaviour:
     responses: []
   - characterName: You
     sentences:
-    - "\u201CShe needs a bottle of perfume, huh?\u201D\r"
+    - "\u201CPerfume, huh?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1310,12 +1320,8 @@ MonoBehaviour:
     responses: []
   - characterName: Narration
     sentences:
-    - "*In this moment, you\u2019ve spent enough time eavesdropping on her conversation
-      that you have finally come up with a way that you can go speak to her.*"
-    - "*If she is looking for her Prince Charming, YOU will be her Prince Charming.
-      One problem. You couldn\u2019t be further from a Prince Charming if you tried.*"
-    - "*But she doesn\u2019t know that, and if you want to have a chance with her,
-      you have to make sure she never does.*"
+    - "*By this point, you\u2019ve eavesdropped enough to concoct a brilliant scheme;
+      . If she\u2019s in need of a date, YOU will be her Prince Charming!*\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1325,8 +1331,8 @@ MonoBehaviour:
     responses: []
   - characterName: The Lady
     sentences:
-    - "\u201CAnyway, I need to head out now, my driver\u2019s here to pick me up
-      for my teeth whitening. Toodles!\u201D\r"
+    - "\u201CUgh, sorry. My driver\u2019s bothering me now, I have a teeth whitening
+      to attend. Toodles!\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
@@ -1336,8 +1342,8 @@ MonoBehaviour:
     responses: []
   - characterName: Narration
     sentences:
-    - "*As she begins to gather her things and get up out of her seat, you smoothly
-      get out as well and call out to her.*\r"
+    - '*As she begins to gather her things and get up out of her seat, you slip over,
+      cool as a cucumber,  and call out to her.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1347,32 +1353,19 @@ MonoBehaviour:
     responses: []
   - characterName: You
     sentences:
-    - "\u201CHey, while I was eating, I couldn\u2019t help but hear about your little
-      predicament.\u201D"
+    - "\u201CExcuse me, miss. I couldn\u2019t help but overhear your little predicament.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: Narration
-    sentences:
-    - '*The Lady gives you an annoyed look before rolling her eyes and sighing.*'
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: The Lady
     sentences:
-    - "\u201COh, so you were listening in on a lady while she was using her phone.
-      Well surely you listened in on me sending the last loser coming to my table,
-      back home.\""
-    - "\"Now please don\u2019t stand around wasting my time, I\u2019m actually someone
-      that needs to be somewhere.\u201D\r\n"
+    - "\u201COh, so you were listening in on a lady? Surely you also heard  me send
+      the last loser back home. Now please don\u2019t stand around wasting my time,
+      I actually need to be somewhere.\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
@@ -1382,8 +1375,8 @@ MonoBehaviour:
     responses: []
   - characterName: You
     sentences:
-    - "\u201CI promise you that I\u2019m not a loser. And to prove it, I wanted to
-      help you get that perfume you need. Free of charge!\u201D\r"
+    - "\u201CMy apologies, how about I get you that perfume you need, free of charge
+      to make up for my rudeness!\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
@@ -1393,9 +1386,8 @@ MonoBehaviour:
     responses: []
   - characterName: The Lady
     sentences:
-    - "*scoffs* \u201CReally, someone like you can get the perfume that I need? I
-      use quite the pricey brand from Honeydew, are you sure you can even afford
-      it?\u201D"
+    - "\u201CReally, you think YOU can get the perfume that I need? I use quite the
+      pricey brand from Honeydew, are you sure you can even afford it?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
@@ -1405,26 +1397,12 @@ MonoBehaviour:
     responses: []
   - characterName: You
     sentences:
-    - "\u201CYou don't have to worry, price is no issue for me, I\u2019m just looking
-      to step up and help out those who need it.You've got nothing to lose in trusting
-      me, right?\u201D\r"
+    - "\u201CMoney isn\u2019t an issue for me! I\u2019m just looking to step up and
+      help out those in need! There\u2019s no harm in trusting me, right?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: Narration
-    sentences:
-    - '*The Lady gets an interested look on her face as you mention that you have
-      no issue with the price.*
-
-'
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
@@ -1441,10 +1419,8 @@ MonoBehaviour:
     responses: []
   - characterName: You
     sentences:
-    - "\u201CMoney isn\u2019t my goal. But, if you have to ask, if you\u2019re willing
-      to meet me back here tomorrow around this time.\""
-    - "\"I will hand you the perfume in exchange for just the time to be able to
-      talk with you\u201D"
+    - "\u201CIf you\u2019re willing to have lunch with me tomorrow around this time,
+      that would be enough.\u201D\r\n"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1454,8 +1430,8 @@ MonoBehaviour:
     responses: []
   - characterName: 'The Lady '
     sentences:
-    - "\u201CJust bring the perfume here tomorrow, and then we\u2019ll see if I consider
-      your offer. Do you need me to remind you what I wanted?\u201D\r"
+    - "\u201CAlright.  I suppose I really have nothing to lose\u2026  Need I remind
+      you what I wanted?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1504,8 +1480,8 @@ MonoBehaviour:
       responseID: 0
   - characterName: 'The Lady '
     sentences:
-    - "\u201CMy driver\u2019s here, so I\u2019m headed out now. If you don\u2019t
-      have the perfume, don\u2019t bother showing up tomorrow at all.\u201D\r"
+    - "\u201CMy driver\u2019s here, so I\u2019m headed out. If you don\u2019t have
+      the perfume, don\u2019t bother showing upl.\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1537,12 +1513,12 @@ MonoBehaviour:
       responseID: 0
   - characterName: Narration
     sentences:
-    - '*The Lady leaves out the entrance of Borgar, leaving you alone in your thoughts.*'
-    - "*You know that  you don\u2019t have the money to actually buy the perfume
-      for her, but you already have that covered.*"
-    - "*You know what she needs, where she needs it from\u2026 and you know what
-      time that place closes tonight. It\u2019s time to break into the local Shopping
-      World and take it yourself!*"
+    - "The Lady heads out the front door, leaving you all alone. You know what she
+      needs, where she needs it from\u2026 There\u2019s one problem\u2026  You haven\u2019t
+      got any money. "
+    - "Of course, there\u2019s always another, less legal option.  If you can\u2019t
+      afford this Lady\u2019s fine perfume\u2026\r\n"
+    - "It\u2019s time to break into Shopping World and take it yourself!\r\n"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}

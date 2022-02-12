@@ -6,7 +6,7 @@ public class ThirdPersonCamera : MonoBehaviour
 {
     public float RotationSpeed = 1;
     public Transform Target, Player;
-    float mouseX, mouseY;
+    private float mouseX, mouseY;
     public InputManager im;
     public DoorOpen door;
     public DoorOpen door2;
@@ -20,7 +20,7 @@ public class ThirdPersonCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    
+    //DELETE ME!
     void LateUpdate()
     {
         CamControl();
@@ -36,17 +36,17 @@ public class ThirdPersonCamera : MonoBehaviour
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
 
-        
-        if(im.isCrouching == true && door.inArea == true || im.isCrouching == true && door2.inArea == true)
+
+        if (im.isCrouching == true && door.inArea == true || im.isCrouching == true && door2.inArea == true)
         {
             Player.rotation = Quaternion.Euler(0, -mouseX, 0);
         }
 
-        if(im.isCrouching == true && lockedDoor1.inArea == true || im.isCrouching == true && lockedDoor2.inArea == true)
+        if (im.isCrouching == true && lockedDoor1.inArea == true || im.isCrouching == true && lockedDoor2.inArea == true)
         {
             Player.rotation = Quaternion.Euler(0, -mouseX, 0);
         }
-        
+
         // Player.rotation = Quaternion.Euler(0, mouseX, 0);
-   }
+    }
 }

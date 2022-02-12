@@ -167,6 +167,22 @@ public class PlayerPreferencesHandler : MonoBehaviour
 
     }//END SetRadioSaturation
 
+    //-----------------------//
+    public void SetFPS(int value)
+    //-----------------------//
+    {
+
+        if (value == 0)
+        {
+            PlayerPrefs.SetInt("thirtyFPSON", 1);
+        }
+        if (value == 1)
+        {
+            PlayerPrefs.SetInt("thirtyFPSON", 0);
+
+        }
+    }//END SetFPS
+
 
     #endregion General
 

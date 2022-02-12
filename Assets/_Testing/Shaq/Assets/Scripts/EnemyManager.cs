@@ -6,11 +6,19 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-//To Do:
-//  - State transitions are broken
-//      - Transition from PASSIVE to HOSTILE is currently broken
-//  - Continue testing improvements and redundancies that are removed from script
-//  - Consider making a seperate section of script for managing states (seperation of State actions and State management)
+/*To Do:
+    - Look into what it takes to have a node approach to AI behaviour
+        - Basically what was done with Zork where there's multiple scripts being used with class inheritance (how monobehaviour works)
+    
+    - Replace any instances of Vector3.Distance with NavMeshAgent.remainingDistance / agent.remainingDistance where it is being used to calculate the guard's distance from a target
+        - Do not do this when it is being used to calculate the distance from an unrelated object.
+
+    - Add a reaction to the guard being x distance away from the security station (this is going to be when they activate it)
+
+    - Add something for the guard to do when they intereact / boink the security station
+
+*/ 
+
 
 public class EnemyManager : MonoBehaviour
 {
@@ -26,6 +34,7 @@ public class EnemyManager : MonoBehaviour
         WARY,
         SUSPICIOUS,
         HOSTILE,
+        REPORT,
         ATTACK,
         RANGEDATTACK,
         STUNNED
@@ -43,7 +52,8 @@ public class EnemyManager : MonoBehaviour
     private enum CycleMethods
     {
         Cycle,
-        Reverse
+        Reverse,
+        Random
     }
 
     [Header("Waypoint Cycling")]
@@ -53,14 +63,6 @@ public class EnemyManager : MonoBehaviour
     #endregion AI Cycle Methods
 
     #endregion Enumerations
-
-    #region Waypoint Cycle Methods List
-    [SerializeField] private static readonly List<CycleMethods> Methods = new List<CycleMethods>
-    {
-        CycleMethods.Cycle,
-        CycleMethods.Reverse
-    };
-    #endregion
 
     #region Waypoints Logic
     [Header("Waypoints List")]
@@ -113,6 +115,12 @@ public class EnemyManager : MonoBehaviour
                 SetAIDestination(target);
 
                 break;
+
+            case CycleMethods.Random:
+                print("Current cycling method is random");
+
+                break;
+
             default:
                 print("Cycling method not found \a");
                 break;
@@ -131,7 +139,7 @@ public class EnemyManager : MonoBehaviour
     //Private Variables
 
     [Tooltip("The guard's target")]
-    private Vector3 target;
+    [HideInInspector] public Vector3 target;
 
     [Tooltip("The NavMesh Agent component the object that this script is attatched to")]
     private NavMeshAgent agent;
@@ -150,7 +158,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject player;
 
     [Tooltip("References the guard's eyeball prefab / object")]
-    [SerializeField] private EyeballScript eyeball;
+    [SerializeField] public EyeballScript eyeball;
 
     [Tooltip("References the guard's animator script")]
     [SerializeField] GuardAnimatorScript guardAnim;
@@ -159,8 +167,11 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private GameObject confusedVFX;
 
-    //[Tooltip("Reference to the suspicion manager")]
-    //[SerializeField] private SuspicionManager suspicionManager;
+    [Tooltip("Object reference to the security station / suspicion manager")]
+    [SerializeField] private GameObject securityStationObjRef;
+
+    [Tooltip("Script reference to the security station / suspicion manager")]
+    [SerializeField] private SuspicionManager securityStationScriptRef;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -172,9 +183,6 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the target text (displays the guard's current target)")]
     [SerializeField] private Text targetText;
 
-    //[Tooltip("References the lose text for the game (this is NOT permanent)")]  TEMPE WUZ HERE
-    //[SerializeField] private Text loseText;
-
     //---------------------------------------------------------------------------------------------------//
 
     [Header("Minimum Sus Levels for States")]
@@ -182,27 +190,27 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("Minimum Suspicion level to enter this state")]
     //Implied Min Value of 0
     [SerializeField] private float passiveSusMax = 3;
-                                            
+
     [Tooltip("Minimum Suspicion level to enter this state")]
-    [SerializeField] private float warySusMin = 3.1f;
-                                            
+    [SerializeField] public float warySusMin = 3.1f;
+
     [SerializeField] private float warySusMax = 4;
-                                            
+
     [Tooltip("Minimum Suspicion level to enter this state")]
     [SerializeField] private float sussySusMin = 4.1f;
-                                            
+
     [SerializeField] private float sussySusMax = 5;
-                                            
+
     [Tooltip("Minimum Suspicion level to enter this state")]
     //Implied Max Value of eyeball.susLevel max
-    [SerializeField]  private float hostileSusMin = 5.1f;
+    [SerializeField] private float hostileSusMin = 5.1f;
 
     //---------------------------------------------------------------------------------------------------//
 
     [Header("Guard Movement Speeds")]
 
-    [Tooltip("The speed that the AI moves at in the PATROL state")]
-    [SerializeField] [Range(0, 30)] public float patrolSpeed = 5f;
+    [Tooltip("The speed that the AI moves at in the PASSIVE state")]
+    [SerializeField] [Range(0, 30)] public float passiveSpeed = 5f;
 
     [Tooltip("The speed that the AI moves at in the WARY state")]
     [SerializeField] [Range(0, 30)] public float warySpeed = 4f;
@@ -248,7 +256,7 @@ public class EnemyManager : MonoBehaviour
     private float randWaitTime = 3f;
 
     [Tooltip("The distance from the guard that a random point can be generated")]
-    [SerializeField] [Range (1, 3)] private float randPointRad = 1f;
+    [SerializeField] [Range(1, 3)] private float randPointRad = 1f;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -272,7 +280,7 @@ public class EnemyManager : MonoBehaviour
     private float stunTimeReset;
 
     //Save implementation for next sprint
-    [SerializeField] [Range (0, 50)] private float guardKnockbackForce;
+    [SerializeField] [Range(0, 50)] private float guardKnockbackForce;
 
     [Tooltip("Duration of the guard's Attack state duration")]
     [SerializeField] private float attackTime;
@@ -283,7 +291,9 @@ public class EnemyManager : MonoBehaviour
     [Header("Misc. Variables")]
 
     [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
-    [SerializeField] [Range (0, 2)]private float attackRadius = 10f;
+    [SerializeField] [Range(0, 2)] private float attackRadius = 10f;
+
+    [SerializeField] [Range(3, 10)] private float taserRadius;
 
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
@@ -296,9 +306,30 @@ public class EnemyManager : MonoBehaviour
 
     private float oneTimeUseTimerReset;
 
-    private bool surpriseVFXBoolCheck;
+    //private bool surpriseVFXBoolCheck;
 
     private float eyeballSightRangeRecord;
+
+    //Delete this in the future
+    //private System.Threading.Timer timer;
+
+    //---------------------------------------------------------------------------------------------------//
+    
+    //Extremely temporary timer variables
+
+    [Header("Extremely temporary timer variables")]
+
+    [SerializeField] [Range(0, 10)] private float tempTaserTimer;
+
+    [Tooltip("References the taser prefab for the guard to spawn")]
+    [SerializeField] private GameObject taserProjectile;
+
+    [Tooltip("References the spawn location of the taser prefeab")]
+    [SerializeField] private GameObject taserSpawnLoc;
+
+    private bool SussyWaypointMade;
+
+
 
     #endregion
 
@@ -320,27 +351,19 @@ public class EnemyManager : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
 
-        if (stateMachine == EnemyStates.HOSTILE)
-        {
-            surpriseVFXBoolCheck = true;
-        }
-
-
-        //eyeball.susLevel = warySusMin;
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
         {
             #region Passive Behavior
-            //Testing case guards
-            //NOTE: Case Guards MUST BE A BOOL OR BOOL EXPRESSION
-            case EnemyStates.PASSIVE /*when eyeball.susLevel <= passiveSusMin*/:
+            //Patrol state for guard
+            case EnemyStates.PASSIVE:
 
                 guardAnim.EnterPassiveAnim();
 
                 stateText.text = stateMachine.ToString();
 
-                SetAiSpeed(patrolSpeed);
+                SetAiSpeed(passiveSpeed);
 
                 //Reseting alert related variables
                 if (isAudioSourcePlaying == true)
@@ -351,7 +374,8 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 //Checks to see if it is at specified distance for getting it's next waypoint
-                if (Vector3.Distance(target, transform.position) <= waypointNextDistance)
+                //if (Vector3.Distance(target, transform.position) <= waypointNextDistance)
+                if (agent.remainingDistance <= waypointNextDistance)
                 {
                     //Checks to see if the isWait bool is true or not
                     if (isPatrolWait == true)
@@ -407,6 +431,7 @@ public class EnemyManager : MonoBehaviour
             #endregion Passive Behavior
 
             #region Wary Behavior
+                //Identical to Passive state
             case EnemyStates.WARY:
 
                 guardAnim.EnterPassiveAnim();
@@ -424,8 +449,9 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 //Checks to see if it is at specified distance for getting it's next waypoint
-                if (Vector3.Distance(target, transform.position) <= waypointNextDistance)
-                {
+                //if (Vector3.Distance(target, transform.position) <= waypointNextDistance)
+                if (agent.remainingDistance <= waypointNextDistance)
+                    {
                     //Checks to see if the isWait bool is true or not
                     if (isPatrolWait == true)
                     {
@@ -482,10 +508,12 @@ public class EnemyManager : MonoBehaviour
             #endregion Wary Behavior
 
             #region Suspicious Behavior
+            //Finding random points in a set radius for the guard to go to
+            //Also records the player's last known location and appends it to the waypoints list of the guard instance
             case EnemyStates.SUSPICIOUS:
 
 
-                float searchLocCheck = .5f;
+                //float searchLocCheck = .5f;
 
                 guardAnim.EnterSusAnim();
 
@@ -493,28 +521,26 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(susSpeed);
 
-                #region New Behavior Notes
-                //---------------------------------//
-                //New Sus Guard Behaviour:
-                //-When eyeball suslevel reaches threshold:
-                //  -Guard stops
-                //  - Goes in/ faces random directinos, enters searching anim, exits, goes in/ faces another random direction and repeats behaviour
+                /*
+                 * Check if bool is already ticked
+                 * Spawn new obj titled "SussyPatrolLoc"
+                 * Add it to waypoints list of patrol locations
+                 * ????
+                 * Profit
+                 */
 
-                //  -Repeats these actions until eyeball.suslevel reaches 0 again
+                if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
+                {
+                    waypoints.Add(GameObjectContructor("SussyPatrolLoc", transform.position).transform);
 
-                //Add timer here
+                    GameObject.Find("SussyPatrolLoc").transform.position = eyeball.lastKnownLocation;
 
-                //Add timer reset & function call at the end of timer
-                //---------------------------------//
-
-                #endregion New Behavior Notes
-
-                //To Do: Add a distance buffer for entering the search animation
-                //  - Might take a bit of refacotring
-
+                    SussyWaypointMade = true;
+                }
 
                 //Buffer timer
-                //Find a more efficient way of doing this
+
+                //Used to send the guard to random locations in a set radius, meant to emulate confusion from the unit
                 if (oneTimeUseTimer > 0)
                 {
                     oneTimeUseTimer -= Time.fixedDeltaTime;
@@ -575,6 +601,7 @@ public class EnemyManager : MonoBehaviour
             #endregion Suspicious Behavior
 
             #region Hostile Behavior
+            //State for the guard to chase the player in
             case EnemyStates.HOSTILE:
 
                 guardAnim.EnterHostileAnim();
@@ -582,6 +609,8 @@ public class EnemyManager : MonoBehaviour
                 stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(hostileSpeed);
+
+                FaceTarget(target);
 
                 //Checking if the player is within the AI's look radius
                 if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > hostileSusMin)
@@ -591,7 +620,7 @@ public class EnemyManager : MonoBehaviour
 
                     target = eyeball.lastKnownLocation;
 
-                    targetText.text = "Player";
+                    targetText.text = target.ToString();
 
                     //transform.position is being used because you cannot use Vector3 data when Transform is being called
                     SetAIDestination(target);
@@ -609,6 +638,18 @@ public class EnemyManager : MonoBehaviour
                         //HOSTILE >> ATTACK
                         stateMachine = EnemyStates.ATTACK;
                     }
+                    //Conditionds needed for ranged attack / taser
+                    else if (eyeball.canCurrentlySeePlayer == true && agent.CalculatePath(target, agent.path) == false && distanceToPlayer <= taserRadius)
+                    {
+                        //HOSTILE >> RANGED ATTACK
+                        stateMachine = EnemyStates.RANGEDATTACK;
+                        
+
+                        //Check if the player is jumping (isJump) or diving (isDive)
+                        //if ()
+                        //{
+                        //}
+                    }
 
                     //Playing Alert Audio
                     if (isAudioSourcePlaying == false)
@@ -619,7 +660,7 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
 
-                //Exit Condition
+                //Exit Conditions
                 else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < hostileSusMin)
                 {
                     var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
@@ -630,10 +671,32 @@ public class EnemyManager : MonoBehaviour
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
 
-                FaceTarget(target);
+
 
                 break;
             #endregion Hostile Behavior
+
+            //50 / 50 on keeping this state
+            #region Report Behaviour
+            case EnemyStates.REPORT:
+                stateText.text = stateMachine.ToString();
+
+                if (agent.remainingDistance <= 0.5f)
+                {
+                    print("DOOR STUCK");
+
+                    securityStationScriptRef.secState = SuspicionManager.SecurityLvl.SecLVL1;
+
+                    stateMachine = EnemyStates.SUSPICIOUS;
+                }
+
+                //targetText.text = target.ToString();
+                targetText.text = "Security Station";
+
+                SetAIDestination(securityStationObjRef.transform.position);
+
+                break;
+            #endregion Report Behaviour
 
             #region Attack Behavior
             //AI Attack state
@@ -683,7 +746,37 @@ public class EnemyManager : MonoBehaviour
 
                 stateText.text = stateMachine.ToString();
 
+                SetAiSpeed(0);
+
+                FaceTarget(target);
+
                 //Insert ranged attack code
+                //Temporary Code
+                if (tempTaserTimer > 0)
+                {
+                    //countdown
+                    tempTaserTimer -= Time.fixedDeltaTime;
+                }
+                else if (tempTaserTimer <= 0)
+                {
+                    //Spawn projectile in the forward direction of the guard
+                    //later on change the spawn position to be the tip of the taser(assuming conditions and animations are already in place)
+
+                    var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
+
+                    //taserPrefab.transform.LookAt(eyeball.lastKnownLocation);
+                    //print(eyeball.lastKnownLocation);
+
+                    tempTaserTimer = Random.Range(5f, 5f);
+                }
+
+                //Exit Condition(s)
+                if (eyeball.canCurrentlySeePlayer == false || agent.CalculatePath(target, agent.path) == true || distanceToPlayer >= taserRadius)
+                {
+                    //RANGED ATTACK >> HOSTILE
+                    stateMachine = EnemyStates.HOSTILE;
+                }
+
 
                 break;
             #endregion Ranged Attack Behavior
@@ -711,23 +804,31 @@ public class EnemyManager : MonoBehaviour
                 //Exit Condition
                 if (stunTime <= 0)
                 {
-                    guardAnim.ExitStunAnim();
-                    isStunned = false;
+                    if (true)
+                    {
+                        guardAnim.ExitStunAnim();
+                        isStunned = false;
 
-                    eyeball.susLevel = sussySusMax;
+                        eyeball.susLevel = sussySusMax;
 
-                    //the cool lil MGS thing
-                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+                        //the cool lil MGS thing
+                        var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
 
-                    MGSsurprise.transform.parent = gameObject.transform;
+                        MGSsurprise.transform.parent = gameObject.transform;
 
-                    //STUNNED >>>> PREVIOUS STATE (SUSPICIOS for now)
-                    stateMachine = EnemyStates.HOSTILE;
+                        //STUNNED >>>> PREVIOUS STATE (SUSPICIOS for now)
+                        stateMachine = EnemyStates.SUSPICIOUS;
 
-                    //after changing states, the stun time returns to the initially recorded time
-                    stunTime = stunTimeReset;
+                        //after changing states, the stun time returns to the initially recorded time
+                        stunTime = stunTimeReset;
 
-                    eyeball.sightRange = eyeballSightRangeRecord;
+                        eyeball.sightRange = eyeballSightRangeRecord;
+                    }
+
+                    else
+                    {
+                        
+                    }
                 }
                 break;
             #endregion Stunned Behavior
@@ -750,12 +851,15 @@ public class EnemyManager : MonoBehaviour
 
     #endregion Awake & Update
 
-    #region AI Functions
+    #region AI Methods
 
     //---------------------------------//
     //Called on Awake and initializes everything that is finalized and needs to be done at awake
     private void Init()
     {
+        //FIX THIS WHEN TELLING PEOPLE ITS FINE TO FUCK WITH GUARD
+        stateMachine = EnemyStates.REPORT;
+
         isAudioSourcePlaying = false;
 
         //Stores the user generated stun time
@@ -766,10 +870,7 @@ public class EnemyManager : MonoBehaviour
 
         agent.autoBraking = true;
 
-        SetAiSpeed(patrolSpeed);
-        
-        //FIX THIS WHEN TELLING PEOPLE ITS FINE TO FUCK WITH GUARD
-        stateMachine = EnemyStates.PASSIVE;
+        SetAiSpeed(passiveSpeed);
 
         //Checks to see if there is no value for the player object reference
         if (player == null)
@@ -791,8 +892,6 @@ public class EnemyManager : MonoBehaviour
 
         FaceTarget(target);
 
-        //loseText.text = "";
-
         stunTimeReset = stunTime;
 
         path = new NavMeshPath();
@@ -806,7 +905,26 @@ public class EnemyManager : MonoBehaviour
 
         eyeballSightRangeRecord = eyeball.sightRange;
 
+        if (securityStationObjRef == null)
+        {
+            //securityStation = GameObject.Find("Suspicion Manager");
+        }
+
     }//End Init
+
+
+    //---------------------------------//
+    //Constructs an empty game object with a transform component
+    //  - The constructed object is intended to be used as a waypoint for the guard
+    private GameObject GameObjectContructor(string objName, Vector3 objSpawnLoc)
+    {
+        GameObject go1 = new GameObject();
+        go1.name = objName;
+        go1.AddComponent<Transform>();
+        go1.transform.position = objSpawnLoc;
+
+        return go1;
+    }
 
 
     //---------------------------------//
@@ -827,6 +945,7 @@ public class EnemyManager : MonoBehaviour
             target = eyeball.lastKnownLocation;
         }
     }//End Alert
+
 
 
     //---------------------------------//
@@ -872,14 +991,14 @@ public class EnemyManager : MonoBehaviour
     }//End OnTriggerEnter
 
     //---------------------------------//
-    //
+    // Generates a random point for the guard to go to
     private Vector3 GenerateRandomPoint()
     {
         //Generates the initial random point
         Vector3 randpoint = Random.insideUnitSphere * randPointRad;
 
         //Returns a bool
-        //Tests the randomly generated point to see if it can be reached.
+        //First portion tests the randomly generated point to see if it can be reached.
         //Second portion tests the path to the genreated point and to see if it's possible to reach that point
         if (NavMesh.SamplePosition(randpoint + transform.position, out NavMeshHit hit, randPointRad, 1) && NavMesh.CalculatePath(transform.position, hit.position, NavMesh.AllAreas, path))
         {
@@ -904,8 +1023,12 @@ public class EnemyManager : MonoBehaviour
         Gizmos.color = Color.blue; 
         Gizmos.DrawWireSphere(transform.position, randPointRad);
 
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, taserRadius);
+
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(searchLoc, .5f);
+
     }//End OnDrawGizmos
 
 
@@ -920,5 +1043,5 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(2);
     }
 
-    #endregion AI Functions
+    #endregion AI Methods
 }

@@ -28,7 +28,8 @@ public class CameraManager : MonoBehaviour
     private enum CamStates
     {
         MONITORING,
-        FOCUSED
+        FOCUSED,
+        DISABLED
     }
 
     [Header("Camera States")]
@@ -42,12 +43,12 @@ public class CameraManager : MonoBehaviour
     //[Header("Guard Array")]
     //[Tooltip("Shows the list of guards")]
     //[SerializeField] private GameObject[] guardsArray;
-    
+
     #endregion Lists & Arrays
 
     #region Variables
     [Header("Camera Target / Trigger")]
-    private Vector3? target;
+    private Vector3 target;
     [Tooltip("References the player's vision target, auto generated")]
     [SerializeField] private GameObject player;
 
@@ -89,7 +90,7 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Light Variables")]
     [Tooltip("When the player is this far away, the spotlight becomes disabled")]
-    [SerializeField] [Range(0, 500)]private float killRadius;
+    [SerializeField] [Range(0, 500)] private float killRadius;
     [Tooltip("References the Spotlight attatched to the camera prefab")]
     [SerializeField] private Light camLightRef;
     [Tooltip("Spotlight Intensity")]
@@ -115,14 +116,26 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private bool isAudioSourcePlaying;
 
 
+    [Header("Testing / Temp Variables")]
+
     [HideInInspector] private float distanceToCamera;
+
+    [HideInInspector] private float timeLeft;
+
+    [SerializeField] private GameObject disabledTarget;
+
+    private bool timerBool;
+
 
     #endregion Variables
 
+    #region Start
     private void Start()
     {
         startRotation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
+
+    #endregion Start
 
     #region Awake & Update
 
@@ -158,14 +171,12 @@ public class CameraManager : MonoBehaviour
         #region Cam State Machine
         switch (cameraStateMachine)
         {
-
             #region Monitoring State
             //When the camera does not see the player / MONITORING
             case CamStates.MONITORING:
                 stateText.text = $"{cameraStateMachine}";
 
                 //Since there is no target when monitoring, the value is set to null
-                target = null;
 
                 targetText.text = $"{target}";
 
@@ -201,7 +212,7 @@ public class CameraManager : MonoBehaviour
 
                 break;
             #endregion Monitoring State
-
+            
             #region Focused State
             //When the camera sees the player / FOCUSED
             case CamStates.FOCUSED:
@@ -215,14 +226,11 @@ public class CameraManager : MonoBehaviour
 
                 targetText.text = $"{target}";
 
-                FaceTarget();
+                FaceTarget(target);
 
                 camLightRef.color = Color.red;
 
                 susManagerRef.AlertGuards(eyeball.lastKnownLocation, transform.position, callRadius);
-
-
-
 
                 //Playing Alert Audio
                 if (isAudioSourcePlaying == false)
@@ -231,9 +239,6 @@ public class CameraManager : MonoBehaviour
 
                     isAudioSourcePlaying = true;
                 }
-
-
-
 
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
@@ -253,14 +258,33 @@ public class CameraManager : MonoBehaviour
                 break;
             #endregion Focused State
 
-            #region Defualt state
+            //Do not use, currently broken
+            #region Disabled State
+            case CamStates.DISABLED:
+                //Insert timer here
+
+                DisableCamera(5f);
+
+                timeLeft -= Time.deltaTime;
+
+                if (timeLeft < 0)
+                {
+
+                }
+
+                camLightRef.color = Color.yellow;
+
+                break;
+            #endregion Disabled State
+
+            #region Default / Error state
             //Not exactly a state but acts as a net to catch any bugs that would prevent the game from running
             default:
                 stateText.text = "State Not Found";
                 targetText.text = "Null";
 
                 break;
-            #endregion Default State
+            #endregion Default / Error State
         }
         #endregion Cam State Machine
 
@@ -272,23 +296,21 @@ public class CameraManager : MonoBehaviour
 
     #endregion Awake & Update
 
-    #region General Functions
+    #region General Methods
 
     //---------------------------------//
     //Function that makes the object face it's target
-    void FaceTarget()
+    void FaceTarget(Vector3 target)
     {
-        //generates the direction that the camera needs to face
-        Vector3 direction = (Vector3)(target - transform.position);
+        Vector3 direction = (target - transform.position).normalized;
 
-        Vector3.Normalize(direction);
+        Quaternion lookRotation = Quaternion.identity;
+        if (direction.x != 0 && direction.z != 0)
+        {
+            lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        }
 
-        //Creates a quaternion var and assings it a look rotation
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
-
-        //Using Quaternion.Slerp instead of transform.rotation = lookRotation in order to keep camera snapping smooth
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * snapSpeed);
-
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 0.1f);
     }//End FaceTarget
 
     //---------------------------------//
@@ -317,9 +339,6 @@ public class CameraManager : MonoBehaviour
         player = GameObject.FindWithTag("PlayerVisionTarget");
 
         UpdateCamLightVars();
-
-        susManagerRef.GenGuardList();
-
     }//End Init
 
     //---------------------------------//
@@ -362,67 +381,42 @@ public class CameraManager : MonoBehaviour
 
     }//End UpdateCamVars
 
+
+    //---------------------------------//
+    //Disables the camera
+    public void DisableCamera(float disableTime)
+    {
+        camLightRef.color = Color.yellow;
+
+        FaceTarget(disabledTarget.transform.position);
+
+        //Be sure to also disable the camera's eyeball component
+
+        timeLeft = disableTime;
+
+        cameraStateMachine = CamStates.DISABLED;
+    }
+
+    public void EnableCamera()
+    {
+
+        eyeball.sightRange = 8f;
+
+        cameraStateMachine = CamStates.MONITORING;
+    }
+
     //---------------------------------//
     //Draws Gizmos / shapes in editor
     private void OnDrawGizmos()
     {
-        //Gizmo color
         Gizmos.color = Color.yellow;
-
-        //Gizmo type
         Gizmos.DrawWireSphere(transform.position, callRadius);
-
-
-        //Gizmos.color = Color.red;
-
-        //Gizmos.DrawWireSphere(transform.position, killRadius);
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, killRadius);
 
     }//End OnDrawGizmos
 
-    ////-------------AlertGuards--------------------//
-    //private void AlertGuards(Vector3 targetLoc)
-    //{
-    //    //Also generating an array of guards on the call of this function
-    //    GenGuardArray();
-
-    //    //EnemyManager reference
-    //    EnemyManager enemyManager;
-
-    //    //Used to reference each guard
-    //    foreach (GameObject guard in guardsArray)
-    //    {
-    //        distanceToCamera = Vector3.Distance(guard.transform.position, transform.position);
-            
-    //        //Individual guard reference
-    //        //DO NOT MOVE
-    //        enemyManager = guard.GetComponent<EnemyManager>();
-
-    //        //Radius Check
-    //        if (distanceToCamera <= callRadius /*&& GameObject.CompareTag("[Insert guard type here]")*/)
-    //        {
-    //            //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
-    //            enemyManager.Alert(targetLoc);
-    //        }
-    //        else
-    //        {
-    //            //Showing which guards are out of range (purely there for debug reasons)
-    //            print($"{guard} is outside of camera range.");
-    //        }
-    //    }
-    //}//End AlertGuards
-
-
-    //---------------------------------//
-    //Generates an array of guard instances in the scene
-    //private void GenGuardArray()
-    //{
-    //    guardsArray = GameObject.FindGameObjectsWithTag("Guard");
-
-    //    if (guardsArray.Length == 0 || guardsArray == null)
-    //    {
-    //        print("No guards in the level");
-    //    }
-    //}//End GenGuardArray
 }
 
-#endregion General Functions
+#endregion General Methods
