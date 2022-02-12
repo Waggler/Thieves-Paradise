@@ -201,7 +201,7 @@ public class InventoryController : MonoBehaviour
         ResetItem(activeItemIndex);
 
         //throw active item
-        GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
+        GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position + transform.forward, Quaternion.identity);
         thrownItem.SetActive(true);
         thrownItem.name = thrownItem.GetComponent<ItemInterface>().itemName;
         Vector3 throwVector = transform.forward * throwForce + transform.up * throwForce;
@@ -231,7 +231,13 @@ public class InventoryController : MonoBehaviour
                 hotbarMesh[i].transform.localScale = Vector3.one * 6;
             }
         }
+        //delay the change in display for the animation to play
+        StartCoroutine(DisplayDelay());
+    }
 
+    private IEnumerator DisplayDelay()
+    {
+        yield return new WaitForSeconds(0.4f);
         ChangeHeldItemDisplay();
     }
 
@@ -261,6 +267,7 @@ public class InventoryController : MonoBehaviour
         curObj.transform.position = holdItemPos.position;
         curObj.GetComponent<Rigidbody>().isKinematic = true;
         curObj.GetComponent<SphereCollider>().enabled = false;
+        curObj.GetComponent<BoxCollider>().enabled = false;
 
         curObj.SetActive(true);        
     }
@@ -272,6 +279,7 @@ public class InventoryController : MonoBehaviour
                     
         curObj.GetComponent<Rigidbody>().isKinematic = false;
         curObj.GetComponent<SphereCollider>().enabled = true;
+        curObj.GetComponent<BoxCollider>().enabled = true;
         curObj.SetActive(false);
     }
     //check for if we have space in the inventory
