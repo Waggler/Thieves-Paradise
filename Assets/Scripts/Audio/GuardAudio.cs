@@ -16,13 +16,14 @@ public class GuardAudio : MonoBehaviour
 
     [Header("Vocalizations")]
     [SerializeField] private AudioClip[] spotBarks;
+    [SerializeField] private AudioClip[] idleClips;
+    [SerializeField] private AudioClip susClip;
 
     [Header("Footsteps")]
     [SerializeField] private AudioClip[] walkClips;
     [SerializeField] private AudioClip[] runClips;
 
     [Header("Other")]
-    [SerializeField] private AudioClip spottedClip;
     [SerializeField] private AudioClip chewingClip;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private AudioClip fallClip;
@@ -91,6 +92,25 @@ public class GuardAudio : MonoBehaviour
         guardSource.PlayOneShot(chewingClip);
 
     }//END Chew
+
+    //-----------------------//
+    public void Idle()
+    //-----------------------//
+    {
+        guardSource.volume = normalVolume;
+        int i = Random.Range(0, idleClips.Length);
+        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        guardSource.PlayOneShot(idleClips[i]);
+    }//END Idle
+
+    //-----------------------//
+    public void Suspicious()
+    //-----------------------//
+    {
+        guardSource.volume = normalVolume;
+        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        guardSource.PlayOneShot(susClip);
+    }//END Suspicious
 
 
 }//END GuardAudio
