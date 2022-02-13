@@ -266,18 +266,18 @@ public class NarrativeUIManager : MonoBehaviour
         try
         {
 
-        if (dialogueManager.currentDialogueIndex < skipIndex[currentSkipIndex])
-        {
-            dialogueManager.currentDialogueIndex = skipIndex[currentSkipIndex];
-            dialogueManager.TriggerDialogue();
+            if (dialogueManager.currentDialogueIndex < skipIndex[currentSkipIndex])
+            {
+                dialogueManager.currentDialogueIndex = skipIndex[currentSkipIndex];
+                dialogueManager.TriggerDialogue();
 
-        }
-        else if (dialogueManager.currentDialogueIndex > skipIndex[currentSkipIndex])
-        {
-            currentSkipIndex++;
-            SkiptoChoice(); //Continues incrementing the index, skips once it gets to the next one.
-
-        }
+            }
+            else if (dialogueManager.currentDialogueIndex > skipIndex[currentSkipIndex])
+            {
+                currentSkipIndex++;
+                SkiptoChoice();
+                
+            }
         }
         catch
         {
