@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private Animator sceneTransition;
+    //[SerializeField] private Animator sceneTransition;
     [SerializeField] private float waitTime;
 
     Scene currentScene;
