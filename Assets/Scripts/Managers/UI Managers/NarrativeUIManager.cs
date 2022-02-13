@@ -157,17 +157,18 @@ public class NarrativeUIManager : MonoBehaviour
     public void DisplayNextResponseSentence(Response response)
     //-----------------------//
     {
+        /*
         if (dialogueManager.currentDialogueIndex == skipIndex[currentSkipIndex] && dialogueManager.currentDialogueIndex == lastSkipIndex)
         {
             skipButton.gameObject.SetActive(false);
             isPastLastSkip = true;
 
         }
-        if (isPastLastSkip != true);
+        if (isPastLastSkip == false) ;
         {
             skipButton.gameObject.SetActive(true);
         }
-
+        */
         if (sentences.Count == 0)
         {
 
@@ -188,17 +189,19 @@ public class NarrativeUIManager : MonoBehaviour
     public void DisplayNextSentence()
     //-----------------------//
     {
+
+        /*
         if (dialogueManager.currentDialogueIndex == skipIndex[currentSkipIndex] && dialogueManager.currentDialogueIndex == lastSkipIndex)
         {
             skipButton.gameObject.SetActive(false);
             isPastLastSkip = true;
 
         }
-        if (isPastLastSkip != true);
+        if (isPastLastSkip == false);
         {
             skipButton.gameObject.SetActive(true);
         }
-
+        */
         //if()
 
         if (sentences.Count == 0)
@@ -260,6 +263,9 @@ public class NarrativeUIManager : MonoBehaviour
     //-----------------------//
     {
 
+        try
+        {
+
         if (dialogueManager.currentDialogueIndex < skipIndex[currentSkipIndex])
         {
             dialogueManager.currentDialogueIndex = skipIndex[currentSkipIndex];
@@ -272,7 +278,13 @@ public class NarrativeUIManager : MonoBehaviour
             SkiptoChoice(); //Continues incrementing the index, skips once it gets to the next one.
 
         }
-       
+        }
+        catch
+        {
+            isPastLastSkip = true;
+            skipButton.gameObject.SetActive(false);
+        }
+
 
 
         skipButton.gameObject.SetActive(false);
