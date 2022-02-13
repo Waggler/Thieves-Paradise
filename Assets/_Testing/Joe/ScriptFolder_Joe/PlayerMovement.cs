@@ -223,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Facing direction.
-        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
+        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving && canMove)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
