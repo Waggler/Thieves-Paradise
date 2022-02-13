@@ -62,17 +62,14 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Rotation Variables")]
     [Tooltip("Camera rotation speed, range of 0 to 60")]
-    [SerializeField] [Range(0, 60)] private float camSpeed;
+    [SerializeField] /*[Range(0, 60)]*/ private float camSpeed;
     [Tooltip("Maximum rotation vector for the camera (edit the Y-axis value)")]
-    [SerializeField] private Vector3 rotationMax;
-    [HideInInspector] private Vector3 rotationRecord;
+    [SerializeField] private float rotationMax;
     [Tooltip("Transition speed between original rotation and look rotation in FaceTarget() method")]
-    [SerializeField] private float snapSpeed;
-    [HideInInspector] private Vector3 startRotation;
 
 
     [Header("Eyeball Integration")]
-    [Tooltip("References the eyeball prefab attatched to the camera prefab [Not auto generated]")]
+
     [SerializeField] private EyeballScript eyeball;
 
     [SerializeField] private GameObject surpriseVFX;
@@ -83,7 +80,7 @@ public class CameraManager : MonoBehaviour
 
     [Header("Local Suspicion Manager")]
     [Tooltip("References the Local Suspicion Manager")]
-    [SerializeField] private SuspicionManager localSuspicionManager;
+    [SerializeField] private SuspicionManager suspicionManager;
     [Tooltip("Radius in which guards can be  'called'  by the camera")]
     [SerializeField] [Range(0, 50)] private float callRadius;
 
@@ -129,14 +126,6 @@ public class CameraManager : MonoBehaviour
 
     #endregion Variables
 
-    #region Start
-    private void Start()
-    {
-        startRotation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-    }
-
-    #endregion Start
-
     #region Awake & Update
 
     //---------------------------------//
@@ -145,11 +134,6 @@ public class CameraManager : MonoBehaviour
     void Awake()
     {
         Init();
-
-        //Use this space for debug variables
-        camLightRef.color = Color.green;
-
-
     }//End Awake
 
     #endregion
@@ -157,16 +141,26 @@ public class CameraManager : MonoBehaviour
     //---------------------------------//
     //Called every frame
     #region Update
-    void Update()
+    void FixedUpdate()
     {
-        #region Update Specific Variables
-        //Records rotaion of the camera object
-        rotationRecord = new Vector3 (transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
+        //Camera Light Variables
 
-        //Local player reference || delete if it blocks progress on other things
-        //player = GameObject.FindWithTag("PlayerVisionTarget");
+        distanceToCamera = Vector3.Distance(player.transform.position, transform.position);
 
-        #endregion Update Specific Variables
+        if (distanceToCamera >= killRadius)
+        {
+            //Comment out these two lines for me pls
+            //camLightIntensity = Mathf.Lerp(camLightIntensity, 0, 5f);
+
+            camLightRef.enabled = false;
+        }
+        else if (distanceToCamera <= killRadius)
+        {
+            //camLightIntensity = Mathf.Lerp(camLightIntensity, 50, 5f);
+
+            camLightRef.enabled = true;
+        }
+
 
         #region Cam State Machine
         switch (cameraStateMachine)
@@ -181,7 +175,7 @@ public class CameraManager : MonoBehaviour
                 targetText.text = $"{target}";
 
                 //Rotating at degreesPerSec relative to the World Space
-                transform.Rotate(new Vector3(0, camSpeed, 0) * Time.deltaTime, Space.World);
+                transform.Rotate(new Vector3(0, camSpeed, 0) * Time.fixedDeltaTime, Space.Self);
 
                 //Reseting alert related variables
                 if (isAudioSourcePlaying == true)
@@ -191,13 +185,28 @@ public class CameraManager : MonoBehaviour
                     isAudioSourcePlaying = false;
                 }
 
+
+                Vector3 hiddenRotationMax = new Vector3(0, rotationMax, 0);
+
+                hiddenRotationMax.y = Mathf.Clamp(transform.rotation.y, rotationMax, -rotationMax);
+
+
                 //Technically this snippet of code shouldn't work yet it does, will likely break in the future and need to be fixed
                 //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
-                if (transform.localRotation.eulerAngles.y >= rotationMax.y)
+                if (transform.localRotation.eulerAngles.y > hiddenRotationMax.y)
                 {
                     //Inverts the camera's turn speed
                     camSpeed = -camSpeed;
+
+
                 }
+
+
+
+
+
+
+
 
                 //if (distanceToPlayer <= lookRadius)
                 if (eyeball.canCurrentlySeePlayer == true)
@@ -212,12 +221,13 @@ public class CameraManager : MonoBehaviour
 
                 break;
             #endregion Monitoring State
-            
+
             #region Focused State
             //When the camera sees the player / FOCUSED
             case CamStates.FOCUSED:
 
-                float stopWatch = Time.deltaTime;
+
+                #region Updating Canvas Info
 
                 stateText.text = $"{cameraStateMachine}";
 
@@ -225,6 +235,7 @@ public class CameraManager : MonoBehaviour
                 target = player.transform.position;
 
                 targetText.text = $"{target}";
+                #endregion
 
                 FaceTarget(target);
 
@@ -243,14 +254,6 @@ public class CameraManager : MonoBehaviour
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
                 {
-
-                    //Reset's the camera's X & Z rotation
-                    rotationRecord.x = 0;
-                    rotationRecord.z = 0;
-
-                    //While the X & Z rotation are reset, the Y rotation is preserved
-                    transform.localEulerAngles = new Vector3(-startRotation.x, 0, 0);
-
                     //FOCUSED >>> MONITORING
                     cameraStateMachine = CamStates.MONITORING;
                 }
@@ -284,10 +287,9 @@ public class CameraManager : MonoBehaviour
                 targetText.text = "Null";
 
                 break;
-            #endregion Default / Error State
+                #endregion Default / Error State
         }
         #endregion Cam State Machine
-
 
         UpdateCamLightVars();
 
@@ -320,23 +322,21 @@ public class CameraManager : MonoBehaviour
         stateText.text = "";
         targetText.text = "";
 
-        //startRotation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        cameraStateMachine = CamStates.MONITORING;
 
         //Note: This method of referencing the suspicion manager is stupid and I should find a way to do it in one line
         //Creates a reference to the suspicion manager object
-        susManagerOBJ = GameObject.FindGameObjectWithTag("GameController");
+        susManagerOBJ = GameObject.FindGameObjectWithTag("SecurityStation");
 
         //creates a direct reference to the suspicion manager script
         susManagerRef = susManagerOBJ.GetComponent<SuspicionManager>();
 
-        //print($"SuspicionManager instance = {susManagerRef}");
-
-        rotationRecord = new Vector3(0, 0, 0);
-
         //Set's the CameraAI's state to MONITORING on awake
-        cameraStateMachine = CamStates.MONITORING;
 
         player = GameObject.FindWithTag("PlayerVisionTarget");
+
+        //Changes camera light color to green
+        camLightRef.color = Color.green;
 
         UpdateCamLightVars();
     }//End Init
@@ -345,26 +345,6 @@ public class CameraManager : MonoBehaviour
     //Used to update all camera light related variables all at once
     private void UpdateCamLightVars()
     {
-        //Camera Light Variables
-
-        distanceToCamera = Vector3.Distance(player.transform.position, transform.position);
-
-        if (distanceToCamera >= killRadius)
-        {
-            //Comment out these two lines for me pls
-            //camLightIntensity = Mathf.Lerp(camLightIntensity, 0, 5f);
-
-            camLightRef.enabled = false;
-        }
-        else if (distanceToCamera <= killRadius)
-        {
-            //camLightIntensity = Mathf.Lerp(camLightIntensity, 50, 5f);
-
-            camLightRef.enabled = true;
-        }
-
-        #region Individual Variables
-
         //Sets the camera light's intensity
         camLightRef.intensity = camLightIntensity;
 
@@ -376,8 +356,6 @@ public class CameraManager : MonoBehaviour
 
         //Sets the camera light's inner spot angle
         camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
-
-        #endregion Individual Variables
 
     }//End UpdateCamVars
 
@@ -411,12 +389,10 @@ public class CameraManager : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, callRadius);
-        
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, killRadius);
 
     }//End OnDrawGizmos
-
 }
-
 #endregion General Methods

@@ -19,13 +19,13 @@ public class SmokebombScript : MonoBehaviour
     {
         if (transform.localScale.x < maxRadius && timer < lifespan)
         {
-            transform.localScale += /*Vector3.one **/ Vector3.zero * Time.deltaTime * 10;
+            transform.localScale += Vector3.one * Time.deltaTime * 10;
         }else if (timer < lifespan)
         {
             timer += Time.deltaTime;
         }else if (transform.localScale.x > 0.1f)
         {
-            transform.localScale -=/* Vector3.one **/ Vector3.zero * Time.deltaTime * 2;
+            transform.localScale -=Vector3.one * Time.deltaTime * 2;
         }else
         {
             Destroy(this.gameObject);

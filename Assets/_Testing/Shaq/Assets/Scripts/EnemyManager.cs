@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 /*To Do:
     - Look into what it takes to have a node approach to AI behaviour
@@ -28,8 +29,6 @@ public class EnemyManager : MonoBehaviour
 
     public enum EnemyStates
     {
-        //TO DO: Add a Staggered / Stunned State
-        //  - 
         PASSIVE,
         WARY,
         SUSPICIOUS,
@@ -173,6 +172,9 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("Script reference to the security station / suspicion manager")]
     [SerializeField] private SuspicionManager securityStationScriptRef;
 
+    [Tooltip("List of Security Stations in the level")]
+    [SerializeField] private List<GameObject> securityStations;
+
     //---------------------------------------------------------------------------------------------------//
 
     [Header("Diagnostic Text")]
@@ -210,22 +212,25 @@ public class EnemyManager : MonoBehaviour
     [Header("Guard Movement Speeds")]
 
     [Tooltip("The speed that the AI moves at in the PASSIVE state")]
-    [SerializeField] [Range(0, 30)] public float passiveSpeed = 5f;
+    [SerializeField] [Range(0, 5)] public float passiveSpeed = 1f;
 
     [Tooltip("The speed that the AI moves at in the WARY state")]
-    [SerializeField] [Range(0, 30)] public float warySpeed = 4f;
+    [SerializeField] [Range(0, 5)] public float warySpeed = 1.5f;
 
     [Tooltip("The speed that the AI moves at in the SUSPICIOS state")]
-    [SerializeField] [Range(0, 30)] public float susSpeed = 6.5f;
+    [SerializeField] [Range(0, 5)] public float susSpeed = 1f;
 
     [Tooltip("The speed that the AI moves at in the STUNNED state")]
-    [SerializeField] [Range(0, 30)] public float stunSpeed = 0f;
+    [SerializeField] [Range(0, 5)] public float stunSpeed = 0f;
 
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
-    [SerializeField] [Range(0, 30)] public float hostileSpeed = 8f;
+    [SerializeField] [Range(0, 5)] public float hostileSpeed = 4f;
+
+    [Tooltip("The speed that the AI moves at in the REPORT state")]
+    [SerializeField] [Range(0, 5)] private float reportSpeed = 3.5f;
 
     [Tooltip("The speed that the AI moves at in the ATTACK state")]
-    [SerializeField] [Range(0, 30)] public float attackSpeed = 0f;
+    [SerializeField] [Range(0, 5)] public float attackSpeed = 0f;
 
     //---------------------------------------------------------------------------------------------------//
     [Header("Patrol Wait Time")]
@@ -327,6 +332,9 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the spawn location of the taser prefeab")]
     [SerializeField] private GameObject taserSpawnLoc;
 
+    [Tooltip("Guard's stopping distance from the security station")]
+    [SerializeField] private float stoppingDistance = 2f;
+     
     private bool SussyWaypointMade;
 
 
@@ -350,6 +358,15 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
+
+        if (stateMachine == EnemyStates.REPORT)
+        {
+            agent.stoppingDistance = stoppingDistance;
+        }
+        else
+        {
+            agent.stoppingDistance = 0;
+        }
 
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
@@ -676,8 +693,6 @@ public class EnemyManager : MonoBehaviour
                 break;
             #endregion Hostile Behavior
 
-            /*
-            //50 / 50 on keeping this state
             #region Report Behaviour
             case EnemyStates.REPORT:
 
@@ -685,22 +700,36 @@ public class EnemyManager : MonoBehaviour
 
                 targetText.text = "Security Station";
 
-                target = securityStationObjRef.transform.position;
+                target = NearestStation().transform.position;
+
+                eyeball.susLevel = 3.5f;
+
+                SetAiSpeed(reportSpeed);
 
                 SetAIDestination(target);
 
-                if (Vector3.Distance(transform.position, securityStationObjRef.transform.position) <= 0.5f)
+                if (Vector3.Distance(transform.position, target) <= stoppingDistance)
                 {
-                    print("DOOR STUCK");
+                    //print("DOOR STUCK");
 
-                    securityStationScriptRef.secState = SuspicionManager.SecurityLvl.SecLVL1;
+                    NearestStation().GetComponent<SuspicionManager>().DummyMethod();
 
                     stateMachine = EnemyStates.WARY;
                 }
 
+                //if (NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path) == true)
+                //{
+                //    print("Path is valid");
+                //}
+                //else
+                //{
+                //    print("Can't find security station");
+                //}
+
                 break;
             #endregion Report Behaviour
-            */
+
+
             #region Attack Behavior
             //AI Attack state
             case EnemyStates.ATTACK:
@@ -820,7 +849,7 @@ public class EnemyManager : MonoBehaviour
                         MGSsurprise.transform.parent = gameObject.transform;
 
                         //STUNNED >>>> PREVIOUS STATE (SUSPICIOUS for now)
-                        stateMachine = EnemyStates.SUSPICIOUS;
+                        stateMachine = EnemyStates.REPORT;
 
                         //after changing states, the stun time returns to the initially recorded time
                         stunTime = stunTimeReset;
@@ -905,14 +934,61 @@ public class EnemyManager : MonoBehaviour
 
         if (securityStationObjRef == null)
         {
-            //securityStation = GameObject.Find("Suspicion Manager");
+            securityStationObjRef = GameObject.Find("Suspicion Manager");
         }
+
+        securityStations = new List<GameObject>(GameObject.FindGameObjectsWithTag("SecurityStation"));
+
+        NearestStation();
 
     }//End Init
 
+    
+    //---------------------------------//
+    //Finds nearest security station
+    private GameObject NearestStation()
+    {
+        /*
+            - Generate list of stations
+            - Sort list by distance
+            - Select nearest station
+
+            float curDistance;
+            float minDistance = 9999;
+            gameObject closestObject;
+            foreach (obj in List)
+            {
+              curDistance = distance between this object and current object
+              if (curDistance < minDistance)
+                {
+                minDistance = curDistance;
+                closestObject = obj;
+                }
+            }
+        */
+
+        float currentDistance;
+        float minDistance = Mathf.Infinity;
+
+        GameObject closestStation = null;
+
+        foreach (GameObject station in securityStations)
+        {
+            currentDistance = Vector3.Distance(station.transform.position, transform.position);
+
+            if (currentDistance < minDistance)
+            {
+                minDistance = currentDistance;
+
+                closestStation = station;
+            }
+        }
+        return closestStation;
+    }//End NearestStation
+
 
     //---------------------------------//
-    //Constructs an empty game object with a transform component
+    // Constructs an empty game object with a transform component
     //  - The constructed object is intended to be used as a waypoint for the guard
     private GameObject GameObjectContructor(string objName, Vector3 objSpawnLoc)
     {
@@ -922,11 +998,11 @@ public class EnemyManager : MonoBehaviour
         go1.transform.position = objSpawnLoc;
 
         return go1;
-    }
+    }//End GameObjectConstructor
 
 
     //---------------------------------//
-    //Alert's the guard
+    // Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
         eyeball.susLevel = 10;
@@ -945,9 +1021,8 @@ public class EnemyManager : MonoBehaviour
     }//End Alert
 
 
-
     //---------------------------------//
-    // Function for facing the player when the AI is withing stopping distance of the player
+    // Method for facing the player when the AI is withing stopping distance of the player
     void FaceTarget(Vector3 target)
     {
         Vector3 direction = (target - transform.position).normalized;
@@ -1029,12 +1104,6 @@ public class EnemyManager : MonoBehaviour
 
     }//End OnDrawGizmos
 
-
-    //---------------------------------//
-    // Raises the security level for the area
-    void RaiseSecurityLevel()
-    {
-    }//End RaiseSecurityLevel
 
     public IEnumerator IBreakFreeDelay()
     {

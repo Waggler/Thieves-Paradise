@@ -51,19 +51,6 @@ public class SuspicionManager : MonoBehaviour
 
     //---------------------------------------------------------------------------------------------------//
 
-    [Header("Debug / Testing Variables")]
-
-
-    [Tooltip("Flag for Suspicion Level 0")]
-    [HideInInspector] private bool susZeroFlag;
-
-    [Tooltip("Flag for Suspicion Level 1")]
-    [HideInInspector] private bool susOneFlag;
-
-    private bool secFlag;
-
-    private bool otherSecFlag;
-
     #endregion Variables
 
     #region Awake & Update
@@ -76,7 +63,7 @@ public class SuspicionManager : MonoBehaviour
 
         GenGuardList();
 
-        secFlag = false;
+        secState = SecurityLvl.SecLVL0;
     }//End Awake
     #endregion Awake
 
@@ -84,50 +71,39 @@ public class SuspicionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
+            "Don't put a fucking timer in this part of the code. I want the security level to stay here for the rest of the game when triggered."
+                - Tempe Zaliauskas
+        */
+
         switch (secState)
         {
             #region Security Level 0
             case SecurityLvl.SecLVL0:
-                //print("Security Level 0");
-                //if (otherSecFlag == false)
-                //{
-                //    ModEyeSus(3.5f);
 
-                //    otherSecFlag = true;
-
-                //    secFlag = false;
-                //}
+                print("Entered Security Level 0");
 
 
                 break;
-            #endregion
+            #endregion Security Level 0
 
             #region Security Level 1
+
             //Security station reaches this state when a guard interacts with it
             case SecurityLvl.SecLVL1:
-                //print("Security Level 1");
-
                 //Forcing all guards to have an eyeball sus level of [warySusMin]
 
-                //if (secFlag == false)
-                //{
-                //    ModEyeSus(3.5f);
+                print("Entered Security Level 1");
 
-                //    otherSecFlag = false;
-
-                //    secFlag = true;
-                //}
-
+                ModEyeSus(enemyManager.warySusMin + .4f);
 
                 break;
-            #endregion
+            #endregion Security Level 1
 
-            #region Default case / Bug Catcher
+  
             default:
-                print("Security Level not found! \a");
+                print("Security Level not found!");
                 break;
-            #endregion
-
         }
     }//End Update
     #endregion Update
@@ -143,11 +119,19 @@ public class SuspicionManager : MonoBehaviour
 
     }//End OnDrawGizmos
 
+    public void DummyMethod()
+    {
+        secState = SecurityLvl.SecLVL1;
+    }
+
 
     //---------------------------------//
     //Used on the Awake() function to initialize any values in one line
     private static void Init()
     {
+
+        
+
     }//End Init
 
 
@@ -166,9 +150,9 @@ public class SuspicionManager : MonoBehaviour
         {
             enemyManager = guard.GetComponent<EnemyManager>();
 
-            enemyManager.eyeball.minSusLevel = insertedValue;
+            enemyManager.eyeball.minSusLevel = 3.1f;
 
-            enemyManager.eyeball.susLevel = insertedValue;
+            enemyManager.eyeball.susLevel = 3.5f;
         }
     }
 

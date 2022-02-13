@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class TripwireManager : MonoBehaviour
 
-    //REMINDER:
-    //  - RE-ENABLE TRIPWIRE PREFABS IN SCENE BEFORE SUBMITTING A MERGE REQUEST
-
-
-
 {
     #region Variables
     [HideInInspector] [Range (0, 10)]private float rayDistance;
@@ -44,23 +39,9 @@ public class TripwireManager : MonoBehaviour
     //Callled when the object is spawned. Used instead of Start() because the camera could be spawned after the game has started
     void Awake()
     {
-        ////Instantiation of the ray
-        //Ray ray = new Ray(transform.position, transform.forward);
-
-        ////Logic for handlin ray collision
-        //if (Physics.Raycast(ray, out RaycastHit hit))
-        //{
-        //    //debugging hit
-        //    //print(hit.collider.gameObject.name);
-
-        //    //Use this in an if statement in Update()
-        //    //If it's not the initial hit record then alert guards
-        //    //Include code checkin to see if the laser was tripped by a guard.
-        //    initialHitRecord = hit.point;
-        //}
-
         Init();
     }
+
 
     #endregion Awake
 
@@ -145,10 +126,11 @@ public class TripwireManager : MonoBehaviour
 
         //Note: This method of referencing the suspicion manager is stupid and I should find a way to do it in one line
         //Creates a reference to the suspicion manager object
-        susManagerOBJ = GameObject.FindGameObjectWithTag("GameController");
+        susManagerOBJ = GameObject.FindGameObjectWithTag("SecurityStation");
 
         //creates a direct reference to the suspicion manager script
         susManagerRef = susManagerOBJ.GetComponent<SuspicionManager>();
+        //susManagerRef = susManagerOBJ.GetComponent<SuspicionManager>();
 
         var main = laserVFX.main;
 
