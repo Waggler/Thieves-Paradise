@@ -16,6 +16,9 @@ public class SettingsMenuManager : MonoBehaviour
 
     [SerializeField] private Image radioImage;
 
+    public Button thirtyFPSButton;
+    public Button sixtyFPSButton;
+
     [Header("Audio")]
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider soundEffectsVolumeSlider;
@@ -238,6 +241,7 @@ public class SettingsMenuManager : MonoBehaviour
 
     #endregion Video
 
+
     //-----------------------//
     public void UpdatePreview()
     //-----------------------//
@@ -250,6 +254,32 @@ public class SettingsMenuManager : MonoBehaviour
         radioImage.color = previewColor;
 
     }//END UpdatePreview
+
+    //-----------------------//
+    public void SetFPS(int value)
+    //-----------------------//
+    {
+        if (value == 0)
+        {
+            Application.targetFrameRate = 30;
+
+            thirtyFPSButton.interactable = false;
+            sixtyFPSButton.interactable = true;
+
+            Debug.Log("FPS set to 30");
+        }
+        if (value == 1)
+        {
+            Application.targetFrameRate = 60;
+
+            sixtyFPSButton.interactable = false;
+            thirtyFPSButton.interactable = true;
+
+            Debug.Log("FPS set to 30");
+        }
+
+    }//END SetFPS
+
 
 
     #endregion Methods
