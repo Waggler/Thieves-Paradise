@@ -29,8 +29,8 @@ public class DialogueManager : MonoBehaviour
     private void Init()
     //-----------------------//
     {
-        StartCoroutine(IStartDelay());
-
+        //StartCoroutine(IStartDelay());
+        TriggerDialogue();
     }//END Init
 
 
