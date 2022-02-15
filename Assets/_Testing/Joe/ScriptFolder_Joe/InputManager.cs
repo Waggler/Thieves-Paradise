@@ -20,7 +20,6 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        //camSwitch = GetComponent<CamSwitch>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -31,8 +30,6 @@ public class InputManager : MonoBehaviour
             cooldownTimer += Time.deltaTime;
         }
     }
-
-    //DELETE ME
 
     #region Inputs
 
@@ -139,7 +136,7 @@ public class InputManager : MonoBehaviour
         {
             camSwitch.SwitchState(false);
         }
-    }
+    }// END ZOOM IN
 
     #endregion
 
