@@ -60,6 +60,10 @@ public class SuspicionManager : MonoBehaviour
     [Tooltip("Flag for Suspicion Level 1")]
     [HideInInspector] private bool susOneFlag;
 
+    private bool secFlag;
+
+    private bool otherSecFlag;
+
     #endregion Variables
 
     #region Awake & Update
@@ -72,6 +76,7 @@ public class SuspicionManager : MonoBehaviour
 
         GenGuardList();
 
+        secFlag = false;
     }//End Awake
     #endregion Awake
 
@@ -84,6 +89,15 @@ public class SuspicionManager : MonoBehaviour
             #region Security Level 0
             case SecurityLvl.SecLVL0:
                 //print("Security Level 0");
+                //if (otherSecFlag == false)
+                //{
+                //    ModEyeSus(3.5f);
+
+                //    otherSecFlag = true;
+
+                //    secFlag = false;
+                //}
+
 
                 break;
             #endregion
@@ -94,8 +108,15 @@ public class SuspicionManager : MonoBehaviour
                 //print("Security Level 1");
 
                 //Forcing all guards to have an eyeball sus level of [warySusMin]
-                //ModEyeSus(enemyManager.warySusMin);
-                ModEyeSus(3.5f);
+
+                //if (secFlag == false)
+                //{
+                //    ModEyeSus(3.5f);
+
+                //    otherSecFlag = false;
+
+                //    secFlag = true;
+                //}
 
 
                 break;
@@ -134,14 +155,22 @@ public class SuspicionManager : MonoBehaviour
     //Get's right into the sus level of all guards and modifies them
     public void ModEyeSus(float insertedValue)
     {
+        /*
+        TO DO:
+        - Set the eyeball's minimum sus level to be 3.5
+
+        - Add a flag for when the eyeball's sus level has been changed to 3.5 (middle of the wary field)
+        */
+
         foreach (GameObject guard in guardsList)
         {
             enemyManager = guard.GetComponent<EnemyManager>();
 
+            enemyManager.eyeball.minSusLevel = insertedValue;
+
             enemyManager.eyeball.susLevel = insertedValue;
         }
     }
-
 
     //---------------------------------//
     //Alerts available guards in a set radius
@@ -185,7 +214,7 @@ public class SuspicionManager : MonoBehaviour
 
         if (guardsList.Count == 0 || guardsList == null)
         {
-            //print("No guards in the level");
+            //throw
         }
     }//End GenGuardArray
 
