@@ -676,28 +676,31 @@ public class EnemyManager : MonoBehaviour
                 break;
             #endregion Hostile Behavior
 
+            /*
             //50 / 50 on keeping this state
             #region Report Behaviour
             case EnemyStates.REPORT:
+
                 stateText.text = stateMachine.ToString();
 
-                if (agent.remainingDistance <= 0.5f)
+                targetText.text = "Security Station";
+
+                target = securityStationObjRef.transform.position;
+
+                SetAIDestination(target);
+
+                if (Vector3.Distance(transform.position, securityStationObjRef.transform.position) <= 0.5f)
                 {
                     print("DOOR STUCK");
 
                     securityStationScriptRef.secState = SuspicionManager.SecurityLvl.SecLVL1;
 
-                    stateMachine = EnemyStates.SUSPICIOUS;
+                    stateMachine = EnemyStates.WARY;
                 }
-
-                //targetText.text = target.ToString();
-                targetText.text = "Security Station";
-
-                SetAIDestination(securityStationObjRef.transform.position);
 
                 break;
             #endregion Report Behaviour
-
+            */
             #region Attack Behavior
             //AI Attack state
             case EnemyStates.ATTACK:
@@ -804,8 +807,8 @@ public class EnemyManager : MonoBehaviour
                 //Exit Condition
                 if (stunTime <= 0)
                 {
-                    if (true)
-                    {
+                    //if (true)
+                    //{
                         guardAnim.ExitStunAnim();
                         isStunned = false;
 
@@ -816,19 +819,14 @@ public class EnemyManager : MonoBehaviour
 
                         MGSsurprise.transform.parent = gameObject.transform;
 
-                        //STUNNED >>>> PREVIOUS STATE (SUSPICIOS for now)
+                        //STUNNED >>>> PREVIOUS STATE (SUSPICIOUS for now)
                         stateMachine = EnemyStates.SUSPICIOUS;
 
                         //after changing states, the stun time returns to the initially recorded time
                         stunTime = stunTimeReset;
 
                         eyeball.sightRange = eyeballSightRangeRecord;
-                    }
-
-                    else
-                    {
-                        
-                    }
+                    //}
                 }
                 break;
             #endregion Stunned Behavior
@@ -858,7 +856,7 @@ public class EnemyManager : MonoBehaviour
     private void Init()
     {
         //FIX THIS WHEN TELLING PEOPLE ITS FINE TO FUCK WITH GUARD
-        stateMachine = EnemyStates.REPORT;
+        stateMachine = EnemyStates.PASSIVE;
 
         isAudioSourcePlaying = false;
 
