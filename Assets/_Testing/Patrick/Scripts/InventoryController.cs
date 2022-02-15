@@ -145,21 +145,33 @@ public class InventoryController : MonoBehaviour
             throwing = false;
         }
     }
-    public void Item1()
+    public void Item1(InputAction.CallbackContext context)
     {
-        SwapItem(0);
+        if (context.started)
+        {
+            SwapItem(0);
+        }
     }
-    public void Item2()
+    public void Item2(InputAction.CallbackContext context)
     {
-        SwapItem(1);
+        if (context.started)
+        {
+            SwapItem(1);
+        }
     }
-    public void Item3()
+    public void Item3(InputAction.CallbackContext context)
     {
-        SwapItem(2);
+        if (context.started)
+        {
+            SwapItem(2);
+        }
     }
-    public void Item4()
+    public void Item4(InputAction.CallbackContext context)
     {
-        SwapItem(3);
+        if (context.started)
+        {
+            SwapItem(3);
+        }
     }
     #endregion //player input
 
@@ -266,8 +278,15 @@ public class InventoryController : MonoBehaviour
         curObj.transform.SetParent(holdItemPos);
         curObj.transform.position = holdItemPos.position;
         curObj.GetComponent<Rigidbody>().isKinematic = true;
-        curObj.GetComponent<SphereCollider>().enabled = false;
-        curObj.GetComponent<BoxCollider>().enabled = false;
+
+        //disabling colliders to try and prevent unwanted interactions
+
+        //curObj.GetComponent<SphereCollider>().enabled = false;
+        //curObj.GetComponent<BoxCollider>().enabled = false;
+
+        //going to try setting it to a ghost layer instead as that may be more practical down the line
+        curObj.layer = 11;//11 is the ghost layer where all interactions are disabled
+
 
         curObj.SetActive(true);        
     }
@@ -278,8 +297,12 @@ public class InventoryController : MonoBehaviour
         curObj.transform.SetParent(null);
                     
         curObj.GetComponent<Rigidbody>().isKinematic = false;
-        curObj.GetComponent<SphereCollider>().enabled = true;
-        curObj.GetComponent<BoxCollider>().enabled = true;
+
+        //curObj.GetComponent<SphereCollider>().enabled = true;
+        //curObj.GetComponent<BoxCollider>().enabled = true;
+
+        curObj.layer = 0;//default layer to re-enable interactions
+
         curObj.SetActive(false);
     }
     //check for if we have space in the inventory
