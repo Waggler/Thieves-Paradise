@@ -29,7 +29,7 @@ public class GemoetryGoofery : MonoBehaviour
         //Limiting myself to this one line of code to figure out the point generation / raycast down and seeing if hit.point is a valid point on the navmesh
         //Random.Range(min.x, max.x)
 
-        genratedPatrolPoint = GeneratePlanarPoint();
+        //genratedPatrolPoint = GeneratePlanarPoint();
 
         //Copypasta the generaterandompoint method from the guard manager. It is different from the current GenerateRandomPoint method seen here, and the one found here should probably get renamed
     }
