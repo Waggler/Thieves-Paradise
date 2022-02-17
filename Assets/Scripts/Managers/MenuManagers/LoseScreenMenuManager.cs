@@ -21,6 +21,8 @@ public class LoseScreenMenuManager : MonoBehaviour
     //-----------------------//
     {
         loseAnimator.SetBool("loseOpen", false);
+        Time.timeScale = 1;
+
 
     }//END Init
 

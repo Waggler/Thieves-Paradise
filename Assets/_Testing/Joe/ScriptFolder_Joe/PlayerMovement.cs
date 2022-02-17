@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float CrouchingHeight;
     [Tooltip("Set this as the same Y center for the player controller & colider.")]
     [SerializeField] private float SetCenterHeight;
-    [SerializeField] public bool IsCrouching = false;
+    public bool IsCrouching = false;
     [SerializeField] private bool IsStanding = true;
     [SerializeField] private bool IsCovered;
 
@@ -41,7 +41,8 @@ public class PlayerMovement : MonoBehaviour
     public CapsuleCollider playerCollider;
     [SerializeField] public CharacterController Controller;
     [SerializeField] private bool IsGrounded = true;
-    [SerializeField] private float AirSpeed;
+    [SerializeField] private float AirInertiaTime;
+    public float CurrentAirInertiaTime;
     private float HeightFromGround;
     private float CrouchingHeightFromGround;
     private float GroundHeight;
@@ -97,11 +98,6 @@ public class PlayerMovement : MonoBehaviour
     public bool IsStunned = false;
     public float CurrentStunTime = 0;
 
-    [Header("Inertia")]
-    public bool Inertia = false;
-    [SerializeField] private float WalkingInertiaTime;
-    private float CurrentInertiaTime;
-
     [Header("Player Noise")]
     [Tooltip("The detection radius of the player when they are standing still and when they are moving while crouched")]
     [SerializeField] private int SilentLevel = 0;
@@ -149,7 +145,6 @@ public class PlayerMovement : MonoBehaviour
         CurrentRollTime = RollingTime;
         CurrentDiveTime = DiveTime;
         CurrentDelayTime = DelayTime;
-        CurrentInertiaTime = WalkingInertiaTime;
         Controller = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
         PlayerCamera = Camera.main.transform;
@@ -191,28 +186,6 @@ public class PlayerMovement : MonoBehaviour
             Sprinting();
         }
 
-        #region Inertia
-        if (CurrentSpeed != WalkingSpeed && !IsCrouching && !IsSprinting && IsGrounded)
-        {
-            if (CurrentSpeed > WalkingSpeed)
-            {
-                CurrentSpeed -= Deceleration * Time.deltaTime;
-                if (WalkingSpeed > CurrentSpeed)
-                {
-                    CurrentSpeed = WalkingSpeed;
-                }
-            }
-            else if (CurrentSpeed < WalkingSpeed)
-            {
-                CurrentSpeed += WalkAcceleration * Time.deltaTime;
-                if (WalkingSpeed < CurrentSpeed)
-                {
-                    CurrentSpeed = WalkingSpeed;
-                }
-            }
-        }
-        #endregion
-
         #region Gravity
         if (IsGrounded && Controller.velocity.y > 0)
         {
@@ -240,24 +213,9 @@ public class PlayerMovement : MonoBehaviour
         //Movement
         if (!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned && canMove)
         {
-            if (!Inertia)
-            {
-                Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
-                CurrentInertiaTime = WalkingInertiaTime;
-            }
-            else
-            {
-                if (CurrentInertiaTime > 0)
-                {
-                    Controller.Move(FacingDirection * (CurrentSpeed / 2) * Time.deltaTime);
-                    CurrentInertiaTime -= Time.deltaTime;
-                }
-                else if (CurrentInertiaTime <= 0)
-                {
-                    Direction = Vector3.zero;
-                }
-            }
+            Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
         }
+
         //Setting Roll Direction for rolling, diving, and sliding.
         if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
         {
@@ -577,18 +535,15 @@ public class PlayerMovement : MonoBehaviour
             IsGrounded = true;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
-            if (CurrentSpeed == AirSpeed)
+
+            if(CurrentAirInertiaTime <= 0)
             {
-                CurrentSpeed = WalkingSpeed;
+                CurrentAirInertiaTime = AirInertiaTime;
             }
         }
         else
         {
             IsGrounded = false;
-            if (!IsDiving || !IsSprinting)
-            {
-                CurrentSpeed = AirSpeed;
-            }
 
             if (IsCrouching)
             {
