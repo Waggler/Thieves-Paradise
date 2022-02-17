@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using System.Linq;
+
+using Unity.Profiling;
 
 /*To Do:
     - Look into what it takes to have a node approach to AI behaviour
@@ -14,15 +14,17 @@ using System.Linq;
     - Replace any instances of Vector3.Distance with NavMeshAgent.remainingDistance / agent.remainingDistance where it is being used to calculate the guard's distance from a target
         - Do not do this when it is being used to calculate the distance from an unrelated object.
 
-    - Add a reaction to the guard being x distance away from the security station (this is going to be when they activate it)
-
-    - Add something for the guard to do when they intereact / boink the security station
-
-*/ 
+*/
 
 
 public class EnemyManager : MonoBehaviour
 {
+    //Unity Profiler Goofery
+    //static readonly Unity.Profiling.ProfilerMarker s_MyProfilerMarker = new Unity.Profiling.ProfilerMarker("Guard Profile Marker *Shaq Made This");
+    //public UnityEvent EVENT_OnNearestStation;
+
+
+
     #region Enumerations
 
     #region AI State Machine
@@ -135,7 +137,6 @@ public class EnemyManager : MonoBehaviour
 
     //---------------------------------------------------------------------------------------------------//
 
-    //Private Variables
 
     [Tooltip("The guard's target")]
     [HideInInspector] public Vector3 target;
@@ -368,6 +369,7 @@ public class EnemyManager : MonoBehaviour
             agent.stoppingDistance = 0;
         }
 
+        UpdateDebugText();
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
@@ -378,7 +380,9 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterPassiveAnim();
 
-                stateText.text = stateMachine.ToString();
+                //stateText.text = stateMachine.ToString();
+
+                target = waypoints[waypointIndex].position;
 
                 SetAiSpeed(passiveSpeed);
 
@@ -418,14 +422,11 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
 
-
-                target = waypoints[waypointIndex].position;
-
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(target);
 
                 //Less confusing when showing the target on the debug canvas
-                targetText.text = $"{waypoints[waypointIndex]}";
+                //targetText.text = $"{waypoints[waypointIndex]}";
 
                 FaceTarget(target);
 
@@ -437,13 +438,6 @@ public class EnemyManager : MonoBehaviour
                     stateMachine = EnemyStates.WARY;
                 }
 
-
-                //Psuedo Code for when a wary worth action occurs
-                //if (something that would make the guard wary happens == true)
-                //{
-                //    stateMachine = EnemyStates.WARY;
-                //}
-
                 break;
             #endregion Passive Behavior
 
@@ -453,9 +447,9 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterPassiveAnim();
 
-                stateText.text = stateMachine.ToString();
-
                 SetAiSpeed(warySpeed);
+
+                FaceTarget(target);
 
                 //Reseting alert related variables
                 if (isAudioSourcePlaying == true)
@@ -498,11 +492,6 @@ public class EnemyManager : MonoBehaviour
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(target);
 
-                //Less confusing when showing the target on the debug canvas
-                targetText.text = $"{waypoints[waypointIndex]}";
-
-                FaceTarget(target);
-
                 //Exit condition
                 //Checking to see if the player is visible
                 if (eyeball.susLevel < warySusMin)
@@ -529,22 +518,9 @@ public class EnemyManager : MonoBehaviour
             //Also records the player's last known location and appends it to the waypoints list of the guard instance
             case EnemyStates.SUSPICIOUS:
 
-
-                //float searchLocCheck = .5f;
-
                 guardAnim.EnterSusAnim();
 
-                stateText.text = stateMachine.ToString();
-
                 SetAiSpeed(susSpeed);
-
-                /*
-                 * Check if bool is already ticked
-                 * Spawn new obj titled "SussyPatrolLoc"
-                 * Add it to waypoints list of patrol locations
-                 * ????
-                 * Profit
-                 */
 
                 if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
                 {
@@ -575,8 +551,6 @@ public class EnemyManager : MonoBehaviour
                     {
 
                         randWaitTime = Random.Range(randWaitMin, randWaitMax);
-
-                        targetText.text = ($"{target}");
 
                         target = GenerateRandomPoint();
 
@@ -623,8 +597,6 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterHostileAnim();
 
-                stateText.text = stateMachine.ToString();
-
                 SetAiSpeed(hostileSpeed);
 
                 FaceTarget(target);
@@ -637,11 +609,12 @@ public class EnemyManager : MonoBehaviour
 
                     target = eyeball.lastKnownLocation;
 
-                    targetText.text = target.ToString();
-
                     //transform.position is being used because you cannot use Vector3 data when Transform is being called
                     SetAIDestination(target);
 
+
+
+                    //Soon going to hell along with the ATTACK behaviour / state
                     if (Vector3.Distance(player.transform.position, transform.position) < attackRadius)
                     {
                         guardAnim.EnterAttackAnim();
@@ -649,23 +622,17 @@ public class EnemyManager : MonoBehaviour
                         player.transform.position = playerCaptureTeleportLoc.transform.position;
                         SetAIDestination(this.transform.position);
 
-
-                        //player.transform.SetParent(playerCaptureTeleportLoc.transform, false);
-
                         //HOSTILE >> ATTACK
                         stateMachine = EnemyStates.ATTACK;
                     }
+
+
+
                     //Conditionds needed for ranged attack / taser
                     else if (eyeball.canCurrentlySeePlayer == true && agent.CalculatePath(target, agent.path) == false && distanceToPlayer <= taserRadius)
                     {
                         //HOSTILE >> RANGED ATTACK
                         stateMachine = EnemyStates.RANGEDATTACK;
-                        
-
-                        //Check if the player is jumping (isJump) or diving (isDive)
-                        //if ()
-                        //{
-                        //}
                     }
 
                     //Playing Alert Audio
@@ -695,8 +662,6 @@ public class EnemyManager : MonoBehaviour
 
             #region Report Behaviour
             case EnemyStates.REPORT:
-
-                stateText.text = stateMachine.ToString();
 
                 targetText.text = "Security Station";
 
@@ -730,16 +695,16 @@ public class EnemyManager : MonoBehaviour
             #endregion Report Behaviour
 
 
+            //Getting sent to hell soon
             #region Attack Behavior
             //AI Attack state
             case EnemyStates.ATTACK:
 
-                stateText.text = stateMachine.ToString();
-
                 SetAiSpeed(attackSpeed);
 
-                #region Exit Condition(s)
-                
+                FaceTarget(target);
+
+                //Exit Conditions
                 if (isStunned == true)
                 {
                     //player.transform.parent = null;
@@ -764,25 +729,18 @@ public class EnemyManager : MonoBehaviour
                     // ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
-
-
-                #endregion Exit Condition(s)
-
-                FaceTarget(target);
-
                 break;
             #endregion Attack Behavior
 
+
+
             #region Ranged Attack Behavior
             case EnemyStates.RANGEDATTACK:
-
-                stateText.text = stateMachine.ToString();
 
                 SetAiSpeed(0);
 
                 FaceTarget(target);
 
-                //Insert ranged attack code
                 //Temporary Code
                 if (tempTaserTimer > 0)
                 {
@@ -818,44 +776,35 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterStunAnim();
 
-                stateText.text = stateMachine.ToString();
-
                 SetAiSpeed(stunSpeed);
-
-                target = transform.position;
 
                 SetAIDestination(target);
 
                 eyeball.susLevel = 0;
 
-                //experimenting with Time.fixedDeltaTime & Time.deltaTime
-                stunTime -= Time.deltaTime;
-
                 eyeball.sightRange = 0;
+
+                stunTime -= Time.fixedDeltaTime;
 
                 //Exit Condition
                 if (stunTime <= 0)
                 {
-                    //if (true)
-                    //{
-                        guardAnim.ExitStunAnim();
-                        isStunned = false;
+                    guardAnim.ExitStunAnim();
+                    isStunned = false;
 
-                        eyeball.susLevel = sussySusMax;
+                    eyeball.susLevel = sussySusMax;
 
-                        //the cool lil MGS thing
-                        var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+                    //the cool lil MGS thing
+                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+                    MGSsurprise.transform.parent = gameObject.transform;
 
-                        MGSsurprise.transform.parent = gameObject.transform;
+                    //STUNNED >>>> PREVIOUS STATE (SUSPICIOUS for now)
+                    stateMachine = EnemyStates.REPORT;
 
-                        //STUNNED >>>> PREVIOUS STATE (SUSPICIOUS for now)
-                        stateMachine = EnemyStates.REPORT;
+                    //after changing states, the stun time returns to the initially recorded time
+                    stunTime = stunTimeReset;
 
-                        //after changing states, the stun time returns to the initially recorded time
-                        stunTime = stunTimeReset;
-
-                        eyeball.sightRange = eyeballSightRangeRecord;
-                    //}
+                    eyeball.sightRange = eyeballSightRangeRecord;
                 }
                 break;
             #endregion Stunned Behavior
@@ -881,7 +830,7 @@ public class EnemyManager : MonoBehaviour
     #region AI Methods
 
     //---------------------------------//
-    //Called on Awake and initializes everything that is finalized and needs to be done at awake
+    // Called on Awake and initializes everything that is finalized and needs to be done at awake
     private void Init()
     {
         //FIX THIS WHEN TELLING PEOPLE ITS FINE TO FUCK WITH GUARD
@@ -943,9 +892,28 @@ public class EnemyManager : MonoBehaviour
 
     }//End Init
 
-    
+
     //---------------------------------//
-    //Finds nearest security station
+    // Updates the debug text above the guard's head
+    private void UpdateDebugText()
+    {
+        string methodStateText;
+
+        methodStateText = stateMachine.ToString();
+
+        stateText.text = methodStateText;
+
+
+        string methodTargetText;
+
+        methodTargetText = target.ToString();
+
+        targetText.text = methodTargetText;
+    }//End UpdateDebugText
+
+
+    //---------------------------------//
+    // Finds nearest security station
     private GameObject NearestStation()
     {
         /*
@@ -1033,7 +1001,8 @@ public class EnemyManager : MonoBehaviour
             lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         }
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 0.1f);
+        //The float at the end is arbitrarily high so that the guard properly faces the player / target when stationary or making a tight corner
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 6000f);
     }//End FaceTarget
 
 
@@ -1087,7 +1056,7 @@ public class EnemyManager : MonoBehaviour
 
 
     //---------------------------------//
-    //Draws shapes only visible in the editor
+    // Draws shapes only visible in the editor
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -1101,6 +1070,11 @@ public class EnemyManager : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(searchLoc, .5f);
+
+#if UNITY_EDITOR
+        Gizmos.color = Color.white;
+        Gizmos.DrawSphere(target, 0.75f);
+#endif
 
     }//End OnDrawGizmos
 

@@ -3,21 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-//Current Bugs:
-//    - Camera can rotate outside of it's intended monitoring range in FOCUSED state
-//      - When returning to MONITORING state, the camera will freeze due to being outside of it's intended rotational bounds
-//    - 
+/*
+    Things to try:
+        - Treat the camera like a shitty first person controller that is manipulated via code instead of via player input
 
-//Things to add:
-//    - (Backlog) Add rotational bounds to camera
-//    - Take orders from the Security hub / global suspicion manager 
-//    - 
 
-//Notes:
-//    - The script is looking for an object with the "PlayerVisionTarget" tag, so make sure the player has that or update accordingly
-//    - Rotational bounds still need a bit of work before it's TRULY done
-//    - DO NOT GET RID OF THE "rotationRecord" VARIABLE
 
+
+
+*/
 
 
 
@@ -119,9 +113,9 @@ public class CameraManager : MonoBehaviour
 
     [HideInInspector] private float timeLeft;
 
-    [SerializeField] private GameObject disabledTarget;
-
     private bool timerBool;
+
+    public float camRotationFuckery;
 
 
     #endregion Variables
@@ -134,6 +128,8 @@ public class CameraManager : MonoBehaviour
     void Awake()
     {
         Init();
+
+        //LockedRotation();
     }//End Awake
 
     #endregion
@@ -161,6 +157,7 @@ public class CameraManager : MonoBehaviour
             camLightRef.enabled = true;
         }
 
+        UpdateDebugText();
 
         #region Cam State Machine
         switch (cameraStateMachine)
@@ -197,16 +194,7 @@ public class CameraManager : MonoBehaviour
                 {
                     //Inverts the camera's turn speed
                     camSpeed = -camSpeed;
-
-
                 }
-
-
-
-
-
-
-
 
                 //if (distanceToPlayer <= lookRadius)
                 if (eyeball.canCurrentlySeePlayer == true)
@@ -227,17 +215,13 @@ public class CameraManager : MonoBehaviour
             case CamStates.FOCUSED:
 
 
-                #region Updating Canvas Info
 
-                stateText.text = $"{cameraStateMachine}";
 
-                //referencing player variable from the eyeball script
-                target = player.transform.position;
+                target = eyeball.lastKnownLocation;
 
-                targetText.text = $"{target}";
-                #endregion
+                //FaceTarget(target);
 
-                FaceTarget(target);
+                transform.LookAt(target);
 
                 camLightRef.color = Color.red;
 
@@ -283,15 +267,14 @@ public class CameraManager : MonoBehaviour
             #region Default / Error state
             //Not exactly a state but acts as a net to catch any bugs that would prevent the game from running
             default:
-                stateText.text = "State Not Found";
-                targetText.text = "Null";
-
                 break;
                 #endregion Default / Error State
         }
         #endregion Cam State Machine
 
         UpdateCamLightVars();
+
+        LockedRotation();
 
     }//End Update
     #endregion Update
@@ -300,20 +283,6 @@ public class CameraManager : MonoBehaviour
 
     #region General Methods
 
-    //---------------------------------//
-    //Function that makes the object face it's target
-    void FaceTarget(Vector3 target)
-    {
-        Vector3 direction = (target - transform.position).normalized;
-
-        Quaternion lookRotation = Quaternion.identity;
-        if (direction.x != 0 && direction.z != 0)
-        {
-            lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        }
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 0.1f);
-    }//End FaceTarget
 
     //---------------------------------//
     //Used to preload all necessary variables or states in the Camera Manager script
@@ -341,6 +310,53 @@ public class CameraManager : MonoBehaviour
         UpdateCamLightVars();
     }//End Init
 
+    private float rotationX;
+
+    private void LockedRotation()
+    {
+        rotationX = transform.rotation.x;
+
+        rotationX = Mathf.Clamp(rotationX, 45, -45);
+
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, rotationX);
+    }
+
+
+    //---------------------------------//
+    //Function that makes the object face it's target
+    void FaceTarget(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+
+        Quaternion lookRotation = Quaternion.identity;
+        if (direction.x != 0 && direction.z != 0)
+        {
+            lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        }
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+    }//End FaceTarget
+
+
+    //---------------------------------//
+    // Updates the debug text above the guard's head
+    private void UpdateDebugText()
+    {
+        string methodStateText;
+
+        methodStateText = cameraStateMachine.ToString();
+
+        stateText.text = methodStateText;
+
+
+        string methodTargetText;
+
+        methodTargetText = target.ToString();
+
+        targetText.text = methodTargetText;
+    }//End UpdateDebugText
+
+
     //---------------------------------//
     //Used to update all camera light related variables all at once
     private void UpdateCamLightVars()
@@ -366,14 +382,12 @@ public class CameraManager : MonoBehaviour
     {
         camLightRef.color = Color.yellow;
 
-        FaceTarget(disabledTarget.transform.position);
-
-        //Be sure to also disable the camera's eyeball component
-
         timeLeft = disableTime;
 
         cameraStateMachine = CamStates.DISABLED;
     }
+
+
 
     public void EnableCamera()
     {
@@ -382,6 +396,8 @@ public class CameraManager : MonoBehaviour
 
         cameraStateMachine = CamStates.MONITORING;
     }
+
+
 
     //---------------------------------//
     //Draws Gizmos / shapes in editor

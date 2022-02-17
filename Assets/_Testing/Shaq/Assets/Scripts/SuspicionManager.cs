@@ -81,7 +81,7 @@ public class SuspicionManager : MonoBehaviour
             #region Security Level 0
             case SecurityLvl.SecLVL0:
 
-                print("Entered Security Level 0");
+                //print("Entered Security Level 0");
 
 
                 break;
@@ -93,7 +93,7 @@ public class SuspicionManager : MonoBehaviour
             case SecurityLvl.SecLVL1:
                 //Forcing all guards to have an eyeball sus level of [warySusMin]
 
-                print("Entered Security Level 1");
+                //print("Entered Security Level 1");
 
                 ModEyeSus(enemyManager.warySusMin + .4f);
 
@@ -118,6 +118,7 @@ public class SuspicionManager : MonoBehaviour
     {
 
     }//End OnDrawGizmos
+
 
     public void DummyMethod()
     {
@@ -192,15 +193,7 @@ public class SuspicionManager : MonoBehaviour
 
     //---------------------------------//
     //Generates an array of guard instances in the scene
-    public void GenGuardList()
-    {
-        guardsList = GameObject.FindGameObjectsWithTag("Guard").ToList();
-
-        if (guardsList.Count == 0 || guardsList == null)
-        {
-            //throw
-        }
-    }//End GenGuardArray
+    public void GenGuardList() => guardsList = GameObject.FindGameObjectsWithTag("Guard").ToList(); //End GenGuardList
 
     #endregion General Functions
 }
