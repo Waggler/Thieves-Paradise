@@ -17,6 +17,7 @@ public class NarrativeUIManager : MonoBehaviour
 
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private ChoiceManager choiceManager;
+    [SerializeField] private SkipManager skipManager;
 
     [Header("Dialogue Components")]
     [SerializeField] private GameObject speakerBox;
@@ -26,10 +27,7 @@ public class NarrativeUIManager : MonoBehaviour
 
     [SerializeField] private int dialoguePortraitSwapIndex;
 
-    [SerializeField] private int[] skipIndex;
-    private int currentSkipIndex = 0;
-    private int lastSkipIndex;
-    private bool isPastLastSkip = false;
+
 
     private Queue<string> sentences;
 
@@ -59,7 +57,6 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite[] backgroundImageList;
 
-
     private bool isResponding;
     private Response currentResponse;
 
@@ -86,7 +83,6 @@ public class NarrativeUIManager : MonoBehaviour
     //--------------------------//
     {
         sentences = new Queue<string>();
-        lastSkipIndex = Enumerable.Last(skipIndex);
 
     }//END Init
 
@@ -157,18 +153,6 @@ public class NarrativeUIManager : MonoBehaviour
     public void DisplayNextResponseSentence(Response response)
     //-----------------------//
     {
-        /*
-        if (dialogueManager.currentDialogueIndex == skipIndex[currentSkipIndex] && dialogueManager.currentDialogueIndex == lastSkipIndex)
-        {
-            skipButton.gameObject.SetActive(false);
-            isPastLastSkip = true;
-
-        }
-        if (isPastLastSkip == false) ;
-        {
-            skipButton.gameObject.SetActive(true);
-        }
-        */
         if (sentences.Count == 0)
         {
 
@@ -189,20 +173,6 @@ public class NarrativeUIManager : MonoBehaviour
     public void DisplayNextSentence()
     //-----------------------//
     {
-
-        /*
-        if (dialogueManager.currentDialogueIndex == skipIndex[currentSkipIndex] && dialogueManager.currentDialogueIndex == lastSkipIndex)
-        {
-            skipButton.gameObject.SetActive(false);
-            isPastLastSkip = true;
-
-        }
-        if (isPastLastSkip == false);
-        {
-            skipButton.gameObject.SetActive(true);
-        }
-        */
-        //if()
 
         if (sentences.Count == 0)
         {
@@ -243,6 +213,12 @@ public class NarrativeUIManager : MonoBehaviour
 
 
             dialogueManager.TriggerDialogue();
+
+            if(skipButton.gameObject.activeSelf == false)
+            {
+                skipManager.ShowSkip();
+
+            }
         }
 
 
@@ -257,39 +233,6 @@ public class NarrativeUIManager : MonoBehaviour
         speakerText.text = currentResponse.responseSpeaker[currentResponse.responseID];
         currentResponse.responseID++;
     }//END IncrementResponse
-
-    //-----------------------//
-    public void SkiptoChoice()
-    //-----------------------//
-    {
-
-        try
-        {
-
-            if (dialogueManager.currentDialogueIndex < skipIndex[currentSkipIndex])
-            {
-                dialogueManager.currentDialogueIndex = skipIndex[currentSkipIndex];
-                dialogueManager.TriggerDialogue();
-
-            }
-            else if (dialogueManager.currentDialogueIndex > skipIndex[currentSkipIndex])
-            {
-                currentSkipIndex++;
-                SkiptoChoice();
-                
-            }
-        }
-        catch
-        {
-            isPastLastSkip = true;
-            skipButton.gameObject.SetActive(false);
-        }
-
-
-
-        skipButton.gameObject.SetActive(false);
-
-    }//END SkiptoChoice
 
 
     #endregion Methods
