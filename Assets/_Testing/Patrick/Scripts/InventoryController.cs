@@ -15,6 +15,7 @@ public class InventoryController : MonoBehaviour
     private GameObject[] hotbarMesh = new GameObject[4];
 
     [HideInInspector] public float throwForce;
+    [HideInInspector] public bool isHoldingItem;
     
 
     [SerializeField] private int inventorySize = 4;
@@ -182,6 +183,10 @@ public class InventoryController : MonoBehaviour
             //cancel if current selected item is empty
             print("Slot Empty");
             return;
+        }else if (itemInterfaceInventory[activeItemIndex].isKeyItem == true)
+        {
+            print("Slot holds Key item");
+            return;
         }
         //throw active item
 
@@ -243,6 +248,18 @@ public class InventoryController : MonoBehaviour
                 hotbarMesh[i].transform.localScale = Vector3.one * 6;
             }
         }
+        //store whether they're displaying an item or not for animation purposes
+        if (inventorySpace[activeItemIndex] == false)
+        {
+            isHoldingItem = false;
+        }else if (itemInterfaceInventory[activeItemIndex].isKeyItem)
+        {
+            isHoldingItem = false;
+        }else
+        {
+            isHoldingItem = true;
+        }
+
         //delay the change in display for the animation to play
         StartCoroutine(DisplayDelay());
     }
@@ -283,11 +300,12 @@ public class InventoryController : MonoBehaviour
         curObj.GetComponent<Rigidbody>().isKinematic = true;
 
         //disabling colliders to try and prevent unwanted interactions
-
+        //this isn't a good long-term solution because an item might have different kinds of colliders
         //curObj.GetComponent<SphereCollider>().enabled = false;
         //curObj.GetComponent<BoxCollider>().enabled = false;
 
-        //going to try setting it to a ghost layer instead as that may be more practical down the line
+        //instead going to try setting it to a ghost layer instead as that may be more practical down the line
+
         curObj.layer = 11;//11 is the ghost layer where all interactions are disabled
 
 
