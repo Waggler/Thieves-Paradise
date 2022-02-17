@@ -28,6 +28,7 @@ public class PlayerAudio : MonoBehaviour
 
     [SerializeField] private AudioClip struggleClip;
     [SerializeField] private AudioClip throwClip;
+    [SerializeField] private AudioClip pickupClip;
 
 
     //-----------------------//
@@ -120,7 +121,16 @@ public class PlayerAudio : MonoBehaviour
         playerSource.volume = noiseLevelOneVolume;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(throwClip);
-    }
+    }//END Throw
+
+    //-----------------------//
+    public void Pickup()
+    //-----------------------//
+    {
+        playerSource.volume = noiseLevelOneVolume;
+        playerSource.pitch = Random.Range(pitchMin, pitchMax);
+        playerSource.PlayOneShot(pickupClip);
+    }//END Pickup
 
 
 }//END PlayerAudio
