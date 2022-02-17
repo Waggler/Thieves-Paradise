@@ -21,7 +21,17 @@ public class ItemSuperScript : MonoBehaviour
         get;
         set;
     }
-    
+
+    public AudioClip hitSoundClip
+    {
+        get;
+        set;
+    }
+    public float volumeLevel
+    {
+        get;
+        set;
+    }
 
     public bool isThrown;
     private float timeCounter;
@@ -76,6 +86,16 @@ public class ItemSuperScript : MonoBehaviour
         //Alert Guards here
         //print("making noise");
         susManager.AlertGuards(transform.position, transform.position, thrownNoiseRadius);
+
+        //create lingering sound object
+        GameObject obj = new GameObject("TEMP Item SFX Holder");
+        obj.transform.position = transform.position;
+        obj.AddComponent<ItemSFX>();
+        obj.GetComponent<ItemSFX>().audClip = hitSoundClip;
+        obj.GetComponent<ItemSFX>().vol = volumeLevel;
+        StartCoroutine(obj.GetComponent<ItemSFX>().PlaySound());
+        //object destroys itself after playing the clip
+
         /* 
         sfxController = FindObjectOfType<SfxController>();
         

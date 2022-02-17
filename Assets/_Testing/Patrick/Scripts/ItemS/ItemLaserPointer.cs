@@ -16,6 +16,14 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
     private bool isLaserOn = false;
     private LayerMask layerMask;
 
+    private bool isObjectiveItem = false;
+
+    public bool isKeyItem
+    {
+        get {return isObjectiveItem;}
+        set {isObjectiveItem = value;}
+    }
+
     public GameObject myself
     {
         get {return myPrefab;}
