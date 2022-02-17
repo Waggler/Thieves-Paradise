@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     public bool isRolling;
     public bool isPushPull;
     private PlayerMovement playerMovement;
+    [SerializeField] private CamSwitch camSwitch;
     public float rollCooldownTime;
     private float cooldownTimer;
     private int jumpPressCounter = 1;
@@ -19,6 +20,7 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        //camSwitch = GetComponent<CamSwitch>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -47,23 +49,9 @@ public class InputManager : MonoBehaviour
             {
                 playerMovement.BreakOutCounter += playerMovement.BreakOutValue;
             }
-
-            if (moveVector != Vector3.zero)
-            {
-                directionVector = moveVector;
-                playerMovement.Movement(moveVector);
-                playerMovement.Inertia = false;
-            }
-            else if (moveVector == Vector3.zero)
-            {
-                //Have a new var be the last movement direction then set up a check as well for if the speed is sprinting or walking.
-                //Have a timer so the player only moves that way for about a second after the button push or two if they are sprinting.
-                //playerMovement.CurrentSpeed/2;
-
-                playerMovement.Movement(directionVector);
-                playerMovement.Inertia = true;
-            }
-            //print(moveVector);
+                
+            directionVector = moveVector;
+            playerMovement.Movement(moveVector);
         }
     }// END MOVE
     #endregion
@@ -137,6 +125,21 @@ public class InputManager : MonoBehaviour
             playerMovement.Roll(isRolling);
         }
     }//END ROLL
+
+    #endregion
+
+    #region ZoomIn
+    public void ZoomIn(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            camSwitch.SwitchState(true);
+        }
+        else if(context.canceled)
+        {
+            camSwitch.SwitchState(false);
+        }
+    }
 
     #endregion
 

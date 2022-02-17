@@ -14,7 +14,8 @@ public class InventoryController : MonoBehaviour
     private List<ItemInterface> nearbyItems;//for storing all items within reach
     private GameObject[] hotbarMesh = new GameObject[4];
 
-    private float throwForce;
+    [HideInInspector] public float throwForce;
+    [HideInInspector] public bool isHoldingItem;
     
 
     [SerializeField] private int inventorySize = 4;
@@ -145,21 +146,33 @@ public class InventoryController : MonoBehaviour
             throwing = false;
         }
     }
-    public void Item1()
+    public void Item1(InputAction.CallbackContext context)
     {
-        SwapItem(0);
+        if (context.started)
+        {
+            SwapItem(0);
+        }
     }
-    public void Item2()
+    public void Item2(InputAction.CallbackContext context)
     {
-        SwapItem(1);
+        if (context.started)
+        {
+            SwapItem(1);
+        }
     }
-    public void Item3()
+    public void Item3(InputAction.CallbackContext context)
     {
-        SwapItem(2);
+        if (context.started)
+        {
+            SwapItem(2);
+        }
     }
-    public void Item4()
+    public void Item4(InputAction.CallbackContext context)
     {
-        SwapItem(3);
+        if (context.started)
+        {
+            SwapItem(3);
+        }
     }
     #endregion //player input
 
@@ -169,6 +182,10 @@ public class InventoryController : MonoBehaviour
         {
             //cancel if current selected item is empty
             print("Slot Empty");
+            return;
+        }else if (itemInterfaceInventory[activeItemIndex].isKeyItem == true)
+        {
+            print("Slot holds Key item");
             return;
         }
         //throw active item
@@ -201,7 +218,7 @@ public class InventoryController : MonoBehaviour
         ResetItem(activeItemIndex);
 
         //throw active item
-        GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position, Quaternion.identity);
+        GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position + transform.forward, Quaternion.identity);
         thrownItem.SetActive(true);
         thrownItem.name = thrownItem.GetComponent<ItemInterface>().itemName;
         Vector3 throwVector = transform.forward * throwForce + transform.up * throwForce;
@@ -225,13 +242,31 @@ public class InventoryController : MonoBehaviour
         {
             if (activeItemIndex == i)
             {
-                hotbarMesh[i].transform.localScale = Vector3.one * 8;
+                hotbarMesh[i].transform.localScale = Vector3.one * 5;
             }else
             {
-                hotbarMesh[i].transform.localScale = Vector3.one * 6;
+                hotbarMesh[i].transform.localScale = Vector3.one * 4;
             }
         }
+        //store whether they're displaying an item or not for animation purposes
+        if (inventorySpace[activeItemIndex] == false)
+        {
+            isHoldingItem = false;
+        }else if (itemInterfaceInventory[activeItemIndex].isKeyItem)
+        {
+            isHoldingItem = false;
+        }else
+        {
+            isHoldingItem = true;
+        }
 
+        //delay the change in display for the animation to play
+        StartCoroutine(DisplayDelay());
+    }
+
+    private IEnumerator DisplayDelay()
+    {
+        yield return new WaitForSeconds(0.4f);
         ChangeHeldItemDisplay();
     }
 
@@ -244,7 +279,10 @@ public class InventoryController : MonoBehaviour
                 GameObject curObj = itemInterfaceInventory[i].myself;
                 if (i == activeItemIndex)
                 {
-                    DisplayItem(i);
+                    if (!itemInterfaceInventory[i].isKeyItem) //make sure it's not an objective item
+                    {//only display non-objective items
+                        DisplayItem(i);
+                    }
                 }else
                 {
                     ResetItem(i);
@@ -260,7 +298,16 @@ public class InventoryController : MonoBehaviour
         curObj.transform.SetParent(holdItemPos);
         curObj.transform.position = holdItemPos.position;
         curObj.GetComponent<Rigidbody>().isKinematic = true;
-        curObj.GetComponent<SphereCollider>().enabled = false;
+
+        //disabling colliders to try and prevent unwanted interactions
+        //this isn't a good long-term solution because an item might have different kinds of colliders
+        //curObj.GetComponent<SphereCollider>().enabled = false;
+        //curObj.GetComponent<BoxCollider>().enabled = false;
+
+        //instead going to try setting it to a ghost layer instead as that may be more practical down the line
+
+        curObj.layer = 11;//11 is the ghost layer where all interactions are disabled
+
 
         curObj.SetActive(true);        
     }
@@ -271,7 +318,12 @@ public class InventoryController : MonoBehaviour
         curObj.transform.SetParent(null);
                     
         curObj.GetComponent<Rigidbody>().isKinematic = false;
-        curObj.GetComponent<SphereCollider>().enabled = true;
+
+        //curObj.GetComponent<SphereCollider>().enabled = true;
+        //curObj.GetComponent<BoxCollider>().enabled = true;
+
+        curObj.layer = 0;//default layer to re-enable interactions
+
         curObj.SetActive(false);
     }
     //check for if we have space in the inventory
