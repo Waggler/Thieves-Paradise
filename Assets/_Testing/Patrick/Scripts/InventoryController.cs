@@ -242,10 +242,10 @@ public class InventoryController : MonoBehaviour
         {
             if (activeItemIndex == i)
             {
-                hotbarMesh[i].transform.localScale = Vector3.one * 8;
+                hotbarMesh[i].transform.localScale = Vector3.one * 5;
             }else
             {
-                hotbarMesh[i].transform.localScale = Vector3.one * 6;
+                hotbarMesh[i].transform.localScale = Vector3.one * 4;
             }
         }
         //store whether they're displaying an item or not for animation purposes
