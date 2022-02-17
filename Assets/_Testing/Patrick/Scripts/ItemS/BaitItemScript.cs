@@ -14,6 +14,14 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
 
     public bool DebugMode;
 
+    private bool isObjectiveItem = false;
+
+    public bool isKeyItem
+    {
+        get {return isObjectiveItem;}
+        set {isObjectiveItem = value;}
+    }
+
 
     public GameObject myself
     {
@@ -56,7 +64,7 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
 
 
         if (DebugMode) print("Looking for enemies");
-        
+
         //grab everything within a radius
         List<Collider> hitColliders = new List<Collider>(Physics.OverlapSphere(transform.position, baitRadius));
 

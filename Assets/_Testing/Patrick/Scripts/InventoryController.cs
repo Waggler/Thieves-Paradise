@@ -14,7 +14,7 @@ public class InventoryController : MonoBehaviour
     private List<ItemInterface> nearbyItems;//for storing all items within reach
     private GameObject[] hotbarMesh = new GameObject[4];
 
-    private float throwForce;
+    [HideInInspector] public float throwForce;
     
 
     [SerializeField] private int inventorySize = 4;
@@ -262,7 +262,10 @@ public class InventoryController : MonoBehaviour
                 GameObject curObj = itemInterfaceInventory[i].myself;
                 if (i == activeItemIndex)
                 {
-                    DisplayItem(i);
+                    if (!itemInterfaceInventory[i].isKeyItem) //make sure it's not an objective item
+                    {//only display non-objective items
+                        DisplayItem(i);
+                    }
                 }else
                 {
                     ResetItem(i);
