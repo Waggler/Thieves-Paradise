@@ -81,7 +81,7 @@ public class EnemyManager : MonoBehaviour
         switch (waypointMethod)
         {
             case CycleMethods.Cycle:
-                //Insert original code for navigating waypoints here
+                
                 if (waypointIndex >= waypoints.Count - 1)
                 {
                     waypointIndex = 0;
@@ -97,8 +97,9 @@ public class EnemyManager : MonoBehaviour
                 SetAIDestination(target);
 
                 break;
+
             case CycleMethods.Reverse:
-                //Insert reverse based method for navigating waypoints here
+                
                 if (waypointIndex >= waypoints.Count - 1)
                 {
                     waypointIndex = 0;
@@ -132,6 +133,25 @@ public class EnemyManager : MonoBehaviour
     #region EventHandlers (?)
 
     #endregion EventHandlers (?)
+
+    #region Coroutines
+    
+    //---------------------------------//
+    // Handles the firerate of the taser
+    //  - Also acts as the testing ground for adding coroutines to the EnemyManager
+    private IEnumerator ITaserFirerate()
+    {
+        //Spawn projectile in the forward direction of the guard
+        //later on change the spawn position to be the tip of the taser(assuming conditions and animations are already in place)
+        yield return new WaitForSecondsRealtime(5);
+
+        var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
+
+        print("''I need every bad bitch up in Equinox. I need to know right now if you're a freak or not.''  Bob Saget");
+
+    }//End ITaserFireRate
+
+    #endregion Coroutines
 
     #region Variables
 
@@ -358,8 +378,10 @@ public class EnemyManager : MonoBehaviour
     //Function called every frame
     void Update()
     {
+        //Replace with NavMeshAgent.remainingDistance
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position + Vector3.up);
 
+        //Setting up a navmesh agent stoppingDistance that only takes place in the REPORT state (SUPER temporary)
         if (stateMachine == EnemyStates.REPORT)
         {
             agent.stoppingDistance = stoppingDistance;
@@ -522,6 +544,7 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(susSpeed);
 
+                //Records and adds the player's last known location as a part of the waypoints list for patrollling.
                 if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
                 {
                     waypoints.Add(GameObjectContructor("SussyPatrolLoc", transform.position).transform);
@@ -531,7 +554,6 @@ public class EnemyManager : MonoBehaviour
                     SussyWaypointMade = true;
                 }
 
-                //Buffer timer
 
                 //Used to send the guard to random locations in a set radius, meant to emulate confusion from the unit
                 if (oneTimeUseTimer > 0)
@@ -566,17 +588,19 @@ public class EnemyManager : MonoBehaviour
                 //Exit Condition
                 if (eyeball.susLevel < sussySusMin)
                 {
-                    //SUSPICIOUS >> WARY
-                    stateMachine = EnemyStates.WARY;
+                    guardAnim.ExitSearchingAnim();
 
                     oneTimeUseTimer = oneTimeUseTimerReset;
+
+                    //SUSPICIOUS >> WARY
+                    stateMachine = EnemyStates.WARY;
                 }
 
                 if (eyeball.susLevel > sussySusMax)
                 {
-                    oneTimeUseTimer = oneTimeUseTimerReset;
-
                     guardAnim.ExitSearchingAnim();
+
+                    oneTimeUseTimer = oneTimeUseTimerReset;
 
                     //the cool lil MGS thing
                     var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
@@ -601,7 +625,7 @@ public class EnemyManager : MonoBehaviour
 
                 FaceTarget(target);
 
-                //Checking if the player is within the AI's look radius
+                //Checking if the player can be seen by the guard
                 if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > hostileSusMin)
                 {
 
@@ -665,6 +689,7 @@ public class EnemyManager : MonoBehaviour
 
                 targetText.text = "Security Station";
 
+                //Do a check to see if there is a valid path to this nearest security station as well
                 target = NearestStation().transform.position;
 
                 eyeball.susLevel = 3.5f;
@@ -681,15 +706,6 @@ public class EnemyManager : MonoBehaviour
 
                     stateMachine = EnemyStates.WARY;
                 }
-
-                //if (NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path) == true)
-                //{
-                //    print("Path is valid");
-                //}
-                //else
-                //{
-                //    print("Can't find security station");
-                //}
 
                 break;
             #endregion Report Behaviour
@@ -741,33 +757,18 @@ public class EnemyManager : MonoBehaviour
 
                 FaceTarget(target);
 
-                //Temporary Code
-                if (tempTaserTimer > 0)
-                {
-                    //countdown
-                    tempTaserTimer -= Time.fixedDeltaTime;
-                }
-                else if (tempTaserTimer <= 0)
-                {
-                    //Spawn projectile in the forward direction of the guard
-                    //later on change the spawn position to be the tip of the taser(assuming conditions and animations are already in place)
+                StartCoroutine(ITaserFirerate());
 
-                    var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
-
-                    //taserPrefab.transform.LookAt(eyeball.lastKnownLocation);
-                    //print(eyeball.lastKnownLocation);
-
-                    tempTaserTimer = Random.Range(5f, 5f);
-                }
 
                 //Exit Condition(s)
+                //Take another look at this for any improvements / optimiazations that could be made 02/16/1999
                 if (eyeball.canCurrentlySeePlayer == false || agent.CalculatePath(target, agent.path) == true || distanceToPlayer >= taserRadius)
                 {
                     //RANGED ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
+
+                    StopCoroutine(ITaserFirerate());
                 }
-
-
                 break;
             #endregion Ranged Attack Behavior
 
@@ -812,11 +813,8 @@ public class EnemyManager : MonoBehaviour
             #region Default Behavior / Bug Catcher
             default:
 
-                stateText.text = ("ERROR");
-
-                targetText.text = $"Target = {targetText}";
-
-                FaceTarget(target);
+                //Probably fine to have this print once a frame since it would be a recognizable way to show that something is borked with the state machine
+                print("Shitter's clogged");
 
                 break;
             #endregion Default Behavior / Bug Catcher
@@ -916,24 +914,7 @@ public class EnemyManager : MonoBehaviour
     // Finds nearest security station
     private GameObject NearestStation()
     {
-        /*
-            - Generate list of stations
-            - Sort list by distance
-            - Select nearest station
-
-            float curDistance;
-            float minDistance = 9999;
-            gameObject closestObject;
-            foreach (obj in List)
-            {
-              curDistance = distance between this object and current object
-              if (curDistance < minDistance)
-                {
-                minDistance = curDistance;
-                closestObject = obj;
-                }
-            }
-        */
+        //Credit goes to Patrick for this code
 
         float currentDistance;
         float minDistance = Mathf.Infinity;
@@ -1019,7 +1000,10 @@ public class EnemyManager : MonoBehaviour
 
     //---------------------------------//
     // Function for setting AI destination
-    void SetAIDestination(Vector3 point) => agent.SetDestination(point); //End SetAIDestination
+    void SetAIDestination(Vector3 point)
+    {
+        agent.SetDestination(point); //End SetAIDestination
+    }
 
 
     //---------------------------------//
