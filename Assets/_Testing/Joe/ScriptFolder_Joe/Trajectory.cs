@@ -5,17 +5,14 @@ using static System.Math;
 
 public class Trajectory : MonoBehaviour
 {
-    [SerializeField] private float Velocity;
-    [SerializeField] private float AngleofLaunch;
-    [SerializeField] private float InitialHeight;
-    private float y;
-    private float x;
-    private float Vy;
-    private float Vx;
+    private InventoryController inventoryController;
+    private float Velocity;
+    private float AngleofLaunch = 45.0f;
+    [SerializeField] private Transform InitialPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        inventoryController = GetComponent<InventoryController>();
     }
 }
