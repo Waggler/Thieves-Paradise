@@ -20,6 +20,8 @@ public class WinScreenMenuManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        Time.timeScale = 1;
+
 
 
     }//END Init
