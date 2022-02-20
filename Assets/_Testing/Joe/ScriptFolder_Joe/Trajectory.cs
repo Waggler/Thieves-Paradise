@@ -8,11 +8,17 @@ public class Trajectory : MonoBehaviour
     private InventoryController inventoryController;
     private float Velocity;
     private float AngleofLaunch = 45.0f;
+    
     [SerializeField] private Transform InitialPosition;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         inventoryController = GetComponent<InventoryController>();
+    }
+
+    private void Update()
+    {
+        Velocity = inventoryController.throwForce;
+
     }
 }
