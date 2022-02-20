@@ -12,6 +12,16 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
     private float baitInterval = 2; //how often the item tries to lure enemies
     private float timer;
 
+    public bool DebugMode;
+
+    private bool isObjectiveItem = false;
+
+    public bool isKeyItem
+    {
+        get {return isObjectiveItem;}
+        set {isObjectiveItem = value;}
+    }
+
 
     public GameObject myself
     {
@@ -51,6 +61,9 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
     private void LurePigs()
     {
         //alertManager.AlertGuards(transform.position, transform.position, baitRadius);
+
+
+        if (DebugMode) print("Looking for enemies");
 
         //grab everything within a radius
         List<Collider> hitColliders = new List<Collider>(Physics.OverlapSphere(transform.position, baitRadius));
