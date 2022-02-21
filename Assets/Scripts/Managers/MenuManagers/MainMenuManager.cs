@@ -30,6 +30,8 @@ public class MainMenuManager : MonoBehaviour
     private void Init()
     //-----------------------//
     {
+        Time.timeScale = 1;
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
