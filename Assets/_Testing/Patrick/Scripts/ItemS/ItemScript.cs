@@ -12,6 +12,13 @@ public class ItemScript : ItemSuperScript, ItemInterface
     [SerializeField] private GameObject deployableObject;
     [SerializeField] private AudioClip hitSFX;
     [SerializeField] private float SFXVolume = 1;
+    [SerializeField] private bool isObjectiveItem;
+
+    public bool isKeyItem
+    {
+        get {return isObjectiveItem;}
+        set {isObjectiveItem = value;}
+    }
 
     public GameObject myself
     {

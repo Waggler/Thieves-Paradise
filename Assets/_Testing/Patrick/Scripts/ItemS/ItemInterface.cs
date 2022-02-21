@@ -15,6 +15,11 @@ public interface ItemInterface
         get;
         set;
     }
+    public bool isKeyItem
+    {
+        get;
+        set;
+    }
     void UseItem();
 
     void UseItemEnd();
