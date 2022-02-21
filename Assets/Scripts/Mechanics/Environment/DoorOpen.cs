@@ -49,7 +49,7 @@ public class DoorOpen : MonoBehaviour
     public float Timer3 = 0f;
     public bool reachedTimer = false;
     public bool reachedTimer2 = false;
-    //REMEMBER TP ATTEMPT TO PUT DOOR-OPENING CODE IN UPDATE AND TO USE A TIMER WITH TIME.DELTA TIME FOR OPENING DOOR
+    //REMEMBER TO ATTEMPT TO PUT DOOR-OPENING CODE IN UPDATE AND TO USE A TIMER WITH TIME.DELTA TIME FOR OPENING DOOR
     
     // Start is called before the first frame update
     void Start()
