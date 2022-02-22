@@ -5,6 +5,7 @@ using UnityEngine;
 public class WalkPastFallOver : MonoBehaviour
 {
     public PlayerMovement pm;
+    public InputManager im;
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +21,12 @@ public class WalkPastFallOver : MonoBehaviour
 
     public void OnTriggerEnter()
     {
-        if(pm.IsCrouching == true)
+        if(pm.IsCrouching == true || im.isCrouching == true)
         {
             Debug.Log("Walked Past!");
         }
 
-        if(pm.IsCrouching == false)
+        if(pm.IsCrouching == false || im.isCrouching == false)
         {
             Debug.Log("Sound Made!");
         }
