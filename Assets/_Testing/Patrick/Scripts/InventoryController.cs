@@ -222,6 +222,7 @@ public class InventoryController : MonoBehaviour
         thrownItem.SetActive(true);
         thrownItem.name = thrownItem.GetComponent<ItemInterface>().itemName;
         Vector3 throwVector = transform.forward * throwForce + transform.up * throwForce;
+        
         thrownItem.GetComponent<Rigidbody>().AddForce(throwVector);
         thrownItem.GetComponent<Rigidbody>().AddTorque(Vector3.one * Random.Range(5f,15f));
         thrownItem.GetComponent<ItemSuperScript>().ThrowItem();
