@@ -14,8 +14,8 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Levelmanager")]
     [SerializeField] private LevelManager levelManager;
-    [SerializeField] private int nextSceneIndex;
-    [SerializeField] private bool isEndCredits;
+    public int nextSceneIndex;
+    public bool isEndCredits;
 
     //-----------------------//
     private void Start()
