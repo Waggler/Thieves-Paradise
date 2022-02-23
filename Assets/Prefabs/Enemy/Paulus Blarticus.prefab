@@ -127,36 +127,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &1791299338356384477
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4109841024068962955}
-  m_Layer: 8
-  m_Name: PlayerCaptureTeleport
-  m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4109841024068962955
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1791299338356384477}
-  m_LocalRotation: {x: -0, y: 4.6566118e-10, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.69705874}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2979125867967236016}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2017496725709939924
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,8 +300,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3306073835687242439}
-  m_LocalRotation: {x: -0, y: -0.9999792, z: -0, w: 0.0064577665}
-  m_LocalPosition: {x: -17.536503, y: -5.2140837, z: 1.153615}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.726, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3325092846946898785}
@@ -638,9 +608,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3325092846946898786}
-  m_LocalRotation: {x: -0, y: 0.9999792, z: -0, w: 0.0064577665}
-  m_LocalPosition: {x: -17.547503, y: 7.469801, z: 0.75334746}
-  m_LocalScale: {x: 1.1789001, y: 0.45257998, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 544382310378740329}
   m_RootOrder: 0
@@ -695,7 +665,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3325092847374484679}
-  m_LocalRotation: {x: 0, y: 0.9999792, z: 0, w: 0.0064577665}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -706,7 +676,7 @@ Transform:
   - {fileID: 7649219122052328019}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 179.26, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &3325092847374484676
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -726,7 +696,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -0.5
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!136 &3325092847374484677
@@ -812,14 +782,16 @@ MonoBehaviour:
   guardKnockbackForce: 50
   attackTime: 0
   attackRadius: 2
-  taserRadius: 0
+  taserShotRadius: 0
   waypointNextDistance: 0.5
-  playerCaptureTeleportLoc: {fileID: 1791299338356384477}
-  playerReleaseTeleportLoc: {fileID: 7543830123775770894}
+  playerCaptureTeleportLoc: {fileID: 0}
+  playerReleaseTeleportLoc: {fileID: 0}
   tempTaserTimer: 0
   taserProjectile: {fileID: 6202073389112031844, guid: a0b8e85b42ab8c14b8eae6c4a32e318e, type: 3}
   taserSpawnLoc: {fileID: 8552973499195692512}
   stoppingDistance: 5
+  playerMovenemtRef: {fileID: 0}
+  beegPelvis: {fileID: 0}
 --- !u!114 &9215408676989096723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1089,16 +1061,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4806736524543689865}
-  m_LocalRotation: {x: -0, y: -0.9999792, z: -0, w: 0.0064577665}
-  m_LocalPosition: {x: 0, y: 1.701, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4109841024068962955}
-  - {fileID: 1041240634711845512}
   - {fileID: 351602480219795793}
   m_Father: {fileID: 3325092847221503260}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &5638044062458340932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,44 +1128,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6561382102904959227}
-  m_LocalRotation: {x: -0, y: -0.9999792, z: -0, w: 0.0064577665}
-  m_LocalPosition: {x: -15.787909, y: -3.4965153, z: -8.903433}
-  m_LocalScale: {x: 0.99999964, y: 1, z: 0.99999964}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8089424150834670618}
   m_Father: {fileID: 3325092847221503260}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7543830123775770894
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1041240634711845512}
-  m_Layer: 0
-  m_Name: PlayerReleaseTeleport
-  m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1041240634711845512
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7543830123775770894}
-  m_LocalRotation: {x: -0, y: 4.6566118e-10, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00081544585, y: 0, z: -1.6891322}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2979125867967236016}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &8552973499195692512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,7 +1148,7 @@ GameObject:
   m_Layer: 0
   m_Name: TaserSpawnPoint
   m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1220,11 +1160,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8552973499195692512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.315, z: -0.609}
+  m_LocalPosition: {x: 0, y: 0, z: -0.666}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2979125867967236016}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8565848104432651432
 GameObject:
@@ -1249,9 +1189,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8565848104432651432}
-  m_LocalRotation: {x: -0, y: -0.9999792, z: -0, w: 0.0064577665}
-  m_LocalPosition: {x: -17.536503, y: -5.2140837, z: 1.153615}
-  m_LocalScale: {x: 0.99999964, y: 1, z: 0.99999964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1138461873}
   m_Father: {fileID: 3325092847221503260}
@@ -1319,15 +1259,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.67161
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.986515
+      value: 0.957
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.106601
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_LocalRotation.w

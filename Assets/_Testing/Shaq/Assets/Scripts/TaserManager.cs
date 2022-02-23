@@ -4,40 +4,28 @@ using UnityEngine;
 
 public class TaserManager : MonoBehaviour
 {
-    /*
-    "UNHOLSTER"
-    
-    Receive Orientation
-        -By receiving information via FaceTarget?
-
-    Launch
-
-    Check for collision with the PLAYER
-
-    COLLIDE 
-
-    DO WHATEVER IS SUPPOSED TO HAPPEN ON COLLISION
-
-    RETURN TO THE GUARD'S "HOLSTER"
-
-    */
-
     #region Variables
 
     //---------------------------------------------------------------------------------------------------//
 
-    [SerializeField] [Range(0f, 5f)] private float taserSpeed = 3.5f;
+    [SerializeField] [Range(0f, 50f)] private float taserSpeed = 25f;
 
     [SerializeField] private Vector3 target;
+
+    [SerializeField] private GameObject player;
+
+    [SerializeField] private PlayerMovement playerMovement;
+
+    public float accuracy;
 
     //---------------------------------------------------------------------------------------------------//
     #endregion Variabels
 
     #region Awake & Update
-    private void Awake()
-    {
-        Init();
-    }
+    //private void Awake()
+    //{
+    //    Init();
+    //}
 
     // Update is called once per frame
     void Update()
@@ -52,22 +40,23 @@ public class TaserManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        //Checking if the collided object has the tag of player
-        if (collision.gameObject.CompareTag("Player"))
+        //Checking if the collided object is the player
+        if (collision.gameObject == player)
         {
             //INSERT CODE TO STUN THE PLAYER
-
+            playerMovement.GetComponent<PlayerMovement>().IsStunned = true;
         }
 
         //Destroys self
         Destroy(gameObject);
     }
-
     #endregion
 
 
     #region Methods
-    private void Init()
+    //---------------------------------//
+    // Called on Awake and initializes everything that is finalized and needs to be done at awake
+    public void Init()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
 
@@ -75,8 +64,23 @@ public class TaserManager : MonoBehaviour
 
         FaceTarget(target);
 
-        rb.velocity = transform.forward * taserSpeed;
-    }
+        //"Recoil"
+        //Vector3 randVec3 = new Vector3 (Random.Range(-1, 1), Random.Range(-1, 1), Random.Range(-1, 1));
+        Vector3 randVec3 = new Vector3 ((Random.Range(-1, 1) * accuracy), (Random.Range(-1, 1) * accuracy), 0);
+
+        //Moves the taser projectile forward
+        rb.velocity = (transform.forward + randVec3) * taserSpeed;
+
+        if (player == null)
+        {
+            player = FindObjectOfType<PlayerMovement>().gameObject;
+        }
+
+        if (playerMovement == null)
+        {
+            playerMovement = player.GetComponent<PlayerMovement>();
+        }
+    }//End Init
 
     //---------------------------------//
     // Function for facing the target
@@ -90,8 +94,7 @@ public class TaserManager : MonoBehaviour
             lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         }
 
-        transform.rotation = lookRotation; //Quaternion.Slerp(transform.rotation, lookRotation, 1);
-        //Slerp is used for rotating something over time, we just want to set the rotation, so simply setting the rotation to lookRotation was all you needed. 
+        transform.rotation = lookRotation;
     }//End FaceTarget
 
     #endregion Methods
