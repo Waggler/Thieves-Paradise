@@ -971,6 +971,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 659782439}
+  - component: {fileID: 659782440}
   m_Layer: 0
   m_Name: Items Manager
   m_TagString: Untagged
@@ -992,6 +993,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &659782440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659782438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14472a63f9b8e74f8bbce1d6d0d2bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadePanel: {fileID: 0}
+  itemPanel: {fileID: 0}
+  worldPanel: {fileID: 0}
+  notePanel: {fileID: 0}
+  smokeButton: {fileID: 0}
+  bottleButton: {fileID: 0}
+  cardButton: {fileID: 0}
+  balloonButton: {fileID: 0}
+  nameText: {fileID: 0}
+  descriptionText: {fileID: 0}
 --- !u!1 &663482579
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,6 +2448,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1465681078}
+  - component: {fileID: 1465681079}
   m_Layer: 0
   m_Name: Notes Manager
   m_TagString: Untagged
@@ -2446,6 +2470,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1465681079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465681077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea9685c7b85204d811d636a3968859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadePanel: {fileID: 0}
+  itemPanel: {fileID: 0}
+  worldPanel: {fileID: 0}
+  notePanel: {fileID: 0}
+  note1Button: {fileID: 0}
+  note2Button: {fileID: 0}
+  note3Button: {fileID: 0}
+  note4Button: {fileID: 0}
+  note5Button: {fileID: 0}
+  note6Button: {fileID: 0}
+  note7Button: {fileID: 0}
+  note8Button: {fileID: 0}
+  note9Button: {fileID: 0}
+  note10Button: {fileID: 0}
+  descriptionText: {fileID: 0}
 --- !u!1 &1522229617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,6 +2743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1741904850}
+  - component: {fileID: 1741904851}
   m_Layer: 0
   m_Name: World Manager
   m_TagString: Untagged
@@ -2713,6 +2765,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1741904851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741904849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1541d6e3d4f45f9418b33c103db7d65c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadePanel: {fileID: 0}
+  itemPanel: {fileID: 0}
+  worldPanel: {fileID: 0}
+  notePanel: {fileID: 0}
+  musicButton: {fileID: 0}
+  jewelryButton: {fileID: 0}
+  perfumeButton: {fileID: 0}
+  luxuryButton: {fileID: 0}
+  partyButton: {fileID: 0}
+  toyButton: {fileID: 0}
+  antiqueButton: {fileID: 0}
+  apparelButton: {fileID: 0}
+  hardwareButton: {fileID: 0}
+  kitchenButton: {fileID: 0}
+  arcadeButton: {fileID: 0}
+  borgarButton: {fileID: 0}
+  fitnessButton: {fileID: 0}
+  menButton: {fileID: 0}
+  foodCourtButton: {fileID: 0}
+  yeehawButton: {fileID: 0}
+  tokyoButton: {fileID: 0}
+  beachButton: {fileID: 0}
+  mainButton: {fileID: 0}
+  clockButton: {fileID: 0}
+  nameText: {fileID: 0}
+  descriptionText: {fileID: 0}
+  imageOne: {fileID: 0}
+  imageTwo: {fileID: 0}
 --- !u!1001 &1889820662
 PrefabInstance:
   m_ObjectHideFlags: 0
