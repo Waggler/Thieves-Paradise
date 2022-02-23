@@ -70,7 +70,7 @@ public class TripwireManager : MonoBehaviour
                 //Alerts guards in a set radius (Guards List generated in method)
                 susManagerRef.AlertGuards(hit.point, transform.position, callRadius);
 
-                print("NOT A GUARD");
+                //print("NOT A GUARD");
             }
         }
 
