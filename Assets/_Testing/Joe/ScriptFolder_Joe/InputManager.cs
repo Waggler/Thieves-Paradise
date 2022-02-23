@@ -16,6 +16,7 @@ public class InputManager : MonoBehaviour
     public float rollCooldownTime;
     private float cooldownTimer;
     private int jumpPressCounter = 1;
+    [HideInInspector] public bool IsZoomed;
 
     void Awake()
     {
@@ -130,11 +131,13 @@ public class InputManager : MonoBehaviour
     {
         if(context.performed)
         {
-            camSwitch.SwitchState(true);
+            IsZoomed = true;
+            camSwitch.SwitchState(IsZoomed);
         }
         else if(context.canceled)
         {
-            camSwitch.SwitchState(false);
+            IsZoomed = false;
+            camSwitch.SwitchState(IsZoomed);
         }
     }// END ZOOM IN
 

@@ -14,19 +14,34 @@ public class Trajectory : MonoBehaviour
     [Header("Visualization")]
     [SerializeField] private LineRenderer Line;
     [SerializeField] private int LineLength;
-    [SerializeField] private Material Mat1, Mat2, Mat3;
+    [SerializeField] private Material Mat1, Mat2;
+    private InputManager inputManager;
+    private bool TrajectoryStart;
 
     void Start()
     {
+        Line.positionCount = LineLength;
         inventoryController = GetComponent<InventoryController>();
+        inputManager = GetComponent<InputManager>();
     }
 
     void Update()
     {
         Velocity = inventoryController.throwForce;
-
+        TrajectoryStart = inputManager.IsZoomed;
+        PredictingLaunch();
     }
-
+    void PredictingLaunch()
+    {
+        if(TrajectoryStart)
+        {
+            Line.material = Mat1;
+        }
+        else
+        {
+            Line.material = Mat2;
+        }
+    }
     void Visulization()
     {
         for(int i = 0; i < LineLength; i++)
