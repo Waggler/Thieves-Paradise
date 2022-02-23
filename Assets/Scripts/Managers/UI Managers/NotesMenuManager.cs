@@ -14,9 +14,7 @@ public class NotesMenuManager : MonoBehaviour
 
     [Header("Panels")]
     [SerializeField] private GameObject fadePanel;
-    [SerializeField] private GameObject itemPanel;
-    [SerializeField] private GameObject worldPanel;
-    [SerializeField] private GameObject notePanel;
+    [SerializeField] private GameObject descriptionPanel;
 
     [Space(5)]
 
@@ -44,9 +42,6 @@ public class NotesMenuManager : MonoBehaviour
     #region Methods
 
 
-    #region Startups
-
-
     //-----------------------//
     private void Start()
     //-----------------------//
@@ -59,12 +54,98 @@ public class NotesMenuManager : MonoBehaviour
     private void Init()
     //-----------------------//
     {
-
+        if (PlayerPrefs.GetInt("isNote1PickedUp") == 1)
+        {
+            note1Button.interactable = true;
+        }
+        else
+        {
+            note1Button.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("isNote2PickedUp") == 1)
+        {
+            note2Button.interactable = true;
+        }
+        else
+        {
+            note2Button.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("isNote3PickedUp") == 1)
+        {
+            note3Button.interactable = true;
+        }
+        else
+        {
+            note3Button.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("isNote4PickedUp") == 1)
+        {
+            note4Button.interactable = true;
+        }
+        else
+        {
+            note4Button.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("isNote5PickedUp") == 1)
+        {
+            note5Button.interactable = true;
+        }
+        else
+        {
+            note5Button.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("isNote6PickedUp") == 1)
+        {
+            note6Button.interactable = true;
+        }
+        else
+        {
+            note6Button.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("isNote7PickedUp") == 1)
+        {
+            note7Button.interactable = true;
+        }
+        else
+        {
+            note7Button.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("isNote8PickedUp") == 1)
+        {
+            note8Button.interactable = true;
+        }
+        else
+        {
+            note8Button.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("isNote9PickedUp") == 1)
+        {
+            note9Button.interactable = true;
+        }
+        else
+        {
+            note9Button.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("isNote10PickedUp") == 1)
+        {
+            note10Button.interactable = true;
+        }
+        else
+        {
+            note10Button.interactable = false;
+        }
 
     }//END Init
 
+    //-----------------------//
+    public void InitNote(NoteCollectibleData data)
+    //-----------------------//
+    {
+        descriptionText.text = data.description.ToString();
+        fadePanel.SetActive(true);
+        descriptionPanel.SetActive(true);
 
-    #endregion Startups
+    }//END InitNote
 
 
     #endregion Methods

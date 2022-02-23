@@ -14,9 +14,7 @@ public class WorldMenuManager : MonoBehaviour
 
     [Header("Panels")]
     [SerializeField] private GameObject fadePanel;
-    [SerializeField] private GameObject itemPanel;
-    [SerializeField] private GameObject worldPanel;
-    [SerializeField] private GameObject notePanel;
+    [SerializeField] private GameObject descriptionPanel;
 
     [Space(5)]
 
@@ -58,33 +56,17 @@ public class WorldMenuManager : MonoBehaviour
     #endregion Components
 
 
-    #region Methods
-
-
-    #region Startups
-
-
     //-----------------------//
-    private void Start()
+    public void InitLocation(LocationCollectibleData data)
     //-----------------------//
     {
-        Init();
+        nameText.text = data.name.ToString();
+        descriptionText.text = data.description.ToString();
+        imageOne.sprite = data.locationSprite1;
+        imageTwo.sprite = data.locationSprite2;
+        fadePanel.SetActive(true);
+        descriptionPanel.SetActive(true);
 
-    }//END Start
-
-    //-----------------------//
-    private void Init()
-    //-----------------------//
-    {
-
-
-    }//END Init
-
-
-    #endregion Startups
-
-
-    #endregion Methods
-
+    }//END InitLocation
 
 }//END CLASS WorldMenuManager

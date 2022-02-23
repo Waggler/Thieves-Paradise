@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class LocationCollectibleData : MonoBehaviour
+public class LocationCollectibleData
 {
 
     [Header("Location Info")]
