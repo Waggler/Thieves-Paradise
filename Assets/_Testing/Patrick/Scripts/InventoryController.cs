@@ -16,6 +16,7 @@ public class InventoryController : MonoBehaviour
 
     [HideInInspector] public float throwForce;
     [HideInInspector] public bool isHoldingItem;
+    [HideInInspector] public Vector3 throwVector;
     
 
     [SerializeField] private int inventorySize = 4;
@@ -57,6 +58,7 @@ public class InventoryController : MonoBehaviour
         if(throwing && throwForce < 1000)
         {
             throwForce += Time.deltaTime * 200;
+            throwVector = transform.forward * throwForce + transform.up * throwForce;
         }
     }
     #region PlayerInput
@@ -221,7 +223,7 @@ public class InventoryController : MonoBehaviour
         GameObject thrownItem = Instantiate(itemInterfaceInventory[activeItemIndex].myself, holdItemPos.position + transform.forward, Quaternion.identity);
         thrownItem.SetActive(true);
         thrownItem.name = thrownItem.GetComponent<ItemInterface>().itemName;
-        Vector3 throwVector = transform.forward * throwForce + transform.up * throwForce;
+        //throwVector = transform.forward * throwForce + transform.up * throwForce;
         
         thrownItem.GetComponent<Rigidbody>().AddForce(throwVector);
         thrownItem.GetComponent<Rigidbody>().AddTorque(Vector3.one * Random.Range(5f,15f));
