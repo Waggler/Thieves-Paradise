@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitializeAudio : MonoBehaviour
+public class InitializeBasicSettings : MonoBehaviour
 {
 
     //-------------------------//
@@ -10,6 +10,7 @@ public class InitializeAudio : MonoBehaviour
     //-------------------------//
     {
         SetDefaultVolume();
+        SetDefaultSettings();
 
     }//END Awake
 
@@ -21,7 +22,19 @@ public class InitializeAudio : MonoBehaviour
         PlayerPrefs.SetFloat("MusicAudio", 0);
         PlayerPrefs.SetFloat("SFXAudio", 0);
 
-        this.gameObject.SetActive(false);
+    }//END SetDefaultVolume
+
+    //-------------------------//
+    void SetDefaultSettings()
+    //-------------------------//
+    {
+        PlayerPrefs.SetInt("CrouchToggle", 1);
+        PlayerPrefs.SetInt("SprintToggle", 0);
+        PlayerPrefs.SetInt("InvertVerticalToggle", 0);
+        PlayerPrefs.SetInt("InvertHorizontalToggle", 0);
+        PlayerPrefs.SetInt("FlipUI", 0);
+        PlayerPrefs.SetInt("thirtyFPSON", 0);
+
 
     }//END SetDefaultVolume
 
