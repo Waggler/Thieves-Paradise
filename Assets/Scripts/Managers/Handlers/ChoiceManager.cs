@@ -88,12 +88,6 @@ public class ChoiceManager : MonoBehaviour
 
     }//END CloseChoices
 
-    public void ChooseChoiceOption(int optionId)
-    {
-
-        
-    }
-
     public void ShowResponse(int optionId)
     {
         currentChoice.isChoice = false;
