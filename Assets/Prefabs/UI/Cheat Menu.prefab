@@ -170,7 +170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 25, y: 40}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 220, y: 35}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &3214447945907343350
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cheat Options
+  m_text: Cheat OptiOns
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1eda5f7373bfdb428bd611a9129770c, type: 2}
   m_sharedMaterial: {fileID: 5015644893565302029, guid: f1eda5f7373bfdb428bd611a9129770c, type: 2}
@@ -284,7 +284,6 @@ GameObject:
   - component: {fileID: 3214447945909518409}
   - component: {fileID: 1472673185662348309}
   - component: {fileID: 4145183241721192037}
-  - component: {fileID: 3859511518064852169}
   m_Layer: 5
   m_Name: Cheat Menu
   m_TagString: Untagged
@@ -537,21 +536,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cheatMenu: {fileID: 3214447946827077674}
   godText: {fileID: 9177606396069914014}
---- !u!114 &3859511518064852169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3214447945909518407}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
 --- !u!1 &3214447946827077674
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3214447946827077675
 RectTransform:
   m_ObjectHideFlags: 0
@@ -587,8 +571,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25, y: -40}
-  m_SizeDelta: {x: 125, y: 175}
+  m_AnchoredPosition: {x: -28.8, y: -97.9}
+  m_SizeDelta: {x: 255, y: 105}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &3503519915381608969
 GameObject:
@@ -1187,10 +1171,10 @@ RectTransform:
   m_Father: {fileID: 3214447946827077675}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 210, y: 35}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 17.5}
+  m_SizeDelta: {x: 245, y: 35}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &7482790506597005848
 CanvasRenderer:
@@ -1766,8 +1750,8 @@ RectTransform:
   m_Father: {fileID: 3214447946827077675}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -40}
-  m_SizeDelta: {x: 233, y: 50}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 35}
+  m_SizeDelta: {x: 24524512, y: 35}
   m_Pivot: {x: 1, y: 1}
