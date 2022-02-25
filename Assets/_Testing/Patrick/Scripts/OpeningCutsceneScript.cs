@@ -37,17 +37,25 @@ public class OpeningCutsceneScript : MonoBehaviour
 
         CMCutsceneCam.transform.position = waypoints[0].transform.position;
         CMCutsceneCam.transform.rotation = waypoints[0].transform.rotation;
-        int count = 1;
+        int camNum = 1;
+        int oldCamNum = 1;
 
         //yield return new WaitForSeconds(2);
 
         foreach (GameObject i in waypoints)
         {
+            //play camera transition noise here
+
             CMCutsceneCam.transform.position = i.transform.position;
             CMCutsceneCam.transform.rotation = i.transform.rotation;
 
-            count++;
-            ic.camCount.text = "Cam 0" + count;
+            while(camNum == oldCamNum)
+            {   //prevents the same number showing up twice in a row
+                camNum = Random.Range(10,99);
+            }
+            oldCamNum = camNum;
+
+            ic.camCount.text = "Cam " + camNum;
             yield return new WaitForSeconds(timeAtWaypoints);
         }
 

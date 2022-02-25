@@ -8,8 +8,11 @@ public class InventoryVisualController : MonoBehaviour
 {
     [SerializeField] public GameObject InventoryUI;
     [SerializeField] public GameObject OpeningCutsceneUI;
+    [SerializeField] private RectTransform CamScreen;
     [SerializeField] private Image blackScreen;
     [SerializeField] public TextMeshProUGUI camCount;
+
+    public bool useCoolTransition;
 
     public void SetupCutscene()
     {
@@ -45,6 +48,31 @@ public class InventoryVisualController : MonoBehaviour
 
     public void ReturnToGameplay()
     {
+        
+        if(useCoolTransition)
+        {
+            StartCoroutine(CoolTransition());
+        }else
+        {
+            InventoryUI.SetActive(true);
+            OpeningCutsceneUI.SetActive(false);
+        }
+        
+    }
+
+    private IEnumerator CoolTransition()
+    {
+        float x = 1;
+        while (x < 6)
+        {
+            CamScreen.localScale = new Vector3(x, x, x);
+            x += Time.deltaTime * 20;
+
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        yield return new WaitForSeconds(0.25f);
+        //disable cutscene canvas and enable proper one
         InventoryUI.SetActive(true);
         OpeningCutsceneUI.SetActive(false);
     }
