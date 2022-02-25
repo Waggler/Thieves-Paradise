@@ -603,6 +603,9 @@ public class EnemyManager : MonoBehaviour
 #if UNITY_EDITOR
         Gizmos.color = Color.white;
         Gizmos.DrawSphere(target, 0.75f);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(taserSpawnLoc.transform.position, -Vector3.forward);
 #endif
 
     }//End OnDrawGizmos
@@ -954,8 +957,9 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(0);
 
+                target = eyeball.lastKnownLocation;
+
                 FaceTarget(target);
-                Debug.Log("Facing Target");
 
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
                 if (playerMovenemtRef.IsStunned == true)
