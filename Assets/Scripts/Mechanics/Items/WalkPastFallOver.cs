@@ -6,6 +6,8 @@ public class WalkPastFallOver : MonoBehaviour
 {
     public PlayerMovement pm;
     public InputManager im;
+    public GameObject fallingObject;
+    public float Timer = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,7 @@ public class WalkPastFallOver : MonoBehaviour
         
     }
 
-    public void OnTriggerEnter()
+    public void OnTriggerStay()
     {
         if(pm.IsCrouching == true || im.isCrouching == true)
         {
@@ -29,6 +31,11 @@ public class WalkPastFallOver : MonoBehaviour
         if(pm.IsCrouching == false || im.isCrouching == false)
         {
             Debug.Log("Sound Made!");
+            float minAngle = 0f;
+            float maxAngle = -90f;
+            Timer = Timer + Time.deltaTime;
+            float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+            fallingObject.transform.eulerAngles = new Vector3(angle, 0, 0);
         }
     }
 }
