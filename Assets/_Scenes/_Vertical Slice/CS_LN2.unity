@@ -853,7 +853,7 @@ MonoBehaviour:
   skipButton: {fileID: 1597029382}
   dialogueManager: {fileID: 558106688}
   levelManager: {fileID: 1976344117}
-  skipButtonAppearIndex: 2
+  skipButtonAppearIndex: 1
 --- !u!4 &385916066
 Transform:
   m_ObjectHideFlags: 0
@@ -1145,6 +1145,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
   dialogue:
+  - characterName: 'NOTE:'
+    sentences:
+    - To skip, hold the skip button for 5 seconds.
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "\u201CI brought you a gift\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CIs this what you wanted\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
+        so my reward better be worth it\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
   - characterName: Narration
     sentences:
     - "*After your heist, you show up to Borgar at the agreed meeting time. You approach
