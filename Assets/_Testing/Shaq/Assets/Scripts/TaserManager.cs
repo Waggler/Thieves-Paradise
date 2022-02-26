@@ -37,7 +37,8 @@ public class TaserManager : MonoBehaviour
             //    collision.gameObject.GetComponent<EnemyManager>().stateMachine = EnemyManager.EnemyStates.STUNNED;
             //}
 
-        Debug.Log(collision.gameObject);
+        //Debug.Log(collision.gameObject);
+        
         //Destroys self
         Destroy(gameObject);
     }//End OnTriggerEnter

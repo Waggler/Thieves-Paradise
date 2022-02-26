@@ -82,7 +82,6 @@ public class EnemyManager : MonoBehaviour
     [Space(20)]
 
     //Minimum Suspicion level to enter this state
-    //Implied Min Value of 0
     [HideInInspector] private float passiveSusMax = 3;
 
     //Minimum Suspicion level to enter this state
@@ -96,7 +95,6 @@ public class EnemyManager : MonoBehaviour
     [HideInInspector] private float sussySusMax = 5;
 
     //Minimum Suspicion level to enter this state
-    //Implied Max Value of eyeball.susLevel max
     [HideInInspector] private float hostileSusMin = 5.1f;
 
     //---------------------------------------------------------------------------------------------------//
@@ -234,7 +232,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject taserSpawnLoc;
 
     [Tooltip("Basically the fire rate for the guard's taser")]
-    [SerializeField] [Range (0f, 5f)] private float fireRateReset;
+    [SerializeField] [Range (0f, 10f)] private float fireRateReset;
 
     [Tooltip("Guard's stopping distance from the security station")]
     [SerializeField] private float stoppingDistance = 2f;
@@ -423,6 +421,8 @@ public class EnemyManager : MonoBehaviour
         securityStations = new List<GameObject>(GameObject.FindGameObjectsWithTag("SecurityStation"));
 
         ceaseFire = false;
+
+        fireRate = fireRateReset;
 
         NearestStation();
     }//End Init
@@ -967,6 +967,8 @@ public class EnemyManager : MonoBehaviour
                     ceaseFire = false;
                 }
 
+                Debug.Log(ceaseFire);
+
                 if (ceaseFire == false)
                 {
                     if (fireRate > 0)
@@ -988,7 +990,7 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 //Exit Condition(s)
-                if (eyeball.canCurrentlySeePlayer == false && agent.remainingDistance >= taserShotRadius)
+                if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance >= taserShotRadius)
                 {
                     //RANGED ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
