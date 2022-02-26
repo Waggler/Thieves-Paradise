@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour
 {
 
     #region Enumerations
-    private enum CamStates
+    public enum CamStates
     {
         MONITORING,
         FOCUSED,
@@ -99,13 +99,12 @@ public class CameraManager : MonoBehaviour
 
     [HideInInspector] private float distanceToCamera;
 
-    [HideInInspector] private float timeLeft;
+    private Quaternion initialRotation;
 
-    private bool timerBool;
+    private float disabledTime;
 
-    public float camRotationFuckery;
-
-    private Quaternion initialRotation; 
+    [Tooltip("Amount of the time the camera will be disabled for")]
+    [SerializeField] private float disabledTimeReset;
 
 
     #endregion Variables
@@ -172,11 +171,9 @@ public class CameraManager : MonoBehaviour
                     isAudioSourcePlaying = false;
                 }
 
-
                 Vector3 hiddenRotationMax = new Vector3(0, rotationMax, 0);
 
                 hiddenRotationMax.y = Mathf.Clamp(transform.rotation.y, rotationMax, -rotationMax);
-
 
                 //Technically this snippet of code shouldn't work yet it does, will likely break in the future and need to be fixed
                 //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
@@ -206,8 +203,6 @@ public class CameraManager : MonoBehaviour
 
                 target = eyeball.lastKnownLocation;
 
-                //FaceTarget(target);
-
                 transform.LookAt(target);
 
                 camLightRef.color = Color.red;
@@ -234,10 +229,19 @@ public class CameraManager : MonoBehaviour
                 break;
             #endregion Focused State
 
-            //Do not use, currently broken
             #region Disabled State
             case CamStates.DISABLED:
-                DisableCamera(5f);
+
+                if (disabledTime > 0)
+                {
+                    disabledTime -= Time.fixedDeltaTime;
+                }
+                else if (disabledTime < 0)
+                {
+                    disabledTime = disabledTimeReset;
+
+                    cameraStateMachine = CamStates.MONITORING;
+                }
 
                 camLightRef.color = Color.yellow;
 
@@ -245,10 +249,9 @@ public class CameraManager : MonoBehaviour
             #endregion Disabled State
 
             #region Default / Error state
-            //Not exactly a state but acts as a net to catch any bugs that would prevent the game from running
             default:
                 break;
-                #endregion Default / Error State
+            #endregion Default / Error State
         }
         #endregion Cam State Machine
 
@@ -268,7 +271,7 @@ public class CameraManager : MonoBehaviour
         stateText.text = "";
         targetText.text = "";
 
-        cameraStateMachine = CamStates.MONITORING;
+        //cameraStateMachine = CamStates.MONITORING;
 
         //Note: This method of referencing the suspicion manager is stupid and I should find a way to do it in one line
         //Creates a reference to the suspicion manager object
@@ -286,22 +289,10 @@ public class CameraManager : MonoBehaviour
 
         initialRotation = transform.rotation;
 
+        disabledTime = disabledTimeReset;
+
         UpdateCamLightVars();
     }//End Init
-
-    //Function that makes the object face it's target
-    void FaceTarget(Vector3 target)
-    {
-        Vector3 direction = (target - transform.position).normalized;
-
-        Quaternion lookRotation = Quaternion.identity;
-        if (direction.x != 0 && direction.z != 0)
-        {
-            lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        }
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
-    }//End FaceTarget
 
 
     //---------------------------------//
@@ -340,19 +331,6 @@ public class CameraManager : MonoBehaviour
         camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
 
     }//End UpdateCamVars
-
-
-    //---------------------------------//
-    //Disables the camera
-    public void DisableCamera(float disableTime)
-    {
-        camLightRef.color = Color.yellow;
-
-        timeLeft = disableTime;
-
-        cameraStateMachine = CamStates.DISABLED;
-    }
-
 
 
     public void EnableCamera()
