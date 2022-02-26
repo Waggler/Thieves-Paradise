@@ -558,6 +558,7 @@ public class EnemyManager : MonoBehaviour
             Destroy(other.gameObject);
         }
     }//End OnTriggerEnter
+    
 
     //---------------------------------//
     // Generates a random point for the guard to go to

@@ -181,11 +181,8 @@ public class CameraManager : MonoBehaviour
                 {
                     //Inverts the camera's turn speed
                     camSpeed = -camSpeed;
-
-                    hiddenRotationMax.y = -hiddenRotationMax.y;
                 }
 
-                //if (distanceToPlayer <= lookRadius)
                 if (eyeball.canCurrentlySeePlayer == true)
                 {
                     Instantiate(surpriseVFX, transform.position, transform.rotation);
