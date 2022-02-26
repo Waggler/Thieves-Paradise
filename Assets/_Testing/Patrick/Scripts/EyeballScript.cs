@@ -74,7 +74,10 @@ public class EyeballScript : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(player.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        // Note from Shaq to Shaq, Patrick do not worry about this
+        // Do not ever do this again you idiot, it uses self space instead of world space
+        //if (Physics.Raycast(player.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        if (Physics.Raycast(player.position, Vector3.down, out hit, Mathf.Infinity))
         {
             lastKnownLocation = hit.point;
         }

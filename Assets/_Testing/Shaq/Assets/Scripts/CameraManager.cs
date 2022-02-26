@@ -3,18 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-/*
-    Things to try:
-        - Treat the camera like a shitty first person controller that is manipulated via code instead of via player input
-
-
-
-
-
-*/
-
-
-
 public class CameraManager : MonoBehaviour
 {
 
@@ -117,6 +105,8 @@ public class CameraManager : MonoBehaviour
 
     public float camRotationFuckery;
 
+    private Quaternion initialRotation; 
+
 
     #endregion Variables
 
@@ -214,9 +204,6 @@ public class CameraManager : MonoBehaviour
             //When the camera sees the player / FOCUSED
             case CamStates.FOCUSED:
 
-
-
-
                 target = eyeball.lastKnownLocation;
 
                 //FaceTarget(target);
@@ -238,6 +225,8 @@ public class CameraManager : MonoBehaviour
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
                 {
+                    transform.rotation = initialRotation;
+
                     //FOCUSED >>> MONITORING
                     cameraStateMachine = CamStates.MONITORING;
                 }
@@ -248,16 +237,7 @@ public class CameraManager : MonoBehaviour
             //Do not use, currently broken
             #region Disabled State
             case CamStates.DISABLED:
-                //Insert timer here
-
                 DisableCamera(5f);
-
-                timeLeft -= Time.deltaTime;
-
-                if (timeLeft < 0)
-                {
-
-                }
 
                 camLightRef.color = Color.yellow;
 
@@ -273,9 +253,6 @@ public class CameraManager : MonoBehaviour
         #endregion Cam State Machine
 
         UpdateCamLightVars();
-
-        LockedRotation();
-
     }//End Update
     #endregion Update
 
@@ -307,22 +284,11 @@ public class CameraManager : MonoBehaviour
         //Changes camera light color to green
         camLightRef.color = Color.green;
 
+        initialRotation = transform.rotation;
+
         UpdateCamLightVars();
     }//End Init
 
-    private float rotationX;
-
-    private void LockedRotation()
-    {
-        rotationX = transform.rotation.x;
-
-        rotationX = Mathf.Clamp(rotationX, 45, -45);
-
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, rotationX);
-    }
-
-
-    //---------------------------------//
     //Function that makes the object face it's target
     void FaceTarget(Vector3 target)
     {
