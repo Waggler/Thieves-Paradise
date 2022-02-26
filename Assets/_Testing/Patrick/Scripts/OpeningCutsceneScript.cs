@@ -33,10 +33,9 @@ public class OpeningCutsceneScript : MonoBehaviour
 
     private IEnumerator PlayCutscene()
     {
+        yield return new WaitForSeconds(0.1f);
         //play transition from loading screen to cutscene
 
-        CMCutsceneCam.transform.position = waypoints[0].transform.position;
-        CMCutsceneCam.transform.rotation = waypoints[0].transform.rotation;
         int camNum = 1;
         int oldCamNum = 1;
 
