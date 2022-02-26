@@ -140,13 +140,6 @@ public class SuspicionManager : MonoBehaviour
     //Get's right into the sus level of all guards and modifies them
     public void ModEyeSus(float insertedValue)
     {
-        /*
-        TO DO:
-        - Set the eyeball's minimum sus level to be 3.5
-
-        - Add a flag for when the eyeball's sus level has been changed to 3.5 (middle of the wary field)
-        */
-
         foreach (GameObject guard in guardsList)
         {
             enemyManager = guard.GetComponent<EnemyManager>();
