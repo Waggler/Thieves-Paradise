@@ -81,23 +81,23 @@ public class EnemyManager : MonoBehaviour
 
     [Space(20)]
 
-    [Tooltip("Minimum Suspicion level to enter this state")]
+    //Minimum Suspicion level to enter this state
     //Implied Min Value of 0
-    [SerializeField] private float passiveSusMax = 3;
+    [HideInInspector] private float passiveSusMax = 3;
 
-    [Tooltip("Minimum Suspicion level to enter this state")]
-    [SerializeField] public float warySusMin = 3.1f;
+    //Minimum Suspicion level to enter this state
+    [HideInInspector] public float warySusMin = 3.1f;
 
-    [SerializeField] private float warySusMax = 4;
+    [HideInInspector] private float warySusMax = 4;
 
-    [Tooltip("Minimum Suspicion level to enter this state")]
-    [SerializeField] private float sussySusMin = 4.1f;
+    //Minimum Suspicion level to enter this state
+    [HideInInspector] private float sussySusMin = 4.1f;
 
-    [SerializeField] private float sussySusMax = 5;
+    [HideInInspector] private float sussySusMax = 5;
 
-    [Tooltip("Minimum Suspicion level to enter this state")]
+    //Minimum Suspicion level to enter this state
     //Implied Max Value of eyeball.susLevel max
-    [SerializeField] private float hostileSusMin = 5.1f;
+    [HideInInspector] private float hostileSusMin = 5.1f;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -127,7 +127,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] [Range(0, 5)] public float attackSpeed = 0f;
 
     //---------------------------------------------------------------------------------------------------//
-    [Header("Patrol Wait Time")]
+    [Header("Patrol Wait Variables")]
 
     [Space(20)]
 
@@ -145,7 +145,7 @@ public class EnemyManager : MonoBehaviour
 
 
     //---------------------------------------------------------------------------------------------------//
-    [Header("Suspicious Wait Time")]
+    [Header("Suspicious State Variables")]
 
     [Space(20)]
 
@@ -177,17 +177,14 @@ public class EnemyManager : MonoBehaviour
 
     [Space(20)]
 
-    public bool isStunned;
+    [HideInInspector] public bool isStunned;
 
     //Variable may need to be renamed in the future based on further implementations with Charlie
     [Tooltip("Duration of the guard's Stun state duration")]
     [SerializeField] private float stunTime;
 
     [Tooltip("")]
-    private float stunTimeReset;
-
-    //Save implementation for next sprint
-    [SerializeField] [Range(0, 50)] private float guardKnockbackForce;
+    [HideInInspector] private float stunTimeReset;
 
     [Tooltip("Duration of the guard's Attack state duration")]
     [SerializeField] private float attackTime;
@@ -230,26 +227,27 @@ public class EnemyManager : MonoBehaviour
 
     [Space(20)]
 
-    [SerializeField] [Range(0, 10)] private float tempTaserTimer;
-
     [Tooltip("References the taser prefab for the guard to spawn")]
     [SerializeField] private GameObject taserProjectile;
 
     [Tooltip("References the spawn location of the taser prefeab")]
     [SerializeField] private GameObject taserSpawnLoc;
 
+    [Tooltip("Basically the fire rate for the guard's taser")]
+    [SerializeField] [Range (0f, 5f)] private float fireRateReset;
+
     [Tooltip("Guard's stopping distance from the security station")]
     [SerializeField] private float stoppingDistance = 2f;
 
     private bool SussyWaypointMade;
 
-    //private float fireRate = 5f;
-
-    [SerializeField] [Range(1f, 15f)] private float fireRate = 5f;
+    [HideInInspector] private float fireRate;
 
     [SerializeField] PlayerMovement playerMovenemtRef;
 
     private bool ceaseFire;
+
+
 
     #endregion
 
@@ -979,7 +977,7 @@ public class EnemyManager : MonoBehaviour
                     }
                     else if (fireRate < 0)
                     {
-                        fireRate = 5f;
+                        fireRate = fireRateReset;
 
                         //StartCoroutine(ITaserFire());
 
