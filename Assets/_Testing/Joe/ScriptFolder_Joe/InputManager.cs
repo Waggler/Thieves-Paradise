@@ -16,11 +16,11 @@ public class InputManager : MonoBehaviour
     public float rollCooldownTime;
     private float cooldownTimer;
     private int jumpPressCounter = 1;
+    [HideInInspector] public bool IsZoomed;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        //camSwitch = GetComponent<CamSwitch>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -31,8 +31,6 @@ public class InputManager : MonoBehaviour
             cooldownTimer += Time.deltaTime;
         }
     }
-
-    //DELETE ME
 
     #region Inputs
 
@@ -133,13 +131,15 @@ public class InputManager : MonoBehaviour
     {
         if(context.performed)
         {
-            camSwitch.SwitchState(true);
+            IsZoomed = true;
+            camSwitch.SwitchState(IsZoomed);
         }
         else if(context.canceled)
         {
-            camSwitch.SwitchState(false);
+            IsZoomed = false;
+            camSwitch.SwitchState(IsZoomed);
         }
-    }
+    }// END ZOOM IN
 
     #endregion
 
