@@ -492,7 +492,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870511042325655}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: badb2e84d5b370040950a23b307cbd24, type: 3}
   m_Name: 
@@ -500,7 +500,7 @@ MonoBehaviour:
   Cam1: 1
   firstPersonCam: 0
   pm: {fileID: 8827046240343522462}
-  im: {fileID: 0}
+  im: {fileID: 8827046240343522457}
   trigger1: {fileID: 0}
   trigger2: {fileID: 0}
   ventIn: {fileID: 0}
@@ -689,7 +689,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870511522111461}
-  m_LocalRotation: {x: -0.21902129, y: -0.000017776289, z: -0.000003990269, w: 0.9757201}
+  m_LocalRotation: {x: -0.21902129, y: -0.000017813829, z: -0.0000039986962, w: 0.9757201}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1069,6 +1069,18 @@ MonoBehaviour:
       - m_Target: {fileID: 6908870511578677739}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: UseItemSecondary
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8827046240343522457}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ZoomIn
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1561,7 +1573,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870512041837564}
-  m_LocalRotation: {x: 0.3421088, y: 0.000018140812, z: 0.0000016821389, w: -0.93966043}
+  m_LocalRotation: {x: 0.3421088, y: 0.000018179126, z: 0.0000016856914, w: -0.93966043}
   m_LocalPosition: {x: -0.05662754, y: -2.463655, z: 4.161848}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2356,7 +2368,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870513109798248}
-  m_LocalRotation: {x: -0.21902129, y: -0.000017773986, z: -0.000003989752, w: 0.9757201}
+  m_LocalRotation: {x: -0.21902129, y: -0.000017813813, z: -0.0000039986917, w: 0.9757201}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
