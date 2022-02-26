@@ -601,9 +601,6 @@ public class EnemyManager : MonoBehaviour
 #if UNITY_EDITOR
         Gizmos.color = Color.white;
         Gizmos.DrawSphere(target, 0.75f);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(taserSpawnLoc.transform.position, -Vector3.forward);
 #endif
 
     }//End OnDrawGizmos
@@ -994,9 +991,6 @@ public class EnemyManager : MonoBehaviour
                 {
                     //RANGED ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
-
-                    //Stops the coroutine for firing the taser prefab, needed regardless of how StartCoroutine is being used above
-                    //StopCoroutine(ITaserFire());
                 }
                 break;
             #endregion Ranged Attack Behavior
@@ -1051,5 +1045,4 @@ public class EnemyManager : MonoBehaviour
         }//End State Machine
     }//End Update
     #endregion Update
-
 }

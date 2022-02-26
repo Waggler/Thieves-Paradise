@@ -181,6 +181,8 @@ public class CameraManager : MonoBehaviour
                 {
                     //Inverts the camera's turn speed
                     camSpeed = -camSpeed;
+
+                    hiddenRotationMax.y = -hiddenRotationMax.y;
                 }
 
                 //if (distanceToPlayer <= lookRadius)
@@ -271,7 +273,7 @@ public class CameraManager : MonoBehaviour
         stateText.text = "";
         targetText.text = "";
 
-        //cameraStateMachine = CamStates.MONITORING;
+        cameraStateMachine = CamStates.MONITORING;
 
         //Note: This method of referencing the suspicion manager is stupid and I should find a way to do it in one line
         //Creates a reference to the suspicion manager object
