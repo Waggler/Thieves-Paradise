@@ -13,12 +13,6 @@ public class CheatCodes : MonoBehaviour
     private bool cheatsEnabled;
     private bool isGod;
     
-    
-
-    void Awake()
-    {
-        cheatMenu.SetActive(false);
-    }
 
     void Update()
     {
