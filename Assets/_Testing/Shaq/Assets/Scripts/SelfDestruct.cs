@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelfDestruct : MonoBehaviour
 {
-    [SerializeField] [Range (1, 30)]private float timeLeft = 1.1f;
+    [SerializeField] [Range (.05f, 30)]private float timeLeft = 1.1f;
 
     // Update is called once per frame
     void Update()
