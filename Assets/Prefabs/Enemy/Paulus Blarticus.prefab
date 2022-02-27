@@ -772,16 +772,16 @@ MonoBehaviour:
   isStunned: 0
   stunTime: 10
   taserShotRadius: 5
-  waypointNextDistance: 0.5
+  fireRateReset: 5
   taserProjectile: {fileID: 6202073389112031844, guid: a0b8e85b42ab8c14b8eae6c4a32e318e, type: 3}
   taserSpawnLoc: {fileID: 8552973499195692512}
-  fireRateReset: 5
+  accuracy: 0.2
+  waypointNextDistance: 0.5
   stoppingDistance: 5
   playerMovenemtRef: {fileID: 0}
   stateMachine: 0
   waypointMethod: 0
   waypoints: []
-  accuracy: 0.2
 --- !u!114 &9215408676989096723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1262,7 +1262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.957
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1335,6 +1335,14 @@ PrefabInstance:
     - target: {fileID: -5165101764463884879, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -4922945599513151970, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4922945599513151970, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4477519782815483465, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_Layer
@@ -1535,6 +1543,14 @@ PrefabInstance:
     - target: {fileID: 8872410490311110478, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8950223817724537147, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8950223817724537147, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9056629983372809767, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_Layer
