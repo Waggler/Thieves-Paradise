@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5812998147899611448}
   - component: {fileID: 8597121333926538738}
   - component: {fileID: 5149215525113420059}
+  - component: {fileID: 5039665533653978900}
   m_Layer: 0
   m_Name: Plant_square
   m_TagString: Untagged
@@ -96,3 +97,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.246318, y: 2.1363683, z: 1.8541982}
   m_Center: {x: -0.009183407, y: 1.0681841, z: 0.015975118}
+--- !u!208 &5039665533653978900
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7804703234155613223}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3.0260003, y: 1.473, z: 1.8230001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.008, y: 1.473, z: 0.072000004}
+  m_TimeToStationary: 0.5
