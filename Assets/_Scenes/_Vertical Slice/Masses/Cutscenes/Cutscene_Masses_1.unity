@@ -123,6 +123,173 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &27223841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27223842}
+  - component: {fileID: 27223846}
+  - component: {fileID: 27223845}
+  - component: {fileID: 27223844}
+  - component: {fileID: 27223843}
+  m_Layer: 5
+  m_Name: Skip Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &27223842
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27223841}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1590652977}
+  m_Father: {fileID: 1255347199}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -521.1, y: 39.6}
+  m_SizeDelta: {x: 85, y: 18}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &27223843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27223841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1852146629}
+          m_TargetAssemblyTypeName: SkipManager, Assembly-CSharp
+          m_MethodName: ProcessSkip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1852146629}
+          m_TargetAssemblyTypeName: SkipManager, Assembly-CSharp
+          m_MethodName: StopSkip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &27223844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27223841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 0.103773594, g: 0.1013261, b: 0.1013261, a: 0}
+    m_HighlightedColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.39215687}
+    m_PressedColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.39215687}
+    m_SelectedColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.39215687}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 27223845}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &27223845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27223841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 0.39215687}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &27223846
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27223841}
+  m_CullTransparentMesh: 1
 --- !u!1 &47324414
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,8 +393,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 647536278}
+  m_Children: []
   m_Father: {fileID: 1698581077}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -822,53 +988,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &385916064
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 385916066}
-  - component: {fileID: 385916065}
-  m_Layer: 0
-  m_Name: Skip Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &385916065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 385916064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6232d08636ad12b4db70043fa617c56f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skipButton: {fileID: 1597029382}
-  dialogueManager: {fileID: 558106688}
-  levelManager: {fileID: 1976344117}
-  skipButtonAppearIndex: 1
---- !u!4 &385916066
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 385916064}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &443753601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,40 +1267,387 @@ MonoBehaviour:
   dialogue:
   - characterName: 'NOTE:'
     sentences:
-    - To skip, hold the skip button for 5 seconds.
+    - 'DEVELOPER NOTE: THE SPRITES SHOWN THROUGHOUT THIS SECTION ARE MISSING OR INCOMPLETE
+      AND ARE FOR DEVELOPMENT USE ONLY'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: 'NOTE:'
+    sentences:
+    - To skip to the heist, hold down the Skip button for 5 seconds.
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
   - characterName: Narration
     sentences:
-    - "*After your heist, you show up to Borgar at the agreed meeting time. You approach
-      the lady\u2019s table once more and let out a small whistle to get her attention.*\r"
+    - "*Once again you find yourself hanging at Borgar, although this time not alone!
+      You are joined by your longtime buddy, Buddy.  He sits across from you, pretending
+      to listen to your woes.*\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Caustic Caramel
+      choiceId: 0
+    - choiceOption: Horrific Hazelnut
+      choiceId: 1
+    - choiceOption: Mutating Marshmellow
+      choiceId: 2
+    - choiceOption: Antidote
+      choiceId: 3
+    - choiceOption: Eat Them All!
+      choiceId: 4
+    responses:
+    - responseOption:
+      - Get absolutely pranked
+      - Bingus!!!
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - Will why did you screw up the rects!!
+      - I HURT ME!!!
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - We're no strangers to love You know the rules and so do I A full commitment's
+        what I'm thinking of You wouldn't get this from any other guy I just wanna
+        tell you how I'm feeling Gotta make you understand Never gonna give you up
+        Never gonna let you down Never gonna run around and desert you Never gonna
+        make you cry Never gonna say goodbye Never gonna tell a lie and hurt you
+        We've known each other for so long Your heart's been aching but you're too
+        shy to say it Inside we both know what's been going on We know the game and
+        we're gonna play it And if you ask me how I'm feeling Don't tell me you're
+        too blind to see Never gonna give you up Never gonna let you down Never gonna
+        run around and desert you Never gonna make you cry Never gonna say goodbye
+        Never gonna tell a lie and hurt you Never gonna give you up Never gonna let
+        you down Never gonna run around and desert you Never gonna make you cry Never
+        gonna say goodbye Never gonna tell a lie and hurt you Never gonna give, never
+        gonna give (Give you up)
+      - 'We''ve known each other for so long Your heart''s been aching but you''re
+        too shy to say it Inside we both know what''s been going on We know the game
+        and we''re gonna play it I just wanna tell you how I''m feeling Gotta make
+        you understand Never gonna give you up Never gonna let you down Never gonna
+        run around and desert you Never gonna make you cry Never gonna say goodbye
+        Never gonna tell a lie and hurt you Never gonna give you up Never gonna let
+        you down Never gonna run around and desert you Never gonna make you cry Never
+        gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you
+        up Never gonna let you down Never gonna run around and desert you Never gonna
+        make you cry Never gonna say goodbye Source: Musixmatch'
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - Help me, I've been held to code at gunpoint
+      - please send help. Oh wait I hear them coming. Oh god oh FUCK OH FUCK GET
+        AW
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - Great gobs!
+      - No one has ever eaten the whole danged assortment!
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201CSo you\u2026 told her you owned\u2026 dresses?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CIt just kinda came out that way\u2026\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CHaha! No wonder she told you \u2018She needed more time\u2019.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201DI\u2019m just trying to forget about all this\u2026\u201D"
+      choiceId: 0
+    - choiceOption: "\u201CI still can\u2019t stop thinking about her.\u201D"
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201DI\u2019m just trying to forget about all this\u2026\u201D"
+      - "\u201CYeah, you aren\u2019t living this one down.\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CI still can\u2019t stop thinking about her.\u201D "
+      - "\u201CGeez, you\u2019re really beating yourself up over this.\u201D "
+      responseSpeaker:
+      - You
+      - Buddy
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201COh! I know what\u2019ll take your mind off her! Come look here!\u201D\r\n"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    sentences:
+    - "*Buddy takes out his phone and shows you his Qwitter. His feed is full of
+      people presenting outrageous objects they\u2019ve stolen, glamorizing criminal
+      behavior. *\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CYou\u2019re, like, an expert thief now, right? Why don\u2019t you try
+      out this new stealing fad?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 1
+    choices:
+    - choiceOption: "\u201CNot interested.\u201D "
+      choiceId: 0
+    - choiceOption: "\u201CThey\u2019re getting THAT many followers?\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CThis is just allowed on Qwitter?\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CNot interested.\u201D"
+      - "\u201CCome on man, if that story you told me is true, you could be a superstar
+        doing this!\u201D "
+      - "\u201CWhat kind of thief wants to be a superstar?\u201D"
+      - "\u201COne that doesn\u2019t get rejected by cute girls for being a loser.\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CThey\u2019re getting THAT many followers?\u201D "
+      - "\u201CAnd these are just the recent ones on my feed, some of the more popular
+        users are pulling in hundreds of thousands of followers looking to see what
+        they pull off next!\u201D "
+      responseSpeaker:
+      - You
+      - Buddy
+      choiceReferenceId: 1
+      responseID: 0
+    - responseOption:
+      - "\u201CThis is just\u2026  Allowed on Qwitter?\u201D "
+      - "\u201CDoes it really surprise you? Qwitter will pretty much allow anything
+        these days as long as it keeps people glued to the app.\u201D "
+      responseSpeaker:
+      - You
+      - Buddy
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CAlright\u2026 I\u2019ll TRY it. Once. And then we\u2019ll see how things
+      go.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CGreat! What\u2019s your Qwitter name, I\u2019ll give you a follow?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201COh right, I should actually make a Qwitter first.\u201D\r\n"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CIt\u2019s really easy, just sign up on your phone, come up with a witty
+      or original name, and start stealing! Bonus points for having a cool costume!\u201D\r\n"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CWhat constitutes a \u2018witty or original name\u2019?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CIt\u2019s gotta be something that comes from the heart, while also being
+      clever! Something like \u2018DaThief\u2019, or \u2018ThiefOfHeartz\u2019. By
+      the way, you can\u2019t use either of these, they\u2019re mine.\u201D\r\n"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CYou can gladly keep those.\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You - Thinking
+    sentences:
+    - "\u201CSomething that comes from the heart. Something clever and witty. Something
+      original. I got it!\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    sentences:
+    - "*Through a spark of inspiration, you have decided on what your thief name
+      will be. A name that will follow you for as long as you continue to lift things
+      from Shopping World.\u201D \r\n"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CI think I\u2019ll go with-\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: NOTE
+    sentences:
+    - (At this point, the player will choose their own thief name that will stick
+      with them over the course of the rest of the game)
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CHuh? You\u2019re going with that? It\u2019s not as good as my name but\u2026
+      I can see it working for you.\u201D\r\n"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1190,707 +1656,346 @@ MonoBehaviour:
     choices: []
     responses: []
   - characterName: You
-    sentences: []
+    sentences:
+    - "\u201CNow what? I just go steal something?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CStart off small, but crazy! Oh I have an idea! Go steal some popular
+      brands from Shopping World! That should be good enough to start out.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 1
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CWhat are the popular brands these days?\u201D\r"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D"
+      - "\u201CWhoops must have just slipped my mind\u2026 But I won\u2019t forget
+        what you want a second time!\u201D"
       responseSpeaker:
+      - You
+      - The Lady
       - You
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CPerfume from Honeydew, right?\u201D "
+      - "\u201CAt least you\u2019ve been paying attention to what I\u2019m saying,
+        maybe there is some hope.\u201D"
+      - "\u201CSee, don\u2019t worry! I\u2019ll meet you back here tomorrow.\u201D"
       responseSpeaker:
+      - You
+      - The Lady
       - You
       choiceReferenceId: 1
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D"
+      - "\u201CWhoops must have just slipped my mind\u2026 But I won\u2019t forget
+        what you want a second time!\u201D"
       responseSpeaker:
       - You
-      choiceReferenceId: 2
+      - The Lady
+      - You
+      choiceReferenceId: 0
       responseID: 0
-  - characterName: Narration
+  - characterName: Buddy
     sentences:
-    - '*You place a bag containing the perfume onto the table. The Lady takes a look
-      inside to confirm that is what she asked for.*'
+    - "\"Hmm\u2026  Looking at the trending page, we\u2019ve got a few potential
+      targets. There\u2019s a new line of designer sneakers people seem to like\u2026\""
+    - "\"Or, that one British chef who swears a lot just dropped a fancy knife set\u2026\r\""
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
     isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - Peepo Bongo
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: The Lady
-    sentences:
-    - "\u201COh? Did you actually  manage to bring back what I wanted? This isn\u2019t
-      a joke, right?\u201D\r"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: Narration
-    sentences:
-    - "*The Lady picks up the bottle and examines it, before spritzing the perfume
-      into the air to confirm it\u2019s  the scent she likes.*"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: The Lady
-    sentences:
-    - "\u201CI suppose you were telling the truth then\u2026 Then I should uphold
-      my promise as well. Come. You may sit at my table, and we\u2019ll talk until
-      my driver arrives to pick me up.\u201D"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
   - characterName: You
     sentences:
-    - '"It would be an honor!"'
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: Narration
-    sentences:
-    - '*You take the seat across from her at her table*'
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 1
-    choices:
-    - choiceOption: Ask about the perfume
-      choiceId: 0
-    - choiceOption: Ask about her charity event
-      choiceId: 1
-    - choiceOption: "Ask about why she\u2019s in such a hurry"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CSo, why that brand of perfume? Couldn\u2019t any other brand have
-        worked?\u201D"
-      - "\u201CThis is the scent and brand I\u2019ve been using ever since I was
-        old enough to buy my own perfume. It\u2019s what I remember my mother used
-        to wear.\u201D"
-      - "\u201CI guess it means a lot to you then?\u201D"
-      - "\u201CIt\u2019s embarrassing to admit, but yes. You acquiring this brand
-        for me by tonight was very important, and I\u2019m truly thankful.\u201D"
-      responseSpeaker:
-      - You
-      - The Lady
-      - You
-      - The Lady
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CSo, why\u2019d you need this in such a hurry anyway? Got something
-        special planned?\u201D"
-      - "\u201CDon\u2019t pretend like you weren\u2019t eavesdropping on my conversation
-        yesterday. I simply have a charity event my family is hosting.\u201D"
-      - "\u201CSorry about that\u2026 but surely it can\u2019t be just a simple event
-        if you\u2019re so worked up about it?\u201D"
-      - "\u201CWell it\u2019s my family\u2019s event, and I\u2019m expected to show
-        up and look as my father expects me to...\u201D"
-      responseSpeaker:
-      - You
-      - The Lady
-      - You
-      - The Lady
-      choiceReferenceId: 1
-      responseID: 0
-    - responseOption:
-      - "\u201CYou sure seem to be in a hurry these past few days. Everything alright?\u201D "
-      - "\u201CYeah, I\u2019ve been having to run around town non-stop these past
-        few days, too many errands, too little time.\u201D "
-      - "\u201CWell, now that I\u2019ve shown I\u2019m the real deal, I can get you
-        anything you might need. As long as we can keep talking like this!\u201D "
-      - "\u201CI\u2019ve still got plenty more to do, but it should all be simple
-        from here on out.  something comes up, I will be sure to let you know. \u201D "
-      responseSpeaker:
-      - You
-      - The Lady
-      - You
-      - The Lady
-      choiceReferenceId: 2
-      responseID: 0
-  - characterName: Narration
-    sentences:
-    - "*As you are about to speak up, the Lady\u2019s phone begins ringing. She gestures
-      for you to wait a moment, as she answers her call and addresses her friend.*"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: The Lady
-    sentences:
-    - "\"Hey! How\u2019s it going? I\u2019m doing great! I actually managed to get
-      the perfume I needed just in time for tonight! \u2026What do you mean you have
-      bad news?\u201D"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: Narration
-    sentences:
-    - '*The Lady stands out of her seat, and shouts into her phone*'
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: The Lady
-    sentences:
-    - "\u201CWhat do you mean she\u2019s wearing a red dress! She knew my plans!  
-      I won\u2019t stand out if our dresses look too similar! Where am I supposed
-      to find a new designer dress by tomorrow!\u201D"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: Narration
-    sentences:
-    - '*You point your finger at yourself, until the Lady notices*'
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 72598c4f79f43ae4aa933ba8d5b1442c, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
-      choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: The Lady
-    sentences:
-    - "\u201CLet me call you back later\u2026 I might have an idea.\u201D\r"
+    - '"Noted. Is that all?"'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
-  - characterName: The Lady
+  - characterName: Buddy
     sentences:
-    - "\u201CApologies for that, but as you may have heard, a \u2018friend\u2019
-      of mine is going to be wearing a RED dress similar to the one I was planning
-      on attending with,so now I need to procure a new one before the charity event."
+    - "\"There\u2019s also a, umm, construction hardhat that\u2019s making the rounds
+      with trend bloggers.  Not sure I understand the appeal, but that\u2019s fashion
+      I suppose.\r\""
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CWell that\u2019s something that I can help you with. If you need a fancy
-      new dress, I can spare you one of mine!\u201D\r"
+    - "\u201CStealing one of those should be easy enough.\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
-  - characterName: The Lady
+  - characterName: Buddy
     sentences:
-    - "\u201CYou\u2026  Have a lot of dresses?\u201D"
+    - "\u201CWhy stop at one! The crazier your Qweet is, the more followers you\u2019ll
+      get! Steal as much as you can!  I\u2019ll meet you at your place tomorrow,
+      then we can see who gets more followers too!\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 1
-    choices:
-    - choiceOption: I own a dress store
-      choiceId: 0
-    - choiceOption: I have a lot of girlfriends
-      choiceId: 1
-    - choiceOption: I perform at a theater
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CDon\u2019t get the wrong idea.  I own a fine dress store!\u201D"
-      - "\u201CHmm\u2026  Somehow I have trouble believing that. \u201C"
-      responseSpeaker:
-      - You
-      - The Lady
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CI have a lot of girlfriends.\u201D"
-      - "\u201CHah!  No offense, but I have trouble believing that.\u201D"
-      responseSpeaker:
-      - You
-      - The Lady
-      choiceReferenceId: 1
-      responseID: 0
-    - responseOption:
-      - "\u201CI perform at a theater.  I\u2019ve got all kinds of fancy costumes,
-        dresses included.\u201D"
-      - "\u201CHuh.  That\u2019s awfully fitting, for a hopeless romantic such as
-        yourself\u2026\u201D"
-      responseSpeaker:
-      - You
-      - The Lady
-      choiceReferenceId: 2
-      responseID: 0
-  - characterName: The Lady
-    sentences:
-    - "\u201CRegardless, I would be very thankful if you found a new outfit for me. 
-      Any fine dress will do, as long as it isn\u2019t RED.\u201D\r"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CYou have my word. I\u2019ll bring you the nicest dress I can find, as
-      long as you come here to pick it up tomorrow!\u201D"
+    - "\u201CThis is a competition now? Fine, but the loser has to admit the winner
+      chose a better name!\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
-  - characterName: The Lady
+  - characterName: Buddy
     sentences:
-    - "\u201CGreat, I\u2019ll see you then!\u201D"
+    - "\u201CDeal!  Remember to actually upload your picture to Qwitter, and put
+      a little bit of effort into it!\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
   - characterName: Narration
     sentences:
-    - '*The Lady heads out the door, leaving you alone. Once again, you find yourself
-      making a promise with the only way to keep it being to return to Shopping World.*'
+    - '*You and Buddy shake hands as you head your separate ways, already picking
+      the stores you are going to steal from. You once again find yourself ready
+      to break into the Shopping World!*
+
+'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 39018d321ff75384cafe937d408a4b3c, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
-    - choiceOption: "\u201CI brought you a gift\u201D"
+    - choiceOption: Lipstick from Honeydew
       choiceId: 0
-    - choiceOption: "\u201CIs this what you wanted\u201D"
+    - choiceOption: Perfume from Honeydew
       choiceId: 1
-    - choiceOption: "\u201CI went through a lot of trouble getting this\u201D"
+    - choiceOption: Eyeliner from Honeydew
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CLooks like we\u2019re both here on time! I brought you a gift.\u201D"
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHey, this wouldn\u2019t happen to be what you wanted, right?\u201D"
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CHere\u2019s your perfume, I went through a lot of trouble to get that
-        so my reward better be worth it\u201D"
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
   currentDialogueIndex: 0
   levelManager: {fileID: 1976344117}
-  nextSceneIndex: 4
+  nextSceneIndex: 2
   isEndCredits: 0
 --- !u!4 &558106689
 Transform:
@@ -2196,13 +2301,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 89316300}
-  m_RootOrder: 0
+  m_Father: {fileID: 1698581077}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.830719, y: 1.267807}
-  m_SizeDelta: {x: 47.596985, y: 19.0387}
+  m_AnchoredPosition: {x: 0, y: 2}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &647536279
 MonoBehaviour:
@@ -2298,67 +2403,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647536277}
   m_CullTransparentMesh: 1
---- !u!1001 &648210830
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_RootOrder
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442467371881454, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_Name
-      value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983442468359059724, guid: 35daed2dec54418468f823357085acdf, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: c0b3c3fb2f683cd4d8b0e1b53c87a267, type: 3}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 35daed2dec54418468f823357085acdf, type: 3}
 --- !u!1 &706666556
 GameObject:
   m_ObjectHideFlags: 0
@@ -2556,10 +2600,10 @@ MonoBehaviour:
   dialogueAnimator: {fileID: 2023648786}
   dialogueManager: {fileID: 558106688}
   choiceManager: {fileID: 808872835}
-  skipManager: {fileID: 385916065}
+  skipManager: {fileID: 1852146629}
   speakerBox: {fileID: 1522733952}
   textBox: {fileID: 1255347198}
-  skipButton: {fileID: 1597029382}
+  skipButton: {fileID: 27223844}
   dialoguePortraitSwapIndex: 0
   currentMission: 0
   speakerText: {fileID: 1283500031}
@@ -2745,14 +2789,10 @@ MonoBehaviour:
   - {fileID: 1558279393}
   - {fileID: 1977593599}
   - {fileID: 907849300}
-  - {fileID: 162811381}
-  - {fileID: 1698581076}
   choiceTexts:
   - {fileID: 837332297}
   - {fileID: 482229163}
   - {fileID: 1107494704}
-  - {fileID: 1314107101}
-  - {fileID: 89316301}
 --- !u!4 &808872836
 Transform:
   m_ObjectHideFlags: 0
@@ -3210,7 +3250,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.39215687}
     m_PressedColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.39215687}
     m_SelectedColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.39215687}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3641,6 +3681,7 @@ RectTransform:
   - {fileID: 309061113}
   - {fileID: 1372220630}
   - {fileID: 1081697534}
+  - {fileID: 27223842}
   m_Father: {fileID: 2023648785}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4333,49 +4374,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372220629}
   m_CullTransparentMesh: 1
---- !u!1 &1381854787
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1381854789}
-  - component: {fileID: 1381854788}
-  m_Layer: 0
-  m_Name: QuitObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1381854788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381854787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03c09ffe7c53d3445b4d3680e4e36416, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1381854789
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381854787}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1507201341
 GameObject:
   m_ObjectHideFlags: 0
@@ -4608,6 +4606,140 @@ RectTransform:
   m_AnchoredPosition: {x: 250, y: -35}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1590652976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1590652977}
+  - component: {fileID: 1590652979}
+  - component: {fileID: 1590652978}
+  m_Layer: 5
+  m_Name: Skip Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1590652977
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590652976}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 27223842}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1590652978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590652976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Skip >
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 15
+  m_fontSizeBase: 15
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1590652979
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590652976}
+  m_CullTransparentMesh: 1
 --- !u!1 &1594310714
 GameObject:
   m_ObjectHideFlags: 0
@@ -4740,173 +4872,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594310714}
   m_CullTransparentMesh: 1
---- !u!1 &1597029380
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1597029381}
-  - component: {fileID: 1597029384}
-  - component: {fileID: 1597029383}
-  - component: {fileID: 1597029382}
-  - component: {fileID: 1597029385}
-  m_Layer: 5
-  m_Name: Skip Button
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1597029381
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597029380}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2144941150}
-  m_Father: {fileID: 2023648785}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 47.606155, y: 24.619358}
-  m_SizeDelta: {x: 85, y: 18}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1597029382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597029380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0}
-    m_HighlightedColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.39215687}
-    m_PressedColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.39215687}
-    m_SelectedColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.39215687}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1597029383}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1597029383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597029380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 0.39215687}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1597029384
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597029380}
-  m_CullTransparentMesh: 1
---- !u!114 &1597029385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597029380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 385916065}
-          m_TargetAssemblyTypeName: SkipManager, Assembly-CSharp
-          m_MethodName: ProcessSkip
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 385916065}
-          m_TargetAssemblyTypeName: SkipManager, Assembly-CSharp
-          m_MethodName: StopSkip
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1698581076
 GameObject:
   m_ObjectHideFlags: 0
@@ -4936,6 +4901,7 @@ RectTransform:
   m_Children:
   - {fileID: 47324415}
   - {fileID: 89316300}
+  - {fileID: 647536278}
   m_Father: {fileID: 323751315}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5178,6 +5144,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817910891}
   m_CullTransparentMesh: 1
+--- !u!1 &1852146628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1852146630}
+  - component: {fileID: 1852146629}
+  m_Layer: 0
+  m_Name: Skip Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1852146629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852146628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6232d08636ad12b4db70043fa617c56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skipButton: {fileID: 27223844}
+  dialogueManager: {fileID: 558106688}
+  levelManager: {fileID: 1976344117}
+  skipButtonAppearIndex: 2
+--- !u!4 &1852146630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852146628}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1907809985
 GameObject:
   m_ObjectHideFlags: 0
@@ -5323,6 +5336,110 @@ RectTransform:
   m_AnchoredPosition: {x: 250, y: -105}
   m_SizeDelta: {x: 500, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1978156746
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881448, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881454, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983442468359059724, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 06e2447a9d7ec5b468c7a80d35f16047, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 35daed2dec54418468f823357085acdf, type: 3}
+--- !u!1 &1993954628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1993954630}
+  - component: {fileID: 1993954629}
+  m_Layer: 0
+  m_Name: QuitObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1993954629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993954628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c09ffe7c53d3445b4d3680e4e36416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1993954630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993954628}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2016748344
 GameObject:
   m_ObjectHideFlags: 0
@@ -5383,7 +5500,6 @@ RectTransform:
   m_Children:
   - {fileID: 1522733953}
   - {fileID: 1255347199}
-  - {fileID: 1597029381}
   m_Father: {fileID: 709244986}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5411,137 +5527,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &2144941149
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2144941150}
-  - component: {fileID: 2144941152}
-  - component: {fileID: 2144941151}
-  m_Layer: 5
-  m_Name: Skip Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2144941150
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144941149}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1597029381}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2144941151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144941149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Skip >>>
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &2144941152
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144941149}
-  m_CullTransparentMesh: 1
