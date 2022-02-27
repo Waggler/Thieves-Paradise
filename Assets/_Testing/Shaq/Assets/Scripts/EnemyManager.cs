@@ -748,7 +748,7 @@ public class EnemyManager : MonoBehaviour
                 //Reseting alert related variables
                 if (isAudioSourcePlaying == true)
                 {
-                    audioSource.Stop();
+                    //audioSource.Stop();
 
                     isAudioSourcePlaying = false;
                 }
@@ -896,7 +896,7 @@ public class EnemyManager : MonoBehaviour
                     //Playing Alert Audio
                     if (isAudioSourcePlaying == false)
                     {
-                        audioSource.Play();
+                        //audioSource.Play();
 
                         isAudioSourcePlaying = true;
                     }
