@@ -8,6 +8,7 @@ public class WalkPastFallOver : MonoBehaviour
     public InputManager im;
     public GameObject fallingObject;
     public float Timer = 0f;
+    public bool inRange = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,25 @@ public class WalkPastFallOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(inRange == true)
+        {
+            float minAngle = 0f;
+            float maxAngle = -90f;
+            Timer = Timer + Time.deltaTime;
+            // float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+            // fallingObject.transform.eulerAngles = new Vector3(angle, 0, 0);
+
+            if(Timer <= 1.05f)
+            {
+                float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+                fallingObject.transform.eulerAngles = new Vector3(angle, 0, 0);
+            }
+
+            if(Timer >= 1.05f)
+            {
+                Timer = 1.05f;
+            }
+        }
     }
 
     public void OnTriggerStay()
@@ -26,16 +45,60 @@ public class WalkPastFallOver : MonoBehaviour
         if(pm.IsCrouching == true || im.isCrouching == true)
         {
             Debug.Log("Walked Past!");
+            inRange = false;
         }
 
         if(pm.IsCrouching == false || im.isCrouching == false)
         {
+            inRange = true;
             Debug.Log("Sound Made!");
-            float minAngle = 0f;
-            float maxAngle = -90f;
-            Timer = Timer + Time.deltaTime;
-            float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
-            fallingObject.transform.eulerAngles = new Vector3(angle, 0, 0);
+            // float minAngle = 0f;
+            // float maxAngle = -90f;
+            // Timer = Timer + Time.deltaTime;
+            // // float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+            // // fallingObject.transform.eulerAngles = new Vector3(angle, 0, 0);
+
+            // if(Timer <= 1.05f)
+            // {
+            //     float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+            //     fallingObject.transform.eulerAngles = new Vector3(angle, 0, 0);
+            // }
+
+            // if(Timer >= 1.05f)
+            // {
+            //     Timer = 1.05f;
+            // }
+        }
+    }
+
+    public void OnTriggerEnter()
+    {
+        if(pm.IsCrouching == true || im.isCrouching == true)
+        {
+            Debug.Log("Walked Past!");
+            inRange = false;
+        }
+
+        if(pm.IsCrouching == false || im.isCrouching == false)
+        {
+            inRange = true;
+            Debug.Log("Sound Made!");
+            // float minAngle = 0f;
+            // float maxAngle = -90f;
+            // Timer = Timer + Time.deltaTime;
+            // // float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+            // // fallingObject.transform.eulerAngles = new Vector3(angle, 0, 0);
+
+            // if(Timer <= 1.05f)
+            // {
+            //     float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
+            //     fallingObject.transform.eulerAngles = new Vector3(angle, 0, 0);
+            // }
+
+            // if(Timer >= 1.05f)
+            // {
+            //     Timer = 1.05f;
+            // }
         }
     }
 }
