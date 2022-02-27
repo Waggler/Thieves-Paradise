@@ -1505,9 +1505,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6908870511693327756}
   - component: {fileID: 6908870511693327757}
+  - component: {fileID: 8175351756644992771}
   - component: {fileID: 6908870511693327759}
   - component: {fileID: 129659435278050695}
-  - component: {fileID: 8175351756644992771}
   m_Layer: 7
   m_Name: CM FreeLook1
   m_TagString: Untagged
@@ -1633,6 +1633,21 @@ MonoBehaviour:
   - {fileID: 6908870513109798251}
   - {fileID: 6908870513054023934}
   - {fileID: 6908870511522111460}
+--- !u!114 &8175351756644992771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6908870511693327474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ApplyAfter: 1
+  m_PreserveComposition: 0
 --- !u!114 &6908870511693327759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1647,7 +1662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   m_IgnoreTag: Player
   m_TransparentLayers:
     serializedVersion: 2
@@ -1678,21 +1693,6 @@ MonoBehaviour:
   PlayerIndex: -1
   XYAxis: {fileID: 304385155318989155, guid: 162d2f5ff858fd74a964bf997434a1d5, type: 3}
   ZAxis: {fileID: 0}
---- !u!114 &8175351756644992771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6908870511693327474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.7, z: 0}
-  m_ApplyAfter: 1
-  m_PreserveComposition: 0
 --- !u!1 &6908870511805417703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,8 +1803,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870512041837564}
-  m_LocalRotation: {x: -0.012610327, y: 0.9869496, z: -0.1273741, w: 0.097710274}
-  m_LocalPosition: {x: -11.000993, y: -12.218858, z: -55.7273}
+  m_LocalRotation: {x: -0.1279968, y: -0, z: -0, w: 0.9917746}
+  m_LocalPosition: {x: -9.136704, y: -12.943647, z: -57.976482}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8827046241353447791}
