@@ -11,7 +11,7 @@ public class HeistCollectionManager : MonoBehaviour
     #region Components
 
 
-    [SerializeField] HeistCollectibleData[] heistCollectibleData;
+    [SerializeField] ItemCollectibleData[] heistCollectibleData;
 
     public enum CurrentHeist
     {
