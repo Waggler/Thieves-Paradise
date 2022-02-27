@@ -8,6 +8,7 @@ public class EyeballScript : MonoBehaviour
     private Transform player;
     private LayerMask layerMask;
 
+    private PlayerMovement playerMovement;
 
     //vision stats
     [Header("Vision Stats")]
