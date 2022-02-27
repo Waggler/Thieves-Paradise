@@ -952,7 +952,8 @@ public class EnemyManager : MonoBehaviour
                 FaceTarget(target);
 
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
-                if (playerMovenemtRef.IsStunned == true)
+                //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
+                if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
                 {
                     ceaseFire = true;
                 }
