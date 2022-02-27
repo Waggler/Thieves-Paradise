@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1138461873}
   - component: {fileID: 1138461874}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: GuardSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -751,12 +751,7 @@ MonoBehaviour:
   securityStations: []
   stateText: {fileID: 3325092846354947751}
   targetText: {fileID: 3325092846449755120}
-  passiveSusMax: 3
   warySusMin: 3.1
-  warySusMax: 4
-  sussySusMin: 4.1
-  sussySusMax: 5
-  hostileSusMin: 5.1
   passiveSpeed: 1
   warySpeed: 1.5
   susSpeed: 1
@@ -775,22 +770,30 @@ MonoBehaviour:
   isAudioSourcePlaying: 0
   isStunned: 0
   stunTime: 10
-  guardKnockbackForce: 50
   attackTime: 0
   attackRadius: 2
   taserShotRadius: 0
   waypointNextDistance: 0.5
   playerCaptureTeleportLoc: {fileID: 0}
   playerReleaseTeleportLoc: {fileID: 0}
-  tempTaserTimer: 0
   taserProjectile: {fileID: 6202073389112031844, guid: a0b8e85b42ab8c14b8eae6c4a32e318e, type: 3}
   taserSpawnLoc: {fileID: 8552973499195692512}
+  fireRateReset: 0
   stoppingDistance: 5
-  fireRate: 5
   playerMovenemtRef: {fileID: 0}
   stateMachine: 0
   waypointMethod: 0
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   accuracy: 0.3
 --- !u!114 &9215408676989096723
 MonoBehaviour:
