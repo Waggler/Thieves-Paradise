@@ -184,27 +184,36 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("")]
     [HideInInspector] private float stunTimeReset;
 
-    [Tooltip("Duration of the guard's Attack state duration")]
-    [SerializeField] private float attackTime;
-    private float attackTimeReset;
+    //---------------------------------------------------------------------------------------------------//
 
+    [Header("Taser Variables")]
+
+    [Space(20)]
+    
+    [Tooltip("The radius in which the guard tases the player")]
+    [SerializeField] [Range(0, 10)] private float taserShotRadius;
+
+    [Tooltip("Basically the fire rate for the guard's taser")]
+    [SerializeField] [Range (0f, 10f)] private float fireRateReset;
+    
+    [Tooltip("References the taser prefab for the guard to spawn")]
+    [SerializeField] private GameObject taserProjectile;
+
+    [Tooltip("References the spawn location of the taser prefeab")]
+    [SerializeField] private GameObject taserSpawnLoc;
+
+    [Tooltip ("The higher the float the lower the accuracy of the guard's taser")]
+    [SerializeField] [Range (0f, 1f)] public float accuracy = .3f;
+    
     //---------------------------------------------------------------------------------------------------//
 
     [Header("Misc. Variables")]
 
     [Space(20)]
 
-    [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
-    [SerializeField] [Range(0, 2)] private float attackRadius = 10f;
-
-    [SerializeField] [Range(0, 10)] private float taserShotRadius;
 
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
-
-    [SerializeField] private GameObject playerCaptureTeleportLoc;
-
-    [SerializeField] private GameObject playerReleaseTeleportLoc;
 
     private float oneTimeUseTimer = 2f;
 
@@ -225,14 +234,6 @@ public class EnemyManager : MonoBehaviour
 
     [Space(20)]
 
-    [Tooltip("References the taser prefab for the guard to spawn")]
-    [SerializeField] private GameObject taserProjectile;
-
-    [Tooltip("References the spawn location of the taser prefeab")]
-    [SerializeField] private GameObject taserSpawnLoc;
-
-    [Tooltip("Basically the fire rate for the guard's taser")]
-    [SerializeField] [Range (0f, 10f)] private float fireRateReset;
 
     [Tooltip("Guard's stopping distance from the security station")]
     [SerializeField] private float stoppingDistance = 2f;
@@ -587,9 +588,6 @@ public class EnemyManager : MonoBehaviour
     // Draws shapes only visible in the editor
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
-
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, randPointRad);
 
@@ -623,8 +621,6 @@ public class EnemyManager : MonoBehaviour
     }//End Awake
     #endregion
 
-    [Tooltip ("The higher the float the lower the accuracy of the guard's taser")]
-    [SerializeField] [Range (0f, 1f)] public float accuracy = .3f;
 
     #region Update
     //---------------------------------//
@@ -856,9 +852,7 @@ public class EnemyManager : MonoBehaviour
 
                 break;
             #endregion Suspicious Behavior
-
-
-            //Restructure this shit, it's awful
+            
             #region Hostile Behavior
             //State for the guard to chase the player in
             case EnemyStates.HOSTILE:
@@ -990,7 +984,7 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 //Exit Condition(s)
-                if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance >= taserShotRadius)
+                if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance >= taserShotRadius)   
                 {
                     //RANGED ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
