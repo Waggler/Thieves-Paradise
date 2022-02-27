@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
     private bool canMove = true;
-    private float CurrentSpeed;
+    [SerializeField] private float CurrentSpeed;
     private Vector3 Direction;
 
     [Header("Crouching")]
@@ -165,7 +165,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
+        //TO DO: Kev Said this code is bad but we need it to make player not walk really fast after sprinting. Find a fixerooni
+        if (IsSprinting != true && CurrentSpeed > WalkingSpeed)
+        {
+            CurrentSpeed -= Deceleration * Time.deltaTime;
+        }
+        //TO DO: Kev Said this code is bad but we need it to make player not walk really slow after crouching. Find a fixerooni
+        if (IsCrouching != true && CurrentSpeed < WalkingSpeed)
+        {
+            CurrentSpeed += WalkAcceleration * Time.deltaTime;
+        }
         GroundCheck();
         Rolling();
         AnimationStates();
