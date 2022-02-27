@@ -104,25 +104,25 @@ public class EnemyManager : MonoBehaviour
     [Space(20)]
 
     [Tooltip("The speed that the AI moves at in the PASSIVE state")]
-    [SerializeField] [Range(0, 5)] public float passiveSpeed = 1f;
+    [SerializeField] [Range(0, 10)] public float passiveSpeed = 1f;
 
     [Tooltip("The speed that the AI moves at in the WARY state")]
-    [SerializeField] [Range(0, 5)] public float warySpeed = 1.5f;
+    [SerializeField] [Range(0, 10)] public float warySpeed = 1.5f;
 
     [Tooltip("The speed that the AI moves at in the SUSPICIOS state")]
-    [SerializeField] [Range(0, 5)] public float susSpeed = 1f;
+    [SerializeField] [Range(0, 10)] public float susSpeed = 1f;
 
     [Tooltip("The speed that the AI moves at in the STUNNED state")]
-    [SerializeField] [Range(0, 5)] public float stunSpeed = 0f;
+    [SerializeField] [Range(0, 10)] public float stunSpeed = 0f;
 
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
-    [SerializeField] [Range(0, 5)] public float hostileSpeed = 4f;
+    [SerializeField] [Range(0, 10)] public float hostileSpeed = 4f;
 
     [Tooltip("The speed that the AI moves at in the REPORT state")]
-    [SerializeField] [Range(0, 5)] private float reportSpeed = 3.5f;
+    [SerializeField] [Range(0, 10)] private float reportSpeed = 3.5f;
 
     [Tooltip("The speed that the AI moves at in the ATTACK state")]
-    [SerializeField] [Range(0, 5)] public float attackSpeed = 0f;
+    [SerializeField] [Range(0, 10)] public float attackSpeed = 0f;
 
     //---------------------------------------------------------------------------------------------------//
     [Header("Patrol Wait Variables")]
@@ -621,7 +621,6 @@ public class EnemyManager : MonoBehaviour
     }//End Awake
     #endregion
 
-
     #region Update
     //---------------------------------//
     //Function called every frame
@@ -944,6 +943,7 @@ public class EnemyManager : MonoBehaviour
 
             #region Ranged Attack Behavior
             case EnemyStates.RANGEDATTACK:
+                //Add secondary section to this state that changes the guard's behaviour from run / stop & gun to run & gun
 
                 SetAiSpeed(0);
 
@@ -952,7 +952,8 @@ public class EnemyManager : MonoBehaviour
                 FaceTarget(target);
 
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
-                if (playerMovenemtRef.IsStunned == true)
+                //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
+                if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
                 {
                     ceaseFire = true;
                 }
