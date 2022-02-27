@@ -42,13 +42,14 @@ public class WalkPastFallOver : MonoBehaviour
 
     public void OnTriggerStay()
     {
-        if(pm.IsCrouching == true || im.isCrouching == true)
+        //pm.IsCrouching == true || im.isCrouching == true || 
+        if(pm.IdleCrouch == true || pm.Crouching == true)
         {
             Debug.Log("Walked Past!");
             inRange = false;
         }
 
-        if(pm.IsCrouching == false || im.isCrouching == false)
+        if(pm.IsCrouching == false || im.isCrouching == false || pm.IdleCrouch == false || pm.Crouching == false)
         {
             inRange = true;
             Debug.Log("Sound Made!");
@@ -73,13 +74,14 @@ public class WalkPastFallOver : MonoBehaviour
 
     public void OnTriggerEnter()
     {
-        if(pm.IsCrouching == true || im.isCrouching == true)
+        //pm.IsCrouching == true || im.isCrouching == true || 
+        if(pm.IdleCrouch == true || pm.Crouching == true)
         {
             Debug.Log("Walked Past!");
             inRange = false;
         }
 
-        if(pm.IsCrouching == false || im.isCrouching == false)
+        if(pm.IsCrouching == false || im.isCrouching == false || pm.IdleCrouch == false || pm.Crouching == false)
         {
             inRange = true;
             Debug.Log("Sound Made!");
