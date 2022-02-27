@@ -11,6 +11,7 @@ public class InventoryVisualController : MonoBehaviour
     [SerializeField] private RectTransform CamScreen;
     [SerializeField] private Image blackScreen;
     [SerializeField] public TextMeshProUGUI camCount;
+    //[SerializeField] private AudioClip cameraSFX;
 
     public bool useCoolTransition;
 
@@ -20,6 +21,8 @@ public class InventoryVisualController : MonoBehaviour
         InventoryUI.SetActive(false);
         OpeningCutsceneUI.SetActive(true);
         blackScreen.enabled = true;
+
+        //this.gameObject.AddComponent<AudioSource>().clip = cameraSFX;
 
         //fade from black
         StartCoroutine(FadeFromBlack());
@@ -57,7 +60,6 @@ public class InventoryVisualController : MonoBehaviour
             InventoryUI.SetActive(true);
             OpeningCutsceneUI.SetActive(false);
         }
-        
     }
 
     private IEnumerator CoolTransition()
