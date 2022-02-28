@@ -355,7 +355,7 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion Waypoints Functions
 
-    #region AI Methods
+    #region Methods
 
     //---------------------------------//
     // Called on Awake and initializes everything that is finalized and needs to be done at awake
@@ -520,7 +520,7 @@ public class EnemyManager : MonoBehaviour
         }
 
         //The float at the end is arbitrarily high so that the guard properly faces the player / target when stationary or making a tight corner
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 60000000f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * Mathf.Infinity);
     }//End FaceTarget
 
 
@@ -610,7 +610,7 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(2);
     }
 
-    #endregion AI Methods
+    #endregion Methods
 
     #region Awake
     //---------------------------------//
