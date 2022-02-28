@@ -31,11 +31,11 @@ public class MissionSelectManager : MonoBehaviour
     private void Start()
     //-----------------------//
     {
-        Init();
+        //Init();
 
     }//END Start
 
-
+    /*
     //-----------------------//
     private void Init()
     //-----------------------//
@@ -70,7 +70,7 @@ public class MissionSelectManager : MonoBehaviour
 
 
     }//END Init
-
+    */
     //-----------------------//
     public void ChangeScreen()
     //-----------------------//
