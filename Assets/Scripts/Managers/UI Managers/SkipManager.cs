@@ -47,6 +47,19 @@ public class SkipManager : MonoBehaviour
         float holdTime = 5f;
         yield return new WaitForSeconds(holdTime);
 
+        if (dialogueManager.isLadyComplete == true)
+        {
+            PlayerPrefs.SetInt("isLadyComplete", 1);
+        }
+        if (dialogueManager.isLadyComplete == true)
+        {
+            PlayerPrefs.SetInt("isMassesComplete", 1);
+        }
+        if (dialogueManager.isLadyComplete == true)
+        {
+            PlayerPrefs.SetInt("endCredits", 1);
+        }
+
         if (dialogueManager.isEndCredits == true)
         {
             PlayerPrefs.SetInt("endCredits", 1);
