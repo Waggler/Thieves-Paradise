@@ -104,25 +104,25 @@ public class EnemyManager : MonoBehaviour
     [Space(20)]
 
     [Tooltip("The speed that the AI moves at in the PASSIVE state")]
-    [SerializeField] [Range(0, 5)] public float passiveSpeed = 1f;
+    [SerializeField] [Range(0, 10)] public float passiveSpeed = 1f;
 
     [Tooltip("The speed that the AI moves at in the WARY state")]
-    [SerializeField] [Range(0, 5)] public float warySpeed = 1.5f;
+    [SerializeField] [Range(0, 10)] public float warySpeed = 1.5f;
 
     [Tooltip("The speed that the AI moves at in the SUSPICIOS state")]
-    [SerializeField] [Range(0, 5)] public float susSpeed = 1f;
+    [SerializeField] [Range(0, 10)] public float susSpeed = 1f;
 
     [Tooltip("The speed that the AI moves at in the STUNNED state")]
-    [SerializeField] [Range(0, 5)] public float stunSpeed = 0f;
+    [SerializeField] [Range(0, 10)] public float stunSpeed = 0f;
 
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
-    [SerializeField] [Range(0, 5)] public float hostileSpeed = 4f;
+    [SerializeField] [Range(0, 10)] public float hostileSpeed = 4f;
 
     [Tooltip("The speed that the AI moves at in the REPORT state")]
-    [SerializeField] [Range(0, 5)] private float reportSpeed = 3.5f;
+    [SerializeField] [Range(0, 10)] private float reportSpeed = 3.5f;
 
     [Tooltip("The speed that the AI moves at in the ATTACK state")]
-    [SerializeField] [Range(0, 5)] public float attackSpeed = 0f;
+    [SerializeField] [Range(0, 10)] public float attackSpeed = 0f;
 
     //---------------------------------------------------------------------------------------------------//
     [Header("Patrol Wait Variables")]
@@ -184,27 +184,36 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("")]
     [HideInInspector] private float stunTimeReset;
 
-    [Tooltip("Duration of the guard's Attack state duration")]
-    [SerializeField] private float attackTime;
-    private float attackTimeReset;
+    //---------------------------------------------------------------------------------------------------//
 
+    [Header("Taser Variables")]
+
+    [Space(20)]
+    
+    [Tooltip("The radius in which the guard tases the player")]
+    [SerializeField] [Range(0, 10)] private float taserShotRadius;
+
+    [Tooltip("Basically the fire rate for the guard's taser")]
+    [SerializeField] [Range (0f, 10f)] private float fireRateReset;
+    
+    [Tooltip("References the taser prefab for the guard to spawn")]
+    [SerializeField] private GameObject taserProjectile;
+
+    [Tooltip("References the spawn location of the taser prefeab")]
+    [SerializeField] private GameObject taserSpawnLoc;
+
+    [Tooltip ("The higher the float the lower the accuracy of the guard's taser")]
+    [SerializeField] [Range (0f, 1f)] public float accuracy = .3f;
+    
     //---------------------------------------------------------------------------------------------------//
 
     [Header("Misc. Variables")]
 
     [Space(20)]
 
-    [Tooltip("The distance the guard needs to be from the target/player before it attacks them")]
-    [SerializeField] [Range(0, 2)] private float attackRadius = 10f;
-
-    [SerializeField] [Range(0, 10)] private float taserShotRadius;
 
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
-
-    [SerializeField] private GameObject playerCaptureTeleportLoc;
-
-    [SerializeField] private GameObject playerReleaseTeleportLoc;
 
     private float oneTimeUseTimer = 2f;
 
@@ -225,14 +234,6 @@ public class EnemyManager : MonoBehaviour
 
     [Space(20)]
 
-    [Tooltip("References the taser prefab for the guard to spawn")]
-    [SerializeField] private GameObject taserProjectile;
-
-    [Tooltip("References the spawn location of the taser prefeab")]
-    [SerializeField] private GameObject taserSpawnLoc;
-
-    [Tooltip("Basically the fire rate for the guard's taser")]
-    [SerializeField] [Range (0f, 10f)] private float fireRateReset;
 
     [Tooltip("Guard's stopping distance from the security station")]
     [SerializeField] private float stoppingDistance = 2f;
@@ -354,7 +355,7 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion Waypoints Functions
 
-    #region AI Methods
+    #region Methods
 
     //---------------------------------//
     // Called on Awake and initializes everything that is finalized and needs to be done at awake
@@ -519,7 +520,7 @@ public class EnemyManager : MonoBehaviour
         }
 
         //The float at the end is arbitrarily high so that the guard properly faces the player / target when stationary or making a tight corner
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 60000000f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * Mathf.Infinity);
     }//End FaceTarget
 
 
@@ -587,9 +588,6 @@ public class EnemyManager : MonoBehaviour
     // Draws shapes only visible in the editor
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
-
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, randPointRad);
 
@@ -612,7 +610,7 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(2);
     }
 
-    #endregion AI Methods
+    #endregion Methods
 
     #region Awake
     //---------------------------------//
@@ -622,9 +620,6 @@ public class EnemyManager : MonoBehaviour
         Init();
     }//End Awake
     #endregion
-
-    [Tooltip ("The higher the float the lower the accuracy of the guard's taser")]
-    [SerializeField] [Range (0f, 1f)] public float accuracy = .3f;
 
     #region Update
     //---------------------------------//
@@ -752,7 +747,7 @@ public class EnemyManager : MonoBehaviour
                 //Reseting alert related variables
                 if (isAudioSourcePlaying == true)
                 {
-                    audioSource.Stop();
+                    //audioSource.Stop();
 
                     isAudioSourcePlaying = false;
                 }
@@ -856,9 +851,7 @@ public class EnemyManager : MonoBehaviour
 
                 break;
             #endregion Suspicious Behavior
-
-
-            //Restructure this shit, it's awful
+            
             #region Hostile Behavior
             //State for the guard to chase the player in
             case EnemyStates.HOSTILE:
@@ -902,7 +895,7 @@ public class EnemyManager : MonoBehaviour
                     //Playing Alert Audio
                     if (isAudioSourcePlaying == false)
                     {
-                        audioSource.Play();
+                        //audioSource.Play();
 
                         isAudioSourcePlaying = true;
                     }
@@ -950,6 +943,7 @@ public class EnemyManager : MonoBehaviour
 
             #region Ranged Attack Behavior
             case EnemyStates.RANGEDATTACK:
+                //Add secondary section to this state that changes the guard's behaviour from run / stop & gun to run & gun
 
                 SetAiSpeed(0);
 
@@ -958,7 +952,8 @@ public class EnemyManager : MonoBehaviour
                 FaceTarget(target);
 
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
-                if (playerMovenemtRef.IsStunned == true)
+                //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
+                if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
                 {
                     ceaseFire = true;
                 }
@@ -990,7 +985,7 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 //Exit Condition(s)
-                if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance >= taserShotRadius)
+                if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance >= taserShotRadius)   
                 {
                     //RANGED ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;

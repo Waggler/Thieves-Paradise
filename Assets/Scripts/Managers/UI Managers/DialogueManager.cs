@@ -16,6 +16,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     public int nextSceneIndex;
     public bool isEndCredits;
+    public bool isLadyComplete;
+    public bool isMassesComplete;
+    public bool isMafiaComplete;
 
     //-----------------------//
     private void Start()
@@ -46,6 +49,18 @@ public class DialogueManager : MonoBehaviour
         }
         catch
         {
+            if (isLadyComplete == true)
+            {
+                PlayerPrefs.SetInt("isLadyComplete", 1);
+            }
+            if (isLadyComplete == true)
+            {
+                PlayerPrefs.SetInt("isMassesComplete", 1);
+            }
+            if (isLadyComplete == true)
+            {
+                PlayerPrefs.SetInt("endCredits", 1);
+            }
 
             if (isEndCredits == true)
             {
