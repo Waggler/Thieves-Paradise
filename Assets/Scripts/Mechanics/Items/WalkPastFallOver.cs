@@ -9,6 +9,7 @@ public class WalkPastFallOver : MonoBehaviour
     public GameObject fallingObject;
     public float Timer = 0f;
     public bool inRange = false;
+    public bool Crouching = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,18 +39,27 @@ public class WalkPastFallOver : MonoBehaviour
                 Timer = 1.05f;
             }
         }
+
+        if(pm.IsCrouching == true)
+        {
+            Crouching = true;
+        }
+
+        if(pm.IsCrouching == false)
+        {
+            Crouching = false;
+        }
     }
 
     public void OnTriggerStay()
-    {
-        //pm.IsCrouching == true || im.isCrouching == true || 
-        if(pm.IdleCrouch == true || pm.Crouching == true)
+    { 
+        if(Crouching == true)
         {
             Debug.Log("Walked Past!");
             inRange = false;
         }
 
-        if(pm.IsCrouching == false || im.isCrouching == false || pm.IdleCrouch == false || pm.Crouching == false)
+        if(Crouching == false)
         {
             inRange = true;
             Debug.Log("Sound Made!");
@@ -73,15 +83,14 @@ public class WalkPastFallOver : MonoBehaviour
     }
 
     public void OnTriggerEnter()
-    {
-        //pm.IsCrouching == true || im.isCrouching == true || 
-        if(pm.IdleCrouch == true || pm.Crouching == true)
+    { 
+        if(Crouching == true)
         {
             Debug.Log("Walked Past!");
             inRange = false;
         }
 
-        if(pm.IsCrouching == false || im.isCrouching == false || pm.IdleCrouch == false || pm.Crouching == false)
+        if(Crouching == false)
         {
             inRange = true;
             Debug.Log("Sound Made!");
