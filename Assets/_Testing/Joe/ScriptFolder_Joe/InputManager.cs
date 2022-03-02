@@ -129,14 +129,14 @@ public class InputManager : MonoBehaviour
     #region ZoomIn
     public void ZoomIn(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if(context.started)
         {
-            IsZoomed = true;
+            IsZoomed = false;
             camSwitch.SwitchState(IsZoomed);
         }
         else if(context.canceled)
         {
-            IsZoomed = false;
+            IsZoomed = true;
             camSwitch.SwitchState(IsZoomed);
         }
     }// END ZOOM IN
