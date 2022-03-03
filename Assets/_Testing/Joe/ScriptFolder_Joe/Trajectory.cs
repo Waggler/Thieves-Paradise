@@ -8,8 +8,7 @@ public class Trajectory : MonoBehaviour
     [Header("Calulation Variables")]
     [SerializeField] private Transform InitialPosition;
     private InventoryController inventoryController;
-    private float Velocity;
-    private Vector3 TrueVelocity = new Vector3 (0,500,500);
+    private Vector3 TrueVelocity;
     private float AngleofLaunch = 45.0f;
 
     [Header("Visualization")]
@@ -28,7 +27,7 @@ public class Trajectory : MonoBehaviour
 
     void Update()
     {
-        //Velocity = inventoryController.throwForce;
+        TrueVelocity = inventoryController.throwVector;
         TrajectoryStart = inputManager.IsZoomed;
         PredictingLaunch();
     }
