@@ -10,6 +10,7 @@ public class WalkPastFallOver : MonoBehaviour
     public float Timer = 0f;
     public bool inRange = false;
     public bool Crouching = false;
+    public float maxAngle = -90f;
 
     // Start is called before the first frame update
     void Start()
