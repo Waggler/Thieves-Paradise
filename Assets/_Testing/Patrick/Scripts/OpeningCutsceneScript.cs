@@ -15,6 +15,7 @@ public class OpeningCutsceneScript : MonoBehaviour
     [SerializeField] private float[] waitTimes;
     //[SerializeField] private float timeAtWaypoints = 3;
     private InventoryVisualController ic;
+    private bool isPlayingCutscene;
 
     void Awake()
     {
@@ -36,8 +37,22 @@ public class OpeningCutsceneScript : MonoBehaviour
         StartCoroutine(PlayCutscene());
     }
 
+    void Update()
+    {
+        if (isPlayingCutscene)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StopCoroutine(PlayCutscene());
+                isPlayingCutscene = false;
+                StartPlay();
+            }
+        }
+    }
+
     private IEnumerator PlayCutscene()
     {
+        isPlayingCutscene = true;
         yield return new WaitForSeconds(0.1f);
         //play transition from loading screen to cutscene
         CMStateCam.GetComponent<CinemachineCollider>().enabled = false;
@@ -49,6 +64,7 @@ public class OpeningCutsceneScript : MonoBehaviour
 
         for(int i = 0; i < waypoints.Length; i++)
         {
+            if (!isPlayingCutscene) break;
             //play camera transition noise here
             this.GetComponent<AudioSource>().Play();
 
@@ -65,13 +81,14 @@ public class OpeningCutsceneScript : MonoBehaviour
             yield return new WaitForSeconds(waitTimes[i]);
         }
 
-        CMStateCam.GetComponent<CinemachineCollider>().enabled = true;
+        isPlayingCutscene = false;
         //when cutscene is over swap back to main cam to start play
         StartPlay();
     }
 
     void StartPlay()
     {
+        CMStateCam.GetComponent<CinemachineCollider>().enabled = true;
         //change back to game camera
         anim.Play("FreeLook");
         //re-enable input
