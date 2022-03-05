@@ -19,7 +19,7 @@ public class InventoryController : MonoBehaviour
     [HideInInspector] public Vector3 throwVector;
     
 
-    [SerializeField] private int inventorySize = 4;
+    private int inventorySize = 4;
     [SerializeField] private Transform holdItemPos;
 
     private LayerMask layerMask;
@@ -285,6 +285,9 @@ public class InventoryController : MonoBehaviour
                     if (!itemInterfaceInventory[i].isKeyItem) //make sure it's not an objective item
                     {//only display non-objective items
                         DisplayItem(i);
+                    }else
+                    {//make sure to actually get rid of the key item otherwise
+                        ResetItem(i);
                     }
                 }else
                 {
