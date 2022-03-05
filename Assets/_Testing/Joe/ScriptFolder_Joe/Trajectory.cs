@@ -13,6 +13,7 @@ public class Trajectory : MonoBehaviour
 
     [Header("Visualization")]
     [SerializeField] private LineRenderer Line;
+    [Range(3,30)]
     [SerializeField] private int LineLength;
     [SerializeField] private Material Mat1, Mat2;
     private InputManager inputManager;
