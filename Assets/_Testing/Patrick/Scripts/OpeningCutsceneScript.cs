@@ -36,12 +36,24 @@ public class OpeningCutsceneScript : MonoBehaviour
         //start cutscene coroutine
         StartCoroutine(PlayCutscene());
     }
+    // void Update()
+    // {
+    //     if (isPlayingCutscene)
+    //     {
+    //         if (Input.GetKeyDown(KeyCode.Space))
+    //         {
+    //             StopCoroutine(PlayCutscene());
+    //             isPlayingCutscene = false;
+    //             StartPlay();
+    //         }
+    //     }
+    // }
 
-    void Update()
+    public void SkipCutscene(InputAction.CallbackContext context)
     {
-        if (isPlayingCutscene)
+        //if (context.started)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (isPlayingCutscene)
             {
                 StopCoroutine(PlayCutscene());
                 isPlayingCutscene = false;
@@ -78,6 +90,12 @@ public class OpeningCutsceneScript : MonoBehaviour
             oldCamNum = camNum;
 
             ic.camCount.text = "Cam " + camNum;
+
+            if (camNum == 69)
+            {
+                ic.camCount.text = "Cam " + camNum + " nice";
+            }
+
             yield return new WaitForSeconds(waitTimes[i]);
         }
 
@@ -95,14 +113,19 @@ public class OpeningCutsceneScript : MonoBehaviour
         inputManager.enabled = true;
 
         ic.ReturnToGameplay();
+
+        this.gameObject.GetComponent<OpeningCutsceneScript>().enabled = false; //disable this script because it's not needed anymore
     }
 
     void OnDrawGizmos()
     {
-        foreach (GameObject i in waypoints)
+        if (waypoints.Length != 0 || waypoints[0] != null)
         {
-            Gizmos.DrawSphere(i.transform.position, 0.3f);
-            Gizmos.DrawRay(i.transform.position, i.transform.forward*2);
+            foreach (GameObject i in waypoints)
+            {
+                Gizmos.DrawSphere(i.transform.position, 0.3f);
+                Gizmos.DrawRay(i.transform.position, i.transform.forward*2);
+            }
         }
     }
 }
