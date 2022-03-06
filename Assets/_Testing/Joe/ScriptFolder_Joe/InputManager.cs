@@ -131,12 +131,12 @@ public class InputManager : MonoBehaviour
     {
         if(context.started)
         {
-            IsZoomed = false;
+            IsZoomed = true;
             camSwitch.SwitchState(IsZoomed);
         }
         else if(context.canceled)
         {
-            IsZoomed = true;
+            IsZoomed = false;
             camSwitch.SwitchState(IsZoomed);
         }
     }// END ZOOM IN

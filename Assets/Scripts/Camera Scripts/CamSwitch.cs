@@ -45,12 +45,12 @@ public class CamSwitch : MonoBehaviour
 
     public void SwitchState(bool Zooming)
     {
-        if(Zooming)
+        if(!Zooming)
         {
             animator.Play("FreeLook");
             firstPersonCam = false;
         }
-        else if(!Zooming)
+        else if(Zooming)
         {
             animator.Play("VCam1");
             firstPersonCam = false;

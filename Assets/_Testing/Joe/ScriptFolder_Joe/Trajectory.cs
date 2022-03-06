@@ -17,9 +17,9 @@ public class Trajectory : MonoBehaviour
     [SerializeField] private LineRenderer Line;
     [Range(3,30)]
     [SerializeField] private int LineLength;
-    [SerializeField] private Material Mat1, Mat2;
+    [SerializeField] private Material Mat;
     private InputManager inputManager;
-    private bool TrajectoryStart;
+    private bool TrajectoryStart = true;
 
     void Start()
     {
@@ -39,12 +39,13 @@ public class Trajectory : MonoBehaviour
         if(TrajectoryStart)
         {
             Debug.Log("I am working.");
-            Line.material = Mat1;
+            Line.material = Mat;
             VisulizeTrajectory(TrueVelocity);
+            Line.enabled = true;
         }
         else
         {
-            Line.material = Mat2;
+            Line.enabled = false;
         }
     }
     void VisulizeTrajectory(Vector3 Thrown)
