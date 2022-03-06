@@ -5,6 +5,8 @@ using static System.Math;
 
 public class Trajectory : MonoBehaviour
 {
+    //Some how this isn't even firing. Try to see if !Trajectory start works.
+
     [Header("Calulation Variables")]
     [SerializeField] private Transform InitialPosition;
     private InventoryController inventoryController;
@@ -36,6 +38,7 @@ public class Trajectory : MonoBehaviour
     {
         if(TrajectoryStart)
         {
+            Debug.Log("I am working.");
             Line.material = Mat1;
             VisulizeTrajectory(TrueVelocity);
         }
@@ -48,6 +51,7 @@ public class Trajectory : MonoBehaviour
     {
         for(int i = 0; i < LineLength; i++)
         {
+            Debug.Log($"I = {i}");
             Vector3 Position = CalculateTrajectory(Thrown, i / (float)(LineLength) / 0.5f);
             Line.SetPosition(i, Position);
         }
@@ -62,6 +66,8 @@ public class Trajectory : MonoBehaviour
         float SpawnY = (-0.5f * Mathf.Abs(Physics.gravity.y) * (time * time)) + (vo.y * time) + InitialPosition.position.y;
 
         Result.y = SpawnY;
+
+        Debug.Log($"The Result is {Result}");
 
         return Result;
     }
