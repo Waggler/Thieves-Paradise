@@ -15,6 +15,7 @@ public class InventoryController : MonoBehaviour
     private GameObject[] hotbarMesh = new GameObject[4];
 
     [HideInInspector] public float throwForce;
+    [SerializeField] private float throwForceCap = 500;
     [HideInInspector] public bool isHoldingItem;
     [HideInInspector] public Vector3 throwVector;
     
@@ -55,8 +56,9 @@ public class InventoryController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(throwing && throwForce < 1000)
+        if(throwing && throwForce < throwForceCap)
         {
+            //print(throwForce);
             throwForce += Time.deltaTime * 200;
             throwVector = transform.forward * throwForce + transform.up * throwForce;
         }
@@ -215,7 +217,12 @@ public class InventoryController : MonoBehaviour
         if (throwForce < 200)
         {
             throwForce = 200;
+        }else if (throwForce > 500)
+        {
+            throwForce = 500;
         }
+
+        print(throwForce);
         //reset item to normal status
         ResetItem(activeItemIndex);
 
@@ -228,7 +235,6 @@ public class InventoryController : MonoBehaviour
         thrownItem.GetComponent<Rigidbody>().AddForce(throwVector);
         thrownItem.GetComponent<Rigidbody>().AddTorque(Vector3.one * Random.Range(5f,15f));
         thrownItem.GetComponent<ItemSuperScript>().ThrowItem();
-
         
         RemoveActiveItem();
     }
