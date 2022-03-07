@@ -30,7 +30,8 @@ public class EyeballScript : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("PlayerVisionTarget").transform;
-        layerMask = ~LayerMask.GetMask("Player"); //get the player layer to make sure they don't block themselves from vision
+        layerMask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost");
+        layerMask = ~layerMask; //get the player layer to make sure they don't block themselves from vision
 
         lastKnownLocation = transform.position; //set the last known location to the location of the guard to start to prevent potential weirdness
     }//End Start
