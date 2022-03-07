@@ -15,6 +15,7 @@ public class OpeningCutsceneScript : MonoBehaviour
     [SerializeField] private float[] waitTimes;
     //[SerializeField] private float timeAtWaypoints = 3;
     private InventoryVisualController ic;
+    private bool isPlayingCutscene;
 
     void Awake()
     {
@@ -35,9 +36,35 @@ public class OpeningCutsceneScript : MonoBehaviour
         //start cutscene coroutine
         StartCoroutine(PlayCutscene());
     }
+    // void Update()
+    // {
+    //     if (isPlayingCutscene)
+    //     {
+    //         if (Input.GetKeyDown(KeyCode.Space))
+    //         {
+    //             StopCoroutine(PlayCutscene());
+    //             isPlayingCutscene = false;
+    //             StartPlay();
+    //         }
+    //     }
+    // }
+
+    public void SkipCutscene(InputAction.CallbackContext context)
+    {
+        //if (context.started)
+        {
+            if (isPlayingCutscene)
+            {
+                StopCoroutine(PlayCutscene());
+                isPlayingCutscene = false;
+                StartPlay();
+            }
+        }
+    }
 
     private IEnumerator PlayCutscene()
     {
+        isPlayingCutscene = true;
         yield return new WaitForSeconds(0.1f);
         //play transition from loading screen to cutscene
         CMStateCam.GetComponent<CinemachineCollider>().enabled = false;
@@ -49,6 +76,7 @@ public class OpeningCutsceneScript : MonoBehaviour
 
         for(int i = 0; i < waypoints.Length; i++)
         {
+            if (!isPlayingCutscene) break;
             //play camera transition noise here
             this.GetComponent<AudioSource>().Play();
 
@@ -62,30 +90,42 @@ public class OpeningCutsceneScript : MonoBehaviour
             oldCamNum = camNum;
 
             ic.camCount.text = "Cam " + camNum;
+
+            if (camNum == 69)
+            {
+                ic.camCount.text = "Cam " + camNum + " nice";
+            }
+
             yield return new WaitForSeconds(waitTimes[i]);
         }
 
-        CMStateCam.GetComponent<CinemachineCollider>().enabled = true;
+        isPlayingCutscene = false;
         //when cutscene is over swap back to main cam to start play
         StartPlay();
     }
 
     void StartPlay()
     {
+        CMStateCam.GetComponent<CinemachineCollider>().enabled = true;
         //change back to game camera
         anim.Play("FreeLook");
         //re-enable input
         inputManager.enabled = true;
 
         ic.ReturnToGameplay();
+
+        this.gameObject.GetComponent<OpeningCutsceneScript>().enabled = false; //disable this script because it's not needed anymore
     }
 
     void OnDrawGizmos()
     {
-        foreach (GameObject i in waypoints)
+        if (waypoints.Length != 0 || waypoints[0] != null)
         {
-            Gizmos.DrawSphere(i.transform.position, 0.3f);
-            Gizmos.DrawRay(i.transform.position, i.transform.forward*2);
+            foreach (GameObject i in waypoints)
+            {
+                Gizmos.DrawSphere(i.transform.position, 0.3f);
+                Gizmos.DrawRay(i.transform.position, i.transform.forward*2);
+            }
         }
     }
 }
