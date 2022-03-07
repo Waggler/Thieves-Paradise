@@ -3,23 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-/*
-    Things to try:
-        - Treat the camera like a shitty first person controller that is manipulated via code instead of via player input
-
-
-
-
-
-*/
-
-
-
 public class CameraManager : MonoBehaviour
 {
 
     #region Enumerations
-    private enum CamStates
+    public enum CamStates
     {
         MONITORING,
         FOCUSED,
@@ -111,11 +99,12 @@ public class CameraManager : MonoBehaviour
 
     [HideInInspector] private float distanceToCamera;
 
-    [HideInInspector] private float timeLeft;
+    private Quaternion initialRotation;
 
-    private bool timerBool;
+    private float disabledTime;
 
-    public float camRotationFuckery;
+    [Tooltip("Amount of the time the camera will be disabled for")]
+    [SerializeField] private float disabledTimeReset;
 
 
     #endregion Variables
@@ -182,11 +171,9 @@ public class CameraManager : MonoBehaviour
                     isAudioSourcePlaying = false;
                 }
 
-
                 Vector3 hiddenRotationMax = new Vector3(0, rotationMax, 0);
 
                 hiddenRotationMax.y = Mathf.Clamp(transform.rotation.y, rotationMax, -rotationMax);
-
 
                 //Technically this snippet of code shouldn't work yet it does, will likely break in the future and need to be fixed
                 //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
@@ -196,7 +183,6 @@ public class CameraManager : MonoBehaviour
                     camSpeed = -camSpeed;
                 }
 
-                //if (distanceToPlayer <= lookRadius)
                 if (eyeball.canCurrentlySeePlayer == true)
                 {
                     Instantiate(surpriseVFX, transform.position, transform.rotation);
@@ -214,12 +200,7 @@ public class CameraManager : MonoBehaviour
             //When the camera sees the player / FOCUSED
             case CamStates.FOCUSED:
 
-
-
-
                 target = eyeball.lastKnownLocation;
-
-                //FaceTarget(target);
 
                 transform.LookAt(target);
 
@@ -238,6 +219,8 @@ public class CameraManager : MonoBehaviour
                 //Exit condition for FOCUSED state
                 if (eyeball.canCurrentlySeePlayer == false)
                 {
+                    transform.rotation = initialRotation;
+
                     //FOCUSED >>> MONITORING
                     cameraStateMachine = CamStates.MONITORING;
                 }
@@ -245,18 +228,18 @@ public class CameraManager : MonoBehaviour
                 break;
             #endregion Focused State
 
-            //Do not use, currently broken
             #region Disabled State
             case CamStates.DISABLED:
-                //Insert timer here
 
-                DisableCamera(5f);
-
-                timeLeft -= Time.deltaTime;
-
-                if (timeLeft < 0)
+                if (disabledTime > 0)
                 {
+                    disabledTime -= Time.fixedDeltaTime;
+                }
+                else if (disabledTime < 0)
+                {
+                    disabledTime = disabledTimeReset;
 
+                    cameraStateMachine = CamStates.MONITORING;
                 }
 
                 camLightRef.color = Color.yellow;
@@ -265,17 +248,13 @@ public class CameraManager : MonoBehaviour
             #endregion Disabled State
 
             #region Default / Error state
-            //Not exactly a state but acts as a net to catch any bugs that would prevent the game from running
             default:
                 break;
-                #endregion Default / Error State
+            #endregion Default / Error State
         }
         #endregion Cam State Machine
 
         UpdateCamLightVars();
-
-        LockedRotation();
-
     }//End Update
     #endregion Update
 
@@ -307,35 +286,12 @@ public class CameraManager : MonoBehaviour
         //Changes camera light color to green
         camLightRef.color = Color.green;
 
+        initialRotation = transform.rotation;
+
+        disabledTime = disabledTimeReset;
+
         UpdateCamLightVars();
     }//End Init
-
-    private float rotationX;
-
-    private void LockedRotation()
-    {
-        rotationX = transform.rotation.x;
-
-        rotationX = Mathf.Clamp(rotationX, 45, -45);
-
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, rotationX);
-    }
-
-
-    //---------------------------------//
-    //Function that makes the object face it's target
-    void FaceTarget(Vector3 target)
-    {
-        Vector3 direction = (target - transform.position).normalized;
-
-        Quaternion lookRotation = Quaternion.identity;
-        if (direction.x != 0 && direction.z != 0)
-        {
-            lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        }
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
-    }//End FaceTarget
 
 
     //---------------------------------//
@@ -374,19 +330,6 @@ public class CameraManager : MonoBehaviour
         camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
 
     }//End UpdateCamVars
-
-
-    //---------------------------------//
-    //Disables the camera
-    public void DisableCamera(float disableTime)
-    {
-        camLightRef.color = Color.yellow;
-
-        timeLeft = disableTime;
-
-        cameraStateMachine = CamStates.DISABLED;
-    }
-
 
 
     public void EnableCamera()
