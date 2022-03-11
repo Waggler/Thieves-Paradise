@@ -33,6 +33,8 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
         get {return objectName;}
         set {objectName = value;}
     }
+
+    private SuspicionManager alertManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,7 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
         if (noiseRadius != 0)
             thrownNoiseRadius = noiseRadius;
         
+        alertManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
     }
 
     // Update is called once per frame
@@ -59,6 +62,11 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
     }
 
     private void LurePigs()
+    {
+        alertManager.AlertGuards(transform.position, transform.position, baitRadius);
+    }
+
+    private void LurePigsAlt()
     {
         //alertManager.AlertGuards(transform.position, transform.position, baitRadius);
 
