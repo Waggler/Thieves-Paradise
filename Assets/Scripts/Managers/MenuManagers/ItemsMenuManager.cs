@@ -11,6 +11,7 @@ public class ItemsMenuManager : MonoBehaviour
     [Header("Components")]
     [Header("Panels")]
     [SerializeField] private GameObject fadePanel;
+    [SerializeField] private GameObject useDescriptionPanel;
     [SerializeField] private GameObject descriptionPanel;
 
     [Space(5)]
@@ -27,6 +28,7 @@ public class ItemsMenuManager : MonoBehaviour
 
     [Header("Visuals")]
     [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text useDescriptionText;
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private Image itemImage;
     [SerializeField] private Sprite smokeSilhouette;
@@ -141,7 +143,8 @@ public class ItemsMenuManager : MonoBehaviour
     //-----------------------//
     {
         nameText.text = data.name.ToString();
-        descriptionText.text = data.description.ToString();
+        useDescriptionText.text = data.useDescription;
+        descriptionText.text = data.description;
         itemImage.sprite = data.itemSprite;
         fadePanel.SetActive(true);
         descriptionPanel.SetActive(true);
