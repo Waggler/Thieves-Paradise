@@ -4,79 +4,70 @@ using UnityEngine;
 
 public class TaserManager : MonoBehaviour
 {
-    /*
-    "UNHOLSTER"
-    
-    Receive Orientation
-        -By receiving information via FaceTarget?
-
-    Launch
-
-    Check for collision with the PLAYER
-
-    COLLIDE 
-
-    DO WHATEVER IS SUPPOSED TO HAPPEN ON COLLISION
-
-    RETURN TO THE GUARD'S "HOLSTER"
-
-    */
-
-    #region Variables
-
     //---------------------------------------------------------------------------------------------------//
 
-    [SerializeField] [Range(0f, 5f)] private float taserSpeed = 3.5f;
+    [SerializeField] [Range(0f, 200f)] private float taserSpeed = 25f;
 
     [SerializeField] private Vector3 target;
 
+    [SerializeField] private GameObject player;
+
+    [SerializeField] private GameObject guard;
+
+    [HideInInspector] public float accuracy;
+
     //---------------------------------------------------------------------------------------------------//
-    #endregion Variabels
 
-    #region Awake & Update
-    private void Awake()
-    {
-        Init();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    #endregion Awake & Update
-
-    #region Collision Check
-    //Taser Collision Check
-
-
+    //---------------------------------//
+    // Collision check for when the taser prefab hit's the player 
     private void OnTriggerEnter(Collider collision)
     {
-        //Checking if the collided object has the tag of player
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //INSERT CODE TO STUN THE PLAYER
+            //Checking if the collided object is the player
+            if (collision.gameObject == player)
+            {
+                //Stuns the player
+                player.GetComponent<PlayerMovement>().IsStunned = true;
+            }
 
-        }
+            ////Checking if the collided object is a guard
+            //if (collision.gameObject == guard)
+            //{
+            //    //Puts the guard into the STUNNED state
+            //    //This method will get the Enemy Manager component/script of the specific guard that was hit
+            //    collision.gameObject.GetComponent<EnemyManager>().stateMachine = EnemyManager.EnemyStates.STUNNED;
+            //}
 
+        //Debug.Log(collision.gameObject);
+        
         //Destroys self
         Destroy(gameObject);
+    }//End OnTriggerEnter
+
+    private void Awake()
+    {
+        Physics.IgnoreLayerCollision(0, 10);
     }
 
-    #endregion
-
-
-    #region Methods
-    private void Init()
+    //---------------------------------//
+    // Called on Awake and initializes everything that is finalized and needs to be done at awake
+    public void Init()
     {
+        //Setting up the prefabs rigidbody
         Rigidbody rb = GetComponent<Rigidbody>();
 
-        target = GameObject.FindGameObjectWithTag("Player").transform.position;
 
-        FaceTarget(target);
+        //Functions as recoil / accuracy for the guard when they instantiate (fire) the taser prefab
+        Vector3 randVec3 = (new Vector3 (Random.Range(-1, 1), Random.Range(-1, 1), 0)) * accuracy;
 
-        rb.velocity = transform.forward * taserSpeed;
-    }
+        //Moves the taser projectile forward
+        rb.velocity = (transform.forward + randVec3) * taserSpeed;
+
+        if (player == null)
+        {
+            player = FindObjectOfType<PlayerMovement>().gameObject;
+        }
+
+    }//End Init
 
     //---------------------------------//
     // Function for facing the target
@@ -90,9 +81,6 @@ public class TaserManager : MonoBehaviour
             lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         }
 
-        transform.rotation = lookRotation; //Quaternion.Slerp(transform.rotation, lookRotation, 1);
-        //Slerp is used for rotating something over time, we just want to set the rotation, so simply setting the rotation to lookRotation was all you needed. 
+        transform.rotation = lookRotation;
     }//End FaceTarget
-
-    #endregion Methods
 }

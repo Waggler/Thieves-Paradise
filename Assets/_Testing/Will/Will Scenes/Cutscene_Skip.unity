@@ -2181,7 +2181,9 @@ MonoBehaviour:
   choiceManager: {fileID: 808872835}
   speakerBox: {fileID: 1522733952}
   textBox: {fileID: 1255347198}
+  skipButton: {fileID: 1370331015}
   dialoguePortraitSwapIndex: 0
+  skipIndex: 16000000
   currentMission: 0
   speakerText: {fileID: 1283500031}
   dialogueText: {fileID: 1372220631}
@@ -4034,7 +4036,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 709244987}
         m_TargetAssemblyTypeName: NarrativeUIManager, Assembly-CSharp
-        m_MethodName: SkipLevel
+        m_MethodName: SkiptoChoice
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
