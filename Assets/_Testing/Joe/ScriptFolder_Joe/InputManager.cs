@@ -15,7 +15,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private CamSwitch camSwitch;
     public float rollCooldownTime;
     private float cooldownTimer;
-    private int jumpPressCounter = 1;
+    public bool jumpPressCounter;
+    public bool StopTheJump;
     [HideInInspector] public bool IsZoomed;
 
     void Awake()
@@ -59,14 +60,17 @@ public class InputManager : MonoBehaviour
     {
         if (context.performed)
         {
-            if (jumpPressCounter == 1)
+            if (!jumpPressCounter && !StopTheJump)
             {
                 playerMovement.Jump();
-                jumpPressCounter++;
+                jumpPressCounter = true;
+                StopTheJump = true;
             }
-            else if (jumpPressCounter == 2)
+
+            else if (jumpPressCounter && StopTheJump)
             {
-                jumpPressCounter = 1;
+                jumpPressCounter = false;
+                StopTheJump = false;
             }
         }
     }// END JUMP

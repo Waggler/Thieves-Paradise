@@ -354,7 +354,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if (!IsStunned && !IsCrouching && IsGrounded )
+        if (!IsStunned && !IsCrouching && IsGrounded)
         {
             if (Direction.magnitude > 0.1)
             {
