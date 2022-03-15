@@ -383,6 +383,7 @@ public class InventoryController : MonoBehaviour
         nearbyItems.TrimExcess();
 
         SwapItem(newItemIndex);
+        ChangeHeldItemDisplay();
         //DisplayItem(newItemIndex);
         
     }//END AddItem

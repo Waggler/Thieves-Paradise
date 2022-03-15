@@ -6,7 +6,7 @@ public class TaserManager : MonoBehaviour
 {
     //---------------------------------------------------------------------------------------------------//
 
-    [SerializeField] [Range(0f, 50f)] private float taserSpeed = 25f;
+    [SerializeField] [Range(0f, 200f)] private float taserSpeed = 25f;
 
     [SerializeField] private Vector3 target;
 

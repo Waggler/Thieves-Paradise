@@ -627,8 +627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d1db55617854c46ba6cc599bedf958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 11.93
-  maxVisionAngle: 36.5
+  sightRange: 20.72
+  maxVisionAngle: 29.5
   susGrowthMultiplier: 8
   susDecreaseMultiplier: 1
   sightAngle: 0
@@ -757,7 +757,7 @@ MonoBehaviour:
   warySpeed: 1.5
   susSpeed: 1
   stunSpeed: 0
-  hostileSpeed: 4
+  hostileSpeed: 7
   reportSpeed: 3.5
   attackSpeed: 0
   isPatrolWait: 1
@@ -771,17 +771,19 @@ MonoBehaviour:
   isAudioSourcePlaying: 0
   isStunned: 0
   stunTime: 10
-  taserShotRadius: 5
-  fireRateReset: 5
+  taserShotRadius: 10
+  fireRateReset: 2
   taserProjectile: {fileID: 6202073389112031844, guid: a0b8e85b42ab8c14b8eae6c4a32e318e, type: 3}
   taserSpawnLoc: {fileID: 8552973499195692512}
-  accuracy: 0.2
+  accuracy: 0
   waypointNextDistance: 0.5
   stoppingDistance: 5
   playerMovenemtRef: {fileID: 0}
   stateMachine: 0
   waypointMethod: 0
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &9215408676989096723
 MonoBehaviour:
   m_ObjectHideFlags: 0
