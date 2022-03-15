@@ -17,6 +17,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
     private LayerMask layerMask;
 
     private bool isObjectiveItem = false;
+    [SerializeField] private float UIScale = 1f;
 
     public bool isKeyItem
     {
@@ -33,6 +34,11 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
     {
         get {return objectName;}
         set {objectName = value;}
+    }
+    public float UIScalar
+    {
+        get{return UIScale;}
+        set{UIScale = value;}
     }
     // Start is called before the first frame update
     void Start()
