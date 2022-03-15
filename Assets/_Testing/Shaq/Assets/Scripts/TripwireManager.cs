@@ -27,6 +27,9 @@ public class TripwireManager : MonoBehaviour
 
     float distance;
 
+    [Header("Hit Object")]
+
+    [SerializeField] private GameObject hitObject;
 
     //References the "Suspicion Manager" object in the scene
     [HideInInspector] private GameObject susManagerOBJ;
@@ -36,13 +39,13 @@ public class TripwireManager : MonoBehaviour
 
     #endregion Variables
 
-    #region Awake
+    #region Start
     //Callled when the object is spawned. Used instead of Start() because the camera could be spawned after the game has started
-    void Awake()
+    void Start()
     {
         Init();
     }
-    #endregion Awake
+    #endregion Start
 
     #region Update
     // Update is called once per frame
@@ -69,11 +72,8 @@ public class TripwireManager : MonoBehaviour
             {
                 //Alerts guards in a set radius (Guards List generated in method)
                 susManagerRef.AlertGuards(hit.point, transform.position, callRadius);
-
-                //print("NOT A GUARD");
             }
         }
-
         yield return new WaitForSeconds(.1f);
     }
     #endregion Coroutines
@@ -93,6 +93,8 @@ public class TripwireManager : MonoBehaviour
         {
             //Records the initial hit point of the raycast
             initialHitRecord = hit.point;
+
+            hitObject = hit.rigidbody.gameObject;
         }
 
         //Creates a reference to the suspicion manager object

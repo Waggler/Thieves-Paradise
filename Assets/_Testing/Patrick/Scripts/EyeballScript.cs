@@ -20,7 +20,7 @@ public class EyeballScript : MonoBehaviour
 
     //Player Detection output
     [HideInInspector] public float sightAngle;
-    [SerializeField] [Range(0, 10)] public float susLevel; //how suspicious the eyeball currently is
+    [SerializeField] [Range(0, 20)] public float susLevel; //how suspicious the eyeball currently is
     [SerializeField]public float minSusLevel; //can't get less sus than this
     [HideInInspector] public Vector3 lastKnownLocation;
     [HideInInspector] public bool canCurrentlySeePlayer;
@@ -91,18 +91,37 @@ public class EyeballScript : MonoBehaviour
         return true;
     }//END FindPlayer
 
+    private float updateTimer = 0;
+
+    [SerializeField] [Range(0.1f, 1f)] private float susLevelTick = .5f;
+
     private void ChangeSus(bool increase)
     {
         if (increase)
         {
-            float focus = sightAngle/maxVisionAngle; //percent based on center of vision
-            focus = 1 - focus; //invert it because closer to 0 is better
-            focus = (focus / 2) + 0.5f; //set minimum multiplier to 50% when at edge of periphery
-            susLevel += focus * susGrowthMultiplier * Time.deltaTime;
+            updateTimer += Time.deltaTime;
 
-        } else 
+            if (updateTimer > susLevelTick)
+            {
+                updateTimer = 0f;
+
+                float focus = sightAngle/maxVisionAngle; //percent based on center of vision
+                focus = 1 - focus; //invert it because closer to 0 is better
+                focus = (focus / 2) + 0.5f; //set minimum multiplier to 50% when at edge of periphery
+                susLevel += focus * susGrowthMultiplier;
+            }
+
+        } else if (increase == false)
         {
-            susLevel -= Time.deltaTime * susDecreaseMultiplier;
+            updateTimer += Time.deltaTime;
+
+            if (updateTimer > susLevelTick)
+            {
+                updateTimer = 0f;
+
+                susLevel -= Time.deltaTime * susDecreaseMultiplier;
+            }
+
         }
         //set bounds
         susLevel = Mathf.Clamp(susLevel, minSusLevel, 10f);
