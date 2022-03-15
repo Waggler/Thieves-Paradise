@@ -18,6 +18,7 @@ public class Trajectory : MonoBehaviour
     [Range(3,30)]
     [SerializeField] private int LineLength;
     [SerializeField] private Material Mat;
+    private int CheckingInt;
     private InputManager inputManager;
     private bool TrajectoryStart = true;
 
