@@ -15,7 +15,7 @@ public class Trajectory : MonoBehaviour
 
     [Header("Visualization")]
     [SerializeField] private LineRenderer Line;
-    [Range(3,30)]
+    //[Range(3,30)]
     [SerializeField] private int LineLength;
     [SerializeField] private Material Mat;
     private int CheckingInt;
@@ -31,7 +31,7 @@ public class Trajectory : MonoBehaviour
 
     void Update()
     {
-        TrueVelocity = inventoryController.throwVector / 100; //find the right scaling variable here
+        TrueVelocity = inventoryController.throwVector / 48; //find the right scaling variable here
         TrajectoryStart = inputManager.IsZoomed;
         PredictingLaunch();
     }
