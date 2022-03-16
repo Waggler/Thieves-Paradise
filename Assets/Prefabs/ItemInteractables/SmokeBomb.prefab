@@ -103,8 +103,11 @@ MonoBehaviour:
   sfxController: {fileID: 3487274190452681801}
   itemDurability: 1
   objectName: Smoke Bomb
-  noiseRadius: 50
+  noiseRadius: 5
   deployableObject: {fileID: 7697157929027066711, guid: 67c0ac2deb88e9c4c9ec5b22623bff77, type: 3}
+  hitSFX: {fileID: 0}
+  SFXVolume: 1
+  isObjectiveItem: 0
 --- !u!54 &4687798395200745165
 Rigidbody:
   m_ObjectHideFlags: 0

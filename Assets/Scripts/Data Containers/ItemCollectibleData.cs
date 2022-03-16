@@ -8,6 +8,7 @@ public class ItemCollectibleData
 
     [Header("Item Info")]
     public string name;
+    public string useDescription;
     public string description;
 
     public Sprite itemSprite;

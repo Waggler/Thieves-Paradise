@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         Controller = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
         PlayerCamera = Camera.main.transform;
-        mask = LayerMask.GetMask("Player");
+        mask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost");
         mask = ~mask;
         HeightFromGround = StandardHeight / 2;
         CrouchingHeightFromGround = CrouchingHeight / 2;

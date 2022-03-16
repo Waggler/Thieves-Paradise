@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 4338266299989155519}
   - component: {fileID: 5839574339917521483}
   - component: {fileID: 5579156739343969044}
+  - component: {fileID: 9181259816210587394}
   m_Layer: 3
   m_Name: Sides_low
   m_TagString: Untagged
@@ -188,6 +189,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &9181259816210587394
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5362639958783813978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9880041, y: 1.8139586, z: 0.50053245}
+  m_Center: {x: -0.00014475982, y: 0.9069793, z: 0}
 --- !u!1 &8846709620511668804
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,6 +213,7 @@ GameObject:
   - component: {fileID: 4220225584553732804}
   - component: {fileID: 3896585499554310258}
   - component: {fileID: 7342157123580302493}
+  - component: {fileID: 7605658903316067404}
   m_Layer: 3
   m_Name: Shelves_low
   m_TagString: Untagged
@@ -269,6 +284,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7605658903316067404
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846709620511668804}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9957417, y: 1.7312037, z: 0.48125648}
+  m_Center: {x: 0, y: 0.9507966, z: 0}
 --- !u!1001 &1979060792621809327
 PrefabInstance:
   m_ObjectHideFlags: 0
