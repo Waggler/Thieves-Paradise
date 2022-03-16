@@ -31,7 +31,7 @@ public class Trajectory : MonoBehaviour
 
     void Update()
     {
-        TrueVelocity = inventoryController.throwVector;
+        TrueVelocity = inventoryController.throwVector / 100; //find the right scaling variable here
         TrajectoryStart = inputManager.IsZoomed;
         PredictingLaunch();
     }
