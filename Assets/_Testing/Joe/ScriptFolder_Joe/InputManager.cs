@@ -147,5 +147,23 @@ public class InputManager : MonoBehaviour
 
     #endregion
 
+    #region ZoomCamControls
+
+    public void ZoomLook(InputAction.CallbackContext context)
+    {
+        if (IsZoomed) //only use this when zoomed in
+        {
+            if (context.performed)
+            {
+                Vector2 contextValue = context.ReadValue<Vector2>();
+                if (contextValue.x != 0)
+                {
+                    transform.Rotate(Vector3.up, contextValue.x, Space.Self);
+                }
+            }
+        }
+    }
+    #endregion
+
     #endregion
 }

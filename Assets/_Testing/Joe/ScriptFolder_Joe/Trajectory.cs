@@ -56,7 +56,7 @@ public class Trajectory : MonoBehaviour
     {
         for(int i = 0; i < LineLength; i++)
         {
-            Debug.Log($"I = {i}");
+            //Debug.Log($"I = {i}");
             Vector3 Position = CalculateTrajectory(Thrown, i / (float)(LineLength) / 0.5f);
             Line.SetPosition(i, Position);
         }
@@ -72,7 +72,7 @@ public class Trajectory : MonoBehaviour
 
         Result.y = SpawnY;
 
-        Debug.Log($"The Result is {Result}");
+        //Debug.Log($"The Result is {Result}");
 
         return Result;
     }
