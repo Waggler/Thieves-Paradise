@@ -20,6 +20,11 @@ public interface ItemInterface
         get;
         set;
     }
+    float UIScalar
+    {
+        get;
+        set;
+    }
     void UseItem();
 
     void UseItemEnd();

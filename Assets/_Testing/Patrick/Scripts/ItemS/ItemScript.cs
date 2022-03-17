@@ -13,6 +13,7 @@ public class ItemScript : ItemSuperScript, ItemInterface
     [SerializeField] private AudioClip hitSFX;
     [SerializeField] private float SFXVolume = 1;
     [SerializeField] private bool isObjectiveItem;
+    [SerializeField] private float UIScale = 1f;
 
     public bool isKeyItem
     {
@@ -29,6 +30,11 @@ public class ItemScript : ItemSuperScript, ItemInterface
     {
         get {return objectName;}
         set {objectName = value;}
+    }
+    public float UIScalar
+    {
+        get{return UIScale;}
+        set{UIScale = value;}
     }
     // Start is called before the first frame update
     void Start()
