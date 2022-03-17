@@ -58,7 +58,7 @@ public class InputManager : MonoBehaviour
     #region JumpInput
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
             if (!jumpPressCounter && !StopTheJump)
             {
