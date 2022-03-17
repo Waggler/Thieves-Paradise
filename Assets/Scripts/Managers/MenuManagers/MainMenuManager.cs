@@ -10,7 +10,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject creditsScreen;
-    [SerializeField] private GameObject loadScreen;
     [SerializeField] private GameObject missionSelectMenu;
     [SerializeField] private AudioManager audioManager;
 
@@ -76,8 +75,8 @@ public class MainMenuManager : MonoBehaviour
         } 
         else if (screenValue == 1)
         {
-            mainMenu.SetActive(false);
-            loadScreen.SetActive(true);
+            SceneManager.LoadScene("Collectibles");
+
 
         }
         else if(screenValue == 2)
@@ -114,22 +113,13 @@ public class MainMenuManager : MonoBehaviour
     //Delete After Prototype
 
     //-----------------------//
-    public void PlayPrototype()
+    public void PlayGame()
     //-----------------------//
     {
         SceneManager.LoadScene(1);
 
 
     }//END PlayPrototype
-
-    //-----------------------//
-    public void GoToCollectibles()
-    //-----------------------//
-    {
-        SceneManager.LoadScene("Collectibles");
-
-
-    }//END GoToCollectibles
 
 
     #endregion Methods
