@@ -29,7 +29,7 @@ public class TripwireManager : MonoBehaviour
 
     [Header("Hit Object")]
 
-    [SerializeField] private GameObject hitObject;
+    //[HideInInspector] private GameObject hitObject;
 
     //References the "Suspicion Manager" object in the scene
     [HideInInspector] private GameObject susManagerOBJ;
@@ -94,7 +94,10 @@ public class TripwireManager : MonoBehaviour
             //Records the initial hit point of the raycast
             initialHitRecord = hit.point;
 
-            hitObject = hit.rigidbody.gameObject;
+            //hitObject = hit.rigidbody.gameObject;
+
+            //Printing for debug purposes, feel free to comment out or delete
+            //Debug.Log(hitObject);
         }
 
         //Creates a reference to the suspicion manager object

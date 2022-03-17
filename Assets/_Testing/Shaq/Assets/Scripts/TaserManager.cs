@@ -8,12 +8,6 @@ public class TaserManager : MonoBehaviour
 
     [SerializeField] [Range(0f, 200f)] private float taserSpeed = 25f;
 
-    [SerializeField] private Vector3 target;
-
-    [SerializeField] private GameObject player;
-
-    [SerializeField] private GameObject guard;
-
     [HideInInspector] public float accuracy;
 
     //---------------------------------------------------------------------------------------------------//
@@ -22,22 +16,22 @@ public class TaserManager : MonoBehaviour
     // Collision check for when the taser prefab hit's the player 
     private void OnTriggerEnter(Collider collision)
     {
-            //Checking if the collided object is the player
-            if (collision.gameObject == player)
-            {
-                //Stuns the player
-                player.GetComponent<PlayerMovement>().IsStunned = true;
-            }
+        //Checking if the collided object is the player
+        if (collision.gameObject.GetComponent<PlayerMovement>() != null)
+        {
+            //Stuns the player
+            collision.gameObject.GetComponent<PlayerMovement>().IsStunned = true;
+        }
 
-            ////Checking if the collided object is a guard
-            //if (collision.gameObject == guard)
-            //{
-            //    //Puts the guard into the STUNNED state
-            //    //This method will get the Enemy Manager component/script of the specific guard that was hit
-            //    collision.gameObject.GetComponent<EnemyManager>().stateMachine = EnemyManager.EnemyStates.STUNNED;
-            //}
+        ////Checking if the collided object is a guard
+        //if (collision.gameObject == guard)
+        //{
+        //    //Puts the guard into the STUNNED state
+        //    //This method will get the Enemy Manager component/script of the specific guard that was hit
+        //    collision.gameObject.GetComponent<EnemyManager>().stateMachine = EnemyManager.EnemyStates.STUNNED;
+        //}
 
-        //Debug.Log(collision.gameObject);
+        Debug.Log(collision.gameObject);
         
         //Destroys self
         Destroy(gameObject);
@@ -45,27 +39,23 @@ public class TaserManager : MonoBehaviour
 
     private void Awake()
     {
-        Physics.IgnoreLayerCollision(0, 10);
     }
 
     //---------------------------------//
-    // Called on Awake and initializes everything that is finalized and needs to be done at awake
+    // Called externally by the enemy manager-
     public void Init()
     {
         //Setting up the prefabs rigidbody
         Rigidbody rb = GetComponent<Rigidbody>();
 
+        //Prevents the prefab from colliding with the post processing volume
+        Physics.IgnoreLayerCollision(0, 10);
 
         //Functions as recoil / accuracy for the guard when they instantiate (fire) the taser prefab
-        Vector3 randVec3 = (new Vector3 (Random.Range(-1, 1), Random.Range(-1, 1), 0)) * accuracy;
+        Vector3 randVec3 = (new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0)) * accuracy;
 
-        //Moves the taser projectile forward
-        rb.velocity = (transform.forward + randVec3) * taserSpeed;
-
-        if (player == null)
-        {
-            player = FindObjectOfType<PlayerMovement>().gameObject;
-        }
+        //Moves the taser projectile forward (with accuracy taken into account)
+        rb.velocity = (transform.forward + (new Vector3 (0, -.01f, 0) + randVec3)) * taserSpeed;
 
     }//End Init
 

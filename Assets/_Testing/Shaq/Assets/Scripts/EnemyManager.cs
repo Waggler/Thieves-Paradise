@@ -65,10 +65,6 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("List of Security Stations in the level")]
     [SerializeField] private List<GameObject> securityStations;
 
-    [SerializeField] private GameObject floor1;
-
-    [SerializeField] private GameObject floor2;
-
     //---------------------------------------------------------------------------------------------------//
 
     [Header("Diagnostic Text")]
@@ -171,9 +167,7 @@ public class EnemyManager : MonoBehaviour
 
     [Space(20)]
 
-    [SerializeField] private AudioSource audioSource;
-
-    [SerializeField] private bool isAudioSourcePlaying;
+    [SerializeField] private GuardAudio guardAudioScript;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -253,6 +247,8 @@ public class EnemyManager : MonoBehaviour
     private bool ceaseFire = false;
 
     [SerializeField] public int floorNumber;
+
+    [SerializeField] private GameObject playerVisTarget;
 
     #endregion
 
@@ -406,14 +402,14 @@ public class EnemyManager : MonoBehaviour
             playerMovenemtRef = player.GetComponent<PlayerMovement>();
         }
 
-        if (floor1 == null)
+        if (guardAudioScript == null)
         {
-            floor1 = GameObject.Find("Floor 1");
+            guardAudioScript = GetComponentInChildren < GuardAudio>();
         }
 
-        if (floor2 == null)
+        if (playerVisTarget == null)
         {
-            floor2 = GameObject.Find("Floor 2");
+            playerVisTarget = GameObject.Find("VisionTarget");
         }
         #endregion Null Checks
 
@@ -424,8 +420,6 @@ public class EnemyManager : MonoBehaviour
 
         //Starts the guard in the Passive State
         stateChange(EnemyStates.PASSIVE);
-
-        isAudioSourcePlaying = false;
 
         SetAiSpeed(passiveSpeed);
 
@@ -588,15 +582,6 @@ public class EnemyManager : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if (other.gameObject == floor1)
-        {
-            floorNumber = 1;
-        }
-
-        if (other.gameObject == floor2)
-        {
-            floorNumber = 2;
-        }
     }//End OnTriggerEnter
     
 
@@ -691,13 +676,6 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(passiveSpeed);
 
-                //Reseting alert related variables
-                if (isAudioSourcePlaying == true)
-                {
-                    audioSource.Stop();
-
-                    isAudioSourcePlaying = false;
-                }
 
                 //Checks to see if it is at specified distance for getting it's next waypoint
                 if (agent.remainingDistance <= waypointNextDistance)
@@ -781,14 +759,6 @@ public class EnemyManager : MonoBehaviour
 
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(target);
-
-                //Reseting alert related variables
-                if (isAudioSourcePlaying == true)
-                {
-                    //audioSource.Stop();
-
-                    isAudioSourcePlaying = false;
-                }
 
                 //Exit condition
                 //Checking to see if the player is visible
@@ -933,13 +903,6 @@ public class EnemyManager : MonoBehaviour
                         stateMachine = EnemyStates.RANGEDATTACK;
                     }
 
-                    //Playing Alert Audio
-                    if (isAudioSourcePlaying == false)
-                    {
-                        //audioSource.Play();
-
-                        isAudioSourcePlaying = true;
-                    }
                 }
 
                 //Exit Conditions
@@ -992,6 +955,8 @@ public class EnemyManager : MonoBehaviour
 
                 FaceTarget(target);
 
+                securityStationScriptRef.AlertGuards(eyeball.lastKnownLocation, transform.position, taserShotRadius);
+
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
                 if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
@@ -1018,6 +983,8 @@ public class EnemyManager : MonoBehaviour
                         var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
 
                         taserPrefab.GetComponent<TaserManager>().accuracy = accuracy;
+
+                        taserPrefab.transform.LookAt(playerVisTarget.transform);
 
                         taserPrefab.GetComponent<TaserManager>().Init();
                     }

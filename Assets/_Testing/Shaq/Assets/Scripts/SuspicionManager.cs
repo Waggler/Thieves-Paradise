@@ -175,15 +175,12 @@ public class SuspicionManager : MonoBehaviour
             enemyManager = guard.GetComponent<EnemyManager>();
 
             //Radius Check
-            if (distance <= callRadius && enemyManager.isStunned == false)
+            //Side note: The final part of this statement is not immune to edge cases
+
+            if (distance <= callRadius && Mathf.Abs(guard.transform.position.y - targetLoc.y) < 3f && enemyManager.isStunned == false)
             {
                 //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
                 enemyManager.Alert(targetLoc);
-            }
-            else
-            {
-                //Showing which guards are out of range (purely there for debug reasons)
-                //print($"{guard} is outside of camera range.");
             }
         }
     }//End AlertGuards
