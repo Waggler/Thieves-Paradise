@@ -23,6 +23,8 @@ public class EnemyManager : MonoBehaviour
     //static readonly Unity.Profiling.ProfilerMarker s_MyProfilerMarker = new Unity.Profiling.ProfilerMarker("Guard Profile Marker *Shaq Made This");
     //public UnityEvent EVENT_OnNearestStation;
 
+    public Coroutine coroutine;
+
     #region Variables
 
     //---------------------------------------------------------------------------------------------------//
@@ -165,9 +167,7 @@ public class EnemyManager : MonoBehaviour
 
     [Space(20)]
 
-    [SerializeField] private AudioSource audioSource;
-
-    [SerializeField] private bool isAudioSourcePlaying;
+    [SerializeField] private GuardAudio guardAudioScript;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -244,9 +244,11 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] PlayerMovement playerMovenemtRef;
 
-    private bool ceaseFire;
+    private bool ceaseFire = false;
 
+    [SerializeField] public int floorNumber;
 
+    [SerializeField] private GameObject playerVisTarget;
 
     #endregion
 
@@ -355,59 +357,40 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion Waypoints Functions
 
+    #region Coroutines
+
+    //Intended functionality:
+    //  - Feed in the duration of the timer, when the duration is up the code proceeds to break out of the coroutine, hopefully stopping it. Something checks to see if the coroutine has been stopped, in which case an actino will proceed that
+    IEnumerator ITimer(float setTime)
+    {
+        //Showing that the coroutine's timer is done
+        yield return new WaitForSeconds(setTime);
+
+        Debug.Log("Coroutine ITimer is over");
+
+        //Functions in the same fashion as StopCoroutine()
+        yield break;
+    }
+
+    #endregion Coroutines
+
     #region Methods
 
     //---------------------------------//
     // Called on Awake and initializes everything that is finalized and needs to be done at awake
     public void Init()
     {
-        //FIX THIS WHEN TELLING PEOPLE ITS FINE TO FUCK WITH GUARD
-        stateMachine = EnemyStates.PASSIVE;
-
-        isAudioSourcePlaying = false;
-
-        //Stores the user generated stun time
-        stunTimeReset = stunTime;
-
-        //Stores the user generated random direction time
-        agent = GetComponent<NavMeshAgent>();
-
-        agent.autoBraking = true;
-
-        SetAiSpeed(passiveSpeed);
-
+        #region Null Checks
         //Checks to see if there is no value for the player object reference
         if (player == null)
         {
             player = FindObjectOfType<PlayerMovement>().gameObject;
         }
 
-        #region Waypoints Check / Initial Start
-        //checks to see if there are any objects in the waypoints list
-        if (waypoints.Count > 0)
-        {
-            target = waypoints[waypointIndex].position;
-        }
-        else
-        {
-            print("No waypoints added to guard instance");
-        }
-        #endregion Waypoints Check / Initial Start
-
-        FaceTarget(target);
-
-        stunTimeReset = stunTime;
-
-        path = new NavMeshPath();
-
         if (guardAnim == null)
         {
             guardAnim = GetComponent<GuardAnimatorScript>();
         }
-
-        oneTimeUseTimerReset = oneTimeUseTimer;
-
-        eyeballSightRangeRecord = eyeball.sightRange;
 
         if (securityStationObjRef == null)
         {
@@ -419,14 +402,54 @@ public class EnemyManager : MonoBehaviour
             playerMovenemtRef = player.GetComponent<PlayerMovement>();
         }
 
-        securityStations = new List<GameObject>(GameObject.FindGameObjectsWithTag("SecurityStation"));
+        if (guardAudioScript == null)
+        {
+            guardAudioScript = GetComponentInChildren < GuardAudio>();
+        }
 
-        ceaseFire = false;
+        if (playerVisTarget == null)
+        {
+            playerVisTarget = GameObject.Find("VisionTarget");
+        }
+        #endregion Null Checks
+
+        //Stores the user generated random direction time
+        agent = GetComponent<NavMeshAgent>();
+
+        agent.autoBraking = true;
+
+        //Starts the guard in the Passive State
+        stateChange(EnemyStates.PASSIVE);
+
+        SetAiSpeed(passiveSpeed);
+
+        target = waypoints[waypointIndex].position;
+
+        FaceTarget(target);
+
+        path = new NavMeshPath();     
+
+        //Stores the user generated stun time
+        stunTimeReset = stunTime;
+
+        oneTimeUseTimerReset = oneTimeUseTimer;
+
+        eyeballSightRangeRecord = eyeball.sightRange;
 
         fireRate = fireRateReset;
 
+        securityStations = new List<GameObject>(GameObject.FindGameObjectsWithTag("SecurityStation"));
+
         NearestStation();
     }//End Init
+
+
+    public void stateChange(EnemyStates enemyStates)
+    {
+        stateMachine = enemyStates;
+
+        Debug.Log($"State = {enemyStates}");
+    }
 
 
     //---------------------------------//
@@ -558,6 +581,7 @@ public class EnemyManager : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+
     }//End OnTriggerEnter
     
 
@@ -586,7 +610,7 @@ public class EnemyManager : MonoBehaviour
 
     //---------------------------------//
     // Draws shapes only visible in the editor
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, randPointRad);
@@ -602,8 +626,7 @@ public class EnemyManager : MonoBehaviour
         Gizmos.DrawSphere(target, 0.75f);
 #endif
 
-    }//End OnDrawGizmos
-
+    }//End OnDrawGizmosSelected
 
     public IEnumerator IBreakFreeDelay()
     {
@@ -653,13 +676,6 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(passiveSpeed);
 
-                //Reseting alert related variables
-                if (isAudioSourcePlaying == true)
-                {
-                    audioSource.Stop();
-
-                    isAudioSourcePlaying = false;
-                }
 
                 //Checks to see if it is at specified distance for getting it's next waypoint
                 if (agent.remainingDistance <= waypointNextDistance)
@@ -744,14 +760,6 @@ public class EnemyManager : MonoBehaviour
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(target);
 
-                //Reseting alert related variables
-                if (isAudioSourcePlaying == true)
-                {
-                    //audioSource.Stop();
-
-                    isAudioSourcePlaying = false;
-                }
-
                 //Exit condition
                 //Checking to see if the player is visible
                 if (eyeball.susLevel < warySusMin)
@@ -780,15 +788,17 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterSusAnim();
 
-                //Records and adds the player's last known location as a part of the waypoints list for patrollling.
-                if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
-                {
-                    waypoints.Add(GameObjectContructor("SussyPatrolLoc", transform.position).transform);
 
-                    GameObject.Find("SussyPatrolLoc").transform.position = eyeball.lastKnownLocation;
+                ////Records and adds the player's last known location as a part of the waypoints list for patrollling.
+                //if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
+                //{
+                //    waypoints.Add(GameObjectContructor("SussyPatrolLoc", transform.position).transform);
 
-                    SussyWaypointMade = true;
-                }
+                //    GameObject.Find("SussyPatrolLoc").transform.position = eyeball.lastKnownLocation;
+
+                //    SussyWaypointMade = true;
+                //}
+
 
 
                 //Used to send the guard to random locations in a set radius, meant to emulate confusion from the unit
@@ -850,8 +860,9 @@ public class EnemyManager : MonoBehaviour
                 #endregion Exit Conditions
 
                 break;
+
             #endregion Suspicious Behavior
-            
+
             #region Hostile Behavior
             //State for the guard to chase the player in
             case EnemyStates.HOSTILE:
@@ -892,13 +903,6 @@ public class EnemyManager : MonoBehaviour
                         stateMachine = EnemyStates.RANGEDATTACK;
                     }
 
-                    //Playing Alert Audio
-                    if (isAudioSourcePlaying == false)
-                    {
-                        //audioSource.Play();
-
-                        isAudioSourcePlaying = true;
-                    }
                 }
 
                 //Exit Conditions
@@ -951,6 +955,8 @@ public class EnemyManager : MonoBehaviour
 
                 FaceTarget(target);
 
+                securityStationScriptRef.AlertGuards(eyeball.lastKnownLocation, transform.position, taserShotRadius);
+
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
                 if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
@@ -961,8 +967,6 @@ public class EnemyManager : MonoBehaviour
                 {
                     ceaseFire = false;
                 }
-
-                Debug.Log(ceaseFire);
 
                 if (ceaseFire == false)
                 {
@@ -979,6 +983,8 @@ public class EnemyManager : MonoBehaviour
                         var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
 
                         taserPrefab.GetComponent<TaserManager>().accuracy = accuracy;
+
+                        taserPrefab.transform.LookAt(playerVisTarget.transform);
 
                         taserPrefab.GetComponent<TaserManager>().Init();
                     }

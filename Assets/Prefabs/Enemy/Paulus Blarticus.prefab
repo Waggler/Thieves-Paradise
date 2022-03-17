@@ -636,6 +636,7 @@ MonoBehaviour:
   minSusLevel: 0
   lastKnownLocation: {x: 0, y: 0, z: 0}
   canCurrentlySeePlayer: 0
+  susLevelTick: 0.5
 --- !u!1 &3325092847374484679
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,8 +768,7 @@ MonoBehaviour:
   randWaitMin: 3
   randWaitMax: 5
   randPointRad: 1.341
-  audioSource: {fileID: 1138461874}
-  isAudioSourcePlaying: 0
+  guardAudioScript: {fileID: 0}
   isStunned: 0
   stunTime: 10
   taserShotRadius: 10
@@ -779,6 +779,8 @@ MonoBehaviour:
   waypointNextDistance: 0.5
   stoppingDistance: 5
   playerMovenemtRef: {fileID: 0}
+  floorNumber: 0
+  playerVisTarget: {fileID: 0}
   stateMachine: 0
   waypointMethod: 0
   waypoints:
@@ -1152,7 +1154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8552973499195692512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.068}
+  m_LocalPosition: {x: 0, y: -0.19999993, z: -1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2979125867967236016}
