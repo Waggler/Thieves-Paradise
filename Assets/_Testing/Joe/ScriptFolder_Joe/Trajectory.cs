@@ -18,6 +18,7 @@ public class Trajectory : MonoBehaviour
     //[Range(3,30)]
     [SerializeField] private int LineLength;
     [SerializeField] private Material Mat;
+    [SerializeField] private Color lineColor;
     private int CheckingInt;
     private InputManager inputManager;
     private bool TrajectoryStart = true;
@@ -43,6 +44,8 @@ public class Trajectory : MonoBehaviour
             Line.material = Mat;
             VisulizeTrajectory(TrueVelocity);
             Line.enabled = true;
+            Line.startColor = lineColor;
+            Line.endColor = lineColor;
         }
         else
         {
@@ -64,7 +67,7 @@ public class Trajectory : MonoBehaviour
         Vector3 VelocityXZ = vo;
         VelocityXZ.y = 0f;
 
-        Vector3 Result = InitialPosition.position + vo * time;
+        Vector3 Result = (InitialPosition.position + transform.forward) + vo * time;
         float SpawnY = (-0.5f * Mathf.Abs(Physics.gravity.y) * (time * time)) + (vo.y * time) + InitialPosition.position.y;
 
         Result.y = SpawnY;
