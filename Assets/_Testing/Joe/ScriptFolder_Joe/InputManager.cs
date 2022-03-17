@@ -156,6 +156,7 @@ public class InputManager : MonoBehaviour
             if (context.performed)
             {
                 Vector2 contextValue = context.ReadValue<Vector2>();
+                print(contextValue);
                 if (contextValue.x != 0)
                 {
                     transform.Rotate(Vector3.up, contextValue.x, Space.Self);
