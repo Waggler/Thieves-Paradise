@@ -56,8 +56,12 @@ public class InventoryController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(throwing && throwForce < throwForceCap)
+        if(throwing)
         {
+            if (throwForce > throwForceCap)
+            {
+                throwForce = throwForceCap;
+            }
             //print(throwForce);
             throwForce += Time.deltaTime * 200;
             throwVector = transform.forward * throwForce + transform.up * throwForce;
