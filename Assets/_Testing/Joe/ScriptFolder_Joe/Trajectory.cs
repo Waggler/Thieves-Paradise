@@ -40,7 +40,7 @@ public class Trajectory : MonoBehaviour
     {
         if(TrajectoryStart)
         {
-            Debug.Log("I am working.");
+            //Debug.Log("I am working.");
             Line.material = Mat;
             VisulizeTrajectory(TrueVelocity);
             Line.enabled = true;
