@@ -29,8 +29,12 @@ public class CameraManager : MonoBehaviour
     #endregion Lists & Arrays
 
     #region Variables
+    [Header("Floor / Level")]
+    public GameObject floor;
+
+
     [Header("Camera Target / Trigger")]
-    private Vector3 target;
+    [SerializeField] private Vector3 target;
     [Tooltip("References the player's vision target, auto generated")]
     [SerializeField] private GameObject player;
 
@@ -148,6 +152,8 @@ public class CameraManager : MonoBehaviour
 
         UpdateDebugText();
 
+        UpdateCamLightVars();
+
         #region Cam State Machine
         switch (cameraStateMachine)
         {
@@ -224,7 +230,6 @@ public class CameraManager : MonoBehaviour
                     //FOCUSED >>> MONITORING
                     cameraStateMachine = CamStates.MONITORING;
                 }
-
                 break;
             #endregion Focused State
 
@@ -254,7 +259,6 @@ public class CameraManager : MonoBehaviour
         }
         #endregion Cam State Machine
 
-        UpdateCamLightVars();
     }//End Update
     #endregion Update
 
@@ -332,19 +336,9 @@ public class CameraManager : MonoBehaviour
     }//End UpdateCamVars
 
 
-    public void EnableCamera()
-    {
-
-        eyeball.sightRange = 8f;
-
-        cameraStateMachine = CamStates.MONITORING;
-    }
-
-
-
     //---------------------------------//
     //Draws Gizmos / shapes in editor
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, callRadius);
@@ -352,6 +346,6 @@ public class CameraManager : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, killRadius);
 
-    }//End OnDrawGizmos
+    }//End OnDrawGizmosSelected
 }
 #endregion General Methods

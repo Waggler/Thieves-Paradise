@@ -43,6 +43,8 @@ public class SuspicionManager : MonoBehaviour
 
     [SerializeField] private EnemyManager enemyManager;
 
+    private bool Gabagool;
+
     //---------------------------------------------------------------------------------------------------//
 
     [Header("Camera Refs")]
@@ -114,10 +116,10 @@ public class SuspicionManager : MonoBehaviour
 
     //---------------------------------//
     //Draws Gizmos
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
 
-    }//End OnDrawGizmos
+    }//End OnDrawGizmosSelected
 
 
     public void DummyMethod()
@@ -130,9 +132,6 @@ public class SuspicionManager : MonoBehaviour
     //Used on the Awake() function to initialize any values in one line
     private static void Init()
     {
-
-        
-
     }//End Init
 
 
@@ -152,10 +151,16 @@ public class SuspicionManager : MonoBehaviour
 
     //---------------------------------//
     //Alerts available guards in a set radius
+    // TAKES:
+    //         - The location of where you want the guards to go (targetLoc)
+    //         - The location of the caller of the method (callerLoc)
+    //         - The call radius (callRadius)
     public void AlertGuards(Vector3 targetLoc, Vector3 callerLoc, float callRadius)
     {
         //Also generating an array of guards on the call of this function
         GenGuardList();
+
+        //Inser floor check method call
 
         //EnemyManager reference
         EnemyManager enemyManager;
@@ -170,15 +175,12 @@ public class SuspicionManager : MonoBehaviour
             enemyManager = guard.GetComponent<EnemyManager>();
 
             //Radius Check
-            if (distance <= callRadius && enemyManager.isStunned == false/*&& GameObject.CompareTag("[Insert guard type here]")*/)
+            //Side note: The final part of this statement is not immune to edge cases
+
+            if (distance <= callRadius && Mathf.Abs(guard.transform.position.y - targetLoc.y) < 3f && enemyManager.isStunned == false)
             {
                 //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
                 enemyManager.Alert(targetLoc);
-            }
-            else
-            {
-                //Showing which guards are out of range (purely there for debug reasons)
-                //print($"{guard} is outside of camera range.");
             }
         }
     }//End AlertGuards

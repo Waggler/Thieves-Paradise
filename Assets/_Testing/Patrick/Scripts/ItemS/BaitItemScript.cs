@@ -15,6 +15,7 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
     public bool DebugMode;
 
     private bool isObjectiveItem = false;
+    [SerializeField] private float UIScale = 1f;
 
     public bool isKeyItem
     {
@@ -32,6 +33,11 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
     {
         get {return objectName;}
         set {objectName = value;}
+    }
+    public float UIScalar
+    {
+        get{return UIScale;}
+        set{UIScale = value;}
     }
 
     private SuspicionManager alertManager;

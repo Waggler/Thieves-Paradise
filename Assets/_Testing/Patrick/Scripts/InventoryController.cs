@@ -255,10 +255,10 @@ public class InventoryController : MonoBehaviour
         {
             if (activeItemIndex == i)
             {
-                hotbarMesh[i].transform.localScale = Vector3.one * 5;
-            }else
+                hotbarMesh[i].transform.localScale = Vector3.one * 5 * itemInterfaceInventory[i].UIScalar;
+            }else if (inventorySpace[i] == true) //otherwise the space is empty and doesn't matter
             {
-                hotbarMesh[i].transform.localScale = Vector3.one * 4;
+                hotbarMesh[i].transform.localScale = Vector3.one * 4 * itemInterfaceInventory[i].UIScalar;
             }
         }
         //store whether they're displaying an item or not for animation purposes
