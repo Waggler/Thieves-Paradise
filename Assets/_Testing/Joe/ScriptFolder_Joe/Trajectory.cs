@@ -46,6 +46,8 @@ public class Trajectory : MonoBehaviour
             Line.enabled = true;
             Line.startColor = lineColor;
             Line.endColor = lineColor;
+            Line.startWidth = 0.01f;
+            Line.endWidth = 0.2f;
         }
         else
         {

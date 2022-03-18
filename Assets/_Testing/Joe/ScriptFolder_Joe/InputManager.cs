@@ -18,6 +18,7 @@ public class InputManager : MonoBehaviour
     public bool jumpPressCounter;
     public bool StopTheJump;
     [HideInInspector] public bool IsZoomed;
+    [HideInInspector] public float ZoomLookSensitivity = 1;
 
     void Awake()
     {
@@ -159,10 +160,15 @@ public class InputManager : MonoBehaviour
                 //print(contextValue);
                 if (contextValue.x != 0)
                 {
-                    transform.Rotate(Vector3.up, contextValue.x, Space.Self);
+                    transform.Rotate(Vector3.up, contextValue.x * ZoomLookSensitivity, Space.Self);
                 }
             }
         }
+    }
+
+    public void ChangeZoomLookSensitivity(float newSens)
+    {
+        ZoomLookSensitivity = newSens;
     }
     #endregion
 
