@@ -41,6 +41,12 @@ public class InputManager : MonoBehaviour
     {
         Vector2 contextValue = context.ReadValue<Vector2>();
 
+        if (IsZoomed)
+        {
+            //zero out side to side movement while aiming
+            contextValue.x = 0; 
+        }
+
         if (context.performed)
         {
             moveVector = new Vector3(contextValue.x, 0, contextValue.y);
