@@ -354,7 +354,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1661169459}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5256699, y: 5.161736, z: -10.177313}
+  m_LocalPosition: {x: -0.52567005, y: 5.161736, z: -10.177313}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 57628078}
@@ -1112,7 +1112,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870511522111461}
-  m_LocalRotation: {x: 0.11051615, y: -0.82713866, z: -0.1749466, w: -0.52251464}
+  m_LocalRotation: {x: -0.1121274, y: 0.8265951, z: 0.17749718, w: 0.5221713}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1359,7 +1359,19 @@ MonoBehaviour:
     m_ActionId: 5534cbc9-950d-48e1-9ae4-42abd313faf2
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8827046240343522457}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ZoomLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 35bb8641-6bd3-417a-a877-11aad9f42bd4
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
@@ -1650,6 +1662,7 @@ MonoBehaviour:
   jumpPressCounter: 0
   StopTheJump: 0
   IsZoomed: 0
+  ZoomLookSensitivity: 1
 --- !u!114 &6908870511578677739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1663,7 +1676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwForce: 0
-  throwForceCap: 500
+  throwForceCap: 400
   isHoldingItem: 0
   throwVector: {x: 0, y: 0, z: 0}
   holdItemPos: {fileID: 8827046239930562728}
@@ -1710,8 +1723,8 @@ MonoBehaviour:
   InitialPosition: {fileID: 8827046239930562728}
   Line: {fileID: 8497738797725719507}
   LineLength: 20
-  Mat: {fileID: 2100000, guid: a5b05c3849e83854fb83f091535841bf, type: 2}
-  lineColor: {r: 0, g: 0, b: 0, a: 0}
+  Mat: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  lineColor: {r: 1, g: 0.9929709, b: 0.41037738, a: 0.5882353}
 --- !u!120 &8497738797725719507
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1730,8 +1743,7 @@ LineRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2662,7 +2674,6 @@ GameObject:
   - component: {fileID: 6908870512813823779}
   - component: {fileID: 6908870512813823804}
   - component: {fileID: 6908870512813823778}
-  - component: {fileID: 961651544}
   m_Layer: 7
   m_Name: cm
   m_TagString: Untagged
@@ -2718,68 +2729,6 @@ MonoBehaviour:
     m_Bits: 72
   IgnoreTag: Player
   CameraRadius: 0.2
---- !u!114 &961651544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6908870512813823776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c9beda531928fc40968802117a5d256, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RecenterTarget: 0
-  m_VerticalAxis:
-    Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 300
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: Mouse Y
-    m_InputAxisValue: 0
-    m_InvertInput: 1
-    m_MinValue: -20
-    m_MaxValue: 0
-    m_Wrap: 0
-    m_Recentering:
-      m_enabled: 0
-      m_WaitTime: 1
-      m_RecenteringTime: 2
-      m_LegacyHeadingDefinition: -1
-      m_LegacyVelocityFilterStrength: -1
-  m_VerticalRecentering:
-    m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
-    m_LegacyHeadingDefinition: -1
-    m_LegacyVelocityFilterStrength: -1
-  m_HorizontalAxis:
-    Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 300
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: Mouse X
-    m_InputAxisValue: 0
-    m_InvertInput: 0
-    m_MinValue: 0
-    m_MaxValue: 0
-    m_Wrap: 0
-    m_Recentering:
-      m_enabled: 0
-      m_WaitTime: 1
-      m_RecenteringTime: 2
-      m_LegacyHeadingDefinition: -1
-      m_LegacyVelocityFilterStrength: -1
-  m_HorizontalRecentering:
-    m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
-    m_LegacyHeadingDefinition: -1
-    m_LegacyVelocityFilterStrength: -1
-  m_ApplyBeforeBody: 0
 --- !u!1 &6908870512855580632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2902,7 +2851,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870513054023935}
-  m_LocalRotation: {x: 0.11051615, y: -0.82713866, z: -0.1749466, w: -0.5225147}
+  m_LocalRotation: {x: -0.112127386, y: 0.8265951, z: 0.17749718, w: 0.5221713}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3007,7 +2956,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6908870513109798248}
-  m_LocalRotation: {x: 0.11051615, y: -0.82713866, z: -0.1749466, w: -0.52251464}
+  m_LocalRotation: {x: -0.1121274, y: 0.8265951, z: 0.17749718, w: 0.5221713}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
