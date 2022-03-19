@@ -10,35 +10,40 @@ using UnityEngine.Events;
 public class itemCheckerScript : MonoBehaviour
 {
     public string sceneNameToLoad;
-    public string keyItemName;
+    [Tooltip("Each item must have a unique name")]
+    public string[] keyItemName;
+    public float numOfItemsNeededToWin = 1;
+
+    [HideInInspector] public float percentOfItemsGot;
     //public TextMeshProUGUI checkText;
     // Start is called before the first frame update
-    void Start()
-    {
-        //checkText.text = "Have " + keyItemName + "?";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         //print("touched something!");
         if (other.gameObject.GetComponent<InventoryController>() != null)
         {
-            //print("touched player!");
-            if(other.gameObject.GetComponent<InventoryController>().CheckHasItem(keyItemName))
+            float itemCount = 0;
+            for(int i = 0; i < keyItemName.Length; i++)
             {
-                //checkText.text = "Have " + keyItemName + "? Yes!";
+                if(other.gameObject.GetComponent<InventoryController>().CheckHasItem(keyItemName[i]))
+                {
+                    //checkText.text = "Have " + keyItemName + "? Yes!";
+                    itemCount++;
+                }else
+                {
+                    //checkText.text = "Have " + keyItemName + "? No...";
+                }
+            }
+            //print("touched player!");
+            if (itemCount >= numOfItemsNeededToWin)
+            {
+                percentOfItemsGot = itemCount / keyItemName.Length;
                 GoToWinScreen();
             }else
             {
-                //checkText.text = "Have " + keyItemName + "? No...";
+                //do something else if needed
             }
-
         }
     }
     private void OnTriggerExit()

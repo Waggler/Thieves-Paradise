@@ -15,12 +15,14 @@ public class InputManager : MonoBehaviour
     [SerializeField] private CamSwitch camSwitch;
     public float rollCooldownTime;
     private float cooldownTimer;
-    private int jumpPressCounter = 1;
+    public bool jumpPressCounter;
+    public bool StopTheJump;
+    [HideInInspector] public bool IsZoomed;
+    [HideInInspector] public float ZoomLookSensitivity = 1;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        //camSwitch = GetComponent<CamSwitch>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -32,14 +34,18 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    //DELETE ME
-
     #region Inputs
 
     #region MoveInput
     public void Move(InputAction.CallbackContext context)
     {
         Vector2 contextValue = context.ReadValue<Vector2>();
+
+        if (IsZoomed)
+        {
+            //zero out side to side movement while aiming
+            contextValue.x = 0; 
+        }
 
         if (context.performed)
         {
@@ -59,16 +65,19 @@ public class InputManager : MonoBehaviour
     #region JumpInput
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
-            if (jumpPressCounter == 1)
+            if (!jumpPressCounter && !StopTheJump)
             {
                 playerMovement.Jump();
-                jumpPressCounter++;
+                jumpPressCounter = true;
+                StopTheJump = true;
             }
-            else if (jumpPressCounter == 2)
+
+            else if (jumpPressCounter && StopTheJump)
             {
-                jumpPressCounter = 1;
+                jumpPressCounter = false;
+                StopTheJump = false;
             }
         }
     }// END JUMP
@@ -131,16 +140,42 @@ public class InputManager : MonoBehaviour
     #region ZoomIn
     public void ZoomIn(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if(context.started)
         {
-            camSwitch.SwitchState(true);
+            IsZoomed = true;
+            camSwitch.SwitchState(IsZoomed);
         }
         else if(context.canceled)
         {
-            camSwitch.SwitchState(false);
+            IsZoomed = false;
+            camSwitch.SwitchState(IsZoomed);
+        }
+    }// END ZOOM IN
+
+    #endregion
+
+    #region ZoomCamControls
+
+    public void ZoomLook(InputAction.CallbackContext context)
+    {
+        if (IsZoomed) //only use this when zoomed in
+        {
+            if (context.performed)
+            {
+                Vector2 contextValue = context.ReadValue<Vector2>();
+                //print(contextValue);
+                if (contextValue.x != 0)
+                {
+                    transform.Rotate(Vector3.up, contextValue.x * ZoomLookSensitivity, Space.Self);
+                }
+            }
         }
     }
 
+    public void ChangeZoomLookSensitivity(float newSens)
+    {
+        ZoomLookSensitivity = newSens;
+    }
     #endregion
 
     #endregion

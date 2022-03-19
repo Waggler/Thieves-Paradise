@@ -133,11 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    void Awake()
-    {
-        //This might need to be updated for any changes to the sus manager.
-
-    }
+    //This might need to be updated for any changes to the sus manager. Add an Awake() fuction here.
 
     void Start()
     {
@@ -232,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Facing direction.
-        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
+        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving && canMove)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
@@ -242,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region Slide Action
 
-        if (IsSprinting == true && IsCrouching == true)
+        if (IsSprinting && IsCrouching)
         {
             IsSliding = true;
             Sliding();
@@ -358,7 +354,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if (IsGrounded && !IsCrouching && !IsStunned)
+        if (!IsStunned && !IsCrouching && IsGrounded)
         {
             if (Direction.magnitude > 0.1)
             {
@@ -384,7 +380,7 @@ public class PlayerMovement : MonoBehaviour
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
         }
-        else if (IsGrounded && IsCrouching)
+        else if (IsCrouching && IsGrounded)
         {
             IsStanding = true;
             CoveredCheck();
@@ -412,7 +408,7 @@ public class PlayerMovement : MonoBehaviour
         {
             IsSprinting = false;
         }
-        else if (IsGrounded && IsCrouching)
+        else if (IsCrouching && IsGrounded)
         {
             IsStanding = true;
             IsSprinting = true;
