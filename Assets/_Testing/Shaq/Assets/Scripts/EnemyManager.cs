@@ -519,17 +519,17 @@ public class EnemyManager : MonoBehaviour
     // Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
-        
-        //if (testBool != true)
-        //{
+
+        if (testBool != true)
+        {
             eyeball.susLevel = 3.5f;
 
             stateMachine = EnemyStates.WARY;
 
-            //testBool = true;
-        //}
+            testBool = true;
+        }
 
-        isPatrolSuspended = true;
+    isPatrolSuspended = true;
 
         target = alertLoc;
         eyeball.lastKnownLocation = alertLoc;
@@ -539,9 +539,10 @@ public class EnemyManager : MonoBehaviour
         {
             isPatrolSuspended = false;
 
-            //testBool = false;
         }
 
+
+        
     }//End Alert
 
 
@@ -671,6 +672,12 @@ public class EnemyManager : MonoBehaviour
         else
         {
             agent.stoppingDistance = 0;
+        }
+
+        //Testing stuff / solutions
+        if (stateMachine >= EnemyStates.WARY)
+        {
+            testBool = false;
         }
 
         UpdateDebugText();
@@ -950,8 +957,6 @@ public class EnemyManager : MonoBehaviour
                 target = eyeball.lastKnownLocation;
 
                 FaceTarget(target);
-
-                securityStationScriptRef.AlertGuards(eyeball.lastKnownLocation, transform.position, taserShotRadius);
 
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
