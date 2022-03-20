@@ -253,12 +253,15 @@ public class InventoryController : MonoBehaviour
         //update UI Visual
         for(int i = 0; i < hotbarMesh.Length; i++)
         {
-            if (activeItemIndex == i)
+            if (activeItemIndex == i && inventorySpace[i] == true)
             {
                 hotbarMesh[i].transform.localScale = Vector3.one * 5 * itemInterfaceInventory[i].UIScalar;
             }else if (inventorySpace[i] == true) //otherwise the space is empty and doesn't matter
             {
                 hotbarMesh[i].transform.localScale = Vector3.one * 4 * itemInterfaceInventory[i].UIScalar;
+            }else
+            {
+                hotbarMesh[i].transform.localScale = Vector3.one; //emergency catch for if something needs this for some reason
             }
         }
         //store whether they're displaying an item or not for animation purposes
