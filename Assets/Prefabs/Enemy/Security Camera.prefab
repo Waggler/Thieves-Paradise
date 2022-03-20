@@ -43,7 +43,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.25
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -53,8 +53,8 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_Bias: 1
+    m_NormalBias: 1
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
       e00: 1
@@ -351,6 +351,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraStateMachine: 0
+  floor: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
   stateText: {fileID: 2632606892890507809}
   targetText: {fileID: 2632606892192644534}
@@ -372,6 +374,7 @@ MonoBehaviour:
   susManagerRef: {fileID: 0}
   audioSource: {fileID: 2632606892701904341}
   isAudioSourcePlaying: 0
+  disabledTimeReset: 0
 --- !u!82 &2632606892701904341
 AudioSource:
   m_ObjectHideFlags: 0
@@ -534,6 +537,7 @@ MonoBehaviour:
   minSusLevel: 0
   lastKnownLocation: {x: 0, y: 0, z: 0}
   canCurrentlySeePlayer: 0
+  susLevelTick: 0.5
 --- !u!1 &2632606892890507811
 GameObject:
   m_ObjectHideFlags: 0
