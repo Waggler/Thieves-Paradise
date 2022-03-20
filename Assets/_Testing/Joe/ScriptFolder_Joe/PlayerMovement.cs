@@ -133,8 +133,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isInvulnurable;
     [Tooltip("Timer starts as soon as you get hit, including when you are still struggling")]
-    [SerializeField] private float invulnerabilityTime = 5;
+    [SerializeField] public float invulnerabilityTime = 5;
     [SerializeField] private GameObject invincabilityEffect;
+    private InputManager im;
 
     #endregion
 
@@ -164,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
         //transform.position = GameController.gameControllerInstance.lastCheckPoint;
 
         invincabilityEffect.SetActive(false); //disable particle to start with
+        im = GetComponent<InputManager>();
     }
 
     void Update()
@@ -238,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Facing direction.
-        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving && canMove)
+        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving && canMove && !im.IsZoomed)
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
