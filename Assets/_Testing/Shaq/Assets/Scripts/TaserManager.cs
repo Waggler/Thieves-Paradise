@@ -19,8 +19,11 @@ public class TaserManager : MonoBehaviour
         //Checking if the collided object is the player
         if (collision.gameObject.GetComponent<PlayerMovement>() != null)
         {
-            //Stuns the player
-            collision.gameObject.GetComponent<PlayerMovement>().IsStunned = true;
+            if (!collision.gameObject.GetComponent<PlayerMovement>().isInvulnurable)
+            {
+                //Stuns the player if they aren't invulnerable
+                collision.gameObject.GetComponent<PlayerMovement>().IsStunned = true;
+            }
         }
 
         ////Checking if the collided object is a guard

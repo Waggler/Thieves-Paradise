@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
     //[Header("Camera")]
     private Transform PlayerCamera;
-    private Vector3 FacingDirection;
+    [HideInInspector] public Vector3 FacingDirection;
 
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
@@ -130,6 +130,10 @@ public class PlayerMovement : MonoBehaviour
     public bool Slide;
     public bool Diving;
     public bool Stunned;
+
+    public bool isInvulnurable;
+    [Tooltip("Timer starts as soon as you get hit, including when you are still struggling")]
+    [SerializeField] private float invulnerabilityTime = 5;
 
     #endregion
 
@@ -213,7 +217,10 @@ public class PlayerMovement : MonoBehaviour
             FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
         }
         FacingDirection.y = 0f;
-        FacingDirection = FacingDirection.normalized;
+        if (FacingDirection.magnitude > 1)
+        {
+            FacingDirection = FacingDirection.normalized;
+        }
 
         //Movement
         if (!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned && canMove)
@@ -298,6 +305,11 @@ public class PlayerMovement : MonoBehaviour
         #region Stun Work
         if (IsStunned)
         {
+            if (!isInvulnurable)
+            {
+                isInvulnurable = true;
+                StartCoroutine(InvulnerabilityTimer());
+            }
             canMove = false;
             CurrentStunTime += Time.deltaTime;
 
@@ -341,6 +353,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #region Functions
+    private IEnumerator InvulnerabilityTimer()
+    {
+        yield return new WaitForSeconds(invulnerabilityTime);
+        isInvulnurable = false;
+    }
 
     #region Move
     //----------MOVEMENT----------//
