@@ -65,6 +65,8 @@ public class GuardAnimatorScript : MonoBehaviour
 
     }
 
+    //The shooting bool may need to be removed from some methods, got lazy and added a bunch of them just in case ~ Shaq
+
     //---------------------------------//
     //Sets the guard animation to "isPassive"
     //Regular standing pose
@@ -73,12 +75,15 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isPassive", true);
         anim.SetBool("isSuspicious", false);
         anim.SetBool("isHostile", false);
+        anim.SetBool("isShooting", false);
         if (enemyManager.patrolWaitTime < 5 && enemyManager.patrolWaitTime > 0)
         {
+        anim.SetBool("isShooting", false);
             anim.SetBool("isSearching", true);
         }
         else
         {
+        anim.SetBool("isShooting", false);
             anim.SetBool("isSearching", false);
         }
     }
@@ -92,6 +97,7 @@ public class GuardAnimatorScript : MonoBehaviour
     {
         anim.SetBool("isPassive", false);
         anim.SetBool("isSuspicious", true);
+        anim.SetBool("isShooting", false);
         anim.SetBool("isHostile", false);
     }//End EnterSusAnim
 
@@ -99,12 +105,14 @@ public class GuardAnimatorScript : MonoBehaviour
     //---------------------------------//
     public void EnterSearchingAnim()
     {
+        anim.SetBool("isShooting", false);
         anim.SetBool("isSearching", true);
     }//End EnterSearchingAnim
 
     //---------------------------------//
     public void ExitSearchingAnim()
     {
+        anim.SetBool("isShooting", false);
         anim.SetBool("isSearching", false);
     }//End ExitSearchingAnim
 
@@ -118,6 +126,7 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isSuspicious", false);
         anim.SetBool("isSearching", false);
         anim.SetBool("isHostile", true);
+        anim.SetBool("isShooting", false);
         //anim.SetBool("isPlayerFree", true);
     }
 
@@ -127,6 +136,7 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isSuspicious", false);
         anim.SetBool("isSearching", false);
         anim.SetBool("isStunned", true);
+        anim.SetBool("isShooting", false);
 
     }
 
@@ -157,6 +167,7 @@ public class GuardAnimatorScript : MonoBehaviour
     {
         anim.SetBool("isWalking", true);
         anim.SetBool("isPassive", false);
+        anim.SetBool("isShooting", false);
     }
     //---------------------------------//
 
@@ -164,6 +175,11 @@ public class GuardAnimatorScript : MonoBehaviour
     public void SetAgentSpeed(float speed)
     {
         anim.SetFloat("guardSpeed", speed);
+    }
+
+    public void EnterShoot()
+    {
+        anim.SetBool("isShooting", true);
     }
 }
 
