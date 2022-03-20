@@ -230,10 +230,9 @@ public class EnemyManager : MonoBehaviour
 
     //Extremely temporary timer variables
 
-    [Header("Extremely temporary timer variables")]
+    [Header("Dev variables")]
 
     [Space(20)]
-
 
     [Tooltip("Guard's stopping distance from the security station")]
     [SerializeField] private float stoppingDistance = 2f;
@@ -249,6 +248,10 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] public int floorNumber;
 
     [SerializeField] private GameObject playerVisTarget;
+
+    private bool isPatrolSuspended = false;
+
+    private Rigidbody rb;
 
     #endregion
 
@@ -413,6 +416,8 @@ public class EnemyManager : MonoBehaviour
         }
         #endregion Null Checks
 
+        rb = GetComponent<Rigidbody>();
+
         //Stores the user generated random direction time
         agent = GetComponent<NavMeshAgent>();
 
@@ -447,8 +452,6 @@ public class EnemyManager : MonoBehaviour
     public void stateChange(EnemyStates enemyStates)
     {
         stateMachine = enemyStates;
-
-        Debug.Log($"State = {enemyStates}");
     }
 
 
@@ -509,24 +512,37 @@ public class EnemyManager : MonoBehaviour
         return go1;
     }//End GameObjectConstructor
 
+    //no touch pls, temporary fix
+    private bool testBool = false;
 
     //---------------------------------//
     // Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
-        eyeball.susLevel = 10;
 
-        stateMachine = EnemyStates.HOSTILE;
+        if (testBool != true)
+        {
+            eyeball.susLevel = 3.5f;
 
-        if (eyeball.canCurrentlySeePlayer == false)
-        {
-            //target = alertLoc;
-            eyeball.lastKnownLocation = alertLoc;
+            stateMachine = EnemyStates.WARY;
+
+            testBool = true;
         }
-        else
+
+    isPatrolSuspended = true;
+
+        target = alertLoc;
+        eyeball.lastKnownLocation = alertLoc;
+        agent.SetDestination(alertLoc);
+
+        if (alertLoc != player.transform.position && agent.remainingDistance <= .5f)
         {
-            target = eyeball.lastKnownLocation;
+            isPatrolSuspended = false;
+
         }
+
+
+        
     }//End Alert
 
 
@@ -645,8 +661,7 @@ public class EnemyManager : MonoBehaviour
     #endregion
 
     #region Update
-    //---------------------------------//
-    //Function called every frame
+    //Method called every frame
     void Update()
     {
         //Setting up a navmesh agent stoppingDistance that only takes place in the REPORT state (SUPER temporary)
@@ -657,6 +672,12 @@ public class EnemyManager : MonoBehaviour
         else
         {
             agent.stoppingDistance = 0;
+        }
+
+        //Testing stuff / solutions
+        if (stateMachine >= EnemyStates.WARY)
+        {
+            testBool = false;
         }
 
         UpdateDebugText();
@@ -670,12 +691,9 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterPassiveAnim();
 
-                //stateText.text = stateMachine.ToString();
-
                 target = waypoints[waypointIndex].position;
 
                 SetAiSpeed(passiveSpeed);
-
 
                 //Checks to see if it is at specified distance for getting it's next waypoint
                 if (agent.remainingDistance <= waypointNextDistance)
@@ -731,31 +749,32 @@ public class EnemyManager : MonoBehaviour
                 FaceTarget(target);
 
                 //Checks to see if it is at specified distance for getting it's next waypoint
-                if (agent.remainingDistance <= waypointNextDistance)
-                    {
-                    //Checks to see if the isWait bool is true or not
-                    if (isPatrolWait == true)
-                    {
-                        if (patrolWaitTime > 0)
+                if (isPatrolSuspended == false)
+                {
+                    if (agent.remainingDistance <= waypointNextDistance)
                         {
-                            patrolWaitTime -= Time.fixedDeltaTime;
+                        //Checks to see if the isWait bool is true or not
+                        if (isPatrolWait == true)
+                        {
+                            if (patrolWaitTime > 0)
+                            {
+                                patrolWaitTime -= Time.fixedDeltaTime;
+                            }
+                            else if (patrolWaitTime <= 0)
+                            {
+                                patrolWaitTime = Random.Range(patrolWaitMin, patrolWaitMax);
 
+                                //Figure out why this function is being called twice
+                                SetNextWaypoint();
+                            }
                         }
-                        else if (patrolWaitTime <= 0)
+                        else
                         {
-                            patrolWaitTime = Random.Range(patrolWaitMin, patrolWaitMax);
-
-                            //Figure out why this function is being called twice
                             SetNextWaypoint();
                         }
                     }
-                    else
-                    {
-                        SetNextWaypoint();
-                    }
+                    target = waypoints[waypointIndex].position;
                 }
-
-                target = waypoints[waypointIndex].position;
 
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(target);
@@ -788,7 +807,6 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterSusAnim();
 
-
                 ////Records and adds the player's last known location as a part of the waypoints list for patrollling.
                 //if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
                 //{
@@ -798,8 +816,6 @@ public class EnemyManager : MonoBehaviour
 
                 //    SussyWaypointMade = true;
                 //}
-
-
 
                 //Used to send the guard to random locations in a set radius, meant to emulate confusion from the unit
                 if (oneTimeUseTimer > 0)
@@ -879,30 +895,17 @@ public class EnemyManager : MonoBehaviour
 
                     SetAiSpeed(hostileSpeed);
 
-                    target = eyeball.lastKnownLocation;
+                    //target = eyeball.lastKnownLocation;
 
                     //transform.position is being used because you cannot use Vector3 data when Transform is being called
                     SetAIDestination(target);
+                }
 
-
-
-                    //Soon going to hell along with the ATTACK behaviour / state
-                    //if (Vector3.Distance(player.transform.position, transform.position) < taserShotRadius)
-                    if (agent.remainingDistance <= taserShotRadius)
-                    {
-                        //HOSTILE >> ATTACK
-                        stateMachine = EnemyStates.RANGEDATTACK;
-                    }
-
-
-
-                    //Conditionds needed for ranged attack / taser
-                    else if (eyeball.canCurrentlySeePlayer == true && agent.CalculatePath(target, agent.path) == false && agent.remainingDistance <= taserShotRadius)
-                    {
-                        //HOSTILE >> RANGED ATTACK
-                        stateMachine = EnemyStates.RANGEDATTACK;
-                    }
-
+                //Conditionds needed for ranged attack / taser
+                if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance <= taserShotRadius)
+                {
+                    //HOSTILE >> RANGED ATTACK
+                    stateMachine = EnemyStates.RANGEDATTACK;
                 }
 
                 //Exit Conditions
@@ -954,8 +957,6 @@ public class EnemyManager : MonoBehaviour
                 target = eyeball.lastKnownLocation;
 
                 FaceTarget(target);
-
-                securityStationScriptRef.AlertGuards(eyeball.lastKnownLocation, transform.position, taserShotRadius);
 
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
