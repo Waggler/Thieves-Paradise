@@ -99,28 +99,28 @@ public class EyeballScript : MonoBehaviour
     {
         if (increase)
         {
-            updateTimer += Time.deltaTime;
+           //updateTimer += Time.deltaTime;
 
-            if (updateTimer > susLevelTick)
-            {
-                updateTimer = 0f;
+            //if (updateTimer > susLevelTick)
+            //{
+              //  updateTimer = 0f;
 
                 float focus = sightAngle/maxVisionAngle; //percent based on center of vision
                 focus = 1 - focus; //invert it because closer to 0 is better
                 focus = (focus / 2) + 0.5f; //set minimum multiplier to 50% when at edge of periphery
                 susLevel += focus * susGrowthMultiplier;
-            }
+            //}
 
         } else if (increase == false)
         {
-            updateTimer += Time.deltaTime;
+            //updateTimer += Time.deltaTime;
 
-            if (updateTimer > susLevelTick)
-            {
-                updateTimer = 0f;
+            //if (updateTimer > susLevelTick)
+           // {
+               // updateTimer = 0f;
 
                 susLevel -= Time.deltaTime * susDecreaseMultiplier;
-            }
+            //}
 
         }
         //set bounds

@@ -512,37 +512,26 @@ public class EnemyManager : MonoBehaviour
         return go1;
     }//End GameObjectConstructor
 
-    //no touch pls, temporary fix
-    private bool testBool = false;
-
     //---------------------------------//
     // Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
+        eyeball.susLevel = 20f;
 
-        if (testBool != true)
-        {
-            eyeball.susLevel = 3.5f;
+        stateMachine = EnemyStates.HOSTILE;
 
-            stateMachine = EnemyStates.WARY;
-
-            testBool = true;
-        }
-
-    isPatrolSuspended = true;
+        isPatrolSuspended = true;
 
         target = alertLoc;
+
         eyeball.lastKnownLocation = alertLoc;
+
         agent.SetDestination(alertLoc);
 
         if (alertLoc != player.transform.position && agent.remainingDistance <= .5f)
         {
             isPatrolSuspended = false;
-
         }
-
-
-        
     }//End Alert
 
 
@@ -672,12 +661,6 @@ public class EnemyManager : MonoBehaviour
         else
         {
             agent.stoppingDistance = 0;
-        }
-
-        //Testing stuff / solutions
-        if (stateMachine >= EnemyStates.WARY)
-        {
-            testBool = false;
         }
 
         UpdateDebugText();
@@ -866,9 +849,9 @@ public class EnemyManager : MonoBehaviour
                     oneTimeUseTimer = oneTimeUseTimerReset;
 
                     //the cool lil MGS thing
-                    var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
+                    //var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
 
-                    MGSsurprise.transform.parent = gameObject.transform;
+                    //MGSsurprise.transform.parent = gameObject.transform;
 
                     //SUSPICIOUS >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
@@ -883,24 +866,15 @@ public class EnemyManager : MonoBehaviour
             //State for the guard to chase the player in
             case EnemyStates.HOSTILE:
 
+                //Animation Change
                 guardAnim.EnterHostileAnim();
 
                 SetAiSpeed(hostileSpeed);
 
                 FaceTarget(target);
 
-                //Checking if the player can be seen by the guard
-                if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > hostileSusMin)
-                {
-
-                    SetAiSpeed(hostileSpeed);
-
-                    //target = eyeball.lastKnownLocation;
-
-                    //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                    SetAIDestination(target);
-                }
-
+                SetAIDestination(target);
+                
                 //Conditionds needed for ranged attack / taser
                 if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance <= taserShotRadius)
                 {
@@ -911,15 +885,13 @@ public class EnemyManager : MonoBehaviour
                 //Exit Conditions
                 else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < hostileSusMin)
                 {
-                    var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
+                    //var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
 
-                    AmConfuse.transform.parent = gameObject.transform;
+                    //AmConfuse.transform.parent = gameObject.transform;
 
                     //HOSTILE >> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
-
-
 
                 break;
             #endregion Hostile Behavior
@@ -957,6 +929,8 @@ public class EnemyManager : MonoBehaviour
                 target = eyeball.lastKnownLocation;
 
                 FaceTarget(target);
+
+                guardAnim.EnterShoot();
 
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
