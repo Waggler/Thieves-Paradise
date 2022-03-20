@@ -134,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isInvulnurable;
     [Tooltip("Timer starts as soon as you get hit, including when you are still struggling")]
     [SerializeField] private float invulnerabilityTime = 5;
+    [SerializeField] private GameObject invincabilityEffect;
 
     #endregion
 
@@ -161,6 +162,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //transform.position = GameController.gameControllerInstance.lastCheckPoint;
+
+        invincabilityEffect.SetActive(false); //disable particle to start with
     }
 
     void Update()
@@ -355,7 +358,18 @@ public class PlayerMovement : MonoBehaviour
     #region Functions
     private IEnumerator InvulnerabilityTimer()
     {
+        while (IsStunned)
+        {
+            //first wait for the player to no longer be stunned
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        //enable particle effect
+        invincabilityEffect.SetActive(true);
+        //wait for invulnerability time
         yield return new WaitForSeconds(invulnerabilityTime);
+
+        //reset back to normal
+        invincabilityEffect.SetActive(false);
         isInvulnurable = false;
     }
 
