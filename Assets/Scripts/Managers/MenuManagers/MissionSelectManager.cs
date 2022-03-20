@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MissionSelectManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class MissionSelectManager : MonoBehaviour
     [SerializeField] private Button ladyButton;
     [SerializeField] private Button massesButton;
     [SerializeField] private Button mafiaButton;
+
+    public Button playClosedButton;
 
 
 
@@ -77,6 +80,8 @@ public class MissionSelectManager : MonoBehaviour
     {
         mainMenu.SetActive(true);
         missionMenu.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(playClosedButton.gameObject);
 
     }//END ChangeScreen
 
