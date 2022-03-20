@@ -11,7 +11,6 @@ public class ItemsMenuManager : MonoBehaviour
     [Header("Components")]
     [Header("Panels")]
     [SerializeField] private GameObject fadePanel;
-    [SerializeField] private GameObject useDescriptionPanel;
     [SerializeField] private GameObject descriptionPanel;
 
     [Space(5)]
