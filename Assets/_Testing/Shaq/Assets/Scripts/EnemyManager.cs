@@ -522,9 +522,10 @@ public class EnemyManager : MonoBehaviour
 
         if (testBool != true)
         {
-            eyeball.susLevel = 3.5f;
+            //eyeball.susLevel = 3.5f;
+            eyeball.susLevel = 5f;
 
-            stateMachine = EnemyStates.WARY;
+            stateMachine = EnemyStates.HOSTILE;
 
             testBool = true;
         }
@@ -540,9 +541,6 @@ public class EnemyManager : MonoBehaviour
             isPatrolSuspended = false;
 
         }
-
-
-        
     }//End Alert
 
 
@@ -883,23 +881,23 @@ public class EnemyManager : MonoBehaviour
             //State for the guard to chase the player in
             case EnemyStates.HOSTILE:
 
+                //Animation Change
                 guardAnim.EnterHostileAnim();
 
                 SetAiSpeed(hostileSpeed);
 
                 FaceTarget(target);
 
-                //Checking if the player can be seen by the guard
-                if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > hostileSusMin)
-                {
+                SetAIDestination(target);
+                
+                //if (eyeball.canCurrentlySeePlayer == true || eyeball.susLevel > hostileSusMin)
+                //{
+                //    SetAiSpeed(hostileSpeed);
 
-                    SetAiSpeed(hostileSpeed);
+                //    //target = eyeball.lastKnownLocation;
 
-                    //target = eyeball.lastKnownLocation;
-
-                    //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                    SetAIDestination(target);
-                }
+                //    //transform.position is being used because you cannot use Vector3 data when Transform is being called
+                //}
 
                 //Conditionds needed for ranged attack / taser
                 if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance <= taserShotRadius)
