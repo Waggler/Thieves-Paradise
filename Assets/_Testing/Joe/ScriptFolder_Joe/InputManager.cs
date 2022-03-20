@@ -40,11 +40,21 @@ public class InputManager : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         Vector2 contextValue = context.ReadValue<Vector2>();
+        //print(contextValue.magnitude);
 
         if (IsZoomed)
         {
             //zero out side to side movement while aiming
             contextValue.x = 0; 
+        }
+
+        if (contextValue.magnitude < 0.75f && playerMovement.IsSprinting)
+        {
+            //print("Ending sprint due to lack of movement");
+            isSprinting = true;
+            playerMovement.Sprint(isSprinting);
+            isSprinting = false;
+            playerMovement.Sprint(isSprinting);
         }
 
         if (context.performed)
@@ -93,6 +103,7 @@ public class InputManager : MonoBehaviour
         }
         if (context.canceled)
         {
+
             isSprinting = false;
             playerMovement.Sprint(isSprinting);
         }
