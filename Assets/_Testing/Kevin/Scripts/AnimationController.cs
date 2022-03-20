@@ -5,6 +5,7 @@ using UnityEngine;
 public class AnimationController : MonoBehaviour
 {
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private PlayerMovement playerMov;
 
     [Header("Debug Values")]
     public bool isWalking;
@@ -22,6 +23,15 @@ public class AnimationController : MonoBehaviour
     private void Update()
     {
         //DebugAnim();
+
+        if (isWalking || isCrouching)
+        {
+            //change the playback speed based on actual move speed
+            playerAnimator.speed = playerMov.FacingDirection.magnitude;
+        }else
+        {
+            playerAnimator.speed = 1;
+        }
 
     }// END Update
 
