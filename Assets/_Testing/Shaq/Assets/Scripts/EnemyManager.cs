@@ -520,18 +520,12 @@ public class EnemyManager : MonoBehaviour
 
         stateMachine = EnemyStates.HOSTILE;
 
-        isPatrolSuspended = true;
-
         target = alertLoc;
 
         eyeball.lastKnownLocation = alertLoc;
 
         agent.SetDestination(alertLoc);
 
-        if (alertLoc != player.transform.position && agent.remainingDistance <= .5f)
-        {
-            isPatrolSuspended = false;
-        }
     }//End Alert
 
 
@@ -732,8 +726,6 @@ public class EnemyManager : MonoBehaviour
                 FaceTarget(target);
 
                 //Checks to see if it is at specified distance for getting it's next waypoint
-                if (isPatrolSuspended == false)
-                {
                     if (agent.remainingDistance <= waypointNextDistance)
                         {
                         //Checks to see if the isWait bool is true or not
@@ -757,7 +749,6 @@ public class EnemyManager : MonoBehaviour
                         }
                     }
                     target = waypoints[waypointIndex].position;
-                }
 
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(target);
