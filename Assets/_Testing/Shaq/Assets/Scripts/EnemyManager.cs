@@ -249,10 +249,6 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private GameObject playerVisTarget;
 
-    private bool isPatrolSuspended = false;
-
-    private Rigidbody rb;
-
     #endregion
 
     #region Enumerations
@@ -416,8 +412,6 @@ public class EnemyManager : MonoBehaviour
         }
         #endregion Null Checks
 
-        rb = GetComponent<Rigidbody>();
-
         //Stores the user generated random direction time
         agent = GetComponent<NavMeshAgent>();
 
@@ -516,15 +510,18 @@ public class EnemyManager : MonoBehaviour
     // Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
-        eyeball.susLevel = 20f;
+        if (stateMachine != EnemyStates.RANGEDATTACK)
+        {
+            eyeball.susLevel = 5.5f;
 
-        stateMachine = EnemyStates.HOSTILE;
+            stateMachine = EnemyStates.HOSTILE;
 
-        target = alertLoc;
+            target = alertLoc;
 
-        eyeball.lastKnownLocation = alertLoc;
+            eyeball.lastKnownLocation = alertLoc;
 
-        agent.SetDestination(alertLoc);
+            agent.SetDestination(alertLoc);
+        }
 
     }//End Alert
 
@@ -839,7 +836,6 @@ public class EnemyManager : MonoBehaviour
 
                     oneTimeUseTimer = oneTimeUseTimerReset;
 
-                    //the cool lil MGS thing
                     //var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
 
                     //MGSsurprise.transform.parent = gameObject.transform;
@@ -867,7 +863,7 @@ public class EnemyManager : MonoBehaviour
                 SetAIDestination(target);
                 
                 //Conditionds needed for ranged attack / taser
-                if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance <= taserShotRadius)
+                if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance < taserShotRadius)
                 {
                     //HOSTILE >> RANGED ATTACK
                     stateMachine = EnemyStates.RANGEDATTACK;
@@ -923,6 +919,8 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterShoot();
 
+                SetAIDestination(target);
+
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
                 if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
@@ -944,8 +942,6 @@ public class EnemyManager : MonoBehaviour
                     {
                         fireRate = fireRateReset;
 
-                        //StartCoroutine(ITaserFire());
-
                         var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
 
                         taserPrefab.GetComponent<TaserManager>().accuracy = accuracy;
@@ -957,11 +953,14 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 //Exit Condition(s)
-                if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance >= taserShotRadius)   
+                if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance > taserShotRadius)   
                 {
+                    //Debug.Log("Target is outside of firing range");
+
                     //RANGED ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
+
                 break;
             #endregion Ranged Attack Behavior
 
