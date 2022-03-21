@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class InitializeBasicSettings : MonoBehaviour
 {
-
+    
     //-------------------------//
     void Awake()
     //-------------------------//
     {
-        SetDefaultVolume();
-        SetDefaultSettings();
+        Init();
 
     }//END Awake
+
+    //-------------------------//
+    void Init()
+    //-------------------------//
+    {
+        if (PlayerPrefs.GetInt("isDefaultSettingsSet") == 0)
+        {
+            SetDefaultSettings();
+            SetDefaultVolume();
+            PlayerPrefs.SetInt("isDefaultSettingsSet", 1);
+        }
+
+    }//END Init
 
     //-------------------------//
     void SetDefaultVolume()
