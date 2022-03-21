@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 290937676175312795}
-  m_Layer: 0
+  - component: {fileID: 6391892853668353661}
+  m_Layer: 3
   m_Name: Stove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,6 +37,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6391892853668353661
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099528030029962529}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2429962, y: 1.0105124, z: 1.0538523}
+  m_Center: {x: 0.00008928776, y: 0.500813, z: 0.02692616}
 --- !u!1 &1284935822887243720
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,7 +61,7 @@ GameObject:
   - component: {fileID: 2007828334004198169}
   - component: {fileID: 8631031416905928197}
   - component: {fileID: 9050457024585960359}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dial3_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +142,7 @@ GameObject:
   - component: {fileID: 3309610182982006861}
   - component: {fileID: 6965413644908539648}
   - component: {fileID: 7462427461478922413}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dial2_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +223,7 @@ GameObject:
   - component: {fileID: 8586282675411004834}
   - component: {fileID: 5821997437339780590}
   - component: {fileID: 8958672857536345053}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dial4_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +304,7 @@ GameObject:
   - component: {fileID: 2127645644746597450}
   - component: {fileID: 2703778965234599587}
   - component: {fileID: 7508265208144357655}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Handle_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +385,7 @@ GameObject:
   - component: {fileID: 86282129037605177}
   - component: {fileID: 8861394529315956695}
   - component: {fileID: 2004100754159644770}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stove_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +466,7 @@ GameObject:
   - component: {fileID: 4581251550821665736}
   - component: {fileID: 2517886410109256790}
   - component: {fileID: 5525156203358221003}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dial1_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
