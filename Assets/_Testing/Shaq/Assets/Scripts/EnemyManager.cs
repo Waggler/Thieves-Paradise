@@ -763,9 +763,9 @@ public class EnemyManager : MonoBehaviour
 
                 if (eyeball.susLevel > warySusMax)
                 {
-                    var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
+                    //var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
 
-                    AmConfuse.transform.parent = gameObject.transform;
+                    //AmConfuse.transform.parent = gameObject.transform;
 
                     // PASSIVE >>>> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
