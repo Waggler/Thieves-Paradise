@@ -99,11 +99,19 @@ public class MainMenuManager : MonoBehaviour
             mainMenu.SetActive(false);
             settingsMenu.SetActive(true);
 
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(settingsFirstButton.gameObject);
+
         }
         else if (screenValue == 3)
         {
             mainMenu.SetActive(false);
             creditsScreen.SetActive(true);
+
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(creditsFirstButton.gameObject);
 
 
         }

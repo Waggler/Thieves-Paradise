@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class NarrativeUIManager : MonoBehaviour
 {
@@ -26,6 +28,9 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private Button skipButton;
 
     [SerializeField] private int dialoguePortraitSwapIndex;
+
+    public Button firstChoiceButton;
+    public Button continueButton;
 
 
 
@@ -196,7 +201,7 @@ public class NarrativeUIManager : MonoBehaviour
     public void EndDialogue()
     //-----------------------//
     {
-
+        
 
         Debug.Log("End of Convo");
 
@@ -204,6 +209,8 @@ public class NarrativeUIManager : MonoBehaviour
         if (choiceManager.currentChoice.isChoice == true)
         {
             choiceManager.InitChoices();
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstChoiceButton.gameObject);
         }
         else
         {
@@ -213,8 +220,10 @@ public class NarrativeUIManager : MonoBehaviour
 
 
             dialogueManager.TriggerDialogue();
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
 
-            if(skipButton.gameObject.activeSelf == false)
+            if (skipButton.gameObject.activeSelf == false)
             {
                 skipManager.ShowSkip();
 
