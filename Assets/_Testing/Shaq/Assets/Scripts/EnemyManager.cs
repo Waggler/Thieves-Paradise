@@ -522,7 +522,6 @@ public class EnemyManager : MonoBehaviour
 
             agent.SetDestination(alertLoc);
         }
-
     }//End Alert
 
 
