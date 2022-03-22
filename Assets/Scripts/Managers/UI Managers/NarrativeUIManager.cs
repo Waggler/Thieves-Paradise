@@ -103,6 +103,8 @@ public class NarrativeUIManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     //-----------------------//
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
         speakerText.text = dialogue.characterName;
 
         portrait1Image.sprite = dialogue.characterOneSprite;
@@ -220,8 +222,7 @@ public class NarrativeUIManager : MonoBehaviour
 
 
             dialogueManager.TriggerDialogue();
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
+            
 
             if (skipButton.gameObject.activeSelf == false)
             {
