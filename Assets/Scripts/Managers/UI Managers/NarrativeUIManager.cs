@@ -30,7 +30,6 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private int dialoguePortraitSwapIndex;
 
     public Button firstChoiceButton;
-    public Button continueButton;
 
 
 
@@ -220,8 +219,7 @@ public class NarrativeUIManager : MonoBehaviour
 
 
             dialogueManager.TriggerDialogue();
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
+            
 
             if (skipButton.gameObject.activeSelf == false)
             {
