@@ -30,7 +30,6 @@ public class NarrativeUIManager : MonoBehaviour
     [SerializeField] private int dialoguePortraitSwapIndex;
 
     public Button firstChoiceButton;
-    public Button continueButton;
 
 
 
@@ -103,8 +102,6 @@ public class NarrativeUIManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     //-----------------------//
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
         speakerText.text = dialogue.characterName;
 
         portrait1Image.sprite = dialogue.characterOneSprite;
