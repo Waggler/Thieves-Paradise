@@ -512,7 +512,8 @@ public class EnemyManager : MonoBehaviour
     {
         if (stateMachine != EnemyStates.RANGEDATTACK && stateMachine != EnemyStates.HOSTILE)
         {
-            eyeball.susLevel = 5.5f;
+            //eyeball.susLevel = 5.5f;
+            eyeball.susLevel = 7f;
 
             stateMachine = EnemyStates.HOSTILE;
 
@@ -522,7 +523,7 @@ public class EnemyManager : MonoBehaviour
 
             agent.SetDestination(alertLoc);
 
-            Debug.Log("Alert has been called");
+            //Debug.Log("Alert has been called");
         }
     }//End Alert
 
@@ -577,6 +578,12 @@ public class EnemyManager : MonoBehaviour
         if (other.gameObject.GetComponent<BaitItemScript>() != null)
         {
             Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.tag == "Slippery")
+        {
+            stateMachine = EnemyStates.STUNNED;
+            other.GetComponent<PuddleAppearScript>().StartCoroutine("Disappear");
         }
 
     }//End OnTriggerEnter

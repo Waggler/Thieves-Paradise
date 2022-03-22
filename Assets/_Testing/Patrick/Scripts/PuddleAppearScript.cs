@@ -29,8 +29,19 @@ public class PuddleAppearScript : MonoBehaviour
             other.gameObject.GetComponent<EnemyManager>().stateMachine = EnemyManager.EnemyStates.STUNNED;
 
             //References itself (The puddle in this case)
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            StartCoroutine(Disappear());
         }
         
+    }
+
+    private IEnumerator Disappear()
+    {
+        while (transform.localScale.x > 0.1f)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+            transform.localScale -= Vector3.one * Time.deltaTime;
+        }
+        Destroy(gameObject);
     }
 }

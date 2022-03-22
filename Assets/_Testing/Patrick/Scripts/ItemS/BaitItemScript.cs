@@ -9,7 +9,7 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
     [SerializeField] public GameObject myPrefab;//reference to this object's prefab
     [SerializeField] private float noiseRadius = 5;
     [SerializeField] private float baitRadius = 10;
-    private float baitInterval = 2; //how often the item tries to lure enemies
+    private float baitInterval = 0.5f; //how often the item tries to lure enemies
     private float timer;
 
     public bool DebugMode;
@@ -120,7 +120,7 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
         //finally lure in the guard
         enemy.Alert(transform.position);
         //set the timer really high so that more guards aren't alerted unless something happens
-        timer = 60;
+        timer = 10;
     }
 
     public void UseItem()
