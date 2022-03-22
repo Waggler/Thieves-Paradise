@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PhotoScreenManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PhotoScreenManager : MonoBehaviour
     [SerializeField] private TMP_Text tagText;
 
     [SerializeField] private string[] tagStrings;
+
+    public Button pauseMenuFirstButton;
 
     //-----------------------//
     public void RandomizeTag()
@@ -36,8 +39,15 @@ public class PhotoScreenManager : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         photoScreen.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(pauseMenuFirstButton.gameObject);
 
     }//END ChangeScreen
 
 
 }//END PhotoScreenManager
+
+
+
+        
+

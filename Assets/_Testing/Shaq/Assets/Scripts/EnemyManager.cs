@@ -521,6 +521,8 @@ public class EnemyManager : MonoBehaviour
             eyeball.lastKnownLocation = alertLoc;
 
             agent.SetDestination(alertLoc);
+
+            Debug.Log("Alert has been called");
         }
     }//End Alert
 
