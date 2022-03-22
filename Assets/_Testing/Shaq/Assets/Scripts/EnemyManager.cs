@@ -510,7 +510,7 @@ public class EnemyManager : MonoBehaviour
     // Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
-        if (stateMachine != EnemyStates.RANGEDATTACK)
+        if (stateMachine != EnemyStates.RANGEDATTACK && stateMachine != EnemyStates.HOSTILE)
         {
             eyeball.susLevel = 5.5f;
 
