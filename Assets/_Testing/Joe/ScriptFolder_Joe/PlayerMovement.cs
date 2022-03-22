@@ -358,22 +358,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #region Functions
-    private IEnumerator InvulnerabilityTimer()
-    {
-        while (IsStunned)
-        {
-            //first wait for the player to no longer be stunned
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
-        //enable particle effect
-        invincabilityEffect.SetActive(true);
-        //wait for invulnerability time
-        yield return new WaitForSeconds(invulnerabilityTime);
-
-        //reset back to normal
-        invincabilityEffect.SetActive(false);
-        isInvulnurable = false;
-    }
 
     #region Move
     //----------MOVEMENT----------//
@@ -749,6 +733,33 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
+    #region Invuln
+    private IEnumerator InvulnerabilityTimer()
+    {
+        while (IsStunned)
+        {
+            //first wait for the player to no longer be stunned
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        //enable particle effect
+        invincabilityEffect.SetActive(true);
+        //wait for invulnerability time
+        yield return new WaitForSeconds(invulnerabilityTime);
+
+        //reset back to normal
+        invincabilityEffect.SetActive(false);
+        isInvulnurable = false;
+    }
+    #endregion
+
+    #region Break Free
+    public IEnumerator IBreakFreeDelay()
+    {
+        yield return new WaitForSeconds(1);
+        canMove = true;
+    }
+    #endregion
+
     #region Animation States
     //---ANIMATIONSTATES---//
     void AnimationStates()
@@ -863,12 +874,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
-
-    public IEnumerator IBreakFreeDelay()
-    {
-        yield return new WaitForSeconds(1);
-        canMove = true;
-    }
 
     //DELETE ME
     #endregion
