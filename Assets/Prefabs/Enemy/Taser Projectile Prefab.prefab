@@ -308,7 +308,6 @@ GameObject:
   - component: {fileID: -4508821053580982513}
   - component: {fileID: 909734564807270162}
   - component: {fileID: 2773611986858299054}
-  - component: {fileID: 4882054829324588196}
   m_Layer: 0
   m_Name: Taser Projectile Prefab
   m_TagString: Untagged
@@ -373,18 +372,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eeff49ebe01bf3408ec18f9367d1d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taserSpeed: 150
+  taserSpeed: 60
   accuracy: 0
---- !u!114 &4882054829324588196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6202073389112031844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efa5f9dfd24c20b4e806a35e4e559152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeLeft: 30
