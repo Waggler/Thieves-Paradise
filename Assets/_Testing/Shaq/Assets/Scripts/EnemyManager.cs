@@ -513,7 +513,7 @@ public class EnemyManager : MonoBehaviour
         if (stateMachine != EnemyStates.RANGEDATTACK && stateMachine != EnemyStates.HOSTILE)
         {
             //eyeball.susLevel = 5.5f;
-            eyeball.susLevel = 7f;
+            eyeball.susLevel = 10f;
 
             stateMachine = EnemyStates.HOSTILE;
 
