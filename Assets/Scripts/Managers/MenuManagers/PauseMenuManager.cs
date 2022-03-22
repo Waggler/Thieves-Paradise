@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -33,25 +34,28 @@ public class PauseMenuManager : MonoBehaviour
 
 
     //-----------------------//
-    public void PauseGame()
+    public void PauseGame(InputAction.CallbackContext context)
     //-----------------------//
     {
-        if (isGamePaused)
+        if(context.started)
         {
-            ResumeGame();
-            return;
+            if (isGamePaused)
+            {
+                ResumeGame();
+                return;
+            }
+            
+            pauseMenu.SetActive(true);
+            settingsMenu.SetActive(false);
+            photoScreen.SetActive(false);
+
+            Time.timeScale = 0f;
+
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+
+            isGamePaused = true;
         }
-        
-        pauseMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-        photoScreen.SetActive(false);
-
-        Time.timeScale = 0f;
-
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-
-        isGamePaused = true;
 
     }//END PauseGame
 
