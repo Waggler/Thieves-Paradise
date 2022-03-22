@@ -20,7 +20,10 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject photoScreen;
 
-   
+
+    [SerializeField] private Button pausedFirstButton;
+    [SerializeField] private Button settingsFirstButton;
+    [SerializeField] private Button photoModeFirstButton;
 
 
 
@@ -41,7 +44,10 @@ public class PauseMenuManager : MonoBehaviour
             ResumeGame();
             return;
         }
-        
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(pausedFirstButton.gameObject);
+
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
         photoScreen.SetActive(false);
@@ -88,6 +94,8 @@ public class PauseMenuManager : MonoBehaviour
         {
             pauseMenu.SetActive(false);
             settingsMenu.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(settingsFirstButton.gameObject);
         }
         else if (screenValue == 2)
         {
@@ -100,6 +108,8 @@ public class PauseMenuManager : MonoBehaviour
 
             photoScreenManager.RandomizeTag();
             photoScreen.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(photoModeFirstButton.gameObject);
         }
 
 
