@@ -608,13 +608,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3325092846946898786}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: 0.282}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 544382310378740329}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &3325092846946898784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,13 +630,12 @@ MonoBehaviour:
   sightRange: 20.72
   maxVisionAngle: 29.5
   susGrowthMultiplier: 8
-  susDecreaseMultiplier: 2
+  susDecreaseMultiplier: 3
   sightAngle: 0
   susLevel: 0
   minSusLevel: 0
   lastKnownLocation: {x: 0, y: 0, z: 0}
   canCurrentlySeePlayer: 0
-  susLevelTick: 0.5
 --- !u!1 &3325092847374484679
 GameObject:
   m_ObjectHideFlags: 0
