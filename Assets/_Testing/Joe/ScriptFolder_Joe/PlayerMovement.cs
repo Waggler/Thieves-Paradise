@@ -112,8 +112,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int CurrentLevel;
     private float CurrentNoiseClock;
 
+    [Header("Falling Check")]
+    [SerializeField] private float GroundCheckLimit1;
+    [SerializeField] private float GroundCheckLimit2;
+    [SerializeField] private Transform StartingLocation;
+    private float CurrentGroundCheckTime;
+    private bool StartTimer = false;
 
-    //[Header("Suspicion Manager")]
+    [Header("Key Scripts")]
     public SuspicionManager SusMan;
     public GameController gameController;
     public InventoryController inventoryController;
@@ -555,6 +561,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.CheckSphere(groundCheck, StandardHeight / 6.5f, mask, QueryTriggerInteraction.Ignore))
         {
             IsGrounded = true;
+            StartTimer = false;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
 
@@ -566,6 +573,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             IsGrounded = false;
+            StartTimer = true;
 
             if (IsCrouching)
             {
