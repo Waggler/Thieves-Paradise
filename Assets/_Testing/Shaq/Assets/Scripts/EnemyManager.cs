@@ -261,7 +261,6 @@ public class EnemyManager : MonoBehaviour
         WARY,
         SUSPICIOUS,
         HOSTILE,
-        REPORT,
         RANGEDATTACK,
         STUNNED
     }
@@ -652,16 +651,6 @@ public class EnemyManager : MonoBehaviour
     //Method called every frame
     void Update()
     {
-        //Setting up a navmesh agent stoppingDistance that only takes place in the REPORT state (SUPER temporary)
-        if (stateMachine == EnemyStates.REPORT)
-        {
-            agent.stoppingDistance = stoppingDistance;
-        }
-        else
-        {
-            agent.stoppingDistance = 0;
-        }
-
         UpdateDebugText();
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
@@ -891,30 +880,6 @@ public class EnemyManager : MonoBehaviour
                 break;
             #endregion Hostile Behavior
 
-            #region Report Behaviour
-            case EnemyStates.REPORT:
-
-                targetText.text = "Security Station";
-
-                //Do a check to see if there is a valid path to this nearest security station as well
-                target = NearestStation().transform.position;
-
-                eyeball.susLevel = 3.5f;
-
-                SetSpeedAndDest(reportSpeed, target);
-
-                if (Vector3.Distance(transform.position, target) <= stoppingDistance)
-                {
-                    //print("DOOR STUCK");
-
-                    NearestStation().GetComponent<SuspicionManager>().DummyMethod();
-
-                    stateMachine = EnemyStates.WARY;
-                }
-
-                break;
-            #endregion Report Behaviour
-
             #region Ranged Attack Behavior
             case EnemyStates.RANGEDATTACK:
                 //Add secondary section to this state that changes the guard's behaviour from run / stop & gun to run & gun
@@ -1000,7 +965,7 @@ public class EnemyManager : MonoBehaviour
                     MGSsurprise.transform.parent = gameObject.transform;
 
                     //STUNNED >>>> PREVIOUS STATE (SUSPICIOUS for now)
-                    stateMachine = EnemyStates.REPORT;
+                    stateMachine = EnemyStates.SUSPICIOUS;
 
                     //after changing states, the stun time returns to the initially recorded time
                     stunTime = stunTimeReset;
