@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 
 public class SettingsMenuManager : MonoBehaviour
 {
@@ -43,6 +44,11 @@ public class SettingsMenuManager : MonoBehaviour
 
     private Resolution[] resolutions;
 
+    public Button audioFirstButton;
+    public Button videoFirstButton;
+    public Button preferencesFirstButton;
+    public Button settingsCloseButton;
+
     #region Methods
 
 
@@ -79,6 +85,10 @@ public class SettingsMenuManager : MonoBehaviour
 
         settingsMenu.SetActive(false);
 
+        // Have to null before reset
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(settingsCloseButton.gameObject);
+
 
     }//END ChangeScreen
 
@@ -91,6 +101,9 @@ public class SettingsMenuManager : MonoBehaviour
             audioTab.SetActive(true);
             videoTab.SetActive(false);
             preferencesTab.SetActive(false);
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(audioFirstButton.gameObject);
 
         }
         else if (tabValue == 1)
@@ -98,6 +111,9 @@ public class SettingsMenuManager : MonoBehaviour
             audioTab.SetActive(false);
             videoTab.SetActive(true);
             preferencesTab.SetActive(false);
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(videoFirstButton.gameObject);
 
         }
         else if (tabValue == 2)
@@ -105,6 +121,9 @@ public class SettingsMenuManager : MonoBehaviour
             audioTab.SetActive(false);
             videoTab.SetActive(false);
             preferencesTab.SetActive(true);
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(preferencesFirstButton.gameObject);
 
         }
 

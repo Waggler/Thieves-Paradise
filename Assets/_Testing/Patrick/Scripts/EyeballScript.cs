@@ -20,7 +20,7 @@ public class EyeballScript : MonoBehaviour
 
     //Player Detection output
     [HideInInspector] public float sightAngle;
-    [SerializeField] [Range(0, 20)] public float susLevel; //how suspicious the eyeball currently is
+    [SerializeField] [Range(0, 6)] public float susLevel; //how suspicious the eyeball currently is
     [SerializeField]public float minSusLevel; //can't get less sus than this
     [SerializeField] public Vector3 lastKnownLocation;
     [HideInInspector] public bool canCurrentlySeePlayer;
@@ -91,9 +91,9 @@ public class EyeballScript : MonoBehaviour
         return true;
     }//END FindPlayer
 
-    private float updateTimer = 0;
+    //private float updateTimer = 0;
 
-    [SerializeField] [Range(0.1f, 1f)] private float susLevelTick = .5f;
+    //[SerializeField] [Range(0.1f, 1f)] private float susLevelTick = .5f;
 
     private void ChangeSus(bool increase)
     {

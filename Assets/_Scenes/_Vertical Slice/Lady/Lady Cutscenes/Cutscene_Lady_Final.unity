@@ -594,7 +594,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 711964e954771c54e8a5f19a332a2d8d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6dc53bfd6ebe5064781a6d1bd6e3a251, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1081697533}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &326416815
@@ -2360,6 +2360,7 @@ MonoBehaviour:
   textBox: {fileID: 1255347198}
   skipButton: {fileID: 386519673}
   dialoguePortraitSwapIndex: 0
+  firstChoiceButton: {fileID: 0}
   currentMission: 0
   speakerText: {fileID: 1283500031}
   dialogueText: {fileID: 1372220631}
@@ -2599,6 +2600,7 @@ MonoBehaviour:
   - {fileID: 1107494704}
   - {fileID: 1314107101}
   - {fileID: 89316301}
+  continueButton: {fileID: 0}
 --- !u!4 &808872836
 Transform:
   m_ObjectHideFlags: 0

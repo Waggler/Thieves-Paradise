@@ -13,7 +13,11 @@ public class CameraToggler : MonoBehaviour
 
     void Awake()
     {
-        vCam = (CinemachineFreeLook)FindObjectOfType(typeof(CinemachineFreeLook));
+        if (vCam == null)
+        {
+            vCam = (CinemachineFreeLook)FindObjectOfType(typeof(CinemachineFreeLook));
+
+        }
         //print(vCam.gameObject.name);
 
     }

@@ -249,10 +249,6 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private GameObject playerVisTarget;
 
-    private bool isPatrolSuspended = false;
-
-    private Rigidbody rb;
-
     #endregion
 
     #region Enumerations
@@ -416,8 +412,6 @@ public class EnemyManager : MonoBehaviour
         }
         #endregion Null Checks
 
-        rb = GetComponent<Rigidbody>();
-
         //Stores the user generated random direction time
         agent = GetComponent<NavMeshAgent>();
 
@@ -516,21 +510,20 @@ public class EnemyManager : MonoBehaviour
     // Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
-        eyeball.susLevel = 20f;
-
-        stateMachine = EnemyStates.HOSTILE;
-
-        isPatrolSuspended = true;
-
-        target = alertLoc;
-
-        eyeball.lastKnownLocation = alertLoc;
-
-        agent.SetDestination(alertLoc);
-
-        if (alertLoc != player.transform.position && agent.remainingDistance <= .5f)
+        if (stateMachine != EnemyStates.RANGEDATTACK && stateMachine != EnemyStates.HOSTILE)
         {
-            isPatrolSuspended = false;
+            //eyeball.susLevel = 5.5f;
+            eyeball.susLevel = 10f;
+
+            stateMachine = EnemyStates.HOSTILE;
+
+            target = alertLoc;
+
+            eyeball.lastKnownLocation = alertLoc;
+
+            agent.SetDestination(alertLoc);
+
+            //Debug.Log("Alert has been called");
         }
     }//End Alert
 
@@ -585,6 +578,12 @@ public class EnemyManager : MonoBehaviour
         if (other.gameObject.GetComponent<BaitItemScript>() != null)
         {
             Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.tag == "Slippery")
+        {
+            stateMachine = EnemyStates.STUNNED;
+            other.GetComponent<PuddleAppearScript>().StartCoroutine("Disappear");
         }
 
     }//End OnTriggerEnter
@@ -732,8 +731,6 @@ public class EnemyManager : MonoBehaviour
                 FaceTarget(target);
 
                 //Checks to see if it is at specified distance for getting it's next waypoint
-                if (isPatrolSuspended == false)
-                {
                     if (agent.remainingDistance <= waypointNextDistance)
                         {
                         //Checks to see if the isWait bool is true or not
@@ -757,7 +754,6 @@ public class EnemyManager : MonoBehaviour
                         }
                     }
                     target = waypoints[waypointIndex].position;
-                }
 
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(target);
@@ -772,9 +768,9 @@ public class EnemyManager : MonoBehaviour
 
                 if (eyeball.susLevel > warySusMax)
                 {
-                    var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
+                    //var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
 
-                    AmConfuse.transform.parent = gameObject.transform;
+                    //AmConfuse.transform.parent = gameObject.transform;
 
                     // PASSIVE >>>> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
@@ -848,7 +844,6 @@ public class EnemyManager : MonoBehaviour
 
                     oneTimeUseTimer = oneTimeUseTimerReset;
 
-                    //the cool lil MGS thing
                     //var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
 
                     //MGSsurprise.transform.parent = gameObject.transform;
@@ -876,7 +871,7 @@ public class EnemyManager : MonoBehaviour
                 SetAIDestination(target);
                 
                 //Conditionds needed for ranged attack / taser
-                if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance <= taserShotRadius)
+                if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance < taserShotRadius)
                 {
                     //HOSTILE >> RANGED ATTACK
                     stateMachine = EnemyStates.RANGEDATTACK;
@@ -932,6 +927,8 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterShoot();
 
+                SetAIDestination(target);
+
                 //Eventually move this to the player as an event (make a listener / Unity event for this)
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
                 if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
@@ -953,8 +950,6 @@ public class EnemyManager : MonoBehaviour
                     {
                         fireRate = fireRateReset;
 
-                        //StartCoroutine(ITaserFire());
-
                         var taserPrefab = Instantiate(taserProjectile, taserSpawnLoc.transform.position, transform.rotation);
 
                         taserPrefab.GetComponent<TaserManager>().accuracy = accuracy;
@@ -966,11 +961,14 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 //Exit Condition(s)
-                if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance >= taserShotRadius)   
+                if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance > taserShotRadius)   
                 {
+                    //Debug.Log("Target is outside of firing range");
+
                     //RANGED ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
+
                 break;
             #endregion Ranged Attack Behavior
 

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -12,6 +14,15 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject creditsScreen;
     [SerializeField] private GameObject missionSelectMenu;
     [SerializeField] private AudioManager audioManager;
+
+    [Header("Buttons")]
+    public Button playFirstButton;
+    public Button playClosedButton;
+
+    public Button settingsFirstButton;
+
+    public Button creditsFirstButton;
+    public Button creditsCloseButton;
 
 
     #region Methods
@@ -72,6 +83,10 @@ public class MainMenuManager : MonoBehaviour
             mainMenu.SetActive(false);
             missionSelectMenu.SetActive(true);
 
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(playFirstButton.gameObject);
+
         } 
         else if (screenValue == 1)
         {
@@ -84,11 +99,19 @@ public class MainMenuManager : MonoBehaviour
             mainMenu.SetActive(false);
             settingsMenu.SetActive(true);
 
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(settingsFirstButton.gameObject);
+
         }
         else if (screenValue == 3)
         {
             mainMenu.SetActive(false);
             creditsScreen.SetActive(true);
+
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(creditsFirstButton.gameObject);
 
 
         }
