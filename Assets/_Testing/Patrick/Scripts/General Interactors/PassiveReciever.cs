@@ -20,6 +20,7 @@ public class PassiveReciever : MonoBehaviour
 
     public void Activate()
     {
+        print("Activating Functions");
         triggeredEvent.Invoke();
     }
     public void Deactivate()

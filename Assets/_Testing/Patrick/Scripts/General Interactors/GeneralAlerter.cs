@@ -18,4 +18,9 @@ public class GeneralAlerter : MonoBehaviour
         print("Alerting Guards");
         susManager.AlertGuards(transform.position, transform.position, alertRange);
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, alertRange);
+    }
 }
