@@ -30,6 +30,12 @@ public class UniversalDoorScript : MonoBehaviour
 
     private Transform minTrans, maxTrans;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource doorSource;
+    [SerializeField] private AudioClip doorOpenClip;
+    [SerializeField] private AudioClip doorCloseClip;
+
+
     void Start()
     {
         maxOpenRotation = new Vector3 (0, maxOpenAngle, 0);
@@ -73,6 +79,7 @@ public class UniversalDoorScript : MonoBehaviour
     {
         doorMode = doorStates.Automatic;
         isOpen = true;
+        StartCoroutine(IOpenAudio());
     }
     private void DetermineDirection()
     {
@@ -100,6 +107,7 @@ public class UniversalDoorScript : MonoBehaviour
                 otherPos = other.transform.position;
                 DetermineDirection();
                 isOpen = true;
+                StartCoroutine(IOpenAudio());
             }
         }else if (doorMode == doorStates.Manual)
         {
@@ -120,7 +128,24 @@ public class UniversalDoorScript : MonoBehaviour
         {
             if(debugMode) print("Player or Guard left Door");
             isOpen = false;
+            CloseAudio();
         }
+    }
+
+    //---------------------//
+    public IEnumerator IOpenAudio()
+    //---------------------//
+    {
+        doorSource.PlayOneShot(doorOpenClip);
+        yield return isOpen == false;
+        StopAllCoroutines();
+    }//END OpenAudio
+
+    //---------------------//
+    public void CloseAudio()
+    //---------------------//
+    {
+        doorSource.PlayOneShot(doorCloseClip);
     }
 
 }
