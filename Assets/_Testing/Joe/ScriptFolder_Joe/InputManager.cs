@@ -42,11 +42,7 @@ public class InputManager : MonoBehaviour
         Vector2 contextValue = context.ReadValue<Vector2>();
         //print(contextValue.magnitude);
 
-        if (IsZoomed)
-        {
-            //zero out side to side movement while aiming
-            contextValue.x = 0; 
-        }
+        
 
         if (contextValue.magnitude < 0.75f && playerMovement.IsSprinting)
         {
