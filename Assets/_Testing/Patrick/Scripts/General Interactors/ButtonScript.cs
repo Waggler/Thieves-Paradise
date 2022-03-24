@@ -9,8 +9,9 @@ public class ButtonScript : MonoBehaviour
     public bool isLocked;
     public string keyItem;
 
-    [SerializeField] private AudioClip confirm;
-    [SerializeField] private AudioClip deny;
+    [SerializeField] private AudioClip confirmClip;
+    [SerializeField] private AudioClip denyClip;
+    [SerializeField] private AudioSource aSource;
     public void PressButton()
     {
         if(!isLocked)
@@ -24,13 +25,13 @@ public class ButtonScript : MonoBehaviour
     {
         isLocked = false;
         //put logic for changing visuals here
-        //play confirm sound
+        aSource.PlayOneShot(confirmClip);
         //PressButton();
     }
 
     public void Deny()
     {
-        //play deny sound
+        aSource.PlayOneShot(denyClip);
 
     }
 }

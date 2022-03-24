@@ -9,11 +9,6 @@ public class NoteScript : MonoBehaviour
     private float pitchModifier;
     public AudioSource aud;
     
-    private void Awake() 
-    {
-
-    }
-    
     void Start()
     {
         pitchModifier = Mathf.Pow(1.0594631f,semitones);
@@ -21,7 +16,7 @@ public class NoteScript : MonoBehaviour
 
     public void PlayNote()
     {
-        //print("Playing Note");
+        print("Playing Note");
         aud.pitch = pitchModifier;
         aud.Play();
         this.GetComponent<Renderer>().material.color = Color.cyan;
@@ -29,7 +24,7 @@ public class NoteScript : MonoBehaviour
 
     public void EndNote()
     {
-        //print("Stopping Note");
+        print("Stopping Note");
         this.GetComponent<Renderer>().material.color = Color.white;
     }
 }
