@@ -64,24 +64,14 @@ public class GuardAudio : MonoBehaviour
     }//END SpotPlayer
 
     //-----------------------//
-    public void StruggleFall()
+    public void Fall()
     //-----------------------//
     {
         guardSource.volume = normalVolume;
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(fallClip);
 
-    }//END StruggleFall
-
-    //-----------------------//
-    public void StruggleHit()
-    //-----------------------//
-    {
-        guardSource.volume = loudVolume;
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
-        guardSource.PlayOneShot(hitClip);
-
-    }//END StruggleHit
+    }//END Fall
 
     //-----------------------//
     public void Chew()
@@ -111,6 +101,5 @@ public class GuardAudio : MonoBehaviour
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(susClip);
     }//END Suspicious
-
 
 }//END GuardAudio
