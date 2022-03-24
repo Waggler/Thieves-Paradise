@@ -116,8 +116,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float GroundCheckLimit1;
     [SerializeField] private float GroundCheckLimit2;
     [SerializeField] private Transform StartingLocation;
-    private float CurrentGroundCheckTime;
-    private bool StartTimer = false;
+    private float CurrentGroundCheckTime = 0;
+    private bool Splat = false;
+    public bool StartTimer = false;
 
     [Header("Key Scripts")]
     public SuspicionManager SusMan;
@@ -206,21 +207,6 @@ public class PlayerMovement : MonoBehaviour
             Sprinting();
         }
 
-        #region Gravity
-        if (IsGrounded && Controller.velocity.y > 0)
-        {
-            VerticalVelocity.y = 0;
-        }
-
-        if (!IsGrounded)
-        {
-            VerticalVelocity.y -= Gravity * Time.deltaTime;
-        }
-        Controller.Move(VerticalVelocity * Time.deltaTime);
-
-
-        #endregion
-
         #region Movement
         //Over the shoulder cam roll doesn't work. Cam is only going to be used for free cam.
         if (!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned)
@@ -250,6 +236,52 @@ public class PlayerMovement : MonoBehaviour
         {
             Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
+        }
+
+        #endregion
+
+        #region Gravity
+        if (IsGrounded && Controller.velocity.y > 0)
+        {
+            VerticalVelocity.y = 0;
+        }
+
+        if (!IsGrounded)
+        {
+            VerticalVelocity.y -= Gravity * Time.deltaTime;
+        }
+        Controller.Move(VerticalVelocity * Time.deltaTime);
+
+        #endregion
+
+        #region Falling Check
+        if (StartTimer)
+        {
+            CurrentGroundCheckTime += Time.deltaTime;
+
+            if (CurrentGroundCheckTime < GroundCheckLimit1)
+            {
+                print("all good");
+                return;
+            }
+            else if (GroundCheckLimit1 <= CurrentGroundCheckTime && CurrentGroundCheckTime <= GroundCheckLimit2)
+            {
+                print("Ouch!");
+                Splat = true;
+            }
+            else if (CurrentGroundCheckTime < GroundCheckLimit2)
+            {
+                print("void");
+                Splat = false;
+                //Return player back to the starting location.
+            }
+        }
+
+        if(Splat && IsGrounded)
+        {
+            print("splatted");
+            IsStunned = true;
+            Splat = false;
         }
 
         #endregion
@@ -562,6 +594,7 @@ public class PlayerMovement : MonoBehaviour
         {
             IsGrounded = true;
             StartTimer = false;
+            CurrentGroundCheckTime = 0;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
 
