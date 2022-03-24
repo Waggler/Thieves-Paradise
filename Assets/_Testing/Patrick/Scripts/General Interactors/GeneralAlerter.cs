@@ -6,7 +6,7 @@ public class GeneralAlerter : MonoBehaviour
 {
     public float alertRange;
 
-    SuspicionManager susManager;
+    public SuspicionManager susManager;
 
     void Awake()
     {

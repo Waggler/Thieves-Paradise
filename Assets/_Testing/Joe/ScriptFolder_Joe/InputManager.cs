@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
     private float cooldownTimer;
     public bool jumpPressCounter;
     public bool StopTheJump;
+    private bool GroundCheck;
     [HideInInspector] public bool IsZoomed;
     [HideInInspector] public float ZoomLookSensitivity = 1;
 
@@ -31,6 +32,13 @@ public class InputManager : MonoBehaviour
         if (cooldownTimer < rollCooldownTime)
         {
             cooldownTimer += Time.deltaTime;
+        }
+
+        GroundCheck = playerMovement.IsGrounded;
+        if(GroundCheck)
+        {
+            jumpPressCounter = false;
+            StopTheJump = false;
         }
     }
 
@@ -78,12 +86,6 @@ public class InputManager : MonoBehaviour
                 playerMovement.Jump();
                 jumpPressCounter = true;
                 StopTheJump = true;
-            }
-
-            else if (jumpPressCounter && StopTheJump)
-            {
-                jumpPressCounter = false;
-                StopTheJump = false;
             }
         }
     }// END JUMP
