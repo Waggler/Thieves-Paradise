@@ -11,6 +11,7 @@ public class WalkPastFallOver : MonoBehaviour
     public bool inRange = false;
     public bool Crouching = false;
     public float maxAngle = -90f;
+    //[SerializeField] private float noiseRadius = 15;
 
     // Start is called before the first frame update
     void Start()
@@ -56,14 +57,14 @@ public class WalkPastFallOver : MonoBehaviour
     { 
         if(Crouching == true)
         {
-            Debug.Log("Walked Past!");
+            //Debug.Log("Walked Past!");
             inRange = false;
         }
 
         if(Crouching == false)
         {
             inRange = true;
-            Debug.Log("Sound Made!");
+            //Debug.Log("Sound Made!");
             // float minAngle = 0f;
             // float maxAngle = -90f;
             // Timer = Timer + Time.deltaTime;
@@ -87,14 +88,14 @@ public class WalkPastFallOver : MonoBehaviour
     { 
         if(Crouching == true)
         {
-            Debug.Log("Walked Past!");
+            //Debug.Log("Walked Past!");
             inRange = false;
         }
 
         if(Crouching == false)
         {
             inRange = true;
-            Debug.Log("Sound Made!");
+            //Debug.Log("Sound Made!");
             // float minAngle = 0f;
             // float maxAngle = -90f;
             // Timer = Timer + Time.deltaTime;

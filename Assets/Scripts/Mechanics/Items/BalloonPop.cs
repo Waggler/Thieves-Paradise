@@ -5,8 +5,8 @@ using UnityEngine;
 public class BalloonPop : MonoBehaviour
 {
     public GameObject balloon;
-    [SerializeField]
-    private AudioSource pop;
+    [SerializeField] private AudioSource pop;
+    //[SerializeField] private float noiseRadius = 15;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class BalloonPop : MonoBehaviour
     public void OnTriggerEnter()
     {
         pop.Play();
-        Debug.Log("Pop sound played!");
+        //Debug.Log("Pop sound played!");
         Destroy(gameObject);
         //balloon.SetActive(false);
     }

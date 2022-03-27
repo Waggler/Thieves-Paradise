@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 263245551849387051}
   - component: {fileID: 6587210148345714269}
   - component: {fileID: 2379280164671096979}
+  - component: {fileID: 937226847435407702}
+  - component: {fileID: 1225525198799716840}
   m_Layer: 6
   m_Name: balloon
   m_TagString: Untagged
@@ -207,3 +209,47 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &937226847435407702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2478269508997940415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b19ed2e0524c23469c63bad2fba5e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggeredEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1225525198799716840}
+        m_TargetAssemblyTypeName: GeneralAlerter, Assembly-CSharp
+        m_MethodName: AlertNearGuards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggeredEventEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1225525198799716840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2478269508997940415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e1bd6ba9553ad40aafd110309667c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alertRange: 25
+  susManager: {fileID: 0}
