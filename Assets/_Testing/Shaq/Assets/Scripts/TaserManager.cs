@@ -61,19 +61,4 @@ public class TaserManager : MonoBehaviour
         rb.velocity = (transform.forward + (new Vector3 (0, -.01f, 0) + randVec3)) * taserSpeed;
 
     }//End Init
-
-    //---------------------------------//
-    // Function for facing the target
-    void FaceTarget(Vector3 target)
-    {
-        Vector3 direction = (target - transform.position).normalized;
-
-        Quaternion lookRotation = Quaternion.identity;
-        if (direction.x != 0 && direction.z != 0)
-        {
-            lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        }
-
-        transform.rotation = lookRotation;
-    }//End FaceTarget
 }

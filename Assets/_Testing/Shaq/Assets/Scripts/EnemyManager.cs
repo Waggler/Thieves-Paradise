@@ -8,11 +8,12 @@ using UnityEngine.Events;
 using Unity.Profiling;
 
 /*To Do:
-    - Look into what it takes to have a node approach to AI behaviour
-        - Basically what was done with Zork where there's multiple scripts being used with class inheritance (how monobehaviour works)
-    
-    - Replace any instances of Vector3.Distance with NavMeshAgent.remainingDistance / agent.remainingDistance where it is being used to calculate the guard's distance from a target
-        - Do not do this when it is being used to calculate the distance from an unrelated object.
+    - Remove Wary state (?)
+
+    - Add Melee attack state (May not need to be a whole state and can just be a reaction to the player being to close to the guard)
+        - Regardless it needs to be a reaction done from the HOSTILE State
+
+    - Add Delay between Passive and Suspicious states
 
 */
 
@@ -20,6 +21,7 @@ using Unity.Profiling;
 public class EnemyManager : MonoBehaviour
 {
     //Unity Profiler Goofery
+
     //static readonly Unity.Profiling.ProfilerMarker s_MyProfilerMarker = new Unity.Profiling.ProfilerMarker("Guard Profile Marker *Shaq Made This");
     //public UnityEvent EVENT_OnNearestStation;
 
@@ -86,10 +88,10 @@ public class EnemyManager : MonoBehaviour
     //Minimum Suspicion level to enter this state
     [HideInInspector] private float passiveSusMax = 3;
 
-    //Minimum Suspicion level to enter this state
-    [HideInInspector] public float warySusMin = 3.1f;
+    ////Minimum Suspicion level to enter this state
+    //[HideInInspector] public float warySusMin = 3.1f;
 
-    [HideInInspector] private float warySusMax = 4;
+    //[HideInInspector] private float warySusMax = 4;
 
     //Minimum Suspicion level to enter this state
     [HideInInspector] private float sussySusMin = 4.1f;
@@ -120,13 +122,11 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
     [SerializeField] [Range(0, 10)] public float hostileSpeed = 4f;
 
-    [Tooltip("The speed that the AI moves at in the REPORT state")]
-    [SerializeField] [Range(0, 10)] private float reportSpeed = 3.5f;
-
     [Tooltip("The speed that the AI moves at in the ATTACK state")]
     [SerializeField] [Range(0, 10)] public float attackSpeed = 0f;
 
     //---------------------------------------------------------------------------------------------------//
+
     [Header("Patrol Wait Variables")]
 
     [Space(20)]
@@ -143,8 +143,8 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("The maximum generated value for the wait time")]
     [SerializeField] [Range(3, 5)] private float patrolWaitMax = 5f;
 
-
     //---------------------------------------------------------------------------------------------------//
+
     [Header("Suspicious State Variables")]
 
     [Space(20)]
@@ -258,7 +258,6 @@ public class EnemyManager : MonoBehaviour
     public enum EnemyStates
     {
         PASSIVE,
-        WARY,
         SUSPICIOUS,
         HOSTILE,
         RANGEDATTACK,
@@ -696,77 +695,23 @@ public class EnemyManager : MonoBehaviour
                 //transform.position is being used because you cannot use Vector3 data when Transform is being called
                 SetAIDestination(target);
 
-                FaceTarget(target);
 
-                //Exit condition
+
+                //FaceTarget(target);
+
+
+
+                #region Exit Condition
                 //Checking to see if the player is visible
                 if (eyeball.susLevel > passiveSusMax)
                 {
                     // PASSIVE >>>> SUSPICIOUS
-                    stateMachine = EnemyStates.WARY;
+                    stateMachine = EnemyStates.SUSPICIOUS;
                 }
+                #endregion Exit Condition
 
                 break;
             #endregion Passive Behavior
-
-            #region Wary Behavior
-            //Identical to Passive state
-            case EnemyStates.WARY:
-
-                guardAnim.EnterPassiveAnim();
-
-                SetAiSpeed(warySpeed);
-
-                FaceTarget(target);
-
-                //Checks to see if it is at specified distance for getting it's next waypoint
-                    if (agent.remainingDistance <= waypointNextDistance)
-                        {
-                        //Checks to see if the isWait bool is true or not
-                        if (isPatrolWait == true)
-                        {
-                            if (patrolWaitTime > 0)
-                            {
-                                patrolWaitTime -= Time.fixedDeltaTime;
-                            }
-                            else if (patrolWaitTime <= 0)
-                            {
-                                patrolWaitTime = Random.Range(patrolWaitMin, patrolWaitMax);
-
-                                //Figure out why this function is being called twice
-                                SetNextWaypoint();
-                            }
-                        }
-                        else
-                        {
-                            SetNextWaypoint();
-                        }
-                    }
-                    target = waypoints[waypointIndex].position;
-
-                //transform.position is being used because you cannot use Vector3 data when Transform is being called
-                SetAIDestination(target);
-
-                //Exit condition
-                //Checking to see if the player is visible
-                if (eyeball.susLevel < warySusMin)
-                {
-                    // PASSIVE >>>> SUSPICIOUS
-                    stateMachine = EnemyStates.PASSIVE;
-                }
-
-                if (eyeball.susLevel > warySusMax)
-                {
-                    //var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
-
-                    //AmConfuse.transform.parent = gameObject.transform;
-
-                    // PASSIVE >>>> SUSPICIOUS
-                    stateMachine = EnemyStates.SUSPICIOUS;
-                }
-
-                break;
-            #endregion Wary Behavior
 
             #region Suspicious Behavior
             //Finding random points in a set radius for the guard to go to
@@ -775,6 +720,7 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterSusAnim();
 
+                #region Experimental shit
                 ////Records and adds the player's last known location as a part of the waypoints list for patrollling.
                 //if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
                 //{
@@ -784,6 +730,7 @@ public class EnemyManager : MonoBehaviour
 
                 //    SussyWaypointMade = true;
                 //}
+                #endregion
 
                 //Used to send the guard to random locations in a set radius, meant to emulate confusion from the unit
                 if (oneTimeUseTimer > 0)
@@ -824,7 +771,7 @@ public class EnemyManager : MonoBehaviour
                     oneTimeUseTimer = oneTimeUseTimerReset;
 
                     //SUSPICIOUS >> WARY
-                    stateMachine = EnemyStates.WARY;
+                    stateMachine = EnemyStates.PASSIVE;
                 }
 
                 if (eyeball.susLevel > sussySusMax)
@@ -855,9 +802,14 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(hostileSpeed);
 
-                FaceTarget(target);
-
                 SetAIDestination(target);
+
+                //Faces the target / player when they are visible
+                //  - Added with the intention of the guard spending less time awkwardly facing seemingly random direcations
+                if (eyeball.canCurrentlySeePlayer == true)
+                {
+                    FaceTarget(target);
+                }
                 
                 //Conditionds needed for ranged attack / taser
                 if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance < taserShotRadius)
@@ -866,7 +818,7 @@ public class EnemyManager : MonoBehaviour
                     stateMachine = EnemyStates.RANGEDATTACK;
                 }
 
-                //Exit Conditions
+                #region Exit Conditions
                 else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < hostileSusMin)
                 {
                     //var AmConfuse = Instantiate(confusedVFX, transform.position, transform.rotation);
@@ -876,6 +828,8 @@ public class EnemyManager : MonoBehaviour
                     //HOSTILE >> SUSPICIOUS
                     stateMachine = EnemyStates.SUSPICIOUS;
                 }
+
+                #endregion Exit Conditions
 
                 break;
             #endregion Hostile Behavior
@@ -925,7 +879,7 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
 
-                //Exit Condition(s)
+                #region Exit Conditions
                 if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance > taserShotRadius)   
                 {
                     //Debug.Log("Target is outside of firing range");
@@ -933,6 +887,7 @@ public class EnemyManager : MonoBehaviour
                     //RANGED ATTACK >> HOSTILE
                     stateMachine = EnemyStates.HOSTILE;
                 }
+                #endregion Exit Conditions
 
                 break;
             #endregion Ranged Attack Behavior
