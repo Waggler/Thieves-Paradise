@@ -97,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float BreakOutThreshold;
     public bool IsStunned = false;
     public float CurrentStunTime = 0;
+    private bool IsGameOver;
 
     [Header("Player Noise")]
     [Tooltip("The detection radius of the player when they are standing still and when they are moving while crouched")]
@@ -161,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
         mask = ~mask;
         HeightFromGround = StandardHeight / 2;
         CrouchingHeightFromGround = CrouchingHeight / 2;
+        IsGameOver = false;
 
         SusMan = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
 
@@ -346,7 +348,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Stun Work
-        if (IsStunned)
+        if (IsStunned && !IsGameOver)
         {
             if (!isInvulnurable)
             {
@@ -379,6 +381,7 @@ public class PlayerMovement : MonoBehaviour
             else if (CurrentStunTime >= StunTime || hp <= 0)
             {
                 FindObjectOfType<LoseScreenMenuManager>().LoseGame();
+                IsGameOver = true;
             }
         }
 
