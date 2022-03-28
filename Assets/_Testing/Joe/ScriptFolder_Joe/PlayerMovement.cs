@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Falling Check")]
     [SerializeField] private float GroundCheckLimit1;
     [SerializeField] private float GroundCheckLimit2;
-    [SerializeField] private Transform StartingLocation;
+    private Vector3 StartingLocation;
     private float CurrentGroundCheckTime = 0;
     private bool Splat = false;
     public bool StartTimer = false;
@@ -155,14 +155,20 @@ public class PlayerMovement : MonoBehaviour
         CurrentRollTime = RollingTime;
         CurrentDiveTime = DiveTime;
         CurrentDelayTime = DelayTime;
+
         Controller = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
+
         PlayerCamera = Camera.main.transform;
         mask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost");
         mask = ~mask;
+
         HeightFromGround = StandardHeight / 2;
         CrouchingHeightFromGround = CrouchingHeight / 2;
+        
         IsGameOver = false;
+
+        StartingLocation = transform.position;
 
         SusMan = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
 
@@ -271,11 +277,13 @@ public class PlayerMovement : MonoBehaviour
                 print("Ouch!");
                 Splat = true;
             }
-            else if (CurrentGroundCheckTime < GroundCheckLimit2)
+            else if (CurrentGroundCheckTime > GroundCheckLimit2)
             {
                 print("void");
                 Splat = false;
                 //Return player back to the starting location.
+                gameObject.transform.position = StartingLocation;
+                CurrentGroundCheckTime = 0;
             }
         }
 
@@ -919,6 +927,5 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    //DELETE ME
     #endregion
 }
