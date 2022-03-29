@@ -5,7 +5,7 @@ using TMPro;
 
 public class ItemToSteal : MonoBehaviour
 {
-    [SerializeField] private TMP_Text nameText;
+    public TMP_Text nameText;
     public string itemName;
     public ItemScript item;
 
@@ -15,7 +15,7 @@ public class ItemToSteal : MonoBehaviour
     {
         item = target;
         name = item.name;
-
+        nameText.text = item.name;
 
 
     }//END Init

@@ -8,20 +8,52 @@ public class ItemTracker : MonoBehaviour
     [Header("Components")]
     [SerializeField] private LayoutGroup itemLayout;
     [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private ItemScript heistItems;
+    [SerializeField] private ItemScript[] heistItems;
+    [SerializeField] private List<ItemToSteal> displayedItems;
+    [SerializeField] private InventoryController iController;
 
     //-----------------------//
     void Start()
     //-----------------------//
     {
-        /*
+        Init();
+        
+    }//END Start
+
+    //-----------------------//
+    void Init()
+    //-----------------------//
+    {
+        if (iController == null)
+        {
+            iController = FindObjectOfType<InventoryController>();
+        }
+
+
+
         foreach (ItemScript item in heistItems)
         {
-            
-            Instantiate(itemPrefab, itemLayout);
+            ItemToSteal temp = Instantiate(itemPrefab, itemLayout.transform).GetComponent<ItemToSteal>();
+            temp.Init(item);
+            displayedItems.Add(temp);
         }
-        */
-    }//END Start
+
+    }//END Init
+
+    //-----------------------//
+    public void CheckStatus()
+    //-----------------------//
+    {
+
+        foreach (ItemToSteal item in displayedItems)
+        {
+            if (iController.CheckHasItem(item.name) == true)
+            {
+                item.nameText.fontStyle = TMPro.FontStyles.Strikethrough;
+            }
+        }
+
+    }//END CheckStatus
 
 
 }//END CLASS ItemTracker
