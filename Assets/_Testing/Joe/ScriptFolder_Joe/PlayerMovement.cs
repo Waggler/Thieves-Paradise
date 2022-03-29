@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 StartingLocation;
     private float CurrentGroundCheckTime = 0;
     private bool Splat = false;
-    public bool StartTimer = false;
+    private bool StartTimer = false;
 
     [Header("Key Scripts")]
     public SuspicionManager SusMan;
