@@ -693,7 +693,7 @@ public class PlayerMovement : MonoBehaviour
     #region Rolling
     void Rolling()
     {
-        if (!DelayRoll && IsRolling)
+        if (IsRolling)
         {
             if (CurrentDelayTime > 0)
             {
