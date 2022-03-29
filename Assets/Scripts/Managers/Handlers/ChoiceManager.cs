@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class ChoiceManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class ChoiceManager : MonoBehaviour
     [SerializeField] private GameObject[] choiceUiObjects;
 
     [SerializeField] private TMP_Text[] choiceTexts;
+
+    public Button continueButton;
 
 
     #endregion Components
@@ -88,14 +91,10 @@ public class ChoiceManager : MonoBehaviour
 
     }//END CloseChoices
 
-    public void ChooseChoiceOption(int optionId)
-    {
-
-        
-    }
-
     public void ShowResponse(int optionId)
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
         currentChoice.isChoice = false;
         dialogueManager.TriggerResponse(currentChoice.responses[optionId]);
         CloseChoices();

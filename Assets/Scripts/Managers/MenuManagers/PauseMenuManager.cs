@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -20,6 +22,11 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private GameObject photoScreen;
 
 
+    [SerializeField] private Button pausedFirstButton;
+    [SerializeField] private Button settingsFirstButton;
+    [SerializeField] private Button photoModeFirstButton;
+
+
     public static bool isGamePaused;
 
     #endregion Components
@@ -29,25 +36,30 @@ public class PauseMenuManager : MonoBehaviour
 
 
     //-----------------------//
-    public void PauseGame()
+    public void PauseGame(InputAction.CallbackContext context)
     //-----------------------//
     {
-        if (isGamePaused)
+        if (context.started)
         {
-            ResumeGame();
-            return;
+            if (isGamePaused)
+            {
+                ResumeGame();
+                return;
+            }
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(pausedFirstButton.gameObject);
+
+            pauseMenu.SetActive(true);
+            settingsMenu.SetActive(false);
+            photoScreen.SetActive(false);
+
+            Time.timeScale = 0f;
+
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+
+            isGamePaused = true;
         }
-        
-        pauseMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-        photoScreen.SetActive(false);
-
-        Time.timeScale = 0f;
-
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-
-        isGamePaused = true;
 
     }//END PauseGame
 
@@ -84,6 +96,9 @@ public class PauseMenuManager : MonoBehaviour
         {
             pauseMenu.SetActive(false);
             settingsMenu.SetActive(true);
+
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(settingsFirstButton.gameObject);
         }
         else if (screenValue == 2)
         {
@@ -96,6 +111,9 @@ public class PauseMenuManager : MonoBehaviour
 
             photoScreenManager.RandomizeTag();
             photoScreen.SetActive(true);
+
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(photoModeFirstButton.gameObject);
         }
 
 

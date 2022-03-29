@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
     private bool canMove = true;
-    private float CurrentSpeed;
+    [SerializeField] private float CurrentSpeed;
     private Vector3 Direction;
 
     [Header("Crouching")]
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float CrouchingHeight;
     [Tooltip("Set this as the same Y center for the player controller & colider.")]
     [SerializeField] private float SetCenterHeight;
-    [SerializeField] public bool IsCrouching = false;
+    public bool IsCrouching = false;
     [SerializeField] private bool IsStanding = true;
     [SerializeField] private bool IsCovered;
 
@@ -40,8 +40,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DiveHeight;
     public CapsuleCollider playerCollider;
     [SerializeField] public CharacterController Controller;
-    [SerializeField] private bool IsGrounded = true;
-    [SerializeField] private float AirSpeed;
+    [HideInInspector] public bool IsGrounded = true;
+    [SerializeField] private float AirInertiaTime;
+    public float CurrentAirInertiaTime;
     private float HeightFromGround;
     private float CrouchingHeightFromGround;
     private float GroundHeight;
@@ -78,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
     //[Header("Camera")]
     private Transform PlayerCamera;
-    private Vector3 FacingDirection;
+    [HideInInspector] public Vector3 FacingDirection;
 
     private LayerMask mask; //player layer mask to occlude the player from themselves
 
@@ -97,11 +98,6 @@ public class PlayerMovement : MonoBehaviour
     public bool IsStunned = false;
     public float CurrentStunTime = 0;
 
-    [Header("Inertia")]
-    public bool Inertia = false;
-    [SerializeField] private float WalkingInertiaTime;
-    private float CurrentInertiaTime;
-
     [Header("Player Noise")]
     [Tooltip("The detection radius of the player when they are standing still and when they are moving while crouched")]
     [SerializeField] private int SilentLevel = 0;
@@ -116,8 +112,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int CurrentLevel;
     private float CurrentNoiseClock;
 
+    [Header("Falling Check")]
+    [SerializeField] private float GroundCheckLimit1;
+    [SerializeField] private float GroundCheckLimit2;
+    [SerializeField] private Transform StartingLocation;
+    private float CurrentGroundCheckTime = 0;
+    private bool Splat = false;
+    public bool StartTimer = false;
 
-    //[Header("Suspicion Manager")]
+    [Header("Key Scripts")]
     public SuspicionManager SusMan;
     public GameController gameController;
     public InventoryController inventoryController;
@@ -135,13 +138,15 @@ public class PlayerMovement : MonoBehaviour
     public bool Diving;
     public bool Stunned;
 
+    public bool isInvulnurable;
+    [Tooltip("Timer starts as soon as you get hit, including when you are still struggling")]
+    [SerializeField] public float invulnerabilityTime = 5;
+    [SerializeField] private GameObject invincabilityEffect;
+    private InputManager im;
+
     #endregion
 
-    void Awake()
-    {
-        //This might need to be updated for any changes to the sus manager.
-
-    }
+    //This might need to be updated for any changes to the sus manager. Add an Awake() fuction here.
 
     void Start()
     {
@@ -149,11 +154,10 @@ public class PlayerMovement : MonoBehaviour
         CurrentRollTime = RollingTime;
         CurrentDiveTime = DiveTime;
         CurrentDelayTime = DelayTime;
-        CurrentInertiaTime = WalkingInertiaTime;
         Controller = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
         PlayerCamera = Camera.main.transform;
-        mask = LayerMask.GetMask("Player");
+        mask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost");
         mask = ~mask;
         HeightFromGround = StandardHeight / 2;
         CrouchingHeightFromGround = CrouchingHeight / 2;
@@ -165,12 +169,24 @@ public class PlayerMovement : MonoBehaviour
             gameController = FindObjectOfType<GameController>();
         }
 
-        transform.position = GameController.gameControllerInstance.lastCheckPoint;
+        //transform.position = GameController.gameControllerInstance.lastCheckPoint;
+
+        invincabilityEffect.SetActive(false); //disable particle to start with
+        im = GetComponent<InputManager>();
     }
 
     void Update()
     {
-
+        //TO DO: Kev Said this code is bad but we need it to make player not walk really fast after sprinting. Find a fixerooni
+        if (IsSprinting != true && CurrentSpeed > WalkingSpeed)
+        {
+            CurrentSpeed -= Deceleration * Time.deltaTime;
+        }
+        //TO DO: Kev Said this code is bad but we need it to make player not walk really slow after crouching. Find a fixerooni
+        if (IsCrouching != true && CurrentSpeed < WalkingSpeed)
+        {
+            CurrentSpeed += WalkAcceleration * Time.deltaTime;
+        }
         GroundCheck();
         Rolling();
         AnimationStates();
@@ -191,26 +207,37 @@ public class PlayerMovement : MonoBehaviour
             Sprinting();
         }
 
-        #region Inertia
-        if (CurrentSpeed != WalkingSpeed && !IsCrouching && !IsSprinting && IsGrounded)
+        #region Movement
+        //Over the shoulder cam roll doesn't work. Cam is only going to be used for free cam.
+        if (!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned)
         {
-            if (CurrentSpeed > WalkingSpeed)
-            {
-                CurrentSpeed -= Deceleration * Time.deltaTime;
-                if (WalkingSpeed > CurrentSpeed)
-                {
-                    CurrentSpeed = WalkingSpeed;
-                }
-            }
-            else if (CurrentSpeed < WalkingSpeed)
-            {
-                CurrentSpeed += WalkAcceleration * Time.deltaTime;
-                if (WalkingSpeed < CurrentSpeed)
-                {
-                    CurrentSpeed = WalkingSpeed;
-                }
-            }
+            FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
         }
+        FacingDirection.y = 0f;
+        if (FacingDirection.magnitude > 1)
+        {
+            FacingDirection = FacingDirection.normalized;
+        }
+
+        //Movement
+        if (!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned && canMove)
+        {
+            Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
+        }
+
+        //Setting Roll Direction for rolling, diving, and sliding.
+        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
+        {
+            RollDirection = FacingDirection;
+        }
+
+        //Facing direction.
+        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving && canMove && !im.IsZoomed)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
+        }
+
         #endregion
 
         #region Gravity
@@ -225,57 +252,43 @@ public class PlayerMovement : MonoBehaviour
         }
         Controller.Move(VerticalVelocity * Time.deltaTime);
 
-
         #endregion
 
-        #region Movement
-        //Over the shoulder cam roll doesn't work. Cam is only going to be used for free cam.
-        if (!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned)
+        #region Falling Check
+        if (StartTimer)
         {
-            FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
-        }
-        FacingDirection.y = 0f;
-        FacingDirection = FacingDirection.normalized;
+            CurrentGroundCheckTime += Time.deltaTime;
 
-        //Movement
-        if (!IsRolling && !IsSliding && !IsDiving && !StillDiving && !IsStunned && canMove)
-        {
-            if (!Inertia)
+            if (CurrentGroundCheckTime < GroundCheckLimit1)
             {
-                Controller.Move(FacingDirection * CurrentSpeed * Time.deltaTime);
-                CurrentInertiaTime = WalkingInertiaTime;
+                print("all good");
+                return;
             }
-            else
+            else if (GroundCheckLimit1 <= CurrentGroundCheckTime && CurrentGroundCheckTime <= GroundCheckLimit2)
             {
-                if (CurrentInertiaTime > 0)
-                {
-                    Controller.Move(FacingDirection * (CurrentSpeed / 2) * Time.deltaTime);
-                    CurrentInertiaTime -= Time.deltaTime;
-                }
-                else if (CurrentInertiaTime <= 0)
-                {
-                    Direction = Vector3.zero;
-                }
+                print("Ouch!");
+                Splat = true;
+            }
+            else if (CurrentGroundCheckTime < GroundCheckLimit2)
+            {
+                print("void");
+                Splat = false;
+                //Return player back to the starting location.
             }
         }
-        //Setting Roll Direction for rolling, diving, and sliding.
-        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && FacingDirection.y == 0 && !IsDiving)
-        {
-            RollDirection = FacingDirection;
-        }
 
-        //Facing direction.
-        if (FacingDirection != Vector3.zero && !IsRolling && !IsSliding && !IsDiving)
+        if(Splat && IsGrounded)
         {
-            Quaternion toRotation = Quaternion.LookRotation(FacingDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
+            print("splatted");
+            IsStunned = true;
+            Splat = false;
         }
 
         #endregion
 
         #region Slide Action
 
-        if (IsSprinting == true && IsCrouching == true)
+        if (IsSprinting && IsCrouching)
         {
             IsSliding = true;
             Sliding();
@@ -335,6 +348,11 @@ public class PlayerMovement : MonoBehaviour
         #region Stun Work
         if (IsStunned)
         {
+            if (!isInvulnurable)
+            {
+                isInvulnurable = true;
+                StartCoroutine(InvulnerabilityTimer());
+            }
             canMove = false;
             CurrentStunTime += Time.deltaTime;
 
@@ -391,7 +409,7 @@ public class PlayerMovement : MonoBehaviour
     //----------JUMP----------//
     public void Jump()
     {
-        if (IsGrounded && !IsCrouching && !IsStunned)
+        if (!IsStunned && !IsCrouching && IsGrounded)
         {
             if (Direction.magnitude > 0.1)
             {
@@ -417,7 +435,7 @@ public class PlayerMovement : MonoBehaviour
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
         }
-        else if (IsGrounded && IsCrouching)
+        else if (IsCrouching && IsGrounded)
         {
             IsStanding = true;
             CoveredCheck();
@@ -445,7 +463,7 @@ public class PlayerMovement : MonoBehaviour
         {
             IsSprinting = false;
         }
-        else if (IsGrounded && IsCrouching)
+        else if (IsCrouching && IsGrounded)
         {
             IsStanding = true;
             IsSprinting = true;
@@ -575,20 +593,20 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.CheckSphere(groundCheck, StandardHeight / 6.5f, mask, QueryTriggerInteraction.Ignore))
         {
             IsGrounded = true;
+            StartTimer = false;
+            CurrentGroundCheckTime = 0;
             Jumping = false;
             animationController.IsPlayerJumping(Jumping);
-            if (CurrentSpeed == AirSpeed)
+
+            if(CurrentAirInertiaTime <= 0)
             {
-                CurrentSpeed = WalkingSpeed;
+                CurrentAirInertiaTime = AirInertiaTime;
             }
         }
         else
         {
             IsGrounded = false;
-            if (!IsDiving || !IsSprinting)
-            {
-                CurrentSpeed = AirSpeed;
-            }
+            StartTimer = true;
 
             if (IsCrouching)
             {
@@ -756,6 +774,33 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
+    #region Invuln
+    private IEnumerator InvulnerabilityTimer()
+    {
+        while (IsStunned)
+        {
+            //first wait for the player to no longer be stunned
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        //enable particle effect
+        invincabilityEffect.SetActive(true);
+        //wait for invulnerability time
+        yield return new WaitForSeconds(invulnerabilityTime);
+
+        //reset back to normal
+        invincabilityEffect.SetActive(false);
+        isInvulnurable = false;
+    }
+    #endregion
+
+    #region Break Free
+    public IEnumerator IBreakFreeDelay()
+    {
+        yield return new WaitForSeconds(1);
+        canMove = true;
+    }
+    #endregion
+
     #region Animation States
     //---ANIMATIONSTATES---//
     void AnimationStates()
@@ -870,12 +915,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
-
-    public IEnumerator IBreakFreeDelay()
-    {
-        yield return new WaitForSeconds(1);
-        canMove = true;
-    }
 
     //DELETE ME
     #endregion

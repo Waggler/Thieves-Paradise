@@ -32,7 +32,6 @@ public class ItemSuperScript : MonoBehaviour
         get;
         set;
     }
-    
 
     public bool isThrown;
     private float timeCounter;

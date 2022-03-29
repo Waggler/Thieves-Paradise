@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MissionSelectManager : MonoBehaviour
 {
@@ -16,11 +17,11 @@ public class MissionSelectManager : MonoBehaviour
 
     [Header("Buttons")]
     [SerializeField] private Button ladyButton;
-    [SerializeField] private Button unionButton;
     [SerializeField] private Button massesButton;
     [SerializeField] private Button mafiaButton;
-    [SerializeField] private Button finaleButton;
-    [SerializeField] private Button ciaButton;
+
+    public Button playClosedButton;
+
 
 
     #endregion Components
@@ -33,61 +34,54 @@ public class MissionSelectManager : MonoBehaviour
     private void Start()
     //-----------------------//
     {
-        Init();
+        //Init();
 
     }//END Start
 
-
+    /*
     //-----------------------//
     private void Init()
     //-----------------------//
     {
         if (PlayerPrefs.GetInt("isLadyComplete") == 0)
         {
-            unionButton.interactable = false;
             massesButton.interactable = false;
         }
         else
         {
-            unionButton.interactable = true;
             massesButton.interactable = true;
             ladyButton.interactable = false;
         }
 
-        if (PlayerPrefs.GetInt("isUnionComplete") == 0 || PlayerPrefs.GetInt("isMassesComplete") == 0)
+        if (PlayerPrefs.GetInt("isMassesComplete") == 0)
         {
             mafiaButton.interactable = false;
-            ciaButton.interactable = false;
         }
-        else if (PlayerPrefs.GetInt("isUnionComplete") == 1 && PlayerPrefs.GetInt("isMassesComplete") == 1)
+        else if (PlayerPrefs.GetInt("isMassesComplete") == 1)
         {
-            unionButton.interactable = false;
             massesButton.interactable = false;
             mafiaButton.interactable = true;
-            ciaButton.interactable = true;
         }
 
-        if (PlayerPrefs.GetInt("isMafiaComplete") == 0 || PlayerPrefs.GetInt("isCIAComplete") == 0)
+        if (PlayerPrefs.GetInt("isMafiaComplete") == 1)
         {
-            finaleButton.interactable = false;
+            ladyButton.interactable = true;
+            massesButton.interactable = true;
+            mafiaButton.interactable = true;
         }
-        else if (PlayerPrefs.GetInt("isMafiaComplete") == 1 && PlayerPrefs.GetInt("isCIAComplete") == 1)
-        {
-            mafiaButton.interactable = false;
-            ciaButton.interactable = false;
-            finaleButton.interactable = true;
 
-        }
 
 
     }//END Init
-
+    */
     //-----------------------//
     public void ChangeScreen()
     //-----------------------//
     {
         mainMenu.SetActive(true);
         missionMenu.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(playClosedButton.gameObject);
 
     }//END ChangeScreen
 

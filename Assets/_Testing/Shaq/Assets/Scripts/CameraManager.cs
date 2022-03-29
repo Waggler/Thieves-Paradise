@@ -3,29 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-//Current Bugs:
-//    - Camera can rotate outside of it's intended monitoring range in FOCUSED state
-//      - When returning to MONITORING state, the camera will freeze due to being outside of it's intended rotational bounds
-//    - 
-
-//Things to add:
-//    - (Backlog) Add rotational bounds to camera
-//    - Take orders from the Security hub / global suspicion manager 
-//    - 
-
-//Notes:
-//    - The script is looking for an object with the "PlayerVisionTarget" tag, so make sure the player has that or update accordingly
-//    - Rotational bounds still need a bit of work before it's TRULY done
-//    - DO NOT GET RID OF THE "rotationRecord" VARIABLE
-
-
-
-
 public class CameraManager : MonoBehaviour
 {
 
     #region Enumerations
-    private enum CamStates
+    public enum CamStates
     {
         MONITORING,
         FOCUSED,
@@ -47,8 +29,12 @@ public class CameraManager : MonoBehaviour
     #endregion Lists & Arrays
 
     #region Variables
+    [Header("Floor / Level")]
+    public GameObject floor;
+
+
     [Header("Camera Target / Trigger")]
-    private Vector3 target;
+    [SerializeField] private Vector3 target;
     [Tooltip("References the player's vision target, auto generated")]
     [SerializeField] private GameObject player;
 
@@ -62,17 +48,14 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Rotation Variables")]
     [Tooltip("Camera rotation speed, range of 0 to 60")]
-    [SerializeField] [Range(0, 60)] private float camSpeed;
+    [SerializeField] /*[Range(0, 60)]*/ private float camSpeed;
     [Tooltip("Maximum rotation vector for the camera (edit the Y-axis value)")]
-    [SerializeField] private Vector3 rotationMax;
-    [HideInInspector] private Vector3 rotationRecord;
+    [SerializeField] private float rotationMax;
     [Tooltip("Transition speed between original rotation and look rotation in FaceTarget() method")]
-    [SerializeField] private float snapSpeed;
-    [HideInInspector] private Vector3 startRotation;
 
 
     [Header("Eyeball Integration")]
-    [Tooltip("References the eyeball prefab attatched to the camera prefab [Not auto generated]")]
+
     [SerializeField] private EyeballScript eyeball;
 
     [SerializeField] private GameObject surpriseVFX;
@@ -83,7 +66,7 @@ public class CameraManager : MonoBehaviour
 
     [Header("Local Suspicion Manager")]
     [Tooltip("References the Local Suspicion Manager")]
-    [SerializeField] private SuspicionManager localSuspicionManager;
+    [SerializeField] private SuspicionManager suspicionManager;
     [Tooltip("Radius in which guards can be  'called'  by the camera")]
     [SerializeField] [Range(0, 50)] private float callRadius;
 
@@ -120,22 +103,15 @@ public class CameraManager : MonoBehaviour
 
     [HideInInspector] private float distanceToCamera;
 
-    [HideInInspector] private float timeLeft;
+    private Quaternion initialRotation;
 
-    [SerializeField] private GameObject disabledTarget;
+    private float disabledTime;
 
-    private bool timerBool;
+    [Tooltip("Amount of the time the camera will be disabled for")]
+    [SerializeField] private float disabledTimeReset;
 
 
     #endregion Variables
-
-    #region Start
-    private void Start()
-    {
-        startRotation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-    }
-
-    #endregion Start
 
     #region Awake & Update
 
@@ -146,10 +122,7 @@ public class CameraManager : MonoBehaviour
     {
         Init();
 
-        //Use this space for debug variables
-        camLightRef.color = Color.green;
-
-
+        //LockedRotation();
     }//End Awake
 
     #endregion
@@ -157,193 +130,7 @@ public class CameraManager : MonoBehaviour
     //---------------------------------//
     //Called every frame
     #region Update
-    void Update()
-    {
-        #region Update Specific Variables
-        //Records rotaion of the camera object
-        rotationRecord = new Vector3 (transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
-
-        //Local player reference || delete if it blocks progress on other things
-        //player = GameObject.FindWithTag("PlayerVisionTarget");
-
-        #endregion Update Specific Variables
-
-        #region Cam State Machine
-        switch (cameraStateMachine)
-        {
-            #region Monitoring State
-            //When the camera does not see the player / MONITORING
-            case CamStates.MONITORING:
-                stateText.text = $"{cameraStateMachine}";
-
-                //Since there is no target when monitoring, the value is set to null
-
-                targetText.text = $"{target}";
-
-                //Rotating at degreesPerSec relative to the World Space
-                transform.Rotate(new Vector3(0, camSpeed, 0) * Time.deltaTime, Space.World);
-
-                //Reseting alert related variables
-                if (isAudioSourcePlaying == true)
-                {
-                    audioSource.Stop();
-
-                    isAudioSourcePlaying = false;
-                }
-
-                //Technically this snippet of code shouldn't work yet it does, will likely break in the future and need to be fixed
-                //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
-                if (transform.localRotation.eulerAngles.y >= rotationMax.y)
-                {
-                    //Inverts the camera's turn speed
-                    camSpeed = -camSpeed;
-                }
-
-                //if (distanceToPlayer <= lookRadius)
-                if (eyeball.canCurrentlySeePlayer == true)
-                {
-                    Instantiate(surpriseVFX, transform.position, transform.rotation);
-
-                    //MONITORING >>> FOCUSED
-                    cameraStateMachine = CamStates.FOCUSED;
-                }
-
-                camLightRef.color = Color.green;
-
-                break;
-            #endregion Monitoring State
-            
-            #region Focused State
-            //When the camera sees the player / FOCUSED
-            case CamStates.FOCUSED:
-
-                float stopWatch = Time.deltaTime;
-
-                stateText.text = $"{cameraStateMachine}";
-
-                //referencing player variable from the eyeball script
-                target = player.transform.position;
-
-                targetText.text = $"{target}";
-
-                FaceTarget(target);
-
-                camLightRef.color = Color.red;
-
-                susManagerRef.AlertGuards(eyeball.lastKnownLocation, transform.position, callRadius);
-
-                //Playing Alert Audio
-                if (isAudioSourcePlaying == false)
-                {
-                    audioSource.Play();
-
-                    isAudioSourcePlaying = true;
-                }
-
-                //Exit condition for FOCUSED state
-                if (eyeball.canCurrentlySeePlayer == false)
-                {
-
-                    //Reset's the camera's X & Z rotation
-                    rotationRecord.x = 0;
-                    rotationRecord.z = 0;
-
-                    //While the X & Z rotation are reset, the Y rotation is preserved
-                    transform.localEulerAngles = new Vector3(-startRotation.x, 0, 0);
-
-                    //FOCUSED >>> MONITORING
-                    cameraStateMachine = CamStates.MONITORING;
-                }
-
-                break;
-            #endregion Focused State
-
-            //Do not use, currently broken
-            #region Disabled State
-            case CamStates.DISABLED:
-                //Insert timer here
-
-                DisableCamera(5f);
-
-                timeLeft -= Time.deltaTime;
-
-                if (timeLeft < 0)
-                {
-
-                }
-
-                camLightRef.color = Color.yellow;
-
-                break;
-            #endregion Disabled State
-
-            #region Default / Error state
-            //Not exactly a state but acts as a net to catch any bugs that would prevent the game from running
-            default:
-                stateText.text = "State Not Found";
-                targetText.text = "Null";
-
-                break;
-            #endregion Default / Error State
-        }
-        #endregion Cam State Machine
-
-
-        UpdateCamLightVars();
-
-    }//End Update
-    #endregion Update
-
-    #endregion Awake & Update
-
-    #region General Methods
-
-    //---------------------------------//
-    //Function that makes the object face it's target
-    void FaceTarget(Vector3 target)
-    {
-        Vector3 direction = (target - transform.position).normalized;
-
-        Quaternion lookRotation = Quaternion.identity;
-        if (direction.x != 0 && direction.z != 0)
-        {
-            lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        }
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 0.1f);
-    }//End FaceTarget
-
-    //---------------------------------//
-    //Used to preload all necessary variables or states in the Camera Manager script
-    private void Init()
-    {
-        stateText.text = "";
-        targetText.text = "";
-
-        //startRotation = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
-        //Note: This method of referencing the suspicion manager is stupid and I should find a way to do it in one line
-        //Creates a reference to the suspicion manager object
-        susManagerOBJ = GameObject.FindGameObjectWithTag("GameController");
-
-        //creates a direct reference to the suspicion manager script
-        susManagerRef = susManagerOBJ.GetComponent<SuspicionManager>();
-
-        //print($"SuspicionManager instance = {susManagerRef}");
-
-        rotationRecord = new Vector3(0, 0, 0);
-
-        //Set's the CameraAI's state to MONITORING on awake
-        cameraStateMachine = CamStates.MONITORING;
-
-        player = GameObject.FindWithTag("PlayerVisionTarget");
-
-        UpdateCamLightVars();
-    }//End Init
-
-    //---------------------------------//
-    //Used to update all camera light related variables all at once
-    private void UpdateCamLightVars()
+    void FixedUpdate()
     {
         //Camera Light Variables
 
@@ -363,8 +150,177 @@ public class CameraManager : MonoBehaviour
             camLightRef.enabled = true;
         }
 
-        #region Individual Variables
+        UpdateDebugText();
 
+        UpdateCamLightVars();
+
+        #region Cam State Machine
+        switch (cameraStateMachine)
+        {
+            #region Monitoring State
+            //When the camera does not see the player / MONITORING
+            case CamStates.MONITORING:
+                stateText.text = $"{cameraStateMachine}";
+
+                //Since there is no target when monitoring, the value is set to null
+
+                targetText.text = $"{target}";
+
+                //Rotating at degreesPerSec relative to the World Space
+                transform.Rotate(new Vector3(0, camSpeed, 0) * Time.fixedDeltaTime, Space.Self);
+
+                //Reseting alert related variables
+                if (isAudioSourcePlaying == true)
+                {
+                    audioSource.Stop();
+
+                    isAudioSourcePlaying = false;
+                }
+
+                Vector3 hiddenRotationMax = new Vector3(0, rotationMax, 0);
+
+                hiddenRotationMax.y = Mathf.Clamp(transform.rotation.y, rotationMax, -rotationMax);
+
+                //Technically this snippet of code shouldn't work yet it does, will likely break in the future and need to be fixed
+                //Comparing the Y-axis rotation between the camera and it's Maximum allowed Y rotation
+                if (transform.localRotation.eulerAngles.y > hiddenRotationMax.y)
+                {
+                    //Inverts the camera's turn speed
+                    camSpeed = -camSpeed;
+                }
+
+                if (eyeball.canCurrentlySeePlayer == true)
+                {
+                    Instantiate(surpriseVFX, transform.position, transform.rotation);
+
+                    //MONITORING >>> FOCUSED
+                    cameraStateMachine = CamStates.FOCUSED;
+                }
+
+                camLightRef.color = Color.green;
+
+                break;
+            #endregion Monitoring State
+
+            #region Focused State
+            //When the camera sees the player / FOCUSED
+            case CamStates.FOCUSED:
+
+                target = eyeball.lastKnownLocation;
+
+                transform.LookAt(target);
+
+                camLightRef.color = Color.red;
+
+                susManagerRef.AlertGuards(eyeball.lastKnownLocation, transform.position, callRadius);
+
+                //Playing Alert Audio
+                if (isAudioSourcePlaying == false)
+                {
+                    audioSource.Play();
+
+                    isAudioSourcePlaying = true;
+                }
+
+                //Exit condition for FOCUSED state
+                if (eyeball.canCurrentlySeePlayer == false)
+                {
+                    transform.rotation = initialRotation;
+
+                    //FOCUSED >>> MONITORING
+                    cameraStateMachine = CamStates.MONITORING;
+                }
+                break;
+            #endregion Focused State
+
+            #region Disabled State
+            case CamStates.DISABLED:
+
+                if (disabledTime > 0)
+                {
+                    disabledTime -= Time.fixedDeltaTime;
+                }
+                else if (disabledTime < 0)
+                {
+                    disabledTime = disabledTimeReset;
+
+                    cameraStateMachine = CamStates.MONITORING;
+                }
+
+                camLightRef.color = Color.yellow;
+
+                break;
+            #endregion Disabled State
+
+            #region Default / Error state
+            default:
+                break;
+            #endregion Default / Error State
+        }
+        #endregion Cam State Machine
+
+    }//End Update
+    #endregion Update
+
+    #endregion Awake & Update
+
+    #region General Methods
+
+
+    //---------------------------------//
+    //Used to preload all necessary variables or states in the Camera Manager script
+    private void Init()
+    {
+        stateText.text = "";
+        targetText.text = "";
+
+        cameraStateMachine = CamStates.MONITORING;
+
+        //Note: This method of referencing the suspicion manager is stupid and I should find a way to do it in one line
+        //Creates a reference to the suspicion manager object
+        susManagerOBJ = GameObject.FindGameObjectWithTag("SecurityStation");
+
+        //creates a direct reference to the suspicion manager script
+        susManagerRef = susManagerOBJ.GetComponent<SuspicionManager>();
+
+        //Set's the CameraAI's state to MONITORING on awake
+
+        player = GameObject.FindWithTag("PlayerVisionTarget");
+
+        //Changes camera light color to green
+        camLightRef.color = Color.green;
+
+        initialRotation = transform.rotation;
+
+        disabledTime = disabledTimeReset;
+
+        UpdateCamLightVars();
+    }//End Init
+
+
+    //---------------------------------//
+    // Updates the debug text above the guard's head
+    private void UpdateDebugText()
+    {
+        string methodStateText;
+
+        methodStateText = cameraStateMachine.ToString();
+
+        stateText.text = methodStateText;
+
+
+        string methodTargetText;
+
+        methodTargetText = target.ToString();
+
+        targetText.text = methodTargetText;
+    }//End UpdateDebugText
+
+
+    //---------------------------------//
+    //Used to update all camera light related variables all at once
+    private void UpdateCamLightVars()
+    {
         //Sets the camera light's intensity
         camLightRef.intensity = camLightIntensity;
 
@@ -377,46 +333,19 @@ public class CameraManager : MonoBehaviour
         //Sets the camera light's inner spot angle
         camLightRef.innerSpotAngle = eyeball.maxVisionAngle * camLightMinAngle;
 
-        #endregion Individual Variables
-
     }//End UpdateCamVars
 
 
     //---------------------------------//
-    //Disables the camera
-    public void DisableCamera(float disableTime)
-    {
-        camLightRef.color = Color.yellow;
-
-        FaceTarget(disabledTarget.transform.position);
-
-        //Be sure to also disable the camera's eyeball component
-
-        timeLeft = disableTime;
-
-        cameraStateMachine = CamStates.DISABLED;
-    }
-
-    public void EnableCamera()
-    {
-
-        eyeball.sightRange = 8f;
-
-        cameraStateMachine = CamStates.MONITORING;
-    }
-
-    //---------------------------------//
     //Draws Gizmos / shapes in editor
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, callRadius);
-        
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, killRadius);
 
-    }//End OnDrawGizmos
-
+    }//End OnDrawGizmosSelected
 }
-
 #endregion General Methods

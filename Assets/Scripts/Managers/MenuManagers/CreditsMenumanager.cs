@@ -1,6 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class CreditsMenumanager : MonoBehaviour
 {
@@ -8,6 +14,9 @@ public class CreditsMenumanager : MonoBehaviour
 
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject creditsScreen;
+
+    public Button creditsCloseButton;
+
 
 
     #region Methods
@@ -20,6 +29,9 @@ public class CreditsMenumanager : MonoBehaviour
 
         mainMenu.SetActive(true);
         creditsScreen.SetActive(false);
+        // Have to null before reset
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(creditsCloseButton.gameObject);
 
 
     }//END ChangeScreen

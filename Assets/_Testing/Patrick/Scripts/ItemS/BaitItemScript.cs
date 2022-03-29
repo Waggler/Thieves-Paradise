@@ -9,8 +9,19 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
     [SerializeField] public GameObject myPrefab;//reference to this object's prefab
     [SerializeField] private float noiseRadius = 5;
     [SerializeField] private float baitRadius = 10;
-    private float baitInterval = 2; //how often the item tries to lure enemies
+    private float baitInterval = 0.5f; //how often the item tries to lure enemies
     private float timer;
+
+    public bool DebugMode;
+
+    private bool isObjectiveItem = false;
+    [SerializeField] private float UIScale = 1f;
+
+    public bool isKeyItem
+    {
+        get {return isObjectiveItem;}
+        set {isObjectiveItem = value;}
+    }
 
 
     public GameObject myself
@@ -23,6 +34,13 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
         get {return objectName;}
         set {objectName = value;}
     }
+    public float UIScalar
+    {
+        get{return UIScale;}
+        set{UIScale = value;}
+    }
+
+    private SuspicionManager alertManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +50,7 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
         if (noiseRadius != 0)
             thrownNoiseRadius = noiseRadius;
         
+        alertManager = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
     }
 
     // Update is called once per frame
@@ -50,7 +69,15 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
 
     private void LurePigs()
     {
+        alertManager.AlertGuards(transform.position, transform.position, baitRadius);
+    }
+
+    private void LurePigsAlt()
+    {
         //alertManager.AlertGuards(transform.position, transform.position, baitRadius);
+
+
+        if (DebugMode) print("Looking for enemies");
 
         //grab everything within a radius
         List<Collider> hitColliders = new List<Collider>(Physics.OverlapSphere(transform.position, baitRadius));
@@ -93,7 +120,7 @@ public class BaitItemScript : ItemSuperScript, ItemInterface
         //finally lure in the guard
         enemy.Alert(transform.position);
         //set the timer really high so that more guards aren't alerted unless something happens
-        timer = 60;
+        timer = 10;
     }
 
     public void UseItem()

@@ -14,8 +14,11 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Levelmanager")]
     [SerializeField] private LevelManager levelManager;
-    [SerializeField] private int nextSceneIndex;
-    [SerializeField] private bool isEndCredits;
+    public int nextSceneIndex;
+    public bool isEndCredits;
+    public bool isLadyComplete;
+    public bool isMassesComplete;
+    public bool isMafiaComplete;
 
     //-----------------------//
     private void Start()
@@ -29,8 +32,9 @@ public class DialogueManager : MonoBehaviour
     private void Init()
     //-----------------------//
     {
+        delayTime = 0.05f;
         StartCoroutine(IStartDelay());
-
+        //TriggerDialogue();
     }//END Init
 
 
@@ -45,6 +49,18 @@ public class DialogueManager : MonoBehaviour
         }
         catch
         {
+            if (isLadyComplete == true)
+            {
+                PlayerPrefs.SetInt("isLadyComplete", 1);
+            }
+            if (isLadyComplete == true)
+            {
+                PlayerPrefs.SetInt("isMassesComplete", 1);
+            }
+            if (isLadyComplete == true)
+            {
+                PlayerPrefs.SetInt("endCredits", 1);
+            }
 
             if (isEndCredits == true)
             {

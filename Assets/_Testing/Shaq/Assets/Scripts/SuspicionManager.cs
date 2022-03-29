@@ -43,6 +43,8 @@ public class SuspicionManager : MonoBehaviour
 
     [SerializeField] private EnemyManager enemyManager;
 
+    private bool Gabagool;
+
     //---------------------------------------------------------------------------------------------------//
 
     [Header("Camera Refs")]
@@ -50,15 +52,6 @@ public class SuspicionManager : MonoBehaviour
     [SerializeField] private CameraManager cameraManager;
 
     //---------------------------------------------------------------------------------------------------//
-
-    [Header("Debug / Testing Variables")]
-
-
-    [Tooltip("Flag for Suspicion Level 0")]
-    [HideInInspector] private bool susZeroFlag;
-
-    [Tooltip("Flag for Suspicion Level 1")]
-    [HideInInspector] private bool susOneFlag;
 
     #endregion Variables
 
@@ -72,6 +65,7 @@ public class SuspicionManager : MonoBehaviour
 
         GenGuardList();
 
+        secState = SecurityLvl.SecLVL0;
     }//End Awake
     #endregion Awake
 
@@ -79,34 +73,39 @@ public class SuspicionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
+            "Don't put a fucking timer in this part of the code. I want the security level to stay here for the rest of the game when triggered."
+                - Tempe Zaliauskas
+        */
+
         switch (secState)
         {
             #region Security Level 0
             case SecurityLvl.SecLVL0:
-                //print("Security Level 0");
+
+                //print("Entered Security Level 0");
+
 
                 break;
-            #endregion
+            #endregion Security Level 0
 
             #region Security Level 1
+
             //Security station reaches this state when a guard interacts with it
             case SecurityLvl.SecLVL1:
-                //print("Security Level 1");
-
                 //Forcing all guards to have an eyeball sus level of [warySusMin]
-                //ModEyeSus(enemyManager.warySusMin);
-                ModEyeSus(3.5f);
 
+                //print("Entered Security Level 1");
+
+                ModEyeSus(enemyManager.warySusMin + .4f);
 
                 break;
-            #endregion
+            #endregion Security Level 1
 
-            #region Default case / Bug Catcher
+  
             default:
-                print("Security Level not found! \a");
+                print("Security Level not found!");
                 break;
-            #endregion
-
         }
     }//End Update
     #endregion Update
@@ -117,10 +116,16 @@ public class SuspicionManager : MonoBehaviour
 
     //---------------------------------//
     //Draws Gizmos
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
 
-    }//End OnDrawGizmos
+    }//End OnDrawGizmosSelected
+
+
+    public void DummyMethod()
+    {
+        secState = SecurityLvl.SecLVL1;
+    }
 
 
     //---------------------------------//
@@ -138,17 +143,24 @@ public class SuspicionManager : MonoBehaviour
         {
             enemyManager = guard.GetComponent<EnemyManager>();
 
-            enemyManager.eyeball.susLevel = insertedValue;
+            enemyManager.eyeball.minSusLevel = 3.1f;
+
+            enemyManager.eyeball.susLevel = 3.5f;
         }
     }
 
-
     //---------------------------------//
     //Alerts available guards in a set radius
+    // TAKES:
+    //         - The location of where you want the guards to go (targetLoc)
+    //         - The location of the caller of the method (callerLoc)
+    //         - The call radius (callRadius)
     public void AlertGuards(Vector3 targetLoc, Vector3 callerLoc, float callRadius)
     {
         //Also generating an array of guards on the call of this function
         GenGuardList();
+
+        //Inser floor check method call
 
         //EnemyManager reference
         EnemyManager enemyManager;
@@ -163,31 +175,24 @@ public class SuspicionManager : MonoBehaviour
             enemyManager = guard.GetComponent<EnemyManager>();
 
             //Radius Check
-            if (distance <= callRadius && enemyManager.isStunned == false/*&& GameObject.CompareTag("[Insert guard type here]")*/)
+            //Side note: The final part of this statement is not immune to edge cases
+
+            if (distance <= callRadius && Mathf.Abs(guard.transform.position.y - targetLoc.y) < 3f && enemyManager.stateMachine != EnemyManager.EnemyStates.STUNNED)
             {
                 //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
                 enemyManager.Alert(targetLoc);
+
+                Debug.Log("Alerted " + enemyManager);
             }
-            else
-            {
-                //Showing which guards are out of range (purely there for debug reasons)
-                //print($"{guard} is outside of camera range.");
-            }
+
+            //Debug.Log(Mathf.Abs(guard.transform.position.y - targetLoc.y));
         }
     }//End AlertGuards
 
 
     //---------------------------------//
     //Generates an array of guard instances in the scene
-    public void GenGuardList()
-    {
-        guardsList = GameObject.FindGameObjectsWithTag("Guard").ToList();
-
-        if (guardsList.Count == 0 || guardsList == null)
-        {
-            //print("No guards in the level");
-        }
-    }//End GenGuardArray
+    public void GenGuardList() => guardsList = GameObject.FindGameObjectsWithTag("Guard").ToList(); //End GenGuardList
 
     #endregion General Functions
 }

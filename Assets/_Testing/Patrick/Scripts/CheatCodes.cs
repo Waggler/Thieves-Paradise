@@ -13,12 +13,6 @@ public class CheatCodes : MonoBehaviour
     private bool cheatsEnabled;
     private bool isGod;
     
-    
-
-    void Awake()
-    {
-        cheatMenu.SetActive(false);
-    }
 
     void Update()
     {
@@ -75,11 +69,15 @@ public class CheatCodes : MonoBehaviour
         {
             print("God Mode Enabled");
             player.hp = 99999;
+            //player.invulnerabilityTime = 99999;
+            player.isInvulnurable = true;
             godText.text = "God Mode Enabled (G)";
         }else
         {
             godText.text = "God Mode Disabled (G)";
             player.hp = 2;
+            //layer.invulnerabilityTime = 5;
+            player.isInvulnurable = false;
         }
     }
 }

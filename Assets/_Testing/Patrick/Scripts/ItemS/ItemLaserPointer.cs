@@ -16,6 +16,15 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
     private bool isLaserOn = false;
     private LayerMask layerMask;
 
+    private bool isObjectiveItem = false;
+    [SerializeField] private float UIScale = 1f;
+
+    public bool isKeyItem
+    {
+        get {return isObjectiveItem;}
+        set {isObjectiveItem = value;}
+    }
+
     public GameObject myself
     {
         get {return myPrefab;}
@@ -25,6 +34,11 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
     {
         get {return objectName;}
         set {objectName = value;}
+    }
+    public float UIScalar
+    {
+        get{return UIScale;}
+        set{UIScale = value;}
     }
     // Start is called before the first frame update
     void Start()

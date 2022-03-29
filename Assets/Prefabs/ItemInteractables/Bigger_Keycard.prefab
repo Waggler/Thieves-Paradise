@@ -110,7 +110,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.52
-  m_Center: {x: 0.29, y: -0.33, z: -0.42}
+  m_Center: {x: 0, y: -0.22, z: -0.02}
 --- !u!114 &-5731114724538643830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +129,10 @@ MonoBehaviour:
   objectName: Keycard
   noiseRadius: 1
   deployableObject: {fileID: 0}
+  hitSFX: {fileID: 0}
+  SFXVolume: 1
+  isObjectiveItem: 0
+  UIScale: 1
 --- !u!54 &-2329782570073206134
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -141,7 +145,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

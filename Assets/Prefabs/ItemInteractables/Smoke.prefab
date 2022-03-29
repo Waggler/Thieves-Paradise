@@ -95,7 +95,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8223808398497377573}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -107,7 +107,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -149,6 +149,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6687585691787315811}
     m_Modifications:
+    - target: {fileID: 2720987687714798255, guid: 294bd932bc4f35d448f4b8d47e48eccc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720987687714798255, guid: 294bd932bc4f35d448f4b8d47e48eccc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2720987688007652084, guid: 294bd932bc4f35d448f4b8d47e48eccc, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -197,6 +205,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Smokebomb_VFX
       objectReference: {fileID: 0}
+    - target: {fileID: 2720987688048615476, guid: 294bd932bc4f35d448f4b8d47e48eccc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2720987688217475827, guid: 294bd932bc4f35d448f4b8d47e48eccc, type: 3}
       propertyPath: lengthInSec
       value: 275
@@ -204,6 +216,14 @@ PrefabInstance:
     - target: {fileID: 2720987688217475827, guid: 294bd932bc4f35d448f4b8d47e48eccc, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720987688217475829, guid: 294bd932bc4f35d448f4b8d47e48eccc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720987688217475829, guid: 294bd932bc4f35d448f4b8d47e48eccc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 294bd932bc4f35d448f4b8d47e48eccc, type: 3}

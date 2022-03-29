@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8003486798616953134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.052, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8003486799426970503}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8246614760459532057}
   m_Layer: 0
   m_Name: Security Station
-  m_TagString: GameController
+  m_TagString: SecurityStation
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -79,7 +79,6 @@ MonoBehaviour:
   secState: 0
   guardsList: []
   camerasList: []
-  susText: {fileID: 0}
   enemyManager: {fileID: 0}
   cameraManager: {fileID: 0}
 --- !u!65 &8246614760459532057
@@ -93,8 +92,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 2.056, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.25, y: 2.056, z: 1.25}
+  m_Center: {x: 0, y: 1.052, z: 0}
 --- !u!1 &8912008590729475927
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +120,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8912008590729475927}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.052, z: 0}
   m_LocalScale: {x: 1, y: 2.056, z: 1}
   m_Children: []
   m_Father: {fileID: 8003486799426970503}

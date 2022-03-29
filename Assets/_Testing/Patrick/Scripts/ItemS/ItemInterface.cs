@@ -15,6 +15,16 @@ public interface ItemInterface
         get;
         set;
     }
+    public bool isKeyItem
+    {
+        get;
+        set;
+    }
+    float UIScalar
+    {
+        get;
+        set;
+    }
     void UseItem();
 
     void UseItemEnd();

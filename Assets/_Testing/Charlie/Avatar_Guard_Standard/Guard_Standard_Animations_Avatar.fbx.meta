@@ -48,6 +48,9 @@ ModelImporter:
   - first:
       74: -8636620322252700609
     second: Guard_Standard_Armature|Walk
+  - first:
+      74: -4744441963025786564
+    second: Guard_Standard_Armature|Knockdown (1)
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -192,11 +195,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Guard_Standard_Armature|A_Idle
-      takeName: Guard_Standard_Armature|A_Idle
+      name: Guard_Standard_Armature|Knockdown (1)
+      takeName: Guard_Standard_Armature|Knockdown
       internalID: 0
       firstFrame: 0
-      lastFrame: 40
+      lastFrame: 18
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -448,8 +451,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: StruggleHit
+      - time: 0.27999997
+        functionName: Fall
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -634,7 +637,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0

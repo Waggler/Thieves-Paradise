@@ -12,9 +12,14 @@ public class InputManager : MonoBehaviour
     public bool isRolling;
     public bool isPushPull;
     private PlayerMovement playerMovement;
+    [SerializeField] private CamSwitch camSwitch;
     public float rollCooldownTime;
     private float cooldownTimer;
-    private int jumpPressCounter = 1;
+    public bool jumpPressCounter;
+    public bool StopTheJump;
+    private bool GroundCheck;
+    [HideInInspector] public bool IsZoomed;
+    [HideInInspector] public float ZoomLookSensitivity = 1;
 
     void Awake()
     {
@@ -28,9 +33,14 @@ public class InputManager : MonoBehaviour
         {
             cooldownTimer += Time.deltaTime;
         }
-    }
 
-    //DELETE ME
+        GroundCheck = playerMovement.IsGrounded;
+        if(GroundCheck)
+        {
+            jumpPressCounter = false;
+            StopTheJump = false;
+        }
+    }
 
     #region Inputs
 
@@ -38,6 +48,18 @@ public class InputManager : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         Vector2 contextValue = context.ReadValue<Vector2>();
+        //print(contextValue.magnitude);
+
+        
+
+        if (contextValue.magnitude < 0.75f && playerMovement.IsSprinting)
+        {
+            //print("Ending sprint due to lack of movement");
+            isSprinting = true;
+            playerMovement.Sprint(isSprinting);
+            isSprinting = false;
+            playerMovement.Sprint(isSprinting);
+        }
 
         if (context.performed)
         {
@@ -47,23 +69,9 @@ public class InputManager : MonoBehaviour
             {
                 playerMovement.BreakOutCounter += playerMovement.BreakOutValue;
             }
-
-            if (moveVector != Vector3.zero)
-            {
-                directionVector = moveVector;
-                playerMovement.Movement(moveVector);
-                playerMovement.Inertia = false;
-            }
-            else if (moveVector == Vector3.zero)
-            {
-                //Have a new var be the last movement direction then set up a check as well for if the speed is sprinting or walking.
-                //Have a timer so the player only moves that way for about a second after the button push or two if they are sprinting.
-                //playerMovement.CurrentSpeed/2;
-
-                playerMovement.Movement(directionVector);
-                playerMovement.Inertia = true;
-            }
-            //print(moveVector);
+                
+            directionVector = moveVector;
+            playerMovement.Movement(moveVector);
         }
     }// END MOVE
     #endregion
@@ -71,16 +79,13 @@ public class InputManager : MonoBehaviour
     #region JumpInput
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
-            if (jumpPressCounter == 1)
+            if (!jumpPressCounter && !StopTheJump)
             {
                 playerMovement.Jump();
-                jumpPressCounter++;
-            }
-            else if (jumpPressCounter == 2)
-            {
-                jumpPressCounter = 1;
+                jumpPressCounter = true;
+                StopTheJump = true;
             }
         }
     }// END JUMP
@@ -96,6 +101,7 @@ public class InputManager : MonoBehaviour
         }
         if (context.canceled)
         {
+
             isSprinting = false;
             playerMovement.Sprint(isSprinting);
         }
@@ -138,6 +144,47 @@ public class InputManager : MonoBehaviour
         }
     }//END ROLL
 
+    #endregion
+
+    #region ZoomIn
+    public void ZoomIn(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            IsZoomed = true;
+            camSwitch.SwitchState(IsZoomed);
+        }
+        else if(context.canceled)
+        {
+            IsZoomed = false;
+            camSwitch.SwitchState(IsZoomed);
+        }
+    }// END ZOOM IN
+
+    #endregion
+
+    #region ZoomCamControls
+
+    public void ZoomLook(InputAction.CallbackContext context)
+    {
+        if (IsZoomed) //only use this when zoomed in
+        {
+            if (context.performed)
+            {
+                Vector2 contextValue = context.ReadValue<Vector2>();
+                //print(contextValue);
+                if (contextValue.x != 0)
+                {
+                    transform.Rotate(Vector3.up, contextValue.x * ZoomLookSensitivity, Space.Self);
+                }
+            }
+        }
+    }
+
+    public void ChangeZoomLookSensitivity(float newSens)
+    {
+        ZoomLookSensitivity = newSens;
+    }
     #endregion
 
     #endregion

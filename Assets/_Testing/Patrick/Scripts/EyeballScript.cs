@@ -8,6 +8,7 @@ public class EyeballScript : MonoBehaviour
     private Transform player;
     private LayerMask layerMask;
 
+    private PlayerMovement playerMovement;
 
     //vision stats
     [Header("Vision Stats")]
@@ -19,9 +20,9 @@ public class EyeballScript : MonoBehaviour
 
     //Player Detection output
     [HideInInspector] public float sightAngle;
-    [SerializeField] [Range(0, 10)] public float susLevel; //how suspicious the eyeball currently is
+    [SerializeField] [Range(0, 6)] public float susLevel; //how suspicious the eyeball currently is
     [SerializeField]public float minSusLevel; //can't get less sus than this
-    [HideInInspector] public Vector3 lastKnownLocation;
+    [SerializeField] public Vector3 lastKnownLocation;
     [HideInInspector] public bool canCurrentlySeePlayer;
 
 
@@ -29,7 +30,8 @@ public class EyeballScript : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("PlayerVisionTarget").transform;
-        layerMask = ~LayerMask.GetMask("Player"); //get the player layer to make sure they don't block themselves from vision
+        layerMask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost") + LayerMask.GetMask("Guard");
+        layerMask = ~layerMask; //get the player layer to make sure they don't block themselves from vision
 
         lastKnownLocation = transform.position; //set the last known location to the location of the guard to start to prevent potential weirdness
     }//End Start
@@ -74,7 +76,10 @@ public class EyeballScript : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(player.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        // Note from Shaq to Shaq, Patrick do not worry about this
+        // Do not ever do this again you idiot, it uses self space instead of world space
+        //if (Physics.Raycast(player.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        if (Physics.Raycast(player.position, Vector3.down, out hit, Mathf.Infinity))
         {
             lastKnownLocation = hit.point;
         }
@@ -86,18 +91,37 @@ public class EyeballScript : MonoBehaviour
         return true;
     }//END FindPlayer
 
+    //private float updateTimer = 0;
+
+    //[SerializeField] [Range(0.1f, 1f)] private float susLevelTick = .5f;
+
     private void ChangeSus(bool increase)
     {
         if (increase)
         {
-            float focus = sightAngle/maxVisionAngle; //percent based on center of vision
-            focus = 1 - focus; //invert it because closer to 0 is better
-            focus = (focus / 2) + 0.5f; //set minimum multiplier to 50% when at edge of periphery
-            susLevel += focus * susGrowthMultiplier * Time.deltaTime;
+           //updateTimer += Time.deltaTime;
 
-        } else 
+            //if (updateTimer > susLevelTick)
+            //{
+              //  updateTimer = 0f;
+
+                float focus = sightAngle/maxVisionAngle; //percent based on center of vision
+                focus = 1 - focus; //invert it because closer to 0 is better
+                focus = (focus / 2) + 0.5f; //set minimum multiplier to 50% when at edge of periphery
+                susLevel += focus * susGrowthMultiplier;
+            //}
+
+        } else if (increase == false)
         {
-            susLevel -= Time.deltaTime * susDecreaseMultiplier;
+            //updateTimer += Time.deltaTime;
+
+            //if (updateTimer > susLevelTick)
+           // {
+               // updateTimer = 0f;
+
+                susLevel -= Time.deltaTime * susDecreaseMultiplier;
+            //}
+
         }
         //set bounds
         susLevel = Mathf.Clamp(susLevel, minSusLevel, 10f);

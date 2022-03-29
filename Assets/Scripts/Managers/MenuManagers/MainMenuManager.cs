@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -10,9 +12,17 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject creditsScreen;
-    [SerializeField] private GameObject loadScreen;
     [SerializeField] private GameObject missionSelectMenu;
     [SerializeField] private AudioManager audioManager;
+
+    [Header("Buttons")]
+    public Button playFirstButton;
+    public Button playClosedButton;
+
+    public Button settingsFirstButton;
+
+    public Button creditsFirstButton;
+    public Button creditsCloseButton;
 
 
     #region Methods
@@ -30,6 +40,8 @@ public class MainMenuManager : MonoBehaviour
     private void Init()
     //-----------------------//
     {
+        Time.timeScale = 1;
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
@@ -71,11 +83,15 @@ public class MainMenuManager : MonoBehaviour
             mainMenu.SetActive(false);
             missionSelectMenu.SetActive(true);
 
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(playFirstButton.gameObject);
+
         } 
         else if (screenValue == 1)
         {
-            mainMenu.SetActive(false);
-            loadScreen.SetActive(true);
+            SceneManager.LoadScene("Collectibles");
+
 
         }
         else if(screenValue == 2)
@@ -83,11 +99,19 @@ public class MainMenuManager : MonoBehaviour
             mainMenu.SetActive(false);
             settingsMenu.SetActive(true);
 
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(settingsFirstButton.gameObject);
+
         }
         else if (screenValue == 3)
         {
             mainMenu.SetActive(false);
             creditsScreen.SetActive(true);
+
+            // Have to null before reset
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(creditsFirstButton.gameObject);
 
 
         }
@@ -112,22 +136,13 @@ public class MainMenuManager : MonoBehaviour
     //Delete After Prototype
 
     //-----------------------//
-    public void PlayPrototype()
+    public void PlayGame()
     //-----------------------//
     {
         SceneManager.LoadScene(1);
 
 
     }//END PlayPrototype
-
-    //-----------------------//
-    public void GoToCollectibles()
-    //-----------------------//
-    {
-        SceneManager.LoadScene("Collectibles");
-
-
-    }//END GoToCollectibles
 
 
     #endregion Methods
