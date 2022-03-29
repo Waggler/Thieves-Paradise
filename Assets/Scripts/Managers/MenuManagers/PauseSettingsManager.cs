@@ -51,7 +51,6 @@ public class PauseSettingsManager : MonoBehaviour
     private void Start()
     //-----------------------//
     {
-
         Init();
 
     }//END Start
@@ -60,10 +59,7 @@ public class PauseSettingsManager : MonoBehaviour
     void Init()
     //-----------------------//
     {
-        AddResolutions();
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //AddResolutions();
 
 
     }//END Init
