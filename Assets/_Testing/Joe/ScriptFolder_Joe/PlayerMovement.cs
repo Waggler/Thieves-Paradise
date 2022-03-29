@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool StillRolling;
     private float CurrentRollTime;
     private float CurrentDelayTime;
+    private bool DelayRoll = false;
     private Vector3 RollDirection;
 
     [Header("Sliding")]
@@ -446,7 +447,7 @@ public class PlayerMovement : MonoBehaviour
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
         }
-        else if (IsCrouching && IsGrounded)
+        else if (IsCrouching && IsGrounded && !IsRolling)
         {
             IsStanding = true;
             CoveredCheck();
@@ -512,7 +513,7 @@ public class PlayerMovement : MonoBehaviour
     //----------ROLL----------//
     public void Roll(bool Rolling)
     {
-        if (Rolling && IsCrouching)
+        if (Rolling && IsCrouching && !DelayRoll)
         {
             IsRolling = true;
         }
@@ -692,7 +693,7 @@ public class PlayerMovement : MonoBehaviour
     #region Rolling
     void Rolling()
     {
-        if (IsRolling)
+        if (!DelayRoll && IsRolling)
         {
             if (CurrentDelayTime > 0)
             {
@@ -708,6 +709,7 @@ public class PlayerMovement : MonoBehaviour
                 else if (CurrentRollTime <= 0)
                 {
                     IsRolling = false;
+                    DelayRoll = true;
                 }
             }
 
@@ -716,9 +718,15 @@ public class PlayerMovement : MonoBehaviour
         {
             CurrentRollTime += Time.deltaTime;
             CurrentDelayTime = DelayTime;
-            if (CurrentRollTime > RollingTime)
+            
+            if(CurrentRollTime == RollingTime)
+            {
+                DelayRoll = false;
+            }
+            else if (CurrentRollTime > RollingTime)
             {
                 CurrentRollTime = RollingTime;
+                DelayRoll = false;
             }
         }
     }
@@ -877,7 +885,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---ROLLING---//
-        if (IsRolling)
+        if (IsRolling && !DelayRoll)
         {
             CrouchRoll = true;
             animationController.IsPlayerRolling(CrouchRoll);
