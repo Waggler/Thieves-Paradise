@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool IsDiving;
     [SerializeField] private bool ResetDiving;
     [SerializeField] private bool StillDiving;
-    private float CurrentDiveTime;
+    [SerializeField] private float CurrentDiveTime;
 
     //[Header("Camera")]
     private Transform PlayerCamera;
@@ -263,40 +263,6 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
-        #region Falling Check
-        if (StartTimer)
-        {
-            CurrentGroundCheckTime += Time.deltaTime;
-
-            if (CurrentGroundCheckTime < GroundCheckLimit1)
-            {
-                print("all good");
-                return;
-            }
-            else if (GroundCheckLimit1 <= CurrentGroundCheckTime && CurrentGroundCheckTime <= GroundCheckLimit2)
-            {
-                print("Ouch!");
-                Splat = true;
-            }
-            else if (CurrentGroundCheckTime > GroundCheckLimit2)
-            {
-                print("void");
-                Splat = false;
-                //Return player back to the starting location.
-                gameObject.transform.position = StartingLocation;
-                CurrentGroundCheckTime = 0;
-            }
-        }
-
-        if(Splat && IsGrounded)
-        {
-            print("splatted");
-            IsStunned = true;
-            Splat = false;
-        }
-
-        #endregion
-
         #region Slide Action
 
         if (IsSprinting && IsCrouching)
@@ -330,6 +296,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region Dive Action
         DiveJump();
+
         if (!IsDiving)
         {
             if (CurrentDiveTime < DiveTime)
@@ -352,6 +319,36 @@ public class PlayerMovement : MonoBehaviour
         if (ToggleCrouch)
         {
             IsStanding = true;
+        }
+
+        #endregion
+
+        #region Falling Check
+        if (StartTimer)
+        {
+            CurrentGroundCheckTime += Time.deltaTime;
+
+            if (CurrentGroundCheckTime < GroundCheckLimit1)
+            {
+                return;
+            }
+            else if (GroundCheckLimit1 <= CurrentGroundCheckTime && CurrentGroundCheckTime <= GroundCheckLimit2)
+            {
+                Splat = true;
+            }
+            else if (CurrentGroundCheckTime > GroundCheckLimit2)
+            {
+                Splat = false;
+                //Return player back to the starting location.
+                gameObject.transform.position = StartingLocation;
+                CurrentGroundCheckTime = 0;
+            }
+        }
+
+        if (Splat && IsGrounded)
+        {
+            IsStunned = true;
+            Splat = false;
         }
 
         #endregion
