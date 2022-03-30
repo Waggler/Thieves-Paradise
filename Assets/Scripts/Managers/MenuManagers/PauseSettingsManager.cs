@@ -27,8 +27,21 @@ public class PauseSettingsManager : MonoBehaviour
     [Header("Video")]
     [SerializeField] private TMP_Dropdown qualityDropdown;
     [SerializeField] private TMP_Dropdown resolutionDropDown;
+    [SerializeField] private Toggle fullScreenToggle;
 
     [SerializeField] private Slider gammaSlider;
+
+    [Header("Preferences")]
+    [SerializeField] private Toggle crouchToggle;
+    [SerializeField] private Toggle sprintToggle;
+    [SerializeField] private Toggle verticalToggle;
+    [SerializeField] private Toggle horizontalToggle;
+    [SerializeField] private Toggle uIToggle;
+
+    [SerializeField] private Slider hueSlider;
+    [SerializeField] private Slider saturationSlider;
+    [SerializeField] private Slider lookSlider;
+    [SerializeField] private Slider throwLookSlider;
 
     [Header("Tempe Crutch")]
     [SerializeField] CinemachineFreeLook freeLookCam;
@@ -59,7 +72,58 @@ public class PauseSettingsManager : MonoBehaviour
     void Init()
     //-----------------------//
     {
-        //AddResolutions();
+        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterAudio");
+        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicAudio");
+        soundEffectsVolumeSlider.value = PlayerPrefs.GetFloat("SFXAudio");
+
+        gammaSlider.value = PlayerPrefs.GetFloat("Gamma");
+        fullScreenToggle.isOn = Screen.fullScreen;
+
+        if(PlayerPrefs.GetInt("CrouchToggle") == 0)
+        {
+            crouchToggle.isOn = false;
+        }
+        else
+        {
+            crouchToggle.isOn = true;
+        }
+        if (PlayerPrefs.GetInt("SprintToggle") == 0)
+        {
+            sprintToggle.isOn = false;
+        }
+        else
+        {
+            sprintToggle.isOn = true;
+        }
+        if (PlayerPrefs.GetInt("InvertVerticalToggle") == 0)
+        {
+            verticalToggle.isOn = false;
+        }
+        else
+        {
+            verticalToggle.isOn = true;
+        }
+        if (PlayerPrefs.GetInt("InvertHorizontalToggle") == 0)
+        {
+            horizontalToggle.isOn = false;
+        }
+        else
+        {
+            horizontalToggle.isOn = true;
+        }
+        if (PlayerPrefs.GetInt("FlipUI") == 0)
+        {
+            uIToggle.isOn = false;
+        }
+        else
+        {
+            uIToggle.isOn = true;
+        }
+        hueSlider.value = PlayerPrefs.GetFloat("RadioHue");
+        saturationSlider.value = PlayerPrefs.GetFloat("RadioSaturation");
+        lookSlider.value = PlayerPrefs.GetFloat("CamSensitivity");
+        throwLookSlider.value = PlayerPrefs.GetFloat("ThrowSensitivity");
+
 
 
     }//END Init

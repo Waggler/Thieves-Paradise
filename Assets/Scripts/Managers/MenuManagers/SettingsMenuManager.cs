@@ -69,9 +69,12 @@ public class SettingsMenuManager : MonoBehaviour
     void Init()
     //-----------------------//
     {
-        //AddResolutions();
-        //SetFullScreen(true);
-        SetAudio();
+        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterAudio");
+        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicAudio");
+        soundEffectsVolumeSlider.value = PlayerPrefs.GetFloat("SFXAudio");
+
+        gammaSlider.value = PlayerPrefs.GetFloat("Gamma");
+
 
     }//END Init
 
@@ -131,16 +134,6 @@ public class SettingsMenuManager : MonoBehaviour
         }
 
     }//END ChangeTab
-
-    //-----------------------//
-    void SetAudio()
-    //-----------------------//
-    {
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterAudio");
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicAudio");
-        soundEffectsVolumeSlider.value = PlayerPrefs.GetFloat("SFXAudio");
-
-    }//END Init
 
 
     #endregion Statics & Startup
