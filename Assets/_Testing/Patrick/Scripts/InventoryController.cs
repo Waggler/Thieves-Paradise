@@ -25,6 +25,8 @@ public class InventoryController : MonoBehaviour
 
     private LayerMask layerMask;
     private InputManager im;
+
+    [SerializeField] private bool AutoThrowForce;
     
     // Start is called before the first frame update
     void Start()
@@ -61,14 +63,22 @@ public class InventoryController : MonoBehaviour
     {
         if(throwing)
         {
-            if (throwForce > throwForceCap)
-            {
-                throwForce = throwForceCap;
-            }
-            //print(throwForce);
-            throwForce += Time.deltaTime * 200;
-            throwVector = transform.forward * throwForce + transform.up * throwForce;
+            ThrowForceCalc();
         }
+    }
+
+    private void ThrowForceCalc()
+    {
+        if (AutoThrowForce)
+        {
+            //print(throwForce);
+            throwForce += Time.deltaTime * 200;   
+        }
+
+        throwForce = Mathf.Clamp(throwForce, 50, throwForceCap); //bound the throw force to a min and max value
+
+        //convert to a vector for calcs
+        throwVector = transform.forward * throwForce + transform.up * throwForce;
     }
     #region PlayerInput
 

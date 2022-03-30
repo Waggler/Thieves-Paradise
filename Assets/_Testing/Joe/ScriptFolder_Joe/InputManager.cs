@@ -190,6 +190,10 @@ public class InputManager : MonoBehaviour
                 {
                     transform.Rotate(Vector3.up, contextValue.x * ZoomLookSensitivity, Space.Self);
                 }
+                if (contextValue.y != 0)
+                {
+                    inventoryController.throwForce += contextValue.y * ZoomLookSensitivity * 2f;
+                }
             }
         }
     }
