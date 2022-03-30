@@ -109,6 +109,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int MediumLevel = 6;
     [Tooltip("The detection radius of the player when they are running and diving.")]
     [SerializeField] private int LoudLevel = 12;
+    [Tooltip("For when you fall out of the sky.")]
+    [SerializeField] private int LoudestLevel = 20;
     [Tooltip("This is the time it will take to update the states and send out a sound check for the guard.")]
     [SerializeField] private float NoiseClock = 0.25f;
     [SerializeField] private int CurrentLevel;
@@ -121,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
     private float CurrentGroundCheckTime = 0;
     private bool Splat = false;
     private bool StartTimer = false;
+    private bool Thud = false;
 
     [Header("Key Scripts")]
     public SuspicionManager SusMan;
@@ -199,6 +202,7 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         Rolling();
         AnimationStates();
+
 
         if ((!IsCrouching && !IsSprinting) || IsUncovered)
         {
@@ -349,6 +353,7 @@ public class PlayerMovement : MonoBehaviour
         {
             IsStunned = true;
             Splat = false;
+            Thud = true;
         }
 
         #endregion
@@ -494,9 +499,10 @@ public class PlayerMovement : MonoBehaviour
                 CrouchDown();
                 IsStanding = false;
             }
-            else if (!IsStanding)
+            else if (!IsStanding && !IsCovered)
             {
                 IsStanding = true;
+                CoveredCheck();
             }
         }
         else if (!Crouching && IsStanding)
@@ -639,7 +645,7 @@ public class PlayerMovement : MonoBehaviour
     void CoveredCheck()
     {
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
-        if (Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f) && IsGrounded)
+        if (Physics.Raycast(transform.position, new Vector3 (0, 2, 0), Controller.height / 2 + 0.1f) && IsGrounded)
         {
             IsStanding = false;
             IsCrouching = true;
@@ -656,7 +662,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (IsStanding == false && IsGrounded)
+        if (!IsStanding && IsGrounded)
         {
             CrouchDown();
         }
@@ -768,7 +774,12 @@ public class PlayerMovement : MonoBehaviour
     #region Player Sound Controller
     void PlayerSound()
     {
-        if ((Idle || IdleCrouch || Crouching) && !CrouchRoll && !Jumping && !Slide && !Running)
+        if(Thud)
+        {
+            CurrentLevel = LoudestLevel;
+            Thud = false;
+        }
+        else if ((Idle || IdleCrouch || Crouching) && !CrouchRoll && !Jumping && !Slide && !Running)
         {
             CurrentLevel = SilentLevel;
         }
