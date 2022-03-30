@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     public bool isRolling;
     public bool isPushPull;
     private PlayerMovement playerMovement;
+    private InventoryController inventoryController;
     [SerializeField] private CamSwitch camSwitch;
     public float rollCooldownTime;
     private float cooldownTimer;
@@ -24,6 +25,7 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        inventoryController = GetComponent<InventoryController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -151,6 +153,11 @@ public class InputManager : MonoBehaviour
     {
         if(context.started)
         {
+            if (inventoryController.IsActiveSlotEmpty())
+            {
+                return;
+            }
+
             IsZoomed = true;
             camSwitch.SwitchState(IsZoomed);
         }
@@ -159,7 +166,13 @@ public class InputManager : MonoBehaviour
             IsZoomed = false;
             camSwitch.SwitchState(IsZoomed);
         }
-    }// END ZOOM IN
+    }
+    public void ZoomCancel()
+    {
+        IsZoomed = false;
+        camSwitch.SwitchState(IsZoomed);
+    }
+    // END ZOOM IN
 
     #endregion
 
