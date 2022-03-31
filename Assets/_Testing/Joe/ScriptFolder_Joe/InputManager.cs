@@ -153,7 +153,7 @@ public class InputManager : MonoBehaviour
     {
         if(context.started)
         {
-            if (inventoryController.IsActiveSlotEmpty())
+            if (inventoryController.IsActiveSlotEmpty() || inventoryController.CheckSlotForKeyItem(inventoryController.GetActiveItemIndex()))
             {
                 return;
             }

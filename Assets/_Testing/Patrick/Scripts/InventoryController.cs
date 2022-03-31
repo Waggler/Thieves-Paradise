@@ -81,7 +81,7 @@ public class InventoryController : MonoBehaviour
         throwForce = Mathf.Clamp(throwForce, 50, throwForceCap); //bound the throw force to a min and max value
 
         //convert to a vector for calcs
-        throwVector = transform.forward * throwForce + transform.up * throwForce;
+        throwVector = transform.forward * throwForce + transform.up * throwForce * 1.25f;
     }
     #region PlayerInput
 
@@ -173,7 +173,7 @@ public class InventoryController : MonoBehaviour
         GetComponentInChildren<AnimationController>().IsPlayerWinding(true);
         if (context.started)
         {
-            if (inventorySpace[activeItemIndex] == false)
+            if (inventorySpace[activeItemIndex] == false || itemInterfaceInventory[activeItemIndex].isKeyItem == true)
             {
                 //cancel if current selected item slot is empty
                 print("Slot Empty");
@@ -466,6 +466,29 @@ public class InventoryController : MonoBehaviour
             //print("not the item");
         }
         return false;
+    }
+
+    public bool CheckSlotForKeyItem(int slot)
+    {
+        if(slot > 3 || slot < 0)
+        {
+            //make sure it stays in the bounds of the array
+            return false;
+        }
+        if (inventorySpace[slot] == false)
+        {
+            return false;
+        }
+        if (itemInterfaceInventory[slot].isKeyItem == true)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public int GetActiveItemIndex()
+    {
+        return activeItemIndex;
     }
 
     #region Nearby Items
