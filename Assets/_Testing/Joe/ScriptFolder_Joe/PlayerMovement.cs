@@ -199,6 +199,7 @@ public class PlayerMovement : MonoBehaviour
         {
             CurrentSpeed += WalkAcceleration * Time.deltaTime;
         }
+
         GroundCheck();
         Rolling();
         AnimationStates();
@@ -645,7 +646,7 @@ public class PlayerMovement : MonoBehaviour
     void CoveredCheck()
     {
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
-        if (Physics.Raycast(transform.position, new Vector3 (0, 2, 0), Controller.height / 2 + 0.1f) && IsGrounded)
+        if (Physics.Raycast(transform.position, new Vector3 (0, 1, 0), Controller.height / 2 + 0.1f) && IsGrounded)
         {
             IsStanding = false;
             IsCrouching = true;
