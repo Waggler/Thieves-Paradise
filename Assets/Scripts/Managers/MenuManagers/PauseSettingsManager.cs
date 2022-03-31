@@ -9,6 +9,8 @@ using Cinemachine;
 public class PauseSettingsManager : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] private PlayerPreferencesHandler prefsHandler;
+    [SerializeField] private InputManager inputManager;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject audioTab;
@@ -26,7 +28,6 @@ public class PauseSettingsManager : MonoBehaviour
 
     [Header("Video")]
     [SerializeField] private TMP_Dropdown qualityDropdown;
-    [SerializeField] private TMP_Dropdown resolutionDropDown;
     [SerializeField] private Toggle fullScreenToggle;
 
     [SerializeField] private Slider gammaSlider;
@@ -43,7 +44,9 @@ public class PauseSettingsManager : MonoBehaviour
     [SerializeField] private Slider lookSlider;
     [SerializeField] private Slider throwLookSlider;
 
-    [Header("Tempe Crutch")]
+    [SerializeField] private Button thirtyFPSButton;
+    [SerializeField] private Button sixtyFPSButton;
+
     [SerializeField] CinemachineFreeLook freeLookCam;
 
     private Resolution[] screenResolutions;
@@ -72,6 +75,15 @@ public class PauseSettingsManager : MonoBehaviour
     void Init()
     //-----------------------//
     {
+        if (inputManager == null)
+        {
+            inputManager = (InputManager)FindObjectOfType(typeof(InputManager));
+        }
+        if (freeLookCam == null)
+        {
+            freeLookCam = (CinemachineFreeLook)FindObjectOfType(typeof(CinemachineFreeLook));
+        }
+
         masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterAudio");
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicAudio");
         soundEffectsVolumeSlider.value = PlayerPrefs.GetFloat("SFXAudio");
@@ -182,6 +194,7 @@ public class PauseSettingsManager : MonoBehaviour
     {
         Debug.Log($"Master volume value set to {masterVolume}");
         mainMixer.SetFloat("masterVolume", masterVolume);
+        prefsHandler.SetMasterAudioPref(masterVolume);
 
     }//END MasterVolume
 
@@ -191,7 +204,7 @@ public class PauseSettingsManager : MonoBehaviour
     {
         Debug.Log($"Music volume value set to {musicVolume}");
         mainMixer.SetFloat("musicVolume", musicVolume);
-
+        prefsHandler.SetMusicAudioPref(musicVolume);
 
     }//END MusicVolume
 
@@ -201,7 +214,7 @@ public class PauseSettingsManager : MonoBehaviour
     {
         Debug.Log($"Sound effects volume value set to {soundEffectsVolume}");
         mainMixer.SetFloat("sfxVolume", soundEffectsVolume);
-
+        prefsHandler.SetSFXAudioPref(soundEffectsVolume);
 
     }//END SoundEffectsVolume
 
@@ -218,6 +231,7 @@ public class PauseSettingsManager : MonoBehaviour
     {
         QualitySettings.SetQualityLevel(qualityIndex);
         Debug.Log($"Quality index set to {QualitySettings.GetQualityLevel()}");
+        prefsHandler.SetQualityPref(qualityIndex);
 
     }//END QualitySettings
 
@@ -228,6 +242,7 @@ public class PauseSettingsManager : MonoBehaviour
         Debug.Log($"Gamma value set to {gammaValue}");
 
         Screen.brightness = gammaValue;
+        prefsHandler.SetGammaPref(gammaValue);
 
     }//END SetGamma
 
@@ -239,10 +254,20 @@ public class PauseSettingsManager : MonoBehaviour
         Debug.Log($"The fullscreen toggle is set to {isFullScreen}");
 
         isFullScreen = isResFullScreen;
+        
+        if(isFullScreen== true)
+        {
+            prefsHandler.SetFullScreenPref(1);
+        }
+        else
+        {
+            prefsHandler.SetFullScreenPref(0);
+
+        }
 
     }//END SetFullScreen
 
-
+    /*
     //--------------------------//
     private void AddResolutions()
     //--------------------------//
@@ -293,7 +318,7 @@ public class PauseSettingsManager : MonoBehaviour
         Debug.Log($"Resolution Set to {Screen.currentResolution}");
 
     }//END SetResolution
-
+    */
 
     #endregion Video
 
@@ -301,96 +326,170 @@ public class PauseSettingsManager : MonoBehaviour
     #region Preferences
 
     //-----------------------//
-    public void CrouchToggle(bool isCrouchToggleOn)
+    public void CrouchToggle(Toggle value)
     //-----------------------//
     {
+        if (value == false)
+        {
+            prefsHandler.SetCrouchToggle(0);
+        }
+        else
+        {
+            prefsHandler.SetCrouchToggle(1);
 
-        Debug.Log($"The crouch toggle is set to {isCrouchToggleOn}");
+        }
 
     }//END CrouchToggle
 
     //-----------------------//
-    public void SprintToggle(bool isSprintToggleOn)
+    public void SprintToggle(Toggle value)
+    //-----------------------//
+    {
+        if (value == false)
+        {
+            prefsHandler.SetSprintToggle(0);
+        }
+        else
+        {
+            prefsHandler.SetSprintToggle(1);
+
+        }
+
+    }//END SprintToggle
+
+    //-----------------------//
+    public void ToggleHorizontal(Toggle value)
+    //-----------------------//
+    {
+        if (value == true)
+        {
+            prefsHandler.SetHorizontalToggle(1);
+            freeLookCam.m_XAxis.m_InvertInput = true;
+        }
+        else
+        {
+            prefsHandler.SetHorizontalToggle(0);
+            freeLookCam.m_XAxis.m_InvertInput = false;
+
+        }
+
+    }//END ToggleHorizontal
+
+    //-----------------------//
+    public void ToggleVertical(Toggle value)
+    //-----------------------//
+    {
+        if (value == true)
+        {
+            prefsHandler.SetVerticalToggle(1);
+            freeLookCam.m_YAxis.m_InvertInput = true;
+
+        }
+        else
+        {
+            prefsHandler.SetVerticalToggle(0);
+            freeLookCam.m_YAxis.m_InvertInput = false;
+
+        }
+
+    }//END ToggleVertical
+
+    //-----------------------//
+    public void ToggleInventory(Toggle value)
+    //-----------------------//
+    {
+        if (value == true)
+        {
+            prefsHandler.SetUIToggle(1);
+
+        }
+        else
+        {
+            prefsHandler.SetUIToggle(0);
+
+        }
+
+    }//END ToggleInventory
+
+    //-----------------------//
+    public void LookSensitivity(float sensitivity)
+    //-----------------------//
+    {
+        prefsHandler.SetLookSensitivity(sensitivity);
+        freeLookCam.m_XAxis.m_MaxSpeed = 300 * sensitivity;
+        freeLookCam.m_YAxis.m_MaxSpeed = 2 * sensitivity;
+
+    }//END LookSensitivity
+
+    //-----------------------//
+    public void ThrowSensitivity(float sensitivity)
+    //-----------------------//
+    {
+        prefsHandler.SetThrowSensitivity(sensitivity);
+        inputManager.ChangeZoomLookSensitivity(sensitivity);
+
+
+    }//END ThrowSensitivity
+
+    //-----------------------//
+    public void UpdateRadioHue(float hue)
     //-----------------------//
     {
 
-        Debug.Log($"The sprint toggle is set to {isSprintToggleOn}");
+        Color previewColor = Color.HSVToRGB(hue, PlayerPrefs.GetFloat("RadioSaturation"), 1);
 
-    }//END CrouchToggle
+        prefsHandler.SetRadioHue(hue);
 
-    //-----------------------//
-    public void InvertHorizontalAxis(bool isInvertHorizontalOn)
-    //-----------------------//
-    {
+        radioImage.color = previewColor;
 
-        Debug.Log($"The horizontal invert toggle is set to {isInvertHorizontalOn}");
-
-    }//END CrouchToggle
+    }//END UpdateRadioHue
 
     //-----------------------//
-    public void InvertVerticalAxis(bool isInvertVerticalOn)
+    public void UpdateRadioSaturation(float saturation)
     //-----------------------//
     {
+        Color previewColor = Color.HSVToRGB(PlayerPrefs.GetFloat("RadioHue"), saturation, 1);
 
-        Debug.Log($"The vertical invert toggle is set to {isInvertVerticalOn}");
+        prefsHandler.SetRadioSaturation(saturation);
 
-    }//END CrouchToggle
+        radioImage.color = previewColor;
 
-    public void AdjustHUD(bool isInventoryRight)
+    }//END UpdateRadioSaturation
+
+    //-----------------------//
+    public void SetFPS(int value)
     //-----------------------//
     {
+        if (value == 0)
+        {
+            Application.targetFrameRate = 30;
 
-        Debug.Log($"The inventory toggle for the right side is set to {isInventoryRight}");
+            thirtyFPSButton.interactable = false;
+            sixtyFPSButton.interactable = true;
 
-    }//END CrouchToggle
+            Debug.Log("FPS set to 30");
+
+            prefsHandler.SetFPS(0);
+
+        }
+        if (value == 1)
+        {
+            Application.targetFrameRate = 60;
+
+            sixtyFPSButton.interactable = false;
+            thirtyFPSButton.interactable = true;
+
+            Debug.Log("FPS set to 60");
+
+            prefsHandler.SetFPS(1);
+
+        }
+
+    }//END SetFPS
 
 
     #endregion Preferences
 
-
-    //-----------------------//
-    public void UpdatePreview()
-    //-----------------------//
-    {
-        float hue = PlayerPrefs.GetFloat("RadioHue");
-        float saturation = PlayerPrefs.GetFloat("RadioSaturation");
-
-        Color previewColor = Color.HSVToRGB(hue, saturation, 1);
-
-        radioImage.color = previewColor;
-
-    }//END UpdatePreview
-
-
-    //-----------------------//
-    public void InvertHorizontalTemp(int value)
-    //-----------------------//
-    {
-        if (value == 0)
-        {
-            freeLookCam.m_XAxis.m_InvertInput = false;
-        }
-        else if (value == 1)
-        {
-            freeLookCam.m_XAxis.m_InvertInput = true;
-        }
-
-    }//END InvertHorizontalTemp
-
-    //-----------------------//
-    public void InvertVerticalTemp(int value)
-    //-----------------------//
-    {
-        if (value == 0)
-        {
-            freeLookCam.m_YAxis.m_InvertInput = false;
-        }
-        else if (value == 1)
-        {
-            freeLookCam.m_YAxis.m_InvertInput = true;
-        }
-
-    }//END InvertVerticalTemp
 
     #endregion Methods
 

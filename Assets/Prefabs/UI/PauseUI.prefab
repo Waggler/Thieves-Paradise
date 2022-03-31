@@ -244,7 +244,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -321,9 +321,9 @@ RectTransform:
   m_Father: {fileID: 3846054208043016717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 108.3, y: -20}
   m_SizeDelta: {x: 216.6, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1918653431132617752
@@ -735,8 +735,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Gamma
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f1eda5f7373bfdb428bd611a9129770c, type: 2}
-  m_sharedMaterial: {fileID: 5015644893565302029, guid: f1eda5f7373bfdb428bd611a9129770c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 48faab6e585a10443a6c8be6afc8ea69, type: 2}
+  m_sharedMaterial: {fileID: 5015644893565302029, guid: 48faab6e585a10443a6c8be6afc8ea69, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1310,8 +1310,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: SetGamma
         m_Mode: 0
         m_Arguments:
@@ -1577,8 +1577,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: SetFPS
         m_Mode: 3
         m_Arguments:
@@ -1830,7 +1830,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Option A
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d3d34388c02abee429c6d608cae61336, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1894,7 +1894,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1513264198482630834
@@ -1987,8 +1987,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: SoundEffectsVolume
         m_Mode: 0
         m_Arguments:
@@ -3964,7 +3964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2246062193758497482
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4062,6 +4062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c8728e8356276841815aad9b63343e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefsHandler: {fileID: 2246062193758497481}
+  inputManager: {fileID: 0}
   pauseMenu: {fileID: 2246062193460712357}
   settingsMenu: {fileID: 2246062193758497479}
   audioTab: {fileID: 9071015978856803318}
@@ -4073,8 +4075,7 @@ MonoBehaviour:
   musicVolumeSlider: {fileID: 1072626581576710613}
   mainMixer: {fileID: 24100000, guid: 26540bb816a2f4e45b9a60fcc4b052be, type: 2}
   qualityDropdown: {fileID: 5945890298016191333}
-  resolutionDropDown: {fileID: 0}
-  fullScreenToggle: {fileID: 0}
+  fullScreenToggle: {fileID: 1133644214263038406}
   gammaSlider: {fileID: 5325035830820783663}
   crouchToggle: {fileID: 2111858878031822714}
   sprintToggle: {fileID: 1765248151021106666}
@@ -4085,6 +4086,8 @@ MonoBehaviour:
   saturationSlider: {fileID: 3338259608683175093}
   lookSlider: {fileID: 6884014811107926588}
   throwLookSlider: {fileID: 2612541778362703578}
+  thirtyFPSButton: {fileID: 5790939642874980610}
+  sixtyFPSButton: {fileID: 6937541861505956934}
   freeLookCam: {fileID: 0}
 --- !u!114 &2246062193758497481
 MonoBehaviour:
@@ -5201,9 +5204,9 @@ RectTransform:
   m_Father: {fileID: 3846054208043016717}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 541.6333, y: -20}
   m_SizeDelta: {x: 216.6, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1894569581330517252
@@ -5431,8 +5434,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: ThrowSensitivity
         m_Mode: 0
         m_Arguments:
@@ -5564,13 +5567,13 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerPreferencesHandler, Assembly-CSharp
-        m_MethodName: SetUIToggle
-        m_Mode: 3
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
+        m_MethodName: ToggleInventory
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 5799961986888411418}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5893,7 +5896,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6496,9 +6499,9 @@ RectTransform:
   m_Father: {fileID: 7142638083594882024}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 244.875, y: -15}
   m_SizeDelta: {x: 143.25, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3433337829612891646
@@ -6533,9 +6536,9 @@ RectTransform:
   m_Father: {fileID: 7142638083594882024}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 101.625, y: -15}
   m_SizeDelta: {x: 143.25, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3475319924227114709
@@ -6659,8 +6662,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: SetFPS
         m_Mode: 3
         m_Arguments:
@@ -6761,8 +6764,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: MusicVolume
         m_Mode: 0
         m_Arguments:
@@ -7518,22 +7521,10 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerPreferencesHandler, Assembly-CSharp
-        m_MethodName: SetRadioHue
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
+        m_MethodName: UpdateRadioHue
         m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
-        m_MethodName: UpdatePreview
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7856,7 +7847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4943965118899600139
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8875,6 +8866,7 @@ Transform:
   - {fileID: 6347070212133125686}
   - {fileID: 1564830890170097598}
   - {fileID: 1761871724215976135}
+  - {fileID: 2210478235716577170}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9729,7 +9721,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.000061035156, y: 0.000030517578}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10195,7 +10187,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10379,9 +10371,9 @@ RectTransform:
   m_Father: {fileID: 4943965118899600139}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 325, y: -155}
   m_SizeDelta: {x: 650, y: 310}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8480969937493457776
@@ -11228,13 +11220,13 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
-        m_MethodName: InvertVerticalAxis
-        m_Mode: 0
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
+        m_MethodName: ToggleVertical
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 8719007077076106146}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -11535,8 +11527,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: SetFullScreen
         m_Mode: 0
         m_Arguments:
@@ -11581,7 +11573,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11788,8 +11780,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: MasterVolume
         m_Mode: 0
         m_Arguments:
@@ -12382,9 +12374,9 @@ RectTransform:
   m_Father: {fileID: 7142638083594882024}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 15, y: -15}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2464899791693497169
@@ -12649,13 +12641,13 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
-        m_MethodName: InvertHorizontalAxis
-        m_Mode: 0
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
+        m_MethodName: ToggleHorizontal
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 5061157443376979887}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12801,8 +12793,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Fullscreen
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f1eda5f7373bfdb428bd611a9129770c, type: 2}
-  m_sharedMaterial: {fileID: 5015644893565302029, guid: f1eda5f7373bfdb428bd611a9129770c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 48faab6e585a10443a6c8be6afc8ea69, type: 2}
+  m_sharedMaterial: {fileID: 5015644893565302029, guid: 48faab6e585a10443a6c8be6afc8ea69, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13013,7 +13005,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.000061035156, y: 0.000030517578}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13139,13 +13131,13 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: SprintToggle
-        m_Mode: 0
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1765248151021106666}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13253,10 +13245,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Quality '
+  m_text: Quality
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f1eda5f7373bfdb428bd611a9129770c, type: 2}
-  m_sharedMaterial: {fileID: 5015644893565302029, guid: f1eda5f7373bfdb428bd611a9129770c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 48faab6e585a10443a6c8be6afc8ea69, type: 2}
+  m_sharedMaterial: {fileID: 5015644893565302029, guid: 48faab6e585a10443a6c8be6afc8ea69, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13333,7 +13325,7 @@ GameObject:
   - component: {fileID: 478355987769073734}
   - component: {fileID: 3338259608683175093}
   m_Layer: 0
-  m_Name: Hue Slider
+  m_Name: Saturation Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13412,22 +13404,10 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerPreferencesHandler, Assembly-CSharp
-        m_MethodName: SetRadioSaturation
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
+        m_MethodName: UpdateRadioSaturation
         m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
-        m_MethodName: UpdatePreview
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13630,15 +13610,15 @@ MonoBehaviour:
   m_FillRect: {fileID: 6650028779961101053}
   m_HandleRect: {fileID: 8516720442909987929}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: 0.5
+  m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: LookSensitivity
         m_Mode: 0
         m_Arguments:
@@ -14033,8 +14013,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: SetQuality
         m_Mode: 0
         m_Arguments:
@@ -14450,7 +14430,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.000061035156, y: 0.000030517578}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14559,8 +14539,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Low
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d3d34388c02abee429c6d608cae61336, type: 2}
+  m_sharedMaterial: {fileID: 7986873328862946326, guid: d3d34388c02abee429c6d608cae61336, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14659,7 +14639,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.000061035156, y: 0.000030517578}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14811,9 +14791,9 @@ RectTransform:
   m_Father: {fileID: 3846054208043016717}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 324.96667, y: -20}
   m_SizeDelta: {x: 216.6, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9218045051450369976
@@ -15035,13 +15015,13 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2246062193758497478}
+        m_TargetAssemblyTypeName: PauseSettingsManager, Assembly-CSharp
         m_MethodName: CrouchToggle
-        m_Mode: 0
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2111858878031822714}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -15214,7 +15194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5469494483195241351
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15375,3 +15355,65 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &5407234947422659856
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7378610395282751906}
+    m_Modifications:
+    - target: {fileID: 1967922390061105590, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_Name
+      value: Settings Initializer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+--- !u!4 &2210478235716577170 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6172018050471740034, guid: b0a943cb14017f94c95cf561ff617d3f, type: 3}
+  m_PrefabInstance: {fileID: 5407234947422659856}
+  m_PrefabAsset: {fileID: 0}
