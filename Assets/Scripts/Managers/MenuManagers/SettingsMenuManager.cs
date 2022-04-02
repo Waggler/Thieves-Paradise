@@ -17,10 +17,7 @@ public class SettingsMenuManager : MonoBehaviour
     [SerializeField] private GameObject videoTab;
     [SerializeField] private GameObject preferencesTab;
 
-    [SerializeField] private Image radioImage;
 
-    public Button thirtyFPSButton;
-    public Button sixtyFPSButton;
 
     [Header("Audio")]
     [SerializeField] private Slider masterVolumeSlider;
@@ -35,6 +32,8 @@ public class SettingsMenuManager : MonoBehaviour
 
     [SerializeField] private Slider gammaSlider;
 
+    [SerializeField] private Toggle fullScreenToggle;
+
     private Resolution[] screenResolutions;
     int currentResolutionIndex;
 
@@ -46,6 +45,28 @@ public class SettingsMenuManager : MonoBehaviour
 
     private Resolution[] resolutions;
 
+    [Header("Preferences")]
+    [SerializeField] private Button crouchOnButton;
+    [SerializeField] private Button crouchOffButton;
+    [SerializeField] private Button sprintOnButton;
+    [SerializeField] private Button sprintOffButton;
+    [SerializeField] private Button verticalOnButton;
+    [SerializeField] private Button verticalOffButton;
+    [SerializeField] private Button horizontalOnButton;
+    [SerializeField] private Button horizontalOffButton;
+    [SerializeField] private Button uIOnButton;
+    [SerializeField] private Button uIOffButton;
+
+    public Button thirtyFPSButton;
+    public Button sixtyFPSButton;
+
+    [SerializeField] private Image radioImage;
+    [SerializeField] private Slider lookSlider;
+    [SerializeField] private Slider throwLookSlider;
+    [SerializeField] private Slider hueSlider;
+    [SerializeField] private Slider saturationSlider;
+
+    [Header("Controller Support")]
     public Button audioFirstButton;
     public Button videoFirstButton;
     public Button preferencesFirstButton;
@@ -69,11 +90,73 @@ public class SettingsMenuManager : MonoBehaviour
     void Init()
     //-----------------------//
     {
+
         masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterAudio");
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicAudio");
         soundEffectsVolumeSlider.value = PlayerPrefs.GetFloat("SFXAudio");
 
         gammaSlider.value = PlayerPrefs.GetFloat("Gamma");
+        fullScreenToggle.isOn = Screen.fullScreen;
+
+        if (PlayerPrefs.GetInt("CrouchToggle") == 0)
+        {
+            crouchOnButton.interactable = true;
+            crouchOffButton.interactable = false;
+
+        }
+        else
+        {
+            crouchOffButton.interactable = true;
+            crouchOnButton.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("SprintToggle") == 0)
+        {
+            sprintOnButton.interactable = true;
+            sprintOffButton.interactable = false;
+
+        }
+        else
+        {
+            sprintOffButton.interactable = true;
+            sprintOnButton.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("InvertVerticalToggle") == 0)
+        {
+            verticalOnButton.interactable = true;
+            verticalOffButton.interactable = false;
+
+        }
+        else
+        {
+            verticalOffButton.interactable = true;
+            verticalOnButton.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("InvertHorizontalToggle") == 0)
+        {
+            horizontalOnButton.interactable = true;
+            horizontalOffButton.interactable = false;
+
+        }
+        else
+        {
+            horizontalOffButton.interactable = true;
+            horizontalOnButton.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("FlipUI") == 0)
+        {
+            uIOnButton.interactable = true;
+            uIOffButton.interactable = false;
+
+        }
+        else
+        {
+            uIOffButton.interactable = true;
+            uIOnButton.interactable = false;
+        }
+        hueSlider.value = PlayerPrefs.GetFloat("RadioHue");
+        saturationSlider.value = PlayerPrefs.GetFloat("RadioSaturation");
+        lookSlider.value = PlayerPrefs.GetFloat("CamSensitivity");
+        throwLookSlider.value = PlayerPrefs.GetFloat("ThrowSensitivity");
 
 
     }//END Init
@@ -271,84 +354,99 @@ public class SettingsMenuManager : MonoBehaviour
 
 
     //-----------------------//
-    public void CrouchToggle(Toggle value)
+    public void CrouchToggle(int value)
     //-----------------------//
     {
-        if (value == false)
+        if (value == 0)
         {
             prefsHandler.SetCrouchToggle(0);
+            crouchOnButton.interactable = true;
+            crouchOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetCrouchToggle(1);
-
+            crouchOffButton.interactable = true;
+            crouchOnButton.interactable = false;
         }
 
     }//END CrouchToggle
 
     //-----------------------//
-    public void SprintToggle(Toggle value)
+    public void SprintToggle(int value)
     //-----------------------//
     {
-        if (value == false)
+        if (value == 0)
         {
             prefsHandler.SetSprintToggle(0);
+            sprintOnButton.interactable = true;
+            sprintOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetSprintToggle(1);
-
+            sprintOffButton.interactable = true;
+            sprintOnButton.interactable = false;
         }
 
     }//END SprintToggle
 
     //-----------------------//
-    public void ToggleHorizontal(Toggle value)
+    public void ToggleHorizontal(int value)
     //-----------------------//
     {
-        if(value == true)
+        if (value == 0)
         {
-            prefsHandler.SetHorizontalToggle(1);
-
+            prefsHandler.SetHorizontalToggle(0);
+            horizontalOnButton.interactable = true;
+            horizontalOffButton.interactable = false;
         }
         else
         {
-            prefsHandler.SetHorizontalToggle(0);
+            prefsHandler.SetHorizontalToggle(1);
+            horizontalOffButton.interactable = true;
+            horizontalOnButton.interactable = false;
 
         }
 
     }//END ToggleHorizontal
 
     //-----------------------//
-    public void ToggleVertical(Toggle value)
+    public void ToggleVertical(int value)
     //-----------------------//
     {
-        if (value == true)
+        if (value == 0)
         {
             prefsHandler.SetVerticalToggle(1);
-
+            //freeLookCam.m_YAxis.m_InvertInput = true;
+            verticalOnButton.interactable = true;
+            verticalOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetVerticalToggle(0);
-
+            //freeLookCam.m_YAxis.m_InvertInput = false;
+            verticalOffButton.interactable = true;
+            verticalOnButton.interactable = false;
         }
 
     }//END ToggleVertical
 
     //-----------------------//
-    public void ToggleInventory(Toggle value)
+    public void ToggleInventory(int value)
     //-----------------------//
     {
-        if (value == true)
+        if (value == 0)
         {
             prefsHandler.SetUIToggle(1);
-
+            uIOnButton.interactable = true;
+            uIOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetUIToggle(0);
-
+            uIOffButton.interactable = true;
+            uIOnButton.interactable = false;
         }
 
     }//END ToggleInventory
@@ -373,10 +471,8 @@ public class SettingsMenuManager : MonoBehaviour
     public void UpdateRadioHue(float hue)
     //-----------------------//
     {
-
-        Color previewColor = Color.HSVToRGB(hue, PlayerPrefs.GetFloat("RadioSaturation"), 1);
-
         prefsHandler.SetRadioHue(hue);
+        Color previewColor = Color.HSVToRGB(hue, PlayerPrefs.GetFloat("RadioSaturation"), 1);
 
         radioImage.color = previewColor;
 
@@ -386,9 +482,8 @@ public class SettingsMenuManager : MonoBehaviour
     public void UpdateRadioSaturation(float saturation)
     //-----------------------//
     {
-        Color previewColor = Color.HSVToRGB(PlayerPrefs.GetFloat("RadioHue"), saturation, 1);
-
         prefsHandler.SetRadioSaturation(saturation);
+        Color previewColor = Color.HSVToRGB(PlayerPrefs.GetFloat("RadioHue"), saturation, 1);
 
         radioImage.color = previewColor;
 

@@ -390,14 +390,14 @@ public class PauseSettingsManager : MonoBehaviour
         if (value == 0)
         {
             prefsHandler.SetHorizontalToggle(1);
-            //freeLookCam.m_XAxis.m_InvertInput = true;
+            freeLookCam.m_XAxis.m_InvertInput = true;
             horizontalOnButton.interactable = true;
             horizontalOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetHorizontalToggle(0);
-            //freeLookCam.m_XAxis.m_InvertInput = false;
+            freeLookCam.m_XAxis.m_InvertInput = false;
             horizontalOffButton.interactable = true;
             horizontalOnButton.interactable = false;
 
@@ -412,14 +412,14 @@ public class PauseSettingsManager : MonoBehaviour
         if (value == 0)
         {
             prefsHandler.SetVerticalToggle(1);
-            //freeLookCam.m_YAxis.m_InvertInput = true;
+            freeLookCam.m_YAxis.m_InvertInput = true;
             verticalOnButton.interactable = true;
             verticalOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetVerticalToggle(0);
-            //freeLookCam.m_YAxis.m_InvertInput = false;
+            freeLookCam.m_YAxis.m_InvertInput = false;
             verticalOffButton.interactable = true;
             verticalOnButton.interactable = false;
         }
@@ -469,7 +469,6 @@ public class PauseSettingsManager : MonoBehaviour
     public void UpdateRadioHue(float hue)
     //-----------------------//
     {
-
         Color previewColor = Color.HSVToRGB(hue, PlayerPrefs.GetFloat("RadioSaturation"), 1);
 
         prefsHandler.SetRadioHue(hue);

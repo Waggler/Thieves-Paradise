@@ -79,8 +79,8 @@ public class InitializeBasicSettings : MonoBehaviour
         PlayerPrefs.SetInt("thirtyFPSON", 0);
         PlayerPrefs.SetFloat("RadioHue", 0);
         PlayerPrefs.SetFloat("RadioSaturation", 0);
-        PlayerPrefs.SetFloat("CamSensitivity", 1);
-        PlayerPrefs.SetFloat("ThrowSensitivity", 1);
+        PlayerPrefs.SetFloat("CamSensitivity", 0.5f);
+        PlayerPrefs.SetFloat("ThrowSensitivity", 0.5f);
 
         SetSettings();
 
@@ -152,7 +152,11 @@ public class InitializeBasicSettings : MonoBehaviour
             Debug.Log("No UI in scene!");
         }
 
-        inputManager.ChangeZoomLookSensitivity(PlayerPrefs.GetFloat("ThrowSensitivity"));
+        if (inputManager != null)
+        {
+            inputManager.ChangeZoomLookSensitivity(PlayerPrefs.GetFloat("ThrowSensitivity"));
+
+        }
 
 
     }//END SetDefaultVolume
