@@ -22,6 +22,10 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private float typingTime;
     [SerializeField] private float waitTime;
 
+    [SerializeField] private Image bolt1Image;
+    [SerializeField] private Image bolt2Image;
+    [SerializeField] private Sprite[] boltSprites;
+
 
     private Queue<string> sentences;
 
@@ -47,7 +51,7 @@ public class RadioManager : MonoBehaviour
     {
         sentences = new Queue<string>();
 
-        //SetTextColor();
+        SetTextColor();
 
     }//END Init
 
@@ -75,6 +79,9 @@ public class RadioManager : MonoBehaviour
         {
             sentences.Clear();
         }
+
+        bolt1Image.sprite = boltSprites[Random.Range(0, boltSprites.Length)];
+        bolt2Image.sprite = boltSprites[Random.Range(0, boltSprites.Length)];
 
         subtitleAnimator.SetBool("isSubtitlesOpen", true);
 
