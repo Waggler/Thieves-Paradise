@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TimerScript : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class TimerScript : MonoBehaviour
     [SerializeField] private bool dramaticTimerMode = true;
     private int timer;
     [HideInInspector] public string outputTime;
+
+    [SerializeField] private TextMeshPro timerText;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +61,7 @@ public class TimerScript : MonoBehaviour
             outputTime = minutes.ToString("00") + ":" + seconds.ToString("00");
 
             //display outputTime
+            timerText.text = outputTime;
             //print(outputTime);
 
             //play ticking sound here
