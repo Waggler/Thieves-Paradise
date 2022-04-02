@@ -33,11 +33,16 @@ public class PauseSettingsManager : MonoBehaviour
     [SerializeField] private Slider gammaSlider;
 
     [Header("Preferences")]
-    [SerializeField] private Toggle crouchToggle;
-    [SerializeField] private Toggle sprintToggle;
-    [SerializeField] private Toggle verticalToggle;
-    [SerializeField] private Toggle horizontalToggle;
-    [SerializeField] private Toggle uIToggle;
+    [SerializeField] private Button crouchOnButton;
+    [SerializeField] private Button crouchOffButton;
+    [SerializeField] private Button sprintOnButton;
+    [SerializeField] private Button sprintOffButton;
+    [SerializeField] private Button verticalOnButton;
+    [SerializeField] private Button verticalOffButton;
+    [SerializeField] private Button horizontalOnButton;
+    [SerializeField] private Button horizontalOffButton;
+    [SerializeField] private Button uIOnButton;
+    [SerializeField] private Button uIOffButton;
 
     [SerializeField] private Slider hueSlider;
     [SerializeField] private Slider saturationSlider;
@@ -93,43 +98,58 @@ public class PauseSettingsManager : MonoBehaviour
 
         if(PlayerPrefs.GetInt("CrouchToggle") == 0)
         {
-            crouchToggle.isOn = false;
+            crouchOnButton.interactable = true;
+            crouchOffButton.interactable = false;
+
         }
         else
         {
-            crouchToggle.isOn = true;
+            crouchOffButton.interactable = true;
+            crouchOnButton.interactable = false;
         }
         if (PlayerPrefs.GetInt("SprintToggle") == 0)
         {
-            sprintToggle.isOn = false;
+            sprintOnButton.interactable = true;
+            sprintOffButton.interactable = false;
+
         }
         else
         {
-            sprintToggle.isOn = true;
+            sprintOffButton.interactable = true;
+            sprintOnButton.interactable = false;
         }
         if (PlayerPrefs.GetInt("InvertVerticalToggle") == 0)
         {
-            verticalToggle.isOn = false;
+            verticalOnButton.interactable = true;
+            verticalOffButton.interactable = false;
+
         }
         else
         {
-            verticalToggle.isOn = true;
+            verticalOffButton.interactable = true;
+            verticalOnButton.interactable = false;
         }
         if (PlayerPrefs.GetInt("InvertHorizontalToggle") == 0)
         {
-            horizontalToggle.isOn = false;
+            horizontalOnButton.interactable = true;
+            horizontalOffButton.interactable = false;
+
         }
         else
         {
-            horizontalToggle.isOn = true;
+            horizontalOffButton.interactable = true;
+            horizontalOnButton.interactable = false;
         }
         if (PlayerPrefs.GetInt("FlipUI") == 0)
         {
-            uIToggle.isOn = false;
+            uIOnButton.interactable = true;
+            uIOffButton.interactable = false;
+
         }
         else
         {
-            uIToggle.isOn = true;
+            uIOffButton.interactable = true;
+            uIOnButton.interactable = false;
         }
         hueSlider.value = PlayerPrefs.GetFloat("RadioHue");
         saturationSlider.value = PlayerPrefs.GetFloat("RadioSaturation");
@@ -326,87 +346,101 @@ public class PauseSettingsManager : MonoBehaviour
     #region Preferences
 
     //-----------------------//
-    public void CrouchToggle(Toggle value)
+    public void CrouchToggle(int value)
     //-----------------------//
     {
-        if (value == false)
+        if (value == 0)
         {
             prefsHandler.SetCrouchToggle(0);
+            crouchOnButton.interactable = true;
+            crouchOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetCrouchToggle(1);
-
+            crouchOffButton.interactable = true;
+            crouchOnButton.interactable = false;
         }
 
     }//END CrouchToggle
 
     //-----------------------//
-    public void SprintToggle(Toggle value)
+    public void SprintToggle(int value)
     //-----------------------//
     {
-        if (value == false)
+        if (value == 0)
         {
             prefsHandler.SetSprintToggle(0);
+            sprintOnButton.interactable = true;
+            sprintOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetSprintToggle(1);
-
+            sprintOffButton.interactable = true;
+            sprintOnButton.interactable = false;
         }
 
     }//END SprintToggle
 
     //-----------------------//
-    public void ToggleHorizontal(Toggle value)
+    public void ToggleHorizontal(int value)
     //-----------------------//
     {
-        if (value == true)
+        if (value == 0)
         {
             prefsHandler.SetHorizontalToggle(1);
-            freeLookCam.m_XAxis.m_InvertInput = true;
+            //freeLookCam.m_XAxis.m_InvertInput = true;
+            horizontalOnButton.interactable = true;
+            horizontalOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetHorizontalToggle(0);
-            freeLookCam.m_XAxis.m_InvertInput = false;
+            //freeLookCam.m_XAxis.m_InvertInput = false;
+            horizontalOffButton.interactable = true;
+            horizontalOnButton.interactable = false;
 
         }
 
     }//END ToggleHorizontal
 
     //-----------------------//
-    public void ToggleVertical(Toggle value)
+    public void ToggleVertical(int value)
     //-----------------------//
     {
-        if (value == true)
+        if (value == 0)
         {
             prefsHandler.SetVerticalToggle(1);
-            freeLookCam.m_YAxis.m_InvertInput = true;
-
+            //freeLookCam.m_YAxis.m_InvertInput = true;
+            verticalOnButton.interactable = true;
+            verticalOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetVerticalToggle(0);
-            freeLookCam.m_YAxis.m_InvertInput = false;
-
+            //freeLookCam.m_YAxis.m_InvertInput = false;
+            verticalOffButton.interactable = true;
+            verticalOnButton.interactable = false;
         }
 
     }//END ToggleVertical
 
     //-----------------------//
-    public void ToggleInventory(Toggle value)
+    public void ToggleInventory(int value)
     //-----------------------//
     {
-        if (value == true)
+        if (value == 0)
         {
             prefsHandler.SetUIToggle(1);
-
+            uIOnButton.interactable = true;
+            uIOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetUIToggle(0);
-
+            uIOffButton.interactable = true;
+            uIOnButton.interactable = false;
         }
 
     }//END ToggleInventory

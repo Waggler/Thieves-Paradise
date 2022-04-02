@@ -89,7 +89,6 @@ public class PauseMenuManager : MonoBehaviour
         if (screenValue == 0)
         {
             pauseMenu.SetActive(false);
-            //loadMenu.SetActive(true);
 
         }
         else if (screenValue == 1)
