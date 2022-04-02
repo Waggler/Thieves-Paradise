@@ -52,7 +52,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
         myself = this.gameObject;
         myself.name = itemName;
 
-        layerMask = ~LayerMask.GetMask("Player");
+        layerMask = ~(LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost"));
 
         InitLine();
     }
