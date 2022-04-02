@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour
     public bool StopTheJump;
     private bool GroundCheck;
     [HideInInspector] public bool IsZoomed;
+    [HideInInspector] public bool IsThrowing;
     [HideInInspector] public float ZoomLookSensitivity = 1;
 
     void Awake()
@@ -153,11 +154,6 @@ public class InputManager : MonoBehaviour
     {
         if(context.started)
         {
-            if (inventoryController.IsActiveSlotEmpty() || inventoryController.CheckSlotForKeyItem(inventoryController.GetActiveItemIndex()))
-            {
-                return;
-            }
-
             IsZoomed = true;
             camSwitch.SwitchState(IsZoomed);
         }
@@ -170,9 +166,29 @@ public class InputManager : MonoBehaviour
     public void ZoomCancel()
     {
         IsZoomed = false;
+        IsThrowing = false;
         camSwitch.SwitchState(IsZoomed);
     }
     // END ZOOM IN
+
+    public void StartThrow(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (inventoryController.IsActiveSlotEmpty() || inventoryController.CheckSlotForKeyItem(inventoryController.GetActiveItemIndex()))
+            {
+                IsThrowing = false;
+                //return;
+            }else
+            {
+                IsThrowing = true;
+            }
+        }
+        if (context.canceled)
+        {
+            IsThrowing = false;
+        }
+    }
 
     #endregion
 
