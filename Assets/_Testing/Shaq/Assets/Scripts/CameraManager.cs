@@ -351,6 +351,8 @@ public class CameraManager : MonoBehaviour
     {
         disabledTime = downTime;
         cameraStateMachine = CamStates.DISABLED;
+
+        //add sound/particle fx here
     }
 }
 

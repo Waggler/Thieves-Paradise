@@ -33,7 +33,7 @@ public class TimerScript : MonoBehaviour
                 timeMod /= 2;
 
                 yield return new WaitForSeconds(1 + timeMod);
-                print(1 + timeMod);
+                //print(1 + timeMod);
 
                 // if (timer > maxTime * 0.66)
                 // {
@@ -58,7 +58,7 @@ public class TimerScript : MonoBehaviour
             outputTime = minutes.ToString("00") + ":" + seconds.ToString("00");
 
             //display outputTime
-            print(outputTime);
+            //print(outputTime);
 
             //play ticking sound here
         }
