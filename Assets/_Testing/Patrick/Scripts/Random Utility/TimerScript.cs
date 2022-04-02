@@ -61,7 +61,7 @@ public class TimerScript : MonoBehaviour
             outputTime = minutes.ToString("00") + ":" + seconds.ToString("00");
 
             //display outputTime
-            timerText.text = outputTime;
+            timerText.text = "<mspace=mspace=1.5>" + outputTime + "</mspace>";
             //print(outputTime);
 
             //play ticking sound here
