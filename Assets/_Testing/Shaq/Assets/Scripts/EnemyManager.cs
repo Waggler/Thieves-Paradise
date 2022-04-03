@@ -85,20 +85,11 @@ public class EnemyManager : MonoBehaviour
 
     [Space(20)]
 
-    [SerializeField] private float passiveSusMin = 0f;
+    [SerializeField] private int passiveSusMax = 4;
 
-    //Minimum Suspicion level to enter this state
-    [SerializeField] private float passiveSusMax = 4f;
+    [SerializeField] private int sussySusMax = 5;
 
-    //Minimum Suspicion level to enter this state
-    [SerializeField] private float sussySusMin = 4.1f;
-
-    [SerializeField] private float sussySusMax = 5f;
-
-    //Minimum Suspicion level to enter this state
-    [SerializeField] private float hostileSusMin = 5.1f;
-
-    [SerializeField] private float hostileSusMax = 6f;
+    [SerializeField] private int hostileSusMax = 6;
 
 
     //---------------------------------------------------------------------------------------------------//
@@ -150,10 +141,10 @@ public class EnemyManager : MonoBehaviour
     [Space(20)]
 
     [Tooltip("The minimum generated value for the wait time")]
-    [SerializeField] [Range(1, 3)] private float randWaitMin = 1f;
+    [SerializeField] [Range(1, 2)] private float randWaitMin = 1f;
 
     [Tooltip("The maximum generated value for the wait time")]
-    [SerializeField] [Range(3, 5)] private float randWaitMax = 5f;
+    [SerializeField] [Range(2, 3)] private float randWaitMax = 3f;
 
     [Tooltip("Randomly generated value inserted as the start of a timer (For guard SUS state waiting)")]
     private float randWaitTime = 3f;
@@ -217,13 +208,15 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
 
-    private float oneTimeUseTimer = 2f;
+    private float oneTimeUseTimer = 0f;
 
     private float oneTimeUseTimerReset;
 
     //private bool surpriseVFXBoolCheck;
 
     private float eyeballSightRangeRecord;
+
+    int susSteps;
 
     //Delete this in the future
     //private System.Threading.Timer timer;
@@ -356,18 +349,6 @@ public class EnemyManager : MonoBehaviour
 
     #region Coroutines
 
-    //Intended functionality:
-    //  - Feed in the duration of the timer, when the duration is up the code proceeds to break out of the coroutine, hopefully stopping it. Something checks to see if the coroutine has been stopped, in which case an actino will proceed that
-    IEnumerator ITimer(float setTime)
-    {
-        //Showing that the coroutine's timer is done
-        yield return new WaitForSeconds(setTime);
-
-        Debug.Log("Coroutine ITimer is over");
-
-        //Functions in the same fashion as StopCoroutine()
-        yield break;
-    }
 
     #endregion Coroutines
 
@@ -481,7 +462,7 @@ public class EnemyManager : MonoBehaviour
     // Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
-        if (stateMachine != EnemyStates.RANGEDATTACK && stateMachine != EnemyStates.HOSTILE)
+        if (stateMachine != EnemyStates.RANGEDATTACK)
         {
             eyeball.susLevel = hostileSusMax;
 
@@ -547,6 +528,8 @@ public class EnemyManager : MonoBehaviour
     {
         if (other.gameObject.GetComponent<BaitItemScript>() != null)
         {
+            guardAudioScript.Chew();
+
             Destroy(other.gameObject);
         }
 
@@ -572,6 +555,9 @@ public class EnemyManager : MonoBehaviour
         if (NavMesh.SamplePosition(randpoint + eyeball.lastKnownLocation, out NavMeshHit hit, randPointRad, 1) && NavMesh.CalculatePath(transform.position, hit.position, NavMesh.AllAreas, path))
         {
             searchLoc = hit.position;
+
+            susSteps++;
+
             return searchLoc;
         }
         else
@@ -618,8 +604,32 @@ public class EnemyManager : MonoBehaviour
     void Awake()
     {
         Init();
+
+        //StartCoroutine(ITimer(15, shitBool));
     }//End Awake
     #endregion
+
+    //Testing a timer coroutine AGAIN
+
+    //Feed time in seconds
+    //Arguements to add:
+    //  - bool to flip when time is over
+    //  - 
+    IEnumerator ITimer(float time, bool timerBool)
+    {
+        //Acts as a sort of blocking call
+        while (time > 0)
+        {
+            yield return new WaitForSeconds(1);
+
+            time--;
+        }
+
+
+
+        timerBool = false;
+        print("Timer is done");
+    }
 
     #region Update
     //Method called every frame
@@ -631,6 +641,10 @@ public class EnemyManager : MonoBehaviour
         {
             agent.stoppingDistance = taserExitRadius;
         }
+        else
+        {
+            agent.stoppingDistance = 0.5f;
+        }
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
@@ -638,6 +652,8 @@ public class EnemyManager : MonoBehaviour
             #region Passive Behavior
             //Patrol state for guard
             case EnemyStates.PASSIVE:
+
+                guardAudioScript.Idle();
 
                 guardAnim.EnterPassiveAnim();
 
@@ -651,9 +667,11 @@ public class EnemyManager : MonoBehaviour
                     //Checks to see if the isWait bool is true or not
                     if (isPatrolWait == true)
                     {
+
                         if (patrolWaitTime > 0)
                         {
                             patrolWaitTime -= Time.fixedDeltaTime;
+
                         }
                         else if (patrolWaitTime <= 0)
                         {
@@ -678,7 +696,7 @@ public class EnemyManager : MonoBehaviour
                 if (eyeball.susLevel > passiveSusMax)
                 {
                     // PASSIVE >>>> SUSPICIOUS
-                    stateMachine = EnemyStates.SUSPICIOUS;
+                    stateChange(EnemyStates.SUSPICIOUS);
                 }
                 #endregion Exit Condition
 
@@ -687,21 +705,11 @@ public class EnemyManager : MonoBehaviour
 
             #region Suspicious Behavior
             //Finding random points in a set radius for the guard to go to
+            //Also records the player's last known location and appends it to the waypoints list of the guard instance
             case EnemyStates.SUSPICIOUS:
 
                 guardAnim.EnterSusAnim();
 
-                #region Experimental shit
-                ////Records and adds the player's last known location as a part of the waypoints list for patrollling.
-                //if (SussyWaypointMade == false && eyeball.canCurrentlySeePlayer == true)
-                //{
-                //    waypoints.Add(GameObjectContructor("SussyPatrolLoc", transform.position).transform);
-
-                //    GameObject.Find("SussyPatrolLoc").transform.position = eyeball.lastKnownLocation;
-
-                //    SussyWaypointMade = true;
-                //}
-                #endregion
 
                 //Used to send the guard to random locations in a set radius, meant to emulate confusion from the unit
                 if (oneTimeUseTimer > 0)
@@ -719,6 +727,8 @@ public class EnemyManager : MonoBehaviour
                     }
                     else if (randWaitTime <= 0)
                     {
+                        //Plays guard audio
+                        guardAudioScript.Suspicious();
 
                         randWaitTime = Random.Range(randWaitMin, randWaitMax);
 
@@ -734,27 +744,29 @@ public class EnemyManager : MonoBehaviour
                 SetSpeedAndDest(susSpeed, target);
 
                 #region Exit Conditions
-                //Exit Condition
-                if (eyeball.susLevel < sussySusMin)
+
+                if (eyeball.susLevel < passiveSusMax && susSteps == 5)
                 {
                     guardAnim.ExitSearchingAnim();
 
-                    //Timer reset
                     oneTimeUseTimer = oneTimeUseTimerReset;
 
-                    //SUSPICIOUS >> PASSIVE
-                    stateMachine = EnemyStates.PASSIVE;
+                    //SUSPICIOUS >> WARY
+                    stateChange(EnemyStates.PASSIVE);
+
+                    susSteps = 0;
                 }
 
                 if (eyeball.susLevel > sussySusMax)
                 {
                     guardAnim.ExitSearchingAnim();
 
-                    //Timer reset
                     oneTimeUseTimer = oneTimeUseTimerReset;
 
                     //SUSPICIOUS >> HOSTILE
-                    stateMachine = EnemyStates.HOSTILE;
+                    stateChange(EnemyStates.HOSTILE);
+
+                    susSteps = 0;
                 }
                 #endregion Exit Conditions
 
@@ -775,23 +787,28 @@ public class EnemyManager : MonoBehaviour
 
                 //Faces the target / player when they are visible
                 //  - Added with the intention of the guard spending less time awkwardly facing seemingly random direcations
+
                 if (eyeball.canCurrentlySeePlayer == true)
                 {
                     FaceTarget(target);
                 }
+
                 
+
+                #region Exit Conditions
                 //Conditionds needed for ranged attack / taser
                 if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance < taserEntryRadius)
                 {
                     //HOSTILE >> RANGED ATTACK
-                    stateMachine = EnemyStates.RANGEDATTACK;
+                    stateChange(EnemyStates.RANGEDATTACK);
                 }
-
-                #region Exit Conditions
-                else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < hostileSusMin)
+                
+                //else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < sussySusMax)
+                else if (eyeball.susLevel < sussySusMax)
                 {
+
                     //HOSTILE >> SUSPICIOUS
-                    stateMachine = EnemyStates.SUSPICIOUS;
+                    stateChange(EnemyStates.SUSPICIOUS);
                 }
 
                 #endregion Exit Conditions
@@ -851,7 +868,7 @@ public class EnemyManager : MonoBehaviour
                     //Debug.Log("Target is outside of firing range");
 
                     //RANGED ATTACK >> HOSTILE
-                    stateMachine = EnemyStates.HOSTILE;
+                    stateChange(EnemyStates.HOSTILE);
                 }
                 #endregion Exit Conditions
 
@@ -862,6 +879,12 @@ public class EnemyManager : MonoBehaviour
             case EnemyStates.STUNNED:
 
                 guardAnim.EnterStunAnim();
+
+                if (!guardStunned)
+                {
+                    guardAudioScript.Fall();
+                }
+                guardStunned = true;
 
                 SetAiSpeed(stunSpeed);
 
@@ -877,17 +900,20 @@ public class EnemyManager : MonoBehaviour
                 if (stunTime <= 0)
                 {
                     guardAnim.ExitStunAnim();
+
                     isStunned = false;
 
-                    eyeball.susLevel = sussySusMax;
+                    guardStunned = false;
 
+                    eyeball.susLevel = sussySusMax;
+                    
                     //the cool lil MGS thing
                     var MGSsurprise = Instantiate(surpriseVFX, transform.position, transform.rotation);
                     MGSsurprise.transform.parent = gameObject.transform;
 
                     //STUNNED >>>> PREVIOUS STATE (SUSPICIOUS for now)
-                    stateMachine = EnemyStates.SUSPICIOUS;
-
+                    stateChange(EnemyStates.SUSPICIOUS);
+                    
                     //after changing states, the stun time returns to the initially recorded time
                     stunTime = stunTimeReset;
 
@@ -909,4 +935,6 @@ public class EnemyManager : MonoBehaviour
         }//End State Machine
     }//End Update
     #endregion Update
+
+    private bool guardStunned = false;
 }
