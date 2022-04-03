@@ -12,10 +12,28 @@ public class TimerScript : MonoBehaviour
     [HideInInspector] public string outputTime;
 
     [SerializeField] private TextMeshPro timerText;
-    // Start is called before the first frame update
+
     void Start()
     {
-        StartCoroutine(RunTimer());
+        //initialize timer
+        int minutes;
+        int seconds;
+        
+        minutes = maxTime/60;
+        seconds = maxTime - (minutes * 60);
+
+        outputTime = minutes.ToString("00") + ":" + seconds.ToString("00");
+
+        //display outputTime
+        timerText.text = "<mspace=mspace=1.5>" + outputTime + "</mspace>";
+    }
+    
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            StartCoroutine(RunTimer());
+        }
     }
 
     private IEnumerator RunTimer()
