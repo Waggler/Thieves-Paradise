@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ItemLaserPointer : ItemSuperScript, ItemInterface
 {
@@ -10,6 +11,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
     [SerializeField] private float noiseRadius = 15;
 
     [SerializeField] private GameObject deployableObject;
+    [SerializeField] private float disableTime = 10f;
 
     private GameObject heldItemTransform;
     private GameObject cameraTransform;
@@ -18,6 +20,9 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
 
     private bool isObjectiveItem = false;
     [SerializeField] private float UIScale = 1f;
+
+    private float verticalAim;
+    private float AimModifier = 1;
 
     public bool isKeyItem
     {
@@ -52,7 +57,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
         myself = this.gameObject;
         myself.name = itemName;
 
-        layerMask = ~LayerMask.GetMask("Player");
+        layerMask = ~(LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost"));
 
         InitLine();
     }
@@ -104,8 +109,27 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
         GetComponent<LineRenderer>().enabled = false;
         isLaserOn = false; //deactivate math
     }
+
+    private float minAim = -30;
+    private float maxAim = 100;
+    public void AimInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Vector2 contextValue = context.ReadValue<Vector2>();
+
+            if (contextValue.y != 0)
+            {
+                verticalAim += contextValue.y * AimModifier;
+                verticalAim = Mathf.Clamp(verticalAim, minAim, maxAim);
+            }
+        }
+    }
+
     IEnumerator FireLaser()
     {
+        verticalAim = 0; //reset aim
+
         var line = GetComponent<LineRenderer>();
 
         line.startColor = Color.red;
@@ -139,7 +163,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
             {
                 endPoint = cameraTransform.transform.forward * 1000;
             }*/
-            endPoint = cameraTransform.transform.forward * 1000;
+            endPoint = (cameraTransform.transform.forward * 1000) + (Vector3.up * verticalAim * 10);
 
             if (Physics.Raycast(startPoint, (endPoint-startPoint).normalized, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
             {
@@ -151,7 +175,7 @@ public class ItemLaserPointer : ItemSuperScript, ItemInterface
                     print("Hit a camera");
                     durability--;
                     UseItemEnd();
-                    //hit.transform.gameObject.GetComponent<CameraManager>().Disable(disableTime);
+                    hit.transform.gameObject.GetComponent<CameraManager>().StunCamera(disableTime);
                 }
             }
 
