@@ -106,9 +106,6 @@ public class PlayerPreferencesHandler : MonoBehaviour
     #region Preferences
 
 
-    #region General
-
-
     //-----------------------//
     public void SetCrouchToggle(int value)
     //-----------------------//
@@ -153,7 +150,6 @@ public class PlayerPreferencesHandler : MonoBehaviour
     public void SetRadioHue(float value)
     //-----------------------//
     {
-
         PlayerPrefs.SetFloat("RadioHue", value);
 
     }//END SetRadioHue
@@ -162,7 +158,6 @@ public class PlayerPreferencesHandler : MonoBehaviour
     public void SetRadioSaturation(float value)
     //-----------------------//
     {
-
         PlayerPrefs.SetFloat("RadioSaturation", value);
 
     }//END SetRadioSaturation
@@ -183,8 +178,21 @@ public class PlayerPreferencesHandler : MonoBehaviour
         }
     }//END SetFPS
 
+    //-----------------------//
+    public void SetLookSensitivity(float sensitivity)
+    //-----------------------//
+    {
+        PlayerPrefs.SetFloat("CamSensitivity", sensitivity);
 
-    #endregion General
+    }//END LookSensitivity
+
+    //-----------------------//
+    public void SetThrowSensitivity(float sensitivity)
+    //-----------------------//
+    {
+        PlayerPrefs.SetFloat("ThrowSensitivity", sensitivity);
+
+    }//END LookSensitivity
 
 
     #endregion Preferences

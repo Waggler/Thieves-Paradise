@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     public bool isRolling;
     public bool isPushPull;
     private PlayerMovement playerMovement;
+    private InventoryController inventoryController;
     [SerializeField] private CamSwitch camSwitch;
     public float rollCooldownTime;
     private float cooldownTimer;
@@ -19,11 +20,13 @@ public class InputManager : MonoBehaviour
     public bool StopTheJump;
     private bool GroundCheck;
     [HideInInspector] public bool IsZoomed;
+    [HideInInspector] public bool IsThrowing;
     [HideInInspector] public float ZoomLookSensitivity = 1;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        inventoryController = GetComponent<InventoryController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -159,7 +162,33 @@ public class InputManager : MonoBehaviour
             IsZoomed = false;
             camSwitch.SwitchState(IsZoomed);
         }
-    }// END ZOOM IN
+    }
+    public void ZoomCancel()
+    {
+        IsZoomed = false;
+        IsThrowing = false;
+        camSwitch.SwitchState(IsZoomed);
+    }
+    // END ZOOM IN
+
+    public void StartThrow(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (inventoryController.IsActiveSlotEmpty() || inventoryController.CheckSlotForKeyItem(inventoryController.GetActiveItemIndex()))
+            {
+                IsThrowing = false;
+                //return;
+            }else
+            {
+                IsThrowing = true;
+            }
+        }
+        if (context.canceled)
+        {
+            IsThrowing = false;
+        }
+    }
 
     #endregion
 
@@ -176,6 +205,10 @@ public class InputManager : MonoBehaviour
                 if (contextValue.x != 0)
                 {
                     transform.Rotate(Vector3.up, contextValue.x * ZoomLookSensitivity, Space.Self);
+                }
+                if (contextValue.y != 0)
+                {
+                    inventoryController.throwForce += contextValue.y * ZoomLookSensitivity * 2f;
                 }
             }
         }

@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class LoseScreenMenuManager : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Animator loseAnimator;
+
+
+    [SerializeField] private Button firstButton;
 
     //-----------------------//
     private void Start()
@@ -30,6 +35,8 @@ public class LoseScreenMenuManager : MonoBehaviour
     public void LoseGame()
     //-----------------------//
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton.gameObject);
         loseAnimator.SetBool("loseOpen", true);
 
         Cursor.lockState = CursorLockMode.Confined;
