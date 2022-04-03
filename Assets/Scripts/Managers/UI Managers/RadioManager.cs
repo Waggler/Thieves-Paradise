@@ -26,6 +26,9 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private Image bolt2Image;
     [SerializeField] private Sprite[] boltSprites;
 
+    [SerializeField] private AudioSource radioSource;
+    [SerializeField] private AudioClip radioClip;
+
 
     private Queue<string> sentences;
 
@@ -79,6 +82,8 @@ public class RadioManager : MonoBehaviour
         {
             sentences.Clear();
         }
+
+        radioSource.PlayOneShot(radioClip);
 
         bolt1Image.sprite = boltSprites[Random.Range(0, boltSprites.Length)];
         bolt2Image.sprite = boltSprites[Random.Range(0, boltSprites.Length)];
