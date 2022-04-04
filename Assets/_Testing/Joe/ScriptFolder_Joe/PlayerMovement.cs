@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DiveHeight;
     public CapsuleCollider playerCollider;
     [SerializeField] public CharacterController Controller;
-    [HideInInspector] public bool IsGrounded = true;
+    public bool IsGrounded = true;
     [SerializeField] private float AirInertiaTime;
     public float CurrentAirInertiaTime;
     private float HeightFromGround;
