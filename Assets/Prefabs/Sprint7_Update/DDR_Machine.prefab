@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3271623968572065152}
   - component: {fileID: 7183646946410217016}
   - component: {fileID: 9033045765728215518}
+  - component: {fileID: 6948929174649463847}
   m_Layer: 3
   m_Name: ddr_box_low
   m_TagString: Untagged
@@ -81,6 +82,111 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6948929174649463847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3870842583940666180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b19ed2e0524c23469c63bad2fba5e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggeredEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1164178241791620476}
+        m_TargetAssemblyTypeName: GeneralAlerter, Assembly-CSharp
+        m_MethodName: AlertNearGuards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggeredEventEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &5108660169884037704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4236283621752941660}
+  - component: {fileID: 8954301756335332515}
+  - component: {fileID: 1010720974513018853}
+  m_Layer: 0
+  m_Name: ddr_trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4236283621752941660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108660169884037704}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.17, z: -0.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7244559070375786876}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8954301756335332515
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108660169884037704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.03, y: 0.2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1010720974513018853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108660169884037704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b19ed2e0524c23469c63bad2fba5e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggeredEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1164178241791620476}
+        m_TargetAssemblyTypeName: GeneralAlerter, Assembly-CSharp
+        m_MethodName: AlertNearGuards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggeredEventEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6408169219586069073
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,6 +363,8 @@ GameObject:
   - component: {fileID: 8633369575855100704}
   - component: {fileID: 1834549578640472925}
   - component: {fileID: 451481374067753077}
+  - component: {fileID: 1164178241791620476}
+  - component: {fileID: 2217480911190796135}
   m_Layer: 3
   m_Name: DDR_Machine
   m_TagString: Untagged
@@ -280,6 +388,7 @@ Transform:
   - {fileID: 7053035428540835021}
   - {fileID: 2342011017677165448}
   - {fileID: 6655392780238272449}
+  - {fileID: 4236283621752941660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -348,6 +457,50 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.53491795, y: 1.0670856, z: 0.09061468}
   m_Center: {x: -0.54794127, y: 0.5031436, z: 0.6708581}
+--- !u!114 &1164178241791620476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8053008686209393606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e1bd6ba9553ad40aafd110309667c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alertRange: 25
+  susManager: {fileID: 0}
+--- !u!114 &2217480911190796135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8053008686209393606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b19ed2e0524c23469c63bad2fba5e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggeredEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1164178241791620476}
+        m_TargetAssemblyTypeName: GeneralAlerter, Assembly-CSharp
+        m_MethodName: AlertNearGuards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggeredEventEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8212741730600390440
 GameObject:
   m_ObjectHideFlags: 0
