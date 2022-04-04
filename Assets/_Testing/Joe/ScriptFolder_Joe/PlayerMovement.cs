@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool StillRolling;
     private float CurrentRollTime;
     private float CurrentDelayTime;
+    private bool DelayRoll = false;
     private Vector3 RollDirection;
 
     [Header("Sliding")]
@@ -75,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool IsDiving;
     [SerializeField] private bool ResetDiving;
     [SerializeField] private bool StillDiving;
-    private float CurrentDiveTime;
+    [SerializeField] private float CurrentDiveTime;
 
     //[Header("Camera")]
     private Transform PlayerCamera;
@@ -97,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float BreakOutThreshold;
     public bool IsStunned = false;
     public float CurrentStunTime = 0;
+    private bool IsGameOver;
 
     [Header("Player Noise")]
     [Tooltip("The detection radius of the player when they are standing still and when they are moving while crouched")]
@@ -107,6 +109,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int MediumLevel = 6;
     [Tooltip("The detection radius of the player when they are running and diving.")]
     [SerializeField] private int LoudLevel = 12;
+    [Tooltip("For when you fall out of the sky.")]
+    [SerializeField] private int LoudestLevel = 20;
     [Tooltip("This is the time it will take to update the states and send out a sound check for the guard.")]
     [SerializeField] private float NoiseClock = 0.25f;
     [SerializeField] private int CurrentLevel;
@@ -115,10 +119,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Falling Check")]
     [SerializeField] private float GroundCheckLimit1;
     [SerializeField] private float GroundCheckLimit2;
-    [SerializeField] private Transform StartingLocation;
+    private Vector3 StartingLocation;
     private float CurrentGroundCheckTime = 0;
     private bool Splat = false;
-    public bool StartTimer = false;
+    private bool StartTimer = false;
+    private bool Thud = false;
 
     [Header("Key Scripts")]
     public SuspicionManager SusMan;
@@ -154,13 +159,20 @@ public class PlayerMovement : MonoBehaviour
         CurrentRollTime = RollingTime;
         CurrentDiveTime = DiveTime;
         CurrentDelayTime = DelayTime;
+
         Controller = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
+
         PlayerCamera = Camera.main.transform;
         mask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost");
         mask = ~mask;
+
         HeightFromGround = StandardHeight / 2;
         CrouchingHeightFromGround = CrouchingHeight / 2;
+        
+        IsGameOver = false;
+
+        StartingLocation = transform.position;
 
         SusMan = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
 
@@ -187,9 +199,11 @@ public class PlayerMovement : MonoBehaviour
         {
             CurrentSpeed += WalkAcceleration * Time.deltaTime;
         }
+
         GroundCheck();
         Rolling();
         AnimationStates();
+
 
         if ((!IsCrouching && !IsSprinting) || IsUncovered)
         {
@@ -254,38 +268,6 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
-        #region Falling Check
-        if (StartTimer)
-        {
-            CurrentGroundCheckTime += Time.deltaTime;
-
-            if (CurrentGroundCheckTime < GroundCheckLimit1)
-            {
-                print("all good");
-                return;
-            }
-            else if (GroundCheckLimit1 <= CurrentGroundCheckTime && CurrentGroundCheckTime <= GroundCheckLimit2)
-            {
-                print("Ouch!");
-                Splat = true;
-            }
-            else if (CurrentGroundCheckTime < GroundCheckLimit2)
-            {
-                print("void");
-                Splat = false;
-                //Return player back to the starting location.
-            }
-        }
-
-        if(Splat && IsGrounded)
-        {
-            print("splatted");
-            IsStunned = true;
-            Splat = false;
-        }
-
-        #endregion
-
         #region Slide Action
 
         if (IsSprinting && IsCrouching)
@@ -319,6 +301,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region Dive Action
         DiveJump();
+
         if (!IsDiving)
         {
             if (CurrentDiveTime < DiveTime)
@@ -345,8 +328,39 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
+        #region Falling Check
+        if (StartTimer)
+        {
+            CurrentGroundCheckTime += Time.deltaTime;
+
+            if (CurrentGroundCheckTime < GroundCheckLimit1)
+            {
+                return;
+            }
+            else if (GroundCheckLimit1 <= CurrentGroundCheckTime && CurrentGroundCheckTime <= GroundCheckLimit2)
+            {
+                Splat = true;
+            }
+            else if (CurrentGroundCheckTime > GroundCheckLimit2)
+            {
+                Splat = false;
+                //Return player back to the starting location.
+                gameObject.transform.position = StartingLocation;
+                CurrentGroundCheckTime = 0;
+            }
+        }
+
+        if (Splat && IsGrounded)
+        {
+            IsStunned = true;
+            Splat = false;
+            Thud = true;
+        }
+
+        #endregion
+
         #region Stun Work
-        if (IsStunned)
+        if (IsStunned && !IsGameOver)
         {
             if (!isInvulnurable)
             {
@@ -379,6 +393,7 @@ public class PlayerMovement : MonoBehaviour
             else if (CurrentStunTime >= StunTime || hp <= 0)
             {
                 FindObjectOfType<LoseScreenMenuManager>().LoseGame();
+                IsGameOver = true;
             }
         }
 
@@ -435,7 +450,7 @@ public class PlayerMovement : MonoBehaviour
                 Controller.Move(VerticalVelocity * Time.deltaTime);
             }
         }
-        else if (IsCrouching && IsGrounded)
+        else if (IsCrouching && IsGrounded && !IsRolling)
         {
             IsStanding = true;
             CoveredCheck();
@@ -485,9 +500,10 @@ public class PlayerMovement : MonoBehaviour
                 CrouchDown();
                 IsStanding = false;
             }
-            else if (!IsStanding)
+            else if (!IsStanding && !IsCovered)
             {
                 IsStanding = true;
+                CoveredCheck();
             }
         }
         else if (!Crouching && IsStanding)
@@ -501,7 +517,7 @@ public class PlayerMovement : MonoBehaviour
     //----------ROLL----------//
     public void Roll(bool Rolling)
     {
-        if (Rolling && IsCrouching)
+        if (Rolling && IsCrouching && !DelayRoll)
         {
             IsRolling = true;
         }
@@ -630,7 +646,7 @@ public class PlayerMovement : MonoBehaviour
     void CoveredCheck()
     {
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
-        if (Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f) && IsGrounded)
+        if (Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) && IsGrounded)
         {
             IsStanding = false;
             IsCrouching = true;
@@ -647,7 +663,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (IsStanding == false && IsGrounded)
+        if (!IsStanding && IsGrounded)
         {
             CrouchDown();
         }
@@ -697,6 +713,7 @@ public class PlayerMovement : MonoBehaviour
                 else if (CurrentRollTime <= 0)
                 {
                     IsRolling = false;
+                    DelayRoll = true;
                 }
             }
 
@@ -705,9 +722,15 @@ public class PlayerMovement : MonoBehaviour
         {
             CurrentRollTime += Time.deltaTime;
             CurrentDelayTime = DelayTime;
-            if (CurrentRollTime > RollingTime)
+            
+            if(CurrentRollTime == RollingTime)
+            {
+                DelayRoll = false;
+            }
+            else if (CurrentRollTime > RollingTime)
             {
                 CurrentRollTime = RollingTime;
+                DelayRoll = false;
             }
         }
     }
@@ -752,7 +775,12 @@ public class PlayerMovement : MonoBehaviour
     #region Player Sound Controller
     void PlayerSound()
     {
-        if ((Idle || IdleCrouch || Crouching) && !CrouchRoll && !Jumping && !Slide && !Running)
+        if(Thud)
+        {
+            CurrentLevel = LoudestLevel;
+            Thud = false;
+        }
+        else if ((Idle || IdleCrouch || Crouching) && !CrouchRoll && !Jumping && !Slide && !Running)
         {
             CurrentLevel = SilentLevel;
         }
@@ -866,7 +894,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---ROLLING---//
-        if (IsRolling)
+        if (IsRolling && !DelayRoll)
         {
             CrouchRoll = true;
             animationController.IsPlayerRolling(CrouchRoll);
@@ -916,6 +944,5 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    //DELETE ME
     #endregion
 }

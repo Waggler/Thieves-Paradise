@@ -24,6 +24,11 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private Transform holdItemPos;
 
     private LayerMask layerMask;
+    private InputManager im;
+
+    [SerializeField] private bool AutoThrowForce;
+
+    //private ItemTracker itemTracker;
     
     // Start is called before the first frame update
     void Start()
@@ -49,6 +54,9 @@ public class InventoryController : MonoBehaviour
         debugPlatform.transform.localScale = new Vector3(10, 1, 10);
 
         layerMask = ~LayerMask.GetMask("Player");
+
+        im = GetComponent<InputManager>();
+        //itemTracker = (ItemTracker)FindObjectOfType(typeof(ItemTracker));
     }
 
     private bool throwing;
@@ -58,14 +66,22 @@ public class InventoryController : MonoBehaviour
     {
         if(throwing)
         {
-            if (throwForce > throwForceCap)
-            {
-                throwForce = throwForceCap;
-            }
-            //print(throwForce);
-            throwForce += Time.deltaTime * 200;
-            throwVector = transform.forward * throwForce + transform.up * throwForce;
+            ThrowForceCalc();
         }
+    }
+
+    private void ThrowForceCalc()
+    {
+        if (AutoThrowForce)
+        {
+            //print(throwForce);
+            throwForce += Time.deltaTime * 200;   
+        }
+
+        throwForce = Mathf.Clamp(throwForce, 50, throwForceCap); //bound the throw force to a min and max value
+
+        //convert to a vector for calcs
+        throwVector = transform.forward * throwForce + transform.up * throwForce * 1.25f;
     }
     #region PlayerInput
 
@@ -118,11 +134,26 @@ public class InventoryController : MonoBehaviour
     {
         return !IsInventoryFull();
     }
+
+    public bool IsActiveSlotEmpty()
+    {
+        return !inventorySpace[activeItemIndex];
+    }
     public void UseItemPrimary(InputAction.CallbackContext context)
     {
         //print("Attempting to use Item");
         if (inventorySpace[activeItemIndex] == false)
         {
+            return;
+        }
+
+        if (throwing)
+        {
+            //cancel throwing state
+            GetComponentInChildren<AnimationController>().IsPlayerWinding(false);
+            throwForce = 0;
+            throwing = false;
+            im.ZoomCancel();
             return;
         }
         
@@ -137,14 +168,22 @@ public class InventoryController : MonoBehaviour
     }
     public void UseItemSecondary(InputAction.CallbackContext context)
     {
+        
+
         GetComponentInChildren<AnimationController>().IsPlayerWinding(true);
-        if (context.performed)
+        if (context.started)
         {
+            if (inventorySpace[activeItemIndex] == false || itemInterfaceInventory[activeItemIndex].isKeyItem == true)
+            {
+                //cancel if current selected item slot is empty
+                print("Slot Empty");
+                return;
+            }
 
             throwing = true;
             //display throw arc preview
         }
-        if (context.canceled)
+        if (context.canceled && throwing == true)
         {
             GetComponentInChildren<AnimationController>().IsPlayerWinding(false);
             //Throw the Item
@@ -392,6 +431,9 @@ public class InventoryController : MonoBehaviour
         SwapItem(newItemIndex);
         ChangeHeldItemDisplay();
         //DisplayItem(newItemIndex);
+
+        //update Item Tracker
+        //itemTracker.CheckStatus();
         
     }//END AddItem
 
@@ -424,6 +466,29 @@ public class InventoryController : MonoBehaviour
             //print("not the item");
         }
         return false;
+    }
+
+    public bool CheckSlotForKeyItem(int slot)
+    {
+        if(slot > 3 || slot < 0)
+        {
+            //make sure it stays in the bounds of the array
+            return false;
+        }
+        if (inventorySpace[slot] == false)
+        {
+            return false;
+        }
+        if (itemInterfaceInventory[slot].isKeyItem == true)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public int GetActiveItemIndex()
+    {
+        return activeItemIndex;
     }
 
     #region Nearby Items

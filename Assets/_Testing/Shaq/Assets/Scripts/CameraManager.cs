@@ -266,7 +266,6 @@ public class CameraManager : MonoBehaviour
 
     #region General Methods
 
-
     //---------------------------------//
     //Used to preload all necessary variables or states in the Camera Manager script
     private void Init()
@@ -347,5 +346,13 @@ public class CameraManager : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, killRadius);
 
     }//End OnDrawGizmosSelected
+    #endregion General Methods
+    public void StunCamera(float downTime)
+    {
+        disabledTime = downTime;
+        cameraStateMachine = CamStates.DISABLED;
+
+        //add sound/particle fx here
+    }
 }
-#endregion General Methods
+
