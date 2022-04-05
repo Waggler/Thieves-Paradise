@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Click here!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
-  m_sharedMaterial: {fileID: 5015644893565302029, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
+  m_sharedMaterial: {fileID: 566875826806899151, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -201,8 +201,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Click here!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
-  m_sharedMaterial: {fileID: 5015644893565302029, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
+  m_sharedMaterial: {fileID: 566875826806899151, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -498,6 +498,7 @@ MonoBehaviour:
   ladyButton: {fileID: 8811607988065561115}
   massesButton: {fileID: 8811607987042575266}
   mafiaButton: {fileID: 8811607986872103884}
+  playClosedButton: {fileID: 0}
 --- !u!1 &8811607986382244672
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,8 +680,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: The Lady
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
-  m_sharedMaterial: {fileID: 5015644893565302029, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
+  m_sharedMaterial: {fileID: 566875826806899151, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -946,7 +947,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1362,8 +1363,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: The Masses
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
-  m_sharedMaterial: {fileID: 5015644893565302029, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
+  m_sharedMaterial: {fileID: 566875826806899151, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1495,7 +1496,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5d967077d07619849a80788a18f1cb7e, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1813,8 +1814,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: The Mafia
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
-  m_sharedMaterial: {fileID: 5015644893565302029, guid: 44272e7e2df296d41b9988a51481110f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
+  m_sharedMaterial: {fileID: 566875826806899151, guid: 75eedd80dc1d28c48952ac69b2b98e32, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2064,8 +2065,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000009497744, y: 13.15}
-  m_SizeDelta: {x: 200, y: 123.32}
+  m_AnchoredPosition: {x: 0.0000009497744, y: -0.0011473}
+  m_SizeDelta: {x: 200, y: 149.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8811607988065561116
 CanvasRenderer:
@@ -2088,7 +2089,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.09803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2124,7 +2125,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 8811607986908880083}
     m_SelectOnLeft: {fileID: 8811607987042575266}
     m_SelectOnRight: {fileID: 8811607986872103884}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.09803922}
