@@ -1105,7 +1105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255b1ce6c57b1544fa4c776510864d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardSource: {fileID: 0}
+  guardSource: {fileID: 1138461874}
+  idleWaitTimeMin: 0
+  idleWaitTimeMax: 0
   normalVolume: 0.55
   loudVolume: 0.9
   pitchMin: 0.85
@@ -1132,6 +1134,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 381572e933712284f86ed59f828a0e52, type: 3}
   - {fileID: 8300000, guid: 9addcbe438b10f141a10d32ea151eee1, type: 3}
   - {fileID: 8300000, guid: bb7b7ca7484cf934f8942dbd0b6699a8, type: 3}
+  taserFireClip: {fileID: 8300000, guid: 6a5f3b609488cc74c92309a385ddaaa3, type: 3}
+  meleeClips:
+  - {fileID: 8300000, guid: 6e7a7ccd6f10461449b801b106da5316, type: 3}
+  - {fileID: 8300000, guid: ac45ffff80ae0034d87b3a48c59865f0, type: 3}
+  - {fileID: 8300000, guid: 0ef45a8be471f64498bbcbd5a304a9bc, type: 3}
+  reloadClip: {fileID: 8300000, guid: 3e87e3bec479b31458a2287e840be150, type: 3}
   chewingClip: {fileID: 8300000, guid: a0cf98741eb9e0f4db5950ab00b6498e, type: 3}
   hitClip: {fileID: 8300000, guid: 8d51b9c540a6e5d49b4df015063c8111, type: 3}
   fallClip: {fileID: 8300000, guid: ac08a0838e04b134f8373178c3590dc3, type: 3}

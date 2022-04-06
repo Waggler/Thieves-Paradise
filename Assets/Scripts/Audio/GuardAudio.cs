@@ -10,7 +10,7 @@ public class GuardAudio : MonoBehaviour
 
     [SerializeField] private float idleWaitTimeMin;
     [SerializeField] private float idleWaitTimeMax;
-    [SerializeField] private float idleWaitTime;
+    private float idleWaitTime;
 
     [SerializeField] private float normalVolume;
     [SerializeField] private float loudVolume;
@@ -29,7 +29,7 @@ public class GuardAudio : MonoBehaviour
 
     [Header("Attacking")]
     [SerializeField] private AudioClip taserFireClip;
-    [SerializeField] private AudioClip meleeClip;
+    [SerializeField] private AudioClip[] meleeClips;
     [SerializeField] private AudioClip reloadClip;
 
 
@@ -113,12 +113,13 @@ public class GuardAudio : MonoBehaviour
     }//END TaserFired
 
     //-----------------------//
-    public void MeleePunch()
+    public void MeleeHit()
     //-----------------------//
     {
         guardSource.volume = loudVolume;
+        int i = Random.Range(0, meleeClips.Length);
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
-        guardSource.PlayOneShot(meleeClip);
+        guardSource.PlayOneShot(meleeClips[i]);
 
     }//END MeleePunch
 
