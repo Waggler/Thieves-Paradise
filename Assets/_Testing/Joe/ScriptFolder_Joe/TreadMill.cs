@@ -25,7 +25,7 @@ public class TreadMill : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Player.Move(Direction * 15 * Time.deltaTime * 2);
+            Player.Move(Direction * TreadMillSpeed * Time.deltaTime * 2);
             TreadMillSpeed += Time.deltaTime;
 
             TreadMillSpeed = 0;
