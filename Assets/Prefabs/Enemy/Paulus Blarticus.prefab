@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  isDebug: 1
+  isDebug: 0
   self: {fileID: 3325092846536795625}
 --- !u!1 &3325092846946898786
 GameObject:
@@ -627,8 +627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d1db55617854c46ba6cc599bedf958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 20.72
-  maxVisionAngle: 29.5
+  sightRange: 10
+  maxVisionAngle: 17.3
   susGrowthMultiplier: 8
   susDecreaseMultiplier: 0.5
   sightAngle: 0
@@ -753,13 +753,13 @@ MonoBehaviour:
   targetText: {fileID: 3325092846449755120}
   warySusMin: 3.1
   passiveSpeed: 1
-  warySpeed: 1.5
+  warySpeed: 2
   susSpeed: 1
   stunSpeed: 0
-  hostileSpeed: 7
+  hostileSpeed: 5.75
   reportSpeed: 3.5
   attackSpeed: 0
-  isPatrolWait: 1
+  isPatrolWait: 0
   patrolWaitTime: 0
   patrolWaitMin: 1
   patrolWaitMax: 5
@@ -768,7 +768,7 @@ MonoBehaviour:
   randPointRad: 1.341
   guardAudioScript: {fileID: 2094104194}
   isStunned: 0
-  stunTime: 10
+  stunTime: 5
   taserShotRadius: 10
   fireRateReset: 2
   taserProjectile: {fileID: 6202073389112031844, guid: a0b8e85b42ab8c14b8eae6c4a32e318e, type: 3}
@@ -782,6 +782,10 @@ MonoBehaviour:
   stateMachine: 0
   waypointMethod: 0
   waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &9215408676989096723
