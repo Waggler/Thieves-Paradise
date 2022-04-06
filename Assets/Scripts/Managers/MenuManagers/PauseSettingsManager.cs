@@ -98,58 +98,58 @@ public class PauseSettingsManager : MonoBehaviour
 
         if(PlayerPrefs.GetInt("CrouchToggle") == 0)
         {
-            crouchOnButton.interactable = true;
-            crouchOffButton.interactable = false;
+            //crouchOnButton.interactable = true;
+            //crouchOffButton.interactable = false;
 
         }
         else
         {
-            crouchOffButton.interactable = true;
-            crouchOnButton.interactable = false;
+            //crouchOffButton.interactable = true;
+            //crouchOnButton.interactable = false;
         }
         if (PlayerPrefs.GetInt("SprintToggle") == 0)
         {
-            sprintOnButton.interactable = true;
-            sprintOffButton.interactable = false;
+            //sprintOnButton.interactable = true;
+            //sprintOffButton.interactable = false;
 
         }
         else
         {
-            sprintOffButton.interactable = true;
-            sprintOnButton.interactable = false;
+            //sprintOffButton.interactable = true;
+            //sprintOnButton.interactable = false;
         }
         if (PlayerPrefs.GetInt("InvertVerticalToggle") == 0)
         {
-            verticalOnButton.interactable = true;
-            verticalOffButton.interactable = false;
+            //verticalOnButton.interactable = true;
+            //verticalOffButton.interactable = false;
 
         }
         else
         {
-            verticalOffButton.interactable = true;
-            verticalOnButton.interactable = false;
+            //verticalOffButton.interactable = true;
+            //verticalOnButton.interactable = false;
         }
         if (PlayerPrefs.GetInt("InvertHorizontalToggle") == 0)
         {
-            horizontalOnButton.interactable = true;
-            horizontalOffButton.interactable = false;
+            //horizontalOnButton.interactable = true;
+            //horizontalOffButton.interactable = false;
 
         }
         else
         {
-            horizontalOffButton.interactable = true;
-            horizontalOnButton.interactable = false;
+            //horizontalOffButton.interactable = true;
+            //horizontalOnButton.interactable = false;
         }
         if (PlayerPrefs.GetInt("FlipUI") == 0)
         {
-            uIOnButton.interactable = true;
-            uIOffButton.interactable = false;
+            //uIOnButton.interactable = true;
+            //uIOffButton.interactable = false;
 
         }
         else
         {
-            uIOffButton.interactable = true;
-            uIOnButton.interactable = false;
+            //uIOffButton.interactable = true;
+            //uIOnButton.interactable = false;
         }
         hueSlider.value = PlayerPrefs.GetFloat("RadioHue");
         saturationSlider.value = PlayerPrefs.GetFloat("RadioSaturation");
@@ -352,14 +352,14 @@ public class PauseSettingsManager : MonoBehaviour
         if (value == 0)
         {
             prefsHandler.SetCrouchToggle(0);
-            crouchOnButton.interactable = true;
-            crouchOffButton.interactable = false;
+            //crouchOnButton.interactable = true;
+            //crouchOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetCrouchToggle(1);
-            crouchOffButton.interactable = true;
-            crouchOnButton.interactable = false;
+            //crouchOffButton.interactable = true;
+            //crouchOnButton.interactable = false;
         }
 
     }//END CrouchToggle
@@ -371,14 +371,14 @@ public class PauseSettingsManager : MonoBehaviour
         if (value == 0)
         {
             prefsHandler.SetSprintToggle(0);
-            sprintOnButton.interactable = true;
-            sprintOffButton.interactable = false;
+            //sprintOnButton.interactable = true;
+            //sprintOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetSprintToggle(1);
-            sprintOffButton.interactable = true;
-            sprintOnButton.interactable = false;
+            //sprintOffButton.interactable = true;
+            //sprintOnButton.interactable = false;
         }
 
     }//END SprintToggle
@@ -390,16 +390,16 @@ public class PauseSettingsManager : MonoBehaviour
         if (value == 0)
         {
             prefsHandler.SetHorizontalToggle(1);
-            freeLookCam.m_XAxis.m_InvertInput = true;
-            horizontalOnButton.interactable = true;
-            horizontalOffButton.interactable = false;
+            freeLookCam.m_XAxis.m_InvertInput = true; //WHAT DO
+            //horizontalOnButton.interactable = true;
+            //horizontalOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetHorizontalToggle(0);
-            freeLookCam.m_XAxis.m_InvertInput = false;
-            horizontalOffButton.interactable = true;
-            horizontalOnButton.interactable = false;
+            freeLookCam.m_XAxis.m_InvertInput = false; //WHAT DO
+            //horizontalOffButton.interactable = true;
+            //horizontalOnButton.interactable = false;
 
         }
 
@@ -412,16 +412,16 @@ public class PauseSettingsManager : MonoBehaviour
         if (value == 0)
         {
             prefsHandler.SetVerticalToggle(1);
-            freeLookCam.m_YAxis.m_InvertInput = true;
-            verticalOnButton.interactable = true;
-            verticalOffButton.interactable = false;
+            freeLookCam.m_YAxis.m_InvertInput = true; //WHY
+            //verticalOnButton.interactable = true;
+            //verticalOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetVerticalToggle(0);
             freeLookCam.m_YAxis.m_InvertInput = false;
-            verticalOffButton.interactable = true;
-            verticalOnButton.interactable = false;
+            //verticalOffButton.interactable = true;
+            //verticalOnButton.interactable = false;
         }
 
     }//END ToggleVertical
@@ -433,14 +433,14 @@ public class PauseSettingsManager : MonoBehaviour
         if (value == 0)
         {
             prefsHandler.SetUIToggle(1);
-            uIOnButton.interactable = true;
-            uIOffButton.interactable = false;
+            //uIOnButton.interactable = true;
+            //uIOffButton.interactable = false;
         }
         else
         {
             prefsHandler.SetUIToggle(0);
-            uIOffButton.interactable = true;
-            uIOnButton.interactable = false;
+            //uIOffButton.interactable = true;
+            //uIOnButton.interactable = false;
         }
 
     }//END ToggleInventory
@@ -461,7 +461,6 @@ public class PauseSettingsManager : MonoBehaviour
     {
         prefsHandler.SetThrowSensitivity(sensitivity);
         inputManager.ChangeZoomLookSensitivity(sensitivity);
-
 
     }//END ThrowSensitivity
 
@@ -497,8 +496,8 @@ public class PauseSettingsManager : MonoBehaviour
         {
             Application.targetFrameRate = 30;
 
-            thirtyFPSButton.interactable = false;
-            sixtyFPSButton.interactable = true;
+            //thirtyFPSButton.interactable = false;
+            //sixtyFPSButton.interactable = true;
 
             Debug.Log("FPS set to 30");
 
@@ -509,8 +508,8 @@ public class PauseSettingsManager : MonoBehaviour
         {
             Application.targetFrameRate = 60;
 
-            sixtyFPSButton.interactable = false;
-            thirtyFPSButton.interactable = true;
+            //sixtyFPSButton.interactable = false;
+            //thirtyFPSButton.interactable = true;
 
             Debug.Log("FPS set to 60");
 
