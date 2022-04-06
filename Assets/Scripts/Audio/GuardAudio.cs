@@ -27,6 +27,12 @@ public class GuardAudio : MonoBehaviour
     [SerializeField] private AudioClip[] walkClips;
     [SerializeField] private AudioClip[] runClips;
 
+    [Header("Attacking")]
+    [SerializeField] private AudioClip taserFireClip;
+    [SerializeField] private AudioClip meleeClip;
+    [SerializeField] private AudioClip reloadClip;
+
+
     [Header("Other")]
     [SerializeField] private AudioClip chewingClip;
     [SerializeField] private AudioClip hitClip;
@@ -95,6 +101,36 @@ public class GuardAudio : MonoBehaviour
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(susClip);
     }//END Suspicious
+
+    //-----------------------//
+    public void TaserFired()
+    //-----------------------//
+    {
+        guardSource.volume = loudVolume;
+        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        guardSource.PlayOneShot(taserFireClip);
+
+    }//END TaserFired
+
+    //-----------------------//
+    public void MeleePunch()
+    //-----------------------//
+    {
+        guardSource.volume = loudVolume;
+        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        guardSource.PlayOneShot(meleeClip);
+
+    }//END MeleePunch
+
+    //-----------------------//
+    public void ReloadTaser()
+    //-----------------------//
+    {
+        guardSource.volume = loudVolume;
+        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        guardSource.PlayOneShot(reloadClip);
+
+    }//END ReloadTaser
 
     //-----------------------//
     public IEnumerator IIdleBark()
