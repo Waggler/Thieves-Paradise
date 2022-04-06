@@ -10,6 +10,10 @@ public class TaserManager : MonoBehaviour
 
     [HideInInspector] public float accuracy;
 
+    [SerializeField] private Collider sphereCollider;
+
+    private LayerMask layerMask;
+
     //---------------------------------------------------------------------------------------------------//
 
     //---------------------------------//
@@ -34,7 +38,7 @@ public class TaserManager : MonoBehaviour
         //    collision.gameObject.GetComponent<EnemyManager>().stateMachine = EnemyManager.EnemyStates.STUNNED;
         //}
 
-        //Debug.Log(collision.gameObject);
+        Debug.Log(collision.gameObject);
         
         //Destroys self
         Destroy(gameObject);
@@ -52,7 +56,6 @@ public class TaserManager : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
 
         //Prevents the prefab from colliding with the post processing volume
-        Physics.IgnoreLayerCollision(0, 10);
 
         //Functions as recoil / accuracy for the guard when they instantiate (fire) the taser prefab
         Vector3 randVec3 = (new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0)) * accuracy;
