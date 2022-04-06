@@ -646,7 +646,7 @@ public class PlayerMovement : MonoBehaviour
     void CoveredCheck()
     {
         //---USE-SOMETHING-THAT-ISN'T-RAYCAST---//
-        if (Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) && IsGrounded)
+        if (Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f, mask, QueryTriggerInteraction.Ignore) && IsGrounded)
         {
             IsStanding = false;
             IsCrouching = true;
