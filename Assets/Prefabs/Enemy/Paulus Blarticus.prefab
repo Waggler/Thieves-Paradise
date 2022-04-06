@@ -43,8 +43,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 4811569767427667623, guid: 26540bb816a2f4e45b9a60fcc4b052be, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.9
-  m_Pitch: 1.0028983
+  m_Volume: 1
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -52,7 +52,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 50
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  isDebug: 1
+  isDebug: 0
   self: {fileID: 3325092846536795625}
 --- !u!1 &3325092846946898786
 GameObject:
@@ -627,8 +627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d1db55617854c46ba6cc599bedf958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 5.44
-  maxVisionAngle: 29.5
+  sightRange: 10
+  maxVisionAngle: 17.3
   susGrowthMultiplier: 8
   susDecreaseMultiplier: 0.5
   sightAngle: 0
@@ -673,7 +673,6 @@ Transform:
   - {fileID: 3325092846536795624}
   - {fileID: 3508189210048026247}
   - {fileID: 7649219122052328019}
-  - {fileID: 5804599408007518579}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -750,28 +749,27 @@ MonoBehaviour:
   securityStationObjRef: {fileID: 8003486799426970617, guid: 7ad1b3d7a282c374389690062c2103be, type: 3}
   securityStationScriptRef: {fileID: 8003486799426970502, guid: 7ad1b3d7a282c374389690062c2103be, type: 3}
   securityStations: []
-  smackBox: {fileID: 6732682796039696537}
   stateText: {fileID: 3325092846354947751}
   targetText: {fileID: 3325092846449755120}
-  passiveSusMax: 4
-  sussySusMax: 5
-  hostileSusMax: 6
+  warySusMin: 3.1
   passiveSpeed: 1
+  warySpeed: 2
   susSpeed: 1
   stunSpeed: 0
-  hostileSpeed: 7
+  hostileSpeed: 5.75
+  reportSpeed: 3.5
   attackSpeed: 0
-  isPatrolWait: 1
+  isPatrolWait: 0
   patrolWaitTime: 0
   patrolWaitMin: 1
   patrolWaitMax: 5
   randWaitMin: 3
   randWaitMax: 5
   randPointRad: 1.341
-  guardAudioScript: {fileID: 0}
+  guardAudioScript: {fileID: 2094104194}
   isStunned: 0
-  stunTime: 10
-  taserEntryRadius: 0
+  stunTime: 5
+  taserShotRadius: 10
   fireRateReset: 2
   taserProjectile: {fileID: 6202073389112031844, guid: a0b8e85b42ab8c14b8eae6c4a32e318e, type: 3}
   taserSpawnLoc: {fileID: 8552973499195692512}
@@ -779,10 +777,17 @@ MonoBehaviour:
   waypointNextDistance: 0.5
   stoppingDistance: 5
   playerMovenemtRef: {fileID: 0}
+  floorNumber: 0
   playerVisTarget: {fileID: 0}
   stateMachine: 0
   waypointMethod: 0
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &9215408676989096723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,65 +1036,6 @@ Transform:
   m_Father: {fileID: 3325092847221503260}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1 &8051150159638536660
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5804599408007518579}
-  - component: {fileID: 6732682796039696537}
-  - component: {fileID: 4311587241095019969}
-  m_Layer: 12
-  m_Name: Smack Box
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5804599408007518579
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8051150159638536660}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.643}
-  m_LocalScale: {x: 1, y: 1, z: 25}
-  m_Children: []
-  m_Father: {fileID: 3325092847221503260}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6732682796039696537
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8051150159638536660}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 0.24}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4311587241095019969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8051150159638536660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8853acb12d8cfad4f905efd76c0b4df4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  guard: {fileID: 3325092847374484679}
-  player: {fileID: 3231231535335872039, guid: a6ca541ad4ff8604da25adeee87463d7, type: 3}
 --- !u!1 &8552973499195692512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guardSource: {fileID: 1138461874}
+  idleWaitTimeMin: 0
+  idleWaitTimeMax: 0
   normalVolume: 0.55
   loudVolume: 0.9
   pitchMin: 0.85
@@ -1190,6 +1138,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 381572e933712284f86ed59f828a0e52, type: 3}
   - {fileID: 8300000, guid: 9addcbe438b10f141a10d32ea151eee1, type: 3}
   - {fileID: 8300000, guid: bb7b7ca7484cf934f8942dbd0b6699a8, type: 3}
+  taserFireClip: {fileID: 8300000, guid: 6a5f3b609488cc74c92309a385ddaaa3, type: 3}
+  meleeClips:
+  - {fileID: 8300000, guid: 6e7a7ccd6f10461449b801b106da5316, type: 3}
+  - {fileID: 8300000, guid: ac45ffff80ae0034d87b3a48c59865f0, type: 3}
+  - {fileID: 8300000, guid: 0ef45a8be471f64498bbcbd5a304a9bc, type: 3}
+  reloadClip: {fileID: 8300000, guid: 3e87e3bec479b31458a2287e840be150, type: 3}
   chewingClip: {fileID: 8300000, guid: a0cf98741eb9e0f4db5950ab00b6498e, type: 3}
   hitClip: {fileID: 8300000, guid: 8d51b9c540a6e5d49b4df015063c8111, type: 3}
   fallClip: {fileID: 8300000, guid: ac08a0838e04b134f8373178c3590dc3, type: 3}
@@ -1531,13 +1485,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
   m_PrefabInstance: {fileID: 8631660073338932209}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &2784144531686864480 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
-  m_PrefabInstance: {fileID: 8631660073338932209}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8089424150834670618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
+  m_PrefabInstance: {fileID: 8631660073338932209}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2784144531686864480 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
   m_PrefabInstance: {fileID: 8631660073338932209}
   m_PrefabAsset: {fileID: 0}
