@@ -7,7 +7,6 @@ public class GuardAudio : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private AudioSource guardSource;
-    [SerializeField] private EnemyManager guardManager;
 
     [SerializeField] private float idleWaitTimeMin;
     [SerializeField] private float idleWaitTimeMax;
@@ -32,24 +31,6 @@ public class GuardAudio : MonoBehaviour
     [SerializeField] private AudioClip chewingClip;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private AudioClip fallClip;
-
-    //-----------------------//
-    private void Start()
-    //-----------------------//
-    {
-        Init();
-    }//END Start
-
-    //-----------------------//
-    private void Init()
-    //-----------------------//
-    {
-        if (guardManager == null)
-        {
-            guardManager = GetComponentInParent<EnemyManager>();
-        }
-
-    }//END Init
 
     //-----------------------//
     public void WalkingFootStep()
@@ -131,5 +112,7 @@ public class GuardAudio : MonoBehaviour
         StartCoroutine(IIdleBark());
 
     }//END IIdleBark
+
+
 
 }//END GuardAudio
