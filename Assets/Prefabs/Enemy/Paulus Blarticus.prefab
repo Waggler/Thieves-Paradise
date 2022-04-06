@@ -52,7 +52,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -87,7 +87,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -650,7 +650,6 @@ GameObject:
   - component: {fileID: 3325092847374484678}
   - component: {fileID: 3325092846408855489}
   - component: {fileID: 9215408676989096723}
-  - component: {fileID: 8697056619069672712}
   m_Layer: 8
   m_Name: Paulus Blarticus
   m_TagString: Guard
@@ -767,7 +766,7 @@ MonoBehaviour:
   randWaitMin: 3
   randWaitMax: 5
   randPointRad: 1.341
-  guardAudioScript: {fileID: 0}
+  guardAudioScript: {fileID: 2094104194}
   isStunned: 0
   stunTime: 10
   taserShotRadius: 10
@@ -800,102 +799,6 @@ MonoBehaviour:
   anim: {fileID: 2784144531686864480}
   enemyManager: {fileID: 3325092846408855489}
   Player: {fileID: 0}
---- !u!82 &8697056619069672712
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3325092847374484679}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 4811569767427667623, guid: 26540bb816a2f4e45b9a60fcc4b052be, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 21a03755c58e2af479c27b9ebacadf7f, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 2
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.002
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0.027980288
-      outSlope: 0.027980288
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.12759377
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &4548706006267094456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255b1ce6c57b1544fa4c776510864d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardSource: {fileID: 8697056619069672712}
+  guardSource: {fileID: 0}
   normalVolume: 0.55
   loudVolume: 0.9
   pitchMin: 0.85

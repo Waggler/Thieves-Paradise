@@ -7,6 +7,11 @@ public class GuardAudio : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private AudioSource guardSource;
+    [SerializeField] private EnemyManager guardManager;
+
+    [SerializeField] private float idleWaitTimeMin;
+    [SerializeField] private float idleWaitTimeMax;
+    [SerializeField] private float idleWaitTime;
 
     [SerializeField] private float normalVolume;
     [SerializeField] private float loudVolume;
@@ -27,6 +32,24 @@ public class GuardAudio : MonoBehaviour
     [SerializeField] private AudioClip chewingClip;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private AudioClip fallClip;
+
+    //-----------------------//
+    private void Start()
+    //-----------------------//
+    {
+        Init();
+    }//END Start
+
+    //-----------------------//
+    private void Init()
+    //-----------------------//
+    {
+        if (guardManager == null)
+        {
+            guardManager = GetComponentInParent<EnemyManager>();
+        }
+
+    }//END Init
 
     //-----------------------//
     public void WalkingFootStep()
@@ -84,16 +107,6 @@ public class GuardAudio : MonoBehaviour
     }//END Chew
 
     //-----------------------//
-    public void Idle()
-    //-----------------------//
-    {
-        guardSource.volume = normalVolume;
-        int i = Random.Range(0, idleClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
-        guardSource.PlayOneShot(idleClips[i]);
-    }//END Idle
-
-    //-----------------------//
     public void Suspicious()
     //-----------------------//
     {
@@ -101,5 +114,22 @@ public class GuardAudio : MonoBehaviour
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(susClip);
     }//END Suspicious
+
+    //-----------------------//
+    public IEnumerator IIdleBark()
+    //-----------------------//
+    {
+        idleWaitTime = Random.Range(idleWaitTimeMin, idleWaitTimeMax);
+
+        yield return new WaitForSeconds(idleWaitTime);
+
+        guardSource.volume = normalVolume;
+        int i = Random.Range(0, idleClips.Length);
+        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        guardSource.PlayOneShot(idleClips[i]);
+
+        StartCoroutine(IIdleBark());
+
+    }//END IIdleBark
 
 }//END GuardAudio
