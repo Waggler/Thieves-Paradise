@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class TimerScript : MonoBehaviour
@@ -12,6 +13,13 @@ public class TimerScript : MonoBehaviour
     [HideInInspector] public string outputTime;
 
     [SerializeField] private TextMeshPro timerText;
+    [SerializeField] private AudioClip tick;
+    private AudioSource Aud;
+    private float pitchMod = 0.2f;
+
+    private bool startedTimer;
+
+    [SerializeField] private TextMeshProUGUI timerUIText;
 
     void Start()
     {
@@ -24,15 +32,29 @@ public class TimerScript : MonoBehaviour
 
         outputTime = minutes.ToString("00") + ":" + seconds.ToString("00");
 
+        
+
+        Aud = GetComponent<AudioSource>();
+        Aud.clip = tick;
+        Aud.pitch = 1.2f;
+
+        //GameObject tempObj = GameObject.FindGameObjectWithTag("TimerText");
+        //timerUIText = tempObj.GetComponent<TextMeshProUGUI>();
+
+        //timerUIText.gameObject.SetActive(false);
+
         //display outputTime
         timerText.text = "<mspace=mspace=1.5>" + outputTime + "</mspace>";
+        timerUIText.text = "<mspace=mspace=20>" + "" + "</mspace>";
     }
     
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (!startedTimer && other.tag == "Player")
         {
             StartCoroutine(RunTimer());
+            startedTimer = true;
+            timerUIText.gameObject.SetActive(true);
         }
     }
 
@@ -80,9 +102,14 @@ public class TimerScript : MonoBehaviour
 
             //display outputTime
             timerText.text = "<mspace=mspace=1.5>" + outputTime + "</mspace>";
+            timerUIText.text = "<mspace=mspace=16>" + outputTime + "</mspace>";
             //print(outputTime);
 
             //play ticking sound here
+            
+            pitchMod *= -1;
+            Aud.pitch = 1.2f + pitchMod;
+            Aud.Play();
         }
 
         //insert end of timer logic

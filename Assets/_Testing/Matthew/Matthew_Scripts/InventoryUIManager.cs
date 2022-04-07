@@ -57,7 +57,7 @@ public class InventoryUIManager : MonoBehaviour
             slot2Text.gameObject.SetActive(true);
             slot3Text.gameObject.SetActive(true);
             slot4Text.gameObject.SetActive(true);
-            checktext.gameObject.SetActive(true);
+            //checktext.gameObject.SetActive(true);
         }
         else if (isDebugMode == false)
         {
@@ -65,7 +65,7 @@ public class InventoryUIManager : MonoBehaviour
             slot2Text.gameObject.SetActive(false);
             slot3Text.gameObject.SetActive(false);
             slot4Text.gameObject.SetActive(false);
-            checktext.gameObject.SetActive(false);
+            //checktext.gameObject.SetActive(false);
         }
 
         if (isReticleOn == true)
