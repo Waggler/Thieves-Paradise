@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7591386910030897107}
   - component: {fileID: 7591386910030897104}
   - component: {fileID: 7591386910030897105}
+  - component: {fileID: 5385392214799792876}
   m_Layer: 0
   m_Name: FallDownTest
   m_TagString: Untagged
@@ -64,3 +65,18 @@ MonoBehaviour:
   inRange: 0
   Crouching: 0
   maxAngle: -90
+  ga: {fileID: 5385392214799792876}
+--- !u!114 &5385392214799792876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591386910030897111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e1bd6ba9553ad40aafd110309667c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alertRange: 20
+  susManager: {fileID: 0}
