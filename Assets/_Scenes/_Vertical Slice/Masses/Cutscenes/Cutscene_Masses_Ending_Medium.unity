@@ -1332,8 +1332,7 @@ MonoBehaviour:
       responseID: 0
   - characterName: Narration
     sentences:
-    - '*Just as you did yesterday, you meet back up with Buddy at your place to tally
-      your current Qwitter follower count.*'
+    - '*You and Buddy meet up one final time to count your current Qwitter followers.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
@@ -1406,32 +1405,32 @@ MonoBehaviour:
       responseID: 0
   - characterName: Buddy
     sentences:
-    - "\u201CHurry and open it up, I wanna see what you got.\u201D\r"
+    - "\u201CAre you ready for the final check?\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: You
     sentences:
-    - "\u201CHold on a second, it\u2019s loading. Alright, there we go. My current
-      follower count is\u2026\u201D\r"
+    - "\u201CLet\u2019s just get this over with once and for all\u2026\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201C...705.\u201D"
+    - "\u201C8,127! That\u2019s pretty great! Seems you even have a decent amount
+      of interactions each post!\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
     isChoice: 0
     choices:
     - choiceOption: "\u201DI\u2019m just trying to forget about all this\u2026\u201D"
@@ -1457,22 +1456,24 @@ MonoBehaviour:
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CThat\u2019s\u2026  barely more than double yesterday\u2026\u201D"
+    - "\u201CInteractions?\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201COh man\u2026 at this point I\u2019m starting to feel sorry for you\u2026\u201D"
+    - "\u201CYou know, comments, likes, and reqweets. It seems your followers are
+      even calling you \u2018[Thief Name Here] the Slick\u2019! A pretty snazzy epithet
+      if I do say so myself.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 1
+    isChoice: 0
     choices:
     - choiceOption: "It\u2019s your fault"
       choiceId: 0
@@ -1528,11 +1529,11 @@ MonoBehaviour:
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CFine, I\u2019ll give it one last go.\u201D"
+    - "\u201CMakes a good name sound even better.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
     isChoice: 0
     choices:
     - choiceOption: "\u201CNot interested.\u201D "
@@ -1576,12 +1577,12 @@ MonoBehaviour:
       responseID: 0
   - characterName: Buddy
     sentences:
-    - "\u201CGreat!\u201D "
+    - "\u201CI was hoping we were past this\u2026\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 1
+    isChoice: 0
     choices:
     - choiceOption: "Fine. But, I\u2019ll decide on the heist."
       choiceId: 0
@@ -1624,7 +1625,854 @@ MonoBehaviour:
       - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
       - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
         got.\u201D"
-      - "\u201CHmm. What if I stole something one of a kind from Shopper's Paradise?\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CYeah, no.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201CI know you really knocked it out of the park with this one\u2026 But
+      I feel like we still could have done so much better. You feel?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CYeah, I only managed to grab two of the mascot\u2019s signature items\u2026\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201CHindsight is 20/20, I guess. Any idea what you want to do next?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CI was thinking that I\u2019d retire from social media.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201CHuh? Why? You were just starting to get a following!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CI think this large of a following is perfect for \u2018[Thief Name Here]
+      the Slick\u2019. Enough followers to have an underground reputation, but not
+      too many that it impacts my life.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201CI guess I can see that. More followers could get us in trouble. Oh well,
+      I was having fun with these photoshoots. And the helping you steal part.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CI said I was giving up social media, not that I was quitting stealing.
+      But first, I could do with a little vacation.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: Narration
+    sentences:
+    - '*You quickly delete your Qwitter account, before sitting on the couch so that
+      you can watch TV with Buddy, finally getting some rest before the two of you
+      plan your next heist.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
       - "\u201CWhat one of a kind thing have you got in mind?\u201D "
       - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
         they\u2019ve got around?\u201D"

@@ -704,7 +704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ff788c5e50f0e04dabb98adf83c27dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69dff2bca3cdc994c848cc4b7b3c5a1e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1332,8 +1332,7 @@ MonoBehaviour:
       responseID: 0
   - characterName: Narration
     sentences:
-    - '*Just as you did yesterday, you meet back up with Buddy at your place to tally
-      your current Qwitter follower count.*'
+    - '*After saving Buddy, the two of you quickly return home to hide out and recover.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
@@ -1406,32 +1405,31 @@ MonoBehaviour:
       responseID: 0
   - characterName: Buddy
     sentences:
-    - "\u201CHurry and open it up, I wanna see what you got.\u201D\r"
+    - "\u201CYou really risked your own life to save me\u2026\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: You
     sentences:
-    - "\u201CHold on a second, it\u2019s loading. Alright, there we go. My current
-      follower count is\u2026\u201D\r"
+    - "\u201CIt was my fault you were even in this mess\u2026 I\u2019m sorry\u2026\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201C...705.\u201D"
+    - "\u201CHah\u2026 Better late than never to apologize\u2026 What now\u2026?\u201D\r\n"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
     isChoice: 0
     choices:
     - choiceOption: "\u201DI\u2019m just trying to forget about all this\u2026\u201D"
@@ -1457,159 +1455,42 @@ MonoBehaviour:
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CThat\u2019s\u2026  barely more than double yesterday\u2026\u201D"
+    - "\u201CThe Don isn\u2019t gonna be happy that I saved you.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
     isChoice: 0
     choices: []
     responses: []
-  - characterName: Buddy
+  - characterName: Buddy adw
     sentences:
-    - "\u201COh man\u2026 at this point I\u2019m starting to feel sorry for you\u2026\u201D"
+    - "\u201CThat\u2019s not surprising, but what are we gonna do about it? Just
+      hide out here forever?\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
     isChoice: 1
     choices:
-    - choiceOption: "It\u2019s your fault"
+    - choiceOption: "We\u2019re gonna get revenge."
       choiceId: 0
-    - choiceOption: "It\u2019s my fault"
-      choiceId: 1
-    - choiceOption: Maybe it is time to give up
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CIt\u2019s your fault.\u201D"
-      - "\u201CWhat? What do you mean MY fault?\u201D"
-      - "\u201CI keep listening to your ideas and look how they keep turning up!\u201D"
-      - "\u201CMy ideas are great! You\u2019re the one not putting any effort into
-        them!\u201D"
-      - "\u201CWhat do you mean I\u2019m not putting any effort into them?\u201D"
-      - "\u201CYou\u2019re only grabbing one thing each time! That\u2019s hardly
-        trying\u2026\u201D"
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CIt\u2019s my fault.\u201D"
-      - "\u201CWhat? It\u2019s not all your fault man, social media is just like
-        this sometimes.\u201D"
-      - "\u201CI don\u2019t think I\u2019m putting enough effort into these heists\u2026\u201D"
-      - "\u201CYou could always try stealing more. Remember the crazier your haul
-        is, the more followers you can get.\u201D"
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      choiceReferenceId: 1
-      responseID: 0
-    - responseOption:
-      - "\u201CMaybe it is time to give up\u2026\u201D"
-      - "\u201CI kinda feel that too\u2026 One failure is bad luck. Two is a worrying
-        trend.\u201D"
-      - "\u201CI just wish I could have at least had one good heist\u2026\u201D"
-      - "\u201CWe could give it one last ditch effort, before you disappear.\u201D"
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      choiceReferenceId: 2
-      responseID: 0
-  - characterName: You
-    sentences:
-    - "\u201CFine, I\u2019ll give it one last go.\u201D"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: "\u201CNot interested.\u201D "
-      choiceId: 0
-    - choiceOption: "\u201CThey\u2019re getting THAT many followers?\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CThis is just allowed on Qwitter?\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CNot interested.\u201D"
-      - "\u201CCome on man, if that story you told me is true, you could be a superstar
-        doing this!\u201D "
-      - "\u201CWhat kind of thief wants to be a superstar?\u201D"
-      - "\u201COne that doesn\u2019t get rejected by cute girls for being a loser.\u201D"
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CThey\u2019re getting THAT many followers?\u201D "
-      - "\u201CAnd these are just the recent ones on my feed, some of the more popular
-        users are pulling in hundreds of thousands of followers looking to see what
-        they pull off next!\u201D "
-      responseSpeaker:
-      - You
-      - Buddy
-      choiceReferenceId: 1
-      responseID: 0
-    - responseOption:
-      - "\u201CThis is just\u2026  Allowed on Qwitter?\u201D "
-      - "\u201CDoes it really surprise you? Qwitter will pretty much allow anything
-        these days as long as it keeps people glued to the app.\u201D "
-      responseSpeaker:
-      - You
-      - Buddy
-      choiceReferenceId: 1
-      responseID: 0
-  - characterName: Buddy
-    sentences:
-    - "\u201CGreat!\u201D "
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 1
-    choices:
-    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
-      choiceId: 0
-    - choiceOption: "I\u2019m trusting you with this heist."
+    - choiceOption: "Let\u2019s keep away from organized crime."
       choiceId: 1
     responses:
     - responseOption:
-      - "\u201CI\u2019m trusting you with this heist.\u201D"
-      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
-      - "\u201CAwesome! Got any good ideas?\u201D"
-      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
-      - "\u201CPretty risky is what my followers like to hear.\u201D"
-      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
-        the store?\u201D"
-      - "\u201CYeah the cute animals.\u201D"
-      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
-        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
-      - "\u201CAnd the risky part?\u201D"
-      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
-        be a lot stricter on security around them.\u201D"
-      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
-      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
-        Name Here]*'
+      - "\u201CWe\u2019re gonna get revenge.\u201D"
+      - "\u201CWhat? Against the mafia?\u201D"
+      - "\u201CYeah, are we just gonna let them get away with trying to kill us?\u201D"
+      - "\u201CI mean, we could.\u201D"
+      - "You \u201CThey\u2019re gonna come after us again at some point, so we should
+        strike first.\u201D "
+      - "\u201CYou\u2019re right\u2026 you know what? Leave the planning to me, I
+        think I already have an idea!\u201D"
+      - "\u201CI\u2019ll leave it to you then manager, let\u2019s show them what
+        happens when you mess with [Insert Thief Name and Title Here]!\u201D"
+      - '*You and Buddy get to planning your revenge against the Don and his mafia.*'
       responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
       - You
       - Buddy
       - You
@@ -1621,32 +1502,20 @@ MonoBehaviour:
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
-      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
-        got.\u201D"
-      - "\u201CHmm. What if I stole something one of a kind from Shopper's Paradise?\u201D"
-      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
-      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
-        they\u2019ve got around?\u201D"
-      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
-      - "\u201CEach of them has something special they\u2019re wearing or holding!
-        I\u2019ll steal those!\u201D"
-      - "\u201CSomething special?\u201D"
-      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
-        has on, or even the hat the lizard wears.\u201D"
-      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
-        around those things thanks to your earlier heists.\u201D"
-      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
-        prove to you that my ideas are better.\u201D"
-      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
-        laughing at you again tomorrow."
-      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
-        Name Here]\u201D"
+      - "\u201CLet\u2019s keep away from organized crime.\u201D"
+      - "\u201CYeah, that\u2019s smart. I think I\u2019ve had my fill for life.\u201D"
+      - "\u201CThe mafia is gonna be a problem for us though\u2026\u201D"
+      - "\u201CIf we can evade the guards that Shopper\u2019s Paradise has for so
+        long, the mafia will be easy, right?\u201D"
+      - "\u201CHardly\u2026 But I think we\u2019ll be alright. As long as we stick
+        together.\u201D"
+      - "\u201CThink we can stick to heists in the meantime? I might get bored from
+        hiding the rest of my life.\u201D"
+      - "\u201CGot any good ideas?\u201D"
+      - "\u201CYeah, I think I came up with one or two while tied to the chair.\u201D"
+      - '*You and Buddy get to work planning a new heist, all while planning how
+        to stay out of site of the Don and his mafia.*'
       responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
       - You
       - Buddy
       - You
@@ -2128,7 +1997,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a805162a0be82bf45920969f1d9b2ed9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0568556b5903cb43a42760d0ee1b066, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

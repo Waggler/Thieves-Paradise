@@ -704,7 +704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ff788c5e50f0e04dabb98adf83c27dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69dff2bca3cdc994c848cc4b7b3c5a1e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1332,8 +1332,8 @@ MonoBehaviour:
       responseID: 0
   - characterName: Narration
     sentences:
-    - '*Just as you did yesterday, you meet back up with Buddy at your place to tally
-      your current Qwitter follower count.*'
+    - "*A few weeks after the previous heist of [Insert Thief Name and Title Here],
+      you and Buddy find yourselves relaxing back at your place.*\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
@@ -1406,18 +1406,17 @@ MonoBehaviour:
       responseID: 0
   - characterName: Buddy
     sentences:
-    - "\u201CHurry and open it up, I wanna see what you got.\u201D\r"
+    - "\u201CWhat if-  no\u2026 How about if we- Yeah I don\u2019t like that either\u2026\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: You
     sentences:
-    - "\u201CHold on a second, it\u2019s loading. Alright, there we go. My current
-      follower count is\u2026\u201D\r"
+    - "\u201CComing up with a new heist idea is hard now\u2026\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
@@ -1427,11 +1426,11 @@ MonoBehaviour:
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201C...705.\u201D"
+    - "\u201CYou\u2019re telling me\u2026 Maybe we used all the good ideas  too early\u2026\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
     - choiceOption: "\u201DI\u2019m just trying to forget about all this\u2026\u201D"
@@ -1455,85 +1454,35 @@ MonoBehaviour:
       - Buddy
       choiceReferenceId: 0
       responseID: 0
-  - characterName: You
+  - characterName: Narration
     sentences:
-    - "\u201CThat\u2019s\u2026  barely more than double yesterday\u2026\u201D"
+    - '*You and Buddy continue to think of a new heist, but neither of you can come
+      up with anything*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201COh man\u2026 at this point I\u2019m starting to feel sorry for you\u2026\u201D"
+    - "\u201CAgh\u2026 Why is this so frustrating now!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CMaybe the two of us aren't enough anymore\u2026\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
     isChoice: 1
-    choices:
-    - choiceOption: "It\u2019s your fault"
-      choiceId: 0
-    - choiceOption: "It\u2019s my fault"
-      choiceId: 1
-    - choiceOption: Maybe it is time to give up
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CIt\u2019s your fault.\u201D"
-      - "\u201CWhat? What do you mean MY fault?\u201D"
-      - "\u201CI keep listening to your ideas and look how they keep turning up!\u201D"
-      - "\u201CMy ideas are great! You\u2019re the one not putting any effort into
-        them!\u201D"
-      - "\u201CWhat do you mean I\u2019m not putting any effort into them?\u201D"
-      - "\u201CYou\u2019re only grabbing one thing each time! That\u2019s hardly
-        trying\u2026\u201D"
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CIt\u2019s my fault.\u201D"
-      - "\u201CWhat? It\u2019s not all your fault man, social media is just like
-        this sometimes.\u201D"
-      - "\u201CI don\u2019t think I\u2019m putting enough effort into these heists\u2026\u201D"
-      - "\u201CYou could always try stealing more. Remember the crazier your haul
-        is, the more followers you can get.\u201D"
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      choiceReferenceId: 1
-      responseID: 0
-    - responseOption:
-      - "\u201CMaybe it is time to give up\u2026\u201D"
-      - "\u201CI kinda feel that too\u2026 One failure is bad luck. Two is a worrying
-        trend.\u201D"
-      - "\u201CI just wish I could have at least had one good heist\u2026\u201D"
-      - "\u201CWe could give it one last ditch effort, before you disappear.\u201D"
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      choiceReferenceId: 2
-      responseID: 0
-  - characterName: You
-    sentences:
-    - "\u201CFine, I\u2019ll give it one last go.\u201D"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
     choices:
     - choiceOption: "\u201CNot interested.\u201D "
       choiceId: 0
@@ -1576,35 +1525,46 @@ MonoBehaviour:
       responseID: 0
   - characterName: Buddy
     sentences:
-    - "\u201CGreat!\u201D "
+    - "\u201CA two man show doesn\u2019t work with three people\u2026 C\u2019mon
+      Buddy, think. How can we keep stealing?\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 1
     choices:
-    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+    - choiceOption: "Why don\u2019t we find someone to give us heists? "
       choiceId: 0
-    - choiceOption: "I\u2019m trusting you with this heist."
+    - choiceOption: Hurry up and come up with something.
       choiceId: 1
     responses:
     - responseOption:
-      - "\u201CI\u2019m trusting you with this heist.\u201D"
-      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
-      - "\u201CAwesome! Got any good ideas?\u201D"
-      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
-      - "\u201CPretty risky is what my followers like to hear.\u201D"
-      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
-        the store?\u201D"
-      - "\u201CYeah the cute animals.\u201D"
-      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
-        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
-      - "\u201CAnd the risky part?\u201D"
-      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
-        be a lot stricter on security around them.\u201D"
-      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
-      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
-        Name Here]*'
+      - "\":Why don\u2019t we find someone to give us heists?\u201D\""
+      - "\u201CHuh? Like a boss?\u201D"
+      - "\u201CI guess? Just someone who knows a lot about stealing to give us some
+        things to do?\u201D"
+      - "\u201CHey, are you saying we should get involved in organized crime?\u201D"
+      - "\u201CI mean, it would let us do more heists.\u201D"
+      - "\u201CYeah, but it\u2019s also insanely dangerous!\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CHurry up and come up with something.\u201D"
+      - "\u201CYou don\u2019t need to remind me! I have an idea but\u2026\u201D"
+      - "\u201CBut\u2026?\u201D"
+      - "\u201CBut it\u2019s a dangerous idea, one I\u2019m not really comfortable
+        with\u2026\u201D"
+      - "\u201CMay as well just say it anyway.\u201D"
+      - "\u201CFine, you know the mafia in town, right? They would kill for some
+        expert thieves.\u201D"
+      - "\u201CWorking under a Don\u2026 that would work.\u201D"
       responseSpeaker:
       - You
       - Buddy
@@ -1613,7 +1573,881 @@ MonoBehaviour:
       - You
       - Buddy
       - You
-      - Buddy
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201CYou have to understand the mafia here is something we shouldn\u2019t
+      be a part of.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CIs it really more dangerous than what we\u2019ve been doing?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CYes! Have you seen any mafia movie ever?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CHow about this, if anything goes wrong, I will fix it.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CThat\u2019s hardly a guarantee!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CJust trust me, have I ever let you down before?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CNo\u2026 I guess not\u2026\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CLet\u2019s just give them a call, we can back out anytime.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Buddy
+    sentences:
+    - "\u201CFine..\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    sentences:
+    - '*Using some of your sources, you manage to trackdown the mafia and schedule
+      a meeting. The two of you wait in suspense as the mafia sends a representative
+      to meet you.*'
+    - '*Suddenly, there is a knock on the door. You open it up, to meet the gaze
+      of an intimidating man smoking a cigar.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CYou must be from the mafia! Welc-\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    sentences:
+    - '*The man pushes past you into your room, as he takes a seat on a chair.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: ???
+    sentences:
+    - "\u201CTake a seat, [Thief Name and Title]. I\u2019m sure we have a lot to
+      discuss.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    sentences:
+    - '*You take a seat next to Buddy on the couch, the well dressed man stands before
+      the both of you.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D"
+      - "\u201CWhoops must have just slipped my mind\u2026 But I won\u2019t forget
+        what you want a second time!\u201D"
+      responseSpeaker:
+      - You
+      - The Lady
+      - You
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CPerfume from Honeydew, right?\u201D "
+      - "\u201CAt least you\u2019ve been paying attention to what I\u2019m saying,
+        maybe there is some hope.\u201D"
+      - "\u201CSee, don\u2019t worry! I\u2019ll meet you back here tomorrow.\u201D"
+      responseSpeaker:
+      - You
+      - The Lady
+      - You
+      choiceReferenceId: 1
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D"
+      - "\u201CWhoops must have just slipped my mind\u2026 But I won\u2019t forget
+        what you want a second time!\u201D"
+      responseSpeaker:
+      - You
+      - The Lady
+      - You
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: ???
+    sentences:
+    - "\u201CYour reputation precedes the both of you. I\u2019ve got a lot of ears
+      on Qwitter telling me about two up and coming thieves.\""
+    - "\"I was hoping that I would be able to inquire about your\u2026 services.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - Peepo Bongo
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Don
+    sentences:
+    - "\u201CApologies. Allow me to introduce myself, so maybe you won\u2019t be
+      too tense to speak. You may call me Don, of course, that\u2019s just a title.
+      I\u2019m the Don of the mafia here in town.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Narration
+    sentences:
+    - '*You and Buddy stare at each other, the two of you almost sweating with each
+      word he says, still afraid to speak.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Don
+    sentences:
+    - "\u201CI see we\u2019re getting nowhere with the two of you afraid to speak.
+      Introduce yourselves properly.\u201D\r\n"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CY-yes sir! I go by [Thief Name and Title Here]\""
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201CM-my name is Buddy! I-I\u2019m [Thief Name and Title Here]\u2019s friend
+      and overwatch!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Don
+    sentences:
+    - "\u201CGood, now you two want to speak. Now that we\u2019re on \u2018friendly\u2019
+      terms, I would like to extend a hand.\""
+    - "\"I have a very special job for the two of you, I need some things stolen
+      from Shopper's Paradise.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CJ-Just stealing from Shopper's Paradise? S-surely we can get a much
+      more important job with our reputations!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Don
+    sentences:
+    - "\u201CYou think much too highly of yourselves now, I would never give a new
+      recruit such an important job. You are to be a grunt, with room to grow, understood?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CI-I understand!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Don
+    sentences:
+    - "\u201CGood, good. I have a job for each of you, a sort of\u2026 test. Impress
+      me, and my Family can make it worth your while. Let me down and\u2026 You don\u2019t
+      want to let me down. Capisce?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: You and Buddy
+    sentences:
+    - "\u201CYes, sir!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Don
+    sentences:
+    - "\u201CFirst off, [Thief Name and Title Here]. I need you to steal me a new
+      drill with a packet of batteries. My other boys have their own jobs they need
+      the tools for.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201CA-and for me?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Don
+    sentences:
+    - "\u201CI got a golf appointment with the Mayor coming up. And, after someone
+      crossed me the last time, I\u2019m down a golf driver. Go fetch me a new one.
+      Does that sound easy for the two of you?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: You and Buddy
+    sentences:
+    - "\u201CYes, sir!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Don
+    sentences:
+    - "\u201CYou two really need to learn to say something different. I\u2019m heading
+      out now. My driver will be here to pick you two up tomorrow. Don\u2019t be
+      late and don\u2019t show up empty handed.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Narration
+    sentences:
+    - '*The Don stands up and heads out the door, leaving you and Buddy alone in
+      the room.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201COh man. We\u2019re so in over our heads\u2026.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CWe just have to get what he wants\u2026 maybe he\u2019ll let us go after
+      we do?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: Lipstick from Honeydew
+      choiceId: 0
+    - choiceOption: Perfume from Honeydew
+      choiceId: 1
+    - choiceOption: Eyeliner from Honeydew
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CThe lipstick from Honeydew, right?\u201D "
+      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CSome eyeliner from Honeydew, right?\u201D"
+      responseSpeaker: []
+      choiceReferenceId: 0
+      responseID: 0
+  - characterName: Buddy
+    sentences:
+    - "\u201CHe didn\u2019t seem like the \u2018let us go\u2019 kinda guy. What are
+      we supposed to do\u2026?\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 1
+    choices:
+    - choiceOption: Leave it to me
+      choiceId: 0
+    - choiceOption: We have to do what he said
+      choiceId: 1
+    - choiceOption: Every man for himself
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CLeave it to me\u201D"
+      - "\u201CReally? You\u2019re gonna take care of mine too?\u201D"
+      - "\u201CI am the expert thief around here, you\u2019re a better fit for watching
+        over me anyway.\u201D"
+      - '*You and Buddy handshake as you begin to plan your first heist for the Don
+        of the mafia, albeit against your will.'
+      responseSpeaker:
       - You
       - Buddy
       - You
@@ -1621,36 +2455,15 @@ MonoBehaviour:
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
-      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
-        got.\u201D"
-      - "\u201CHmm. What if I stole something one of a kind from Shopper's Paradise?\u201D"
-      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
-      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
-        they\u2019ve got around?\u201D"
-      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
-      - "\u201CEach of them has something special they\u2019re wearing or holding!
-        I\u2019ll steal those!\u201D"
-      - "\u201CSomething special?\u201D"
-      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
-        has on, or even the hat the lizard wears.\u201D"
-      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
-        around those things thanks to your earlier heists.\u201D"
-      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
-        prove to you that my ideas are better.\u201D"
-      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
-        laughing at you again tomorrow."
-      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
-        Name Here]\u201D"
+      - "\u201CWe have to do what he said.\u201D"
+      - "\u201CI know that! This wasn\u2019t what I was hoping for to stop my boredom\u2026\u201D"
+      - "\u201CDon\u2019t worry, we can do this. If we work together. I\u2019ll grab
+        both my item and yours.\u201D"
+      - "\u201CYou\u2019re right\u2026 I need to think positively. Let\u2019s get
+        this done then. Thanks man.\u201D"
+      - '*You and Buddy begin to plan your heists once more, preparing to head back
+        into Shopper''s Paradise tonight.*'
       responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
       - You
       - Buddy
       - You
@@ -1658,9 +2471,25 @@ MonoBehaviour:
       - Narration
       choiceReferenceId: 1
       responseID: 0
+    - responseOption:
+      - "\u201CEvery man for himself.\u201D"
+      - "\u201CWhat? You\u2019re kidding me!?\u201D"
+      - "\u201CI can\u2019t afford to screw this up, and I don\u2019t know if he
+        would take too kindly to me helping you out.\u201D"
+      - "\u201CYou got me into this mess!\u201D"
+      - '*Buddy angrily storms out of your place, leaving you alone to plan your
+        own heist.*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
   currentDialogueIndex: 0
   levelManager: {fileID: 1976344117}
-  nextSceneIndex: 15
+  nextSceneIndex: 9
   isEndCredits: 0
   isLadyComplete: 0
   isMassesComplete: 0
@@ -1990,18 +2819,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
+    m_SelectOnUp: {fileID: 1319051405}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.6784314, b: 0.6784314, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0.6784314, b: 0.6784314, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2128,7 +2957,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a805162a0be82bf45920969f1d9b2ed9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0568556b5903cb43a42760d0ee1b066, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3744,18 +4573,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1594310716}
+    m_SelectOnDown: {fileID: 647536279}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.6784314, b: 0.6784314, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0.6784314, b: 0.6784314, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3771,7 +4600,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1319051406}
+  m_TargetGraphic: {fileID: 623629240}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3975,8 +4804,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.3969, y: 0.84819}
-  m_SizeDelta: {x: 541.21, y: 136.18}
+  m_AnchoredPosition: {x: 0.6426, y: 4.3538}
+  m_SizeDelta: {x: 557.737, y: 151.2041}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1372220631
 MonoBehaviour:
@@ -4509,7 +5338,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 1013594617}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 1319051405}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1

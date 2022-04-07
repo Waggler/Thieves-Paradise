@@ -704,7 +704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ff788c5e50f0e04dabb98adf83c27dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69dff2bca3cdc994c848cc4b7b3c5a1e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1332,8 +1332,7 @@ MonoBehaviour:
       responseID: 0
   - characterName: Narration
     sentences:
-    - '*Just as you did yesterday, you meet back up with Buddy at your place to tally
-      your current Qwitter follower count.*'
+    - '*After failing to save Buddy, you find yourself sitting at home all alone.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
@@ -1404,34 +1403,34 @@ MonoBehaviour:
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
-  - characterName: Buddy
+  - characterName: You
     sentences:
-    - "\u201CHurry and open it up, I wanna see what you got.\u201D\r"
+    - "\u201CI\u2026 I couldn\u2019t save you Buddy\u2026\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    sentences:
+    - '*You cry to yourself as the guilt weighs heavily on your shoulders.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: You
     sentences:
-    - "\u201CHold on a second, it\u2019s loading. Alright, there we go. My current
-      follower count is\u2026\u201D\r"
+    - "\u201CT-this is all my fault! I never should have recommended meeting with
+      the mafia!\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: Buddy
-    sentences:
-    - "\u201C...705.\u201D"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
     isChoice: 0
     choices:
     - choiceOption: "\u201DI\u2019m just trying to forget about all this\u2026\u201D"
@@ -1455,24 +1454,26 @@ MonoBehaviour:
       - Buddy
       choiceReferenceId: 0
       responseID: 0
-  - characterName: You
+  - characterName: Narration
     sentences:
-    - "\u201CThat\u2019s\u2026  barely more than double yesterday\u2026\u201D"
+    - '*When all hope seems lost, you feel emblazoned. A sudden change in emotion
+      washes over you as your sadness turns into anger.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
     isChoice: 0
     choices: []
     responses: []
-  - characterName: Buddy
+  - characterName: You
     sentences:
-    - "\u201COh man\u2026 at this point I\u2019m starting to feel sorry for you\u2026\u201D"
+    - "\u201CThe Don is responsible for this too\u2026 He\u2019s the one that sent
+      Buddy to die\u2026\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 1
+    isChoice: 0
     choices:
     - choiceOption: "It\u2019s your fault"
       choiceId: 0
@@ -1526,62 +1527,14 @@ MonoBehaviour:
       - Buddy
       choiceReferenceId: 2
       responseID: 0
-  - characterName: You
+  - characterName: Narration
     sentences:
-    - "\u201CFine, I\u2019ll give it one last go.\u201D"
+    - '*You quickly stand up and clench your fist.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
-    choices:
-    - choiceOption: "\u201CNot interested.\u201D "
-      choiceId: 0
-    - choiceOption: "\u201CThey\u2019re getting THAT many followers?\u201D"
-      choiceId: 1
-    - choiceOption: "\u201CThis is just allowed on Qwitter?\u201D"
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CNot interested.\u201D"
-      - "\u201CCome on man, if that story you told me is true, you could be a superstar
-        doing this!\u201D "
-      - "\u201CWhat kind of thief wants to be a superstar?\u201D"
-      - "\u201COne that doesn\u2019t get rejected by cute girls for being a loser.\u201D"
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CThey\u2019re getting THAT many followers?\u201D "
-      - "\u201CAnd these are just the recent ones on my feed, some of the more popular
-        users are pulling in hundreds of thousands of followers looking to see what
-        they pull off next!\u201D "
-      responseSpeaker:
-      - You
-      - Buddy
-      choiceReferenceId: 1
-      responseID: 0
-    - responseOption:
-      - "\u201CThis is just\u2026  Allowed on Qwitter?\u201D "
-      - "\u201CDoes it really surprise you? Qwitter will pretty much allow anything
-        these days as long as it keeps people glued to the app.\u201D "
-      responseSpeaker:
-      - You
-      - Buddy
-      choiceReferenceId: 1
-      responseID: 0
-  - characterName: Buddy
-    sentences:
-    - "\u201CGreat!\u201D "
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 1
     choices:
     - choiceOption: "Fine. But, I\u2019ll decide on the heist."
       choiceId: 0
@@ -1624,7 +1577,141 @@ MonoBehaviour:
       - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
       - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
         got.\u201D"
-      - "\u201CHmm. What if I stole something one of a kind from Shopper's Paradise?\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
+      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
+      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
+        they\u2019ve got around?\u201D"
+      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
+      - "\u201CEach of them has something special they\u2019re wearing or holding!
+        I\u2019ll steal those!\u201D"
+      - "\u201CSomething special?\u201D"
+      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
+        has on, or even the hat the lizard wears.\u201D"
+      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
+        around those things thanks to your earlier heists.\u201D"
+      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
+        prove to you that my ideas are better.\u201D"
+      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
+        laughing at you again tomorrow."
+      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - Narration
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: You
+    sentences:
+    - "\u201CSo, I\u2019ll take down his whole mafia by myself! For you, Buddy!\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "\u201CNot interested.\u201D "
+      choiceId: 0
+    - choiceOption: "\u201CThey\u2019re getting THAT many followers?\u201D"
+      choiceId: 1
+    - choiceOption: "\u201CThis is just allowed on Qwitter?\u201D"
+      choiceId: 2
+    responses:
+    - responseOption:
+      - "\u201CNot interested.\u201D"
+      - "\u201CCome on man, if that story you told me is true, you could be a superstar
+        doing this!\u201D "
+      - "\u201CWhat kind of thief wants to be a superstar?\u201D"
+      - "\u201COne that doesn\u2019t get rejected by cute girls for being a loser.\u201D"
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CThey\u2019re getting THAT many followers?\u201D "
+      - "\u201CAnd these are just the recent ones on my feed, some of the more popular
+        users are pulling in hundreds of thousands of followers looking to see what
+        they pull off next!\u201D "
+      responseSpeaker:
+      - You
+      - Buddy
+      choiceReferenceId: 1
+      responseID: 0
+    - responseOption:
+      - "\u201CThis is just\u2026  Allowed on Qwitter?\u201D "
+      - "\u201CDoes it really surprise you? Qwitter will pretty much allow anything
+        these days as long as it keeps people glued to the app.\u201D "
+      responseSpeaker:
+      - You
+      - Buddy
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: Narration
+    sentences:
+    - "*You sit down at the desk you and Buddy used to plan your heists at, except
+      this time you plan on how to take down the town\u2019s mafia in revenge for
+      Buddy. "
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices:
+    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
+      choiceId: 0
+    - choiceOption: "I\u2019m trusting you with this heist."
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
+        be a lot stricter on security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
+        Name Here]*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
+      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
+        got.\u201D"
+      - "\u201CHmm. What if I stole something one of a kind from Shopping World?\u201D"
       - "\u201CWhat one of a kind thing have you got in mind?\u201D "
       - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
         they\u2019ve got around?\u201D"
@@ -2128,7 +2215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a805162a0be82bf45920969f1d9b2ed9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0568556b5903cb43a42760d0ee1b066, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

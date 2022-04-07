@@ -704,7 +704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ff788c5e50f0e04dabb98adf83c27dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69dff2bca3cdc994c848cc4b7b3c5a1e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1332,8 +1332,9 @@ MonoBehaviour:
       responseID: 0
   - characterName: Narration
     sentences:
-    - '*Just as you did yesterday, you meet back up with Buddy at your place to tally
-      your current Qwitter follower count.*'
+    - '*The next day, you are once again picked up by the same car that drove you
+      yesterday. Although, this time, Buddy never showed up to come with you.*'
+    - '*You pull into the driveway where the Don is standing to greet you.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
@@ -1404,34 +1405,35 @@ MonoBehaviour:
       responseSpeaker: []
       choiceReferenceId: 0
       responseID: 0
-  - characterName: Buddy
+  - characterName: Don
     sentences:
-    - "\u201CHurry and open it up, I wanna see what you got.\u201D\r"
+    - "\u201CAh! Welcome home,  [Enter Thief Name Here]. I trust that you brought
+      back what I asked for?\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: You
     sentences:
-    - "\u201CHold on a second, it\u2019s loading. Alright, there we go. My current
-      follower count is\u2026\u201D\r"
+    - "\u201CI did, but\u2026 have you seen Buddy around? He didn\u2019t come back
+      to my place after the heist.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
-  - characterName: Buddy
+  - characterName: Don
     sentences:
-    - "\u201C...705.\u201D"
+    - "\u201COh yes, Buddy. We can talk a bit about him inside. Come along.\""
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:
     - choiceOption: "\u201DI\u2019m just trying to forget about all this\u2026\u201D"
@@ -1455,84 +1457,68 @@ MonoBehaviour:
       - Buddy
       choiceReferenceId: 0
       responseID: 0
-  - characterName: You
+  - characterName: Narration
     sentences:
-    - "\u201CThat\u2019s\u2026  barely more than double yesterday\u2026\u201D"
+    - "*You once again walk through now familiar halls up to the Don\u2019s office,
+      hoping that you\u2019ll find Buddy inside, but the room is empty.*"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
-  - characterName: Buddy
+  - characterName: Don
     sentences:
-    - "\u201COh man\u2026 at this point I\u2019m starting to feel sorry for you\u2026\u201D"
+    - "\u201CTake a seat while I examine the watch and necklace. Oh yes, these are
+      very nice. Same exact necklace my daughter wore too. You impress me more every
+      day,  [Enter Thief Name Here].\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 1
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
+    isChoice: 0
     choices:
-    - choiceOption: "It\u2019s your fault"
+    - choiceOption: "I wouldn\u2019t have gotten this far without you"
       choiceId: 0
-    - choiceOption: "It\u2019s my fault"
+    - choiceOption: Thanks for the help, manager
       choiceId: 1
-    - choiceOption: Maybe it is time to give up
+    - choiceOption: "I\u2019m the one doing the heists"
       choiceId: 2
     responses:
     - responseOption:
-      - "\u201CIt\u2019s your fault.\u201D"
-      - "\u201CWhat? What do you mean MY fault?\u201D"
-      - "\u201CI keep listening to your ideas and look how they keep turning up!\u201D"
-      - "\u201CMy ideas are great! You\u2019re the one not putting any effort into
-        them!\u201D"
-      - "\u201CWhat do you mean I\u2019m not putting any effort into them?\u201D"
-      - "\u201CYou\u2019re only grabbing one thing each time! That\u2019s hardly
-        trying\u2026\u201D"
+      - "\u201CI wouldn\u2019t have gotten this far without you\u201D"
+      - "\u201CWe do make a pretty sweet team, don\u2019t we!\u201D"
       responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
       - You
       - Buddy
       choiceReferenceId: 0
       responseID: 0
     - responseOption:
-      - "\u201CIt\u2019s my fault.\u201D"
-      - "\u201CWhat? It\u2019s not all your fault man, social media is just like
-        this sometimes.\u201D"
-      - "\u201CI don\u2019t think I\u2019m putting enough effort into these heists\u2026\u201D"
-      - "\u201CYou could always try stealing more. Remember the crazier your haul
-        is, the more followers you can get.\u201D"
+      - "\u201CThanks for the help, manager\u201D "
+      - "\u201CKeep listening to my advice, and your heists will be remembered forever!\u201D "
       responseSpeaker:
-      - You
-      - Buddy
       - You
       - Buddy
       choiceReferenceId: 1
       responseID: 0
     - responseOption:
-      - "\u201CMaybe it is time to give up\u2026\u201D"
-      - "\u201CI kinda feel that too\u2026 One failure is bad luck. Two is a worrying
-        trend.\u201D"
-      - "\u201CI just wish I could have at least had one good heist\u2026\u201D"
-      - "\u201CWe could give it one last ditch effort, before you disappear.\u201D"
+      - "\u201CI\u2019m the one doing the heists.\u201D"
+      - "\u201CI can\u2019t deny that, but the heists you\u2019re doing were my ideas\u2026
+        A little credit would be nice.\u201D "
       responseSpeaker:
-      - You
-      - Buddy
       - You
       - Buddy
       choiceReferenceId: 2
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CFine, I\u2019ll give it one last go.\u201D"
+    - "\u201CI\u2019m happy to hear that, but where\u2019s Buddy? I was hoping he
+      would be here, but he isn\u2019t.\u201D "
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
     isChoice: 0
     choices:
     - choiceOption: "\u201CNot interested.\u201D "
@@ -1574,90 +1560,132 @@ MonoBehaviour:
       - Buddy
       choiceReferenceId: 1
       responseID: 0
-  - characterName: Buddy
+  - characterName: Don
     sentences:
-    - "\u201CGreat!\u201D "
+    - "\u201CYes\u2026 your friend, Buddy, is\u2026 on a special job right now. He
+      unfortunately was unable to make it, but I bet he would be thrilled you came
+      in his stead.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 1
+    choices:
+    - choiceOption: Dig Deeper
+      choiceId: 0
+    - choiceOption: Back off
+      choiceId: 1
+    responses:
+    - responseOption:
+      - "\u201CWhat kind of job is he on?\u201D"
+      - "\u201COne that only he can complete. A shame that he hasn\u2019t tried to
+        contact you to tell you he\u2019s ok. I hope he is as well.\u201D"
+      - "\u201CCan\u2019t I help him with his job? We work better as a team.\u201D"
+      - "\u201CI recommend that instead, you simply drop this. You may be doing jobs
+        for me, however you have not yet agreed to join the Family officially.\u201D"
+      - ":\u201DHow can I drop it if my best friend is missing!\u201D"
+      - "\u201CFine, if you are so worried about him. He is currently infiltrating
+        the Shopper's Paradise. But, you should just forget about him for now, do
+        you not trust him?\u201D"
+      - "\u201CThen allow me to help him in whatever job he\u2019s doing. We\u2019re
+        a team and I won\u2019t leave him all alone to take care of the work.\u201D"
+      - "\u201CYou really are a difficult one. You would make a great boss someday,
+        a shame you are throwing it all away for that boy.\u201D"
+      responseSpeaker:
+      - You
+      - Don
+      - You
+      - Don
+      - You
+      - Don
+      - You
+      - Don
+      choiceReferenceId: 0
+      responseID: 0
+    - responseOption:
+      - "\u201CI guess he should be fine alone for a bit longer\u2026\u201D"
+      - "\u201CYou should have some more faith in your friend. Just relax while you
+        wait for some news from him.\u201D"
+      - "\u201CI don\u2019t exactly want to wait around for him to get back to me\u2026\u201D"
+      - "\u201CYou could always take care of another job for me. If you do this one,
+        I would be willing to officially make you a member of the family, and not
+        just a mere grunt.\u201D"
+      - "\u201CAnd if I don\u2019t want to join?\u201D"
+      - "\u201CAs remiss as it is for me to say, it would be a shame to lose a man
+        of your potential. But we would allow you to leave, no strings attached.\u201D"
+      responseSpeaker:
+      - You
+      - Don
+      - You
+      - Don
+      - You
+      - Don
+      choiceReferenceId: 1
+      responseID: 0
+  - characterName: Don
+    sentences:
+    - "\u201CIf you are so eager to throw yourself into work, I will allow you to
+      do so. And I will let you make your own decision when the time comes.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CJust tell me what to do, and I\u2019ll do it.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Don
+    sentences:
+    - "\u201CIn the storage backroom at Shopper's Paradise, there should be a suit.
+      Inside the pocket of that suit is what I need you to grab. Simple.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: You
+    sentences:
+    - "\u201CW-What!?\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 1
-    choices:
-    - choiceOption: "Fine. But, I\u2019ll decide on the heist."
-      choiceId: 0
-    - choiceOption: "I\u2019m trusting you with this heist."
-      choiceId: 1
-    responses:
-    - responseOption:
-      - "\u201CI\u2019m trusting you with this heist.\u201D"
-      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
-      - "\u201CAwesome! Got any good ideas?\u201D"
-      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
-      - "\u201CPretty risky is what my followers like to hear.\u201D"
-      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
-        the store?\u201D"
-      - "\u201CYeah the cute animals.\u201D"
-      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
-        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
-      - "\u201CAnd the risky part?\u201D"
-      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
-        be a lot stricter on security around them.\u201D"
-      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
-      - '*And so, you and Buddy get to planning your final heist as [Insert Thief
-        Name Here]*'
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Narration
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
-      - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
-        got.\u201D"
-      - "\u201CHmm. What if I stole something one of a kind from Shopper's Paradise?\u201D"
-      - "\u201CWhat one of a kind thing have you got in mind?\u201D "
-      - "\u201CIt\u2019s something they don\u2019t sell.  Have you seen those mascots
-        they\u2019ve got around?\u201D"
-      - "\u201CThe lobster, the lizard, and the tanuki? Yeah, what about them?\u201D"
-      - "\u201CEach of them has something special they\u2019re wearing or holding!
-        I\u2019ll steal those!\u201D"
-      - "\u201CSomething special?\u201D"
-      - "\u201CYeah, like the lantern the tanuki carries, the glasses the lobster
-        has on, or even the hat the lizard wears.\u201D"
-      - "\u201CThat\u2026 might work. Although security is gonna be pretty tight
-        around those things thanks to your earlier heists.\u201D"
-      - "\u201CLeave that to the great thief [Insert Thief Name Here]! I\u2019ll
-        prove to you that my ideas are better.\u201D"
-      - "\u201CGo ahead and prove me wrong then, but don\u2019t cry to me when I\u2019m
-        laughing at you again tomorrow."
-      - "*And so, you and Buddy get to planning your final heist as [Insert Thief
-        Name Here]\u201D"
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - Narration
-      choiceReferenceId: 1
-      responseID: 0
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Don
+    sentences:
+    - "\u201CThis is what your friend has been up to. Now run along and do whatever
+      you choose to do. I will know your decision by tomorrow morning.\u201D"
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
+  - characterName: Narration
+    sentences:
+    - '*You run out of the room quickly, as you head back to your place to get suited
+      up to break into Shopper''s Paradise with urgency.*'
+    isSecondCharacter: 0
+    isSecondCharacterTalking: 0
+    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
+    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
+    isChoice: 0
+    choices: []
+    responses: []
   currentDialogueIndex: 0
   levelManager: {fileID: 1976344117}
   nextSceneIndex: 15
@@ -2128,7 +2156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a805162a0be82bf45920969f1d9b2ed9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd26110ebe15316479972fd35ee3a1d3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4215,20 +4243,8 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d7cd48c3-2145-40a3-a864-f20d1a57e5e0
     m_ActionName: Player/Roll[/Keyboard/r,/XInputControllerWindows/leftShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3fba19de-88d9-4d1b-a50d-e133b15e68a2
-    m_ActionName: Player/Pause[/Keyboard/escape,/XInputControllerWindows/start,/XInputControllerWindows/start]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5efa1ec4-bc14-4638-9006-d3dfa0933703
-    m_ActionName: Player/DevPause[/Keyboard/p,/XInputControllerWindows/select,/XInputControllerWindows/select]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a4f797ea-41df-43eb-ada6-3f6ae340d0ff
-    m_ActionName: Player/CheatMenu[/Keyboard/backquote]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
