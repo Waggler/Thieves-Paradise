@@ -243,7 +243,7 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] PlayerMovement playerMovenemtRef;
 
-    private bool ceaseFire = false;
+    [HideInInspector] public bool ceaseFire = false;
 
     [SerializeField] private GameObject playerVisTarget;
 
