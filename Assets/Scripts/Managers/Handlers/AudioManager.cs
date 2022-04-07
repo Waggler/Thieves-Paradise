@@ -20,9 +20,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip buttonHoverClip;
     [SerializeField] private AudioClip buttonClickClip;
 
-    [Header("Music")]
-    [SerializeField] private AudioClip mainMenuClip;
-    [SerializeField] private AudioClip gameSceneClip;
 
     #endregion Components
 
@@ -82,32 +79,6 @@ public class AudioManager : MonoBehaviour
     //-------------------------//
 
     #endregion SFX
-
-
-    #region Music
-
-
-    //-------------------------//
-    public void PlayMainMenuMusic()
-    //-------------------------//
-    {
-        musicSource.clip = mainMenuClip;
-        musicSource.Play();
-
-    }//END PlayMainMenuMusic
-
-    //-------------------------//
-    public void PlayGameSceneMusic()
-    //-------------------------//
-    {
-        musicSource.clip = gameSceneClip;
-        musicSource.Play();
-
-    }//END PlayMainMenuMusic
-
-
-
-    #endregion Music
 
 
     #endregion Methods
