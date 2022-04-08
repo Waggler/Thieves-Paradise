@@ -8,6 +8,7 @@ public class PlayerAudio : MonoBehaviour
     [Header("Components")]
     [SerializeField] private AudioSource playerSource;
     [SerializeField] private AudioSource struggleSource;
+    [SerializeField] private Animator playerAnimator;
 
     [SerializeField] private float noiseLevelOneVolume;
     [SerializeField] private float noiseLevelTwoVolume;
@@ -25,20 +26,34 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private AudioClip slideClip;
     [SerializeField] private AudioClip rollClip;
     [SerializeField] private AudioClip diveClip;
-
+    [SerializeField] private AudioClip fallClip;
     [SerializeField] private AudioClip struggleClip;
+    [SerializeField] private AudioClip shockClip;
     [SerializeField] private AudioClip throwClip;
     [SerializeField] private AudioClip pickupClip;
 
+    //-----------------------//
+    private void Start()
+    //-----------------------//
+    {
+        if (playerAnimator == null)
+        {
+            playerAnimator = GetComponentInParent<Animator>();
+        }
+    }
 
     //-----------------------//
     public void WalkingFootStep()
     //-----------------------//
     {
-        playerSource.volume = noiseLevelOneVolume;
-        int i = Random.Range(0, walkClips.Length);
-        playerSource.pitch = Random.Range(pitchMin, pitchMax);
-        playerSource.PlayOneShot(walkClips[i]);
+        if (playerAnimator.GetBool("isSprinting") == false)
+        {
+            playerSource.volume = noiseLevelOneVolume;
+            int i = Random.Range(0, walkClips.Length);
+            playerSource.pitch = Random.Range(pitchMin, pitchMax);
+            playerSource.PlayOneShot(walkClips[i]);
+
+        }
 
 
     }//END WalkingFootStep
@@ -118,7 +133,7 @@ public class PlayerAudio : MonoBehaviour
     public void Throw()
     //-----------------------//
     {
-        playerSource.volume = noiseLevelOneVolume;
+        playerSource.volume = noiseLevelTwoVolume;
         playerSource.pitch = Random.Range(pitchMin, pitchMax);
         playerSource.PlayOneShot(throwClip);
     }//END Throw
@@ -132,5 +147,22 @@ public class PlayerAudio : MonoBehaviour
         playerSource.PlayOneShot(pickupClip);
     }//END Pickup
 
+    //-----------------------//
+    public void Fall()
+    //-----------------------//
+    {
+        playerSource.volume = noiseLevelThreeVolume;
+        playerSource.pitch = Random.Range(pitchMin, pitchMax);
+        playerSource.PlayOneShot(fallClip);
+    }//END Pickup
+
+    //-----------------------//
+    public void Shock()
+    //-----------------------//
+    {
+        playerSource.volume = noiseLevelTwoVolume;
+        playerSource.pitch = Random.Range(pitchMin, pitchMax);
+        playerSource.PlayOneShot(shockClip);
+    }//END Pickup
 
 }//END PlayerAudio

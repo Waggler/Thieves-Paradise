@@ -7,19 +7,23 @@ public class HealthTracker : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Image[] healthImages;
-    [SerializeField] private int currentHitpoints = 3;
 
     //-----------------------//
-    public void DeductHitPoint()
+    public void DeductHitPoint(int value)
     //-----------------------//
     {
-        currentHitpoints -= 1;
+        if (value == 3)
+        {
+            healthImages[0].color = Color.white;
+            healthImages[1].color = Color.white;
+            healthImages[2].color = Color.white;
 
-        if (currentHitpoints == 2)
+        }
+        if (value == 2)
         {
             healthImages[2].color = Color.grey;
         }
-        else if (currentHitpoints == 1)
+        else if (value == 1)
         {
             healthImages[1].color = Color.grey;
         }

@@ -52,7 +52,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -87,7 +87,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  isDebug: 1
+  isDebug: 0
   self: {fileID: 3325092846536795625}
 --- !u!1 &3325092846946898786
 GameObject:
@@ -627,8 +627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d1db55617854c46ba6cc599bedf958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRange: 20.72
-  maxVisionAngle: 29.5
+  sightRange: 10
+  maxVisionAngle: 17.3
   susGrowthMultiplier: 8
   susDecreaseMultiplier: 0.5
   sightAngle: 0
@@ -650,7 +650,6 @@ GameObject:
   - component: {fileID: 3325092847374484678}
   - component: {fileID: 3325092846408855489}
   - component: {fileID: 9215408676989096723}
-  - component: {fileID: 8697056619069672712}
   m_Layer: 8
   m_Name: Paulus Blarticus
   m_TagString: Guard
@@ -754,22 +753,22 @@ MonoBehaviour:
   targetText: {fileID: 3325092846449755120}
   warySusMin: 3.1
   passiveSpeed: 1
-  warySpeed: 1.5
+  warySpeed: 2
   susSpeed: 1
   stunSpeed: 0
-  hostileSpeed: 7
+  hostileSpeed: 5.75
   reportSpeed: 3.5
   attackSpeed: 0
-  isPatrolWait: 1
+  isPatrolWait: 0
   patrolWaitTime: 0
   patrolWaitMin: 1
   patrolWaitMax: 5
   randWaitMin: 3
   randWaitMax: 5
   randPointRad: 1.341
-  guardAudioScript: {fileID: 0}
+  guardAudioScript: {fileID: 2094104194}
   isStunned: 0
-  stunTime: 10
+  stunTime: 5
   taserShotRadius: 10
   fireRateReset: 2
   taserProjectile: {fileID: 6202073389112031844, guid: a0b8e85b42ab8c14b8eae6c4a32e318e, type: 3}
@@ -783,6 +782,10 @@ MonoBehaviour:
   stateMachine: 0
   waypointMethod: 0
   waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &9215408676989096723
@@ -800,102 +803,6 @@ MonoBehaviour:
   anim: {fileID: 2784144531686864480}
   enemyManager: {fileID: 3325092846408855489}
   Player: {fileID: 0}
---- !u!82 &8697056619069672712
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3325092847374484679}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 4811569767427667623, guid: 26540bb816a2f4e45b9a60fcc4b052be, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 21a03755c58e2af479c27b9ebacadf7f, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 2
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.002
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0.027980288
-      outSlope: 0.027980288
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.12759377
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &4548706006267094456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255b1ce6c57b1544fa4c776510864d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardSource: {fileID: 8697056619069672712}
+  guardSource: {fileID: 1138461874}
+  idleWaitTimeMin: 0
+  idleWaitTimeMax: 0
   normalVolume: 0.55
   loudVolume: 0.9
   pitchMin: 0.85
@@ -1229,6 +1138,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 381572e933712284f86ed59f828a0e52, type: 3}
   - {fileID: 8300000, guid: 9addcbe438b10f141a10d32ea151eee1, type: 3}
   - {fileID: 8300000, guid: bb7b7ca7484cf934f8942dbd0b6699a8, type: 3}
+  taserFireClip: {fileID: 8300000, guid: 6a5f3b609488cc74c92309a385ddaaa3, type: 3}
+  meleeClips:
+  - {fileID: 8300000, guid: 6e7a7ccd6f10461449b801b106da5316, type: 3}
+  - {fileID: 8300000, guid: ac45ffff80ae0034d87b3a48c59865f0, type: 3}
+  - {fileID: 8300000, guid: 0ef45a8be471f64498bbcbd5a304a9bc, type: 3}
+  reloadClip: {fileID: 8300000, guid: 3e87e3bec479b31458a2287e840be150, type: 3}
   chewingClip: {fileID: 8300000, guid: a0cf98741eb9e0f4db5950ab00b6498e, type: 3}
   hitClip: {fileID: 8300000, guid: 8d51b9c540a6e5d49b4df015063c8111, type: 3}
   fallClip: {fileID: 8300000, guid: ac08a0838e04b134f8373178c3590dc3, type: 3}
