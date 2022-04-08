@@ -29,8 +29,6 @@ public class SmackBoxManager : MonoBehaviour
 
         playerVisionTarget = GameObject.Find("VisionTarget");
 
-
-
         layerMask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost") + LayerMask.GetMask("Guard") + LayerMask.GetMask("Smack") + LayerMask.GetMask("Post Processing");
         layerMask = ~layerMask; //get the player layer to make sure they don't block themselves from vision
 
@@ -45,52 +43,18 @@ public class SmackBoxManager : MonoBehaviour
             //Assigns player movement variable to the current instance of it
             playerMovement = other.gameObject.GetComponent<PlayerMovement>();
 
-            if (playerMovement.IsStunned == false && enemyManager.ceaseFire == false)
+            if (playerMovement.IsStunned == false && enemyManager.ceaseFire == false && enemyManager.stateMachine == EnemyManager.EnemyStates.RANGEDATTACK)
             {
                 //Linecast
                 //Physical line cast from point A to point B
                 //If it reaches the second point, it will respond with true (I think)
-                //VERIFY THAT THIS WORKS
                 if (!Physics.Linecast(guardEyeball.transform.position, playerVisionTarget.transform.position, layerMask) == true)
                 {
-                    // In the event that we need the guard to face what they are smacking
-                    //enemyManager.FaceTarget(enemyManager.target);
-                    
-                    
-                    //Stop the player's movement
-
-                    // Play smack animation
-
-                    //Check for animation end
-
-                    //At animation's end, stun the player
-
-                    //Either guard goes about normal business or force them into HOSTILE state
-
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    //In the future change this to play the smack animation
+                    enemyManager.guardAnim.EnterSmack();
 
                     other.gameObject.GetComponent<PlayerMovement>().IsStunned = true;
-
                     Debug.Log("(Meaty Thwak)");
                     Debug.Log("(Both Chuckle)");
-
-
-                    //Add time delay
-
-                    //Generate point behind guard for moving back
-
                 }
             }
         }
@@ -102,6 +66,8 @@ public class SmackBoxManager : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        
-    }
+        enemyManager.guardAnim.ExitSmack();
+
+        Debug.Log("Fucker left the trigger, dick move");
+    }//End OnTriggerExit
 }

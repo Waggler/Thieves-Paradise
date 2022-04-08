@@ -28,6 +28,9 @@ public class EnemyManager : MonoBehaviour
     public Coroutine coroutine;
 
     #region Variables
+    [Space(20)]
+    [SerializeField] private bool isBoss = false;
+    [Space(20)]
 
     //---------------------------------------------------------------------------------------------------//
     [Tooltip("The guard's target")]
@@ -54,7 +57,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] public EyeballScript eyeball;
 
     [Tooltip("References the guard's animator script")]
-    [SerializeField] GuardAnimatorScript guardAnim;
+    [SerializeField] public GuardAnimatorScript guardAnim;
 
     [SerializeField] private GameObject surpriseVFX;
 
@@ -112,7 +115,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] [Range(0, 10)] public float susSpeed = 1f;
 
     [Tooltip("The speed that the AI moves at in the STUNNED state")]
-    [SerializeField] [Range(0, 10)] public float stunSpeed = 0f;
+    [HideInInspector] [Range(0, 10)] public float stunSpeed = 0f;
 
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
     [SerializeField] [Range(0, 10)] public float hostileSpeed = 4f;
@@ -224,7 +227,6 @@ public class EnemyManager : MonoBehaviour
 
     private bool spotPlayerBool = false;
 
-
     //Delete this in the future
     //private System.Threading.Timer timer;
 
@@ -247,8 +249,10 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private GameObject playerVisTarget;
 
+    
     private bool guardStunned = false;
 
+    private bool isShooting = false;
 
     #endregion
 
@@ -560,7 +564,7 @@ public class EnemyManager : MonoBehaviour
         //Returns a bool
         //First portion tests the randomly generated point to see if it can be reached.
         //Second portion tests the path to the genreated point and to see if it's possible to reach that point
-        if (NavMesh.SamplePosition(randpoint + eyeball.lastKnownLocation, out NavMeshHit hit, randPointRad, 1) && NavMesh.CalculatePath(transform.position, hit.position, NavMesh.AllAreas, path))
+        if (NavMesh.SamplePosition(randpoint + transform.position, out NavMeshHit hit, randPointRad, 1) && NavMesh.CalculatePath(transform.position, hit.position, NavMesh.AllAreas, path))
         {
             searchLoc = hit.position;
 
@@ -644,6 +648,7 @@ public class EnemyManager : MonoBehaviour
     {
         UpdateDebugText();
 
+        #region Edge Case Stuff
         if (stateMachine == EnemyStates.RANGEDATTACK)
         {
             agent.stoppingDistance = taserExitRadius;
@@ -659,6 +664,8 @@ public class EnemyManager : MonoBehaviour
 
             spotPlayerBool = true;
         }
+
+        #endregion Edge Case Stuff
 
         //At all times be sure that there is a condition to at least ENTER and EXIT the state that the AI is being put into
         switch (stateMachine)
@@ -709,8 +716,18 @@ public class EnemyManager : MonoBehaviour
                 //Checking to see if the player is visible
                 if (eyeball.susLevel > passiveSusMax)
                 {
-                    // PASSIVE >>>> SUSPICIOUS
-                    StateChange(EnemyStates.SUSPICIOUS);
+                    if (!isBoss)
+                    {
+                        // PASSIVE >>>> SUSPICIOUS
+                        StateChange(EnemyStates.SUSPICIOUS);
+                    }
+                    else
+                    {
+                        // PASSIVE >>>> HOSTILE (ONLY HAPPENS IF ITS THE BOSS GUARD)
+                        eyeball.susLevel = hostileSusMax;
+
+                        StateChange(EnemyStates.HOSTILE);
+                    }
                 }
                 #endregion Exit Condition
 
@@ -818,8 +835,18 @@ public class EnemyManager : MonoBehaviour
                 //else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < sussySusMax)
                 else if (eyeball.susLevel < sussySusMax)
                 {
-                    //HOSTILE >> SUSPICIOUS
-                    StateChange(EnemyStates.SUSPICIOUS);
+                    if (!isBoss)
+                    {
+                        //HOSTILE >> SUSPICIOUS
+                        StateChange(EnemyStates.SUSPICIOUS);
+                    }
+                    else
+                    {
+                        eyeball.susLevel = 0f;
+
+                        // HOSTILE >> PASSIVE
+                        StateChange(EnemyStates.PASSIVE);
+                    }
                 }
 
                 #endregion Exit Conditions
@@ -837,7 +864,14 @@ public class EnemyManager : MonoBehaviour
 
                 FaceTarget(target);
 
-                guardAnim.EnterShoot();
+                if (!isShooting)
+                {
+                    guardAnim.EnterShoot();
+
+                    isShooting = true;
+
+                    Debug.Log("Shooting anim entered, bool flipped");
+                }
 
                 SetAIDestination(target);
 
@@ -876,7 +910,7 @@ public class EnemyManager : MonoBehaviour
                 #region Exit Conditions
                 if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance > taserExitRadius)   
                 {
-                    //Debug.Log("Target is outside of firing range");
+                    isShooting = false;
 
                     //RANGED ATTACK >> HOSTILE
                     StateChange(EnemyStates.HOSTILE);

@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 3325092846408855489}
   - component: {fileID: 9215408676989096723}
   m_Layer: 8
-  m_Name: Boss Blart
+  m_Name: Boss Blart TEST
   m_TagString: Guard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -779,6 +779,7 @@ MonoBehaviour:
   waypointNextDistance: 0.5
   stoppingDistance: 5
   playerMovenemtRef: {fileID: 0}
+  ceaseFire: 0
   playerVisTarget: {fileID: 0}
   stateMachine: 0
   waypointMethod: 0
@@ -1380,6 +1381,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 516112091041839815, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7c5c23de77afbe94f89eee1c9f6f9fb1, type: 2}
+    - target: {fileID: 516112091041839815, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 23c325c50c063c04bb2dafaaadc6e725, type: 2}
     - target: {fileID: 919132149155446097, guid: cd6cab85e4abbcb4ba008f1554eda516, type: 3}
       propertyPath: m_Name
       value: Guard_Standard_Animations_Avatar
