@@ -145,6 +145,8 @@ public class PlayerMovement : MonoBehaviour
     public bool Slide;
     public bool Diving;
     public bool Stunned;
+    public bool Falling;
+    public bool FallingStun;
 
     public bool isInvulnurable;
     [Tooltip("Timer starts as soon as you get hit, including when you are still struggling")]
@@ -938,7 +940,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---STUNNED---//
-        if (IsStunned)
+        if (IsStunned && !Thud)
         {
             Stunned = true;
             animationController.IsPlayerStunned(Stunned);
@@ -947,6 +949,30 @@ public class PlayerMovement : MonoBehaviour
         {
             Stunned = false;
             animationController.IsPlayerStunned(Stunned);
+        }
+
+        //---FALLING-STUN---//
+        if (IsStunned && Thud)
+        {
+            FallingStun = true;
+            animationController.DidPlayerFall(FallingStun);
+        }
+        else
+        {
+            FallingStun = false;
+            animationController.DidPlayerFall(FallingStun);
+        }
+
+        //---FALLING---//
+        if(!IsGrounded && !Diving && VerticalVelocity.y < 0)
+        {
+            Falling = true;
+            animationController.FallingPlayer(Falling);
+        }
+        else
+        {
+            Falling = false;
+            animationController.FallingPlayer(Falling);
         }
     }
 

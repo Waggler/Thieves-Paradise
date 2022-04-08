@@ -20,7 +20,7 @@ public class EyeballScript : MonoBehaviour
 
     //Player Detection output
     [HideInInspector] public float sightAngle;
-    [SerializeField] [Range(0, 6)] public float susLevel; //how suspicious the eyeball currently is
+    [SerializeField] [Range(0, 10)] public float susLevel; //how suspicious the eyeball currently is
     [SerializeField]public float minSusLevel; //can't get less sus than this
     [SerializeField] public Vector3 lastKnownLocation;
     [HideInInspector] public bool canCurrentlySeePlayer;
@@ -30,7 +30,7 @@ public class EyeballScript : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("PlayerVisionTarget").transform;
-        layerMask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost") + LayerMask.GetMask("Guard");
+        layerMask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost") + LayerMask.GetMask("Guard") + LayerMask.GetMask("Smack");
         layerMask = ~layerMask; //get the player layer to make sure they don't block themselves from vision
 
         lastKnownLocation = transform.position; //set the last known location to the location of the guard to start to prevent potential weirdness
@@ -125,7 +125,7 @@ public class EyeballScript : MonoBehaviour
         }
         //set bounds
         susLevel = Mathf.Clamp(susLevel, minSusLevel, 10f);
-        //print (susLevel);
+        //Debug.Log(susLevel);
     }//END ChangeSus
     
     #if UNITY_EDITOR

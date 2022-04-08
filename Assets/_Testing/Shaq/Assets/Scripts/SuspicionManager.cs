@@ -97,8 +97,6 @@ public class SuspicionManager : MonoBehaviour
 
                 //print("Entered Security Level 1");
 
-                ModEyeSus(enemyManager.warySusMin + .4f);
-
                 break;
             #endregion Security Level 1
 
@@ -112,7 +110,7 @@ public class SuspicionManager : MonoBehaviour
 
     #endregion Awake & Update
 
-    #region General Functions
+    #region General Methods
 
     //---------------------------------//
     //Draws Gizmos
@@ -176,16 +174,11 @@ public class SuspicionManager : MonoBehaviour
 
             //Radius Check
             //Side note: The final part of this statement is not immune to edge cases
-
             if (distance <= callRadius && Mathf.Abs(guard.transform.position.y - targetLoc.y) < 3f && enemyManager.stateMachine != EnemyManager.EnemyStates.STUNNED)
             {
                 //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
                 enemyManager.Alert(targetLoc);
-
-                Debug.Log("Alerted " + enemyManager);
             }
-
-            //Debug.Log(Mathf.Abs(guard.transform.position.y - targetLoc.y));
         }
     }//End AlertGuards
 
@@ -194,5 +187,5 @@ public class SuspicionManager : MonoBehaviour
     //Generates an array of guard instances in the scene
     public void GenGuardList() => guardsList = GameObject.FindGameObjectsWithTag("Guard").ToList(); //End GenGuardList
 
-    #endregion General Functions
+    #endregion General Methods
 }

@@ -11,7 +11,6 @@ namespace BehaviorTree
         WARY,
         SUSPICIOUS,
         HOSTILE,
-        REPORT,
         ATTACK,
         RANGEDATTACK,
         STUNNED,
