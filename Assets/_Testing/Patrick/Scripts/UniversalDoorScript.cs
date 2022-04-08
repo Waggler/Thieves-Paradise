@@ -31,9 +31,9 @@ public class UniversalDoorScript : MonoBehaviour
     private Transform minTrans, maxTrans;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource doorSource;
-    [SerializeField] private AudioClip doorOpenClip;
-    [SerializeField] private AudioClip doorCloseClip;
+    [SerializeField] private AudioSource doorOpenSource;
+    [SerializeField] private AudioSource doorCloseSource;
+
 
 
     void Start()
@@ -136,7 +136,7 @@ public class UniversalDoorScript : MonoBehaviour
     public IEnumerator IOpenAudio()
     //---------------------//
     {
-        doorSource.PlayOneShot(doorOpenClip);
+        doorOpenSource.Play();
         yield return isOpen == false;
         StopAllCoroutines();
     }//END OpenAudio
@@ -145,7 +145,7 @@ public class UniversalDoorScript : MonoBehaviour
     public void CloseAudio()
     //---------------------//
     {
-        doorSource.PlayOneShot(doorCloseClip);
+        doorCloseSource.Play();
     }
 
 }

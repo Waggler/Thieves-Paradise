@@ -13,7 +13,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject creditsScreen;
     [SerializeField] private GameObject missionSelectMenu;
-    [SerializeField] private AudioManager audioManager;
 
     [Header("Buttons")]
     public Button playFirstButton;
@@ -44,8 +43,6 @@ public class MainMenuManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
-        audioManager.PlayMainMenuMusic();
 
         if (PlayerPrefs.GetInt("endCredits") == 1)
         {

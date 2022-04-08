@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variables
     [Header("Movement")]
-    public int hp;
     [SerializeField] private float WalkingSpeed;
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
@@ -116,6 +115,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int CurrentLevel;
     private float CurrentNoiseClock;
 
+    [Header("Hit Points")]
+    public int hp;
+    private HealthTracker healthTracker;
+
     [Header("Falling Check")]
     [SerializeField] private float GroundCheckLimit1;
     [SerializeField] private float GroundCheckLimit2;
@@ -175,6 +178,8 @@ public class PlayerMovement : MonoBehaviour
         StartingLocation = transform.position;
 
         SusMan = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
+
+        healthTracker = (HealthTracker)FindObjectOfType(typeof(HealthTracker));
 
         if (gameController == null)
         {
@@ -388,6 +393,7 @@ public class PlayerMovement : MonoBehaviour
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
                 hp -= 1;
+                healthTracker.DeductHitPoint(hp);
             }
 
             else if (CurrentStunTime >= StunTime || hp <= 0)
