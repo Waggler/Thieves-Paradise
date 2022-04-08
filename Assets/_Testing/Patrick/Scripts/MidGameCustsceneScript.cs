@@ -56,6 +56,9 @@ public class MidGameCustsceneScript : MonoBehaviour
         CMStateCam.GetComponent<CinemachineCollider>().enabled = false;
         anim.Play("Cutscene Camera");
 
+        //stop the player
+        movementManager.Movement(Vector3.zero);
+
         //initalize cutscene camera position
         CMCutsceneCam.transform.position = waypoints[0].transform.position;
         CMCutsceneCam.transform.rotation = waypoints[0].transform.rotation;

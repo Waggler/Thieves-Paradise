@@ -28,7 +28,7 @@ public class InventoryController : MonoBehaviour
 
     [SerializeField] private bool AutoThrowForce;
 
-    //private ItemTracker itemTracker;
+    private ItemTracker itemTracker;
     
     // Start is called before the first frame update
     void Start()
@@ -56,7 +56,7 @@ public class InventoryController : MonoBehaviour
         layerMask = ~LayerMask.GetMask("Player");
 
         im = GetComponent<InputManager>();
-        //itemTracker = (ItemTracker)FindObjectOfType(typeof(ItemTracker));
+        itemTracker = (ItemTracker)FindObjectOfType(typeof(ItemTracker));
     }
 
     private bool throwing;
@@ -433,7 +433,7 @@ public class InventoryController : MonoBehaviour
         //DisplayItem(newItemIndex);
 
         //update Item Tracker
-        //itemTracker.CheckStatus();
+        if (itemTracker != null) itemTracker.CheckStatus();
         
     }//END AddItem
 

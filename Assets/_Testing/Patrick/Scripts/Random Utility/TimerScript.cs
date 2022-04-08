@@ -60,6 +60,7 @@ public class TimerScript : MonoBehaviour
             StartCoroutine(RunTimer());
             startedTimer = true;
             timerUIText.gameObject.SetActive(true);
+            this.tag = "Button"; //make the timer interactable with the pliers 
         }
     }
 
