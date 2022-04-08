@@ -12,23 +12,26 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] private AudioClip confirmClip;
     [SerializeField] private AudioClip denyClip;
     [SerializeField] private AudioSource aSource;
-    [SerializeField] private GameObject light;
+    [SerializeField] private GameObject lightObj;
     private Material lightMat;
 
     void Start()
     {
-        if (light != null)
+        if (lightObj != null)
         {
-            lightMat = light.GetComponent<Renderer>().material;
-            lightMat.EnableKeyword("_Emission");
-
+            lightMat = lightObj.GetComponent<Renderer>().material;
+            
+            lightMat.EnableKeyword("_EMISSION");
             if(isLocked)
             {
+                lightMat.color = Color.red;
                 lightMat.SetColor("_EmissionColor", Color.red);
             }else
             {
+                lightMat.color = Color.green;
                 lightMat.SetColor("_EmissionColor", Color.green);
             }
+            
         }
     }
     public void PressButton()
@@ -46,7 +49,7 @@ public class ButtonScript : MonoBehaviour
         //put logic for changing visuals here
         aSource.PlayOneShot(confirmClip);
 
-        if (light != null)
+        if (lightObj != null)
         {
             lightMat.SetColor("_EmissionColor", Color.green);
         }
