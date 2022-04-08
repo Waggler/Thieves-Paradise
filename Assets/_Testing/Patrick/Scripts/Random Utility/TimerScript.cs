@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TimerScript : MonoBehaviour
 {
@@ -14,10 +15,14 @@ public class TimerScript : MonoBehaviour
 
     [SerializeField] private TextMeshPro timerText;
     [SerializeField] private AudioClip tick;
+    [Tooltip("This scene is loaded when the timer ends")]
+    [SerializeField] private string sceneNameToLoad;
     private AudioSource Aud;
     private float pitchMod = 0.2f;
 
     private bool startedTimer;
+    private bool stoppedTimer;
+    
 
     [SerializeField] private TextMeshProUGUI timerUIText;
 
@@ -68,6 +73,8 @@ public class TimerScript : MonoBehaviour
 
         while(timer > 0)
         {
+            if(stoppedTimer) break;
+
             if (dramaticTimerMode)
             {
                 timeMod = (float)timer / (float)maxTime; //percentage of timer from 0 to 1
@@ -113,6 +120,16 @@ public class TimerScript : MonoBehaviour
         }
 
         //insert end of timer logic
-        //game over
+        if(!stoppedTimer)
+        {
+            //game over
+            SceneManager.LoadScene(sceneNameToLoad);
+        }
+        
+    }
+
+    public void StopTimer()
+    {
+        stoppedTimer = true;
     }
 }
