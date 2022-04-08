@@ -99,9 +99,10 @@ public class OpeningCutsceneScript : MonoBehaviour
             yield return new WaitForSeconds(waitTimes[i]);
         }
 
-        isPlayingCutscene = false;
+        
         //when cutscene is over swap back to main cam to start play
-        StartPlay();
+        if (isPlayingCutscene) StartPlay();
+        isPlayingCutscene = false;
     }
 
     void StartPlay()

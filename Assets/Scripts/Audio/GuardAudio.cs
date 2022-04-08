@@ -21,6 +21,8 @@ public class GuardAudio : MonoBehaviour
     [Header("Vocalizations")]
     [SerializeField] private AudioClip[] spotBarks;
     [SerializeField] private AudioClip[] idleClips;
+    [SerializeField] private AudioClip[] lostClips;
+
     [SerializeField] private AudioClip susClip;
 
     [Header("Footsteps")]
@@ -70,6 +72,17 @@ public class GuardAudio : MonoBehaviour
         int i = Random.Range(0, spotBarks.Length);
         guardSource.pitch = Random.Range(pitchMin, pitchMax);
         guardSource.PlayOneShot(spotBarks[i]);
+
+    }//END SpotPlayer
+
+    //-----------------------//
+    public void LostPlayer()
+    //-----------------------//
+    {
+        guardSource.volume = normalVolume;
+        int i = Random.Range(0, lostClips.Length);
+        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        guardSource.PlayOneShot(lostClips[i]);
 
     }//END SpotPlayer
 

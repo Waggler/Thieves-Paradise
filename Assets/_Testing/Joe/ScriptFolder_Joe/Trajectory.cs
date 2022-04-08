@@ -5,8 +5,6 @@ using static System.Math;
 
 public class Trajectory : MonoBehaviour
 {
-    //Some how this isn't even firing. Try to see if !Trajectory start works.
-
     [Header("Calulation Variables")]
     [SerializeField] private Transform InitialPosition;
     private InventoryController inventoryController;
@@ -15,7 +13,6 @@ public class Trajectory : MonoBehaviour
 
     [Header("Visualization")]
     [SerializeField] private LineRenderer Line;
-    //[Range(3,30)]
     [SerializeField] private int LineLength;
     [SerializeField] private Material Mat;
     [SerializeField] private Color lineColor;
@@ -32,7 +29,7 @@ public class Trajectory : MonoBehaviour
 
     void Update()
     {
-        TrueVelocity = inventoryController.throwVector / 48; //find the right scaling variable here
+        TrueVelocity = inventoryController.throwVector / 48; 
         TrajectoryStart = inputManager.IsThrowing;
         PredictingLaunch();
     }
@@ -40,7 +37,6 @@ public class Trajectory : MonoBehaviour
     {
         if(TrajectoryStart)
         {
-            //Debug.Log("I am working.");
             Line.material = Mat;
             VisulizeTrajectory(TrueVelocity);
             Line.enabled = true;
@@ -58,7 +54,6 @@ public class Trajectory : MonoBehaviour
     {
         for(int i = 0; i < LineLength; i++)
         {
-            //Debug.Log($"I = {i}");
             Vector3 Position = CalculateTrajectory(Thrown, i / (float)(LineLength) / 0.5f);
             Line.SetPosition(i, Position);
         }
@@ -73,8 +68,6 @@ public class Trajectory : MonoBehaviour
         float SpawnY = (-0.5f * Mathf.Abs(Physics.gravity.y) * (time * time)) + (vo.y * time) + InitialPosition.position.y;
 
         Result.y = SpawnY;
-
-        //Debug.Log($"The Result is {Result}");
 
         return Result;
     }

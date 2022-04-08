@@ -26,7 +26,7 @@ public class ButtonScript : MonoBehaviour
         isLocked = false;
         //put logic for changing visuals here
         aSource.PlayOneShot(confirmClip);
-        //PressButton();
+        PressButton();
     }
 
     public void Deny()

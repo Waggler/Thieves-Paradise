@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variables
     [Header("Movement")]
-    public int hp;
     [SerializeField] private float WalkingSpeed;
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
@@ -40,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float DiveHeight;
     public CapsuleCollider playerCollider;
     [SerializeField] public CharacterController Controller;
-    [HideInInspector] public bool IsGrounded = true;
+    public bool IsGrounded = true;
     [SerializeField] private float AirInertiaTime;
     public float CurrentAirInertiaTime;
     private float HeightFromGround;
@@ -116,6 +115,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int CurrentLevel;
     private float CurrentNoiseClock;
 
+    [Header("Hit Points")]
+    public int hp;
+    private HealthTracker healthTracker;
+
     [Header("Falling Check")]
     [SerializeField] private float GroundCheckLimit1;
     [SerializeField] private float GroundCheckLimit2;
@@ -142,6 +145,8 @@ public class PlayerMovement : MonoBehaviour
     public bool Slide;
     public bool Diving;
     public bool Stunned;
+    public bool Falling;
+    public bool FallingStun;
 
     public bool isInvulnurable;
     [Tooltip("Timer starts as soon as you get hit, including when you are still struggling")]
@@ -175,6 +180,8 @@ public class PlayerMovement : MonoBehaviour
         StartingLocation = transform.position;
 
         SusMan = (SuspicionManager)FindObjectOfType(typeof(SuspicionManager));
+
+        healthTracker = (HealthTracker)FindObjectOfType(typeof(HealthTracker));
 
         if (gameController == null)
         {
@@ -370,7 +377,7 @@ public class PlayerMovement : MonoBehaviour
             canMove = false;
             CurrentStunTime += Time.deltaTime;
 
-            if (BreakOutCounter >= BreakOutThreshold && hp >= 1)
+            if (BreakOutCounter >= BreakOutThreshold && hp >= 2)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(playerCollider.transform.position, 10f, 1 << 8);
                 foreach (Collider collider in hitColliders)
@@ -388,10 +395,13 @@ public class PlayerMovement : MonoBehaviour
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
                 hp -= 1;
+                healthTracker.DeductHitPoint(hp);
             }
 
-            else if (CurrentStunTime >= StunTime || hp <= 0)
+            else if (CurrentStunTime >= StunTime || hp <= 1)
             {
+                hp -= 1;
+                //end the game
                 FindObjectOfType<LoseScreenMenuManager>().LoseGame();
                 IsGameOver = true;
             }
@@ -930,7 +940,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---STUNNED---//
-        if (IsStunned)
+        if (IsStunned && !Thud)
         {
             Stunned = true;
             animationController.IsPlayerStunned(Stunned);
@@ -939,6 +949,30 @@ public class PlayerMovement : MonoBehaviour
         {
             Stunned = false;
             animationController.IsPlayerStunned(Stunned);
+        }
+
+        //---FALLING-STUN---//
+        if (IsStunned && Thud)
+        {
+            FallingStun = true;
+            animationController.DidPlayerFall(FallingStun);
+        }
+        else
+        {
+            FallingStun = false;
+            animationController.DidPlayerFall(FallingStun);
+        }
+
+        //---FALLING---//
+        if(!IsGrounded && !Diving && VerticalVelocity.y < 0)
+        {
+            Falling = true;
+            animationController.FallingPlayer(Falling);
+        }
+        else
+        {
+            Falling = false;
+            animationController.FallingPlayer(Falling);
         }
     }
 
