@@ -211,6 +211,19 @@ public class AnimationController : MonoBehaviour
         }
     }// END DidPlayerFall
 
+    public void FallingPlayer(bool isPlayerFalling)
+    //-------------------------------------------------//
+    {
+        if (isPlayerFalling)
+        {
+            playerAnimator.SetBool("falling", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("falling",false);
+        }
+    }
+
     public void IsPlayerFree(bool isPlayerFree)
     //-------------------------------------------------//
     {

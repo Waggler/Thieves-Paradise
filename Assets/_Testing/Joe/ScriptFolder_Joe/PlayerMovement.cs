@@ -145,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
     public bool Slide;
     public bool Diving;
     public bool Stunned;
+    public bool Falling;
     public bool FallingStun;
 
     public bool isInvulnurable;
@@ -958,6 +959,18 @@ public class PlayerMovement : MonoBehaviour
         {
             FallingStun = false;
             animationController.DidPlayerFall(FallingStun);
+        }
+
+        //---FALLING---//
+        if(!IsGrounded && !Diving && VerticalVelocity.y < 0)
+        {
+            Falling = true;
+            animationController.FallingPlayer(Falling);
+        }
+        else
+        {
+            Falling = false;
+            animationController.FallingPlayer(Falling);
         }
     }
 
