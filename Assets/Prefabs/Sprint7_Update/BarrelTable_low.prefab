@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7241181668379567464}
   - component: {fileID: 2307645144956208977}
   - component: {fileID: 5756276045048667180}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TableTop_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,8 @@ GameObject:
   - component: {fileID: 5277325385902891672}
   - component: {fileID: 5618817344940586873}
   - component: {fileID: 3334899388420589277}
-  m_Layer: 0
+  - component: {fileID: 8672260265016857918}
+  m_Layer: 3
   m_Name: Barrel_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,6 +163,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8672260265016857918
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225997064120318879}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5577547680137458886, guid: eb0cc752b33fa3e449333e9e4c0f5d7f, type: 3}
 --- !u!1 &7688398765357389394
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,8 +186,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7059811732186565864}
-  - component: {fileID: 3044546461326365330}
-  m_Layer: 0
+  - component: {fileID: 773648198502108505}
+  m_Layer: 3
   m_Name: BarrelTable_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,15 +203,15 @@ Transform:
   m_GameObject: {fileID: 7688398765357389394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5, y: 2, z: 2.75}
   m_Children:
   - {fileID: 5277325385902891672}
   - {fileID: 7241181668379567464}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3044546461326365330
-BoxCollider:
+--- !u!64 &773648198502108505
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -205,6 +220,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8103329, y: 0.5387107, z: 0.78925884}
-  m_Center: {x: -0.001170814, y: 0.2634266, z: -0.0023415536}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

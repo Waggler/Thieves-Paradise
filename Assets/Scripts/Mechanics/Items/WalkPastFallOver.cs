@@ -11,6 +11,7 @@ public class WalkPastFallOver : MonoBehaviour
     public bool inRange = false;
     public bool Crouching = false;
     public float maxAngle = -90f;
+    public GeneralAlerter ga;
     //[SerializeField] private float noiseRadius = 15;
 
     // Start is called before the first frame update
@@ -29,6 +30,7 @@ public class WalkPastFallOver : MonoBehaviour
             Timer = Timer + Time.deltaTime;
             // float angle = Mathf.LerpAngle(minAngle, maxAngle, Timer);
             // fallingObject.transform.eulerAngles = new Vector3(angle, 0, 0);
+            ga.AlertNearGuards();
 
             if(Timer <= 1.05f)
             {
