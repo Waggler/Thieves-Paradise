@@ -8,11 +8,13 @@ public class Player_VFX : MonoBehaviour
     [SerializeField] private GameObject runParticles;
     [SerializeField] private GameObject slideParticles;
 
+    private ParticleSystem runParticleSys;
+    private ParticleSystem slideParticleSys;
+
     // Start is called before the first frame update
     void Awake()
     {
-        runParticles.SetActive(false);
-        slideParticles.SetActive(false);
+        Init();
     }
 
     // Update is called once per frame
@@ -26,6 +28,7 @@ public class Player_VFX : MonoBehaviour
         {
             runParticles.SetActive(false);
         }
+
         if (playerMovement.IsSliding == true)
         {
             slideParticles.SetActive(true);
@@ -35,6 +38,15 @@ public class Player_VFX : MonoBehaviour
         {
             slideParticles.SetActive(false);
         }
+    }
+
+    private void Init()
+    {
+        runParticles.SetActive(false);
+        slideParticles.SetActive(false);
+
+        runParticleSys = runParticles.GetComponent<ParticleSystem>();
+        slideParticleSys = slideParticles.GetComponent<ParticleSystem>();
     }
 }
 

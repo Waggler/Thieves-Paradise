@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    private Vector3 moveVector;
+    public Vector3 moveVector;
     private Vector3 directionVector;
     public bool isSprinting;
     public bool isCrouching;

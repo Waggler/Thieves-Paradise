@@ -181,5 +181,15 @@ public class GuardAnimatorScript : MonoBehaviour
     {
         anim.SetBool("isShooting", true);
     }
+
+    public void EnterSmack()
+    {
+        anim.SetBool("isHitting", true);
+    }
+
+    public void ExitSmack()
+    {
+        anim.SetBool("isHitting", false);
+    }
 }
 

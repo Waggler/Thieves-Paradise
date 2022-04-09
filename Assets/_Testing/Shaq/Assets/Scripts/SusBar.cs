@@ -37,7 +37,7 @@ public class SusBar : MonoBehaviour
     {
         slider.minValue = 0f;
 
-        slider.maxValue = 20f;
+        slider.maxValue = 10f;
 
         //fill.color = gradient.Evaluate(1f);
 

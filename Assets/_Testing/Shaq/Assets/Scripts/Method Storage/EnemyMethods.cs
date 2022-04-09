@@ -108,9 +108,6 @@ public class EnemyMethods : MonoBehaviour
 //    [Tooltip("The speed that the AI moves at in the HOSTILE state")]
 //    [SerializeField] [Range(0, 5)] public float hostileSpeed = 4f;
 
-//    [Tooltip("The speed that the AI moves at in the REPORT state")]
-//    [SerializeField] [Range(0, 5)] private float reportSpeed = 3.5f;
-
 //    [Tooltip("The speed that the AI moves at in the ATTACK state")]
 //    [SerializeField] [Range(0, 5)] public float attackSpeed = 0f;
 
@@ -251,7 +248,6 @@ public class EnemyMethods : MonoBehaviour
 //        WARY,
 //        SUSPICIOUS,
 //        HOSTILE,
-//        REPORT,
 //        RANGEDATTACK,
 //        STUNNED
 //    }
