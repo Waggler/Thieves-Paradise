@@ -13,24 +13,26 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] private AudioClip denyClip;
     [SerializeField] private AudioSource aSource;
     [Tooltip("If you fill this make sure to give it materials for locked and unlocked state")]
-    [SerializeField] private GameObject lightObj;
+    [SerializeField] private GameObject[] lightObj;
     [SerializeField] private Material lightMatLocked;
     [SerializeField] private Material lightMatUnlocked;
     private Material lightMat;
 
     void Start()
     {
-        if (lightObj != null)
+        if (lightObj.Length > 0)
         {
-            lightMat = lightObj.GetComponent<Renderer>().material;
-            if(isLocked)
+            //lightMat = lightObj.GetComponent<Renderer>().material;
+            foreach (GameObject i in lightObj)
             {
-                lightObj.GetComponent<Renderer>().material = lightMatLocked;
-            }else
-            {
-                lightObj.GetComponent<Renderer>().material = lightMatUnlocked;
-            }
-            
+                if(isLocked)
+                {
+                    i.GetComponent<Renderer>().material = lightMatLocked;
+                }else
+                {
+                    i.GetComponent<Renderer>().material = lightMatUnlocked;
+                }
+            }  
         }
     }
     public void PressButton()
@@ -50,7 +52,10 @@ public class ButtonScript : MonoBehaviour
 
         if (lightObj != null)
         {
-            lightObj.GetComponent<Renderer>().material = lightMatUnlocked;
+            foreach (GameObject i in lightObj)
+            {
+                i.GetComponent<Renderer>().material = lightMatUnlocked;
+            } 
         }
         PressButton();
     }
