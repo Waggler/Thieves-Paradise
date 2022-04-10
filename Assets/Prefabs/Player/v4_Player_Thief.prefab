@@ -1288,6 +1288,8 @@ MonoBehaviour:
   Slide: 0
   Diving: 0
   Stunned: 0
+  Falling: 0
+  FallingStun: 0
   isInvulnurable: 0
   invulnerabilityTime: 3
   invincabilityEffect: {fileID: 7004736833248191275}
@@ -1713,7 +1715,7 @@ MonoBehaviour:
   isHoldingItem: 0
   throwVector: {x: 0, y: 0, z: 0}
   holdItemPos: {fileID: 8827046239930562728}
-  AutoThrowForce: 0
+  AutoThrowForce: 1
 --- !u!114 &8701465133382501872
 MonoBehaviour:
   m_ObjectHideFlags: 0
