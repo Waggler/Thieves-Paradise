@@ -227,6 +227,8 @@ public class EnemyManager : MonoBehaviour
 
     private bool spotPlayerBool = false;
 
+    private float susLevelDecreaseRecord;
+
     //Delete this in the future
     //private System.Threading.Timer timer;
 
@@ -431,6 +433,8 @@ public class EnemyManager : MonoBehaviour
         securityStations = new List<GameObject>(GameObject.FindGameObjectsWithTag("SecurityStation"));
 
         taserExitRadius = taserEntryRadius + 10f;
+
+        susLevelDecreaseRecord = eyeball.susDecreaseMultiplier;
 
     }//End Init
 
@@ -824,6 +828,39 @@ public class EnemyManager : MonoBehaviour
                     FaceTarget(target);
                 }
 
+
+
+
+
+
+                //RaycastHit hit;
+
+                //if (Physics.Raycast(target, Vector3.down, out hit, Mathf.Infinity))
+                //{
+
+                //    if (!agent.CalculatePath(hit.point, path))
+                //    {
+                //        target = hit.point;
+                //    }
+                //    else
+                //    {
+                //        Debug.Log("Target can not be reach");
+                //    }
+                //}
+
+                //if (eyeball.canCurrentlySeePlayer == false && target != player.transform.position)
+                //{
+                //    eyeball.susDecreaseMultiplier = 0;
+                //}
+                //else if (true)
+                //{
+                //    eyeball.susDecreaseMultiplier = susLevelDecreaseRecord;
+                //}
+
+
+
+
+
                 #region Exit Conditions
                 //Conditionds needed for ranged attack / taser
                 if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance < taserEntryRadius)
@@ -848,7 +885,6 @@ public class EnemyManager : MonoBehaviour
                         StateChange(EnemyStates.PASSIVE);
                     }
                 }
-
                 #endregion Exit Conditions
 
                 break;
