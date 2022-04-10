@@ -256,6 +256,8 @@ public class EnemyManager : MonoBehaviour
 
     private bool isShooting = false;
 
+    [SerializeField] private GameObject taserPrefab;
+
     #endregion
 
     #region Enumerations
@@ -621,6 +623,7 @@ public class EnemyManager : MonoBehaviour
     {
         Init();
 
+        taserPrefab.SetActive(false);
         //StartCoroutine(ITimer(15, shitBool));
     }//End Awake
     #endregion
@@ -864,6 +867,8 @@ public class EnemyManager : MonoBehaviour
             case EnemyStates.RANGEDATTACK:
                 //Add secondary section to this state that changes the guard's behaviour from run / stop & gun to run & gun
 
+                taserPrefab.SetActive(true);
+
                 SetAiSpeed(0);
 
                 target = eyeball.lastKnownLocation;
@@ -923,6 +928,8 @@ public class EnemyManager : MonoBehaviour
                 if (eyeball.canCurrentlySeePlayer == false || agent.remainingDistance > taserExitRadius)   
                 {
                     isShooting = false;
+
+                    taserPrefab.SetActive(false);
 
                     //RANGED ATTACK >> HOSTILE
                     StateChange(EnemyStates.HOSTILE);
