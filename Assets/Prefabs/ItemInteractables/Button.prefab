@@ -62,12 +62,15 @@ MonoBehaviour:
   onPress:
     m_PersistentCalls:
       m_Calls: []
-  isLocked: 0
-  keyItem: 
+  isLocked: 1
+  keyItem: Wire Cutters
   confirmClip: {fileID: 0}
   denyClip: {fileID: 0}
   aSource: {fileID: 0}
-  lightObj: {fileID: 3803164519363744284}
+  lightObj:
+  - {fileID: 3803164519363744284}
+  lightMatLocked: {fileID: 2100000, guid: fcfd3d21df4e76b41b62bd13bf7a35e7, type: 2}
+  lightMatUnlocked: {fileID: 2100000, guid: c4982142195012643844237ea0a360a8, type: 2}
 --- !u!1 &7973899160042223670
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +168,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7818359433600238097, guid: 38d4dff55cff6c847a12b3ddee8a75e4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c4982142195012643844237ea0a360a8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38d4dff55cff6c847a12b3ddee8a75e4, type: 3}
 --- !u!4 &3206991787508442807 stripped
