@@ -78,12 +78,12 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isShooting", false);
         if (enemyManager.patrolWaitTime < 5 && enemyManager.patrolWaitTime > 0)
         {
-        anim.SetBool("isShooting", false);
+            anim.SetBool("isShooting", false);
             anim.SetBool("isSearching", true);
         }
         else
         {
-        anim.SetBool("isShooting", false);
+            anim.SetBool("isShooting", false);
             anim.SetBool("isSearching", false);
         }
     }
@@ -182,14 +182,47 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isShooting", true);
     }
 
+    public void ExitShoot()
+    {
+        anim.SetBool("isShooting", false);
+    }
+
     public void EnterSmack()
     {
         anim.SetBool("isHitting", true);
+        ExitShoot();
+        ExitReload();
     }
 
     public void ExitSmack()
     {
         anim.SetBool("isHitting", false);
+    }
+
+    public void EnterUnholster()
+    {
+        anim.SetBool("isUnholster", true);
+    }
+
+    public void ExitUnholster()
+    {
+        anim.SetBool("isUnholster", false);
+    }
+
+    public void EnterReload()
+    {
+        anim.SetBool("isShooting", false);
+        //anim.SetBool("isHitting", false);
+
+        ExitUnholster();
+
+        //Leave reloading here ~Shaq
+        anim.SetBool("isReloading", true);
+    }
+
+    public void ExitReload()
+    {
+        anim.SetBool("isReloading", false);
     }
 }
 
