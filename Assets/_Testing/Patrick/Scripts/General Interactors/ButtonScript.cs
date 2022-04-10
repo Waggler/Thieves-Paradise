@@ -12,7 +12,10 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] private AudioClip confirmClip;
     [SerializeField] private AudioClip denyClip;
     [SerializeField] private AudioSource aSource;
+    [Tooltip("If you fill this make sure to give it materials for locked and unlocked state")]
     [SerializeField] private GameObject lightObj;
+    [SerializeField] private Material lightMatLocked;
+    [SerializeField] private Material lightMatUnlocked;
     private Material lightMat;
 
     void Start()
@@ -20,16 +23,12 @@ public class ButtonScript : MonoBehaviour
         if (lightObj != null)
         {
             lightMat = lightObj.GetComponent<Renderer>().material;
-            
-            lightMat.EnableKeyword("_EMISSION");
             if(isLocked)
             {
-                lightMat.color = Color.red;
-                lightMat.SetColor("_EmissionColor", Color.red);
+                lightObj.GetComponent<Renderer>().material = lightMatLocked;
             }else
             {
-                lightMat.color = Color.green;
-                lightMat.SetColor("_EmissionColor", Color.green);
+                lightObj.GetComponent<Renderer>().material = lightMatUnlocked;
             }
             
         }
@@ -51,7 +50,7 @@ public class ButtonScript : MonoBehaviour
 
         if (lightObj != null)
         {
-            lightMat.SetColor("_EmissionColor", Color.green);
+            lightObj.GetComponent<Renderer>().material = lightMatUnlocked;
         }
         PressButton();
     }
