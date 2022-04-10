@@ -828,43 +828,13 @@ public class EnemyManager : MonoBehaviour
                     FaceTarget(target);
                 }
 
-
-
-
-
-
-                //RaycastHit hit;
-
-                //if (Physics.Raycast(target, Vector3.down, out hit, Mathf.Infinity))
-                //{
-
-                //    if (!agent.CalculatePath(hit.point, path))
-                //    {
-                //        target = hit.point;
-                //    }
-                //    else
-                //    {
-                //        Debug.Log("Target can not be reach");
-                //    }
-                //}
-
-                //if (eyeball.canCurrentlySeePlayer == false && target != player.transform.position)
-                //{
-                //    eyeball.susDecreaseMultiplier = 0;
-                //}
-                //else if (true)
-                //{
-                //    eyeball.susDecreaseMultiplier = susLevelDecreaseRecord;
-                //}
-
-
-
-
-
                 #region Exit Conditions
                 //Conditionds needed for ranged attack / taser
                 if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance < taserEntryRadius)
                 {
+
+                    guardAnim.EnterUnholster();
+
                     //HOSTILE >> RANGED ATTACK
                     StateChange(EnemyStates.RANGEDATTACK);
                 }
@@ -900,6 +870,8 @@ public class EnemyManager : MonoBehaviour
 
                 FaceTarget(target);
 
+                //guardAnim.ExitUnholster();
+
                 if (!isShooting)
                 {
                     guardAnim.EnterShoot();
@@ -916,10 +888,14 @@ public class EnemyManager : MonoBehaviour
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
                 if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
                 {
+                    guardAnim.EnterReload();
                     ceaseFire = true;
                 }
                 else
                 {
+                    guardAnim.ExitReload();
+                    guardAnim.ExitSmack();
+                    guardAnim.EnterShoot();
                     ceaseFire = false;
                 }
 
@@ -975,10 +951,12 @@ public class EnemyManager : MonoBehaviour
 
                 eyeball.sightRange = 0;
 
-                stunTime -= Time.fixedDeltaTime;
-
+                if (stunTime > 0)
+                {
+                    stunTime -= Time.fixedDeltaTime;
+                }
                 //Exit Condition
-                if (stunTime <= 0)
+                else if (stunTime < 0)
                 {
                     guardAnim.ExitStunAnim();
 
