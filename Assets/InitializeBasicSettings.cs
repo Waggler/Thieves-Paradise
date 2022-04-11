@@ -81,6 +81,8 @@ public class InitializeBasicSettings : MonoBehaviour
         PlayerPrefs.SetFloat("RadioSaturation", 0);
         PlayerPrefs.SetFloat("CamSensitivity", 0.5f);
         PlayerPrefs.SetFloat("ThrowSensitivity", 0.5f);
+        PlayerPrefs.SetFloat("RadioSaturation", 1);
+        PlayerPrefs.SetFloat("RadioHue", 0);
 
         SetSettings();
 
