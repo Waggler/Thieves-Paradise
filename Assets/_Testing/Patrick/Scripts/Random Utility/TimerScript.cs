@@ -100,6 +100,11 @@ public class TimerScript : MonoBehaviour
             {
                 yield return new WaitForSeconds(1f); //wait for 1 second between ticks
             }
+
+            if (stoppedTimer)
+            {
+                StopCoroutine(RunTimer());
+            }
             
             timer --;
 
@@ -132,5 +137,7 @@ public class TimerScript : MonoBehaviour
     public void StopTimer()
     {
         stoppedTimer = true;
+
+        timerUIText.text = "You saved Buddy! Now get outta there!";
     }
 }
