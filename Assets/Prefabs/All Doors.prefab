@@ -810,6 +810,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4476870057047984039}
@@ -1060,6 +1064,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4476870057296057139}
@@ -1299,6 +1307,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982435334728851107, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
@@ -1544,6 +1556,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4476870057047984039}
@@ -1783,7 +1799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: isLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1922,6 +1938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door - Perfume Store
       objectReference: {fileID: 0}
+    - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
+      propertyPath: doorMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -2014,6 +2034,10 @@ PrefabInstance:
     - target: {fileID: 4726114548333393280, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Name
       value: Door - Luxury Clothes 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
+      propertyPath: doorMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
@@ -2110,7 +2134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: doorMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
@@ -2204,6 +2228,10 @@ PrefabInstance:
     - target: {fileID: 4726114548333393280, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Name
       value: Door - Men's Store
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
+      propertyPath: doorMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
@@ -2300,7 +2328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: doorMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
@@ -2522,6 +2550,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982435334728851107, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
@@ -2953,7 +2985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: isLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.size
@@ -3230,7 +3262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: doorMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
@@ -3323,6 +3355,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982435334728851107, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
@@ -3480,6 +3516,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982435334728851107, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
@@ -3671,6 +3711,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982435334728851107, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
@@ -3976,6 +4020,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4476870055418257944}
@@ -4096,6 +4144,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door - Luxury Clothes
       objectReference: {fileID: 0}
+    - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
+      propertyPath: doorMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -4191,7 +4243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: isLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.size
@@ -4360,7 +4412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: isLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4709,6 +4761,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4476870056149046265}
@@ -4956,7 +5012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: isLocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5076,6 +5132,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4476870055900074491}
@@ -5184,6 +5244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door - West 2F Hallway
       objectReference: {fileID: 0}
+    - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
+      propertyPath: doorMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -5275,6 +5339,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982435334728851107, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
+      propertyPath: isLocked
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
@@ -5524,7 +5592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: doorMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
@@ -5621,7 +5689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: isLocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5743,6 +5811,10 @@ PrefabInstance:
     - target: {fileID: 4726114548333393280, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Name
       value: Door - Fitness Store
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
+      propertyPath: doorMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
@@ -6057,6 +6129,10 @@ PrefabInstance:
     - target: {fileID: 4726114548333393280, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Name
       value: Door - Employee Backroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849478037691352129, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
+      propertyPath: doorMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8860202328298275679, guid: 56f3656e2dfd2e44c8162f1519a5a5b1, type: 3}
       propertyPath: m_Layer
@@ -6419,7 +6495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: isLocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.size
@@ -6701,7 +6777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: isLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7583652997753567889, guid: bcbdadda1e7101449b919647ce27a565, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
