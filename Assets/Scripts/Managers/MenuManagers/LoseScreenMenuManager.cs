@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Audio;
 
 public class LoseScreenMenuManager : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Animator loseAnimator;
-
+    [SerializeField] private AudioMixer mainMixer;
 
     [SerializeField] private Button firstButton;
 
@@ -41,6 +42,8 @@ public class LoseScreenMenuManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+        StartCoroutine(IPauseWorld());
+
 
     }//END LoseGame
 
@@ -52,5 +55,11 @@ public class LoseScreenMenuManager : MonoBehaviour
 
     }//END LoadCheckpoint
 
+    IEnumerator IPauseWorld()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 0;
+
+    }
 
 }//END LoseScreenMenuManager
