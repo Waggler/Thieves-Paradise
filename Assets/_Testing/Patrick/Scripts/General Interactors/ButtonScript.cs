@@ -46,6 +46,11 @@ public class ButtonScript : MonoBehaviour
 
     public void Unlock()
     {
+        if (!isLocked)
+        {
+            return; //not having this actually caused the game to crash lol
+        }
+
         isLocked = false;
         //put logic for changing visuals here
         aSource.PlayOneShot(confirmClip);
