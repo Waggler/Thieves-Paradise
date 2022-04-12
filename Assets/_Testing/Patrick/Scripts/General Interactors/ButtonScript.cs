@@ -12,6 +12,29 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] private AudioClip confirmClip;
     [SerializeField] private AudioClip denyClip;
     [SerializeField] private AudioSource aSource;
+    [Tooltip("If you fill this make sure to give it materials for locked and unlocked state")]
+    [SerializeField] private GameObject[] lightObj;
+    [SerializeField] private Material lightMatLocked;
+    [SerializeField] private Material lightMatUnlocked;
+    private Material lightMat;
+
+    void Start()
+    {
+        if (lightObj.Length > 0)
+        {
+            //lightMat = lightObj.GetComponent<Renderer>().material;
+            foreach (GameObject i in lightObj)
+            {
+                if(isLocked)
+                {
+                    i.GetComponent<Renderer>().material = lightMatLocked;
+                }else
+                {
+                    i.GetComponent<Renderer>().material = lightMatUnlocked;
+                }
+            }  
+        }
+    }
     public void PressButton()
     {
         if(!isLocked)
@@ -23,9 +46,22 @@ public class ButtonScript : MonoBehaviour
 
     public void Unlock()
     {
+        if (!isLocked)
+        {
+            return; //not having this actually caused the game to crash lol
+        }
+
         isLocked = false;
         //put logic for changing visuals here
         aSource.PlayOneShot(confirmClip);
+
+        if (lightObj != null)
+        {
+            foreach (GameObject i in lightObj)
+            {
+                i.GetComponent<Renderer>().material = lightMatUnlocked;
+            } 
+        }
         PressButton();
     }
 

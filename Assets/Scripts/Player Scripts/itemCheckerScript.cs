@@ -45,6 +45,14 @@ public class itemCheckerScript : MonoBehaviour
                 //do something else if needed
             }
         }
+
+        if (other.gameObject.GetComponent<BuddyHolder>() != null)
+        {
+            if (other.gameObject.GetComponent<BuddyHolder>().displayBuddy)
+            {
+                GoToWinScreen();
+            }
+        }
     }
     private void OnTriggerExit()
     {
