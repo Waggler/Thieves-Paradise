@@ -227,6 +227,8 @@ public class EnemyManager : MonoBehaviour
 
     private bool spotPlayerBool = false;
 
+    private float susLevelDecreaseRecord;
+
     //Delete this in the future
     //private System.Threading.Timer timer;
 
@@ -253,6 +255,8 @@ public class EnemyManager : MonoBehaviour
     private bool guardStunned = false;
 
     private bool isShooting = false;
+
+    [SerializeField] private GameObject taserPrefab;
 
     #endregion
 
@@ -431,6 +435,8 @@ public class EnemyManager : MonoBehaviour
         securityStations = new List<GameObject>(GameObject.FindGameObjectsWithTag("SecurityStation"));
 
         taserExitRadius = taserEntryRadius + 10f;
+
+        susLevelDecreaseRecord = eyeball.susDecreaseMultiplier;
 
     }//End Init
 
@@ -617,6 +623,7 @@ public class EnemyManager : MonoBehaviour
     {
         Init();
 
+        taserPrefab.SetActive(false);
         //StartCoroutine(ITimer(15, shitBool));
     }//End Awake
     #endregion
@@ -828,6 +835,9 @@ public class EnemyManager : MonoBehaviour
                 //Conditionds needed for ranged attack / taser
                 if (eyeball.canCurrentlySeePlayer == true && agent.remainingDistance < taserEntryRadius)
                 {
+
+                    guardAnim.EnterUnholster();
+
                     //HOSTILE >> RANGED ATTACK
                     StateChange(EnemyStates.RANGEDATTACK);
                 }
@@ -848,7 +858,6 @@ public class EnemyManager : MonoBehaviour
                         StateChange(EnemyStates.PASSIVE);
                     }
                 }
-
                 #endregion Exit Conditions
 
                 break;
@@ -858,11 +867,15 @@ public class EnemyManager : MonoBehaviour
             case EnemyStates.RANGEDATTACK:
                 //Add secondary section to this state that changes the guard's behaviour from run / stop & gun to run & gun
 
+                taserPrefab.SetActive(true);
+
                 SetAiSpeed(0);
 
                 target = eyeball.lastKnownLocation;
 
                 FaceTarget(target);
+
+                //guardAnim.ExitUnholster();
 
                 if (!isShooting)
                 {
@@ -880,10 +893,14 @@ public class EnemyManager : MonoBehaviour
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
                 if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
                 {
+                    guardAnim.EnterReload();
                     ceaseFire = true;
                 }
                 else
                 {
+                    guardAnim.ExitReload();
+                    guardAnim.ExitSmack();
+                    guardAnim.EnterShoot();
                     ceaseFire = false;
                 }
 
@@ -912,6 +929,8 @@ public class EnemyManager : MonoBehaviour
                 {
                     isShooting = false;
 
+                    taserPrefab.SetActive(false);
+
                     //RANGED ATTACK >> HOSTILE
                     StateChange(EnemyStates.HOSTILE);
                 }
@@ -939,10 +958,12 @@ public class EnemyManager : MonoBehaviour
 
                 eyeball.sightRange = 0;
 
-                stunTime -= Time.fixedDeltaTime;
-
+                if (stunTime > 0)
+                {
+                    stunTime -= Time.fixedDeltaTime;
+                }
                 //Exit Condition
-                if (stunTime <= 0)
+                else if (stunTime < 0)
                 {
                     guardAnim.ExitStunAnim();
 

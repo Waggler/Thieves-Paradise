@@ -12,26 +12,27 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] private AudioClip confirmClip;
     [SerializeField] private AudioClip denyClip;
     [SerializeField] private AudioSource aSource;
-    [SerializeField] private GameObject lightObj;
+    [Tooltip("If you fill this make sure to give it materials for locked and unlocked state")]
+    [SerializeField] private GameObject[] lightObj;
+    [SerializeField] private Material lightMatLocked;
+    [SerializeField] private Material lightMatUnlocked;
     private Material lightMat;
 
     void Start()
     {
-        if (lightObj != null)
+        if (lightObj.Length > 0)
         {
-            lightMat = lightObj.GetComponent<Renderer>().material;
-            
-            lightMat.EnableKeyword("_EMISSION");
-            if(isLocked)
+            //lightMat = lightObj.GetComponent<Renderer>().material;
+            foreach (GameObject i in lightObj)
             {
-                lightMat.color = Color.red;
-                lightMat.SetColor("_EmissionColor", Color.red);
-            }else
-            {
-                lightMat.color = Color.green;
-                lightMat.SetColor("_EmissionColor", Color.green);
-            }
-            
+                if(isLocked)
+                {
+                    i.GetComponent<Renderer>().material = lightMatLocked;
+                }else
+                {
+                    i.GetComponent<Renderer>().material = lightMatUnlocked;
+                }
+            }  
         }
     }
     public void PressButton()
@@ -45,13 +46,21 @@ public class ButtonScript : MonoBehaviour
 
     public void Unlock()
     {
+        if (!isLocked)
+        {
+            return; //not having this actually caused the game to crash lol
+        }
+
         isLocked = false;
         //put logic for changing visuals here
         aSource.PlayOneShot(confirmClip);
 
         if (lightObj != null)
         {
-            lightMat.SetColor("_EmissionColor", Color.green);
+            foreach (GameObject i in lightObj)
+            {
+                i.GetComponent<Renderer>().material = lightMatUnlocked;
+            } 
         }
         PressButton();
     }
