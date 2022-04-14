@@ -650,6 +650,7 @@ GameObject:
   - component: {fileID: 3325092847374484678}
   - component: {fileID: 3325092846408855489}
   - component: {fileID: 9215408676989096723}
+  - component: {fileID: 5369144326439821081}
   m_Layer: 8
   m_Name: Paulus Blarticus
   m_TagString: Guard
@@ -807,6 +808,21 @@ MonoBehaviour:
   anim: {fileID: 2784144531686864480}
   enemyManager: {fileID: 3325092846408855489}
   Player: {fileID: 0}
+--- !u!114 &5369144326439821081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3325092847374484679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d44ef95e2c99545b3ed27090ab0310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eye: {fileID: 3325092846946898784}
+  hudObject: {fileID: 7382573241743054154, guid: 69fae3c2f95990b4da26d32425904cde, type: 3}
+  delayTimeToHide: 5
 --- !u!1 &4548706006267094456
 GameObject:
   m_ObjectHideFlags: 0
