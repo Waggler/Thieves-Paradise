@@ -25,7 +25,6 @@ public class EnemyManager : MonoBehaviour
     //static readonly Unity.Profiling.ProfilerMarker s_MyProfilerMarker = new Unity.Profiling.ProfilerMarker("Guard Profile Marker *Shaq Made This");
     //public UnityEvent EVENT_OnNearestStation;
 
-    public Coroutine coroutine;
 
     #region Variables
     [Space(20)]
@@ -229,8 +228,7 @@ public class EnemyManager : MonoBehaviour
 
     private float susLevelDecreaseRecord;
 
-    //Delete this in the future
-    //private System.Threading.Timer timer;
+    public Coroutine coroutine;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -257,6 +255,10 @@ public class EnemyManager : MonoBehaviour
     private bool isShooting = false;
 
     [SerializeField] private GameObject taserPrefab;
+
+    [SerializeField] [Range(1, 3)] private float playerEyeballMaxDist;
+
+    private float targetVsPlayerDistance;
 
     #endregion
 
@@ -365,6 +367,19 @@ public class EnemyManager : MonoBehaviour
 
     #region Coroutines
 
+    IEnumerator ITimer(float time, bool timerBool)
+    {
+        //Acts as a sort of blocking call
+        while (time > 0)
+        {
+            yield return new WaitForSeconds(1);
+
+            time--;
+        }
+
+        timerBool = true;
+        print("Timer is done");
+    }
 
     #endregion Coroutines
 
@@ -417,9 +432,9 @@ public class EnemyManager : MonoBehaviour
 
         SetAiSpeed(passiveSpeed);
 
-        target = waypoints[waypointIndex].position;
+        FaceTarget(target); 
 
-        FaceTarget(target);
+        target = waypoints[waypointIndex].position;
 
         path = new NavMeshPath();     
 
@@ -441,10 +456,7 @@ public class EnemyManager : MonoBehaviour
     }//End Init
 
 
-    public void StateChange(EnemyStates enemyStates)
-    {
-        stateMachine = enemyStates;
-    }//End StateChange
+    public void StateChange(EnemyStates enemyStates) => stateMachine = enemyStates; //End StateChange
 
 
     //---------------------------------//
@@ -476,6 +488,7 @@ public class EnemyManager : MonoBehaviour
 
         return go1;
     }//End GameObjectConstructor
+
 
     //---------------------------------//
     // Alert's the guard
@@ -560,6 +573,7 @@ public class EnemyManager : MonoBehaviour
 
     }//End OnTriggerEnter
     
+
     //---------------------------------//
     // Generates a random point for the guard to go to
     private Vector3 GenerateRandomPoint()
@@ -568,7 +582,7 @@ public class EnemyManager : MonoBehaviour
         Vector3 randpoint = Random.insideUnitSphere * randPointRad;
 
         //Returns a bool
-        //First portion tests the randomly generated point to see if it can be reached.
+        //First portion tests the randomly generated point to see if it's on the navmesh.
         //Second portion tests the path to the genreated point and to see if it's possible to reach that point
         if (NavMesh.SamplePosition(randpoint + transform.position, out NavMeshHit hit, randPointRad, 1) && NavMesh.CalculatePath(transform.position, hit.position, NavMesh.AllAreas, path))
         {
@@ -612,7 +626,7 @@ public class EnemyManager : MonoBehaviour
     public IEnumerator IBreakFreeDelay()
     {
         yield return new WaitForSeconds(2);
-    }
+    }//End IBreakFreeDelay
 
     #endregion Methods
 
@@ -627,27 +641,6 @@ public class EnemyManager : MonoBehaviour
         //StartCoroutine(ITimer(15, shitBool));
     }//End Awake
     #endregion
-
-    //Testing a timer coroutine AGAIN
-
-    //Feed time in seconds
-    //Arguements to add:
-    //  - bool to flip when time is over
-    //  - 
-    IEnumerator ITimer(float time, bool timerBool)
-    {
-        //Acts as a sort of blocking call
-        while (time > 0)
-        {
-            yield return new WaitForSeconds(1);
-
-            time--;
-        }
-
-        timerBool = true;
-        print("Timer is done");
-    }
-
 
     #region Update
     //Method called every frame
@@ -816,6 +809,11 @@ public class EnemyManager : MonoBehaviour
             //State for the guard to chase the player in
             case EnemyStates.HOSTILE:
 
+
+                // Compared distance between actual player loc and last known location and if it is too small then the guard stays hostile as if they still saw the player
+
+                targetVsPlayerDistance = Vector3.Distance(eyeball.lastKnownLocation, player.transform.position);
+
                 //Animation Change
                 guardAnim.EnterHostileAnim();
 
@@ -843,7 +841,7 @@ public class EnemyManager : MonoBehaviour
                 }
                 
                 //else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < sussySusMax)
-                else if (eyeball.susLevel < sussySusMax)
+                else if (eyeball.susLevel < sussySusMax /*&& targetVsPlayerDistance < playerEyeballMaxDist*/)
                 {
                     if (!isBoss)
                     {
@@ -858,6 +856,8 @@ public class EnemyManager : MonoBehaviour
                         StateChange(EnemyStates.PASSIVE);
                     }
                 }
+
+                
                 #endregion Exit Conditions
 
                 break;
@@ -882,8 +882,6 @@ public class EnemyManager : MonoBehaviour
                     guardAnim.EnterShoot();
 
                     isShooting = true;
-
-                    Debug.Log("Shooting anim entered, bool flipped");
                 }
 
                 SetAIDestination(target);
