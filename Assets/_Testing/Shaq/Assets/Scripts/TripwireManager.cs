@@ -27,6 +27,9 @@ public class TripwireManager : MonoBehaviour
 
     float distance;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource laserAudioSource;
+
     [Header("Hit Object")]
 
     //[HideInInspector] private GameObject hitObject;
@@ -72,6 +75,10 @@ public class TripwireManager : MonoBehaviour
             {
                 //Alerts guards in a set radius (Guards List generated in method)
                 susManagerRef.AlertGuards(hit.point, transform.position, callRadius);
+                if (laserAudioSource.isPlaying == false)
+                {
+                    laserAudioSource.Play();
+                }
             }
         }
         yield return new WaitForSeconds(.1f);
