@@ -77,6 +77,9 @@ public class UniversalDoorScript : MonoBehaviour
 
     public void OpenDoorFromButton()
     {
+        PlayerMovement playerPos = (PlayerMovement)FindObjectOfType(typeof(PlayerMovement));
+        otherPos = playerPos.transform.position;
+        DetermineDirection();
         doorMode = doorStates.Automatic;
         isOpen = true;
         StartCoroutine(IOpenAudio());
