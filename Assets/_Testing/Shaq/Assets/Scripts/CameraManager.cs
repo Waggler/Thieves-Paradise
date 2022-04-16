@@ -346,13 +346,17 @@ public class CameraManager : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, killRadius);
 
     }//End OnDrawGizmosSelected
-    #endregion General Methods
+
+
+    //---------------------------------//
+    // Stuns the camera
     public void StunCamera(float downTime)
     {
         disabledTime = downTime;
         cameraStateMachine = CamStates.DISABLED;
 
         //add sound/particle fx here
-    }
+    }//End StunCamera
+    #endregion General Methods
 }
 
