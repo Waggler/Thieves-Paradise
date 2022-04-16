@@ -237,6 +237,7 @@ public class PlayerMovement : MonoBehaviour
         {
             FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
         }
+
         FacingDirection.y = 0f;
         if (FacingDirection.magnitude > 1)
         {
