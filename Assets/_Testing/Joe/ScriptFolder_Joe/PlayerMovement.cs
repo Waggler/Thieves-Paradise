@@ -125,9 +125,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float GroundCheckLimit2;
     private Vector3 StartingLocation;
     private float CurrentGroundCheckTime = 0;
-    private bool Splat = false;
+    [SerializeField] private bool Splat = false;
     private bool StartTimer = false;
-    private bool Thud = false;
+    [SerializeField] private bool Thud = false;
 
     [Header("Key Scripts")]
     public SuspicionManager SusMan;
