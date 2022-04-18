@@ -238,9 +238,6 @@ public class EnemyManager : MonoBehaviour
 
     [Space(20)]
 
-    [Tooltip("Guard's stopping distance from the security station")]
-    [SerializeField] private float stoppingDistance = 2f;
-
     [HideInInspector] private float fireRate;
 
     [SerializeField] PlayerMovement playerMovenemtRef;
@@ -259,6 +256,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] [Range(1, 3)] private float playerEyeballMaxDist;
 
     private float targetVsPlayerDistance;
+
+    private float targetSnapDistance = 3f;
 
     #endregion
 
@@ -653,9 +652,13 @@ public class EnemyManager : MonoBehaviour
         {
             agent.stoppingDistance = taserExitRadius;
         }
+        else if (stateMachine == EnemyStates.HOSTILE)
+        {
+            agent.stoppingDistance = 2f;
+        }
         else
         {
-            agent.stoppingDistance = 0.5f;
+            agent.stoppingDistance = .5f;
         }
 
         if (eyeball.canCurrentlySeePlayer == true && spotPlayerBool == false)
@@ -838,6 +841,12 @@ public class EnemyManager : MonoBehaviour
 
                     //HOSTILE >> RANGED ATTACK
                     StateChange(EnemyStates.RANGEDATTACK);
+                }
+
+                //Prevents the player from literally running circles around the guard in cetrain situations
+                if (agent.remainingDistance < targetSnapDistance)
+                {
+                    FaceTarget(target);
                 }
                 
                 //else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < sussySusMax)
