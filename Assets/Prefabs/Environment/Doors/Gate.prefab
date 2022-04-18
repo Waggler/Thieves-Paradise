@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 5467083363302086749}
   - component: {fileID: 1989464531889159826}
   - component: {fileID: 6454545511759797994}
+  - component: {fileID: 4367554448459225300}
   m_Layer: 0
   m_Name: gate Object
   m_TagString: Untagged
@@ -344,6 +345,22 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!208 &4367554448459225300
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7666239620442567377}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7674728292421841865
 GameObject:
   m_ObjectHideFlags: 0

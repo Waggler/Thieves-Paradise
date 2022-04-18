@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7741563453529164060}
   - component: {fileID: 5515636000628440534}
   - component: {fileID: 8987430518369829867}
+  - component: {fileID: 4449204057719567899}
   m_Layer: 0
   m_Name: shipping_box_small_low
   m_TagString: Untagged
@@ -95,3 +96,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7111431, y: 0.52597874, z: 0.7111431}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &4449204057719567899
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6308282797530274819}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.356, y: 0.263, z: 0.356}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
