@@ -5,6 +5,13 @@ using UnityEngine.Audio;
 
 public class GuardAudio : MonoBehaviour
 {
+    [SerializeField] private enum guardType
+    {
+        BLART,
+        HOGG
+    }
+    [SerializeField] private guardType security;
+
     [Header("Components")]
     [SerializeField] private AudioSource guardSource;
 
@@ -15,8 +22,10 @@ public class GuardAudio : MonoBehaviour
     [SerializeField] private float normalVolume;
     [SerializeField] private float loudVolume;
 
-    [SerializeField] private float pitchMin;
-    [SerializeField] private float pitchMax;
+    [SerializeField] private float blartPitchMin;
+    [SerializeField] private float blartPitchMax;
+    [SerializeField] private float hoggPitchMin;
+    [SerializeField] private float hoggPitchMax;
 
     [Header("Vocalizations")]
     [SerializeField] private AudioClip[] spotBarks;
@@ -55,7 +64,7 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = normalVolume;
         int i = Random.Range(0, walkClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
         guardSource.PlayOneShot(walkClips[i]);
 
 
@@ -67,7 +76,7 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = loudVolume;
         int i = Random.Range(0, runClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
         guardSource.PlayOneShot(runClips[i]);
 
 
@@ -86,7 +95,15 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = loudVolume;
         int i = Random.Range(0, spotBarks.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+
+        }
         guardSource.PlayOneShot(spotBarks[i]);
 
     }//END SpotPlayer
@@ -97,7 +114,14 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = normalVolume;
         int i = Random.Range(0, cameraAlertClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(cameraAlertClips[i]);
 
     }//END LaserSpot
@@ -107,7 +131,14 @@ public class GuardAudio : MonoBehaviour
     //-----------------------//
     {
         guardSource.volume = normalVolume;
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(smokebombAlertClip);
 
     }//END LaserSpot
@@ -118,7 +149,14 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = normalVolume;
         int i = Random.Range(0, laserAlertClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(laserAlertClips[i]);
 
     }//END LaserSpot
@@ -136,7 +174,14 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = normalVolume;
         int i = Random.Range(0, donutClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(donutClips[i]);
 
     }//END DonutSpotted
@@ -146,7 +191,14 @@ public class GuardAudio : MonoBehaviour
     //-----------------------//
     {
         guardSource.volume = normalVolume;
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(chewingClip);
 
     }//END Chew
@@ -163,7 +215,14 @@ public class GuardAudio : MonoBehaviour
     //-----------------------//
     {
         guardSource.volume = loudVolume;
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(taserFireClip);
 
     }//END TaserFired
@@ -174,7 +233,14 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = loudVolume;
         int i = Random.Range(0, meleeClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(meleeClips[i]);
 
     }//END MeleePunch
@@ -184,7 +250,14 @@ public class GuardAudio : MonoBehaviour
     //-----------------------//
     {
         guardSource.volume = loudVolume;
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(reloadClip);
 
     }//END ReloadTaser
@@ -195,7 +268,14 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = normalVolume;
         int i = Random.Range(0, hitPlayerClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(hitPlayerClips[i]);
 
     }//END HitPlayer
@@ -206,7 +286,14 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = normalVolume;
         int i = Random.Range(0, fallClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(fallClips[i]);
 
     }//END Fall
@@ -221,7 +308,14 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = normalVolume;
         int i = Random.Range(0, lostClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(lostClips[i]);
 
     }//END LostPlayer
@@ -236,7 +330,14 @@ public class GuardAudio : MonoBehaviour
 
         guardSource.volume = normalVolume;
         int i = Random.Range(0, idleClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(idleClips[i]);
 
         StartCoroutine(IIdleBark());
@@ -249,7 +350,14 @@ public class GuardAudio : MonoBehaviour
     {
         guardSource.volume = normalVolume;
         int i = Random.Range(0, susClips.Length);
-        guardSource.pitch = Random.Range(pitchMin, pitchMax);
+        if (security == guardType.BLART)
+        {
+            guardSource.pitch = Random.Range(blartPitchMin, blartPitchMax);
+        }
+        else
+        {
+            guardSource.pitch = Random.Range(hoggPitchMin, hoggPitchMax);
+        }
         guardSource.PlayOneShot(susClips[i]);
     }//END Suspicious
 
