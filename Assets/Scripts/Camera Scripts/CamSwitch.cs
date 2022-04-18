@@ -53,7 +53,7 @@ public class CamSwitch : MonoBehaviour
         else if(Zooming)
         {
             animator.Play("VCam1");
-            firstPersonCam = false;
+            firstPersonCam = true;
         }
         Cam1 = !Cam1;
     }

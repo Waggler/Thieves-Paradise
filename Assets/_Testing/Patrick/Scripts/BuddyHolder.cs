@@ -24,5 +24,7 @@ public class BuddyHolder : MonoBehaviour
         bud.transform.parent = holdingspot.transform;
         bud.transform.localPosition = positionOffset;
         bud.transform.localRotation = rotationOffset;
+
+        displayBuddy = true;
     }
 }

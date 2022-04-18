@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private float HeightFromGround;
     private float CrouchingHeightFromGround;
     private float GroundHeight;
+    private float groundCheckHeight = 6.5f;
     private Vector3 VerticalVelocity = Vector3.zero;
     private Vector3 Test;
 
@@ -160,6 +161,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        hp = 3;
+
         CurrentSpeed = WalkingSpeed;
         CurrentRollTime = RollingTime;
         CurrentDiveTime = DiveTime;
@@ -218,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
             IsUncovered = false;
         }
 
-        if (IsStanding && IsCrouching && IsCovered && ToggleCrouch)
+        if (Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f, mask, QueryTriggerInteraction.Ignore))
         {
             UnCrouchedCheck();
         }
@@ -234,6 +237,7 @@ public class PlayerMovement : MonoBehaviour
         {
             FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
         }
+
         FacingDirection.y = 0f;
         if (FacingDirection.magnitude > 1)
         {
@@ -394,8 +398,13 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
-                hp -= 1;
-                healthTracker.DeductHitPoint(hp);
+                if (Thud != true)
+                {
+                    hp -= 1;
+                    healthTracker.DeductHitPoint(hp);
+                }
+                Thud = false;
+                
             }
 
             else if (CurrentStunTime >= StunTime || hp <= 1)
@@ -616,7 +625,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 groundCheck = new Vector3(transform.position.x, transform.position.y - (StandardHeight / 2.6f), transform.position.z);
         Test = groundCheck;
         //StandardHeight / 4
-        if (Physics.CheckSphere(groundCheck, StandardHeight / 6.5f, mask, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(groundCheck, StandardHeight / groundCheckHeight, mask, QueryTriggerInteraction.Ignore))
         {
             IsGrounded = true;
             StartTimer = false;
@@ -634,7 +643,7 @@ public class PlayerMovement : MonoBehaviour
             IsGrounded = false;
             StartTimer = true;
 
-            if (IsCrouching)
+            if (IsCrouching && CurrentGroundCheckTime > 0.075)
             {
                 StandUp();
                 IsCrouching = false;
@@ -663,6 +672,7 @@ public class PlayerMovement : MonoBehaviour
             IsCovered = true;
             return;
         }
+
         else if (!IsSliding)
         {
             StandUp();
@@ -788,7 +798,7 @@ public class PlayerMovement : MonoBehaviour
         if(Thud)
         {
             CurrentLevel = LoudestLevel;
-            Thud = false;
+            //Thud = false;
         }
         else if ((Idle || IdleCrouch || Crouching) && !CrouchRoll && !Jumping && !Slide && !Running)
         {

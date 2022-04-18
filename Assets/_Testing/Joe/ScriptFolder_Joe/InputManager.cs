@@ -84,12 +84,18 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
+            
             if (!jumpPressCounter && !StopTheJump)
             {
                 playerMovement.Jump();
                 jumpPressCounter = true;
                 StopTheJump = true;
             }
+            print("Jump started");
+        }else if (context.canceled)
+        {
+            //literally nothing
+            print("jump released");
         }
     }// END JUMP
     #endregion

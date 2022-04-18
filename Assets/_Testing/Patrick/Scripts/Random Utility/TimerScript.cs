@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class TimerScript : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class TimerScript : MonoBehaviour
     [SerializeField] private AudioClip tick;
     [Tooltip("This scene is loaded when the timer ends")]
     [SerializeField] private string sceneNameToLoad;
+    [SerializeField] private float endingDelayTime = 5;
+    [SerializeField] UnityEvent onTimerEnd;
     private AudioSource Aud;
     private float pitchMod = 0.2f;
 
@@ -60,7 +63,7 @@ public class TimerScript : MonoBehaviour
             StartCoroutine(RunTimer());
             startedTimer = true;
             timerUIText.gameObject.SetActive(true);
-            this.tag = "Button"; //make the timer interactable with the pliers 
+            this.tag = "Button"; //make the timer interactable with the pliers
         }
     }
 
@@ -100,6 +103,11 @@ public class TimerScript : MonoBehaviour
             {
                 yield return new WaitForSeconds(1f); //wait for 1 second between ticks
             }
+
+            if (stoppedTimer)
+            {
+                StopCoroutine(RunTimer());
+            }
             
             timer --;
 
@@ -124,7 +132,7 @@ public class TimerScript : MonoBehaviour
         if(!stoppedTimer)
         {
             //game over
-            SceneManager.LoadScene(sceneNameToLoad);
+            StartCoroutine(EndingDelay());
         }
         
     }
@@ -132,5 +140,14 @@ public class TimerScript : MonoBehaviour
     public void StopTimer()
     {
         stoppedTimer = true;
+
+        timerUIText.text = "You saved Buddy! Now get outta there!";
+    }
+
+    private IEnumerator EndingDelay()
+    {
+        onTimerEnd.Invoke();
+        yield return new WaitForSeconds(endingDelayTime);
+        SceneManager.LoadScene(sceneNameToLoad);
     }
 }

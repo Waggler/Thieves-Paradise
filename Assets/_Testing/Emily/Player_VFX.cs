@@ -10,6 +10,9 @@ public class Player_VFX : MonoBehaviour
 
     private ParticleSystem runParticleSys;
     private ParticleSystem slideParticleSys;
+    
+    private float runLifeTimeRecord;
+    private float slideLifeTimeRecord;
 
     // Start is called before the first frame update
     void Awake()
@@ -17,36 +20,40 @@ public class Player_VFX : MonoBehaviour
         Init();
     }
 
+    [System.Obsolete]
+
     // Update is called once per frame
     void Update()
     {
-        if (playerMovement.IsSprinting == true && playerMovement.Controller.velocity.magnitude > 0)
+        if (playerMovement.IsSprinting == true /*&& playerMovement.Controller.velocity.magnitude > 0*/)
         {
-            runParticles.SetActive(true);
+            runParticleSys.startLifetime = runLifeTimeRecord;
         }
         else
         {
-            runParticles.SetActive(false);
+            runParticleSys.startLifetime = 0f;
         }
 
         if (playerMovement.IsSliding == true)
         {
-            slideParticles.SetActive(true);
-            runParticles.SetActive(false);
+            slideParticleSys.startLifetime = slideLifeTimeRecord;
+            runParticleSys.startLifetime = 0f;
         }
         else
         {
-            slideParticles.SetActive(false);
+            slideParticleSys.startLifetime = 0f;
         }
     }
 
+    [System.Obsolete]
+
     private void Init()
     {
-        runParticles.SetActive(false);
-        slideParticles.SetActive(false);
-
         runParticleSys = runParticles.GetComponent<ParticleSystem>();
         slideParticleSys = slideParticles.GetComponent<ParticleSystem>();
+
+        runLifeTimeRecord = runParticleSys.startLifetime;
+        slideLifeTimeRecord = slideParticleSys.startLifetime;
     }
 }
 
