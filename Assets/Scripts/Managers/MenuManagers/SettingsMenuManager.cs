@@ -150,17 +150,17 @@ public class SettingsMenuManager : MonoBehaviour
             horizontalOffButton.interactable = true;
             horizontalOnButton.interactable = false;
         }
-        if (PlayerPrefs.GetInt("FlipUI") == 0)
-        {
-            uIOnButton.interactable = true;
-            uIOffButton.interactable = false;
+        //if (PlayerPrefs.GetInt("FlipUI") == 0)
+        //{
+        //    uIOnButton.interactable = true;
+        //    uIOffButton.interactable = false;
 
-        }
-        else
-        {
-            uIOffButton.interactable = true;
-            uIOnButton.interactable = false;
-        }
+        //}
+        //else
+        //{
+        //    uIOffButton.interactable = true;
+        //    uIOnButton.interactable = false;
+        //}
         hueSlider.value = PlayerPrefs.GetFloat("RadioHue");
         saturationSlider.value = PlayerPrefs.GetFloat("RadioSaturation");
         lookSlider.value = PlayerPrefs.GetFloat("CamSensitivity");

@@ -117,7 +117,7 @@ public class InitializeBasicSettings : MonoBehaviour
 
         if (freeLookCam != null)
         {
-            if(PlayerPrefs.GetInt("InvertVerticalToggle") == 0)
+            if (PlayerPrefs.GetInt("InvertVerticalToggle") == 0)
             {
                 freeLookCam.m_XAxis.m_InvertInput = false;
             }
