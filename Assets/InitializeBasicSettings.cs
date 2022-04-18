@@ -56,7 +56,7 @@ public class InitializeBasicSettings : MonoBehaviour
     }//END Init
 
     //-------------------------//
-    void SetDefaultSettings()
+    public void SetDefaultSettings()
     //-------------------------//
     {
         //Setting Prefs
