@@ -161,6 +161,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        hp = 3;
+
         CurrentSpeed = WalkingSpeed;
         CurrentRollTime = RollingTime;
         CurrentDiveTime = DiveTime;
@@ -219,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
             IsUncovered = false;
         }
 
-        if (IsStanding && IsCrouching && IsCovered && ToggleCrouch)
+        if (Physics.Raycast(transform.position, Vector3.up, Controller.height / 2 + 0.1f, mask, QueryTriggerInteraction.Ignore))
         {
             UnCrouchedCheck();
         }
@@ -235,6 +237,7 @@ public class PlayerMovement : MonoBehaviour
         {
             FacingDirection = PlayerCamera.forward * Direction.z + PlayerCamera.right * Direction.x;
         }
+
         FacingDirection.y = 0f;
         if (FacingDirection.magnitude > 1)
         {
@@ -640,7 +643,7 @@ public class PlayerMovement : MonoBehaviour
             IsGrounded = false;
             StartTimer = true;
 
-            if (IsCrouching)
+            if (IsCrouching && CurrentGroundCheckTime > 0.075)
             {
                 StandUp();
                 IsCrouching = false;
@@ -669,6 +672,7 @@ public class PlayerMovement : MonoBehaviour
             IsCovered = true;
             return;
         }
+
         else if (!IsSliding)
         {
             StandUp();
