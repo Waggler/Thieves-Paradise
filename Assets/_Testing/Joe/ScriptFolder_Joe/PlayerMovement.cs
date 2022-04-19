@@ -149,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
     public bool Falling;
     public bool FallingStun;
 
+    [Header("Invuln")]
     public bool isInvulnurable;
     [Tooltip("Timer starts as soon as you get hit, including when you are still struggling")]
     [SerializeField] public float invulnerabilityTime = 5;
@@ -366,6 +367,7 @@ public class PlayerMovement : MonoBehaviour
             IsStunned = true;
             Splat = false;
             Thud = true;
+            print("This will hurt.");
         }
 
         #endregion
@@ -398,13 +400,13 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
-                if (Thud != true)
+                if (Thud == true)
                 {
                     hp -= 1;
                     healthTracker.DeductHitPoint(hp);
+                    Thud = false;
+                    print("Land down.");
                 }
-                Thud = false;
-                
             }
 
             else if (CurrentStunTime >= StunTime || hp <= 1)
@@ -798,7 +800,6 @@ public class PlayerMovement : MonoBehaviour
         if(Thud)
         {
             CurrentLevel = LoudestLevel;
-            //Thud = false;
         }
         else if ((Idle || IdleCrouch || Crouching) && !CrouchRoll && !Jumping && !Slide && !Running)
         {
