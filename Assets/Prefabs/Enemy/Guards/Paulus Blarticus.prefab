@@ -50,9 +50,9 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 30
+  MaxDistance: 25
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -779,7 +779,6 @@ MonoBehaviour:
   taserSpawnLoc: {fileID: 8552973499195692512}
   accuracy: 0
   waypointNextDistance: 0.5
-  stoppingDistance: 5
   playerMovenemtRef: {fileID: 0}
   ceaseFire: 0
   playerVisTarget: {fileID: 0}
@@ -1192,23 +1191,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guardSource: {fileID: 1138461874}
-  idleWaitTimeMin: 0
-  idleWaitTimeMax: 0
+  idleWaitTimeMin: 10
+  idleWaitTimeMax: 60
   normalVolume: 0.55
-  loudVolume: 0.9
+  loudVolume: 0.85
   pitchMin: 0.85
   pitchMax: 1.05
   spotBarks:
-  - {fileID: 8300000, guid: 21a03755c58e2af479c27b9ebacadf7f, type: 3}
-  - {fileID: 8300000, guid: 4c185bb29c0f23249a14180740a42806, type: 3}
-  - {fileID: 8300000, guid: 0ee895471a2d09541b517b6cba4cde43, type: 3}
+  - {fileID: 8300000, guid: c2df50466583f534e881ab113dafb1ad, type: 3}
+  - {fileID: 8300000, guid: faabb4c30ef40e442992ef1848c746ae, type: 3}
+  - {fileID: 8300000, guid: 887b419c45e925c408d19a3cb3eb8a6f, type: 3}
+  - {fileID: 8300000, guid: 68f50a93027eb0b4181543cb35611763, type: 3}
+  - {fileID: 8300000, guid: 85df362c043cb9540956e54d0c71d718, type: 3}
   idleClips:
-  - {fileID: 8300000, guid: 016ac6ff0452fc943a8f4c49baf92fd2, type: 3}
-  - {fileID: 8300000, guid: 9f49ccc2c50d7c74989f6ba8acd387f0, type: 3}
-  - {fileID: 8300000, guid: d26c102ca4311df4d979ead98e03288a, type: 3}
-  - {fileID: 8300000, guid: 143f1d8629bc58c4082c42f569f4495f, type: 3}
-  lostClips: []
-  susClip: {fileID: 8300000, guid: 998658500f5ad5c48865f734fbe5e277, type: 3}
+  - {fileID: 8300000, guid: cc52323cf065eef42b2d9c647db305fd, type: 3}
+  - {fileID: 8300000, guid: d8397cf11d5fbb446971de21b3e922a3, type: 3}
+  - {fileID: 8300000, guid: 7ff985eaf6fb12943ad0749e6aff1e80, type: 3}
+  - {fileID: 8300000, guid: 6dec59b251c50e649b6d2a6d4fcd3f5a, type: 3}
+  lostClips:
+  - {fileID: 8300000, guid: 47df5a34f5c6a474b950cc17fa2c0b4e, type: 3}
+  - {fileID: 8300000, guid: 91c7f2cc0a69dc440b3385c8f9212bc7, type: 3}
+  - {fileID: 8300000, guid: 095cf2b00e6213d448c9c5cb17e34191, type: 3}
+  - {fileID: 8300000, guid: ee5f6a43b6905224496d01cd7ecc9233, type: 3}
+  - {fileID: 8300000, guid: 0990acf66ee84b341bc7c3d74f11488b, type: 3}
+  - {fileID: 8300000, guid: 937bbb7e5a7e7de4cab97e28b1687cd0, type: 3}
+  fallClips:
+  - {fileID: 8300000, guid: 110036e4f7986ce4c8d6d10b4ba3a6bf, type: 3}
+  - {fileID: 8300000, guid: 9708cde4d4526404593d0ef26bd57b1e, type: 3}
+  - {fileID: 8300000, guid: 89fa1b87c4a80294f9f6f3ef5bddbdab, type: 3}
+  - {fileID: 8300000, guid: fe1136b1fe95b9d4eabf2e11bab6b263, type: 3}
+  - {fileID: 8300000, guid: 6889b0bae2f441140b8931298df6a8ba, type: 3}
+  - {fileID: 8300000, guid: 0e898bc5df405444a9765210e8d05f7a, type: 3}
+  donutClips:
+  - {fileID: 8300000, guid: 6362c321859326a47910c31c78af8baf, type: 3}
+  - {fileID: 8300000, guid: 0d1b6c48865d72946a3405f6c2bf56c8, type: 3}
+  - {fileID: 8300000, guid: 829a6beb345a2d54896d4f11224e0984, type: 3}
+  - {fileID: 8300000, guid: 6cdca2f90aa57714ea15d304de78a91d, type: 3}
+  susClips:
+  - {fileID: 8300000, guid: 998658500f5ad5c48865f734fbe5e277, type: 3}
+  laserAlertClips:
+  - {fileID: 8300000, guid: ae97e60b4c8a85943b96bcd90eaf0f8b, type: 3}
+  - {fileID: 8300000, guid: 2fd9df870f87fbd4ea87ee1caa2acb07, type: 3}
+  cameraAlertClips: []
+  smokebombAlertClip: {fileID: 8300000, guid: 31b1480b222f48846a74b745048b4698, type: 3}
   walkClips:
   - {fileID: 8300000, guid: 47d480620fc7ede49ae59a47ccaad07b, type: 3}
   - {fileID: 8300000, guid: 343795687580d3b4c91c9da7777c2883, type: 3}
@@ -1227,9 +1252,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ac45ffff80ae0034d87b3a48c59865f0, type: 3}
   - {fileID: 8300000, guid: 0ef45a8be471f64498bbcbd5a304a9bc, type: 3}
   reloadClip: {fileID: 8300000, guid: 3e87e3bec479b31458a2287e840be150, type: 3}
+  hitPlayerClips: []
   chewingClip: {fileID: 8300000, guid: a0cf98741eb9e0f4db5950ab00b6498e, type: 3}
   hitClip: {fileID: 8300000, guid: 8d51b9c540a6e5d49b4df015063c8111, type: 3}
-  fallClip: {fileID: 8300000, guid: ac08a0838e04b134f8373178c3590dc3, type: 3}
 --- !u!1001 &5549005275965271637
 PrefabInstance:
   m_ObjectHideFlags: 0
