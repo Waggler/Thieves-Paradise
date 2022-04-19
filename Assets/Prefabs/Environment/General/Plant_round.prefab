@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4215843364917037634}
   - component: {fileID: 2118196497274224264}
   - component: {fileID: 2207995310577795448}
+  - component: {fileID: 4138805232114669394}
   m_Layer: 3
   m_Name: Plant_round
   m_TagString: Untagged
@@ -96,3 +97,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4348857, y: 2.428458, z: 1.4638977}
   m_Center: {x: 0.007014394, y: 1.214229, z: -0.036579132}
+--- !u!208 &4138805232114669394
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460954916612874077}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.77, y: 2.115, z: 0.815}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2.3260002, z: 0}
+  m_TimeToStationary: 0.5
