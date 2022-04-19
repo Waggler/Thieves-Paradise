@@ -29,7 +29,7 @@ public class EnemyManager : MonoBehaviour
     #region Variables
     [Space(20)]
     [SerializeField] private bool isBoss = false;
-    [Space(20)]
+    [Space(40)]
 
     //---------------------------------------------------------------------------------------------------//
     [Tooltip("The guard's target")]
@@ -58,9 +58,13 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the guard's animator script")]
     [SerializeField] public GuardAnimatorScript guardAnim;
 
+    
     [SerializeField] private GameObject surpriseVFX;
 
     [SerializeField] private GameObject confusedVFX;
+
+    [Tooltip("Actual taser model")]
+    [SerializeField] private GameObject taserPrefab;
 
     [Tooltip("Object reference to the security station / suspicion manager")]
     [SerializeField] private GameObject securityStationObjRef;
@@ -118,9 +122,6 @@ public class EnemyManager : MonoBehaviour
 
     [Tooltip("The speed that the AI moves at in the HOSTILE state")]
     [SerializeField] [Range(0, 10)] public float hostileSpeed = 4f;
-
-    [Tooltip("The speed that the AI moves at in the ATTACK state")]
-    [SerializeField] [Range(0, 10)] public float attackSpeed = 0f;
 
     //---------------------------------------------------------------------------------------------------//
 
@@ -214,11 +215,24 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
 
+    
+    [SerializeField] [Range(1, 3)] private float playerEyeballMaxDist;
+
+
+
+    private PlayerMovement playerMovenemtRef;
+
+    private GameObject playerVisTarget;
+
+    [HideInInspector] public bool ceaseFire = false;
+
+    [HideInInspector] private float fireRate;
+
+    private Coroutine coroutine;
+
     private float oneTimeUseTimer = 0f;
 
     private float oneTimeUseTimerReset;
-
-    //private bool surpriseVFXBoolCheck;
 
     private float eyeballSightRangeRecord;
 
@@ -227,33 +241,10 @@ public class EnemyManager : MonoBehaviour
     private bool spotPlayerBool = false;
 
     private float susLevelDecreaseRecord;
-
-    public Coroutine coroutine;
-
-    //---------------------------------------------------------------------------------------------------//
-
-    //Extremely temporary timer variables
-
-    [Header("Dev variables")]
-
-    [Space(20)]
-
-    [HideInInspector] private float fireRate;
-
-    [SerializeField] PlayerMovement playerMovenemtRef;
-
-    [HideInInspector] public bool ceaseFire = false;
-
-    [SerializeField] private GameObject playerVisTarget;
-
     
     private bool guardStunned = false;
 
     private bool isShooting = false;
-
-    [SerializeField] private GameObject taserPrefab;
-
-    [SerializeField] [Range(1, 3)] private float playerEyeballMaxDist;
 
     private float targetVsPlayerDistance;
 
@@ -286,8 +277,7 @@ public class EnemyManager : MonoBehaviour
     private enum CycleMethods
     {
         Cycle,
-        Reverse,
-        Random
+        Reverse
     }
 
     [Header("Waypoint Cycling")]
@@ -348,12 +338,6 @@ public class EnemyManager : MonoBehaviour
                     target = waypoints[waypointIndex].position;
                 }
                 SetAIDestination(target);
-
-                break;
-
-            case CycleMethods.Random:
-                //Probably going to get rid of this
-                print("Current cycling method is random");
 
                 break;
 
@@ -850,7 +834,7 @@ public class EnemyManager : MonoBehaviour
                 }
                 
                 //else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < sussySusMax)
-                else if (eyeball.susLevel < sussySusMax /*&& targetVsPlayerDistance < playerEyeballMaxDist*/)
+                else if (eyeball.susLevel < sussySusMax && targetVsPlayerDistance < playerEyeballMaxDist)
                 {
                     if (!isBoss)
                     {
