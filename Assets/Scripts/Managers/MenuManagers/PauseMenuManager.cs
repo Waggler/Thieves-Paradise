@@ -26,11 +26,16 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private Button settingsFirstButton;
     [SerializeField] private Button photoModeFirstButton;
 
+    private PlayerMovement playerMovement;
 
     public static bool isGamePaused;
 
     #endregion Components
 
+    private void Start()
+    {
+        playerMovement = (PlayerMovement)FindObjectOfType(typeof(PlayerMovement));
+    }
 
     #region Methods
 
@@ -39,7 +44,7 @@ public class PauseMenuManager : MonoBehaviour
     public void PauseGame(InputAction.CallbackContext context)
     //-----------------------//
     {
-        if (context.started)
+        if (context.started && playerMovement.hp <= 0)
         {
             if (isGamePaused)
             {

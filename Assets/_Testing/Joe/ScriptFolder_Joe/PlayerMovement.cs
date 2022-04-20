@@ -975,7 +975,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---FALLING---//
-        if(!IsGrounded && !Diving && VerticalVelocity.y < 0)
+        if (!IsGrounded && !Diving && VerticalVelocity.y < 0)
         {
             Falling = true;
             animationController.FallingPlayer(Falling);
