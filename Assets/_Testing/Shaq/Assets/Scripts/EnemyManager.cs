@@ -25,13 +25,127 @@ public class EnemyManager : MonoBehaviour
     //static readonly Unity.Profiling.ProfilerMarker s_MyProfilerMarker = new Unity.Profiling.ProfilerMarker("Guard Profile Marker *Shaq Made This");
     //public UnityEvent EVENT_OnNearestStation;
 
-
-    #region Variables
+    [Header("Boss Check")]
     [Space(20)]
     [SerializeField] private bool isBoss = false;
-    [Space(40)]
+    [Space(20)]
 
-    //---------------------------------------------------------------------------------------------------//
+    #region Waypoints Logic
+    [Header("Waypoints List")]
+    //WILL BREAK IF THE LIST IS NOT THE TRANSFORM DATA TYPE
+    [SerializeField] private List<Transform> waypoints;
+    //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
+    private int waypointIndex = 0;
+
+
+    #endregion
+
+    #region Waypoints Functions
+    void SetNextWaypoint()
+    {
+        switch (waypointMethod)
+        {
+            case CycleMethods.Cycle:
+                
+                if (waypointIndex >= waypoints.Count - 1)
+                {
+                    waypointIndex = 0;
+
+                    target = waypoints[0].position;
+                }
+                else
+                {
+                    waypointIndex++;
+
+                    target = waypoints[waypointIndex].position;
+                }
+                SetAIDestination(target);
+
+                break;
+
+            case CycleMethods.Reverse:
+                
+                if (waypointIndex >= waypoints.Count - 1)
+                {
+                    waypointIndex = 0;
+
+                    waypoints.Reverse();
+
+                    target = waypoints[0].position;
+                }
+                else
+                {
+                    waypointIndex++;
+
+                    target = waypoints[waypointIndex].position;
+                }
+                SetAIDestination(target);
+
+                break;
+
+            default:
+                print("Cycling method not found \a");
+                break;
+        }
+    }
+    #endregion Waypoints Functions
+
+    #region Enumerations
+
+    #region AI State Machine
+
+    public enum EnemyStates
+    {
+        PASSIVE,
+        SUSPICIOUS,
+        HOSTILE,
+        RANGEDATTACK,
+        STUNNED
+    }
+
+    [Header("AI State")]
+
+    public EnemyStates stateMachine;
+
+    #endregion AI State Machine
+
+    #region AI Cycle Methods
+
+    [System.Serializable]
+    private enum CycleMethods
+    {
+        Cycle,
+        Reverse
+    }
+
+    [Header("Waypoint Cycling")]
+
+    [SerializeField] CycleMethods waypointMethod;
+
+    #endregion AI Cycle Methods
+
+    #endregion Enumerations
+
+    #region Coroutines
+
+    IEnumerator ITimer(float time, bool timerBool)
+    {
+        //Acts as a sort of blocking call
+        while (time > 0)
+        {
+            yield return new WaitForSeconds(1);
+
+            time--;
+        }
+
+        timerBool = true;
+        print("Timer is done");
+    }
+
+    #endregion Coroutines
+
+    #region Variables
+
     [Tooltip("The guard's target")]
     [HideInInspector] public Vector3 target;
 
@@ -47,7 +161,7 @@ public class EnemyManager : MonoBehaviour
     //---------------------------------------------------------------------------------------------------//
     [Header("Object References")]
 
-    [Tooltip("References the player object")]
+    [Tooltip("References the player object (automatically generated)")]
     [SerializeField] private GameObject player;
 
     private PlayerMovement playerMovement;
@@ -73,7 +187,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private SuspicionManager securityStationScriptRef;
 
     [Tooltip("List of Security Stations in the level")]
-    [SerializeField] private List<GameObject> securityStations;
+    private List<GameObject> securityStations;
 
     [SerializeField] private Collider smackBox;
 
@@ -215,8 +329,8 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("The distance the guards is from it's waypoint before it get's it's next waypoint")]
     [SerializeField] private float waypointNextDistance = 2f;
 
-    
-    [SerializeField] [Range(1, 3)] private float playerEyeballMaxDist;
+    [Tooltip("Maximum distance the player has to be from INSERT REST OF TOOLTIP")]
+    private float playerEyeballMaxDist = 2;
 
 
 
@@ -251,120 +365,6 @@ public class EnemyManager : MonoBehaviour
     private float targetSnapDistance = 3f;
 
     #endregion
-
-    #region Enumerations
-
-    #region AI State Machine
-
-    public enum EnemyStates
-    {
-        PASSIVE,
-        SUSPICIOUS,
-        HOSTILE,
-        RANGEDATTACK,
-        STUNNED
-    }
-
-    [Header("AI State")]
-
-    public EnemyStates stateMachine;
-
-    #endregion AI State Machine
-
-    #region AI Cycle Methods
-
-    [System.Serializable]
-    private enum CycleMethods
-    {
-        Cycle,
-        Reverse
-    }
-
-    [Header("Waypoint Cycling")]
-
-    [SerializeField] CycleMethods waypointMethod;
-
-    #endregion AI Cycle Methods
-
-    #endregion Enumerations
-
-    #region Waypoints Logic
-    [Header("Waypoints List")]
-    //WILL BREAK IF THE LIST IS NOT THE TRANSFORM DATA TYPE
-    [SerializeField] private List<Transform> waypoints;
-    //waypoints.Count will be used to get the number of points in the list (similar to array.Length)
-    private int waypointIndex = 0;
-
-
-    #endregion
-
-    #region Waypoints Functions
-    void SetNextWaypoint()
-    {
-        switch (waypointMethod)
-        {
-            case CycleMethods.Cycle:
-                
-                if (waypointIndex >= waypoints.Count - 1)
-                {
-                    waypointIndex = 0;
-
-                    target = waypoints[0].position;
-                }
-                else
-                {
-                    waypointIndex++;
-
-                    target = waypoints[waypointIndex].position;
-                }
-                SetAIDestination(target);
-
-                break;
-
-            case CycleMethods.Reverse:
-                
-                if (waypointIndex >= waypoints.Count - 1)
-                {
-                    waypointIndex = 0;
-
-                    waypoints.Reverse();
-
-                    target = waypoints[0].position;
-                }
-                else
-                {
-                    waypointIndex++;
-
-                    target = waypoints[waypointIndex].position;
-                }
-                SetAIDestination(target);
-
-                break;
-
-            default:
-                print("Cycling method not found \a");
-                break;
-        }
-    }
-    #endregion Waypoints Functions
-
-    #region Coroutines
-
-    IEnumerator ITimer(float time, bool timerBool)
-    {
-        //Acts as a sort of blocking call
-        while (time > 0)
-        {
-            yield return new WaitForSeconds(1);
-
-            time--;
-        }
-
-        timerBool = true;
-        print("Timer is done");
-    }
-
-    #endregion Coroutines
 
     #region Methods
 
