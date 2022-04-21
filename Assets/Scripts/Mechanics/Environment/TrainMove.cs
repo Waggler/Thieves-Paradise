@@ -10,7 +10,7 @@ public class TrainMove : MonoBehaviour
     private float minDistance = 0.1f;
     private int lastWaypointIndex;
 
-    private float movementSpeed = 5.0f;
+    private float movementSpeed = 2.0f;
     private float rotationSpeed = 2.0f;
 
     // Start is called before the first frame update
@@ -29,7 +29,7 @@ public class TrainMove : MonoBehaviour
         Vector3 directionToTarget = targetWaypoint.position - transform.position;
         Quaternion rotationToTarget = Quaternion.LookRotation(directionToTarget);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotationToTarget, roataionStep);
+        transform.rotation = rotationToTarget;
 
         Debug.DrawRay(transform.position, transform.forward * 50f, Color.green, 0f);
         Debug.DrawRay(transform.position, directionToTarget, Color.red, 0f);
