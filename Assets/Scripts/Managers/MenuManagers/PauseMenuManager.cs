@@ -32,7 +32,7 @@ public class PauseMenuManager : MonoBehaviour
 
     #endregion Components
 
-    private void Start()
+    private void Update()
     {
         playerMovement = (PlayerMovement)FindObjectOfType(typeof(PlayerMovement));
     }
@@ -44,7 +44,7 @@ public class PauseMenuManager : MonoBehaviour
     public void PauseGame(InputAction.CallbackContext context)
     //-----------------------//
     {
-        if (context.started && playerMovement.hp <= 0)
+        if (context.started)
         {
             if (isGamePaused)
             {
@@ -64,6 +64,12 @@ public class PauseMenuManager : MonoBehaviour
             Cursor.visible = true;
 
             isGamePaused = true;
+
+            if(playerMovement.hp <= 0)
+            {
+                ResumeGame();
+                return;
+            }
         }
 
     }//END PauseGame
