@@ -743,15 +743,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBoss: 0
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stateMachine: 0
+  waypointMethod: 0
   target: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
   eyeball: {fileID: 3325092846946898784}
   guardAnim: {fileID: 9215408676989096723}
   surpriseVFX: {fileID: 6601558147272798859, guid: 9d485028bdafb9246a1565bd23a02523, type: 3}
   confusedVFX: {fileID: 7643393555500499959, guid: 89095cc91168384459bfa84330f555fd, type: 3}
+  taserPrefab: {fileID: 4738753518941278980}
   securityStationObjRef: {fileID: 8003486799426970617, guid: 7ad1b3d7a282c374389690062c2103be, type: 3}
   securityStationScriptRef: {fileID: 8003486799426970502, guid: 7ad1b3d7a282c374389690062c2103be, type: 3}
-  securityStations: []
   smackBox: {fileID: 4636066580559273390}
   stateText: {fileID: 3325092846354947751}
   targetText: {fileID: 3325092846449755120}
@@ -762,13 +771,12 @@ MonoBehaviour:
   susSpeed: 1
   stunSpeed: 0
   hostileSpeed: 5.75
-  attackSpeed: 0
   isPatrolWait: 0
   patrolWaitTime: 0
   patrolWaitMin: 1
   patrolWaitMax: 5
-  randWaitMin: 3
-  randWaitMax: 5
+  randWaitMin: 1
+  randWaitMax: 3
   randPointRad: 1.341
   guardAudioScript: {fileID: 2094104194}
   isStunned: 0
@@ -779,20 +787,7 @@ MonoBehaviour:
   taserSpawnLoc: {fileID: 8552973499195692512}
   accuracy: 0
   waypointNextDistance: 0.5
-  playerMovenemtRef: {fileID: 0}
   ceaseFire: 0
-  playerVisTarget: {fileID: 0}
-  taserPrefab: {fileID: 4738753518941278980}
-  playerEyeballMaxDist: 2
-  stateMachine: 0
-  waypointMethod: 0
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &9215408676989096723
 MonoBehaviour:
   m_ObjectHideFlags: 0
