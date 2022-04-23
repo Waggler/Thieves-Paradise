@@ -9,30 +9,6 @@ public class PlayerPreferencesHandler : MonoBehaviour
     #region Methods
 
 
-    #region Startup
-
-
-    //-----------------------//
-    private void Start()
-    //-----------------------//
-    {
-        Init();
-
-    }//END Start
-
-    //-----------------------//
-    private void Init()
-    //-----------------------//
-    {
-
-
-    }//END Init
-
-
-
-    #endregion Startup
-
-
     #region Audio
 
 
@@ -137,14 +113,6 @@ public class PlayerPreferencesHandler : MonoBehaviour
         PlayerPrefs.SetInt("InvertHorizontalToggle", value);
 
     }//END SetHorizontalToggle
-
-    //-----------------------//
-    public void SetUIToggle(int value)
-    //-----------------------//
-    {
-        PlayerPrefs.SetInt("FlipUI", value);
-
-    }//END SetUIToggle
 
     //-----------------------//
     public void SetRadioHue(float value)

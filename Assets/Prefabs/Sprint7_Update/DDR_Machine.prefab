@@ -1,5 +1,98 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2362547920680296007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4911377108080348122}
+  - component: {fileID: 2781484404835052902}
+  m_Layer: 3
+  m_Name: DDR Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4911377108080348122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362547920680296007}
+  m_LocalRotation: {x: 0.32736576, y: -0, z: -0, w: 0.9448977}
+  m_LocalPosition: {x: -0, y: 2.3670003, z: -1.192996}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7244559070375786876}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 38.218, y: 0, z: 0}
+--- !u!108 &2781484404835052902
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362547920680296007}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 0
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 10
+  m_Range: 15
+  m_SpotAngle: 104.58331
+  m_InnerSpotAngle: 79.811325
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &3870842583940666180
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,6 +174,133 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4982942234351381417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3458564530051056641}
+  - component: {fileID: 6061147800086347654}
+  m_Layer: 3
+  m_Name: Music Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3458564530051056641
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982942234351381417}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 1.5, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7244559070375786876}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &6061147800086347654
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982942234351381417}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 4811569767427667623, guid: 26540bb816a2f4e45b9a60fcc4b052be, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 10
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5108660169884037704
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +313,7 @@ GameObject:
   - component: {fileID: 8954301756335332515}
   - component: {fileID: 1010720974513018853}
   m_Layer: 0
-  m_Name: ddr_trigger
+  m_Name: '[Dance Trigger]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,8 +344,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.03, y: 0.2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.03, y: 0.31391603, z: 1.1815462}
+  m_Center: {x: 0.0000000010705148, y: 0.05695801, z: 0.09077239}
 --- !u!114 &1010720974513018853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,9 +373,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8022280316271240474}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+      - m_Target: {fileID: 5771615768434978022}
+        m_TargetAssemblyTypeName: DDRAudioHandler, Assembly-CSharp
+        m_MethodName: PlayGroovin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -167,7 +387,19 @@ MonoBehaviour:
         m_CallState: 2
   triggeredEventEnd:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5771615768434978022}
+        m_TargetAssemblyTypeName: DDRAudioHandler, Assembly-CSharp
+        m_MethodName: StopPlaying
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5303340255655043488
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +411,7 @@ GameObject:
   - component: {fileID: 5173408592320225437}
   - component: {fileID: 8022280316271240474}
   m_Layer: 3
-  m_Name: DDR Source
+  m_Name: Announcer Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,9 +441,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 4811569767427667623, guid: 26540bb816a2f4e45b9a60fcc4b052be, type: 2}
-  m_audioClip: {fileID: 8300000, guid: d543d80f771a3144faf68d9da5e4ae31, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -219,7 +451,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0
   MaxDistance: 30
   Pan2D: 0
   rolloffMode: 1
@@ -472,6 +704,7 @@ GameObject:
   - component: {fileID: 1834549578640472925}
   - component: {fileID: 451481374067753077}
   - component: {fileID: 1164178241791620476}
+  - component: {fileID: 5771615768434978022}
   m_Layer: 3
   m_Name: DDR_Machine
   m_TagString: Untagged
@@ -497,6 +730,8 @@ Transform:
   - {fileID: 6655392780238272449}
   - {fileID: 4236283621752941660}
   - {fileID: 5173408592320225437}
+  - {fileID: 3458564530051056641}
+  - {fileID: 4911377108080348122}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -579,6 +814,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertRange: 25
   susManager: {fileID: 0}
+--- !u!114 &5771615768434978022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8053008686209393606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d54894c45c8f3c54d9f42f47b1f1495b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  announceSource: {fileID: 8022280316271240474}
+  musicSource: {fileID: 6061147800086347654}
+  announcerClips:
+  - {fileID: 8300000, guid: 59b813211359f2f48b69d71be30e9fe7, type: 3}
+  - {fileID: 8300000, guid: 319d6bb8d983b6a4384e3cca2e12145a, type: 3}
+  - {fileID: 8300000, guid: 02685e4d8ac6e084483187bc9c6ab16b, type: 3}
+  - {fileID: 8300000, guid: ba1218745955fc1468b1dd09bde6fb9c, type: 3}
+  - {fileID: 8300000, guid: a713057aea9ed2a4e8cd8dab982448c0, type: 3}
+  musicClips:
+  - {fileID: 8300000, guid: 2ecdfb259effd224893bfc7f080e1f01, type: 3}
+  - {fileID: 8300000, guid: 9eceed4201a25f4428b83773d4f22853, type: 3}
+  dDRStinger: {fileID: 8300000, guid: be4a55d2d18c2e54c8221fae8822d0a1, type: 3}
+  spotlight: {fileID: 2781484404835052902}
+  lightColor:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.3416214, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0.028255463, b: 1, a: 1}
+  - {r: 0.9972335, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0.6798401, a: 1}
+  - {r: 0, g: 0.98018956, b: 1, a: 1}
+  lightWaitTime: 3
 --- !u!1 &8212741730600390440
 GameObject:
   m_ObjectHideFlags: 0
