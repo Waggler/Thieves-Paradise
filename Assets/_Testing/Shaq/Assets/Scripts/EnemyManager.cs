@@ -477,21 +477,41 @@ public class EnemyManager : MonoBehaviour
     // Alert's the guard
     public void Alert(Vector3 alertLoc)
     {
-        if (stateMachine != EnemyStates.RANGEDATTACK)
+
+        //VerifyAlertLoc(alertLoc);
+
+        //Add alert location verification here
+        if (true)
         {
-            eyeball.susLevel = hostileSusMax;
+            if (stateMachine != EnemyStates.RANGEDATTACK)
+            {
+                eyeball.susLevel = hostileSusMax;
 
-            stateMachine = EnemyStates.HOSTILE;
+                stateMachine = EnemyStates.HOSTILE;
 
-            target = alertLoc;
+                target = alertLoc;
 
-            eyeball.lastKnownLocation = alertLoc;
+                eyeball.lastKnownLocation = alertLoc;
 
-            agent.SetDestination(alertLoc);
+                agent.SetDestination(alertLoc);
 
-            //Debug.Log("Alert has been called");
+                //Debug.Log("Alert has been called");
+            }
         }
     }//End Alert
+
+
+    private void VerifyAlertLoc(Vector3 fedLocation)
+    {
+        if (NavMesh.SamplePosition(fedLocation, out NavMeshHit hit, 0, 1) == false)
+        {
+            Debug.Log("Not a valid point on the navmesh");
+        }
+        else
+        {
+            Debug.Log("Valid point on navmesh");
+        }
+    }
 
 
     //---------------------------------//
@@ -811,7 +831,8 @@ public class EnemyManager : MonoBehaviour
                 //Faces the target / player when they are visible
                 //  - Added with the intention of the guard spending less time awkwardly facing seemingly random direcations
 
-                if (eyeball.canCurrentlySeePlayer == true)
+                // Also prevents the player from running circles around the guard
+                if (eyeball.canCurrentlySeePlayer == true || agent.remainingDistance < targetSnapDistance)
                 {
                     FaceTarget(target);
                 }
@@ -827,14 +848,8 @@ public class EnemyManager : MonoBehaviour
                     StateChange(EnemyStates.RANGEDATTACK);
                 }
 
-                //Prevents the player from literally running circles around the guard in cetrain situations
-                if (agent.remainingDistance < targetSnapDistance)
-                {
-                    FaceTarget(target);
-                }
-                
-                //else if (eyeball.canCurrentlySeePlayer == false || eyeball.susLevel < sussySusMax)
-                else if (eyeball.susLevel < sussySusMax && targetVsPlayerDistance < playerEyeballMaxDist)
+                //Used for calling the LostPlayer() method from GuardAudio.cs
+                else if (eyeball.susLevel < sussySusMax /*&& targetVsPlayerDistance < playerEyeballMaxDist*/)
                 {
                     if (!isBoss)
                     {
@@ -848,6 +863,15 @@ public class EnemyManager : MonoBehaviour
                         // HOSTILE >> PASSIVE
                         StateChange(EnemyStates.PASSIVE);
                     }
+
+                    //The only way the guard can go to sus from hostile is if they lost the player
+                    guardAudioScript.LostPlayer();
+                }
+
+                //When the guard is being baited by a thrown bottle or other noise making item
+                if (eyeball.canCurrentlySeePlayer == false && agent.remainingDistance < .5f)
+                {
+                    StateChange(EnemyStates.SUSPICIOUS);
                 }
 
                 
@@ -912,6 +936,10 @@ public class EnemyManager : MonoBehaviour
                         taserPrefab.transform.LookAt(playerVisTarget.transform);
 
                         taserPrefab.GetComponent<TaserManager>().Init();
+
+                        guardAudioScript.TaserFired();
+
+                        guardAudioScript.ReloadTaser();
                     }
                 }
 
@@ -988,5 +1016,4 @@ public class EnemyManager : MonoBehaviour
         }//End State Machine
     }//End Update
     #endregion Update
-
 }
