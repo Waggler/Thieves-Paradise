@@ -191,6 +191,7 @@ public class AnimationController : MonoBehaviour
         if (isPlayerStunned)
         {
             playerAnimator.SetBool("isStunned", true);
+            print("Is Stunned was triggered.");
         }
         else
         {
@@ -204,6 +205,7 @@ public class AnimationController : MonoBehaviour
         if (didPlayerFall)
         {
             playerAnimator.SetBool("didFall", true);
+            print("Did Fall was triggered");
         }
         else
         {
@@ -217,6 +219,7 @@ public class AnimationController : MonoBehaviour
         if (isPlayerFalling)
         {
             playerAnimator.SetBool("falling", true);
+            print("Falling was triggered.");
         }
         else
         {
