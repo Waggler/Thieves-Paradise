@@ -34,6 +34,8 @@ public class ButtonScript : MonoBehaviour
                 }
             }  
         }
+
+        //transform.parent = null;
     }
     public void PressButton()
     {
