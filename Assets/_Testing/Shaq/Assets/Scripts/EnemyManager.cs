@@ -184,7 +184,6 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("Script reference to the security station / suspicion manager")]
     [SerializeField] private SuspicionManager securityStationScriptRef;
 
-    [Tooltip("Script reference to player movement, automatically generated")]
     private PlayerMovement playerMovenemtRef;
 
 
