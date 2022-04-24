@@ -18,10 +18,6 @@ public class SuspicionManager : MonoBehaviour
     [SerializeField] public SecurityLvl secState;
     #endregion Enumerations
 
-    #region Coroutines
-
-    #endregion Coroutines
-
     #region Lists & Arrays
 
     [Header("Guards List")]
@@ -42,8 +38,6 @@ public class SuspicionManager : MonoBehaviour
     [Header("Guard Refs")]
 
     [SerializeField] private EnemyManager enemyManager;
-
-    private bool Gabagool;
 
     //---------------------------------------------------------------------------------------------------//
 
