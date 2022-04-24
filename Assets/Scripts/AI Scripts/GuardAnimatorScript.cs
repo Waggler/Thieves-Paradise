@@ -143,6 +143,7 @@ public class GuardAnimatorScript : MonoBehaviour
 
     public void ExitStunAnim()
     {
+        anim.SetBool("isUnholster", false);
         anim.SetBool("isStunned", false);
     }
 

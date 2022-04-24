@@ -168,7 +168,7 @@ public class SuspicionManager : MonoBehaviour
 
             //Radius Check
             //Side note: The final part of this statement is not immune to edge cases
-            if (distance <= callRadius && Mathf.Abs(guard.transform.position.y - targetLoc.y) < 3f && enemyManager.stateMachine != EnemyManager.EnemyStates.STUNNED)
+            if (distance <= callRadius && Mathf.Abs(guard.transform.position.y - targetLoc.y) < 2f && enemyManager.stateMachine != EnemyManager.EnemyStates.STUNNED)
             {
                 //Calls the EnemyManager script's Alert() function and feeds in the targetLoc variable
                 enemyManager.Alert(targetLoc);
