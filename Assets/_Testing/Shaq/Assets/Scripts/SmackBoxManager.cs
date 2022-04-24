@@ -19,6 +19,8 @@ public class SmackBoxManager : MonoBehaviour
 
     private LayerMask layerMask;
 
+    private GuardAudio guardAudioScript;
+
     #endregion Variables
 
     private void Awake()
@@ -55,6 +57,8 @@ public class SmackBoxManager : MonoBehaviour
                     other.gameObject.GetComponent<PlayerMovement>().IsStunned = true;
                     Debug.Log("(Meaty Thwak)");
                     Debug.Log("(Both Chuckle)");
+
+                    guardAudioScript.MeleeHit();
                 }
             }
         }
