@@ -164,8 +164,6 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("References the player object (automatically generated)")]
     [SerializeField] private GameObject player;
 
-    private PlayerMovement playerMovement;
-
     [Tooltip("References the guard's eyeball prefab / object")]
     [SerializeField] public EyeballScript eyeball;
 
@@ -185,6 +183,9 @@ public class EnemyManager : MonoBehaviour
 
     [Tooltip("Script reference to the security station / suspicion manager")]
     [SerializeField] private SuspicionManager securityStationScriptRef;
+
+    private PlayerMovement playerMovenemtRef;
+
 
     [Tooltip("List of Security Stations in the level")]
     private List<GameObject> securityStations;
@@ -334,7 +335,6 @@ public class EnemyManager : MonoBehaviour
 
 
 
-    private PlayerMovement playerMovenemtRef;
 
     private GameObject playerVisTarget;
 
@@ -379,6 +379,16 @@ public class EnemyManager : MonoBehaviour
             player = FindObjectOfType<PlayerMovement>().gameObject;
         }
 
+        if (playerVisTarget == null)
+        {
+            playerVisTarget = GameObject.Find("VisionTarget");
+        }
+
+        if (playerMovenemtRef == null)
+        {
+            playerMovenemtRef = player.GetComponent<PlayerMovement>();
+        }
+
         if (guardAnim == null)
         {
             guardAnim = GetComponent<GuardAnimatorScript>();
@@ -389,19 +399,9 @@ public class EnemyManager : MonoBehaviour
             securityStationObjRef = GameObject.Find("Suspicion Manager");
         }
 
-        if (playerMovenemtRef == null)
-        {
-            playerMovenemtRef = player.GetComponent<PlayerMovement>();
-        }
-
         if (guardAudioScript == null)
         {
             guardAudioScript = GetComponentInChildren < GuardAudio>();
-        }
-
-        if (playerVisTarget == null)
-        {
-            playerVisTarget = GameObject.Find("VisionTarget");
         }
         #endregion Null Checks
 
@@ -501,6 +501,7 @@ public class EnemyManager : MonoBehaviour
     }//End Alert
 
 
+    //---------------------------------//
     private void VerifyAlertLoc(Vector3 fedLocation)
     {
         if (NavMesh.SamplePosition(fedLocation, out NavMeshHit hit, 0, 1) == false)
@@ -511,7 +512,7 @@ public class EnemyManager : MonoBehaviour
         {
             Debug.Log("Valid point on navmesh");
         }
-    }
+    }//End VerifyAlertLoc
 
 
     //---------------------------------//
