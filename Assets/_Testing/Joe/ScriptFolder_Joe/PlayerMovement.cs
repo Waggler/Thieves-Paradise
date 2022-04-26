@@ -367,6 +367,7 @@ public class PlayerMovement : MonoBehaviour
             IsStunned = true;
             Splat = false;
             Thud = true;
+            print("This will hurt.");
         }
 
         #endregion
@@ -404,6 +405,7 @@ public class PlayerMovement : MonoBehaviour
                     hp -= 1;
                     healthTracker.DeductHitPoint(hp);
                     Thud = false;
+                    print("Land down.");
                 }
             }
 
@@ -949,36 +951,28 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---STUNNED---//
-        if (IsStunned)
+        if (IsStunned && !Thud)
         {
             Stunned = true;
-            if (!Thud)
-            {
-                animationController.IsPlayerStunned(Stunned);
-            }
-            else if(Thud)
-            {
-                animationController.DidPlayerFall(Stunned);
-            }
+            animationController.IsPlayerStunned(Stunned);
         }
         else
         {
             Stunned = false;
             animationController.IsPlayerStunned(Stunned);
-            animationController.DidPlayerFall(Stunned);
         }
 
-        ////---FALLING-STUN---//
-        //if (IsStunned && Thud)
-        //{
-        //    FallingStun = true;
-        //    animationController.DidPlayerFall(FallingStun);
-        //}
-        //else
-        //{
-        //    FallingStun = false;
-        //    animationController.DidPlayerFall(FallingStun);
-        //}
+        //---FALLING-STUN---//
+        if (IsStunned && Thud)
+        {
+            FallingStun = true;
+            animationController.DidPlayerFall(FallingStun);
+        }
+        else
+        {
+            FallingStun = false;
+            animationController.DidPlayerFall(FallingStun);
+        }
 
         //---FALLING---//
         if (!IsGrounded && !Diving && VerticalVelocity.y < 0)
