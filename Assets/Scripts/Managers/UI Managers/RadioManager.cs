@@ -14,8 +14,7 @@ public class RadioManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private RadioDialogueManager radioDialogueManager;
 
-    [SerializeField] private TMP_Text subtitleText;
-    [SerializeField] private TMP_Text speakerText;
+    public TMP_Text subtitleText;
 
     [SerializeField] private Animator subtitleAnimator;
 
@@ -67,7 +66,6 @@ public class RadioManager : MonoBehaviour
 
         Color textColor = Color.HSVToRGB(hue, saturation, 1);
 
-        speakerText.color = textColor;
         subtitleText.color =textColor;
 
     }//END SetTextColor
@@ -76,7 +74,6 @@ public class RadioManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     //-----------------------//
     {
-        speakerText.text = dialogue.characterName;
 
         if (sentences != null)
         {
