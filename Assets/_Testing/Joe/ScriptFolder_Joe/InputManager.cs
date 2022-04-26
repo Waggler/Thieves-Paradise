@@ -23,16 +23,18 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public bool IsThrowing;
     [HideInInspector] public float ZoomLookSensitivity = 1;
 
-    [Header("PauseMenu")]
-    [SerializeField] private GameObject PauseMenu;
-    [SerializeField] private GameObject Settigns;
-    [SerializeField] private GameObject Camera;
+    
+    private GameObject PauseMenu;
+    private GameObject Settigns;
+    private GameObject Camera;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         inventoryController = GetComponent<InventoryController>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        PauseMenu = (GameObject)FindObjectOfType(typeof(GameObject));
     }
 
     void Update()
