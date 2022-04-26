@@ -24,17 +24,15 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public float ZoomLookSensitivity = 1;
 
     
-    private GameObject PauseMenu;
-    private GameObject Settigns;
-    private GameObject Camera;
+    private PauseTarget PauseMenu;
+    private SettingTarget Settings;
+    private PhotoModeTarget Camera;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         inventoryController = GetComponent<InventoryController>();
         Cursor.lockState = CursorLockMode.Locked;
-
-        PauseMenu = (GameObject)FindObjectOfType(typeof(GameObject));
     }
 
     void Update()
@@ -50,6 +48,10 @@ public class InputManager : MonoBehaviour
             jumpPressCounter = false;
             StopTheJump = false;
         }
+
+        PauseMenu = (PauseTarget)FindObjectOfType(typeof(PauseTarget));
+        Settings = (SettingTarget)FindObjectOfType(typeof(SettingTarget));
+        Camera = (PhotoModeTarget)FindObjectOfType(typeof(PhotoModeTarget));
     }
 
     #region Inputs
@@ -204,7 +206,7 @@ public class InputManager : MonoBehaviour
 
     public void ZoomLook(InputAction.CallbackContext context)
     {
-        if (IsZoomed && (!PauseMenu.activeSelf && !Settigns.activeSelf && !Camera.activeSelf)) //only use this when zoomed in
+        if (IsZoomed && (!PauseMenu && !Settings && !Camera)) //only use this when zoomed in
         {
             if (context.performed)
             {
@@ -227,6 +229,6 @@ public class InputManager : MonoBehaviour
         ZoomLookSensitivity = newSens;
     }
     #endregion
-
+    
     #endregion
 }
