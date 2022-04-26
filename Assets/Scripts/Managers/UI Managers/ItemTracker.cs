@@ -8,10 +8,11 @@ public class ItemTracker : MonoBehaviour
     [Header("Components")]
     [SerializeField] private LayoutGroup itemLayout;
     [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private GameObject[] heistItemPrefabs;
-    [SerializeField] private ItemScript[] heistItems;
-    [SerializeField] private List<ItemToSteal> displayedItems;
+    [SerializeField] private GameObject[] heistItemObjects;
+    private ItemScript[] heistItems;
+    private List<ItemToSteal> displayedItems;
     [SerializeField] private InventoryController iController;
+    [SerializeField] private GameObject[] itemDisplays;
 
     //-----------------------//
     void Start()
@@ -30,11 +31,13 @@ public class ItemTracker : MonoBehaviour
             iController = FindObjectOfType<InventoryController>();
         }
 
-        heistItems = new ItemScript[heistItemPrefabs.Length];
+        heistItems = new ItemScript[heistItemObjects.Length];
 
-        for (int i = 0; i < heistItemPrefabs.Length; i++)
+        //initialize list of items
+
+        for (int i = 0; i < heistItemObjects.Length; i++)
         {
-            heistItems[i] = heistItemPrefabs[i].GetComponent<ItemScript>();
+            heistItems[i] = heistItemObjects[i].GetComponent<ItemScript>();
         }
 
         foreach (ItemScript item in heistItems)
@@ -43,6 +46,9 @@ public class ItemTracker : MonoBehaviour
             temp.Init(item);
             displayedItems.Add(temp);
         }
+
+        //spawn in items to be displayed
+
 
     }//END Init
 
