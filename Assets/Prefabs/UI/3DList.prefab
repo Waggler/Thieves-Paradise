@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4456412360292694616}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 3DList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ RectTransform:
   m_GameObject: {fileID: 648968602515881486}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10.580854}
-  m_LocalScale: {x: 1.5675, y: 1.5675, z: 1.5675}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3939118114298220824}
   m_Father: {fileID: 4456412360292694616}
@@ -103,7 +103,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 32
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: a49920d10967ece43ae76d74caf6475c, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 1a3b85b42dadcd3438087769e854d007, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 2945865629201136253}
   - component: {fileID: 3957572785370224285}
   - component: {fileID: 5399818727189662388}
-  - component: {fileID: 821213917839998074}
+  - component: {fileID: 2923311566980662471}
   m_Layer: 5
   m_Name: Object Mesh (2)
   m_TagString: Untagged
@@ -235,7 +235,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &821213917839998074
+--- !u!114 &2923311566980662471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2105271991752179693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afecafa64b5446647bdaba74c2e84824, type: 3}
+  m_Script: {fileID: 11500000, guid: acbd9442d2bc17c43ad6d9e16517f52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2580154105927408527
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 8589221938380341687}
   - component: {fileID: 8573523919146845045}
   - component: {fileID: 1518463097237814152}
-  - component: {fileID: 7423369892351748008}
+  - component: {fileID: 5760373761243110400}
   m_Layer: 5
   m_Name: Object Mesh (1)
   m_TagString: Untagged
@@ -368,7 +368,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7423369892351748008
+--- !u!114 &5760373761243110400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3240207303655505042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afecafa64b5446647bdaba74c2e84824, type: 3}
+  m_Script: {fileID: 11500000, guid: acbd9442d2bc17c43ad6d9e16517f52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7817358510127898605
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 3084429748554696504}
   - component: {fileID: 1716893534880561535}
   - component: {fileID: 1542599471017809497}
-  - component: {fileID: 3921842998829304670}
+  - component: {fileID: 8448662457311395654}
   m_Layer: 5
   m_Name: Object Mesh (3)
   m_TagString: Untagged
@@ -560,7 +560,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3921842998829304670
+--- !u!114 &8448662457311395654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -569,6 +569,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8167839348343736814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afecafa64b5446647bdaba74c2e84824, type: 3}
+  m_Script: {fileID: 11500000, guid: acbd9442d2bc17c43ad6d9e16517f52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

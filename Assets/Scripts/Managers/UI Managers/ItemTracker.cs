@@ -9,10 +9,12 @@ public class ItemTracker : MonoBehaviour
     [SerializeField] private LayoutGroup itemLayout;
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private GameObject[] heistItemObjects;
-    private ItemScript[] heistItems;
-    private List<ItemToSteal> displayedItems;
+     private ItemScript[] heistItems;
+     private List<ItemToSteal> displayedItems;
     [SerializeField] private InventoryController iController;
     [SerializeField] private GameObject[] itemDisplays;
+    [SerializeField] private GameObject[] itemBoxes;
+    [SerializeField] private GameObject[] checkmarks;
 
     //-----------------------//
     void Start()
@@ -35,9 +37,19 @@ public class ItemTracker : MonoBehaviour
 
         //initialize list of items
 
-        for (int i = 0; i < heistItemObjects.Length; i++)
+        for (int i = 0; i < 3; i++)
         {
-            heistItems[i] = heistItemObjects[i].GetComponent<ItemScript>();
+            if(i < heistItemObjects.Length)
+            {
+                heistItems[i] = heistItemObjects[i].GetComponent<ItemScript>();
+                //spawn in items to be displayed
+                itemDisplays[i].GetComponent<MeshFilter>().mesh = heistItemObjects[i].GetComponent<MeshFilter>().mesh;
+                itemDisplays[i].GetComponent<MeshRenderer>().material = heistItemObjects[i].GetComponent<MeshRenderer>().material;
+            }else
+            {
+                itemDisplays[i].SetActive(false);
+            }
+
         }
 
         foreach (ItemScript item in heistItems)
@@ -47,7 +59,7 @@ public class ItemTracker : MonoBehaviour
             displayedItems.Add(temp);
         }
 
-        //spawn in items to be displayed
+        
 
 
     }//END Init
