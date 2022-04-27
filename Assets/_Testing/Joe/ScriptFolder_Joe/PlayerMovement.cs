@@ -125,9 +125,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float GroundCheckLimit2;
     private Vector3 StartingLocation;
     private float CurrentGroundCheckTime = 0;
-    private bool Splat = false;
+    [SerializeField] private bool Splat = false;
     private bool StartTimer = false;
-    private bool Thud = false;
+    [SerializeField] private bool Thud = false;
 
     [Header("Key Scripts")]
     public SuspicionManager SusMan;
@@ -149,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
     public bool Falling;
     public bool FallingStun;
 
+    [Header("Invuln")]
     public bool isInvulnurable;
     [Tooltip("Timer starts as soon as you get hit, including when you are still struggling")]
     [SerializeField] public float invulnerabilityTime = 5;
@@ -366,6 +367,7 @@ public class PlayerMovement : MonoBehaviour
             IsStunned = true;
             Splat = false;
             Thud = true;
+            print("This will hurt.");
         }
 
         #endregion
@@ -398,13 +400,13 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
-                if (Thud != true)
+                if (Thud == true)
                 {
                     hp -= 1;
                     healthTracker.DeductHitPoint(hp);
+                    Thud = false;
+                    print("Land down.");
                 }
-                Thud = false;
-                
             }
 
             else if (CurrentStunTime >= StunTime || hp <= 1)
@@ -798,7 +800,6 @@ public class PlayerMovement : MonoBehaviour
         if(Thud)
         {
             CurrentLevel = LoudestLevel;
-            //Thud = false;
         }
         else if ((Idle || IdleCrouch || Crouching) && !CrouchRoll && !Jumping && !Slide && !Running)
         {
@@ -974,7 +975,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---FALLING---//
-        if(!IsGrounded && !Diving && VerticalVelocity.y < 0)
+        if (!IsGrounded && !Diving && VerticalVelocity.y < 0)
         {
             Falling = true;
             animationController.FallingPlayer(Falling);
