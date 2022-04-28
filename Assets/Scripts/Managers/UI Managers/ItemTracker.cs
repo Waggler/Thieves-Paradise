@@ -16,6 +16,8 @@ public class ItemTracker : MonoBehaviour
     [SerializeField] private GameObject[] itemBoxes;
     [SerializeField] private GameObject[] checkmarks;
 
+    public bool debug;
+
     //-----------------------//
     void Start()
     //-----------------------//
@@ -33,7 +35,9 @@ public class ItemTracker : MonoBehaviour
             iController = FindObjectOfType<InventoryController>();
         }
 
+        //initialize object holders
         heistItems = new ItemScript[heistItemObjects.Length];
+        displayedItems = new List<ItemToSteal>();
 
         //initialize list of items
 
@@ -42,13 +46,16 @@ public class ItemTracker : MonoBehaviour
             if(i < heistItemObjects.Length)
             {
                 heistItems[i] = heistItemObjects[i].GetComponent<ItemScript>();
+                if(debug) print(heistItems[i].name); 
                 //spawn in items to be displayed
                 itemDisplays[i].GetComponent<MeshFilter>().mesh = heistItemObjects[i].GetComponent<MeshFilter>().mesh;
                 itemDisplays[i].GetComponent<MeshRenderer>().material = heistItemObjects[i].GetComponent<MeshRenderer>().material;
             }else
             {
                 itemDisplays[i].SetActive(false);
+                itemBoxes[i].SetActive(false);
             }
+            checkmarks[i].SetActive(false);
 
         }
 
@@ -56,12 +63,13 @@ public class ItemTracker : MonoBehaviour
         {
             ItemToSteal temp = Instantiate(itemPrefab, itemLayout.transform).GetComponent<ItemToSteal>();
             temp.Init(item);
+
+            if(debug) print(displayedItems.Count); 
+
             displayedItems.Add(temp);
+            
         }
-
         
-
-
     }//END Init
 
     //-----------------------//
@@ -69,11 +77,14 @@ public class ItemTracker : MonoBehaviour
     //-----------------------//
     {
 
-        foreach (ItemToSteal item in displayedItems)
+        //foreach (ItemToSteal item in displayedItems)
+        for(int i = 0; i < displayedItems.Count; i++)
         {
-            if (iController.CheckHasItem(item.name) == true)
+            if (iController.CheckHasItem(displayedItems[i].name) == true)
             {
-                item.nameText.fontStyle = TMPro.FontStyles.Strikethrough;
+                displayedItems[i].nameText.fontStyle = TMPro.FontStyles.Strikethrough;
+
+                checkmarks[i].SetActive(true);
             }
         }
 
