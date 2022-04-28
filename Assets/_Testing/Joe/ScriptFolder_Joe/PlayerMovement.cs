@@ -951,28 +951,37 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---STUNNED---//
-        if (IsStunned && !Thud)
+        if (IsStunned)
         {
             Stunned = true;
-            animationController.IsPlayerStunned(Stunned);
+            if (!Thud)
+            {
+                animationController.IsPlayerStunned(Stunned);
+            }
+            else
+            {
+                animationController.DidPlayerFall(Stunned);
+            }
         }
         else
         {
             Stunned = false;
             animationController.IsPlayerStunned(Stunned);
+            animationController.DidPlayerFall(Stunned);
         }
 
-        //---FALLING-STUN---//
-        if (IsStunned && Thud)
-        {
-            FallingStun = true;
-            animationController.DidPlayerFall(FallingStun);
-        }
-        else
-        {
-            FallingStun = false;
-            animationController.DidPlayerFall(FallingStun);
-        }
+        ////---FALLING-STUN---//
+        //if (IsStunned && Thud)
+        //{
+        //    FallingStun = true;
+        //    animationController.DidPlayerFall(FallingStun);
+        //}
+        //else
+        //{
+        //    FallingStun = false;
+        //    animationController.IsPlayerStunned(FallingStun);
+        //    animationController.DidPlayerFall(FallingStun);
+        //}
 
         //---FALLING---//
         if (!IsGrounded && !Diving && VerticalVelocity.y < 0)
