@@ -5,8 +5,6 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-using Unity.Profiling;
-
 /*To Do:
     - Remove Wary state (?)
 
@@ -364,6 +362,12 @@ public class EnemyManager : MonoBehaviour
 
     private float targetSnapDistance = 3f;
 
+    //---------------------------------------------------------------------------------------------------//
+    //Events
+
+    public UnityEvent guardHostile;
+    public UnityEvent guardNotHostile;
+
     #endregion
 
     #region Methods
@@ -439,8 +443,20 @@ public class EnemyManager : MonoBehaviour
     }//End Init
 
 
-    public void StateChange(EnemyStates enemyStates) => stateMachine = enemyStates; //End StateChange
+    public void StateChange(EnemyStates enemyStates)
+    {
+        stateMachine = enemyStates; //End StateChange
 
+        //Short circuit approach, there are three states that aren't hostile
+        if (enemyStates != EnemyStates.HOSTILE)
+        {
+            guardNotHostile.Invoke();
+        }
+        else
+        {
+            guardHostile.Invoke();
+        }
+    }
 
     //---------------------------------//
     // Updates the debug text above the guard's head

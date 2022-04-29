@@ -40,6 +40,7 @@ public class TripwireManager : MonoBehaviour
     //References the "SuspcionManager.cs" script found on the "Suspicion Manager" object
     [HideInInspector] private SuspicionManager susManagerRef;
 
+    private bool isPlayAudio = false;
     #endregion Variables
 
     #region Start
@@ -54,16 +55,6 @@ public class TripwireManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(ITripWireCheck());
-    }
-    #endregion Update
-
-    //Instantiation of the ray
-    private Ray securityRay; 
-
-    #region Coroutines
-    private IEnumerator ITripWireCheck()
-    {
         //Visualization of the made ray (visible in the scene view)
         Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.magenta);
 
@@ -75,16 +66,32 @@ public class TripwireManager : MonoBehaviour
             {
                 //Alerts guards in a set radius (Guards List generated in method)
                 susManagerRef.AlertGuards(hit.point, transform.position, callRadius);
-                if (laserAudioSource.isPlaying == false)
+
+                // Insert bool check for playing audio
+                if (isPlayAudio == false)
                 {
+                    //play alert sound
                     laserAudioSource.Play();
+
+                    //Flip the bool
+                    isPlayAudio = true;
+                    
+                    Debug.Log(isPlayAudio);
                 }
             }
-        }
-        yield return new WaitForSeconds(.1f);
-    }
-    #endregion Coroutines
+            else
+            {
+                //Reset the bool the bool
+                isPlayAudio = false;
 
+                Debug.Log(isPlayAudio);
+            }
+        }
+    }
+    #endregion Update
+
+    //Instantiation of the ray
+    private Ray securityRay; 
 
     #region General Methods
     public void Init()
