@@ -7,6 +7,7 @@ public class ExplosionHandler : MonoBehaviour
     [SerializeField] private ScoreScreenManager scoreScreenManager;
     [SerializeField] private AudioSource explosionSource;
     [SerializeField] private Animator explosionAnimator;
+    [SerializeField] private AudioSource musicSource;
 
     //-----------------------//
     private void Start()
@@ -24,6 +25,7 @@ public class ExplosionHandler : MonoBehaviour
     public void TriggerExplosion()
     //-----------------------//
     {
+        musicSource.Stop();
         explosionAnimator.SetBool("isExploding", true);
         explosionSource.Play();
 
@@ -33,6 +35,8 @@ public class ExplosionHandler : MonoBehaviour
     public void OpenScoreBoard()
     //-----------------------//
     {
+        explosionAnimator.SetBool("isDoneExploding", true);
+
         //scoreScreenManager.Open();
 
     }//END OpenScoreBoard

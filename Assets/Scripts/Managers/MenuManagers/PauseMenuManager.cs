@@ -26,11 +26,16 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private Button settingsFirstButton;
     [SerializeField] private Button photoModeFirstButton;
 
+    private PlayerMovement playerMovement;
 
     public static bool isGamePaused;
 
     #endregion Components
 
+    private void Update()
+    {
+        playerMovement = (PlayerMovement)FindObjectOfType(typeof(PlayerMovement));
+    }
 
     #region Methods
 
@@ -59,6 +64,12 @@ public class PauseMenuManager : MonoBehaviour
             Cursor.visible = true;
 
             isGamePaused = true;
+
+            if(playerMovement.hp <= 0)
+            {
+                ResumeGame();
+                return;
+            }
         }
 
     }//END PauseGame
