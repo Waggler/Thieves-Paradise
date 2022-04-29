@@ -23,6 +23,11 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public bool IsThrowing;
     [HideInInspector] public float ZoomLookSensitivity = 1;
 
+    
+    private PauseTarget PauseMenu;
+    private SettingTarget Settings;
+    private PhotoModeTarget Camera;
+
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -43,6 +48,10 @@ public class InputManager : MonoBehaviour
             jumpPressCounter = false;
             StopTheJump = false;
         }
+
+        PauseMenu = (PauseTarget)FindObjectOfType(typeof(PauseTarget));
+        Settings = (SettingTarget)FindObjectOfType(typeof(SettingTarget));
+        Camera = (PhotoModeTarget)FindObjectOfType(typeof(PhotoModeTarget));
     }
 
     #region Inputs
@@ -84,18 +93,13 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            
+
             if (!jumpPressCounter && !StopTheJump)
             {
                 playerMovement.Jump();
                 jumpPressCounter = true;
                 StopTheJump = true;
             }
-            print("Jump started");
-        }else if (context.canceled)
-        {
-            //literally nothing
-            print("jump released");
         }
     }// END JUMP
     #endregion
@@ -202,7 +206,7 @@ public class InputManager : MonoBehaviour
 
     public void ZoomLook(InputAction.CallbackContext context)
     {
-        if (IsZoomed) //only use this when zoomed in
+        if (IsZoomed && (!PauseMenu && !Settings && !Camera)) //only use this when zoomed in
         {
             if (context.performed)
             {
@@ -225,6 +229,6 @@ public class InputManager : MonoBehaviour
         ZoomLookSensitivity = newSens;
     }
     #endregion
-
+    
     #endregion
 }

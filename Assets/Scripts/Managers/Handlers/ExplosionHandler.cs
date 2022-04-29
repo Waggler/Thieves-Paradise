@@ -1,36 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 
 public class ExplosionHandler : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera; //pointless?
-    //[SerializeField] private PostProcessEffectSettings postProcessMaybe;
+    [SerializeField] private ScoreScreenManager scoreScreenManager;
     [SerializeField] private AudioSource explosionSource;
-    //reference Level/scoremanager and call its func to open up
-    [SerializeField] private float waitTime;
+    [SerializeField] private Animator explosionAnimator;
+    [SerializeField] private AudioSource musicSource;
 
     //-----------------------//
     private void Start()
     //-----------------------//
     {
-        if (mainCamera = null)
+        if (scoreScreenManager = null)
         {
-            mainCamera = FindObjectOfType<Camera>();
+            scoreScreenManager = FindObjectOfType<ScoreScreenManager>();
         }
 
 
     }//END Start
 
     //-----------------------//
-    public IEnumerator ITriggerExplosion()
+    public void TriggerExplosion()
     //-----------------------//
     {
-        //do lerpy shit here
+        musicSource.Stop();
+        explosionAnimator.SetBool("isExploding", true);
+        explosionSource.Play();
 
-        yield return null;
     }//END TriggerExplosion
+
+    //-----------------------//
+    public void OpenScoreBoard()
+    //-----------------------//
+    {
+        explosionAnimator.SetBool("isDoneExploding", true);
+
+        //scoreScreenManager.Open();
+
+    }//END OpenScoreBoard
 
 
 }//END CLASS ExplosionHandler

@@ -141,13 +141,15 @@ public class CameraManager : MonoBehaviour
             //Comment out these two lines for me pls
             //camLightIntensity = Mathf.Lerp(camLightIntensity, 0, 5f);
 
-            camLightRef.enabled = false;
+            camLightRef.gameObject.SetActive(false);
+            //camLightRef.enabled = false;
         }
         else if (distanceToCamera <= killRadius)
         {
             //camLightIntensity = Mathf.Lerp(camLightIntensity, 50, 5f);
 
-            camLightRef.enabled = true;
+            camLightRef.gameObject.SetActive(true);
+            //camLightRef.enabled = true;
         }
 
         UpdateDebugText();
