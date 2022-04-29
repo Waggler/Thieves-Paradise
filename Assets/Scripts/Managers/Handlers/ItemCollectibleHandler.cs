@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemCollectibleHandler : MonoBehaviour
+[System.Serializable]
+public class ItemData
 {
     [SerializeField] private ItemsMenuManager manager;
     public ItemCollectibleData data;

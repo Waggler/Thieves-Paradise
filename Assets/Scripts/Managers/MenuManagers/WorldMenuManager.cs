@@ -60,7 +60,7 @@ public class WorldMenuManager : MonoBehaviour
     public void InitLocation(LocationCollectibleData data)
     //-----------------------//
     {
-        nameText.text = data.name.ToString();
+        nameText.text = data.title.ToString();
         descriptionText.text = data.description.ToString();
         imageOne.sprite = data.locationSprite1;
         imageTwo.sprite = data.locationSprite2;

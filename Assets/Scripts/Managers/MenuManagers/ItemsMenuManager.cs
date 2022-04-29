@@ -141,10 +141,9 @@ public class ItemsMenuManager : MonoBehaviour
     public void InitItem(ItemCollectibleData data)
     //-----------------------//
     {
-        nameText.text = data.name.ToString();
-        useDescriptionText.text = data.useDescription;
+        nameText.text = data.title.ToString();
         descriptionText.text = data.description;
-        itemImage.sprite = data.itemSprite;
+        //itemImage.sprite = data.itemSprite;
         fadePanel.SetActive(true);
         descriptionPanel.SetActive(true);
 
