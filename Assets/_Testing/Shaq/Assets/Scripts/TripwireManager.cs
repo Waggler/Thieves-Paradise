@@ -84,7 +84,7 @@ public class TripwireManager : MonoBehaviour
                 //Reset the bool the bool
                 isPlayAudio = false;
 
-                Debug.Log(isPlayAudio);
+                //Debug.Log(isPlayAudio);
             }
         }
     }
