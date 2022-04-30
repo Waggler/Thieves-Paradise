@@ -30,16 +30,6 @@ public class TaserManager : MonoBehaviour
             }
         }
 
-        ////Checking if the collided object is a guard
-        //if (collision.gameObject == guard)
-        //{
-        //    //Puts the guard into the STUNNED state
-        //    //This method will get the Enemy Manager component/script of the specific guard that was hit
-        //    collision.gameObject.GetComponent<EnemyManager>().stateMachine = EnemyManager.EnemyStates.STUNNED;
-        //}
-
-        Debug.Log(collision.gameObject);
-        
         //Destroys self
         Destroy(gameObject);
     }//End OnTriggerEnter

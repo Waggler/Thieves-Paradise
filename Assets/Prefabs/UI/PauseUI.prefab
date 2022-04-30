@@ -4068,6 +4068,7 @@ GameObject:
   - component: {fileID: 2246062193460712363}
   - component: {fileID: 2246062193460712356}
   - component: {fileID: 2246062193460712360}
+  - component: {fileID: 892338296223590490}
   m_Layer: 5
   m_Name: Pause Canvas
   m_TagString: Untagged
@@ -4181,6 +4182,18 @@ MonoBehaviour:
   pausedFirstButton: {fileID: 2246062192854001458}
   settingsFirstButton: {fileID: 83872925116337018}
   photoModeFirstButton: {fileID: 2246062194738927070}
+--- !u!114 &892338296223590490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2246062193460712357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3320ef0995700ff47a2b01559a655df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2246062193462471781
 GameObject:
   m_ObjectHideFlags: 0
@@ -4576,6 +4589,7 @@ GameObject:
   - component: {fileID: 2246062193758497477}
   - component: {fileID: 2246062193758497478}
   - component: {fileID: 2246062193758497481}
+  - component: {fileID: 7051478059020941937}
   m_Layer: 5
   m_Name: Settings Canvas
   m_TagString: Untagged
@@ -4721,6 +4735,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d644f3e1e2000340a2164545c332235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7051478059020941937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2246062193758497479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c1c47cfb148df41bb0cdfa1f438862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2246062193816080272
@@ -5138,6 +5164,7 @@ GameObject:
   - component: {fileID: 2246062194041231678}
   - component: {fileID: 2246062194041231679}
   - component: {fileID: 2246062194041231651}
+  - component: {fileID: 2105222284187891340}
   m_Layer: 5
   m_Name: Photo Mode Canvas
   m_TagString: Untagged
@@ -5258,6 +5285,18 @@ MonoBehaviour:
   - If the game is hard, just be better
   - Tempe uses crappy camera controls
   pauseMenuFirstButton: {fileID: 2246062193011989124}
+--- !u!114 &2105222284187891340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2246062194041231672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7e8feac7fcae34fbb822cc11a63fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2246062194096407335
 GameObject:
   m_ObjectHideFlags: 0

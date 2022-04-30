@@ -485,7 +485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3325092846536795624
 RectTransform:
   m_ObjectHideFlags: 0
@@ -788,6 +788,12 @@ MonoBehaviour:
   accuracy: 0
   waypointNextDistance: 0.5
   ceaseFire: 0
+  guardHostile:
+    m_PersistentCalls:
+      m_Calls: []
+  guardNotHostile:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &9215408676989096723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,7 +1018,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guard: {fileID: 3325092847374484679}
   guardEyeball: {fileID: 3325092846946898786}
-  player: {fileID: 3231231535335872039, guid: a6ca541ad4ff8604da25adeee87463d7, type: 3}
+  player: {fileID: 0}
   playerVisionTarget: {fileID: 0}
 --- !u!1 &4806736524543689865
 GameObject:

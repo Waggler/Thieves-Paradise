@@ -25,14 +25,7 @@ public class SmackBoxManager : MonoBehaviour
 
     private void Awake()
     {
-        enemyManager = guard.GetComponent<EnemyManager>();
-
-        player = GameObject.FindWithTag("Player");
-
-        playerVisionTarget = GameObject.Find("VisionTarget");
-
-        layerMask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost") + LayerMask.GetMask("Guard") + LayerMask.GetMask("Smack") + LayerMask.GetMask("Post Processing");
-        layerMask = ~layerMask; //get the player layer to make sure they don't block themselves from vision
+        Init();
 
     }//End Awake
 
@@ -55,8 +48,8 @@ public class SmackBoxManager : MonoBehaviour
                     enemyManager.guardAnim.EnterSmack();
 
                     other.gameObject.GetComponent<PlayerMovement>().IsStunned = true;
-                    Debug.Log("(Meaty Thwak)");
-                    Debug.Log("(Both Chuckle)");
+                    //Debug.Log("(Meaty Thwak)");
+                    //Debug.Log("(Both Chuckle)");
 
                     guardAudioScript.MeleeHit();
                 }
@@ -64,7 +57,7 @@ public class SmackBoxManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("There was no meaty thwack heard for quite some time...");
+            //Debug.Log("There was no meaty thwack heard for quite some time...");
         }
     }//End OnTriggerStay
 
@@ -72,6 +65,18 @@ public class SmackBoxManager : MonoBehaviour
     {
         enemyManager.guardAnim.ExitSmack();
 
-        Debug.Log("Fucker left the trigger, dick move");
+        //Debug.Log("Player left trigger");
     }//End OnTriggerExit
+
+    private void Init()
+    {
+        enemyManager = guard.GetComponent<EnemyManager>();
+
+        player = GameObject.FindWithTag("Player");
+
+        playerVisionTarget = GameObject.Find("VisionTarget");
+
+        layerMask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost") + LayerMask.GetMask("Guard") + LayerMask.GetMask("Smack") + LayerMask.GetMask("Post Processing");
+        layerMask = ~layerMask; //get the player layer to make sure they don't block themselves from vision
+    }
 }
