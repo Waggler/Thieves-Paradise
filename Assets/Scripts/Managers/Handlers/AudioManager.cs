@@ -13,12 +13,20 @@ public class AudioManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private AudioMixer mainMixer;
 
+    [SerializeField] private SuspicionManager susManager;
+
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource uIAudio;
 
     [Header("Sound Effects")]
     [SerializeField] private AudioClip buttonHoverClip;
     [SerializeField] private AudioClip buttonClickClip;
+
+    [Header("Dynamic Audio")]
+    [SerializeField] private bool levelHasGuards;
+    [SerializeField] private AudioClip levelClip;
+    [SerializeField] private AudioClip spottedClip;
+
 
 
     #endregion Components
@@ -50,6 +58,16 @@ public class AudioManager : MonoBehaviour
         mainMixer.SetFloat("musicVolume", musicVolume);
         mainMixer.SetFloat("sfxVolume", sfxVolume);
 
+        if (levelHasGuards == true)
+        {
+            if(susManager == null)
+            {
+                susManager = FindObjectOfType<SuspicionManager>();
+            }
+
+
+
+        }
 
     }//END Init
 
@@ -79,6 +97,15 @@ public class AudioManager : MonoBehaviour
     //-------------------------//
 
     #endregion SFX
+
+
+    #region Dynamic Music
+
+
+
+
+
+    #endregion Dynamic Music
 
 
     #endregion Methods
