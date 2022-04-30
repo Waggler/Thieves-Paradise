@@ -14,7 +14,7 @@ public class PauseSettingsManager : MonoBehaviour
 
 
     [Header("Components")]
-
+    [SerializeField] private InitializeBasicSettings basicSettingsHandler;
     [SerializeField] private PlayerPreferencesHandler prefsHandler;
     [SerializeField] private RadioManager radioManager;
     [SerializeField] private InputManager inputManager;
@@ -220,6 +220,12 @@ public class PauseSettingsManager : MonoBehaviour
         }
 
     }//END ChangeTab
+
+
+    public void DefaultControls()
+    {
+        basicSettingsHandler.SetDefaultSettings();
+    }
 
 
     #region Audio
