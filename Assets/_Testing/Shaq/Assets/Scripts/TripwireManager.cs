@@ -67,6 +67,10 @@ public class TripwireManager : MonoBehaviour
                 //Alerts guards in a set radius (Guards List generated in method)
                 susManagerRef.AlertGuards(hit.point, transform.position, callRadius);
 
+
+
+
+
                 // Insert bool check for playing audio
                 if (isPlayAudio == false)
                 {

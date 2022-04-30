@@ -13,13 +13,13 @@ public class SmackBoxManager : MonoBehaviour
 
     [SerializeField] private GameObject playerVisionTarget;
 
+    [SerializeField] private GuardAudio guardAudioScript;
+
     private PlayerMovement playerMovement;
 
     private EnemyManager enemyManager;
 
     private LayerMask layerMask;
-
-    private GuardAudio guardAudioScript;
 
     #endregion Variables
 
@@ -48,24 +48,17 @@ public class SmackBoxManager : MonoBehaviour
                     enemyManager.guardAnim.EnterSmack();
 
                     other.gameObject.GetComponent<PlayerMovement>().IsStunned = true;
-                    //Debug.Log("(Meaty Thwak)");
-                    //Debug.Log("(Both Chuckle)");
 
                     guardAudioScript.MeleeHit();
                 }
             }
         }
-        else
-        {
-            //Debug.Log("There was no meaty thwack heard for quite some time...");
-        }
-    }//End OnTriggerStay
+    }//End OnTriggerEnter
 
     private void OnTriggerExit(Collider other)
     {
         enemyManager.guardAnim.ExitSmack();
 
-        //Debug.Log("Player left trigger");
     }//End OnTriggerExit
 
     private void Init()
