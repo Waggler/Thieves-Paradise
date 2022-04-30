@@ -16,6 +16,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private SuspicionManager susManager;
 
     [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource combatMusicSource;
+
     [SerializeField] private AudioSource uIAudio;
 
     [Header("Sound Effects")]
@@ -24,9 +26,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Dynamic Audio")]
     [SerializeField] private bool levelHasGuards;
-    [SerializeField] private AudioClip levelClip;
-    [SerializeField] private AudioClip spottedClip;
-
+    bool areGuardsHostile;
 
 
     #endregion Components
@@ -60,12 +60,21 @@ public class AudioManager : MonoBehaviour
 
         if (levelHasGuards == true)
         {
+            int i;
+            areGuardsHostile = false;
             if(susManager == null)
             {
                 susManager = FindObjectOfType<SuspicionManager>();
             }
 
+            foreach (GameObject guard in susManager.guardsList)
+            {
+                EnemyManager temp;
 
+                temp = guard.GetComponent<EnemyManager>();
+                temp.guardHostile.AddListener(BeginCombatMusic);
+                temp.guardNotHostile.AddListener(EndCombatMusic);
+            }
 
         }
 
@@ -102,13 +111,96 @@ public class AudioManager : MonoBehaviour
     #region Dynamic Music
 
 
+    void BeginCombatMusic()
+    {
+        StartCoroutine(IStartCombatMusic());
+    }
 
+    void EndCombatMusic()
+    {
+        List<EnemyManager.EnemyStates> guardStates = new List<EnemyManager.EnemyStates>();
+        foreach (GameObject guard in susManager.guardsList)
+        {
+            EnemyManager temp;
+
+            temp = guard.GetComponent<EnemyManager>();
+            guardStates.Add(temp.stateMachine);
+        }
+        if (guardStates.Contains(EnemyManager.EnemyStates.HOSTILE) || 
+            guardStates.Contains(EnemyManager.EnemyStates.RANGEDATTACK) || 
+            guardStates.Contains(EnemyManager.EnemyStates.STUNNED) || 
+            guardStates.Contains(EnemyManager.EnemyStates.SUSPICIOUS))
+        {
+            areGuardsHostile = true;
+        }
+        else
+        {
+            areGuardsHostile = false;
+        }
+
+        if (areGuardsHostile == false)
+        {
+            StartCoroutine(IEndCombatMusic());
+        }
+
+    }
 
 
     #endregion Dynamic Music
 
 
     #endregion Methods
+
+
+    #region Coroutines
+
+
+    //-------------------------//
+    IEnumerator IStartCombatMusic()
+    //-------------------------//
+    {
+        while (musicSource.volume != 0)
+        {
+            combatMusicSource.volume += (5 * Time.deltaTime);
+            musicSource.volume -= (5 * Time.deltaTime);
+        }
+        yield return null;
+
+        if (musicSource.volume < 0)
+        {
+            musicSource.volume = 0;
+        }
+
+        if (combatMusicSource.volume > 1)
+        {
+            combatMusicSource.volume = 1;
+        }
+    }
+
+    //-------------------------//
+    IEnumerator IEndCombatMusic()
+    //-------------------------//
+    {
+        while (musicSource.volume != 1)
+        {
+            combatMusicSource.volume -= (5 * Time.deltaTime);
+            musicSource.volume += (5 * Time.deltaTime);
+        }
+        yield return null;
+
+        if (musicSource.volume > 1)
+        {
+            musicSource.volume = 1;
+        }
+
+        if (combatMusicSource.volume < 0)
+        {
+            combatMusicSource.volume = 0;
+        }
+    }
+
+
+    #endregion Coroutines
 
 
 }//END AudioManager
