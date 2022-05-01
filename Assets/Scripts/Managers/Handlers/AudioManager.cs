@@ -160,23 +160,16 @@ public class AudioManager : MonoBehaviour
     {
         while (musicSource.volume > 0)
         {
-            combatMusicSource.volume += ((Time.deltaTime / 5) * 0.001f);
-            musicSource.volume -= ((Time.deltaTime / 5) * 0.001f);
+            combatMusicSource.volume += (Time.deltaTime / 5);
+            musicSource.volume -= (Time.deltaTime / 5);
+             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        //float elapsedTime = 0;
-        //float duration = 5;
 
-        //while (elapsedTime < duration)
-        //{
-        //    combatMusicSource.volume = Mathf.Lerp(0, 1, elapsedTime / 5);
-        //    musicSource.volume = Mathf.Lerp(1, 0, elapsedTime / 5);
-
-        //    elapsedTime += Time.deltaTime;
-
-        //}
-        yield return null;
-
+        if (musicSource.volume <= 0)
+        {
+            StopCoroutine(IStartCombatMusic());
+        }
     }
 
     //-------------------------//
@@ -185,20 +178,16 @@ public class AudioManager : MonoBehaviour
     {
         while (musicSource.volume < 1)
         {
-            combatMusicSource.volume -= ((Time.deltaTime / 5) * 0.001f);
-            musicSource.volume += ((Time.deltaTime / 5) * 0.001f);
+            combatMusicSource.volume -= (Time.deltaTime / 5);
+            musicSource.volume += (Time.deltaTime / 5);
+
+           yield return new WaitForSeconds(Time.deltaTime);
         }
-        yield return null;
 
-        //if (musicSource.volume > 1)
-        //{
-        //    musicSource.volume = 1;
-        //}
-
-        //if (combatMusicSource.volume < 0)
-        //{
-        //    combatMusicSource.volume = 0;
-        //}
+        if (musicSource.volume >= 1)
+        {
+            StopCoroutine(IEndCombatMusic());
+        }
     }
 
 
