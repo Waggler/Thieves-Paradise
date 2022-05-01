@@ -331,9 +331,6 @@ public class EnemyManager : MonoBehaviour
     [Tooltip("Maximum distance the player has to be from INSERT REST OF TOOLTIP")]
     private float playerEyeballMaxDist = 2;
 
-
-
-
     private GameObject playerVisTarget;
 
     [HideInInspector] public bool ceaseFire = false;
@@ -364,6 +361,8 @@ public class EnemyManager : MonoBehaviour
 
     //---------------------------------------------------------------------------------------------------//
     //Events
+
+    [Space(20)]
 
     public UnityEvent guardHostile;
     public UnityEvent guardNotHostile;
@@ -765,7 +764,6 @@ public class EnemyManager : MonoBehaviour
 
                 guardAnim.EnterSusAnim();
 
-
                 //Used to send the guard to random locations in a set radius, meant to emulate confusion from the unit
                 if (oneTimeUseTimer > 0)
                 {
@@ -925,8 +923,11 @@ public class EnemyManager : MonoBehaviour
                 //In the future make a better solution for the time scale, this is here because Patrick's superior intelligence saved your ass
                 if (playerMovenemtRef.IsStunned == true || Time.timeScale != 1)
                 {
-                    guardAnim.EnterReload();
                     ceaseFire = true;
+                }
+                if (playerMovenemtRef.IsStunned == true)
+                {
+                    guardAnim.EnterReload();
                 }
                 else
                 {

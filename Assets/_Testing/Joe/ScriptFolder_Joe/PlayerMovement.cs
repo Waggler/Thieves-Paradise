@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variables
     [Header("Movement")]
-    [SerializeField] private float WalkingSpeed;
+    [SerializeField] public float WalkingSpeed;
     [SerializeField] private float RunningSpeed;
     [SerializeField] private float CrouchSpeed;
     [Tooltip("The increase in speed when sprinting.")]
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool IsSprinting = false;
     [SerializeField] private bool UnSprinting = true;
     private bool canMove = true;
-    [SerializeField] private float CurrentSpeed;
+    [SerializeField] public float CurrentSpeed;
     private Vector3 Direction;
 
     [Header("Crouching")]

@@ -12,6 +12,7 @@ public class FloorChanger : MonoBehaviour
     {
         miniMapManager = FindObjectOfType<MiniMapManager>();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 7)
@@ -26,7 +27,4 @@ public class FloorChanger : MonoBehaviour
             }
         }
     }
-
-
-
 }
