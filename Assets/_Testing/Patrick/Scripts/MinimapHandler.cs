@@ -1,18 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MinimapHandler : MonoBehaviour
 {
     private GameObject[] circles;
     private int[] circleFloors;
     [SerializeField] private GameObject circlePrefab;
+    [SerializeField] private GameObject playerMarkerPrefab;
+    private GameObject playerMarker;
     private bool isFirstFloor;
+    private GameObject playerRef;
+    public float SecondFloorThreshold = 10;
 
+    [SerializeField] private Sprite MapFloorOne;
+    [SerializeField] private Sprite MapFloorTwo;
+    private SpriteRenderer MapObject;
+    [SerializeField] private Button F1;
+    [SerializeField] private Button F2;
+    [SerializeField] private bool debug;
 
     void Start()
     {
         InitCirclePos();
+
+        //grab player ref
+        //PlayerMovement tempHolder = (PlayerMovement)FindObjectOfType(typeof(PlayerMovement));
+        playerRef = GameObject.FindGameObjectWithTag("PlayerVisionTarget");
+
+        MapObject = GameObject.FindGameObjectWithTag("MinimapObject").GetComponent<SpriteRenderer>();
+
+        playerMarker = Instantiate(playerMarkerPrefab, playerRef.transform.position, Quaternion.identity);
+        playerMarker.transform.eulerAngles = new Vector3(90,0,0);
+
+        FloorSwitcher();//initialize map
     }
     private void InitCirclePos()
     {
@@ -23,14 +45,15 @@ public class MinimapHandler : MonoBehaviour
         for (int i = 0; i < circles.Length; i++)
         {
             //create circle
-            circles[i] = Instantiate(circlePrefab, heistRef[i].transform.position, heistRef[i].transform.rotation);
+            circles[i] = Instantiate(circlePrefab, heistRef[i].transform.position, Quaternion.identity);
+            circles[i].transform.eulerAngles = new Vector3(90, 0 ,0);
             //move circle up to minimap
             circles[i].transform.position = new Vector3(circles[i].transform.position.x, 75f, circles[i].transform.position.z);
             //set layer to Minimap Layer
             circles[i].layer = 9;
 
             //set what floors the circles are on
-            if (heistRef[i].transform.position.y > 10)
+            if (heistRef[i].transform.position.y > SecondFloorThreshold)
             {
                 circleFloors[i] = 2;
             }else
@@ -43,10 +66,85 @@ public class MinimapHandler : MonoBehaviour
     public void DisplayMapOnPause()
     {
         //if the player is above a certain y value, display a different floor
+        if (playerRef.transform.position.y > SecondFloorThreshold)
+        {
+            if (isFirstFloor)
+            {
+                FloorSwitcher();
+            }
+        }else //player is on first floor
+        {
+            if(!isFirstFloor)
+            {
+                FloorSwitcher();
+            }
+        }
+
+        playerMarker.transform.position = new Vector3(playerRef.transform.position.x, 80f, playerRef.transform.position.z);
+        
+        if(debug) Debug.Log("Displaying First Floor: " + isFirstFloor);
     }
 
     public void FloorSwitcher()
     {
+        if (isFirstFloor)
+        {
+            //display 2nd floor
+            MapObject.sprite = MapFloorTwo;
+        
+            isFirstFloor = false;
 
+            F1.interactable = true;
+            F2.interactable = false;
+
+            if (playerRef.transform.position.y >= SecondFloorThreshold)
+            {
+                playerMarker.SetActive(true);
+            }else
+            {
+                playerMarker.SetActive(false);
+            }
+        }else //is displaying second floor
+        {
+            //display 1st floor
+            MapObject.sprite = MapFloorOne;
+
+            isFirstFloor = true;
+
+            F1.interactable = false;
+            F2.interactable = true;
+
+            if (playerRef.transform.position.y <= SecondFloorThreshold)
+            {
+                playerMarker.SetActive(true);
+            }else
+            {
+                playerMarker.SetActive(false);
+            }
+        }
+
+        //show/hide appropriate circles
+        for (int i = 0; i < circles.Length; i++)
+        {
+            if (isFirstFloor)
+            {
+                if (circleFloors[i] == 1)
+                {
+                    circles[i].SetActive(true);
+                }else
+                {
+                    circles[i].SetActive(false);
+                }
+            }else //is second floor
+            {
+                if(circleFloors[i] == 2)
+                {
+                    circles[i].SetActive(true);
+                }else
+                {
+                    circles[i].SetActive(false);
+                }
+            }
+        }
     }
 }
