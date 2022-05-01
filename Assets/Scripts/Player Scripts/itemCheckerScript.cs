@@ -9,6 +9,7 @@ using UnityEngine.Events;
 
 public class itemCheckerScript : MonoBehaviour
 {
+    public string levelCompleteKey;
     public string sceneNameToLoad;
     [Tooltip("Each item must have a unique name")]
     public string[] keyItemName;
@@ -61,6 +62,7 @@ public class itemCheckerScript : MonoBehaviour
 
     private void GoToWinScreen()
     {
+        PlayerPrefs.SetInt(levelCompleteKey, 1);
         SceneManager.LoadScene(sceneNameToLoad);
     }
 }
