@@ -142,7 +142,7 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isSearching", false);
         anim.SetBool("isStunned", true);
         anim.SetBool("isShooting", false);
-        anim.SetBool("isReloading", false);
+        //anim.SetBool("isReloading", false);
     }
 
 

@@ -925,6 +925,7 @@ public class EnemyManager : MonoBehaviour
                 {
                     ceaseFire = true;
                 }
+
                 if (playerMovenemtRef.IsStunned == true)
                 {
                     guardAnim.EnterReload();
@@ -985,6 +986,7 @@ public class EnemyManager : MonoBehaviour
                 {
                     guardAudioScript.Fall();
                 }
+
                 guardStunned = true;
 
                 SetAiSpeed(stunSpeed);
