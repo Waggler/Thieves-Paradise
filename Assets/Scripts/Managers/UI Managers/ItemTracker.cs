@@ -8,7 +8,7 @@ public class ItemTracker : MonoBehaviour
     [Header("Components")]
     [SerializeField] private LayoutGroup itemLayout;
     [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private GameObject[] heistItemObjects;
+    [SerializeField] public GameObject[] heistItemObjects;
      private ItemScript[] heistItems;
      private List<ItemToSteal> displayedItems;
     [SerializeField] private InventoryController iController;
