@@ -29,9 +29,6 @@ public class CameraManager : MonoBehaviour
     #endregion Lists & Arrays
 
     #region Variables
-    [Header("Floor / Level")]
-    public GameObject floor;
-
 
     [Header("Camera Target / Trigger")]
     [SerializeField] private Vector3 target;
