@@ -1148,14 +1148,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 0}
-  scorePrefab: {fileID: 0}
-  bonusGroup: {fileID: 0}
-  deductionGroup: {fileID: 0}
-  timeText: {fileID: 0}
-  collectibletext: {fileID: 0}
-  heistText: {fileID: 0}
-  totoalScoreText: {fileID: 0}
-  rankText: {fileID: 0}
+  scorePrefab: {fileID: 8573692846055704850, guid: 20ae9e4fc631e98468e7f467b2a09d61, type: 3}
+  scorePanelAnimator: {fileID: 1074591457}
+  nextSceneIndex: 0
+  bonusGroup: {fileID: 1687378452}
+  deductionGroup: {fileID: 474789418}
+  timeText: {fileID: 439807428}
+  collectableText: {fileID: 1677574971}
+  heistText: {fileID: 1316091545}
+  totalScoreText: {fileID: 288470911}
+  rankText: {fileID: 472768439}
+  totalScore: 0
+  totalBonus: 0
+  totalDeduction: 0
+  rank: 0
+  scoreDataReports: []
+  timeDataReports: []
+  collectablesDataReports: []
+  itemsDataReports: []
+  bonusDataReports: []
+  deductionsDataReports: []
 --- !u!95 &1074591457
 Animator:
   serializedVersion: 3
