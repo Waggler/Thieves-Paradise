@@ -55,54 +55,12 @@ public class ScoreScreenManager : MonoBehaviour
     void Start()
     //-----------------------//
     {
-        //Init();
-
-
-
+        Init();
 
     }//END Start
 
     private void Awake()
     {
-        ScoreData scoreData = new ScoreData(ScoreType.TIME, 60, null);
-        ReportScore(scoreData);
-
-
-        ScoreData scoreData7 = new ScoreData(ScoreType.ITEMS, 0, null);
-        ReportScore(scoreData7);
-        ScoreData scoreData8 = new ScoreData(ScoreType.ITEMS, 0, null);
-        ReportScore(scoreData8);
-
-        ScoreData scoreData5 = new ScoreData(ScoreType.COLLECTABLES, 0, null);
-        ReportScore(scoreData5);
-
-        ScoreData scoreData6 = new ScoreData(ScoreType.COLLECTABLES, 0, null);
-        ReportScore(scoreData6);
-
-        ScoreData scoreData2 = new ScoreData(ScoreType.COLLECTABLES, 0, null);
-        ReportScore(scoreData2);
-        ScoreData scoreData3 = new ScoreData(ScoreType.COLLECTABLES, 0, null);
-        ReportScore(scoreData3);
-        ScoreData scoreData4 = new ScoreData(ScoreType.COLLECTABLES, 0, null);
-        ReportScore(scoreData4);
-
-        ScoreData scoreData9 = new ScoreData(ScoreType.BONUS, 1000, "Anti Social");
-        ReportScore(scoreData9);
-        ScoreData scoreData10 = new ScoreData(ScoreType.BONUS, 500, "Camera Shy");
-        ReportScore(scoreData10);
-
-        ScoreData scoreData11 = new ScoreData(ScoreType.DEDUCTIONS, 0, "Tased");
-        ReportScore(scoreData11);
-
-        ScoreData scoreData12 = new ScoreData(ScoreType.DEDUCTIONS, 0, "Alert");
-        ReportScore(scoreData12);
-        ScoreData scoreData13 = new ScoreData(ScoreType.DEDUCTIONS, 0, "Alert");
-        ReportScore(scoreData13);
-
-        ScoreData scoreData14 = new ScoreData(ScoreType.DEDUCTIONS, 0, "TripWire");
-        ReportScore(scoreData14);
-
-        StartScoring();
     }
 
     void Init()
