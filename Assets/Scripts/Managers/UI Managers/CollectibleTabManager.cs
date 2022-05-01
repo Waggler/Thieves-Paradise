@@ -6,10 +6,6 @@ public class CollectibleTabManager : MonoBehaviour
 {
 
     [Header("Components")]
-    [SerializeField] private ItemCollectibleData[] itemCollectibleDatas;
-    [SerializeField] private LocationCollectibleData[] locationCollectibleDatas;
-    [SerializeField] private NoteCollectibleData[] noteCollectibleDatas;
-
     [SerializeField] private LevelManager levelManager;
 
     [SerializeField] private GameObject itemPanel;

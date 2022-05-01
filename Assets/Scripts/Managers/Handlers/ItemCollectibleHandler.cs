@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ItemData
+public class ItemCollectibleHandler: MonoBehaviour
 {
     [SerializeField] private ItemsMenuManager manager;
     public ItemCollectibleData data;
