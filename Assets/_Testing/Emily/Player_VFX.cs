@@ -25,22 +25,30 @@ public class Player_VFX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerMovement.IsSprinting == true /*&& playerMovement.Controller.velocity.magnitude > 0*/)
+        if (playerMovement.CurrentSpeed > playerMovement.WalkingSpeed)
         {
-            runParticleSys.startLifetime = runLifeTimeRecord;
-        }
-        else
-        {
-            runParticleSys.startLifetime = 0f;
-        }
+            if (playerMovement.IsSprinting == true /*&& playerMovement.Controller.velocity.magnitude > 0*/)
+            {
+                runParticleSys.startLifetime = runLifeTimeRecord;
+            }
+            else
+            {
+                runParticleSys.startLifetime = 0f;
+            }
 
-        if (playerMovement.IsSliding == true)
-        {
-            slideParticleSys.startLifetime = slideLifeTimeRecord;
-            runParticleSys.startLifetime = 0f;
+            if (playerMovement.IsSliding == true)
+            {
+                slideParticleSys.startLifetime = slideLifeTimeRecord;
+                runParticleSys.startLifetime = 0f;
+            }
+            else
+            {
+                slideParticleSys.startLifetime = 0f;
+            }
         }
         else
         {
+            runParticleSys.startLifetime = 0f;
             slideParticleSys.startLifetime = 0f;
         }
     }
