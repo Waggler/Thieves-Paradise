@@ -62,7 +62,11 @@ public class itemCheckerScript : MonoBehaviour
 
     private void GoToWinScreen()
     {
-        PlayerPrefs.SetInt(levelCompleteKey, 1);
+        if (levelCompleteKey != null)
+        {
+            PlayerPrefs.SetInt(levelCompleteKey, 1);
+
+        }
         SceneManager.LoadScene(sceneNameToLoad);
     }
 }
