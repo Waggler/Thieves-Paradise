@@ -23,7 +23,7 @@ public class SuspicionManager : MonoBehaviour
     [Header("Guards List")]
 
     [Tooltip("Shows the list of guards in the level")]
-    [SerializeField] private List<GameObject> guardsList;
+    public List<GameObject> guardsList;
 
     [Header("Cameras List")]
 
