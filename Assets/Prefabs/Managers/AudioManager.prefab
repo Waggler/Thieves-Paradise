@@ -180,7 +180,8 @@ MonoBehaviour:
   uIAudio: {fileID: 3983442466939651011}
   buttonHoverClip: {fileID: 8300000, guid: 7db0d6fc339ad2e4386ce187558329ca, type: 3}
   buttonClickClip: {fileID: 8300000, guid: 7263255b51624e74eb26879ad5f3e0a3, type: 3}
-  levelHasGuards: 0
+  trackSwapTime: 2
+  levelHasGuards: 1
 --- !u!1 &3983442468359059826
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +350,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1878154011075623657, guid: 26540bb816a2f4e45b9a60fcc4b052be, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: de79975eda21fad41a33ee0c6ad3cee7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1

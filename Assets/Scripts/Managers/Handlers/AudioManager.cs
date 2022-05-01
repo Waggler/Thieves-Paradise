@@ -25,6 +25,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip buttonClickClip;
 
     [Header("Dynamic Audio")]
+    [SerializeField] private float trackSwapTime;
     [SerializeField] private bool levelHasGuards;
     bool areGuardsHostile;
 
@@ -160,8 +161,8 @@ public class AudioManager : MonoBehaviour
     {
         while (musicSource.volume > 0)
         {
-            combatMusicSource.volume += (Time.deltaTime / 5);
-            musicSource.volume -= (Time.deltaTime / 5);
+            combatMusicSource.volume += (Time.deltaTime / trackSwapTime);
+            musicSource.volume -= (Time.deltaTime / trackSwapTime);
              yield return new WaitForSeconds(Time.deltaTime);
         }
 
@@ -178,8 +179,8 @@ public class AudioManager : MonoBehaviour
     {
         while (musicSource.volume < 1)
         {
-            combatMusicSource.volume -= (Time.deltaTime / 5);
-            musicSource.volume += (Time.deltaTime / 5);
+            combatMusicSource.volume -= (Time.deltaTime / trackSwapTime);
+            musicSource.volume += (Time.deltaTime / trackSwapTime);
 
            yield return new WaitForSeconds(Time.deltaTime);
         }
