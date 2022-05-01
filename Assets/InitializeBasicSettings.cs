@@ -67,7 +67,7 @@ public class InitializeBasicSettings : MonoBehaviour
 
         //Video
         PlayerPrefs.SetInt("Quality", 0);
-        PlayerPrefs.SetFloat("Gamma", 50);
+        PlayerPrefs.SetFloat("Gamma", 0.5f);
         PlayerPrefs.SetInt("Fullscreen", 1);
 
         //Prefs

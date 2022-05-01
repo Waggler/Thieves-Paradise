@@ -351,7 +351,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraStateMachine: 0
-  floor: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
   stateText: {fileID: 2632606892890507809}
@@ -363,7 +362,7 @@ MonoBehaviour:
   confusedVFX: {fileID: 7643393555500499959, guid: 89095cc91168384459bfa84330f555fd, type: 3}
   suspicionManager: {fileID: 0}
   callRadius: 15.1
-  killRadius: 42
+  killRadius: 15
   camLightRef: {fileID: 2632606891676270109}
   camLightIntensity: 25
   camLightRange: 2
@@ -374,7 +373,7 @@ MonoBehaviour:
   susManagerRef: {fileID: 0}
   audioSource: {fileID: 2632606892701904341}
   isAudioSourcePlaying: 0
-  disabledTimeReset: 0
+  disabledTimeReset: 5
 --- !u!82 &2632606892701904341
 AudioSource:
   m_ObjectHideFlags: 0
@@ -668,7 +667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2632606893487410987
 RectTransform:
   m_ObjectHideFlags: 0

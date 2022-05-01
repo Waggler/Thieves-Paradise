@@ -61,8 +61,6 @@ public class GuardAnimatorScript : MonoBehaviour
         //    }
         //}
         #endregion Old Logic
-
-
     }
 
     //The shooting bool may need to be removed from some methods, got lazy and added a bunch of them just in case ~ Shaq
@@ -76,6 +74,8 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isSuspicious", false);
         anim.SetBool("isHostile", false);
         anim.SetBool("isShooting", false);
+        anim.SetBool("isReloading", false);
+
         if (enemyManager.patrolWaitTime < 5 && enemyManager.patrolWaitTime > 0)
         {
             anim.SetBool("isShooting", false);
@@ -95,18 +95,21 @@ public class GuardAnimatorScript : MonoBehaviour
     //Does the fucking idiot thing where he's wide stanced and looking around all confused n' shit
     public void EnterSusAnim()
     {
-        anim.SetBool("isPassive", false);
         anim.SetBool("isSuspicious", true);
+        anim.SetBool("isPassive", false);
         anim.SetBool("isShooting", false);
         anim.SetBool("isHostile", false);
+        anim.SetBool("isReloading", false);
+
     }//End EnterSusAnim
 
 
     //---------------------------------//
     public void EnterSearchingAnim()
     {
-        anim.SetBool("isShooting", false);
         anim.SetBool("isSearching", true);
+        anim.SetBool("isShooting", false);
+        anim.SetBool("isReloading", false);
     }//End EnterSearchingAnim
 
     //---------------------------------//
@@ -123,10 +126,12 @@ public class GuardAnimatorScript : MonoBehaviour
     //He schmovin'
     public void EnterHostileAnim()
     {
+        anim.SetBool("isHostile", true);
         anim.SetBool("isSuspicious", false);
         anim.SetBool("isSearching", false);
-        anim.SetBool("isHostile", true);
         anim.SetBool("isShooting", false);
+        anim.SetBool("isUnholster", false);
+        anim.SetBool("isReloading", false);
         //anim.SetBool("isPlayerFree", true);
     }
 
@@ -137,7 +142,7 @@ public class GuardAnimatorScript : MonoBehaviour
         anim.SetBool("isSearching", false);
         anim.SetBool("isStunned", true);
         anim.SetBool("isShooting", false);
-
+        //anim.SetBool("isReloading", false);
     }
 
 
@@ -186,6 +191,7 @@ public class GuardAnimatorScript : MonoBehaviour
     public void ExitShoot()
     {
         anim.SetBool("isShooting", false);
+        anim.SetBool("isReloading", false);
     }
 
     public void EnterSmack()
