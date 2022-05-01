@@ -30,10 +30,6 @@ public class TripwireManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource laserAudioSource;
 
-    [Header("Hit Object")]
-
-    //[HideInInspector] private GameObject hitObject;
-
     //References the "Suspicion Manager" object in the scene
     [HideInInspector] private GameObject susManagerOBJ;
 
@@ -41,6 +37,9 @@ public class TripwireManager : MonoBehaviour
     [HideInInspector] private SuspicionManager susManagerRef;
 
     private bool isPlayAudio = false;
+
+    private ScoreScreenManager scoreManagerRef;
+
     #endregion Variables
 
     #region Start
@@ -66,6 +65,9 @@ public class TripwireManager : MonoBehaviour
             {
                 //Alerts guards in a set radius (Guards List generated in method)
                 susManagerRef.AlertGuards(hit.point, transform.position, callRadius);
+
+                ScoreData scoreData = new ScoreData(ScoreType.DEDUCTIONS, 0, "TripWire");
+                scoreManagerRef.ReportScore(scoreData);
 
                 // Insert bool check for playing audio
                 if (isPlayAudio == false)

@@ -359,6 +359,8 @@ public class EnemyManager : MonoBehaviour
 
     private float targetSnapDistance = 3f;
 
+    private ScoreScreenManager scoreManagerRef;
+
     //---------------------------------------------------------------------------------------------------//
     //Events
 
@@ -405,6 +407,11 @@ public class EnemyManager : MonoBehaviour
         if (guardAudioScript == null)
         {
             guardAudioScript = GetComponentInChildren < GuardAudio>();
+        }
+
+        if (scoreManagerRef == null)
+        {
+            scoreManagerRef = FindObjectOfType<ScoreScreenManager>();
         }
         #endregion Null Checks
 
@@ -859,6 +866,10 @@ public class EnemyManager : MonoBehaviour
 
                     guardAnim.EnterUnholster();
 
+
+                    ScoreData scoreData = new ScoreData(ScoreType.DEDUCTIONS, 0, "Alert");
+                    scoreManagerRef.ReportScore(scoreData);
+
                     //HOSTILE >> RANGED ATTACK
                     StateChange(EnemyStates.RANGEDATTACK);
                 }
@@ -954,7 +965,7 @@ public class EnemyManager : MonoBehaviour
 
                         taserPrefab.transform.LookAt(playerVisTarget.transform);
 
-                        taserPrefab.GetComponent<TaserManager>().Init();
+                        taserPrefab.GetComponent<TaserManager>().Init(scoreManagerRef);
 
                         guardAudioScript.TaserFired();
 
