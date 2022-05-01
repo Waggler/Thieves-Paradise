@@ -32,6 +32,7 @@ public class MinimapHandler : MonoBehaviour
         MapObject = GameObject.FindGameObjectWithTag("MinimapObject").GetComponent<SpriteRenderer>();
 
         playerMarker = Instantiate(playerMarkerPrefab, playerRef.transform.position, Quaternion.identity);
+        playerMarker.transform.position = new Vector3(playerRef.transform.position.x, 80f, playerRef.transform.position.z);
         playerMarker.transform.eulerAngles = new Vector3(90,0,0);
 
         FloorSwitcher();//initialize map
