@@ -60,7 +60,6 @@ public class AudioManager : MonoBehaviour
 
         if (levelHasGuards == true)
         {
-            int i;
             areGuardsHostile = false;
             if(susManager == null)
             {
@@ -159,44 +158,47 @@ public class AudioManager : MonoBehaviour
     IEnumerator IStartCombatMusic()
     //-------------------------//
     {
-        while (musicSource.volume != 0)
+        while (musicSource.volume > 0)
         {
-            combatMusicSource.volume += (5 * Time.deltaTime);
-            musicSource.volume -= (5 * Time.deltaTime);
+            combatMusicSource.volume += ((Time.deltaTime / 5) * 0.001f);
+            musicSource.volume -= ((Time.deltaTime / 5) * 0.001f);
         }
+
+        //float elapsedTime = 0;
+        //float duration = 5;
+
+        //while (elapsedTime < duration)
+        //{
+        //    combatMusicSource.volume = Mathf.Lerp(0, 1, elapsedTime / 5);
+        //    musicSource.volume = Mathf.Lerp(1, 0, elapsedTime / 5);
+
+        //    elapsedTime += Time.deltaTime;
+
+        //}
         yield return null;
 
-        if (musicSource.volume < 0)
-        {
-            musicSource.volume = 0;
-        }
-
-        if (combatMusicSource.volume > 1)
-        {
-            combatMusicSource.volume = 1;
-        }
     }
 
     //-------------------------//
     IEnumerator IEndCombatMusic()
     //-------------------------//
     {
-        while (musicSource.volume != 1)
+        while (musicSource.volume < 1)
         {
-            combatMusicSource.volume -= (5 * Time.deltaTime);
-            musicSource.volume += (5 * Time.deltaTime);
+            combatMusicSource.volume -= ((Time.deltaTime / 5) * 0.001f);
+            musicSource.volume += ((Time.deltaTime / 5) * 0.001f);
         }
         yield return null;
 
-        if (musicSource.volume > 1)
-        {
-            musicSource.volume = 1;
-        }
+        //if (musicSource.volume > 1)
+        //{
+        //    musicSource.volume = 1;
+        //}
 
-        if (combatMusicSource.volume < 0)
-        {
-            combatMusicSource.volume = 0;
-        }
+        //if (combatMusicSource.volume < 0)
+        //{
+        //    combatMusicSource.volume = 0;
+        //}
     }
 
 
