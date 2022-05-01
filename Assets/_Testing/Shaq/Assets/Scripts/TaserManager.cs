@@ -14,6 +14,8 @@ public class TaserManager : MonoBehaviour
 
     private LayerMask layerMask;
 
+    private ScoreScreenManager scoreManagerRef;
+
     //---------------------------------------------------------------------------------------------------//
 
     //---------------------------------//
@@ -27,6 +29,9 @@ public class TaserManager : MonoBehaviour
             {
                 //Stuns the player if they aren't invulnerable
                 collision.gameObject.GetComponent<PlayerMovement>().IsStunned = true;
+
+                ScoreData scoreData = new ScoreData(ScoreType.DEDUCTIONS, 0, "Tased");
+                scoreManagerRef.ReportScore(scoreData);
             }
         }
 
@@ -40,7 +45,7 @@ public class TaserManager : MonoBehaviour
 
     //---------------------------------//
     // Called externally by the enemy manager-
-    public void Init()
+    public void Init(ScoreScreenManager _screenManagerRef)
     {
         //Setting up the prefabs rigidbody
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -52,6 +57,8 @@ public class TaserManager : MonoBehaviour
 
         //Moves the taser projectile forward (with accuracy taken into account)
         rb.velocity = (transform.forward + (new Vector3 (0, -.01f, 0) + randVec3)) * taserSpeed;
+
+        scoreManagerRef = _screenManagerRef;
 
     }//End Init
 }
