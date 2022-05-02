@@ -79,6 +79,8 @@ public class ScoreScreenManager : MonoBehaviour
     //-----------------------//
     {
         Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         scorePanelAnimator.SetBool("isOpen", true);
 
         CalculateScore();
