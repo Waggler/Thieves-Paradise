@@ -14,6 +14,7 @@ public class itemCheckerScript : MonoBehaviour
     [Tooltip("Each item must have a unique name")]
     public string[] keyItemName;
     public float numOfItemsNeededToWin = 1;
+    public bool checkForBuddy;
     private ScoreScreenManager scoreScreenManager;
     private ScoreKeeper scoreKeeper;
     [HideInInspector] public float percentOfItemsGot;
@@ -65,7 +66,7 @@ public class itemCheckerScript : MonoBehaviour
             }
         }
 
-        if (other.gameObject.GetComponent<BuddyHolder>() != null)
+        if (checkForBuddy && other.gameObject.GetComponent<BuddyHolder>() != null)
         {
             if (other.gameObject.GetComponent<BuddyHolder>().displayBuddy)
             {
