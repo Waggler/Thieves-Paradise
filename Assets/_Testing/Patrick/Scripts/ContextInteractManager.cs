@@ -162,9 +162,16 @@ public class ContextInteractManager : MonoBehaviour
     {
         float minDistance = 100;
         int minIndex = 0;
+        float curDistance = 1000;
         for (int i = 0; i < nearbyObjects.Count; i++)
-        {
-            float curDistance = Vector3.Distance(nearbyObjects[i].transform.position, transform.position);
+        {   
+            if(nearbyObjects[i] == null)
+            {
+                curDistance = 1000;
+            }else
+            {
+                curDistance = Vector3.Distance(nearbyObjects[i].transform.position, transform.position);
+            }
             
             if (curDistance < minDistance)
             {
@@ -172,6 +179,7 @@ public class ContextInteractManager : MonoBehaviour
                 minIndex = i;
             }
         }
+        nearbyObjects.TrimExcess();
         return minIndex;
     }
     #endregion
