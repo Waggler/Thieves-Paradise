@@ -359,7 +359,7 @@ public class EnemyManager : MonoBehaviour
 
     private float targetSnapDistance = 3f;
 
-    private ScoreScreenManager scoreManagerRef;
+    [SerializeField] private ScoreScreenManager scoreManagerRef;
 
     //---------------------------------------------------------------------------------------------------//
     //Events
@@ -679,7 +679,7 @@ public class EnemyManager : MonoBehaviour
         {
             agent.stoppingDistance = taserExitRadius;
         }
-        else if (stateMachine == EnemyStates.HOSTILE)
+        else if (stateMachine == EnemyStates.HOSTILE || eyeball.canCurrentlySeePlayer == true)
         {
             agent.stoppingDistance = 2f;
         }
@@ -866,7 +866,6 @@ public class EnemyManager : MonoBehaviour
 
                     guardAnim.EnterUnholster();
 
-
                     ScoreData scoreData = new ScoreData(ScoreType.DEDUCTIONS, 0, "Alert");
                     scoreManagerRef.ReportScore(scoreData);
 
@@ -895,12 +894,10 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 //When the guard is being baited by a thrown bottle or other noise making item
-                if (eyeball.canCurrentlySeePlayer == false && agent.remainingDistance < .5f)
+                if (eyeball.canCurrentlySeePlayer == false && agent.remainingDistance < 2f)
                 {
                     StateChange(EnemyStates.SUSPICIOUS);
                 }
-
-                
                 #endregion Exit Conditions
 
                 break;
@@ -1047,4 +1044,6 @@ public class EnemyManager : MonoBehaviour
         }//End State Machine
     }//End Update
     #endregion Update
+
+    private float playerToHostilePointCheck;
 }
