@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-
+using UnityEngine.EventSystems;
 
 public class ScoreScreenManager : MonoBehaviour
 {
@@ -12,7 +12,8 @@ public class ScoreScreenManager : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private GameObject scorePrefab;
     [SerializeField] private Animator scorePanelAnimator;
-    [SerializeField] private int nextSceneIndex;
+    [SerializeField] private Button continueButton;
+    public int nextSceneIndex;
 
     [Header("Layout Groups")]
     [SerializeField] private GridLayoutGroup bonusGroup;
@@ -86,14 +87,16 @@ public class ScoreScreenManager : MonoBehaviour
         ScoreBonus();
         ScoreDeductions();
         OutputScore();
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
 
     }//ErankText;ND AddScore
 
     //-----------------------//
-    public void ContinueGame(int scene)
+    public void ContinueGame()
     //-----------------------//
     {
-        levelManager.ChangeLevel(scene);
+        levelManager.ChangeLevel(nextSceneIndex);
 
 
     }//END ContinueGame

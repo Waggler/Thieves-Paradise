@@ -10,14 +10,25 @@ using UnityEngine.Events;
 public class itemCheckerScript : MonoBehaviour
 {
     public string levelCompleteKey;
-    public string sceneNameToLoad;
+    public int sceneNumberToLoad;
     [Tooltip("Each item must have a unique name")]
     public string[] keyItemName;
     public float numOfItemsNeededToWin = 1;
 
+    private ScoreScreenManager scoreScreenManager;
+
     [HideInInspector] public float percentOfItemsGot;
     //public TextMeshProUGUI checkText;
     // Start is called before the first frame update
+
+
+    private void Start()
+    {
+        if (scoreScreenManager == null)
+        {
+            scoreScreenManager = FindObjectOfType<ScoreScreenManager>();
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -67,6 +78,7 @@ public class itemCheckerScript : MonoBehaviour
             PlayerPrefs.SetInt(levelCompleteKey, 1);
 
         }
-        SceneManager.LoadScene(sceneNameToLoad);
+        scoreScreenManager.StartScoring();
+        scoreScreenManager.nextSceneIndex = sceneNumberToLoad;
     }
 }
