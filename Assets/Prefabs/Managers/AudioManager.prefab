@@ -181,7 +181,7 @@ MonoBehaviour:
   buttonHoverClip: {fileID: 8300000, guid: 7db0d6fc339ad2e4386ce187558329ca, type: 3}
   buttonClickClip: {fileID: 8300000, guid: 7263255b51624e74eb26879ad5f3e0a3, type: 3}
   trackSwapTime: 2
-  levelHasGuards: 1
+  levelHasGuards: 0
 --- !u!1 &3983442468359059826
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,9 +223,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1878154011075623657, guid: 26540bb816a2f4e45b9a60fcc4b052be, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 06e2447a9d7ec5b468c7a80d35f16047, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.9
   m_Pitch: 1
   Loop: 1
   Mute: 0

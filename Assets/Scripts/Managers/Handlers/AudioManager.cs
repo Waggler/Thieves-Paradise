@@ -177,7 +177,7 @@ public class AudioManager : MonoBehaviour
     IEnumerator IEndCombatMusic()
     //-------------------------//
     {
-        while (musicSource.volume < 1)
+        while (musicSource.volume < 0.9)
         {
             combatMusicSource.volume -= (Time.deltaTime / trackSwapTime);
             musicSource.volume += (Time.deltaTime / trackSwapTime);
@@ -185,9 +185,10 @@ public class AudioManager : MonoBehaviour
            yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        if (musicSource.volume >= 1)
+        if (musicSource.volume >= 0.91)
         {
             StopCoroutine(IEndCombatMusic());
+            musicSource.volume = 0.9f;
         }
     }
 
