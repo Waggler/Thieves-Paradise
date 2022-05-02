@@ -44,7 +44,7 @@ public class SkipManager : MonoBehaviour
     private IEnumerator IStartSkip()
     //-----------------------//
     {
-        float holdTime = 5f;
+        float holdTime = 0.1f;
         yield return new WaitForSeconds(holdTime);
 
         if (dialogueManager.isLadyComplete == true)

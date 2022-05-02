@@ -2324,6 +2324,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3983442467371881455, guid: 35daed2dec54418468f823357085acdf, type: 3}
+      propertyPath: levelHasGuards
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3983442468359059724, guid: 35daed2dec54418468f823357085acdf, type: 3}
       propertyPath: m_audioClip
       value: 
@@ -4808,7 +4812,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1597029383}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 385916065}
+        m_TargetAssemblyTypeName: SkipManager, Assembly-CSharp
+        m_MethodName: ProcessSkip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1597029383
 MonoBehaviour:
   m_ObjectHideFlags: 0
