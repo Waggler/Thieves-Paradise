@@ -838,7 +838,6 @@ public class EnemyManager : MonoBehaviour
             //State for the guard to chase the player in
             case EnemyStates.HOSTILE:
 
-
                 // Compared distance between actual player loc and last known location and if it is too small then the guard stays hostile as if they still saw the player
 
                 targetVsPlayerDistance = Vector3.Distance(eyeball.lastKnownLocation, player.transform.position);
@@ -848,6 +847,8 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(hostileSpeed);
 
+                target = eyeball.lastKnownLocation;
+
                 SetAIDestination(target);
 
                 //Faces the target / player when they are visible
@@ -856,6 +857,7 @@ public class EnemyManager : MonoBehaviour
                 // Also prevents the player from running circles around the guard
                 if (eyeball.canCurrentlySeePlayer == true || agent.remainingDistance < targetSnapDistance)
                 {
+
                     FaceTarget(target);
                 }
 
