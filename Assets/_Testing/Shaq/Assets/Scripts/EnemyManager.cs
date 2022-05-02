@@ -359,7 +359,7 @@ public class EnemyManager : MonoBehaviour
 
     private float targetSnapDistance = 3f;
 
-    private ScoreScreenManager scoreManagerRef;
+    [SerializeField] private ScoreScreenManager scoreManagerRef;
 
     //---------------------------------------------------------------------------------------------------//
     //Events
@@ -679,7 +679,7 @@ public class EnemyManager : MonoBehaviour
         {
             agent.stoppingDistance = taserExitRadius;
         }
-        else if (stateMachine == EnemyStates.HOSTILE)
+        else if (stateMachine == EnemyStates.HOSTILE || eyeball.canCurrentlySeePlayer == true)
         {
             agent.stoppingDistance = 2f;
         }
@@ -838,7 +838,6 @@ public class EnemyManager : MonoBehaviour
             //State for the guard to chase the player in
             case EnemyStates.HOSTILE:
 
-
                 // Compared distance between actual player loc and last known location and if it is too small then the guard stays hostile as if they still saw the player
 
                 targetVsPlayerDistance = Vector3.Distance(eyeball.lastKnownLocation, player.transform.position);
@@ -848,6 +847,8 @@ public class EnemyManager : MonoBehaviour
 
                 SetAiSpeed(hostileSpeed);
 
+                target = eyeball.lastKnownLocation;
+
                 SetAIDestination(target);
 
                 //Faces the target / player when they are visible
@@ -856,6 +857,7 @@ public class EnemyManager : MonoBehaviour
                 // Also prevents the player from running circles around the guard
                 if (eyeball.canCurrentlySeePlayer == true || agent.remainingDistance < targetSnapDistance)
                 {
+
                     FaceTarget(target);
                 }
 
@@ -865,7 +867,6 @@ public class EnemyManager : MonoBehaviour
                 {
 
                     guardAnim.EnterUnholster();
-
 
                     ScoreData scoreData = new ScoreData(ScoreType.DEDUCTIONS, 0, "Alert");
                     scoreManagerRef.ReportScore(scoreData);
@@ -895,12 +896,10 @@ public class EnemyManager : MonoBehaviour
                 }
 
                 //When the guard is being baited by a thrown bottle or other noise making item
-                if (eyeball.canCurrentlySeePlayer == false && agent.remainingDistance < .5f)
+                if (eyeball.canCurrentlySeePlayer == false && agent.remainingDistance < 2f)
                 {
                     StateChange(EnemyStates.SUSPICIOUS);
                 }
-
-                
                 #endregion Exit Conditions
 
                 break;
@@ -1047,4 +1046,6 @@ public class EnemyManager : MonoBehaviour
         }//End State Machine
     }//End Update
     #endregion Update
+
+    private float playerToHostilePointCheck;
 }
