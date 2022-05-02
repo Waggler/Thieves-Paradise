@@ -24,29 +24,9 @@ public class SkipManager : MonoBehaviour
     }//END ShowSkip
 
     //-----------------------//
-    public void ProcessSkip()
+    public void SkipScene()
     //-----------------------//
     {
-        StartCoroutine(IStartSkip());
-
-    }//END ProcessSkip
-
-    //-----------------------//
-    public void StopSkip()
-    //-----------------------//
-    {
-        StopAllCoroutines();
-
-
-    }//END StopSkip
-
-    //-----------------------//
-    private IEnumerator IStartSkip()
-    //-----------------------//
-    {
-        float holdTime = 0.1f;
-        yield return new WaitForSeconds(holdTime);
-
         if (dialogueManager.isLadyComplete == true)
         {
             PlayerPrefs.SetInt("isLadyComplete", 1);
@@ -69,6 +49,6 @@ public class SkipManager : MonoBehaviour
 
         levelManager.ChangeLevel(dialogueManager.nextSceneIndex);
 
-    }//END IStartSkip
+    }//END ProcessSkip
 
 }//END Class SkipManager
