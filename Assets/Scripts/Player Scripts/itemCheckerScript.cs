@@ -19,6 +19,17 @@ public class itemCheckerScript : MonoBehaviour
     //public TextMeshProUGUI checkText;
     private float timer;
     private int winTime;
+
+    public bool guardSawPlayer;
+    public bool cameraSawPlayer;
+    public bool usedItem;
+    public bool trippedWire;
+    public bool gotTased;
+    public bool noItems;
+    public bool noJumps;
+    public bool noCrouch;
+    
+
     private void Start()
     {
         if (scoreScreenManager == null)
