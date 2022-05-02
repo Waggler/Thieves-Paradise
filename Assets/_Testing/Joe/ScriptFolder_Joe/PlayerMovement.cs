@@ -400,12 +400,15 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
-                if (Thud == true)
+                if (Thud == false)
                 {
                     hp -= 1;
                     healthTracker.DeductHitPoint(hp);
-                    Thud = false;
                     print("Land down.");
+                }
+                else if (Thud == true)
+                {
+                    Thud = false;
                 }
             }
 
