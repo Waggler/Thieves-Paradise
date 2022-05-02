@@ -14,9 +14,7 @@ public class itemCheckerScript : MonoBehaviour
     [Tooltip("Each item must have a unique name")]
     public string[] keyItemName;
     public float numOfItemsNeededToWin = 1;
-
     private ScoreScreenManager scoreScreenManager;
-
     [HideInInspector] public float percentOfItemsGot;
     //public TextMeshProUGUI checkText;
     private float timer;
@@ -55,6 +53,9 @@ public class itemCheckerScript : MonoBehaviour
             if (itemCount >= numOfItemsNeededToWin)
             {
                 percentOfItemsGot = itemCount / keyItemName.Length;
+                ScoreData targetScore = new ScoreData(ScoreType.ITEMS, (int) itemCount, null);
+                scoreScreenManager.ReportScore(targetScore);
+
                 GoToWinScreen();
             }else
             {
@@ -83,6 +84,9 @@ public class itemCheckerScript : MonoBehaviour
 
         }
         winTime = (int) timer;
+        ScoreData timerScore = new ScoreData(ScoreType.TIME, winTime, null);
+        scoreScreenManager.ReportScore(timerScore);
+
         scoreScreenManager.StartScoring();
         scoreScreenManager.nextSceneIndex = sceneNumberToLoad;
     }
