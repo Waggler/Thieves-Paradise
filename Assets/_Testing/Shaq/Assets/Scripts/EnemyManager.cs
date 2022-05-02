@@ -358,6 +358,7 @@ public class EnemyManager : MonoBehaviour
     private float targetVsPlayerDistance;
 
     private float targetSnapDistance = 3f;
+    private ScoreKeeper scoreKeeper;
 
     [SerializeField] private ScoreScreenManager scoreManagerRef;
 
@@ -445,6 +446,8 @@ public class EnemyManager : MonoBehaviour
         taserExitRadius = taserEntryRadius + 10f;
 
         susLevelDecreaseRecord = eyeball.susDecreaseMultiplier;
+
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
 
     }//End Init
 
@@ -693,6 +696,8 @@ public class EnemyManager : MonoBehaviour
             guardAudioScript.SpotPlayer();
 
             spotPlayerBool = true;
+
+            scoreKeeper.guardSawPlayer = true;
         }
 
         #endregion Edge Case Stuff

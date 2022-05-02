@@ -18,6 +18,8 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] private Material lightMatUnlocked;
     private Material lightMat;
 
+    private ScoreKeeper scoreKeeper;
+
     void Start()
     {
         if (lightObj.Length > 0)
@@ -36,6 +38,7 @@ public class ButtonScript : MonoBehaviour
         }
 
         //transform.parent = null;
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
     public void PressButton()
     {
@@ -65,6 +68,8 @@ public class ButtonScript : MonoBehaviour
             } 
         }
         PressButton();
+
+        scoreKeeper.unlockedDoor = true;
     }
 
     public void Deny()

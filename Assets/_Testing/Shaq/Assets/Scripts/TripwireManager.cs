@@ -39,6 +39,7 @@ public class TripwireManager : MonoBehaviour
     private bool isPlayAudio = false;
 
     private ScoreScreenManager scoreManagerRef;
+    private ScoreKeeper scoreKeeper;
 
     #endregion Variables
 
@@ -47,6 +48,7 @@ public class TripwireManager : MonoBehaviour
     void Start()
     {
         Init();
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
     #endregion Start
 
@@ -79,6 +81,10 @@ public class TripwireManager : MonoBehaviour
                     isPlayAudio = true;
                     
                     Debug.Log(isPlayAudio);
+                }
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    scoreKeeper.trippedWire = true;
                 }
             }
             else

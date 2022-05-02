@@ -27,12 +27,14 @@ public class InputManager : MonoBehaviour
     private PauseTarget PauseMenu;
     private SettingTarget Settings;
     private PhotoModeTarget Camera;
+    private ScoreKeeper scoreKeeper;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         inventoryController = GetComponent<InventoryController>();
         Cursor.lockState = CursorLockMode.Locked;
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
     void Update()
@@ -100,6 +102,7 @@ public class InputManager : MonoBehaviour
                 jumpPressCounter = true;
                 StopTheJump = true;
             }
+            scoreKeeper.jumped = true;
         }
     }// END JUMP
     #endregion
@@ -128,6 +131,8 @@ public class InputManager : MonoBehaviour
         {
             isCrouching = true;
             playerMovement.Crouch(isCrouching);
+
+            scoreKeeper.crouched = true;
         }
         if (context.canceled)
         {
