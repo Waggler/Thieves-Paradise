@@ -39,7 +39,6 @@ public class ItemTracker : MonoBehaviour
         //initialize object holders
         heistItems = new ItemScript[heistItemObjects.Length];
         displayedItems = new List<ItemToSteal>();
-        itemUIScales = new float[heistItemObjects.Length];
 
         //initialize list of items
 
