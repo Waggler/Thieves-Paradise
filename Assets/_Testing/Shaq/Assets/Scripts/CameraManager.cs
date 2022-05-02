@@ -31,12 +31,14 @@ public class CameraManager : MonoBehaviour
     #region Variables
 
     [Header("Camera Target / Trigger")]
+
     [SerializeField] private Vector3 target;
     [Tooltip("References the player's vision target, auto generated")]
     [SerializeField] private GameObject player;
 
 
     [Header("Debug Text")]
+
     [Tooltip("This text shows what state the camera is in")]
     [SerializeField] private Text stateText;
     [Tooltip("This text shows what the camera's target is")]
@@ -44,6 +46,7 @@ public class CameraManager : MonoBehaviour
 
 
     [Header("Camera Rotation Variables")]
+
     [Tooltip("Camera rotation speed, range of 0 to 60")]
     [SerializeField] /*[Range(0, 60)]*/ private float camSpeed;
     [Tooltip("Maximum rotation vector for the camera (edit the Y-axis value)")]
@@ -55,15 +58,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private EyeballScript eyeball;
 
-    [SerializeField] private GameObject surpriseVFX;
 
-    [SerializeField] private GameObject confusedVFX;
-
-
-
-    [Header("Local Suspicion Manager")]
-    [Tooltip("References the Local Suspicion Manager")]
-    [SerializeField] private SuspicionManager suspicionManager;
     [Tooltip("Radius in which guards can be  'called'  by the camera")]
     [SerializeField] [Range(0, 50)] private float callRadius;
 
@@ -84,6 +79,7 @@ public class CameraManager : MonoBehaviour
 
 
     [Header("Debug Variables")]
+
     [Tooltip("Disable this when making a build to have the State & Target text not show up")]
     [SerializeField] private bool isDebug;
     //References the "Suspicion Manager" object in the scene
@@ -92,6 +88,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private SuspicionManager susManagerRef;
 
     [Header("Audio Variables")]
+
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private bool isAudioSourcePlaying;
 
@@ -192,8 +189,6 @@ public class CameraManager : MonoBehaviour
 
                 if (eyeball.canCurrentlySeePlayer == true)
                 {
-                    Instantiate(surpriseVFX, transform.position, transform.rotation);
-
                     scoreKeeper.cameraSawPlayer = true;
                     //MONITORING >>> FOCUSED
                     cameraStateMachine = CamStates.FOCUSED;
