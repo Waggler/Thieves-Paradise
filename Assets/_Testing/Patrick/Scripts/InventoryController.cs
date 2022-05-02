@@ -435,7 +435,45 @@ public class InventoryController : MonoBehaviour
         //update Item Tracker
         if (itemTracker != null) itemTracker.CheckStatus();
         
+        CheckCollectables(newItem.itemName);
     }//END AddItem
+
+    private void CheckCollectables(string ItemName)
+    {
+        switch(ItemName)
+        {
+            case "Borgor Cup":
+            {
+                PlayerPrefs.SetInt("isCupPickedUp", 1);
+                break;
+            }
+            case "Laser Pointer":
+            {
+                PlayerPrefs.SetInt("isLaserPickedUp", 1);
+                break;
+            }
+            case "Puddlemaker":
+            {
+                PlayerPrefs.SetInt("isBalloonPickedUp", 1);
+                break;
+            }
+            case "Keycard":
+            {
+                PlayerPrefs.SetInt("isCardPickedUp", 1);
+                break;
+            }
+            case "Bottle":
+            {
+                PlayerPrefs.SetInt("isBottlePickedUp", 1);
+                break;
+            }
+            case "Smoke Bomb":
+            {
+                PlayerPrefs.SetInt("isSmokePickedUp", 1);
+                break;
+            }
+        }
+    }
 
     private void RemoveActiveItem()
     {
