@@ -19,15 +19,19 @@ public class itemCheckerScript : MonoBehaviour
 
     [HideInInspector] public float percentOfItemsGot;
     //public TextMeshProUGUI checkText;
-    // Start is called before the first frame update
-
-
+    private float timer;
+    private int winTime;
     private void Start()
     {
         if (scoreScreenManager == null)
         {
             scoreScreenManager = FindObjectOfType<ScoreScreenManager>();
         }
+    }
+
+    void Update()
+    {
+        timer += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -78,6 +82,7 @@ public class itemCheckerScript : MonoBehaviour
             PlayerPrefs.SetInt(levelCompleteKey, 1);
 
         }
+        winTime = (int) timer;
         scoreScreenManager.StartScoring();
         scoreScreenManager.nextSceneIndex = sceneNumberToLoad;
     }
