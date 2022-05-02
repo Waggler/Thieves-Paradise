@@ -12,6 +12,8 @@ public class ScoreKeeper : MonoBehaviour
     public bool jumped;
     public bool crouched;
     public int itemUseCount;
+
+    public bool gameisOver;
     
     void Start()
     {
@@ -22,6 +24,7 @@ public class ScoreKeeper : MonoBehaviour
     }
     public void SendScores()
     {
+        gameisOver = true;
         ScoreData score;
 
         if(!guardSawPlayer && !cameraSawPlayer && !trippedWire)
@@ -46,7 +49,7 @@ public class ScoreKeeper : MonoBehaviour
                 scoreScreenManager.ReportScore(score);
             }
         }
-        
+
         if(unlockedDoor)
         {
             score = new ScoreData(ScoreType.BONUS, 500, "Security Expert");
