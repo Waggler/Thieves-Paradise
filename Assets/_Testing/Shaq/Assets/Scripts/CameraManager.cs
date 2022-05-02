@@ -107,6 +107,8 @@ public class CameraManager : MonoBehaviour
     [Tooltip("Amount of the time the camera will be disabled for")]
     [SerializeField] private float disabledTimeReset;
 
+    private ScoreKeeper scoreKeeper;
+
 
     #endregion Variables
 
@@ -192,6 +194,7 @@ public class CameraManager : MonoBehaviour
                 {
                     Instantiate(surpriseVFX, transform.position, transform.rotation);
 
+                    scoreKeeper.cameraSawPlayer = true;
                     //MONITORING >>> FOCUSED
                     cameraStateMachine = CamStates.FOCUSED;
                 }
@@ -291,6 +294,8 @@ public class CameraManager : MonoBehaviour
         initialRotation = transform.rotation;
 
         disabledTime = disabledTimeReset;
+
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
 
         UpdateCamLightVars();
     }//End Init

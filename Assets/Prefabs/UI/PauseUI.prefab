@@ -8611,6 +8611,7 @@ GameObject:
   - component: {fileID: 1564830890170097598}
   - component: {fileID: 3884635294389703819}
   - component: {fileID: 4309570671887560246}
+  - component: {fileID: 1148081139704121324}
   m_Layer: 0
   m_Name: Steal Checker
   m_TagString: Untagged
@@ -8649,6 +8650,10 @@ MonoBehaviour:
   heistItemObjects:
   - {fileID: 0}
   - {fileID: 0}
+  itemUIScales:
+  - 1
+  - 1
+  - 1
   iController: {fileID: 0}
   itemDisplays:
   - {fileID: 4249208388081565055}
@@ -8683,6 +8688,18 @@ MonoBehaviour:
   F1: {fileID: 7355356012652035833}
   F2: {fileID: 2481104554320377255}
   debug: 1
+--- !u!114 &1148081139704121324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3970278330554848569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfff967b2019f78429bf64d8dd6e3130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4041988291935696822
 GameObject:
   m_ObjectHideFlags: 0

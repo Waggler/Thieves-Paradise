@@ -15,6 +15,7 @@ public class itemCheckerScript : MonoBehaviour
     public string[] keyItemName;
     public float numOfItemsNeededToWin = 1;
     private ScoreScreenManager scoreScreenManager;
+    private ScoreKeeper scoreKeeper;
     [HideInInspector] public float percentOfItemsGot;
     //public TextMeshProUGUI checkText;
     private float timer;
@@ -25,6 +26,7 @@ public class itemCheckerScript : MonoBehaviour
         {
             scoreScreenManager = FindObjectOfType<ScoreScreenManager>();
         }
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
     void Update()
@@ -83,6 +85,7 @@ public class itemCheckerScript : MonoBehaviour
             PlayerPrefs.SetInt(levelCompleteKey, 1);
 
         }
+        scoreKeeper.SendScores();
         winTime = (int) timer;
         ScoreData timerScore = new ScoreData(ScoreType.TIME, winTime, null);
         scoreScreenManager.ReportScore(timerScore);

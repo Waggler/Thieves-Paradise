@@ -29,6 +29,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private bool AutoThrowForce;
 
     private ItemTracker itemTracker;
+    private ScoreKeeper scoreKeeper;
     
     // Start is called before the first frame update
     void Start()
@@ -57,6 +58,8 @@ public class InventoryController : MonoBehaviour
 
         im = GetComponent<InputManager>();
         itemTracker = (ItemTracker)FindObjectOfType(typeof(ItemTracker));
+
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
     private bool throwing;
@@ -182,6 +185,7 @@ public class InventoryController : MonoBehaviour
 
             throwing = true;
             //display throw arc preview
+            scoreKeeper.itemUseCount++;
         }
         if (context.canceled && throwing == true)
         {
