@@ -40,7 +40,7 @@ public class MissionSelectManager : MonoBehaviour
 
 
     //-----------------------//
-    private void Start()
+    private void OnEnable()
     //-----------------------//
     {
         Init();
