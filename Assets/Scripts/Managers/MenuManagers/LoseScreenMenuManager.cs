@@ -47,6 +47,7 @@ public class LoseScreenMenuManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         StartCoroutine(IPauseWorld());
+        mainMixer.SetFloat("sfxVolume", -80);
 
 
     }//END LoseGame
@@ -64,7 +65,6 @@ public class LoseScreenMenuManager : MonoBehaviour
         loseSource.Play();
         yield return new WaitForSeconds(0.5f);
         Time.timeScale = 0;
-        mainMixer.SetFloat("sfxVolume", 0);
 
     }
 
