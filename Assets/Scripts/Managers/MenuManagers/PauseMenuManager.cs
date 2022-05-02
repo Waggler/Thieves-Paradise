@@ -71,6 +71,8 @@ public class PauseMenuManager : MonoBehaviour
             Cursor.visible = true;
 
             isGamePaused = true;
+
+            
         }
 
     }//END PauseGame
