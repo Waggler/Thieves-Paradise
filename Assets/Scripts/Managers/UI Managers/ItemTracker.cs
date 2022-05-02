@@ -9,6 +9,7 @@ public class ItemTracker : MonoBehaviour
     [SerializeField] private LayoutGroup itemLayout;
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] public GameObject[] heistItemObjects;
+    [SerializeField] private float[] itemUIScales;
      private ItemScript[] heistItems;
      private List<ItemToSteal> displayedItems;
     [SerializeField] private InventoryController iController;
@@ -38,6 +39,7 @@ public class ItemTracker : MonoBehaviour
         //initialize object holders
         heistItems = new ItemScript[heistItemObjects.Length];
         displayedItems = new List<ItemToSteal>();
+        itemUIScales = new float[heistItemObjects.Length];
 
         //initialize list of items
 
@@ -50,6 +52,7 @@ public class ItemTracker : MonoBehaviour
                 //spawn in items to be displayed
                 itemDisplays[i].GetComponent<MeshFilter>().mesh = heistItemObjects[i].GetComponent<MeshFilter>().mesh;
                 itemDisplays[i].GetComponent<MeshRenderer>().material = heistItemObjects[i].GetComponent<MeshRenderer>().material;
+                itemDisplays[i].transform.localScale = Vector3.one * itemUIScales[i];
             }else
             {
                 itemDisplays[i].SetActive(false);
