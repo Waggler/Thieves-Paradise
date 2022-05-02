@@ -167,7 +167,6 @@ public class ContextInteractManager : MonoBehaviour
         {   
             if(nearbyObjects[i] == null)
             {
-                nearbyObjects.TrimExcess();
                 curDistance = 1000;
             }else
             {
@@ -180,6 +179,7 @@ public class ContextInteractManager : MonoBehaviour
                 minIndex = i;
             }
         }
+        nearbyObjects.TrimExcess();
         return minIndex;
     }
     #endregion
