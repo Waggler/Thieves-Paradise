@@ -27,14 +27,16 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private Button photoModeFirstButton;
 
     private PlayerMovement playerMovement;
+    private ScoreKeeper scoreKeeper;
 
     public static bool isGamePaused;
 
     #endregion Components
 
-    private void Update()
+    void Start()
     {
         playerMovement = (PlayerMovement)FindObjectOfType(typeof(PlayerMovement));
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
     #region Methods
@@ -46,6 +48,11 @@ public class PauseMenuManager : MonoBehaviour
     {
         if (context.started)
         {
+            if(playerMovement.hp <= 0 || scoreKeeper.gameisOver)
+            {
+                ResumeGame();
+                return;
+            }
             if (isGamePaused)
             {
                 ResumeGame();
@@ -64,12 +71,6 @@ public class PauseMenuManager : MonoBehaviour
             Cursor.visible = true;
 
             isGamePaused = true;
-
-            if(playerMovement.hp <= 0)
-            {
-                ResumeGame();
-                return;
-            }
         }
 
     }//END PauseGame
