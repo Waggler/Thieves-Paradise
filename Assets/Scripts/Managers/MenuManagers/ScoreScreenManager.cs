@@ -78,6 +78,7 @@ public class ScoreScreenManager : MonoBehaviour
     public void StartScoring()
     //-----------------------//
     {
+        Time.timeScale = 0;
         scorePanelAnimator.SetBool("isOpen", true);
 
         CalculateScore();
@@ -96,6 +97,7 @@ public class ScoreScreenManager : MonoBehaviour
     public void ContinueGame()
     //-----------------------//
     {
+        Time.timeScale = 1;
         levelManager.ChangeLevel(nextSceneIndex);
 
 
