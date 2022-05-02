@@ -95,7 +95,7 @@ public class SettingsMenuManager : MonoBehaviour
     #region Statics & Startup
 
     //-----------------------//
-    void Init()
+    public void Init()
     //-----------------------//
     {
 

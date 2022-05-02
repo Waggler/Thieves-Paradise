@@ -3,14 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ItemCollectibleData
+public class ItemCollectibleData: CollectableData
 {
-
-    [Header("Item Info")]
-    public string name;
-    public string useDescription;
-    public string description;
-
-    public Sprite itemSprite;
+    public GameObject model;
 
 }//END CLASS HeistCollectibleData

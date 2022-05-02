@@ -17,10 +17,7 @@ public class HeistCollectionManager : MonoBehaviour
     {
         LADY,
         MASSES,
-        UNION,
-        MAFIA,
-        CIA,
-        FINALE
+        MAFIA
     }
 
     public CurrentHeist currentHeist;
@@ -113,36 +110,6 @@ public class HeistCollectionManager : MonoBehaviour
             }
         }
 
-        if (currentHeist == CurrentHeist.UNION)
-        {
-            titleText.text = "The Uni0n";
-
-            if (PlayerPrefs.GetInt("isUnionCollectible1Taken") == 1)
-            {
-                collectible1Button.interactable = true;
-            }
-            else
-            {
-                collectible1Button.interactable = false;
-            }
-            if (PlayerPrefs.GetInt("isUnionCollectible2Taken") == 1)
-            {
-                collectible2Button.interactable = true;
-            }
-            else
-            {
-                collectible2Button.interactable = false;
-            }
-            if (PlayerPrefs.GetInt("isUnionCollectible3Taken") == 1)
-            {
-                collectible3Button.interactable = true;
-            }
-            else
-            {
-                collectible3Button.interactable = false;
-            }
-        }
-
         if (currentHeist == CurrentHeist.MAFIA)
         {
             titleText.text = "The Mafia";
@@ -172,68 +139,6 @@ public class HeistCollectionManager : MonoBehaviour
                 collectible3Button.interactable = false;
             }
         }
-
-        if (currentHeist == CurrentHeist.CIA)
-        {
-            titleText.text = "The CIA";
-
-            if (PlayerPrefs.GetInt("isCIACollectible1Taken") == 1)
-            {
-                collectible1Button.interactable = true;
-            }
-            else
-            {
-                collectible1Button.interactable = false;
-            }
-            if (PlayerPrefs.GetInt("isCIACollectible2Taken") == 1)
-            {
-                collectible2Button.interactable = true;
-            }
-            else
-            {
-                collectible2Button.interactable = false;
-            }
-            if (PlayerPrefs.GetInt("isCIACollectible3Taken") == 1)
-            {
-                collectible3Button.interactable = true;
-            }
-            else
-            {
-                collectible3Button.interactable = false;
-            }
-        }
-
-        if (currentHeist == CurrentHeist.FINALE)
-        {
-            titleText.text = "The Thief";
-
-            if (PlayerPrefs.GetInt("isFinaleCollectible1Taken") == 1)
-            {
-                collectible1Button.interactable = true;
-            }
-            else
-            {
-                collectible1Button.interactable = false;
-            }
-            if (PlayerPrefs.GetInt("isFinaleCollectible2Taken") == 1)
-            {
-                collectible2Button.interactable = true;
-            }
-            else
-            {
-                collectible2Button.interactable = false;
-            }
-            if (PlayerPrefs.GetInt("isFinaleCollectible3Taken") == 1)
-            {
-                collectible3Button.interactable = true;
-            }
-            else
-            {
-                collectible3Button.interactable = false;
-            }
-        }
-
-
 
     }//END Init
 

@@ -20,6 +20,15 @@ public class MissionSelectManager : MonoBehaviour
     [SerializeField] private Button massesButton;
     [SerializeField] private Button mafiaButton;
 
+    [SerializeField] private Image massesPicture;
+    [SerializeField] private Image mafiaPicture;
+
+    [SerializeField] private Sprite massesActiveSprite;
+    [SerializeField] private Sprite mafiaActiveSprite;
+
+
+
+
     public Button playClosedButton;
 
 
@@ -34,11 +43,11 @@ public class MissionSelectManager : MonoBehaviour
     private void Start()
     //-----------------------//
     {
-        //Init();
+        Init();
 
     }//END Start
 
-    /*
+    
     //-----------------------//
     private void Init()
     //-----------------------//
@@ -50,7 +59,9 @@ public class MissionSelectManager : MonoBehaviour
         else
         {
             massesButton.interactable = true;
-            ladyButton.interactable = false;
+            ladyButton.interactable = true;
+
+            massesPicture.sprite = massesActiveSprite;
         }
 
         if (PlayerPrefs.GetInt("isMassesComplete") == 0)
@@ -59,8 +70,11 @@ public class MissionSelectManager : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("isMassesComplete") == 1)
         {
-            massesButton.interactable = false;
+            massesButton.interactable = true;
             mafiaButton.interactable = true;
+
+            mafiaPicture.sprite = mafiaActiveSprite;
+
         }
 
         if (PlayerPrefs.GetInt("isMafiaComplete") == 1)
@@ -68,12 +82,16 @@ public class MissionSelectManager : MonoBehaviour
             ladyButton.interactable = true;
             massesButton.interactable = true;
             mafiaButton.interactable = true;
+
+            massesPicture.sprite = massesActiveSprite;
+            mafiaPicture.sprite = mafiaActiveSprite;
+
         }
 
 
 
     }//END Init
-    */
+    
     //-----------------------//
     public void ChangeScreen()
     //-----------------------//

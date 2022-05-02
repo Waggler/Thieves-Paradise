@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class NoteCollectibleData
+public class NoteCollectibleData: CollectableData
 {
-    public string description;
 
 }
