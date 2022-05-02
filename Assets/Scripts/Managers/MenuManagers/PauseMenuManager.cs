@@ -35,8 +35,7 @@ public class PauseMenuManager : MonoBehaviour
 
     void Start()
     {
-        playerMovement = (PlayerMovement)FindObjectOfType(typeof(PlayerMovement));
-        scoreKeeper = FindObjectOfType<ScoreKeeper>();
+        
     }
 
     #region Methods
@@ -46,6 +45,8 @@ public class PauseMenuManager : MonoBehaviour
     public void PauseGame(InputAction.CallbackContext context)
     //-----------------------//
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
         if (context.started)
         {
             if(playerMovement.hp <= 0 || scoreKeeper.gameisOver)
@@ -71,6 +72,8 @@ public class PauseMenuManager : MonoBehaviour
             Cursor.visible = true;
 
             isGamePaused = true;
+
+            
         }
 
     }//END PauseGame
