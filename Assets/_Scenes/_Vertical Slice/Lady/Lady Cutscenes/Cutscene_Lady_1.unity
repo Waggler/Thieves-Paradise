@@ -1277,38 +1277,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
   dialogue:
-  - characterName: 'NOTE:'
-    sentences:
-    - To skip to the heist, hold down the Skip button for 5 seconds.
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: Lipstick from Honeydew
-      choiceId: 0
-    - choiceOption: Perfume from Honeydew
-      choiceId: 1
-    - choiceOption: Eyeliner from Honeydew
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CThe lipstick from Honeydew, right?\u201D "
-      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CSome eyeliner from Honeydew, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
   - characterName: Narration
     sentences:
     - "*You find yourself once again enjoying a dirt-cheap sandwich l at your favorite
@@ -1521,7 +1489,7 @@ MonoBehaviour:
   - characterName: Narration
     sentences:
     - '*As she begins to gather her things and get up out of her seat, you slip over,
-      cool as a cucumber,  and call out to her.*'
+      cool as a cucumber, and call out to her.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: ca1664a270639b14fae97a91b44cd666, type: 3}
@@ -1541,7 +1509,7 @@ MonoBehaviour:
     responses: []
   - characterName: The Lady
     sentences:
-    - "\u201COh, so you were listening in on a lady? Surely you also heard  me send
+    - "\u201COh, so you were listening in on a lady? Surely you also heard me send
       the last loser back home. Now please don\u2019t stand around wasting my time,
       I actually need to be somewhere.\u201D\r"
     isSecondCharacter: 0
@@ -4251,8 +4219,20 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d7cd48c3-2145-40a3-a864-f20d1a57e5e0
     m_ActionName: Player/Roll[/Keyboard/r,/XInputControllerWindows/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3fba19de-88d9-4d1b-a50d-e133b15e68a2
+    m_ActionName: Player/Pause[/Keyboard/escape,/XInputControllerWindows/start,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5efa1ec4-bc14-4638-9006-d3dfa0933703
+    m_ActionName: Player/DevPause[/Keyboard/p,/XInputControllerWindows/select,/XInputControllerWindows/select]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a4f797ea-41df-43eb-ada6-3f6ae340d0ff
+    m_ActionName: Player/CheatMenu[/Keyboard/backquote]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
