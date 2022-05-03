@@ -8,6 +8,7 @@ public class ExplosionHandler : MonoBehaviour
     [SerializeField] private AudioSource explosionSource;
     [SerializeField] private Animator explosionAnimator;
     [SerializeField] private AudioSource musicSource;
+    private PlayerMovement playerMov;
 
     //-----------------------//
     private void Start()
@@ -17,7 +18,7 @@ public class ExplosionHandler : MonoBehaviour
         {
             scoreScreenManager = FindObjectOfType<ScoreScreenManager>();
         }
-
+        playerMov = FindObjectOfType<PlayerMovement>();
 
     }//END Start
 
@@ -25,6 +26,8 @@ public class ExplosionHandler : MonoBehaviour
     public void TriggerExplosion()
     //-----------------------//
     {
+        playerMov.hp = 9999; //prevent the player from dying during explosion
+
         musicSource.Stop();
         explosionAnimator.SetBool("isExploding", true);
         explosionSource.Play();
