@@ -3572,7 +3572,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 1448100150}
-  descriptionPanel: {fileID: 194225678}
+  descriptionPanel: {fileID: 525404128}
+  closeButton: {fileID: 991008185}
   smokeButton: {fileID: 837717176}
   bottleButton: {fileID: 1577435594}
   cardButton: {fileID: 1237522009}
@@ -6508,6 +6509,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5efa1ec4-bc14-4638-9006-d3dfa0933703
     m_ActionName: Player/DevPause[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a4f797ea-41df-43eb-ada6-3f6ae340d0ff
+    m_ActionName: Player/CheatMenu[/Keyboard/backquote]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -8169,7 +8174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1108090638}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1405403347
@@ -8385,6 +8390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 1448100150}
   descriptionPanel: {fileID: 267341500}
+  closeButton: {fileID: 991008185}
   note1Button: {fileID: 1836683955}
   note2Button: {fileID: 956099871}
   note3Button: {fileID: 1832077284}
@@ -9399,6 +9405,10 @@ MonoBehaviour:
   itemDescriptionPanel: {fileID: 525404128}
   worldDescriptionPanel: {fileID: 546897508}
   noteDescriptionPanel: {fileID: 267341500}
+  itemButton: {fileID: 367312986}
+  magazineButton: {fileID: 892928643}
+  noteButton: {fileID: 1108090641}
+  backButton: {fileID: 16883266}
 --- !u!4 &1636981609
 Transform:
   m_ObjectHideFlags: 0
@@ -10404,6 +10414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 1448100150}
   descriptionPanel: {fileID: 546897508}
+  closeButton: {fileID: 991008185}
   musicButton: {fileID: 697192605}
   jewelryButton: {fileID: 1163142549}
   perfumeButton: {fileID: 484496860}

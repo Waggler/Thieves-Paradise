@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class WorldMenuManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class WorldMenuManager : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject fadePanel;
     [SerializeField] private GameObject descriptionPanel;
+    [SerializeField] private Button closeButton;
 
     [Space(5)]
 
@@ -363,6 +365,8 @@ public class WorldMenuManager : MonoBehaviour
         imageOne.sprite = data.locationSprite1;
         imageTwo.sprite = data.locationSprite2;
         fadePanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
         descriptionPanel.SetActive(true);
 
     }//END InitLocation
