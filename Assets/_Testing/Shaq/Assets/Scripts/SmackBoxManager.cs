@@ -21,6 +21,8 @@ public class SmackBoxManager : MonoBehaviour
 
     private LayerMask layerMask;
 
+    private float eyeballVisionAngleRecord;
+
     #endregion Variables
 
     private void Awake()
@@ -35,6 +37,9 @@ public class SmackBoxManager : MonoBehaviour
     {
         if (other.gameObject == player)
         {
+
+            enemyManager.eyeball.maxVisionAngle = enemyManager.eyeball.maxVisionAngle * 2;
+
             //Assigns player movement variable to the current instance of it
             playerMovement = other.gameObject.GetComponent<PlayerMovement>();
 
@@ -59,6 +64,7 @@ public class SmackBoxManager : MonoBehaviour
     {
         enemyManager.guardAnim.ExitSmack();
 
+        enemyManager.eyeball.maxVisionAngle = eyeballVisionAngleRecord;
     }//End OnTriggerExit
 
     private void Init()
@@ -71,5 +77,7 @@ public class SmackBoxManager : MonoBehaviour
 
         layerMask = LayerMask.GetMask("Player") + LayerMask.GetMask("Ghost") + LayerMask.GetMask("Guard") + LayerMask.GetMask("Smack") + LayerMask.GetMask("Post Processing");
         layerMask = ~layerMask; //get the player layer to make sure they don't block themselves from vision
+
+        eyeballVisionAngleRecord = enemyManager.eyeball.maxVisionAngle;
     }
 }
