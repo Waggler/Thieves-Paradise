@@ -49,7 +49,7 @@ public class PauseMenuManager : MonoBehaviour
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         if (context.started)
         {
-            if(playerMovement.hp <= 0 )//|| scoreKeeper.gameisOver)
+            if(playerMovement.hp <= 0 || scoreKeeper.gameisOver)
             {
                 ResumeGame();
                 return;

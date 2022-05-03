@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MinimapHandler : MonoBehaviour
@@ -156,5 +157,22 @@ public class MinimapHandler : MonoBehaviour
                 }
             }
         }
+
+
+    }
+
+    public void FloorChanger(int floor)
+    {
+        if (floor == 1)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(F1.gameObject);
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(F2.gameObject);
+        }
+        
     }
 }

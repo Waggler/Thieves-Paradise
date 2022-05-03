@@ -1238,7 +1238,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6108712537712578018}
   - component: {fileID: 6108712537712578031}
-  - component: {fileID: 6108712537712578028}
   m_Layer: 0
   m_Name: VentsLight (4)
   m_TagString: Untagged
@@ -1322,22 +1321,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &6108712537712578028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6108712537712578019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101da02b09f2a9747ac015d46c03e222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStartLit: 0
-  player: {fileID: 0}
-  lightRef: {fileID: 6108712537712578031}
-  cubeColliderRef: {fileID: 0}
 --- !u!1 &6108712537722879414
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,7 +2325,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6108712537995735096}
   - component: {fileID: 6108712537995735077}
-  - component: {fileID: 6108712537995735098}
   m_Layer: 0
   m_Name: VentsLight (1)
   m_TagString: Untagged
@@ -2426,22 +2408,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &6108712537995735098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6108712537995735097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101da02b09f2a9747ac015d46c03e222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStartLit: 0
-  player: {fileID: 0}
-  lightRef: {fileID: 6108712537995735077}
-  cubeColliderRef: {fileID: 0}
 --- !u!1 &6108712538012675028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4529,7 +4495,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6108712538213334472}
   - component: {fileID: 6108712538213334325}
-  - component: {fileID: 6108712538213334474}
   m_Layer: 0
   m_Name: VentsLight (3)
   m_TagString: Untagged
@@ -4613,22 +4578,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &6108712538213334474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6108712538213334473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101da02b09f2a9747ac015d46c03e222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStartLit: 0
-  player: {fileID: 0}
-  lightRef: {fileID: 6108712538213334325}
-  cubeColliderRef: {fileID: 0}
 --- !u!1 &6108712538256736360
 GameObject:
   m_ObjectHideFlags: 0
@@ -7828,7 +7777,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6108712538960353477}
   - component: {fileID: 6108712538960353478}
-  - component: {fileID: 6108712538960353479}
   m_Layer: 0
   m_Name: VentsLight (2)
   m_TagString: Untagged
@@ -7912,22 +7860,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &6108712538960353479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6108712538960353498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101da02b09f2a9747ac015d46c03e222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStartLit: 0
-  player: {fileID: 0}
-  lightRef: {fileID: 6108712538960353478}
-  cubeColliderRef: {fileID: 0}
 --- !u!1 &6108712538964513858
 GameObject:
   m_ObjectHideFlags: 0
@@ -10256,7 +10188,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6108712539239935743}
   - component: {fileID: 6108712539239935736}
-  - component: {fileID: 6108712539239935737}
   m_Layer: 0
   m_Name: VentsLight
   m_TagString: Untagged
@@ -10340,22 +10271,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &6108712539239935737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6108712539239935740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101da02b09f2a9747ac015d46c03e222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isStartLit: 0
-  player: {fileID: 0}
-  lightRef: {fileID: 6108712539239935736}
-  cubeColliderRef: {fileID: 0}
 --- !u!1 &6108712539277080930
 GameObject:
   m_ObjectHideFlags: 0

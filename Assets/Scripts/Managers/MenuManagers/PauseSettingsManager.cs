@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
 using Cinemachine;
+using UnityEngine.EventSystems;
 
 public class PauseSettingsManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class PauseSettingsManager : MonoBehaviour
     [SerializeField] private GameObject audioTab;
     [SerializeField] private GameObject videoTab;
     [SerializeField] private GameObject preferencesTab;
+    [SerializeField] private GameObject closeButton;
 
     [SerializeField] private Image radioImage;
 
@@ -189,6 +191,9 @@ public class PauseSettingsManager : MonoBehaviour
         preferencesTab.SetActive(false);
 
         settingsMenu.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
 
 
     }//END ChangeScreen

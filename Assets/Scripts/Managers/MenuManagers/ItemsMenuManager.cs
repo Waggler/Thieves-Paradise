@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class ItemsMenuManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class ItemsMenuManager : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject fadePanel;
     [SerializeField] private GameObject descriptionPanel;
+    [SerializeField] private Button closeButton;
 
     [Space(5)]
 
@@ -29,7 +31,7 @@ public class ItemsMenuManager : MonoBehaviour
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text useDescriptionText;
     [SerializeField] private TMP_Text descriptionText;
-    [SerializeField] private Image itemImage;
+    [SerializeField] private RawImage itemImage;
     [SerializeField] private Sprite smokeSilhouette;
     [SerializeField] private Sprite smokeCollected;
     [SerializeField] private Sprite bottleSilhouette;
@@ -143,7 +145,9 @@ public class ItemsMenuManager : MonoBehaviour
     {
         nameText.text = data.title.ToString();
         descriptionText.text = data.description;
-        //itemImage.sprite = data.itemSprite;
+        itemImage.texture = data.rawImage;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
         fadePanel.SetActive(true);
         descriptionPanel.SetActive(true);
 
