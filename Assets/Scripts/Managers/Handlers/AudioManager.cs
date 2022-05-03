@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
     [Header("Sound Effects")]
     [SerializeField] private AudioClip buttonHoverClip;
     [SerializeField] private AudioClip buttonClickClip;
+    [SerializeField] private AudioClip collectibleClip;
 
     [Header("Dynamic Audio")]
     [SerializeField] private float trackSwapTime;
@@ -104,6 +105,13 @@ public class AudioManager : MonoBehaviour
     }//END PlayButtonClick
 
     //-------------------------//
+    public void PlayCollectiblePickup()
+    //-------------------------//
+    {
+        uIAudio.PlayOneShot(collectibleClip);
+
+    }//END PlayButtonClick
+
 
     #endregion SFX
 
