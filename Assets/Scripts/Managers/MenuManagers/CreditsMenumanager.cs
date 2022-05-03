@@ -32,6 +32,12 @@ public class CreditsMenumanager : MonoBehaviour
 
     }//END ChangeScreen
 
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(creditsCloseButton.gameObject);
+    }
+
 
     #endregion Methods
 
