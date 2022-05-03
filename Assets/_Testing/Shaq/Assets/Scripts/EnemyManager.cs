@@ -684,7 +684,7 @@ public class EnemyManager : MonoBehaviour
         }
         else if (stateMachine == EnemyStates.HOSTILE || eyeball.canCurrentlySeePlayer == true)
         {
-            agent.stoppingDistance = 2f;
+            agent.stoppingDistance = 3.5f;
         }
         else
         {

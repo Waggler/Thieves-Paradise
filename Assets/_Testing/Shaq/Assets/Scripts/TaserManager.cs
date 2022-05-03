@@ -35,6 +35,8 @@ public class TaserManager : MonoBehaviour
             }
         }
 
+        Debug.Log(collision.gameObject);
+
         //Destroys self
         Destroy(gameObject);
     }//End OnTriggerEnter
