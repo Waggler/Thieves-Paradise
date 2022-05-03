@@ -9,12 +9,13 @@ public class ExplosionHandler : MonoBehaviour
     [SerializeField] private Animator explosionAnimator;
     [SerializeField] private AudioSource musicSource;
     private PlayerMovement playerMov;
+    [SerializeField] private int sceneIndexToLoad;
 
     //-----------------------//
     private void Start()
     //-----------------------//
     {
-        if (scoreScreenManager = null)
+        if (scoreScreenManager == null)
         {
             scoreScreenManager = FindObjectOfType<ScoreScreenManager>();
         }
@@ -35,12 +36,20 @@ public class ExplosionHandler : MonoBehaviour
     }//END TriggerExplosion
 
     //-----------------------//
+    public void FinishExploding()
+    //-----------------------//
+    {
+
+        explosionAnimator.SetBool("isDoneExploding", true);
+
+    }//END FinishExploding
+
+    //-----------------------//
     public void OpenScoreBoard()
     //-----------------------//
     {
-        explosionAnimator.SetBool("isDoneExploding", true);
-
-        //scoreScreenManager.Open();
+        scoreScreenManager.nextSceneIndex = sceneIndexToLoad;
+        scoreScreenManager.StartScoring();
 
     }//END OpenScoreBoard
 
