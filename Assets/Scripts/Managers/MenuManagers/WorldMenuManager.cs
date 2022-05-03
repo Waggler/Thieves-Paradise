@@ -104,6 +104,8 @@ public class WorldMenuManager : MonoBehaviour
     private void Start()
     //-----------------------//
     {
+        PlayerPrefs.SetInt("isJewelryUnlocked", 1);
+
         Init();
 
     }//END Start

@@ -48,7 +48,11 @@ public class NotesMenuManager : MonoBehaviour
     private void Start()
     //-----------------------//
     {
+
+
         Init();
+
+        
 
     }//END Start
 
