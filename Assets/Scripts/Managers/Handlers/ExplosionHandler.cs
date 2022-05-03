@@ -8,12 +8,14 @@ public class ExplosionHandler : MonoBehaviour
     [SerializeField] private AudioSource explosionSource;
     [SerializeField] private Animator explosionAnimator;
     [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource combatMusicSource;
+
 
     //-----------------------//
     private void Start()
     //-----------------------//
     {
-        if (scoreScreenManager = null)
+        if (scoreScreenManager == null)
         {
             scoreScreenManager = FindObjectOfType<ScoreScreenManager>();
         }
@@ -26,20 +28,26 @@ public class ExplosionHandler : MonoBehaviour
     //-----------------------//
     {
         musicSource.Stop();
+        combatMusicSource.Stop();
+
         explosionAnimator.SetBool("isExploding", true);
         explosionSource.Play();
 
     }//END TriggerExplosion
 
     //-----------------------//
-    public void OpenScoreBoard()
+    public void FinishExplosion()
     //-----------------------//
     {
         explosionAnimator.SetBool("isDoneExploding", true);
 
-        //scoreScreenManager.Open();
 
     }//END OpenScoreBoard
+
+    public void OpenScoreBoard()
+    {
+        scoreScreenManager.StartScoring();
+    }
 
 
 }//END CLASS ExplosionHandler

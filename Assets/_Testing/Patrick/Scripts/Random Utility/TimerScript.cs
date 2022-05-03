@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
 public class TimerScript : MonoBehaviour
@@ -28,6 +28,7 @@ public class TimerScript : MonoBehaviour
     
 
     [SerializeField] private TextMeshProUGUI timerUIText;
+    [SerializeField] private ExplosionHandler explosionHandler;
 
     void Start()
     {
@@ -54,6 +55,11 @@ public class TimerScript : MonoBehaviour
         //display outputTime
         timerText.text = "<mspace=mspace=1.5>" + outputTime + "</mspace>";
         timerUIText.text = "<mspace=mspace=20>" + "" + "</mspace>";
+
+        if (explosionHandler == null)
+        {
+            explosionHandler = FindObjectOfType<ExplosionHandler>();
+        }
     }
     
     void OnTriggerEnter(Collider other)
@@ -147,7 +153,8 @@ public class TimerScript : MonoBehaviour
     private IEnumerator EndingDelay()
     {
         onTimerEnd.Invoke();
+        explosionHandler.TriggerExplosion();
         yield return new WaitForSeconds(endingDelayTime);
-        SceneManager.LoadScene(sceneNameToLoad);
+        //SceneManager.LoadScene(sceneNameToLoad);
     }
 }
