@@ -100,46 +100,6 @@ public class NotesMenuManager : MonoBehaviour
         {
             note5Button.interactable = false;
         }
-        if (PlayerPrefs.GetInt("isNote6PickedUp") == 1)
-        {
-            note6Button.interactable = true;
-        }
-        else
-        {
-            note6Button.interactable = false;
-        }
-        if (PlayerPrefs.GetInt("isNote7PickedUp") == 1)
-        {
-            note7Button.interactable = true;
-        }
-        else
-        {
-            note7Button.interactable = false;
-        }
-        if (PlayerPrefs.GetInt("isNote8PickedUp") == 1)
-        {
-            note8Button.interactable = true;
-        }
-        else
-        {
-            note8Button.interactable = false;
-        }
-        if (PlayerPrefs.GetInt("isNote9PickedUp") == 1)
-        {
-            note9Button.interactable = true;
-        }
-        else
-        {
-            note9Button.interactable = false;
-        }
-        if (PlayerPrefs.GetInt("isNote10PickedUp") == 1)
-        {
-            note10Button.interactable = true;
-        }
-        else
-        {
-            note10Button.interactable = false;
-        }
 
     }//END Init
 

@@ -27,7 +27,6 @@ public class WorldMenuManager : MonoBehaviour
     [SerializeField] private Button luxuryButton;
     [SerializeField] private Button partyButton;
     [SerializeField] private Button toyButton;
-    [SerializeField] private Button antiqueButton;
     [SerializeField] private Button apparelButton;
     [SerializeField] private Button hardwareButton;
     [SerializeField] private Button kitchenButton;
@@ -35,7 +34,6 @@ public class WorldMenuManager : MonoBehaviour
     [SerializeField] private Button borgarButton;
     [SerializeField] private Button fitnessButton;
     [SerializeField] private Button menButton;
-    [SerializeField] private Button foodCourtButton;
     [SerializeField] private Button yeehawButton;
     [SerializeField] private Button tokyoButton;
     [SerializeField] private Button beachButton;
@@ -65,8 +63,6 @@ public class WorldMenuManager : MonoBehaviour
     [SerializeField] private Sprite partyCollected;
     [SerializeField] private Sprite toySilhouette;
     [SerializeField] private Sprite toyCollected;
-    [SerializeField] private Sprite antiqueSilhouette;
-    [SerializeField] private Sprite antiqueCollected;
     [SerializeField] private Sprite apparelSilhouette;
     [SerializeField] private Sprite apparelCollected;
     [SerializeField] private Sprite hardwareSilhouette;
@@ -81,8 +77,6 @@ public class WorldMenuManager : MonoBehaviour
     [SerializeField] private Sprite fitnessCollected;
     [SerializeField] private Sprite menSilhouette;
     [SerializeField] private Sprite menCollected;
-    [SerializeField] private Sprite foodSilhouette;
-    [SerializeField] private Sprite foodCollected;
     [SerializeField] private Sprite yeehawSilhouette;
     [SerializeField] private Sprite yeehawCollected;
     [SerializeField] private Sprite tokyoSilhouette;
@@ -185,18 +179,6 @@ public class WorldMenuManager : MonoBehaviour
 
         }
 
-        if (PlayerPrefs.GetInt("isAntiqueUnlocked") == 1)
-        {
-            antiqueButton.interactable = true;
-            antiqueButton.image.sprite = antiqueCollected;
-        }
-        else
-        {
-            antiqueButton.interactable = false;
-            antiqueButton.image.sprite = antiqueSilhouette;
-
-        }
-
         if (PlayerPrefs.GetInt("isApparelUnlocked") == 1)
         {
             apparelButton.interactable = true;
@@ -278,18 +260,6 @@ public class WorldMenuManager : MonoBehaviour
         {
             menButton.interactable = false;
             menButton.image.sprite = menSilhouette;
-
-        }
-
-        if (PlayerPrefs.GetInt("isFoodUnlocked") == 1)
-        {
-            foodCourtButton.interactable = true;
-            foodCourtButton.image.sprite = foodCollected;
-        }
-        else
-        {
-            foodCourtButton.interactable = false;
-            foodCourtButton.image.sprite = foodSilhouette;
 
         }
 

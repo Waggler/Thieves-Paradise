@@ -32,18 +32,6 @@ public class ItemsMenuManager : MonoBehaviour
     [SerializeField] private TMP_Text useDescriptionText;
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private RawImage itemImage;
-    [SerializeField] private Sprite smokeSilhouette;
-    [SerializeField] private Sprite smokeCollected;
-    [SerializeField] private Sprite bottleSilhouette;
-    [SerializeField] private Sprite bottleCollected;
-    [SerializeField] private Sprite balloonSilhouette;
-    [SerializeField] private Sprite balloonCollected;
-    [SerializeField] private Sprite laserSilhouette;
-    [SerializeField] private Sprite laserCollected;
-    [SerializeField] private Sprite cardSilhouette;
-    [SerializeField] private Sprite cardCollected;
-    [SerializeField] private Sprite cupSilhouette;
-    [SerializeField] private Sprite cupCollected;
 
 
 
@@ -68,72 +56,60 @@ public class ItemsMenuManager : MonoBehaviour
         if(PlayerPrefs.GetInt("isSmokePickedUp") == 1)
         {
             smokeButton.interactable = true;
-            smokeButton.image.sprite = smokeCollected;
         }
         else
         {
             smokeButton.interactable = false;
-            smokeButton.image.sprite = smokeSilhouette;
 
         }
         if (PlayerPrefs.GetInt("isBottlePickedUp") == 1)
         {
             bottleButton.interactable = true;
-            bottleButton.image.sprite = bottleCollected;
 
         }
         else
         {
             bottleButton.interactable = false;
-            bottleButton.image.sprite = bottleSilhouette;
 
         }
         if (PlayerPrefs.GetInt("isCardPickedUp") == 1)
         {
             cardButton.interactable = true;
-            cardButton.image.sprite = cardCollected;
 
         }
         else
         {
             cardButton.interactable = false;
-            cardButton.image.sprite = cardSilhouette;
 
         }
         if (PlayerPrefs.GetInt("isBalloonPickedUp") == 1)
         {
             balloonButton.interactable = true;
-            balloonButton.image.sprite = balloonCollected;
 
         }
         else
         {
             balloonButton.interactable = false;
-            balloonButton.image.sprite = balloonSilhouette;
 
         }
         if (PlayerPrefs.GetInt("isLaserPickedUp") == 1)
         {
             laserPointerButton.interactable = true;
-            laserPointerButton.image.sprite = laserCollected;
 
         }
         else
         {
             laserPointerButton.interactable = false;
-            laserPointerButton.image.sprite = laserSilhouette;
 
         }
         if (PlayerPrefs.GetInt("isCupPickedUp") == 1)
         {
             cupButton.interactable = true;
-            cupButton.image.sprite = cupCollected;
 
         }
         else
         {
             cupButton.interactable = false;
-            cupButton.image.sprite = cupSilhouette;
 
         }
 

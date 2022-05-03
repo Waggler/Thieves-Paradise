@@ -5,6 +5,8 @@ using UnityEngine;
 public class CollectiblePickUp : MonoBehaviour
 {
     public string keyName;
+    public AudioSource audioSource;
+    public AudioClip audioClip;
 
     [SerializeField] private ScoreScreenManager scoreScreenManager;
 
@@ -14,6 +16,11 @@ public class CollectiblePickUp : MonoBehaviour
         {
             scoreScreenManager = FindObjectOfType<ScoreScreenManager>();
         }
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,7 +28,7 @@ public class CollectiblePickUp : MonoBehaviour
         if (other.GetComponent<PlayerMovement>())
         {
             PlayerPrefs.SetInt(keyName, 1);
-
+            audioSource.PlayOneShot(audioClip);
             ScoreData scoreData = new ScoreData(ScoreType.COLLECTABLES, 0, null);
             scoreScreenManager.ReportScore(scoreData);
             Destroy(this.gameObject);
