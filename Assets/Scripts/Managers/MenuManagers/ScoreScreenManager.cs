@@ -282,5 +282,10 @@ public class ScoreScreenManager : MonoBehaviour
             rank = Rank.BUMBLINGBURGLAR;
             rankText.text = ("Bumbling Burglar");
         }
+        else
+        {
+            rank = Rank.BUMBLINGBURGLAR;
+            rankText.text = ("Bumbling Burglar");
+        }
     }
 }//END ScoreScreenManager
