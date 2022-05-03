@@ -1539,62 +1539,19 @@ MonoBehaviour:
     responses: []
   - characterName: You
     sentences:
-    - "\u201CYou can gladly keep those.\u201D\r"
+    - "\u201CYou can gladly keep those.  I think I'll just let Quitter decide for
+      me.\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: You - Thinking
-    sentences:
-    - "\u201CSomething that comes from the heart. Something clever and witty. Something
-      original. I got it!\u201D\r"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: Narration
-    sentences:
-    - "*Through a spark of inspiration, you have decided on what your thief name
-      will be. A name that will follow you for as long as you continue to lift things
-      from Shopper's Paradise.\u201D \r\n"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: You
-    sentences:
-    - "\u201CI think I\u2019ll go with-\u201D\r"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: NOTE
-    sentences:
-    - (At this point, the player will choose their own thief name that will stick
-      with them over the course of the rest of the game)
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices: []
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201CHuh? You\u2019re going with that? It\u2019s not as good as my name but\u2026
-      I can see it working for you.\u201D\r\n"
+    - "\u201CReally?  That's kinda lame...  Though it does give the impression that
+      you're all business, doesn't it?\u201D\r\n"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
@@ -1604,7 +1561,7 @@ MonoBehaviour:
     responses: []
   - characterName: You
     sentences:
-    - "\u201CNow what? I just go steal something?\u201D\r"
+    - "\u201CYou're overthinking this entirely.  Now what? I just go steal something?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
@@ -1614,8 +1571,8 @@ MonoBehaviour:
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201CStart off small, but crazy! Oh I have an idea! Go steal some popular
-      brands from Shopper's Paradise! That should be good enough to start out.\u201D"
+    - "\u201CStart off small, but crazy! Oh I have an idea! Go steal a popular brand
+      from Shopper's Paradise! That should be good enough to start out.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
@@ -1806,9 +1763,9 @@ MonoBehaviour:
       responseID: 0
   - characterName: Buddy
     sentences:
-    - "\u201CWhy stop at one! The crazier your Qweet is, the more followers you\u2019ll
-      get! Steal as much as you can!  I\u2019ll meet you at your place tomorrow,
-      then we can see who gets more followers too!\u201D\r"
+    - "\u201CWhy stop at one!? The crazier your Qweet is, the more followers you\u2019ll
+      get! Steal as much as you can, without getting caught, of course!  I\u2019ll
+      meet you at your place tomorrow, then we can see who gets more followers too!\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
@@ -1840,8 +1797,7 @@ MonoBehaviour:
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CThis is a competition now? Fine, but the loser has to admit the winner
-      chose a better name!\u201D\r"
+    - "\u201CThis is a competition now? Fine, there's no chance I lose to you anyways!\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
@@ -1873,8 +1829,7 @@ MonoBehaviour:
       responseID: 0
   - characterName: Buddy
     sentences:
-    - "\u201CDeal!  Remember to actually upload your picture to Qwitter, and put
-      a little bit of effort into it!\u201D\r"
+    - "\u201CYou're on!\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
@@ -1906,9 +1861,9 @@ MonoBehaviour:
       responseID: 0
   - characterName: Narration
     sentences:
-    - '*You and Buddy shake hands as you head your separate ways, already picking
-      the stores you are going to steal from. You once again find yourself ready
-      to break into the Shopper''s Paradise!*
+    - '*You and Buddy shake hands as you head your separate ways, already snooping
+      around the stores you''re going to steal from. You once again find yourself
+      ready to break into the Shopper''s Paradise!*
 
 '
     isSecondCharacter: 0

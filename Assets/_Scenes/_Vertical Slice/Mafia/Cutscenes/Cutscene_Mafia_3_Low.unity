@@ -1868,7 +1868,7 @@ MonoBehaviour:
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CW-We\u2019re sorry! Please just give us one more chance.\u201D"
+    - "\u201CI-I'm sorry! Please just give us one more chance.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 0863267214e5eab4481ce207299c8e50, type: 3}
@@ -2022,151 +2022,11 @@ MonoBehaviour:
       responseID: 0
   - characterName: Don
     sentences:
-    - "\u201CIn the storage backroom at Shopper's Paradise, there should be a suit.
-      Inside the pocket of that suit is a detonator.*"
-    - "*You will take that detonator and you will reduce the room to rubble.\u201D"
+    - "\u201CIn the storage backroom at Shopper's Paradise, you will find your next
+      task.  I'm sure you'll understand.*"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 92de12ce5342da34b8554d5709471dcc, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: What do you mean?
-      choiceId: 0
-    - choiceOption: I will do literally anything.
-      choiceId: 1
-    responses:
-    - responseOption:
-      - "\u201CWhat do you mean?\u201D"
-      - "\u201CDid I let that slip? It is unusual for me to become so flustered.\u201D"
-      - "\u201CI\u2019m asking what you mean by that!\u201D"
-      - "\u201CDo I need to spell it out for you? I told him to do something, he
-        refused, and now he\u2019s seeing first hand how serious defying the mafia
-        is.\u201D"
-      - "\u201CW-what\u2026?\u201D"
-      - "\u201CHe couldn\u2019t listen to one simple task. I asked him to take care
-        of you if you failed me again, and he refused. Can you believe it? He actually
-        put your life over his own.\u201D"
-      - "\u201CB-Buddy did that?\u201D"
-      - "\u201CYes, and if you don\u2019t want the same end to befall you, I recommend
-        you take my next advice to heart.\u201D"
-      responseSpeaker:
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CI will do literally anything.\u201D"
-      - "\u201CI have heard this all before. I gave you enough chances already, and
-        even now, after failing me once more, you beg for forgiveness?\u201D"
-      - "\u201CI mean literally anything! Even if it\u2019s something awful!\u201D"
-      - "\u201CDesperation is a pathetic sight, but your words have caught my interest.
-        I can offer you a deal. But first, allow me to tell you what happened with
-        your friend. "
-      - "\u201CBuddy\u2026\u201D"
-      - "\u201CYesterday, I told him to \u2018take care\u2019 of you if you were
-        to fail me once again. However he refused to do so, and is now facing the
-        consequences.\u201D"
-      - "\u201CY-you told him to kill me?\u201D"
-      - "\u201CIt was to be his introduction into the family, however now there is
-        a vacant spot open and I would be willing to let you take it instead.\u201D"
-      - "\u201CHow\u2026\u201D\u201D"
-      - "\u201CIt\u2019s quite simple, really.\u201D"
-      responseSpeaker:
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      choiceReferenceId: 1
-      responseID: 0
-  - characterName: You
-    sentences:
-    - "\u201CAnd how does Buddy play into all this\u2026?\u201D"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 92de12ce5342da34b8554d5709471dcc, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 08a970e047b170a4a87a3d3182242b9a, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: What do you mean?
-      choiceId: 0
-    - choiceOption: I will do literally anything.
-      choiceId: 1
-    responses:
-    - responseOption:
-      - "\u201CWhat do you mean?\u201D"
-      - "\u201CDid I let that slip? It is unusual for me to become so flustered.\u201D"
-      - "\u201CI\u2019m asking what you mean by that!\u201D"
-      - "\u201CDo I need to spell it out for you? I told him to do something, he
-        refused, and now he\u2019s seeing first hand how serious defying the mafia
-        is.\u201D"
-      - "\u201CW-what\u2026?\u201D"
-      - "\u201CHe couldn\u2019t listen to one simple task. I asked him to take care
-        of you if you failed me again, and he refused. Can you believe it? He actually
-        put your life over his own.\u201D"
-      - "\u201CB-Buddy did that?\u201D"
-      - "\u201CYes, and if you don\u2019t want the same end to befall you, I recommend
-        you take my next advice to heart.\u201D"
-      responseSpeaker:
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CI will do literally anything.\u201D"
-      - "\u201CI have heard this all before. I gave you enough chances already, and
-        even now, after failing me once more, you beg for forgiveness?\u201D"
-      - "\u201CI mean literally anything! Even if it\u2019s something awful!\u201D"
-      - "\u201CDesperation is a pathetic sight, but your words have caught my interest.
-        I can offer you a deal. But first, allow me to tell you what happened with
-        your friend. "
-      - "\u201CBuddy\u2026\u201D"
-      - "\u201CYesterday, I told him to \u2018take care\u2019 of you if you were
-        to fail me once again. However he refused to do so, and is now facing the
-        consequences.\u201D"
-      - "\u201CY-you told him to kill me?\u201D"
-      - "\u201CIt was to be his introduction into the family, however now there is
-        a vacant spot open and I would be willing to let you take it instead.\u201D"
-      - "\u201CHow\u2026\u201D\u201D"
-      - "\u201CIt\u2019s quite simple, really.\u201D"
-      responseSpeaker:
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      - You
-      - Don
-      choiceReferenceId: 1
-      responseID: 0
-  - characterName: Don
-    sentences:
-    - "\u201CWho do you think left that suit? Go and complete the job, or don\u2019t
-      bother showing your face here again. Now get out.\u201D"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 0863267214e5eab4481ce207299c8e50, type: 3}
     characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
     isChoice: 0
     choices:

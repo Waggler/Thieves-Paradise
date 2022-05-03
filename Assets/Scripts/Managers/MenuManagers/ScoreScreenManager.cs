@@ -147,7 +147,7 @@ public class ScoreScreenManager : MonoBehaviour
 
             if (500 - scoreData.scoreAmount > 0)
             {
-                timeScoreTotal = 20 * (500 - scoreData.scoreAmount);
+                timeScoreTotal = 20 * (240 - scoreData.scoreAmount);
             }
             else
             {

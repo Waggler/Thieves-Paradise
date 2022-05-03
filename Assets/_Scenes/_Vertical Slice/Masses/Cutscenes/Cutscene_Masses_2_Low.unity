@@ -1277,71 +1277,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   narrativeUIManager: {fileID: 709244987}
   dialogue:
-  - characterName: 'NOTE:'
-    sentences:
-    - 'DEVELOPER NOTE: THE SPRITES SHOWN THROUGHOUT THIS SECTION ARE MISSING OR INCOMPLETE
-      AND ARE FOR DEVELOPMENT USE ONLY'
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: Lipstick from Honeydew
-      choiceId: 0
-    - choiceOption: Perfume from Honeydew
-      choiceId: 1
-    - choiceOption: Eyeliner from Honeydew
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CThe lipstick from Honeydew, right?\u201D "
-      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CSome eyeliner from Honeydew, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-  - characterName: 'NOTE:'
-    sentences:
-    - To skip to the heist, hold down the Skip button for 5 seconds.
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
-    choices:
-    - choiceOption: Lipstick from Honeydew
-      choiceId: 0
-    - choiceOption: Perfume from Honeydew
-      choiceId: 1
-    - choiceOption: Eyeliner from Honeydew
-      choiceId: 2
-    responses:
-    - responseOption:
-      - "\u201CThe lipstick from Honeydew, right?\u201D "
-      - "\u201CWhat? Were you not listening? I said the Perfume from Honeydew!\u201D "
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CA bottle of perfume from Honeydew, right?\u201D "
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
-      - "\u201CSome eyeliner from Honeydew, right?\u201D"
-      responseSpeaker: []
-      choiceReferenceId: 0
-      responseID: 0
   - characterName: Narration
     sentences:
     - "*The next day, you meet with Buddy to tally your followers from the previous
@@ -1418,7 +1353,7 @@ MonoBehaviour:
       responseID: 0
   - characterName: Buddy
     sentences:
-    - "\u201CHey, hey, hey! How\u2019s it hanging [Thief Name Here]?\u201D\r"
+    - "\u201CHey, hey, hey! How\u2019s it hanging, Thief2847?\u201D\r"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
@@ -1439,8 +1374,8 @@ MonoBehaviour:
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201CWhat\u2019s wrong, scared it sounds dumb? Let\u2019s compare followers
-      and see if the masses agree!\u201D"
+    - "\u201CGrumpy today, are we?  I wonder if that's because your heist went poorly. 
+      Let's compare followers and see who's more popular!\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
@@ -1602,7 +1537,7 @@ MonoBehaviour:
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201CIt ain\u2019t wrong man, you lost to me! Now remember the bet!\u201D"
+    - "\u201CIt ain\u2019t wrong man, you lost to me!  It's as simple as that!\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
@@ -1655,27 +1590,8 @@ MonoBehaviour:
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CUgh\u2026 Fine, your name isn\u2019t stupid\u2026\u201D"
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: af0ec104f805f8d4289e113a2e7b365e, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: Buddy
-    sentences:
-    - "\u201CAaaaaaand, it\u2019s better than yours!\""
-    isSecondCharacter: 0
-    isSecondCharacterTalking: 0
-    characterOneSprite: {fileID: 21300000, guid: e7a28d32a16928c42b192bff59c3629b, type: 3}
-    characterTwoSprite: {fileID: 21300000, guid: 3deba07d4a8a607419088086a7715165, type: 3}
-    isChoice: 0
-    choices: []
-    responses: []
-  - characterName: You
-    sentences:
-    - "\u201CDon\u2019t push your luck.\u201D"
+    - "\u201CFine, you win...  Only because I was feeling bored and decided to ditch
+      the scene early.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 88a23d02f812fd548b09c7cd72d1f50a, type: 3}
@@ -1685,7 +1601,8 @@ MonoBehaviour:
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201CAhhh, now what do we do?\u201D\r\n"
+    - "\u201CSure thing, pal.  Sure thing.  It feels great to win... What do we do
+      now?\u201D\r\n"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
@@ -1751,7 +1668,7 @@ MonoBehaviour:
       responseID: 0
   - characterName: You
     sentences:
-    - "\u201CWhat are you thinking?\u201D"
+    - "\u201CI can tell you want to go again.\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
@@ -1761,7 +1678,7 @@ MonoBehaviour:
     responses: []
   - characterName: Buddy
     sentences:
-    - "\u201CYou might hate this but, let\u2019s try the photoshoot idea again.\u201D\r"
+    - '"You''re right!  You up for round two?"'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
@@ -2149,7 +2066,8 @@ MonoBehaviour:
       responseID: 0
   - characterName: Buddy
     sentences:
-    - "\u201CAlright, I\u2019m headed out then. See you tomorrow.\u201D"
+    - "\u201CAlright, I\u2019m headed out then. See you tomorrow. And don't forget! 
+      Try to steal as many items as you can!\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 4d1ce59cf5fe51945992437010037eb9, type: 3}
