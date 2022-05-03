@@ -383,7 +383,7 @@ public class PlayerMovement : MonoBehaviour
             canMove = false;
             CurrentStunTime += Time.deltaTime;
 
-            if (BreakOutCounter >= BreakOutThreshold && hp >= 2)
+            if (BreakOutCounter >= BreakOutThreshold)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(playerCollider.transform.position, 10f, 1 << 8);
                 foreach (Collider collider in hitColliders)
@@ -400,19 +400,27 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(IBreakFreeDelay());
                 CurrentStunTime = 0;
                 BreakOutCounter = 0;
-                if (Thud == false)
+                if (Thud == true)
+                {
+                    
+                    print("Land down.");
+                    Thud = false;
+                }
+                else
                 {
                     hp -= 1;
                     healthTracker.DeductHitPoint(hp);
-                    print("Land down.");
-                }
-                else if (Thud == true)
-                {
-                    Thud = false;
+
+                    if (hp <= 0)
+                    {
+                        //end the game
+                        FindObjectOfType<LoseScreenMenuManager>().LoseGame();
+                        IsGameOver = true;
+                    }
                 }
             }
 
-            else if (CurrentStunTime >= StunTime || hp <= 1)
+            else if (CurrentStunTime >= StunTime)
             {
                 hp -= 1;
                 //end the game
