@@ -48,7 +48,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3601387923970830834
 Transform:
@@ -57,9 +57,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4229270999366495048}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7913842, y: 0.7913842, z: 0.7913842}
   m_Children:
   - {fileID: 9074480444631655382}
   - {fileID: 7085769779019140395}
@@ -187,6 +187,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button
       objectReference: {fileID: 0}
+    - target: {fileID: 3803164519363744284, guid: f1825a5f663392945b25a86bad58283c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111300449735942415, guid: f1825a5f663392945b25a86bad58283c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4815145176212193339, guid: f1825a5f663392945b25a86bad58283c, type: 3}
       propertyPath: m_Size.x
       value: 1.0496774
@@ -246,6 +254,10 @@ PrefabInstance:
     - target: {fileID: 5999107479574158818, guid: f1825a5f663392945b25a86bad58283c, type: 3}
       propertyPath: onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6224028411451126657, guid: f1825a5f663392945b25a86bad58283c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9176852552792898000, guid: f1825a5f663392945b25a86bad58283c, type: 3}
       propertyPath: m_RootOrder
