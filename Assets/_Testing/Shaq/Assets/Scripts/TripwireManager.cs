@@ -60,7 +60,7 @@ public class TripwireManager : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.magenta);
 
         //Logic for handling ray collision
-        if (Physics.Raycast(securityRay, out RaycastHit hit, distance))
+        if (Physics.Raycast(securityRay, out RaycastHit hit, distance, 12))
         {
             //Checking to see if the collided game object is NOT a guard, and if the hit point is not the initial record
             if (!hit.collider.gameObject.CompareTag("Guard") && hit.point != initialHitRecord)
