@@ -1536,37 +1536,6 @@ MonoBehaviour:
       choiceId: 1
     responses:
     - responseOption:
-      - "\u201CI\u2019m trusting you with this heist.\u201D"
-      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
-      - "\u201CAwesome! Got any good ideas?\u201D"
-      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
-      - "\u201CPretty risky is what my followers like to hear.\u201D"
-      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
-        the store?\u201D"
-      - "\u201CYeah the cute animals.\u201D"
-      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
-        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
-      - "\u201CAnd the risky part?\u201D"
-      - "\u201CAfter your last heist stealing their cutouts, Shopping World is gonna
-        be a lot stricter on security around them.\u201D"
-      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
-      - '*And so, you and Buddy get to planning your final heist!*'
-      responseSpeaker:
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Buddy
-      - You
-      - Narration
-      choiceReferenceId: 0
-      responseID: 0
-    - responseOption:
       - "\u201CFine. But, I\u2019ll decide on the heist.\u201D"
       - "\u201CAll you\u2019ve done is trash my ideas, so let\u2019s hear what you
         got.\u201D"
@@ -1601,6 +1570,37 @@ MonoBehaviour:
       - Buddy
       - Narration
       choiceReferenceId: 1
+      responseID: 0
+    - responseOption:
+      - "\u201CI\u2019m trusting you with this heist.\u201D"
+      - "\u201CGreat! I promise I won\u2019t let you down this time!\u201D"
+      - "\u201CAwesome! Got any good ideas?\u201D"
+      - "\u201CHmm. I got one but it\u2019s a pretty risky idea.\u201D"
+      - "\u201CPretty risky is what my followers like to hear.\u201D"
+      - "\u201CAlrighty then.  You ever come across those huge mascot statues in
+        the store?\u201D"
+      - "\u201CYeah the cute animals.\u201D"
+      - "\u201CYeah, those guys! They have some one of a kind gear. A hat, a lantern,
+        and a pair of glasses. Steal those and all eyes will be on you!\u201D"
+      - "\u201CAnd the risky part?\u201D"
+      - "\u201CAfter your last heist, Shopping World is gonna be a lot stricter on
+        security around them.\u201D"
+      - "\u201CLeave dealing with them to me, let\u2019s start planning this heist!\u201D"
+      - '*And so, you and Buddy get to planning your final heist!*'
+      responseSpeaker:
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Buddy
+      - You
+      - Narration
+      choiceReferenceId: 0
       responseID: 0
   currentDialogueIndex: 0
   levelManager: {fileID: 1976344117}

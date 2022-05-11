@@ -1486,7 +1486,7 @@ MonoBehaviour:
       choiceId: 1
     responses:
     - responseOption:
-      - "\":Why don\u2019t we find someone to give us heists?\u201D\""
+      - "\"Why don\u2019t we find someone to give us heists?\u201D\""
       - "\u201CHuh? Like a boss?\u201D"
       - "\u201CI guess? Just someone who knows a lot about stealing to give us some
         things to do?\u201D"
@@ -1639,7 +1639,7 @@ MonoBehaviour:
     responses: []
   - characterName: Narration
     sentences:
-    - '*The man pushes past you into your room, as he takes a seat on a chair.*'
+    - '*The man pushes past you into your room.*'
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: a56d903fce859114598963c68097df8d, type: 3}
@@ -2171,9 +2171,9 @@ MonoBehaviour:
       responseID: 0
   - characterName: Don
     sentences:
-    - "\u201CI got a golf appointment with the Mayor coming up. And, after someone
-      crossed me the last time, I\u2019m down a golf driver. Go fetch me a new one.
-      Does that sound easy for the two of you?\u201D"
+    - "\u201CI got a tee-time with the Mayor coming up. And, after someone crossed
+      me the last time, I\u2019m down a driver. Go fetch me a new one. Does that
+      sound easy for the two of you?\u201D"
     isSecondCharacter: 0
     isSecondCharacterTalking: 0
     characterOneSprite: {fileID: 21300000, guid: 92de12ce5342da34b8554d5709471dcc, type: 3}
@@ -2387,10 +2387,10 @@ MonoBehaviour:
     - responseOption:
       - "\u201CLeave it to me\u201D"
       - "\u201CReally? You\u2019re gonna take care of mine too?\u201D"
-      - "\u201CI am the expert thief around here, you\u2019re a better fit for watching
+      - "\u201CI'm the expert thief around here, you\u2019re a better fit for watching
         over me anyway.\u201D"
       - '*You and Buddy handshake as you begin to plan your first heist for the Don
-        of the mafia, albeit against your will.'
+        of the mafia, albeit against your will.*'
       responseSpeaker:
       - You
       - Buddy
@@ -2401,7 +2401,7 @@ MonoBehaviour:
     - responseOption:
       - "\u201CWe have to do what he said.\u201D"
       - "\u201CI know that! This wasn\u2019t what I was hoping for to stop my boredom\u2026\u201D"
-      - "\u201CDon\u2019t worry, we can do this. If we work together. I\u2019ll grab
+      - "\u201CDon\u2019t worry, we can do this if we work together. I\u2019ll grab
         both my item and yours.\u201D"
       - "\u201CYou\u2019re right\u2026 I need to think positively. Let\u2019s get
         this done then. Thanks man.\u201D"
@@ -4810,7 +4810,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -70
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
